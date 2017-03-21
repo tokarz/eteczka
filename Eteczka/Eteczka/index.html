@@ -1,0 +1,18 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="EtApp">
+<head>
+    <title>ETeczka v0.1a</title>
+</head>
+<body ng-controller="mainController">
+    <header style="height:80px;position:fixed;top:0;left:0;width:100%;text-align:center;background-color:black;color:white">{{title}} </header>
+    <div id="mainWrapper" style="top:80px;height:80%;width:80%;margin:auto;box-shadow: 1px 1px 3px 1px black;">
+        <div ng-show="isLoaded">STARTUP COMPLETE</div>
+    </div>
+
+
+    <script src="Scripts/angular/angular.min.js"></script>
+    <script src="app/app.js"></script>
+    <script src="app/main/mainController.js"></script>
+    <script src="app/main/startup/startupService.js"></script>
+</body>
+</html>
