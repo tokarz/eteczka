@@ -2,15 +2,33 @@
 <html xmlns="http://www.w3.org/1999/xhtml" ng-app="EtApp">
 <head>
     <title>ETeczka v0.1a</title>
+    <link rel="stylesheet" href="Scripts/bootstrap-3.3.7-dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="app/css/et.css" />
 </head>
 <body ng-controller="mainController">
-    <header style="height:80px;position:fixed;top:0;left:0;width:100%;text-align:center;background-color:black;color:white">{{title}} </header>
-    <div id="mainWrapper" style="top:80px;height:80%;width:80%;margin:auto;box-shadow: 1px 1px 3px 1px black;">
-        <div ng-show="isLoaded">STARTUP COMPLETE</div>
+    <div class="jumbotron text-center ui-toolbar">
+        <h1 ng-bind="dot.one"></h1>
     </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                {{dot.one}}
+            </div>
+            <div class="col-sm-4">
+                2
+            </div>
+            <div class="col-sm-4">
+                3
+            </div>
+        </div>
+    </div>
+    <footer class="container-fluid bg-4 text-center">
+        ZetData(R)
+    </footer>
 
-
+    <script src="Scripts/jquery-1.10.2.min.js"></script>
     <script src="Scripts/angular/angular.min.js"></script>
+    <script src="Scripts/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
     <script src="app/app.js"></script>
     <script src="app/main/mainController.js"></script>
     <script src="app/main/startup/startupService.js"></script>
