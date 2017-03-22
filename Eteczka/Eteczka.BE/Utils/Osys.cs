@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Numerics;
 
 namespace Eteczka.BE.Utils
 {
@@ -9,22 +10,17 @@ namespace Eteczka.BE.Utils
 
         public bool SprawdzIban(string kontoBank)
         {
-            //po pierwsze usunalem deklaracje zimiennych lokalnych z naglowka. W ciele metody nie musisz deklarowac zmiennych na samej gorze, mozesz to robic wtedy, gdy ich potrzebujesz
-            //i w ciele metody nie nadajesz modyfikatorow "public" czy "private". Zasieg (widocznosc) zmiennej nadajest gdy nalezy ona do klasy. Wtedy to jest tzw. Pole klasy (zobacz zmienna PoleKlasy)
-
-
-            //uzylem zmiennej pomocniczej "kontoBankPlBezSpacji" bo przypisanie wartosci do argumentu (kontoBank = "costam") w ciele metody to nie jest dobry pomysl. Nie chcemy zmienic wartosci
-            //kontoBank tylko sprawdzic czy zawiera on dobry format IBAN
+            bool result = false;
             string kontoBankPlBezSpacji = "PL" + kontoBank.Replace(" ", "").Trim();
 
             if (kontoBankPlBezSpacji.Length < 12)
             {
                 return false;
             }
-            
+
             //Substring w C# ma tylko 1 duza litere : Substring a nie SubString
             string konto1 = kontoBankPlBezSpacji.Substring(0, 4);
-            string konto2 = kontoBankPlBezSpacji.Substring(5, kontoBankPlBezSpacji.Length - 4 - 6);
+            string konto2 = kontoBankPlBezSpacji.Substring(4);
 
             kontoBankPlBezSpacji = konto2 + konto1;
 
@@ -36,21 +32,48 @@ namespace Eteczka.BE.Utils
                 //Magiczna liczbe 97 zmienilem na stala MODULO_KONTO, zeby nie musiec jej pamietac i nadac jej jakas znaczaca nazwe (bo dlaczego 97? Co ta liczba oznacza?)
                 //Substring - indeksowanie w C# zaczynamy od zera, czyli 1 znak stringa to string[0] itd az do string[string.Length - 1]. Dlatego wpisalem 0,7 a nie 1,8 ale moze
                 //chciales zaczac od 2 znaku a nie 1 ? tego nei wiem:)
-                int reszta1 = Int32.Parse(konto1.Substring(0, 7)) % MODULO_KONTO;
+                BigInteger parsedIbanNumber = BigInteger.Parse(konto1);
 
-                konto2 = reszta1.ToString() + konto1.Substring(8, 6);
-                int reszta2 = Int32.Parse(konto2.Substring(0, 7)) % MODULO_KONTO;
+                result = (parsedIbanNumber % MODULO_KONTO) == 1;
+            }
+            catch (Exception ex)
+            {
+                result = false;
+            }
+            return result;
+        }
 
-                string konto3 = reszta2.ToString() + konto1.Substring(15, 6);
-                int reszta3 = Int32.Parse(konto3.Substring(0, 7)) % MODULO_KONTO;
+        public bool SprawdzIbanPoElementach(string kontoBank)
+        {
+            string kontoBankPlBezSpacji = "PL" + kontoBank.Replace(" ", "").Trim();
 
-                string konto4 = reszta3.ToString() + konto1.Substring(21, 6);
-                int reszta4 = Int32.Parse(konto4.Substring(0, 7)) % MODULO_KONTO;
+            if (kontoBankPlBezSpacji.Length != 28)
+            {
+                return false;
+            }
 
-                string konto5 = reszta4.ToString() + konto1.Substring(27, 6);
-                int reszta5 = Int32.Parse(konto5.Substring(0, 7)) % MODULO_KONTO;
+            string konto1 = kontoBankPlBezSpacji.Substring(0, 4);
+            string konto2 = kontoBankPlBezSpacji.Substring(4);
 
-                if (reszta5 == 1)
+            kontoBankPlBezSpacji = konto2 + konto1;
+
+            konto1 = kontoBankPlBezSpacji.Replace("PL", "2521");
+            
+            try
+            {
+                
+                int reszta1 = Int32.Parse(konto1.Substring(0, 9)) % MODULO_KONTO;
+
+                konto2 = reszta1.ToString() + konto1.Substring(9, 7);
+                int reszta2 = Int32.Parse(konto2) % MODULO_KONTO;
+
+                string konto3 = reszta2.ToString() + konto1.Substring(16, 7);
+                int reszta3 = Int32.Parse(konto3) % MODULO_KONTO;
+
+                string konto4 = reszta3.ToString() + konto1.Substring(23);
+                int reszta4 = Int32.Parse(konto4) % MODULO_KONTO;
+
+                if (reszta4 == 1)
                 {
                     return true;
                 }
@@ -60,7 +83,6 @@ namespace Eteczka.BE.Utils
                 return false;
             }
             return false;
-
         }
     }
 }

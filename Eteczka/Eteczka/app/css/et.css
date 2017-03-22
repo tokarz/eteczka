@@ -15,5 +15,11 @@
 
 .container {
     min-height: 100%;
-    background-color: whitesmoke;
+}
+
+.menu-option:hover {
+    box-shadow: 1px 1px 3px 1px darkred;
+    cursor: pointer;
+    background: whitesmoke;
+    color:darkred;
 }

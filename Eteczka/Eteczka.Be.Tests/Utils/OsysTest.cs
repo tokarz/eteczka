@@ -26,8 +26,21 @@ namespace Eteczka.BE.Utils
         {
             Assert.IsFalse(_Sut.SprawdzIban("Konto"));
             Assert.IsFalse(_Sut.SprawdzIban("KontoDluzszeNiz12ZnakowAleNieprawidloweWiecPowinnoZwrocicFalse"));
+            Assert.IsFalse(_Sut.SprawdzIban("15 1140 2004 0000 3602 3569 3944"));
 
-            Assert.IsTrue(_Sut.SprawdzIban("PL67 1234 5678 0000 0000 1234 5678"));
+            Assert.IsTrue(_Sut.SprawdzIban("39 1140 2004 0000 3602 3569 3944"));
+            Assert.IsTrue(_Sut.SprawdzIban("70 1090 2154 0000 0005 6000 2210"));
+        }
+
+        [Test]
+        public void SprawdzIbanPoElementach()
+        {
+            Assert.IsFalse(_Sut.SprawdzIbanPoElementach("Konto"));
+            Assert.IsFalse(_Sut.SprawdzIbanPoElementach("KontoDluzszeNiz12ZnakowAleNieprawidloweWiecPowinnoZwrocicFalse"));
+            Assert.IsFalse(_Sut.SprawdzIbanPoElementach("15 1140 2004 0000 3602 3569 3944"));
+
+            Assert.IsTrue(_Sut.SprawdzIbanPoElementach("39 1140 2004 0000 3602 3569 3944"));
+            Assert.IsTrue(_Sut.SprawdzIbanPoElementach("70 1090 2154 0000 0005 6000 2210"));
         }
     }
 }
