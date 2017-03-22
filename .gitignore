@@ -1,0 +1,73 @@
+**/obj/**/
+**/bin/**/
+
+# Compiled source #
+###################
+*.com
+*.class
+*.exe
+*.o
+*.so
+
+# Release and Debug generated files #
+#####################################
+**/Release/**
+**/Debug/**
+
+
+
+# All ncrunch and Ninject generated files#
+##########################################
+*.ncrunchproject
+**/Ninject*/**
+*crunchsolution*
+
+
+# Visual Studio user related files #
+####################################
+*.csproj.user
+*.vcxproj.user
+*.userprefs
+*.pubxml.user
+
+# Packages #
+############
+# it's better to unpack these files and commit the raw source
+# git has its own built in compression methods
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Logs and databases #
+######################
+*.log
+*.sqlite
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+
+
+# generated files #
+###################
+
+obj
+bin
+*.sdf
+*.suo
+*.opensdf
+*.msi
+
+
