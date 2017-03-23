@@ -1,16 +1,14 @@
 ﻿body {
+    overflow: hidden;
 }
 
 
 .ui-toolbar {
-    background: darkred;
-    opacity: 0.9;
+    background: linear-gradient(-90deg, #047249, #046249);
     color: white;
 }
 
     .ui-toolbar:hover {
-        box-shadow: 1px 1px 3px 1px black;
-        opacity: 1;
     }
 
 .container {
@@ -18,8 +16,45 @@
 }
 
 .menu-option:hover {
-    box-shadow: 1px 1px 3px 1px darkred;
+    box-shadow: 0 0 2px 0 #046249;
     cursor: pointer;
     background: whitesmoke;
-    color:darkred;
+}
+
+.help-button {
+}
+
+.user-button {
+}
+
+.menu-button {
+    color: white;
+    border-radius: 4px;
+}
+
+    .menu-button:hover {
+        cursor: pointer;
+        box-shadow: 0 0 1px 0 black;
+        -moz-transition: background 0.2s ease-in;
+        -o-transition: background 0.2s ease-in;
+        -webkit-transition: background 0.2s ease-in;
+        transition: background 0.2s ease-in;
+        background: #046249;
+    }
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+input {
+    text-align:center;
+}
+
+input:focus {
+    color:white;
+    box-shadow:0 0 1px 0 black;
+    border: 1px solid black;
+    background: #C1E1A6;
 }

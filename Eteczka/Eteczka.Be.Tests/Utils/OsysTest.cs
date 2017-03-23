@@ -42,5 +42,23 @@ namespace Eteczka.BE.Utils
             Assert.IsTrue(_Sut.SprawdzIbanPoElementach("39 1140 2004 0000 3602 3569 3944"));
             Assert.IsTrue(_Sut.SprawdzIbanPoElementach("70 1090 2154 0000 0005 6000 2210"));
         }
+
+        [Test]
+        public void SprawdzPesel()
+        {
+            Assert.IsFalse(_Sut.SprawdzPesel("K", "85101717855"));
+            Assert.IsFalse(_Sut.SprawdzPesel("M", "85101714854"));
+            Assert.IsFalse(_Sut.SprawdzPesel("M", "85101714855"));
+
+            Assert.IsTrue(_Sut.SprawdzPesel("M", "85101717855"));
+
+            Assert.IsTrue(_Sut.SprawdzPesel("K", "12272707680"));
+            Assert.IsTrue(_Sut.SprawdzPesel("K", "09280108163"));
+            Assert.IsTrue(_Sut.SprawdzPesel("M", "04241609930"));
+
+
+        }
+
+
     }
 }

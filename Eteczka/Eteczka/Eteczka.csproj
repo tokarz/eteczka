@@ -187,6 +187,12 @@
     <Content Include="app\css\et.css" />
     <Content Include="app\main\mainController.js" />
     <Content Include="app\main\startup\startupService.js" />
+    <Content Include="app\views\login\loginView.html" />
+    <Content Include="app\views\login\loginViewController.js" />
+    <Content Include="app\views\login\loginViewDirective.js" />
+    <Content Include="app\views\options\optionsView.html" />
+    <Content Include="app\views\options\optionsViewController.js" />
+    <Content Include="app\views\options\optionsViewDirective.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
@@ -194,6 +200,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="index.html" />
+    <Content Include="Scripts\angular-ui-router\angular-ui-router.js" />
+    <Content Include="Scripts\angular-ui-router\angular-ui-router.min.js" />
     <Content Include="Scripts\angular\angular-animate-1.4.6.js" />
     <Content Include="Scripts\angular\angular-animate.min-1.4.6.js" />
     <Content Include="Scripts\angular\angular-resource.js" />

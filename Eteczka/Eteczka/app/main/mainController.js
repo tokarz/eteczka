@@ -1,16 +1,16 @@
 ﻿'use strict';
-angular.module('et.controllers').controller('mainController', ['$scope', 'startupService', function ($scope, startupService) {
+angular.module('et.controllers').controller('mainController', ['$scope', '$state', 'startupService', function ($scope, $state, startupService) {
+    $state.go('login');
     $scope.title = 'ETeczka';
     $scope.isLoaded = false;
 
-    $scope.dot = {
-        one: 'one'
+    $scope.startupContext = {
+        title: 'EAd',
+        version: '0.1a'
     };
 
     startupService.initializeApplicationConttext().then(function () {
         $scope.isLoaded = true;
-        $scope.title = 'ETeczka Ready!';
     });
-
 
 }]);

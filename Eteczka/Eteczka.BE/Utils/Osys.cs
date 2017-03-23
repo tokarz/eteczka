@@ -58,10 +58,10 @@ namespace Eteczka.BE.Utils
             kontoBankPlBezSpacji = konto2 + konto1;
 
             konto1 = kontoBankPlBezSpacji.Replace("PL", "2521");
-            
+
             try
             {
-                
+
                 int reszta1 = Int32.Parse(konto1.Substring(0, 9)) % MODULO_KONTO;
 
                 konto2 = reszta1.ToString() + konto1.Substring(9, 7);
@@ -83,6 +83,83 @@ namespace Eteczka.BE.Utils
                 return false;
             }
             return false;
+        }
+
+        public bool SprawdzPesel(string plecOsoby, string peselOsoby)
+        {
+            //kod nie jest bezpieczny na podanie np pustych stringow. jak podam SprawdzPesel("","") dostane w twarz wyjatkiem:)
+            int liczbaKtrl = 0;
+            int cyfraPesel = 0;
+            string plecBezSpacji = plecOsoby.Replace(" ", "").Trim();
+            string peselBezSpacji = peselOsoby.Replace(" ", "").Trim();
+
+            //petle for zawsze lepiej zaczac od 0! Wtedy nie musisz pamietac o -1 i sie glowic
+            //nie musisz na koniec kazdej linii dawac srednika. Srednik konczy wyrazenia i przypisania, a nie kazda linijke
+            for (int licznik = 0; licznik < 10; licznik++)
+            {
+                //tutaj Twoj kod mi nie zadzialal i test byl czerwony. Sprawdzilem algorytm i okazalo sie ze napisales to tak
+                //jakbsy sprawdzal cyfry od prawej do lewej, a powinienes od lewej do prawej (miales mnozniki 1,3,7,9 a mialy byc 9, 7, 3, 1)
+                cyfraPesel = Int32.Parse(peselBezSpacji.Substring(licznik, 1));
+                switch (licznik)
+                {
+                    //switch case  - Twoje wyrazenie :
+                    //              (licznik == 1) || (licznik == 5) || (licznik == 9)
+                    // jest wyrazeniem logicznym - czyli wynik tych 3 operacji daje true lub false.
+                    //W instrukcji switch wazny jest typ obiektu (licznik). Tutaj jest to int, wiec wartosci po "case" tez musza byc typu int.
+                    case 0:
+                    case 4:
+                    case 8:
+                        liczbaKtrl = liczbaKtrl + cyfraPesel * 9;
+                        break;
+                    case 1:
+                    case 5:
+                    case 9:
+                        liczbaKtrl = liczbaKtrl + cyfraPesel * 7;
+                        break;
+                    case 2:
+                    case 6:
+                        liczbaKtrl = liczbaKtrl + cyfraPesel * 3;
+                        break;
+                    default:
+                        liczbaKtrl = liczbaKtrl + cyfraPesel * 1;
+                        break;
+                }
+            }
+
+            int reszta = liczbaKtrl % 10;
+            //Tu miales sprawdzenie czy reszta jest rowna 10 a jesli tak ustawiales ja na 0, ale przy modulo 10 nigdy nie bedziesz mial reszty 10
+            //wiec to usunalem
+
+
+            //tu uwaga - od razu jak cyfra kontrolna sie zgadza - robisz return. Zanim sprawdziles czy to dziewucha czy facet:) wiec moze lepiej zrobic to na koncu, badz 
+            //uzyc zmiennej wynik i do niej przypisac wynik
+            bool czyPeselZgodny = true;
+            if (Int32.Parse(peselBezSpacji.Substring(10, 1)) != reszta)
+            {
+                czyPeselZgodny =  false;
+            }
+
+            //Uzyles znaku $, pewnie z foxa. Tu string jest obiektem, wiec ma w swoim ciele metode "Contains" ktora zwraca true lub false gdy ciag znakow zawiera konkretny znak
+            string cyfraKontrolna = peselBezSpacji.Substring(10);
+            string kobieceKoncowki = "02468";
+            string meskieKoncowki = "13579";
+            //wyciagnalem rzeczy ktorych ponizej wielokrotnie uzywamy do zmiennych, zeby ich za kazdym razem nie liczyc. Nadalem nazwy takie by wiadomo bylo co chcemy sprawdzic
+
+            if (plecBezSpacji == "M")
+            {
+                if (kobieceKoncowki.Contains(cyfraKontrolna))
+                {
+                    czyPeselZgodny = false;
+                }
+            }
+            else
+            {
+                if (meskieKoncowki.Contains(cyfraKontrolna))
+                {
+                    czyPeselZgodny = false;
+                }
+            }
+            return czyPeselZgodny;
         }
     }
 }
