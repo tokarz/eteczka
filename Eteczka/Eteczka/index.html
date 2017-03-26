@@ -9,13 +9,13 @@
     <div class="jumbotron text-center ui-toolbar" style="padding:0">
         <div class="row justify-content-md-center">
             <div class="col-md-offset-1 col-md-3">
-                <h3 style="text-align:left" ng-bind="startupContext.title"></h3>
+                <span class="glyphicon glyphicon-leaf" style="font-size:50px;color:white;float:left"></span><h3 style="text-align:left;float:left;margin-left:5px" ng-bind="startupContext.title"></h3>
             </div>
             <div class="col-sm-6 col-md-4">
-                <h1 ng-bind="dot.one">x</h1>
+                <h1 ng-bind="dot.one"></h1>
             </div>
-            <div class="col-sm-6 col-md-4">
-                <div class="row text-center" style="padding:5px">
+            <div class="col-sm-6 col-md-4" ng-controller="menuController">
+                <div class="row text-center" style="padding:5px" ng-show="isUserLoggedIn()">
                     <div class=" col-md-offset-3 col-md-4 menu-button">
                         <div class="glyphicon glyphicon-question-sign" style="font-size:25px"></div>
                         <div class="caption">
@@ -52,5 +52,13 @@
     <script src="app/views/login/loginViewDirective.js"></script>
     <script src="app/views/options/optionsViewController.js"></script>
     <script src="app/views/options/optionsViewDirective.js"></script>
+    <script src="app/views/files/filesViewController.js"></script>
+    <script src="app/views/files/filesViewDirective.js"></script>
+    <script src="app/views/employees/employeesViewController.js"></script>
+    <script src="app/views/employees/employeesViewDirective.js"></script>
+    <script src="app/main/header/menu/menuController.js"></script>
+    <script src="app/main/files/filesController.js"></script>
+    <script src="app/main/utils.js"></script>
+    <script src="app/main/employees/employeesController.js"></script>
 </body>
 </html>

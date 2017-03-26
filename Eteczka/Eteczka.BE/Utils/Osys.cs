@@ -136,7 +136,7 @@ namespace Eteczka.BE.Utils
             bool czyPeselZgodny = true;
             if (Int32.Parse(peselBezSpacji.Substring(10, 1)) != reszta)
             {
-                czyPeselZgodny =  false;
+                czyPeselZgodny = false;
             }
 
             //Uzyles znaku $, pewnie z foxa. Tu string jest obiektem, wiec ma w swoim ciele metode "Contains" ktora zwraca true lub false gdy ciag znakow zawiera konkretny znak
@@ -160,6 +160,71 @@ namespace Eteczka.BE.Utils
                 }
             }
             return czyPeselZgodny;
+        }
+
+        public string PeselOddajDate(string peselOsoby)
+        {
+            int miesiacKtrl = 0;
+            string rokUrodzenia = "";
+            string peselBezSpacji = peselOsoby.Replace(" ", "").Trim();
+
+            int licznik = Int32.Parse(peselBezSpacji.Substring(2, 2));
+
+            if (licznik > 80)
+            {
+                miesiacKtrl = miesiacKtrl - 80;
+                rokUrodzenia = "18";
+            }
+            else if (licznik > 12)
+            {
+                miesiacKtrl = miesiacKtrl - 20;
+                rokUrodzenia = "20";
+            }
+            else
+            {
+                rokUrodzenia = "19";
+                miesiacKtrl = licznik;
+            }
+            string miesiacZFormatem = miesiacKtrl.ToString();
+            if (miesiacZFormatem.Length == 1)
+            {
+                miesiacZFormatem = "0" + miesiacZFormatem;
+            }
+
+            string result = rokUrodzenia + peselBezSpacji.Substring(0, 2) + miesiacZFormatem + peselBezSpacji.Substring(4, 2);
+
+            return result;
+        }
+
+        public string PeselOddajPlec(string peselOsoby)
+        {
+            string cyfraKontrolna = peselOsoby.Replace(" ", "").Trim().Substring(9, 1);
+            string kobieceKoncowki = "02468";
+
+            if (kobieceKoncowki.Contains(cyfraKontrolna))
+            {
+                return "K";
+            }
+
+
+            return "M";
+        }
+
+        public string kalendarzKoniecMiesiaca(string dataRok, string dataMiesiac)
+        {
+            //do Konwersji na int nie uzywasz stringa tylko samej klasy Int32
+            int rokKtrl = Int32.Parse(dataRok);
+            int miesiacKtrl = Int32.Parse(dataMiesiac);
+
+            int daysInMiesiac = DateTime.DaysInMonth(rokKtrl, miesiacKtrl);
+
+            //string result = dataRok + "-" + miesiacKtrl + "-" + daysInMiesiac.ToString(daysInMiesiac).PadLeft(2,"0");
+            //metoda toString obiektu DateTime nie wymaga parametru. Parametr metody toString najczesciej zawiera format textu do ktorego chcesz zrobic konwersje
+            //np obiekt DateTime moze wywolac toString("yyyy-mm-dd") i wtedy taki format dostaniesz:)
+            //I nie wiem po co jest ten PadLeft:)
+            string result = dataRok + "-" + miesiacKtrl + "-" + daysInMiesiac.ToString().PadLeft(2, '0');
+
+            return result;
         }
     }
 }

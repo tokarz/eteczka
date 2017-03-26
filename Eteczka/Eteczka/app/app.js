@@ -30,8 +30,22 @@ app.config(function ($stateProvider) {
         template: '<options-view></options-view>'
     };
 
+    var filesState = {
+        url: '/files',
+        name: 'files',
+        template: '<files-view></files-view>'
+    };
+
+    var employeesState = {
+        url: '/employees',
+        name: 'employees',
+        template: '<employees-view></employees-view>'
+    };
+
     $stateProvider.state(loginState);
     $stateProvider.state(optionsState);
+    $stateProvider.state(filesState);
+    $stateProvider.state(employeesState);
 });
 
 // IE chached $http.get Aufrufe (z.B. in statusbarController)

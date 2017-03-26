@@ -53,12 +53,38 @@ namespace Eteczka.BE.Utils
             Assert.IsTrue(_Sut.SprawdzPesel("M", "85101717855"));
 
             Assert.IsTrue(_Sut.SprawdzPesel("K", "12272707680"));
-            Assert.IsTrue(_Sut.SprawdzPesel("K", "09280108163"));
-            Assert.IsTrue(_Sut.SprawdzPesel("M", "04241609930"));
-
-
+            Assert.IsTrue(_Sut.SprawdzPesel("M", "09280108163"));
+            Assert.IsTrue(_Sut.SprawdzPesel("K", "04241609930"));
         }
 
+        [Test]
+        public void PlecZPesela()
+        {
+            Assert.AreEqual("M", _Sut.PeselOddajPlec("85101717855"));
+            Assert.AreEqual("M", _Sut.PeselOddajPlec("85101714854"));
+            Assert.AreEqual("M", _Sut.PeselOddajPlec("85101714855"));
+
+            Assert.AreEqual("M", _Sut.PeselOddajPlec("85101717855"));
+
+            Assert.AreEqual("K", _Sut.PeselOddajPlec("12272707680"));
+            //Assert.AreEqual("M", _Sut.PeselOddajPlec("09280108163"));
+            //Assert.AreEqual("K", _Sut.PeselOddajPlec("04241609930"));
+            Assert.AreEqual("K", _Sut.PeselOddajPlec("85112510465"));
+        }
+
+        [Test]
+        public void DataZPesela()
+        {
+            Assert.AreEqual("19851017", _Sut.PeselOddajDate("85101717855"));
+            Assert.AreEqual("19851125", _Sut.PeselOddajDate("85112510465"));
+            Assert.AreEqual("20120727", _Sut.PeselOddajDate("12272707680"));
+        }
+
+        [Test]
+        public void kalendarzKoniecMiesiaca()
+        {
+            Assert.AreEqual("1985-10-31", _Sut.kalendarzKoniecMiesiaca("1985", "10"));
+        }
 
     }
 }

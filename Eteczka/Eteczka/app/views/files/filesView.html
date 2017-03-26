@@ -1,0 +1,27 @@
+﻿<div>
+    <div class="row justify-content-md-center">
+        <div class="col-md-offset-2 col-sm-offset-3 col-sm-6 col-md-8 table-responsive">
+            <table class="table-bordered">
+                <thead class="info">
+                    <tr>
+                        <th>Data</th>
+                        <th>Nazwa pliku</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="file in files">
+                        <td>{{file.date}}</td>
+                        <td>{{file.name}}</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td ng-click="goBack()"><a class="glyphicon glyphicon-arrow-left" style="font-size:20px;color:black"></a></td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
+</div>

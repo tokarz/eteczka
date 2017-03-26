@@ -185,8 +185,18 @@
   <ItemGroup>
     <Content Include="app\app.js" />
     <Content Include="app\css\et.css" />
+    <Content Include="app\main\employees\employeesController.js" />
+    <Content Include="app\main\files\filesController.js" />
+    <Content Include="app\main\header\menu\menuController.js" />
     <Content Include="app\main\mainController.js" />
     <Content Include="app\main\startup\startupService.js" />
+    <Content Include="app\main\utils.js" />
+    <Content Include="app\views\employees\employeesView.html" />
+    <Content Include="app\views\employees\employeesViewController.js" />
+    <Content Include="app\views\employees\employeesViewDirective.js" />
+    <Content Include="app\views\files\filesView.html" />
+    <Content Include="app\views\files\filesViewController.js" />
+    <Content Include="app\views\files\filesViewDirective.js" />
     <Content Include="app\views\login\loginView.html" />
     <Content Include="app\views\login\loginViewController.js" />
     <Content Include="app\views\login\loginViewDirective.js" />

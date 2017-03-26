@@ -4,7 +4,8 @@
 
 
 .ui-toolbar {
-    background: linear-gradient(-90deg, #047249, #046249);
+    /*background: linear-gradient(-90deg, #047249, #046249);*/
+    background: #047249;
     color: white;
 }
 
