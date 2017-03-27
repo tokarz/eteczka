@@ -191,6 +191,9 @@
     <Content Include="app\main\mainController.js" />
     <Content Include="app\main\startup\startupService.js" />
     <Content Include="app\main\utils.js" />
+    <Content Include="app\views\addUsers\addUsersView.html" />
+    <Content Include="app\views\addUsers\addUsersViewController.js" />
+    <Content Include="app\views\addUsers\addUsersViewDirective.js" />
     <Content Include="app\views\employees\employeesView.html" />
     <Content Include="app\views\employees\employeesViewController.js" />
     <Content Include="app\views\employees\employeesViewDirective.js" />

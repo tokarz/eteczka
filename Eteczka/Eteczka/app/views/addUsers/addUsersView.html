@@ -3,13 +3,36 @@
         <div class="col-md-offset-2 col-sm-offset-3 col-sm-6 col-md-8">
             <div class="menu-option thumbnail" style="text-align:center">
                 <div class="caption">
-                    <label for="username">Nazwa uzytkownika</label>
-                    <br />
-                    <input name="username" type="text" ng-model="typedUsername" />
-                    <br />
-                    <label for="password">Haslo</label>
-                    <br />
-                    <input name="password" type="password" ng-model="typedPassword" />
+                    <form id="addUserForm" ng-submit="validateAndAddUser()" method="post">
+                        <label for="username">Nazwa uzytkownika</label>
+                        <br />
+                        <input name="username" type="text" ng-model="userToAdd.username" />
+                        <br />
+                        <label for="password">Has³o</label>
+                        <br />
+                        <input name="password" type="password" ng-model="userToAdd.password" />
+                        <br />
+                        <label for="password">Powtórz has³o</label>
+                        <br />
+                        <input name="password" type="password" ng-model="userToAdd.retypedPassword" />
+                        <br />
+                        <br />
+                        <fieldset name="userRolesCheckboxes">
+                            <legend>Uprawnienia</legend>
+                            <input name="userRole_admin" type="checkbox" />
+                            <label for="userRole_admin">Administrator</label>
+                            <input name="userRole_employees" type="checkbox" />
+                            <label for="userRole_admin">Modu³ Pracownicy</label>
+                            <input name="userRole_files" type="checkbox" />
+                            <label for="userRole_admin">Modu³ Pliki</label>
+                            <input name="userRole_export" type="checkbox" />
+                            <label for="userRole_admin">Modu³ Eksporty</label>
+                            <br />
+                        </fieldset>
+                        <br />
+                        <br />
+                        <input type="submit" value="Dodaj" />
+                    </form>
                 </div>
             </div>
         </div>
