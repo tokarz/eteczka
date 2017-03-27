@@ -71,3 +71,5 @@ bin
 *.msi
 
 
+/.vs/config/applicationhost.config
+/.vs/config

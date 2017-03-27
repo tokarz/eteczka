@@ -85,4 +85,9 @@ angular.module('et.controllers').controller('loginViewController', ['$scope', '$
         return ["admin", "ola", "burqin", "maksio"];
     }
 
+    //temporary 
+    $scope.openAddUserForm = function () {
+        $state.go('addUsers');
+    }
+
 }]);
