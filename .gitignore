@@ -73,3 +73,7 @@ bin
 
 /.vs/config/applicationhost.config
 /.vs/config
+Eteczka/Eteczka.BE/bin/**/*
+Eteczka/Eteczka.BE/obj/**/*
+Eteczka/Eteczka/obj/**/*
+Eteczka/Eteczka/bin/**/*
