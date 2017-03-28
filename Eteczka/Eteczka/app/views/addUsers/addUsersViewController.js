@@ -7,4 +7,8 @@ angular.module('et.controllers').controller('addUsersViewController', ['$scope',
         retypedPassword: ''
     };
 
+    $scope.generatePassword = function () {
+        //implement me
+    }
+
 }]);
