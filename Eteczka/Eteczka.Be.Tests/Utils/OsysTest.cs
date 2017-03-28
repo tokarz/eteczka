@@ -108,5 +108,26 @@ namespace Eteczka.BE.Utils
             Assert.IsTrue(result);
 
         }
+
+        [Test]
+        public void testZawartosciHasla() 
+        {
+            //lista znaków specjalnych z metody hasloGeneruj()
+            //do zastanowienia czy jej nie udostępnić gdzieś, żeby w razie zmiany nie trzeba było aktualizować testu
+            char[] specialsChars = "$-+?&=!%{}/".ToCharArray();
+
+            string haslo = _Sut.hasloGeneruj();
+
+            Assert.AreEqual(12, haslo.Length);
+
+            bool containsLower = haslo.Any(char.IsLower);
+            bool containsUpper = haslo.Any(char.IsUpper);
+            bool containsDigit = haslo.Any(char.IsDigit);
+            bool containsSpecial = (haslo.IndexOfAny(specialsChars) >= 0);
+
+            //metoda powinna zwracać hasło zawierające wszystkie elementy, 
+            //mimo iż do akceptacji hasła pisaneo ręcznie wystarczą 3 z nich
+            Assert.True(containsLower && containsUpper && containsDigit && containsDigit);
+        }
     }
 }
