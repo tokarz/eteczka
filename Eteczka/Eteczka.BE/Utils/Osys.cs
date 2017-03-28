@@ -1,11 +1,19 @@
 ﻿using System;
 using System.Numerics;
+using System.Linq;
+
 
 namespace Eteczka.BE.Utils
 {
     public class Osys
     {
         private static int MODULO_KONTO = 97;
+
+        private static string LITERY_MALE = Enumerable.Repeat("abcdefgijklmnopqrstuwxyz", 5).ToString();
+        private static string LITERY_DUZE = Enumerable.Repeat("ABCDEFGHIJKLMNOPQRSTUWXYZ", 5).ToString();
+        private static string LITERY_CYFRY = Enumerable.Repeat("1234567890", 12).ToString();
+        private static string LITERY_SPEC = Enumerable.Repeat("$-+?&=!%{}/", 12).ToString();
+
         private string PoleKlasy = "ta zmienna nic nie robi, pokatuje tylko, ze to jest miejsce na uzycie slow public lub private  :) ";
 
         public bool SprawdzIban(string kontoBank)
@@ -226,5 +234,60 @@ namespace Eteczka.BE.Utils
 
             return result;
         }
+
+        public string hasloGeneruj()  
+        {
+        string miksuj = Enumerable.Repeat("MDSC", 30).ToString();
+        Random randomObject = new Random();
+
+        int liczbaKtrl = randomObject.Next();
+        string result = "";
+
+        string randomString = "";
+        int randomDuze = 0;
+        int randomMale = 0;
+        int randomCyfra = 0;
+        int randomSpec = 0;
+        int liczbaRandom = 0;
+
+            string cyfraSwith = "";
+               
+        for (int licznik = 1; licznik < 13; licznik++)
+            {
+
+                liczbaKtrl = 100000000 * randomObject.Next();
+                randomString = liczbaKtrl.ToString().PadLeft(8,'0');
+
+                randomDuze = Int32.Parse(randomString.Substring(0,2));
+                
+                randomMale = Int32.Parse(randomString.Substring(2,2));
+                
+                randomCyfra = Int32.Parse(randomString.Substring(4,2));
+                   
+                randomSpec = Int32.Parse(randomString.Substring(6,2));
+                
+                cyfraSwith = miksuj.Substring(randomCyfra, 1); 
+
+                switch (cyfraSwith)
+                {
+                    case "M":
+                        result = result + LITERY_MALE.Substring(randomMale,1);
+                        break;
+
+                   case "D":
+                        result = result + LITERY_DUZE.Substring(randomDuze,1);
+                        break;
+
+                   case "C":
+                        result = result + LITERY_CYFRY.Substring(randomCyfra,1);
+                        break;
+                  default:
+                        result = result + LITERY_SPEC.Substring(randomSpec,1);
+                        break;
+                }
+            }
+        return result;
+        }
     }
 }
+
