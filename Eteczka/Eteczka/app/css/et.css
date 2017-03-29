@@ -26,6 +26,8 @@
 }
 
 .user-button {
+    position: relative;
+    display: inline-block;
 }
 
 .menu-button {
@@ -42,6 +44,14 @@
         transition: background 0.2s ease-in;
         background: #046249;
     }
+
+.user-menu-options {
+    position: absolute;
+    background-color: #047249;
+    min-width: 160px;
+    margin: 5px;
+    z-index: 1000;
+}
 
 footer {
     position: fixed;
