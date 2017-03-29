@@ -9,8 +9,4 @@ angular.module('et.controllers').controller('mainController', ['$scope', '$state
         version: '0.1a'
     };
 
-    startupService.initializeApplicationConttext().then(function () {
-        $scope.isLoaded = true;
-    });
-
 }]);

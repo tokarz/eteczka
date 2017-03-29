@@ -6,9 +6,9 @@ namespace Eteczka.BE.Controllers
     public class SesjaController : Controller
     {
 
-        public ActionResult CreateSessionForToken(string token)
+        public ActionResult StworzSesje(string token)
         {
-            string session = "@_" + new Random().Next() + "";
+            string session = "@_" + new Random().Next();
 
             return Json(new
             {

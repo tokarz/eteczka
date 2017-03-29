@@ -1,19 +1,20 @@
-﻿<div>
-    <div class="row justify-content-md-center">
-        <div id="usersControlPanel" class="col-md-4">
-            <div style="width:90%;margin:auto">
+﻿<div style="height:100%">
+    <div class="row justify-content-md-center" style="padding:5px">
+        <div id="usersControlPanel" class="col-md-3" style="border-right: 1px solid black">
+            <div style="width:90%;margin:auto;cursor:pointer">
                 <h3>Wyszukaj</h3>
                 <h3>Edytuj</h3>
                 <h3>Dodaj</h3>
                 <h3>Usun</h3>
-
             </div>
-
         </div>
-        <div id="usersTable" class="col-md-8">
+        <div id="usersTable" class="col-md-9">
             <div style="width:90%;margin:auto">
                 <table style="width:100%">
-                    <thead class="info">
+                    <thead class="info ui-toolbar" style="height:35px">
+                        <tr style="background:white;color:#046249">
+                            <th colspan="6" style="text-align:center">PRACOWNICY</th>
+                        </tr>
                         <tr>
                             <th>Id</th>
                             <th>Imie</th>
@@ -23,7 +24,7 @@
                             <th>Dzial</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody ng-show="users.length > 0">
                         <tr ng-repeat="user in users">
                             <td>{{user.Id}}</td>
                             <td>{{user.Imie}}</td>
@@ -33,10 +34,14 @@
                             <td>{{user.Dzial}}</td>
                         </tr>
                     </tbody>
-                    <tfoot>
+                    <tbody ng-show="users.length <= 0">
                         <tr>
-                            <td ng-click="goBack()"><a class="glyphicon glyphicon-arrow-left" style="font-size:20px;color:black"></a></td>
-                            <td></td>
+                            <td colspan="6">Brak Pracownikow</td>
+                        </tr>
+                    </tbody>
+                    <tfoot class="ui-toolbar">
+                        <tr>
+                            <th colspan="6" ng-click="goBack()"><a class="glyphicon glyphicon- glyphicon-circle-arrow-left" style="font-size:20px;color:white"></a></th>
                         </tr>
                     </tfoot>
                 </table>

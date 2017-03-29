@@ -1,29 +1,37 @@
-﻿<div>
+﻿<div style="height:100%">
     <div class="row justify-content-md-center">
         <div class="col-md-8">
-            <table class="table-bordered">
-                <thead class="info">
+            <table class="table-bordered table-hover table-striped" style="width:100%">
+                <thead class="info ui-toolbar" style="height:35px">
+                    <tr style="background:white;color:#046249">
+                        <th colspan="6" style="text-align:center">PLIKI</th>
+                    </tr>
                     <tr>
                         <th>Data</th>
                         <th>Nazwa pliku</th>
+                        <th>Grupa</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="file in files">
+                    <tr ng-repeat="file in files" ng-click="previewPdf(file)" style="cursor:pointer">
                         <td>{{file.date}}</td>
                         <td>{{file.name}}</td>
+                        <td>{{file.type}}</td>
                     </tr>
                 </tbody>
-                <tfoot>
+                <tfoot class="ui-toolbar" style="height:35px">
                     <tr>
-                        <td ng-click="goBack()"><a class="glyphicon glyphicon-arrow-left" style="font-size:20px;color:black"></a></td>
-                        <td></td>
+                        <th ng-click="goBack()"><a class="glyphicon glyphicon-circle-arrow-left" style="font-size:20px;color:white"></a></th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </tfoot>
             </table>
         </div>
-        <div class="col-md-4">
-            <embed ng-src="../../../Content/test/{{selectedPdf}}" width="400" height="375" type="application/pdf" />
+        <div class="col-md-4" style="box-shadow:0 0 2px 0 black">
+            <object>
+                <embed id="pdfPreviewer" src="" width="375" height="500" type="application/pdf" />
+            </object>
         </div>
     </div>
 

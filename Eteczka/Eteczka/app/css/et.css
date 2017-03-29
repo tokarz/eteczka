@@ -50,12 +50,28 @@ footer {
 }
 
 input {
-    text-align:center;
+    text-align: center;
 }
 
-input:focus {
-    color:white;
-    box-shadow:0 0 1px 0 black;
-    border: 1px solid black;
-    background: #C1E1A6;
+    input:focus {
+        color: white;
+        box-shadow: 0 0 1px 0 black;
+        border: 1px solid black;
+        background: #C1E1A6;
+    }
+
+table {
+    box-shadow: 1px 1px 3px 1px black;
+}
+
+.row-25 {
+    height: 25%;
+    width: 100%;
+    float: left;
+}
+
+.row-50 {
+    height: 50%;
+    width: 100%;
+    float: left;
 }

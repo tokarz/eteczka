@@ -6,40 +6,40 @@
     <link rel="stylesheet" href="app/css/et.css" />
 </head>
 <body ng-controller="mainController">
-    <div class="jumbotron text-center ui-toolbar" style="padding:0">
-        <div class="row justify-content-md-center">
-            <div class="col-md-offset-1 col-md-3">
-                <span class="glyphicon glyphicon-leaf" style="font-size:50px;color:white;float:left"></span><h3 style="text-align:left;float:left;margin-left:5px" ng-bind="startupContext.title"></h3>
-            </div>
-            <div class="col-sm-6 col-md-4">
-                <h1 ng-bind="dot.one"></h1>
-            </div>
-            <div class="col-sm-6 col-md-4" ng-controller="menuController">
-                <div class="row text-center" style="padding:5px" ng-show="isUserLoggedIn()">
-                    <div class=" col-md-offset-3 col-md-4 menu-button">
-                        <div class="glyphicon glyphicon-question-sign" style="font-size:25px"></div>
-                        <div class="caption">
-                            <h3>Pomoc</h3>
+    <div id="rootWrapper" class="resizable">
+        <div id="header" class="jumbotron text-center ui-toolbar" style="padding:0;margin:0">
+            <div class="row justify-content-md-center">
+                <div class="col-md-offset-1 col-md-3">
+                    <span class="glyphicon glyphicon-leaf" style="font-size:50px;color:white;float:left"></span><h3 style="text-align:left;float:left;margin-left:5px" ng-bind="startupContext.title"></h3>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <h1 ng-bind="dot.one"></h1>
+                </div>
+                <div class="col-sm-6 col-md-4" ng-controller="menuController">
+                    <div class="row text-center" style="padding:5px" ng-show="isUserLoggedIn()">
+                        <div class=" col-md-offset-3 col-md-4 menu-button">
+                            <div class="glyphicon glyphicon-question-sign" style="font-size:25px"></div>
+                            <div class="caption">
+                                <h3>Pomoc</h3>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-4 menu-button">
-                        <div class="glyphicon glyphicon-user" style="font-size:25px"></div>
-                        <div class="caption">
-                            <h3>Uzytkownik</h3>
+                        <div class="col-md-4 menu-button">
+                            <div class="glyphicon glyphicon-user" style="font-size:25px"></div>
+                            <div class="caption">
+                                <h3>Uzytkownik</h3>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-
+        <div id="content" class="container-fluid">
+            <ui-view></ui-view>
+        </div>
+        <footer id="footer" class="ui-toolbar container-fluid bg-4 text-center">
+            <img src="Content/img/logo9.png" height="32" width="32" />
+        </footer>
     </div>
-    <div class="container">
-        <ui-view></ui-view>
-    </div>
-    <footer class="ui-toolbar container-fluid bg-4 text-center">
-        ZetData(R)
-    </footer>
 
     <script src="Scripts/jquery-1.10.2.min.js"></script>
     <script src="Scripts/angular/angular.min.js"></script>
@@ -62,7 +62,9 @@
     <script src="app/views/employees/employeesService.js"></script>
     <script src="app/main/header/menu/menuController.js"></script>
     <script src="app/main/files/filesController.js"></script>
-    <script src="app/main/utils.js"></script>
+    <script src="app/main/utils/utils.js"></script>
+    <script src="app/main/utils/resizableDirective.js"></script>
+    <script src="app/main/utils/httpService.js"></script>
     <script src="app/main/employees/employeesController.js"></script>
 </body>
 </html>
