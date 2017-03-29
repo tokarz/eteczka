@@ -288,6 +288,62 @@ namespace Eteczka.BE.Utils
             }
             return result;
         }
+        //
+        public bool hasloCorrect(string hasloCheck)
+        {
+            /*sprawdza czy hasło sprawdza wymogi, tzn.
+              12 znaków, minimum jedna duża, mała litera, cyfra i znak specjalny
+             */
+
+            bool result = false;
+            string hasloCheckKtrl = hasloCheck.Replace(" ", "").Trim();
+            int hasloCheckDlugosc = hasloCheckKtrl.Length;
+
+            int literyDuze = 0;
+            int literyMale = 0;
+            int literyCyfry = 0;
+            int literySpec = 0;
+            string literaCheck = "";
+
+            if (hasloCheckDlugosc < 12)
+                {
+                    return result;
+                }
+
+            for (int licznik = 0; licznik < hasloCheckDlugosc; licznik++)
+            {
+
+                literaCheck = hasloCheckKtrl.Substring(licznik, 1);
+
+                if (LITERY_DUZE.Contains(literaCheck) && literyDuze == 0)
+                {
+                    literyDuze = literyDuze + 1;
+                }
+
+                if (LITERY_MALE.Contains(literaCheck) && literyMale == 0)
+                {
+                    literyMale = literyMale + 1;
+                }
+
+                if (LITERY_CYFRY.Contains(literaCheck) && literyCyfry == 0)
+                {
+                    literyCyfry = literyCyfry + 1;
+                }
+
+                if (LITERY_SPEC.Contains(literaCheck) && literySpec == 0)
+                {
+                    literySpec = literySpec + 1;
+                }
+
+            }
+
+            if (literyDuze + literyMale + literyCyfry + literySpec > 2)
+            {
+                result = true;
+            } 
+
+            return result;
+        }
     }
 }
 

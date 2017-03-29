@@ -8,28 +8,31 @@
                         <br />
                         <input name="username" type="text" ng-model="userToAdd.username" />
                         <br />
-                        <label for="password">Has³o</label>
+                        <label for="password">Haslo</label>
                         <br />
                         <input name="password" type="password" ng-model="userToAdd.password" />
                         <br />
-                        <label for="password">Powtórz has³o</label>
+                        <label for="password">Powtorz haslo</label>
                         <br />
                         <input name="password" type="password" ng-model="userToAdd.retypedPassword" />
                         <br />
                         <br />
-                        <fieldset name="userRolesCheckboxes">
-                            <legend>Uprawnienia</legend>
+                        <p>Wpisz haslo recznie lub <a href="#" ng-click="generatePassword()">wygeneruj haslo</a></p>                    
+                        <div name="userRoles_checkboxes" style="text-align:left">
+                            <h3>Uprawnienia</h3>
                             <input name="userRole_admin" type="checkbox" />
                             <label for="userRole_admin">Administrator</label>
-                            <input name="userRole_employees" type="checkbox" />
-                            <label for="userRole_admin">Modu³ Pracownicy</label>
-                            <input name="userRole_files" type="checkbox" />
-                            <label for="userRole_admin">Modu³ Pliki</label>
-                            <input name="userRole_export" type="checkbox" />
-                            <label for="userRole_admin">Modu³ Eksporty</label>
                             <br />
-                        </fieldset>
-                        <br />
+                            <input name="userRole_employees" type="checkbox" />
+                            <label for="userRole_admin">Modul Pracownicy</label>
+                           
+                            <input name="userRole_files" type="checkbox" />
+                            <label for="userRole_admin">Modul Pliki</label>
+                           
+                            <input name="userRole_export" type="checkbox" />
+                            <label for="userRole_admin">Modul Eksporty</label>
+                           
+                        </div>
                         <br />
                         <input type="submit" value="Dodaj" />
                     </form>
