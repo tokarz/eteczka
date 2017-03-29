@@ -16,7 +16,7 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort />
+    <IISExpressSSLPort>44300</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -189,11 +189,13 @@
     <Content Include="app\main\files\filesController.js" />
     <Content Include="app\main\header\menu\menuController.js" />
     <Content Include="app\main\mainController.js" />
+    <Content Include="app\main\session\sessionService.js" />
     <Content Include="app\main\startup\startupService.js" />
     <Content Include="app\main\utils.js" />
     <Content Include="app\views\addUsers\addUsersView.html" />
     <Content Include="app\views\addUsers\addUsersViewController.js" />
     <Content Include="app\views\addUsers\addUsersViewDirective.js" />
+    <Content Include="app\views\employees\employeesService.js" />
     <Content Include="app\views\employees\employeesView.html" />
     <Content Include="app\views\employees\employeesViewController.js" />
     <Content Include="app\views\employees\employeesViewDirective.js" />
@@ -241,6 +243,7 @@
     <Content Include="Scripts\bootstrap-3.3.7-dist\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Scripts\bootstrap-3.3.7-dist\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Scripts\bootstrap-3.3.7-dist\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\test\FolienMisko.pdf" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
