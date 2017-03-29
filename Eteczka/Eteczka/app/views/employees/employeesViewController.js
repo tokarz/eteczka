@@ -1,21 +1,10 @@
 ﻿'use strict';
-angular.module('et.controllers').controller('employeesViewController', ['$scope', '$state', 'utilsService', function ($scope, $state, utilsService) {
+angular.module('et.controllers').controller('employeesViewController', ['$scope', '$state', 'utilsService', 'employeesService', function ($scope, $state, utilsService, employeesService) {
+    $scope.users = [];
 
-    $scope.userPesel = '';
-    $scope.userSex = 'M';
-    $scope.isPeselCorrect = false;
-
-    $scope.checkPesel = function () {
-        utilsService.isPeselValid($scope.userPesel, $scope.userSex).then(function (result) {
-            $scope.isPeselCorrect = result.data.valid;
-        }, function () {
-            $scope.isPeselCorrect = false;
-        });
-    }
-
-    $scope.validatePesel = function () {
-        $scope.checkPesel();
-    }
+    employeesService.getAll().then(function (result) {
+        $scope.users = result.data.data;
+    })
 
     $scope.goBack = function () {
         $state.go('options');

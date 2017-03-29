@@ -47,7 +47,9 @@
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\FileTypeController.cs" />
+    <Compile Include="Controllers\PracownicyKontroler.cs" />
     <Compile Include="Controllers\UtilsController.cs" />
+    <Compile Include="DTO\PracownikDTO.cs" />
     <Compile Include="Enums\FileType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\Osys.cs" />

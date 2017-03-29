@@ -95,8 +95,9 @@ namespace Eteczka.BE.Utils
             {
                 for (int i = 0; i < 1000; i++)
                 {
-                    hasla.Add(_Sut.hasloGeneruj(), "exists");
-
+                    string haslo = _Sut.hasloGeneruj();
+                    hasla.Add(haslo, "exists");
+                    Assert.AreEqual(12, haslo.Length);
                 }
                 result = true;
             }

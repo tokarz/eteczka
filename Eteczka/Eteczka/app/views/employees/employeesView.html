@@ -1,16 +1,51 @@
 ﻿<div>
     <div class="row justify-content-md-center">
-        <div class="col-md-offset-2 col-sm-offset-3 col-sm-6 col-md-8 table-responsive">
+        <div id="usersControlPanel" class="col-md-4">
             <div style="width:90%;margin:auto">
-                <input type="text" ng-model="userPesel" ng-change="validatePesel()" />
-                <select ng-model="userSex" ng-change="validatePesel()">
-                    <option>M</option>
-                    <option>K</option>
-                </select>
-                <a ng-show="isPeselCorrect" class="glyphicon glyphicon-ok-sign" style="color:green;font-size:30px"></a>
-                <a ng-show="!isPeselCorrect" class="glyphicon glyphicon-remove-sign" style="color:red;font-size:30px"></a>
+                <h3>Wyszukaj</h3>
+                <h3>Edytuj</h3>
+                <h3>Dodaj</h3>
+                <h3>Usun</h3>
+
             </div>
+
         </div>
+        <div id="usersTable" class="col-md-8">
+            <div style="width:90%;margin:auto">
+                <table style="width:100%">
+                    <thead class="info">
+                        <tr>
+                            <th>Id</th>
+                            <th>Imie</th>
+                            <th>Nazwisko</th>
+                            <th>PESEL</th>
+                            <th>Data urodzenia</th>
+                            <th>Dzial</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="user in users">
+                            <td>{{user.Id}}</td>
+                            <td>{{user.Imie}}</td>
+                            <td>{{user.Nazwisko}}</td>
+                            <td>{{user.PESEL}}</td>
+                            <td>{{user.DataUrodzenia}}</td>
+                            <td>{{user.Dzial}}</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td ng-click="goBack()"><a class="glyphicon glyphicon-arrow-left" style="font-size:20px;color:black"></a></td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+
+            </div>
+
+        </div>
+
+
     </div>
 
 </div>

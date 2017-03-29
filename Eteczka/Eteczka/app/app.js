@@ -45,8 +45,6 @@ app.config(function ($stateProvider) {
     var addUsersState = {
         url: '/addUsers',
         name: 'addUsers',
-        //Tagi rozrozniaja male-duze znaki dlatego addUsers-view nie zostalo przez angulara rozpoznane.
-        //angular automatycznie mapuje dyrektywe <jakasFajnaNazwa>' na <jakas-fajna-nazwa>
         template: '<add-users-view></add-users-view>'
     };
     
