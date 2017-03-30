@@ -306,9 +306,9 @@ namespace Eteczka.BE.Utils
             string literaCheck = "";
 
             if (hasloCheckDlugosc < 12)
-                {
-                    return result;
-                }
+            {
+                return result;
+            }
 
             for (int licznik = 0; licznik < hasloCheckDlugosc; licznik++)
             {
@@ -340,7 +340,7 @@ namespace Eteczka.BE.Utils
             if (literyDuze + literyMale + literyCyfry + literySpec > 2)
             {
                 result = true;
-            } 
+            }
 
             return result;
         }
