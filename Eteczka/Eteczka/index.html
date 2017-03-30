@@ -23,14 +23,13 @@
                                 <h3>Pomoc</h3>
                             </div>
                         </div>
-                    <div class="col-md-4 menu-button user-button" ng-click="showUserOptions()">
+                        <div class="col-md-4 menu-button user-button" ng-click="showUserOptions()">
                             <div class="glyphicon glyphicon-user" style="font-size:25px"></div>
                             <div class="caption">
                                 <h3>Uzytkownik</h3>
                             </div>
-                        <div class="user-menu-options">
-                            <div>
-                                <div ng-repeat="option in userMenuOptions" ng-show="userMenuVisible">                           
+                            <div class="user-menu-options">
+                                <div ng-repeat="option in userMenuOptions" ng-show="userMenuVisible">
                                     <span ng-click="executeOption(this)">{{option.name}}</span>
                                     <span class={{option.iconClass}}></span>
                                 </div>
@@ -39,9 +38,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    </div>
         </div>
         <div id="content" class="container-fluid">
             <ui-view></ui-view>
