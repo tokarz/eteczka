@@ -19,6 +19,7 @@ CREATE TABLE public."KatLoginy"
   rolasendmail boolean, -- Rola - uprawnienie do wys³ania pliku mailem
   rolaraport boolean, -- Rola - uprawnienia do raportów na drukarê
   rolaraportexport boolean, -- Rola uprawnienia do eksportu raportów np. do xls
+  roladoubleakcept boolean, -- Rola - uprawnienia do podwójnego akceptu
   datamodify time with time zone, -- Data modyfikacji tabeli uprawnieñ
   CONSTRAINT "KatLoginy_pkey" PRIMARY KEY (id)
 )
@@ -44,5 +45,6 @@ COMMENT ON COLUMN public."KatLoginy".rolaslowniki IS 'Rola - modyfikacja tabel s
 COMMENT ON COLUMN public."KatLoginy".rolasendmail IS 'Rola - uprawnienie do wys³ania pliku mailem';
 COMMENT ON COLUMN public."KatLoginy".rolaraport IS 'Rola - uprawnienia do raportów na drukarê';
 COMMENT ON COLUMN public."KatLoginy".rolaraportexport IS 'Rola uprawnienia do eksportu raportów np. do xls';
+COMMENT ON COLUMN public."KatLoginy".roladoubleakcept IS 'Rola - uprawnienia do podwójnego akceptu';
 COMMENT ON COLUMN public."KatLoginy".datamodify IS 'Data modyfikacji tabeli uprawnieñ';
 
