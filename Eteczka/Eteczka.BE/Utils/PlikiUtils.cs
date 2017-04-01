@@ -18,8 +18,24 @@ namespace Eteczka.BE.Utils
         //Testy sa juz napisane i swieca sie na czerwono!:)
         public string WezNazwePlikuZeSciezki(string sciezka)
         {
+            int lastSlash = sciezka.LastIndexOf("/");
+            if (lastSlash == -1)
+            {
+                lastSlash = sciezka.LastIndexOf("\\");
+            }
 
-            return "";
+            int ostatniSlash = (lastSlash + 1);
+
+
+            string nazwaPliku = (sciezka.Substring(ostatniSlash));
+
+            int bezPliku = nazwaPliku.LastIndexOf(".");
+            if (bezPliku == -1)
+            {
+                nazwaPliku = "";
+            }
+
+            return nazwaPliku;
         }
     }
 }
