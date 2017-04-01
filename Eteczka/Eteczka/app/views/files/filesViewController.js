@@ -5,7 +5,7 @@ angular.module('et.controllers').controller('filesViewController', ['$scope', '$
          { date: '2011-11-12', name: 'Tiguan.pdf', type: 'Oferta' }
     ];
 
-    $scope.selectedPdf = '';
+    //$('#pdfPreviewer').attr('src', 'Content/img/logo9.png');
 
     $scope.previewPdf = function (elm) {
         $('#pdfPreviewer').attr('src', 'FILE_FETCH?src=' + elm.name + '.fetchfile');

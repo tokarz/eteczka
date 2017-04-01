@@ -248,6 +248,7 @@
     <Content Include="Scripts\bootstrap-3.3.7-dist\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Content\Restricted\FolienMisko.pdf" />
     <Content Include="Content\Restricted\Tiguan.pdf" />
+    <Content Include="Content\img\FolienMisko.pdf" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

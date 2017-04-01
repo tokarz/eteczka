@@ -24,11 +24,14 @@ namespace Eteczka.BE.Utils
         [Test]
         public void GetPath()
         {
-            Assert.AreEqual("plik.txt", _Sut.WezNazwePlikuZeSciezki("c:\\dupa\\plik.txt"));
             Assert.AreEqual("plik.txt", _Sut.WezNazwePlikuZeSciezki("c:/dupa/plik.txt"));
             Assert.AreEqual("", _Sut.WezNazwePlikuZeSciezki("c:\\dupa"));
             Assert.AreEqual("", _Sut.WezNazwePlikuZeSciezki(""));
+            Assert.AreEqual("plik.txt", _Sut.WezNazwePlikuZeSciezki("c:\\dupa\\plik.txt"));
         }
+
+
+        
 
     }
 }

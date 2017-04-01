@@ -14,12 +14,14 @@ angular.module('et.directives').directive('resizable', ['$timeout', function ($t
             });
 
             $(window).resize(function () {
-                var headerHeight = $('#header').outerHeight();
-                var footerHeight = $('#footer').outerHeight();
+                $timeout(function () {
+                    var headerHeight = $('#header').outerHeight();
+                    var footerHeight = $('#footer').outerHeight();
 
-                var contentHeight = window.screen.availHeight - headerHeight - footerHeight;
+                    var contentHeight = window.screen.availHeight - headerHeight - footerHeight;
 
-                $('#content').css('height', contentHeight);
+                    $('#content').css('height', contentHeight);
+                });
             });
 
             $scope.$on('$destroy', function () {

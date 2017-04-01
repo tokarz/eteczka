@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace Eteczka.BE.Utils
 {
@@ -18,8 +19,27 @@ namespace Eteczka.BE.Utils
         //Testy sa juz napisane i swieca sie na czerwono!:)
         public string WezNazwePlikuZeSciezki(string sciezka)
         {
+            int lastSlash = sciezka.LastIndexOf("/");
+            if (lastSlash == -1)
+            {
+                lastSlash = sciezka.LastIndexOf("\\");
+            }
 
-            return "";
+            int ostatniSlash = (lastSlash + 1);
+
+
+            string nazwaPliku = (sciezka.Substring(ostatniSlash));
+
+            int bezPliku = nazwaPliku.LastIndexOf(".");
+            if (bezPliku == -1)
+            {
+                nazwaPliku = "";
+            }
+
+
+            return nazwaPliku;
         }
+
+        
     }
 }
