@@ -2,6 +2,17 @@
 angular.module('et.controllers').controller('filesViewController', ['$scope', '$state', 'httpService', function ($scope, $state, httpService) {
     $scope.files = [
         { date: '2011-11-11', name: 'FolienMisko.pdf', type: 'Szkolenie' },
+         { date: '2011-11-12', name: 'Tiguan.pdf', type: 'Oferta' },
+         { date: '2011-11-12', name: 'Tiguan.pdf', type: 'Oferta' },
+         { date: '2011-11-12', name: 'Tiguan.pdf', type: 'Oferta' },
+         { date: '2011-11-12', name: 'Tiguan.pdf', type: 'Oferta' },
+         { date: '2011-11-12', name: 'Tiguan.pdf', type: 'Oferta' },
+         { date: '2011-11-12', name: 'Tiguan.pdf', type: 'Oferta' },
+         { date: '2011-11-12', name: 'Tiguan.pdf', type: 'Oferta' },
+         { date: '2011-11-12', name: 'Tiguan.pdf', type: 'Oferta' },
+         { date: '2011-11-12', name: 'Tiguan.pdf', type: 'Oferta' },
+         { date: '2011-11-12', name: 'Tiguan.pdf', type: 'Oferta' },
+         { date: '2011-11-12', name: 'Tiguan.pdf', type: 'Oferta' },
          { date: '2011-11-12', name: 'Tiguan.pdf', type: 'Oferta' }
     ];
 

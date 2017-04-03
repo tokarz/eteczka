@@ -1,6 +1,6 @@
 ﻿<div style="height:100%">
     <div class="row justify-content-md-center" style="height:50%">
-        <div class="col-md-8" style="height: 100%">
+        <div class="col-md-8" style="height: 100%;overflow:auto">
             <table class="table-bordered table-hover table-striped" style="width:100%;height:100%">
                 <thead class="info ui-toolbar" style="height:35px">
                     <tr style="background:white;color:#046249">
@@ -35,14 +35,88 @@
         </div>
     </div>
     <div class="row justify-content-md-center" style="height:50%">
-        <div class="col-md-4" style="box-shadow: 0 0 2px 0 black;height:100%;">
-            Ax
+        <div class="col-md-4" style="box-shadow: 0 0 2px 0 black;height:100%;background-color: lightsteelblue">
+            <h3>Akcje</h3>
+            <div class="row justify-content-md-center">
+                <div class="col-md-3">
+                    <ul style="list-style:none">
+                        <li><span class="btn btn-primary" style="width:80%">Edytuj</span></li>
+                        <li><span class="btn btn-danger" style="width:80%">Usun</span></li>
+                        <li><span class="btn btn-success" style="width:80%">Pobierz</span></li>
+                    </ul>
+
+                </div>
+                <div class="col-md-9">
+                    <form class="fileData">
+                        <div>
+                            <label>Dodany</label>
+                            <input type="date" />
+                        </div>
+                        <div>
+                            <label>Ostatnia Zmiana</label>
+                            <input type="date" />
+                        </div>
+                        <div>
+                            <label>Rozmiar</label>
+                            <input type="number" disabled value="5.61MB" />
+                        </div>
+                        <div>
+                            <label>Lokalizacja</label>
+                            <input type="number" disabled value="Sandomierz" />
+                        </div>
+                        <div>
+                            <label>Typ</label>
+                            <select>
+                                <option>Umowa</option>
+                                <option>Szkolenie</option>
+                                <option>BHP</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
         </div>
-        <div class="col-md-4" style="box-shadow: 0 0 2px 0 red;height:100%;">
-            Bx
+        <div class="col-md-4" style="box-shadow: 0 0 2px 0 black;height:100%;background-color: lightsteelblue">
+            <h3>Pracownicy</h3>
+            <table class="table-bordered table-hover table-striped" style="width:100%;height:100%">
+                <thead class="info ui-toolbar" style="height:35px">
+                    <tr style="background:white;color:#046249">
+                        <th colspan="6" style="text-align:center">PLIKI</th>
+                    </tr>
+                    <tr style="height:40px">
+                        <th>Imie</th>
+                        <th>Nazwisko</th>
+                        <th>Dzial</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="file in files" ng-click="previewPdf(file)" style="cursor:pointer;height:35px">
+                        <td>{{file.date}}</td>
+                        <td>{{file.name}}</td>
+                        <td>{{file.type}}</td>
+                    </tr>
+                </tbody>
+                <tfoot class="ui-toolbar" style="height:35px">
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+            </table>
         </div>
-        <div class="col-md-4" style="box-shadow: 0 0 2px 0 black;height:100%;">
-            Cx
+        <div class="col-md-4" style="box-shadow: 0 0 2px 0 black;height:100%;background-color: lightsteelblue">
+            <h3>Statystyki</h3>
+            <div style="height:100%;width:90%;margin:auto">
+
+                <svg width="400" height="400">
+                    <g>
+                        <circle cx="200" cy="200" r="64" fill="green" stroke="black"></circle>
+                        <polygon points="200,200 200,264 264,200" style="fill:red;stroke:black;stroke-width:1"></polygon>
+                    </g>
+                </svg>
+            </div>
         </div>
     </div>
 

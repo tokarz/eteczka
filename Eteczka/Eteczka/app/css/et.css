@@ -91,3 +91,9 @@ table {
     opacity: 0.4;
     cursor: wait;
 }
+
+.fileData select,
+.fileData input {
+    float: right;
+    text-align:center;
+}
