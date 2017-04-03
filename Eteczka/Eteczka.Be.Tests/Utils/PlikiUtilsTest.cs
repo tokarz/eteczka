@@ -44,7 +44,7 @@ namespace Eteczka.BE.Utils
             sciezki.Add("2.txt");
             sciezki.Add("4.txt");
 
-            Assert.AreEqual(fileNames, _Sut.WezNazwePlikowZeSciezek(siezki);
+            Assert.AreEqual(fileNames, _Sut.WezNazwePlikowZeSciezek(sciezki));
         }
 
 
