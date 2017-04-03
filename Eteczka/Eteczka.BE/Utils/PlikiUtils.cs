@@ -40,6 +40,10 @@ namespace Eteczka.BE.Utils
             return nazwaPliku;
         }
 
+        public List<string> WezNazwePlikowZeSciezek(List<string> sciezka)
+        {
+            return null;
+        }
         
     }
 }
