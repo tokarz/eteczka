@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="Controllers\FileTypeController.cs" />
     <Compile Include="Controllers\PracownicyKontroler.cs" />
+    <Compile Include="Controllers\ResourcesController.cs" />
     <Compile Include="Controllers\SesjaKontroler.cs" />
     <Compile Include="Controllers\UtilsController.cs" />
     <Compile Include="DTO\PracownikDTO.cs" />

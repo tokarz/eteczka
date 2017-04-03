@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('et.services').factory('sessionService', ['$http', '$q', function ($http, $q) {
+angular.module('et.services').factory('httpService', ['$http', '$q', function ($http, $q) {
     return {
         get: function (url, params) {
             var deferred = $q.defer();

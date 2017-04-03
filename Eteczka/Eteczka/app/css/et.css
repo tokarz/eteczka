@@ -85,3 +85,9 @@ table {
     width: 100%;
     float: left;
 }
+
+.processing {
+    background: black;
+    opacity: 0.4;
+    cursor: wait;
+}
