@@ -3,9 +3,6 @@
         <div class="col-md-8" style="height: 100%;overflow:auto">
             <table class="table-bordered table-hover table-striped" style="width:100%;height:100%">
                 <thead class="info ui-toolbar" style="height:35px">
-                    <tr style="background:white;color:#046249">
-                        <th colspan="6" style="text-align:center">PLIKI</th>
-                    </tr>
                     <tr style="height:40px">
                         <th>Data</th>
                         <th>Nazwa pliku</th>
@@ -36,7 +33,7 @@
     </div>
     <div class="row justify-content-md-center" style="height:50%">
         <div class="col-md-4" style="box-shadow: 0 0 2px 0 black;height:100%;background-color: lightsteelblue">
-            <h3>Akcje</h3>
+            <h3 style="text-align:center">Akcje</h3>
             <div class="row justify-content-md-center">
                 <div class="col-md-3">
                     <ul style="list-style:none">
@@ -48,42 +45,50 @@
                 </div>
                 <div class="col-md-9">
                     <form class="fileData">
-                        <div>
-                            <label>Dodany</label>
-                            <input type="date" />
-                        </div>
-                        <div>
-                            <label>Ostatnia Zmiana</label>
-                            <input type="date" />
-                        </div>
-                        <div>
-                            <label>Rozmiar</label>
-                            <input type="number" disabled value="5.61MB" />
-                        </div>
-                        <div>
-                            <label>Lokalizacja</label>
-                            <input type="number" disabled value="Sandomierz" />
-                        </div>
-                        <div>
-                            <label>Typ</label>
-                            <select>
-                                <option>Umowa</option>
-                                <option>Szkolenie</option>
-                                <option>BHP</option>
-                            </select>
-                        </div>
+                        <table style="width:100%;height:100%; box-shadow: 0 0 0 0">
+                            <thead class="ui-toolbar" style="height:35px;width:100%"></thead>
+                            <tbody>
+                                <tr>
+                                    <th>Dodany</th>
+                                    <th><input type="date" /></th>
+                                </tr>
+                                <tr>
+                                    <th>Ostatnia Zmiana</th>
+                                    <th><input type="date" /></th>
+                                </tr>
+                                <tr>
+                                    <th>Rozmiar</th>
+                                    <th><input type="text" disabled value="5.61MB" /></th>
+                                </tr>
+                                <tr>
+                                    <th>Lokalizacja</th>
+                                    <th><input type="text" value="Sandomierz" /></th>
+                                </tr>
+                                <tr>
+                                    <th>Typ</th>
+                                    <th>
+                                        <select>
+                                            <option>Umowa</option>
+                                            <option>Szkolenie</option>
+                                            <option>BHP</option>
+                                        </select>
+                                    </th>
+                                </tr>
+                            </tbody>
+                        </table>
                     </form>
                 </div>
 
             </div>
         </div>
         <div class="col-md-4" style="box-shadow: 0 0 2px 0 black;height:100%;background-color: lightsteelblue">
-            <h3>Pracownicy</h3>
+            <h3 style="text-align:center">Pracownicy</h3>
             <table class="table-bordered table-hover table-striped" style="width:100%;height:100%">
+                <colgroup>
+                    <col width="50%" />
+                    <col width="50%" />
+                </colgroup>
                 <thead class="info ui-toolbar" style="height:35px">
-                    <tr style="background:white;color:#046249">
-                        <th colspan="6" style="text-align:center">PLIKI</th>
-                    </tr>
                     <tr style="height:40px">
                         <th>Imie</th>
                         <th>Nazwisko</th>
@@ -91,10 +96,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="file in files" ng-click="previewPdf(file)" style="cursor:pointer;height:35px">
-                        <td>{{file.date}}</td>
-                        <td>{{file.name}}</td>
-                        <td>{{file.type}}</td>
+                    <tr ng-repeat="users in usersForFile" ng-click="fillInUserData(user)" style="cursor:pointer;height:35px">
+                        <td>{{users.date}}</td>
+                        <td>{{users.name}}</td>
+                        <td>{{users.type}}</td>
                     </tr>
                 </tbody>
                 <tfoot class="ui-toolbar" style="height:35px">
@@ -107,15 +112,12 @@
             </table>
         </div>
         <div class="col-md-4" style="box-shadow: 0 0 2px 0 black;height:100%;background-color: lightsteelblue">
-            <h3>Statystyki</h3>
+            <h3 style="text-align:center">Statystyki</h3>
             <div style="height:100%;width:90%;margin:auto">
-
-                <svg width="400" height="400">
-                    <g>
-                        <circle cx="200" cy="200" r="64" fill="green" stroke="black"></circle>
-                        <polygon points="200,200 200,264 264,200" style="fill:red;stroke:black;stroke-width:1"></polygon>
-                    </g>
-                </svg>
+                <div style="text-align:center">
+                    <div id="diskUsage">
+                    </div>
+                </div>
             </div>
         </div>
     </div>

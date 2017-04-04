@@ -5,7 +5,8 @@
 
 .ui-toolbar {
     /*background: linear-gradient(-90deg, #047249, #046249);*/
-    background: #047249;
+    /*background: #047249;*/
+    background: steelblue;
     color: white;
 }
 
@@ -17,7 +18,8 @@
 }
 
 .menu-option:hover {
-    box-shadow: 0 0 2px 0 #046249;
+    /*box-shadow: 0 0 2px 0 #046249;*/
+    box-shadow: 0 0 2px 0 black;
     cursor: pointer;
     background: whitesmoke;
 }
@@ -42,12 +44,14 @@
         -o-transition: background 0.2s ease-in;
         -webkit-transition: background 0.2s ease-in;
         transition: background 0.2s ease-in;
-        background: #046249;
+        /*background: #046249;*/
+        background: lightslategray;
     }
 
 .user-menu-options {
     position: absolute;
-    background-color: #047249;
+    /*background-color: #047249;*/
+    background-color: lightslategray;
     min-width: 160px;
     margin: 5px;
     z-index: 1000;
@@ -95,5 +99,5 @@ table {
 .fileData select,
 .fileData input {
     float: right;
-    text-align:center;
+    text-align: center;
 }
