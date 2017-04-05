@@ -38,11 +38,12 @@ namespace Eteczka.BE.Utils
             sciezki.Add("d:/kat1/2.txt");
             sciezki.Add("d:/kat1");
             sciezki.Add("d:/kat1/4.txt");
+            sciezki.Add("d:/kat1/4.tx/t");
                 
             List<string> fileNames = new List<string>();
-            sciezki.Add("1.txt");
-            sciezki.Add("2.txt");
-            sciezki.Add("4.txt");
+            fileNames.Add("1.txt");
+            fileNames.Add("2.txt");
+            fileNames.Add("4.txt");
 
             Assert.AreEqual(fileNames, _Sut.WezNazwePlikowZeSciezek(sciezki));
         }

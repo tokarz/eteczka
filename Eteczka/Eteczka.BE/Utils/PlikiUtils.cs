@@ -40,10 +40,34 @@ namespace Eteczka.BE.Utils
             return nazwaPliku;
         }
 
-        public List<string> WezNazwePlikowZeSciezek(List<string> sciezka)
+        public List<string> WezNazwePlikowZeSciezek(List<string> sciezki)
         {
-            return null;
+            //Tu stworzyles Liste na wyniki ale dales jej ta sama nazwe co parametr funkcji - "sciezki"
+            //Od razu wiec przesloniles sobie Liste ktora dostales
+            //List<string> sciezki = new List<string>();
+            List<string> znalezioneNazwyPlikow = new List<string>();
+
+            foreach (string sciezka in sciezki)
+            {
+                int ostatniSlash = sciezka.LastIndexOf("/") + 1;
+                if (ostatniSlash == -1)
+                {
+                    ostatniSlash = sciezka.LastIndexOf("\\") + 1;
+                }
+                string nazwaPliku = sciezka.Substring(ostatniSlash);
+                int bezPliku = nazwaPliku.LastIndexOf(".");
+                //Do tego miejsca algorytm jest dobry, robi to co ma, czyli wyciaga nazwe pliku ze sciezki
+                if (bezPliku != -1)
+                {
+                    //tu wchodzimy tylko wtedy gdy plik ma w nazwie kropke.
+                    //Ale w tym przypadku nie chcemy zwrocic 1 znajezionej nazwy pliku piszac:
+                    //return nazwaPliku
+                    //ale tym razem chcemy dodac znaleziony plik do Listy wynikow a nie zwrocic tylko jeden:)
+                    znalezioneNazwyPlikow.Add(nazwaPliku);
+                }
+            }
+            return znalezioneNazwyPlikow;
         }
-        
+
     }
 }
