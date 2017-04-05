@@ -50,7 +50,7 @@ namespace Eteczka.BE.Utils
             foreach (string sciezka in sciezki)
             {
                 int ostatniSlash = sciezka.LastIndexOf("/") + 1;
-                if (ostatniSlash == -1)
+                if (ostatniSlash == 0)
                 {
                     ostatniSlash = sciezka.LastIndexOf("\\") + 1;
                 }
@@ -63,9 +63,12 @@ namespace Eteczka.BE.Utils
                     //Ale w tym przypadku nie chcemy zwrocic 1 znajezionej nazwy pliku piszac:
                     //return nazwaPliku
                     //ale tym razem chcemy dodac znaleziony plik do Listy wynikow a nie zwrocic tylko jeden:)
+                    //Metoda Add dodaje nazwe pliku do listy
                     znalezioneNazwyPlikow.Add(nazwaPliku);
                 }
             }
+
+            //dopiero kiedy petla sie skonczy, chcemy zwrocic wyniki
             return znalezioneNazwyPlikow;
         }
 

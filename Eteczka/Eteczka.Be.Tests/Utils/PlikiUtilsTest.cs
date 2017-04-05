@@ -35,7 +35,7 @@ namespace Eteczka.BE.Utils
         {
             List<string> sciezki = new List<string>();
             sciezki.Add("d:/kat1/1.txt");
-            sciezki.Add("d:/kat1/2.txt");
+            sciezki.Add("d:\\kat1\\2.txt");
             sciezki.Add("d:/kat1");
             sciezki.Add("d:/kat1/4.txt");
             sciezki.Add("d:/kat1/4.tx/t");
