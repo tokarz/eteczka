@@ -72,5 +72,12 @@ namespace Eteczka.BE.Utils
             return znalezioneNazwyPlikow;
         }
 
+
+        //Metoda dostaje argument : liste plikow, i zwraca tylko te, ktore maja podane rozszerzenie (zip, txt, i tak dalej)
+        public List<string> WezPlikiZRozszerzeniem(List<string> sciezki, string rozszerzenie)
+        {
+            return null;
+        }
+
     }
 }

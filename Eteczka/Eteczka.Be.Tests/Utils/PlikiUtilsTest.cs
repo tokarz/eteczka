@@ -48,6 +48,30 @@ namespace Eteczka.BE.Utils
             Assert.AreEqual(fileNames, _Sut.WezNazwePlikowZeSciezek(sciezki));
         }
 
+        [Test]
+        public void WezPlikiZRozszerzeniem()
+        {
+            List<string> sciezkiTxt = new List<string>();
+            sciezki.Add("d:/kat1/1.txt");
+            sciezki.Add("d:\\kat1\\2.txt");
+            sciezki.Add("d:/kat1");
+            sciezki.Add("d:/kat1/4.txt");
+            sciezki.Add("d:/kat1/4.tx/t");
+
+            List<string> fileNames = new List<string>();
+            fileNames.Add("1.txt");
+            fileNames.Add("2.txt");
+            fileNames.Add("4.txt");
+
+            Assert.AreEqual(fileNames, _Sut.WezPlikiZRozszerzeniem(sciezkiTxt, "txt"));
+
+            List<string> zips = new List<string>();
+            zips.Add("a.zip");
+            
+            Assert.AreEqual(fileNames, _Sut.WezPlikiZRozszerzeniem(sciezkiTxt, "txt"));
+            Assert.AreEqual(zip, _Sut.WezPlikiZRozszerzeniem(sciezkiTxt, "zip"));
+        }
+
 
     }
 }
