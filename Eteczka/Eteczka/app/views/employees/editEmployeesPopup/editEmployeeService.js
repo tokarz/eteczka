@@ -5,7 +5,7 @@ angular.module('et.services').service('editEmployeeService', ['$modal',
             backdrop: true,
             keyboard: true,
             modalFade: true,
-            templateUrl: 'app/views/employees/addEmployee/addEmployeePopup.html'
+            templateUrl: 'app/views/employees/editEmployeesPopup/addEmployeePopup.html'
         };
 
         var modalOptions = {
