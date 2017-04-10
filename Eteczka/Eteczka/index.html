@@ -30,7 +30,7 @@
                             </div>
                             <div class="user-menu-options">
                                 <div ng-repeat="option in userMenuOptions" ng-show="userMenuVisible">
-                                    <span ng-click="executeOption(this)">{{option.name}}</span>
+                                    <span ng-click="option.onclick()">{{option.name}}</span>
                                     <span class={{option.iconClass}}></span>
                                 </div>
                             </div>
@@ -61,7 +61,7 @@
     <script src="app/views/login/loginViewController.js"></script>
     <script src="app/views/login/loginViewDirective.js"></script>
     <script src="app/main/session/sessionService.js"></script>
-    <script src="app/views/employees/addEmployee/editEmployeeService.js"></script>
+    <script src="app/views/employees/editEmployeesPopup/editEmployeeService.js"></script>
     <script src="app/views/addUsers/addUsersViewController.js"></script>
     <script src="app/views/addUsers/addUsersViewDirective.js"></script>
     <script src="app/views/options/optionsViewController.js"></script>
