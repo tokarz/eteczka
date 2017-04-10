@@ -101,5 +101,13 @@ namespace Eteczka.BE.Utils
             return PlikiZRozszerzeniem;
         }
 
+
+        //Ta Metoda ma dostac 2 listy pelnych sciezek A (d:\a\b.txt) i B(c:/costam) i zwrocic liste
+        // Tych PLIKOW (samych ich nazw) ktore powtarzaja sie w jednej i drugiej liscie
+        public List<string> WezSpolneElementy(List<string> plikiA, List<string> plikiB)
+        {
+            return null;
+        }
+
     }
 }

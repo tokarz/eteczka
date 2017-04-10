@@ -74,5 +74,12 @@ namespace Eteczka.BE.Utils
         }
 
 
+        [Test]
+        public void WezSpolneElementy()
+        {
+
+        }
+
+
     }
 }
