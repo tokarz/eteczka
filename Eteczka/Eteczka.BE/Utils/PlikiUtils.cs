@@ -72,11 +72,33 @@ namespace Eteczka.BE.Utils
             return znalezioneNazwyPlikow;
         }
 
-
         //Metoda dostaje argument : liste plikow, i zwraca tylko te, ktore maja podane rozszerzenie (zip, txt, i tak dalej)
         public List<string> WezPlikiZRozszerzeniem(List<string> sciezki, string rozszerzenie)
         {
-            return null;
+            List<string> PlikiZRozszerzeniem = new List<string>();
+            foreach (string sciezka in sciezki)
+            {
+                int ostatniSlash = sciezka.LastIndexOf("/");
+                if (ostatniSlash == -1)
+                {
+                    ostatniSlash = sciezka.LastIndexOf("\\");
+                }
+                string nazwaPlikuZRozszerzeniem = sciezka.Substring(ostatniSlash + 1);
+                //int kropka = nazwaPlikuZRozszerzeniem.LastIndexOf(".");
+                int kropka = sciezka.LastIndexOf(".");
+                string rozszerzeniePliku = sciezka.Substring(kropka + 1).ToLower();
+                string rozszerzenieZParametru = rozszerzenie.Trim().ToLower();  //to podpowiedź Paszcza :))
+                if (kropka != -1)  //Tutaj zabezpieczam się przed zwróceniem ścieżki np. D:/dane/pdf
+                {
+                    //if (rozszerzenieZParametru. == rozszerzeniePliku)
+                    if (rozszerzenieZParametru.Equals(rozszerzeniePliku))  //Czy zamiast "==" mogę użyć metody Equals?
+                    {
+                        PlikiZRozszerzeniem.Add(nazwaPlikuZRozszerzeniem);
+                    }
+                }
+
+            }
+            return PlikiZRozszerzeniem;
         }
 
     }
