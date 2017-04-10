@@ -1,5 +1,0 @@
-d:\Usr\Tokarz\dokumente\visual studio 2013\Projects\Eteczka\Eteczka.BE\bin\Debug\Eteczka.BE.dll
-d:\Usr\Tokarz\dokumente\visual studio 2013\Projects\Eteczka\Eteczka.BE\bin\Debug\Eteczka.BE.pdb
-d:\Usr\Tokarz\dokumente\visual studio 2013\Projects\Eteczka\Eteczka.BE\obj\Debug\Eteczka.BE.dll
-d:\Usr\Tokarz\dokumente\visual studio 2013\Projects\Eteczka\Eteczka.BE\obj\Debug\Eteczka.BE.pdb
-d:\Usr\Tokarz\dokumente\visual studio 2013\Projects\Eteczka\Eteczka.BE\obj\Debug\Eteczka.BE.csprojResolveAssemblyReference.cache
