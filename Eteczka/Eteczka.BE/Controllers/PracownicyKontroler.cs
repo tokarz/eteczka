@@ -6,49 +6,29 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using Eteczka.BE.Utils;
 using Eteczka.BE.DTO;
+using Eteczka.DB.DAO;
+using Eteczka.DB.Connection;
+using Eteczka.DB.Entities;
+using Eteczka.BE.Services;
 
 namespace Eteczka.BE.Controllers
 {
     public class PracownicyController : Controller
     {
+        private IPracownicyService _PracownicyService;
+
+        public PracownicyController(IPracownicyService pracownicyService)
+        {
+            this._PracownicyService = pracownicyService;
+        }
+
         public ActionResult PobierzWszystkich(string sessionId)
         {
-            List<PracownikDTO> pracownicy = new List<PracownikDTO>();
-            PracownikDTO maciek = new PracownikDTO
-            {
-                Id = "123",
-                DataUrodzenia = "17.10.1985",
-                Dzial = "IT",
-                Imie = "Maciej",
-                Nazwisko = "Tokarz",
-                PESEL = "85101717855"
-            };
 
-            PracownikDTO paszczak = new PracownikDTO
-            {
-                Id = "1",
-                DataUrodzenia = "27.12.1961",
-                Dzial = "IT",
-                Imie = "Zbigniew",
-                Nazwisko = "Tokarz",
-                PESEL = "Aktotowie?:)"
-            };
 
-            PracownikDTO burqin = new PracownikDTO
-            {
-                Id = "Pff",
-                DataUrodzenia = "12.07.1410",
-                Dzial = "TESTOWANIE-TESTOW",
-                Imie = "Aleksandra",
-                Nazwisko = "Tokarz",
-                PESEL = "W 1410 nie bylo jeszcze PESELI"
-            };
-            for (int i = 0; i < 500; i++)
-            {
-                pracownicy.Add(paszczak);
-                pracownicy.Add(burqin);
-                pracownicy.Add(maciek);
-            }
+            
+
+            List<PracownikDTO> pracownicy = _PracownicyService.PobierzWszystkich();
 
             return Json(new
             {

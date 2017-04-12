@@ -57,6 +57,8 @@
     <Compile Include="Controllers\FileTypeController.cs" />
     <Compile Include="Controllers\PracownicyKontroler.cs" />
     <Compile Include="Controllers\ResourcesController.cs" />
+    <Compile Include="Services\PracownicyService.cs" />
+    <Compile Include="Services\IPracownicyService.cs" />
     <Compile Include="Controllers\SesjaKontroler.cs" />
     <Compile Include="Controllers\UtilsController.cs" />
     <Compile Include="DTO\PracownikDTO.cs" />
@@ -71,6 +73,19 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Eteczka.DB\Eteczka.DB.csproj">
+      <Project>{0f7010a0-6122-4433-a265-7130b2e3a947}</Project>
+      <Name>Eteczka.DB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Eteczka.Utils\Eteczka.Utils.csproj">
+      <Project>{78fb888c-3385-4e27-87dd-7530864c63d9}</Project>
+      <Name>Eteczka.Utils</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

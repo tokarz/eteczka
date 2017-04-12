@@ -8,6 +8,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eteczka.Tests", "Eteczka.Tests\Eteczka.Tests.csproj", "{EFF46928-FF69-4894-ACB5-A7715FD3CCE7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eteczka.BE", "Eteczka.BE\Eteczka.BE.csproj", "{CAE23164-A54F-4D19-89D5-631287BC44CD}"
+	ProjectSection(ProjectDependencies) = postProject
+		{78FB888C-3385-4E27-87DD-7530864C63D9} = {78FB888C-3385-4E27-87DD-7530864C63D9}
+		{0F7010A0-6122-4433-A265-7130B2E3A947} = {0F7010A0-6122-4433-A265-7130B2E3A947}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eteczka.Be.Tests", "Eteczka.Be.Tests\Eteczka.Be.Tests.csproj", "{95EECEA0-FDB6-41B6-A477-8825D4A14A37}"
 EndProject
@@ -15,6 +19,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{73B0B2
 	ProjectSection(SolutionItems) = preProject
 		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eteczka.DB", "Eteczka.DB\Eteczka.DB.csproj", "{0F7010A0-6122-4433-A265-7130B2E3A947}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eteczka.Utils", "Eteczka.Utils\Eteczka.Utils.csproj", "{78FB888C-3385-4E27-87DD-7530864C63D9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -68,6 +76,26 @@ Global
 		{95EECEA0-FDB6-41B6-A477-8825D4A14A37}.Release|ARM.ActiveCfg = Release|Any CPU
 		{95EECEA0-FDB6-41B6-A477-8825D4A14A37}.Release|x64.ActiveCfg = Release|Any CPU
 		{95EECEA0-FDB6-41B6-A477-8825D4A14A37}.Release|x86.ActiveCfg = Release|Any CPU
+		{0F7010A0-6122-4433-A265-7130B2E3A947}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F7010A0-6122-4433-A265-7130B2E3A947}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F7010A0-6122-4433-A265-7130B2E3A947}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{0F7010A0-6122-4433-A265-7130B2E3A947}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{0F7010A0-6122-4433-A265-7130B2E3A947}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0F7010A0-6122-4433-A265-7130B2E3A947}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F7010A0-6122-4433-A265-7130B2E3A947}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F7010A0-6122-4433-A265-7130B2E3A947}.Release|ARM.ActiveCfg = Release|Any CPU
+		{0F7010A0-6122-4433-A265-7130B2E3A947}.Release|x64.ActiveCfg = Release|Any CPU
+		{0F7010A0-6122-4433-A265-7130B2E3A947}.Release|x86.ActiveCfg = Release|Any CPU
+		{78FB888C-3385-4E27-87DD-7530864C63D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78FB888C-3385-4E27-87DD-7530864C63D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78FB888C-3385-4E27-87DD-7530864C63D9}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{78FB888C-3385-4E27-87DD-7530864C63D9}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{78FB888C-3385-4E27-87DD-7530864C63D9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{78FB888C-3385-4E27-87DD-7530864C63D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78FB888C-3385-4E27-87DD-7530864C63D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78FB888C-3385-4E27-87DD-7530864C63D9}.Release|ARM.ActiveCfg = Release|Any CPU
+		{78FB888C-3385-4E27-87DD-7530864C63D9}.Release|x64.ActiveCfg = Release|Any CPU
+		{78FB888C-3385-4E27-87DD-7530864C63D9}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
