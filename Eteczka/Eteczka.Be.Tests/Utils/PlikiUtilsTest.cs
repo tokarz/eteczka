@@ -77,6 +77,29 @@ namespace Eteczka.BE.Utils
         [Test]
         public void WezSpolneElementy()
         {
+            List<string> plikiA = new List<string>();
+            List<string> plikiB = new List<string>();
+
+            List<string> result = _Sut.WezSpolneElementy(plikiA, plikiB);
+            Assert.IsTrue(result.Count == 0);
+
+            //result = _Sut.WezSpolneElementy(null, null);
+            //Assert.IsTrue(result.Count == 0);
+
+
+            plikiA.Add("c:/plik1.bat");
+            plikiA.Add("d:/plik2.txt");
+            plikiA.Add("d:/plik1.exe");
+
+            plikiB.Add("c:/plik1.bat");
+            plikiB.Add("d:/plik1.exe");
+            plikiB.Add("d:/plik2.com");
+
+
+            result = _Sut.WezSpolneElementy(plikiA, plikiB);
+            Assert.IsTrue(result.Count == 2);
+            Assert.AreEqual("plik1.bat", result[0]);
+            Assert.AreEqual("plik1.exe", result[1]);
 
         }
 

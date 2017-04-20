@@ -16,6 +16,7 @@ namespace Eteczka.DB.Connection
             this._Connection = connection;
         }
 
+
         public DataTable ExecuteQuery(string query)
         {
             DataTable table = new DataTable();

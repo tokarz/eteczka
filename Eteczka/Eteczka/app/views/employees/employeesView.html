@@ -1,14 +1,25 @@
 ﻿<div style="height:100%">
-    <div class="row justify-content-md-center" style="padding:5px">
-        <div id="usersControlPanel" class="col-md-3" style="border-right: 1px solid black">
+    <div class="row justify-content-md-center" style="padding:5px;height:100%">
+        <div id="usersControlPanel" class="col-md-1" style="border-right: 1px solid black;box-shadow:0 0 2px 0 black;background:steelblue;text-align:center;height:100%;">
             <div style="width:90%;margin:auto;cursor:pointer">
-                <h3>Wyszukaj</h3>
-                <h3>Edytuj</h3>
-                <button ng-click="triggerAddEmployeePopup()">Dodaj</button>
-                <h3>Usun</h3>
+                <button type="button" class="btn btn-default emp-btn" ng-click="triggerAddEmployeePopup()">
+                    <span class="glyphicon glyphicon-search"></span> Szukaj
+                </button>
+                <br />
+                <button type="button" class="btn btn-warning emp-btn" ng-click="triggerAddEmployeePopup()">
+                    <span class="glyphicon glyphicon-pencil"></span> Edytuj
+                </button>
+                <br />
+                <button type="button" class="btn btn-success emp-btn" ng-click="triggerAddEmployeePopup()">
+                    <span class="glyphicon glyphicon-plus"></span> Dodaj
+                </button>
+                <br />
+                <button type="button" class="btn btn-danger emp-btn" ng-click="triggerDeleteEmployeePopup()">
+                    <span class="glyphicon glyphicon-trash"></span> Usun
+                </button>
             </div>
         </div>
-        <div id="usersTable" class="col-md-9">
+        <div id="usersTable" class="col-md-11" style="height:100%;border-right: 1px solid black;box-shadow:0 0 2px 0 black;background:white;text-align:center">
             <div style="width:90%;margin:auto">
                 <table style="width:100%">
                     <thead class="info ui-toolbar" style="height:35px">

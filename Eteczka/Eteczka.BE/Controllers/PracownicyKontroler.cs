@@ -17,6 +17,11 @@ namespace Eteczka.BE.Controllers
     {
         private IPracownicyService _PracownicyService;
 
+        public PracownicyController()
+        {
+            this._PracownicyService = new PracownicyService();
+        }
+
         public PracownicyController(IPracownicyService pracownicyService)
         {
             this._PracownicyService = pracownicyService;
@@ -26,7 +31,7 @@ namespace Eteczka.BE.Controllers
         {
 
 
-            
+
 
             List<PracownikDTO> pracownicy = _PracownicyService.PobierzWszystkich();
 

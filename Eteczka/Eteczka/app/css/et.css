@@ -73,7 +73,8 @@ input {
         color: white;
         box-shadow: 0 0 1px 0 black;
         border: 1px solid black;
-        background: #C1E1A6;
+        background: steelblue;
+        color:black;
     }
 
 table {
@@ -107,4 +108,24 @@ table {
 #content {
     min-height: 500px;
     overflow-y: hidden;
+}
+
+
+.empl-modal-window {
+    height: 100%;
+    width: 100%;
+}
+
+
+.modal-dialog {
+    height: 600px;
+    width: 600px;
+}
+
+.modal-content {
+    height: 100%;
+}
+
+.emp-btn {
+    width:90%;
 }

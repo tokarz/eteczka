@@ -9,11 +9,11 @@
                         <h3>Login</h3>
                         <label for="username">Nazwa uzytkownika</label>
                         <br />
-                        <input name="username" type="text" ng-model="credentials.username" />
+                        <input style="height:30px" name="username" type="text" ng-model="credentials.username" />
                         <br />
                         <label for="password">Haslo</label>
                         <br />
-                        <input name="password" type="password" ng-model="credentials.password" />
+                        <input style="height:30px" name="password" type="password" ng-model="credentials.password" />
                         <p>Nie posiadasz konta? <a href="#" ng-click="openAddUserForm()">Zarejestruj sie</a></p>
                         <p><a href="#" class="btn btn-primary" role="button" ng-click="tryLogin()">Zaloguj</a></p>
                         <div id="loginErrorMsg" style="color: red; display: none">{{loginErrorMsg}}</div>

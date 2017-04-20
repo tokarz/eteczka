@@ -9,4 +9,8 @@ angular.module('et.controllers').controller('mainController', ['$scope', '$state
         version: '0.1a'
     };
 
+    $scope.currentState = {
+        state: $state.current.name
+    };
+
 }]);

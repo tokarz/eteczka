@@ -15,6 +15,8 @@ namespace Eteczka.BE.Services
 
         public List<PracownikDTO> PobierzWszystkich()
         {
+            _Dao = new UserDAO(new DB.Connection.DbConnectionFactory());
+
             List<User> usrs = _Dao.GetAllUsers();
 
             List<PracownikDTO> pracownicy = new List<PracownikDTO>();

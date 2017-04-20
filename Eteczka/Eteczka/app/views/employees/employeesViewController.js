@@ -24,7 +24,7 @@ angular.module('et.controllers').controller('employeesViewController', ['$scope'
         };
 
         editEmployeeService.showModal({}, modalOptions).then(function (result) {
-            console.log("in the function");
+            alert("in the function");
             /*dataService.deleteCustomer($scope.customer.id).then(function () {
                 $location.path('/customers');*/
         }).catch(function () {
