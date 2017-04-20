@@ -1,5 +1,7 @@
 ﻿body {
     overflow: hidden;
+    margin: 0;
+    padding: 0;
 }
 
 
@@ -100,4 +102,9 @@ table {
 .fileData input {
     float: right;
     text-align: center;
+}
+
+#content {
+    min-height: 500px;
+    overflow-y: hidden;
 }

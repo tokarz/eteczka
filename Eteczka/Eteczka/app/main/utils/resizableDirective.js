@@ -3,12 +3,16 @@ angular.module('et.directives').directive('resizable', ['$timeout', function ($t
     return {
         restrict: 'C',
         scope: {},
-        link: function ($scope) {
+        link: function ($scope, element) {
             $timeout(function () {
                 var headerHeight = $('#header').outerHeight();
                 var footerHeight = $('#footer').outerHeight();
+                var contentPadding = {
+                    top: $('#content').css('padding-top'),
+                    bottom: $('#content').css('padding-top')
+                };
 
-                var contentHeight = window.screen.availHeight - headerHeight - footerHeight;
+                var contentHeight = window.innerHeight - (headerHeight - footerHeight) - 74;
 
                 $('#content').css('height', contentHeight);
             });
@@ -17,8 +21,12 @@ angular.module('et.directives').directive('resizable', ['$timeout', function ($t
                 $timeout(function () {
                     var headerHeight = $('#header').outerHeight();
                     var footerHeight = $('#footer').outerHeight();
+                    var contentPadding = {
+                        top: $('#content').css('padding-top'),
+                        bottom: $('#content').css('padding-top')
+                    };
 
-                    var contentHeight = window.screen.availHeight - headerHeight - footerHeight;
+                    var contentHeight = window.innerHeight - (headerHeight - footerHeight) - 74;
 
                     $('#content').css('height', contentHeight);
                 });

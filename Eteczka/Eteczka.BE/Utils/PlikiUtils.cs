@@ -72,12 +72,54 @@ namespace Eteczka.BE.Utils
             return znalezioneNazwyPlikow;
         }
 
-
         //Metoda dostaje argument : liste plikow, i zwraca tylko te, ktore maja podane rozszerzenie (zip, txt, i tak dalej)
         public List<string> WezPlikiZRozszerzeniem(List<string> sciezki, string rozszerzenie)
         {
-            return null;
+            List<string> PlikiZRozszerzeniem = new List<string>();
+            foreach (string sciezka in sciezki)
+            {
+                int ostatniSlash = sciezka.LastIndexOf("/");
+                if (ostatniSlash == -1)
+                {
+                    ostatniSlash = sciezka.LastIndexOf("\\");
+                }
+                string nazwaPlikuZRozszerzeniem = sciezka.Substring(ostatniSlash + 1);
+                //int kropka = nazwaPlikuZRozszerzeniem.LastIndexOf(".");
+                int kropka = sciezka.LastIndexOf(".");
+                string rozszerzeniePliku = sciezka.Substring(kropka + 1).ToLower();
+                string rozszerzenieZParametru = rozszerzenie.Trim().ToLower();  //to podpowiedź Paszcza :))
+                if (kropka != -1)  //Tutaj zabezpieczam się przed zwróceniem ścieżki np. D:/dane/pdf
+                {
+                    //if (rozszerzenieZParametru. == rozszerzeniePliku)
+                    if (rozszerzenieZParametru.Equals(rozszerzeniePliku))  //Czy zamiast "==" mogę użyć metody Equals?
+                    {
+                        PlikiZRozszerzeniem.Add(nazwaPlikuZRozszerzeniem);
+                    }
+                }
+
+            }
+            return PlikiZRozszerzeniem;
         }
+
+
+        //Ta Metoda ma dostac 2 listy pelnych sciezek A (d:\a\b.txt) i B(c:/costam) i zwrocic liste
+        // Tych PLIKOW (samych ich nazw) ktore powtarzaja sie w jednej i drugiej liscie
+        
+            public List<string> WezSpolneElementy(List<string> plikiA, List<string> plikiB)
+            {
+                List<string> WspolneNazwyPlikow = new List<string>();
+
+                List<string> NazwyPlikowA = WezNazwePlikowZeSciezek(plikiA);
+                List<string> NazwyPlikowB = WezNazwePlikowZeSciezek(plikiB);
+                var porownaniePlikow = NazwyPlikowA.Intersect(NazwyPlikowB);
+                // Tę zmienna Visual pozwolił zadeklarować tylko jako var - czy dlatego, żeby metoda była uniwersalna dla różnych typów danych?
+                foreach (var pliki in porownaniePlikow)
+                {
+                    WspolneNazwyPlikow.Add(pliki.ToString());
+                }
+
+                return WspolneNazwyPlikow;
+            }
 
     }
 }

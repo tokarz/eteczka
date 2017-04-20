@@ -39,7 +39,7 @@ namespace Eteczka.BE.Utils
             sciezki.Add("d:/kat1");
             sciezki.Add("d:/kat1/4.txt");
             sciezki.Add("d:/kat1/4.tx/t");
-                
+
             List<string> fileNames = new List<string>();
             fileNames.Add("1.txt");
             fileNames.Add("2.txt");
@@ -52,11 +52,12 @@ namespace Eteczka.BE.Utils
         public void WezPlikiZRozszerzeniem()
         {
             List<string> sciezkiTxt = new List<string>();
-            sciezki.Add("d:/kat1/1.txt");
-            sciezki.Add("d:\\kat1\\2.txt");
-            sciezki.Add("d:/kat1");
-            sciezki.Add("d:/kat1/4.txt");
-            sciezki.Add("d:/kat1/4.tx/t");
+            sciezkiTxt.Add("d:/kat1/1.txt");
+            sciezkiTxt.Add("d:\\kat1\\2.txt");
+            sciezkiTxt.Add("d:/kat1");
+            sciezkiTxt.Add("d:/kat1/4.txt");
+            sciezkiTxt.Add("d:/kat1/4.tx/t");
+            sciezkiTxt.Add("d:/kat1/4.tx/a.zip");
 
             List<string> fileNames = new List<string>();
             fileNames.Add("1.txt");
@@ -67,9 +68,16 @@ namespace Eteczka.BE.Utils
 
             List<string> zips = new List<string>();
             zips.Add("a.zip");
-            
+
             Assert.AreEqual(fileNames, _Sut.WezPlikiZRozszerzeniem(sciezkiTxt, "txt"));
-            Assert.AreEqual(zip, _Sut.WezPlikiZRozszerzeniem(sciezkiTxt, "zip"));
+            Assert.AreEqual(zips, _Sut.WezPlikiZRozszerzeniem(sciezkiTxt, "zip"));
+        }
+
+
+        [Test]
+        public void WezSpolneElementy()
+        {
+
         }
 
 

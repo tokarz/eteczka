@@ -1,7 +1,7 @@
 ﻿'use strict';
 angular.module('et.controllers').controller('menuController', ['$scope', '$state', function ($scope, $state) {
     $scope.isUserLoggedIn = function () {
-        return $state.current.name !== 'login';
+        return $state.current.name !== 'login';        
     }
 
     $scope.userMenuVisible = false;
@@ -10,26 +10,28 @@ angular.module('et.controllers').controller('menuController', ['$scope', '$state
         {
             name: "Wyloguj",
             iconClass: "glyphicon glyphicon-log-out",
-            link: "#"
+            onclick: function () {
+                $state.go('login')
+            }
         },
         {
             name: "Edytuj Profil",
             iconClass: "glyphicon glyphicon-pencil",
-            link: "#"
+            onclick: function () {
+                //do nothing
+            }
         },
         {
             name: "Wyslij wiadomosc",
             iconClass: "glyphicon glyphicon-envelope",
-            link: "#"
+            onclick: function () {
+                //do nothing
+            }
         }
         ];
 
     $scope.showUserOptions = function () {
         $scope.userMenuVisible = !$scope.userMenuVisible;
-    }
-
-    $scope.executeOption = function (option) {
-        //implement me
     }
 
 }]);

@@ -10,6 +10,7 @@ angular.module('et.utils', []);
 
 var app = angular.module('EtApp',
     ['ui.router',
+     'ui.bootstrap',
      'et.controllers',
      'et.services',
      'et.directives',
