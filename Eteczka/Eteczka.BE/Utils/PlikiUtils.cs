@@ -104,10 +104,22 @@ namespace Eteczka.BE.Utils
 
         //Ta Metoda ma dostac 2 listy pelnych sciezek A (d:\a\b.txt) i B(c:/costam) i zwrocic liste
         // Tych PLIKOW (samych ich nazw) ktore powtarzaja sie w jednej i drugiej liscie
-        public List<string> WezSpolneElementy(List<string> plikiA, List<string> plikiB)
-        {
-            return null;
-        }
+        
+            public List<string> WezSpolneElementy(List<string> plikiA, List<string> plikiB)
+            {
+                List<string> WspolneNazwyPlikow = new List<string>();
+
+                List<string> NazwyPlikowA = WezNazwePlikowZeSciezek(plikiA);
+                List<string> NazwyPlikowB = WezNazwePlikowZeSciezek(plikiB);
+                var porownaniePlikow = NazwyPlikowA.Intersect(NazwyPlikowB);
+                // Tę zmienna Visual pozwolił zadeklarować tylko jako var - czy dlatego, żeby metoda była uniwersalna dla różnych typów danych?
+                foreach (var pliki in porownaniePlikow)
+                {
+                    WspolneNazwyPlikow.Add(pliki.ToString());
+                }
+
+                return WspolneNazwyPlikow;
+            }
 
     }
 }
