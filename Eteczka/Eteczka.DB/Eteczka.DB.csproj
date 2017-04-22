@@ -74,7 +74,17 @@
     <Compile Include="Connection\IConnectionState.cs" />
     <Compile Include="Connection\DbConnectionFactory.cs" />
     <Compile Include="Connection\IDbConnectionFactory.cs" />
+    <Compile Include="DAO\KatDokumentyRodzajDAO.cs" />
     <Compile Include="DAO\UserDAO.cs" />
+    <Compile Include="Entities\KatDokumentyRodzaj.cs" />
+    <Compile Include="Entities\KatDzialy.cs" />
+    <Compile Include="Entities\KatFIrmy.cs" />
+    <Compile Include="Entities\KatJrwa.cs" />
+    <Compile Include="Entities\KatKategorieAkt.cs" />
+    <Compile Include="Entities\KatLoginy.cs" />
+    <Compile Include="Entities\KatLokalPapier.cs" />
+    <Compile Include="Entities\KatPodWydzialy.cs" />
+    <Compile Include="Entities\KatRejony.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
