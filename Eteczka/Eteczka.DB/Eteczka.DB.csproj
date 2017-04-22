@@ -69,6 +69,8 @@
     <Compile Include="Connection\Connection.cs" />
     <Compile Include="Connection\IConnection.cs" />
     <Compile Include="Connection\ConnectionState.cs" />
+    <Compile Include="Connection\ConnectionDetails.cs" />
+    <Compile Include="Connection\IConnectionDetails.cs" />
     <Compile Include="Connection\IConnectionState.cs" />
     <Compile Include="Connection\DbConnectionFactory.cs" />
     <Compile Include="Connection\IDbConnectionFactory.cs" />
@@ -76,7 +78,6 @@
     <Compile Include="Entities\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />

@@ -29,10 +29,6 @@ namespace Eteczka.BE.Controllers
 
         public ActionResult PobierzWszystkich(string sessionId)
         {
-
-
-
-
             List<PracownikDTO> pracownicy = _PracownicyService.PobierzWszystkich();
 
             return Json(new

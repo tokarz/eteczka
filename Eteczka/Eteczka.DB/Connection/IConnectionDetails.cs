@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace Eteczka.DB.Connection
 {
-    public interface IConnection
+    public interface IConnectionDetails
     {
-        string GetConnectionString(IConnectionDetails connectionDetails);
+        string getHost();
+        string getPort();
+        string getDbName();
     }
 }

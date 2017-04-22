@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Eteczka.DB.Connection
 {
     public class Connection : IConnection
     {
-        public string GetConnectionString()
+        public string GetConnectionString(IConnectionDetails connectionDetails)
         {
-            return "User ID=postgres;Password=admin;Host=localhost;Port=5432;Database=Eteczka;Pooling=true";
+            return "User ID=postgres;Password=admin;Host=" + connectionDetails.getHost() + ";Port=" + connectionDetails.getPort() + ";Database=" + connectionDetails.getDbName() + ";Pooling=true";
         }
     }
 }
