@@ -12,22 +12,14 @@ angular.module('et.controllers').controller('employeesViewController', ['$scope'
 
     $scope.triggerAddEmployeePopup = function () {
 
-        //$("#userModal").modal;
-
-        var custName = 'Ola' + ' ' + 'Burqin';
-
         var modalOptions = {
-            closeButtonText: 'Cancel',
-            actionButtonText: 'Add Employee',
-            headerText: 'Add ' + custName + '?',
-            bodyText: 'Are you sure you want to add this employee?'
-        };
+            title: 'Dodawanie nowego pracownika',
+            body: 'app/views/employees/editEmployeesPopup/newUserTemplate.html'
+        }
 
-        editEmployeeService.showModal({}, modalOptions).then(function (result) {
-            alert("in the function");
-            /*dataService.deleteCustomer($scope.customer.id).then(function () {
-                $location.path('/customers');*/
-        }).catch(function () {
+        editEmployeeService.showModal(modalOptions).then(function (result) {
+            console.log(result)
+        }).catch(function (error) {
             console.log("error found!");
         });
     }

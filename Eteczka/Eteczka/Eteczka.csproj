@@ -199,6 +199,7 @@
     <Content Include="app\views\addUsers\addUsersViewDirective.js" />
     <Content Include="app\views\employees\editEmployeesPopup\addEmployeePopup.html" />
     <Content Include="app\views\employees\editEmployeesPopup\editEmployeeService.js" />
+    <Content Include="app\views\employees\editEmployeesPopup\newUserTemplate.html" />
     <Content Include="app\views\employees\employeesService.js" />
     <Content Include="app\views\employees\employeesView.html" />
     <Content Include="app\views\employees\employeesViewController.js" />
