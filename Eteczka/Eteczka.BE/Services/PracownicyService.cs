@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Eteczka.BE.DTO;
 using Eteczka.DB.Entities;
 using Eteczka.DB.DAO;
+using Eteczka.DB.Connection;
+using System.Configuration;
 
 namespace Eteczka.BE.Services
 {
@@ -15,7 +17,14 @@ namespace Eteczka.BE.Services
 
         public List<PracownikDTO> PobierzWszystkich()
         {
-            _Dao = new UserDAO(new DB.Connection.DbConnectionFactory());
+            string host = ConfigurationManager.AppSettings["dbhost"];
+            string port = ConfigurationManager.AppSettings["dbport"];
+            string name = ConfigurationManager.AppSettings["dbname"];
+
+            IConnectionDetails connectionDetails = new ConnectionDetails(host, port, name);
+            IDbConnectionFactory factory = new DbConnectionFactory(connectionDetails);
+
+            _Dao = new UserDAO(factory);
 
             List<User> usrs = _Dao.GetAllUsers();
 
