@@ -1,0 +1,31 @@
+﻿<form>
+    <div>
+        <label for="firstName">Imie</label>
+        <input name="firstName" type="text" ng-model="employee.firstname"/>
+    </div>
+    <div>
+        <label for="lastName">Nazwisko</label>
+        <input name="lastName" type="text" ng-model="employee.lastName"/>
+    </div>
+    <div>
+        <label for="pesel">Pesel</label>
+        <input name="pesel" type="number" ng-model="employee.pesel"/>
+    </div>
+    <div>
+        <label for="age">Wiek</label>
+        <input name="age" type="number" ng-model="employee.age"/>
+    </div>
+    <div>
+        <label for="position">Stanowisko</label>
+        <input name="position" type="text" ng-model="employee.position"/>
+    </div>
+    <div>
+        <label for="birthday">Data Urodzenia</label>
+        <input name="birthday" type="date" ng-model="employee.birthday"/>
+    </div>
+    <div>
+        <label>Plec</label>
+        <label><input type="radio" name="gender" value="K" ng-model="employee.gender" />K</label>
+        <label><input type="radio" name="gender" value="M" ng-model="employee.gender" />M</label>   
+    </div>
+</form>

@@ -1,22 +1,28 @@
 angular.module('et.services').service('editEmployeeService', ['$uibModal',
     function ($uibModal) {
         return {
-            showModal: function (customModalDefaults, customModalOptions) {
-                if (!customModalDefaults) customModalDefaults = {};
-                customModalDefaults.backdrop = 'static';
+            showModal: function (customModalOptions) {           
 
-                return this.show(customModalDefaults, customModalOptions);
-            },
-            show: function (customModalDefaults, customModalOptions) {
-                var tempModalDefaults = {
+                var modalDefaults = {
                     animation: true,
-                    templateUrl: 'app/views/employees/editEmployeesPopup/addEmployeePopup.html',
-                    ariaLabelledBy: 'modal-title',
-                    ariaDescribedBy: 'modal-body'
+                    templateUrl: 'app/views/employees/editEmployeesPopup/addEmployeePopup.html'
                 };
-                var tempModalOptions = {};
 
-                return $uibModal.open(tempModalDefaults).result;
+                if (!modalDefaults.controller) {
+                    modalDefaults.controller = function ($scope, $uibModalInstance) {
+                        $scope.modalOptions = customModalOptions
+                        $scope.employee = {}
+
+                        $scope.modalOptions.ok = function () {
+                            $uibModalInstance.close($scope.employee);
+                        };
+                        $scope.modalOptions.cancel = function () {
+                            $uibModalInstance.dismiss('cancel');
+                        };
+                    }
+                }
+
+                return $uibModal.open(modalDefaults).result;
             }
         };
     }]);
