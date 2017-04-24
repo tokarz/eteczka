@@ -110,17 +110,18 @@ namespace Eteczka.BE.Utils
             pliki.Add("d:/plik1.txt");
             pliki.Add("d:/plik2.txt");
             pliki.Add("d:/plik1.pdf");
-            pliki.Add("d:/plik1.zip");
             pliki.Add("d:/plik1.pdf");
+            pliki.Add("d:/plik1.zip");
             pliki.Add("d:/plik1.rar");
 
             Dictionary<string, int> result = _Sut.PoliczRozszerzenia(pliki);
-            Assert.AreEqual(5, result.Count);
+           
+            Assert.AreEqual(4, result.Count);
 
             Assert.AreEqual(2, result["txt"]);
             Assert.AreEqual(2, result["pdf"]);
             Assert.AreEqual(1, result["zip"]);
-            Assert.AreEqual(2, result["rar"]);
+            Assert.AreEqual(1, result["rar"]);
 
 
         }

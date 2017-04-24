@@ -123,8 +123,49 @@ namespace Eteczka.BE.Utils
 
         public Dictionary<string, int> PoliczRozszerzenia(List<string> pliki)
         {
+            //Przygotowujemy sobie pusty slownik.
+            Dictionary<string, int> rozszerzeniaPlikow = new Dictionary<string, int>();
 
-            return null;
+            //Zaczynamy analizowac liste wejsciowa sciezka po sciezce
+            foreach (string sciezkaPliku in pliki)
+            {
+                //Korzystajac z napisanej przez Ciebie metory wyciagamy sama nazwe pliku ze sciezki
+                string nazwaPliku = WezNazwePlikuZeSciezki(sciezkaPliku);
+
+                //Teraz wyciagamy nazwe rozszerzenia z pliku (txt, zip, rar, itd)
+                string aktualneRozszerzenie = nazwaPliku.Substring(nazwaPliku.LastIndexOf(".") + 1);
+
+                //Sprawdzamy, czy aktualnie sprawdzane rozszerzenie bylo juz kiedys znalezione
+                
+                if (rozszerzeniaPlikow.ContainsKey(aktualneRozszerzenie))
+                {
+                    //Jesli rozszerzenie bylo juz przez nas wczesniej analizowane, musimy wyciagnac poprzednia wartosc licznika
+                    //i zwiekszyc go o 1. Potem nadpisac stara wartosc i umiescic w slowniku aktualna:
+                    ////  rozszerzeniaPlikow["txt"] = 2
+                    int iloscPlikow = rozszerzeniaPlikow[aktualneRozszerzenie];
+                    iloscPlikow = iloscPlikow + 1;
+                    rozszerzeniaPlikow[aktualneRozszerzenie] = iloscPlikow;
+                }
+                else
+                {
+                    //Jelsi nie - wrzucamy do slownika pod haslem rozszerzenie - wartosc startowa - 1
+                    //Czyli teraz wyglada to tak :
+                    //  rozszerzeniaPlikow["txt"] = 1
+
+                    rozszerzeniaPlikow.Add(aktualneRozszerzenie, 1);
+                }
+
+            }
+
+            //Co do zapisu : rozszerzeniaPlikow[aktualneRozszerzenie];
+            //Moze to byc mylace na poczatku. Klamry [] odnosza sie to tablicy. Jezeli masz typ List
+            //To element lista[0], lista[1] odnosza sie do kolejnych indeksow elementow
+            //Jezeli masz typ Slownika (Dictionary) to nie masz indeksow, tylko klucze
+            //np stolice("Polska") = "Warszawa";
+            //np stolice("Wlochy") = "Rzym";
+            //I piszac rozszerzeniaPlikow[aktualneRozszerzenie] wyciagamy wartosc dla klucza, ktorym jest rozszerzenie
+
+            return rozszerzeniaPlikow;
         }
 
     }
