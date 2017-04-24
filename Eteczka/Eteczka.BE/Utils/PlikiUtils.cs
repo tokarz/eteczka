@@ -168,5 +168,12 @@ namespace Eteczka.BE.Utils
             return rozszerzeniaPlikow;
         }
 
+        public Dictionary<string, List<string>> PoliczPlikiWKatalogach(List<string> sciezkiPlikow)
+        {
+            Dictionary<string, List<string>> result = new Dictionary<string, List<string>>();
+
+            return result;
+        }
+
     }
 }

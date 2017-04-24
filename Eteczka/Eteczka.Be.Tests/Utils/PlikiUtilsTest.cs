@@ -115,16 +115,34 @@ namespace Eteczka.BE.Utils
             pliki.Add("d:/plik1.rar");
 
             Dictionary<string, int> result = _Sut.PoliczRozszerzenia(pliki);
-           
+
             Assert.AreEqual(4, result.Count);
 
             Assert.AreEqual(2, result["txt"]);
             Assert.AreEqual(2, result["pdf"]);
             Assert.AreEqual(1, result["zip"]);
             Assert.AreEqual(1, result["rar"]);
+        }
 
+        [Test]
+        public void PoliczPlikiWKatalogach()
+        {
+            List<string> pliki = new List<string>();
+            pliki.Add("d:/A/plik1.txt");
+            pliki.Add("d:/A/plik2.txt");
+            pliki.Add("d:/A/plik1.pdf");
+            pliki.Add("d:/B/plik1.pdf");
+            pliki.Add("d:/B/plik1.zip");
+            pliki.Add("d:/B/plik1.rar");
+
+            Dictionary<string, List<string>> result = _Sut.PoliczPlikiWKatalogach(pliki);
+
+            Assert.AreEqual(2, result.Count);
+            Assert.AreEqual(3, result["d:/A/"].Count);
+            Assert.AreEqual(3, result["d:/B/"].Count);
 
         }
+
 
 
     }
