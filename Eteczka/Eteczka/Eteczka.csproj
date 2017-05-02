@@ -1084,6 +1084,10 @@
       <Project>{cae23164-a54f-4d19-89d5-631287bc44cd}</Project>
       <Name>Eteczka.BE</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Eteczka.DB\Eteczka.DB.csproj">
+      <Project>{0f7010a0-6122-4433-a265-7130b2e3a947}</Project>
+      <Name>Eteczka.DB</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
