@@ -14,20 +14,20 @@ angular.module('et.controllers').controller('menuController', ['$scope', '$state
                 $state.go('login')
             }
         },
-        {
-            name: "Edytuj Profil",
-            iconClass: "glyphicon glyphicon-pencil",
-            onclick: function () {
-                //do nothing
-            }
-        },
-        {
-            name: "Wyslij wiadomosc",
-            iconClass: "glyphicon glyphicon-envelope",
-            onclick: function () {
-                //do nothing
-            }
-        }
+        //{
+        //    name: "Edytuj Profil",
+        //    iconClass: "glyphicon glyphicon-pencil",
+        //    onclick: function () {
+        //        //do nothing
+        //    }
+        //},
+        //{
+        //    name: "Wyslij wiadomosc",
+        //    iconClass: "glyphicon glyphicon-envelope",
+        //    onclick: function () {
+        //        //do nothing
+        //    }
+        //}
         ];
 
     $scope.showUserOptions = function () {

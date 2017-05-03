@@ -58,6 +58,11 @@
     <Compile Include="Controllers\FileTypeController.cs" />
     <Compile Include="Controllers\PracownicyKontroler.cs" />
     <Compile Include="Controllers\ResourcesController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="DTO\Uprawnienia.cs" />
+    <Compile Include="DTO\UserDto.cs" />
+    <Compile Include="Services\UsersService.cs" />
+    <Compile Include="Services\IUsersService.cs" />
     <Compile Include="Services\PracownicyService.cs" />
     <Compile Include="Services\IPracownicyService.cs" />
     <Compile Include="Controllers\SesjaKontroler.cs" />

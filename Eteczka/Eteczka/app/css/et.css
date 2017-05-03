@@ -19,12 +19,23 @@
     min-height: 100%;
 }
 
+#optionsViewWrapper a.btn {
+    width: 200px;
+}
+
+    #optionsViewWrapper a.btn:hover {
+        background: white;
+        color: steelblue;
+    }
+
 .menu-option:hover {
     /*box-shadow: 0 0 2px 0 #046249;*/
     box-shadow: 0 0 2px 0 black;
     cursor: pointer;
     background: whitesmoke;
 }
+
+
 
 .help-button {
 }
@@ -53,10 +64,20 @@
 .user-menu-options {
     position: absolute;
     /*background-color: #047249;*/
-    background-color: lightslategray;
+    background-color: steelblue;
     min-width: 160px;
-    margin: 5px;
+    margin: 6px;
     z-index: 1000;
+    line-height: 30px;
+    border-radius: 5px;
+    padding: 25px;
+    box-shadow: 0 0 1px 2px steelblue;
+    opacity: 0.96;
+}
+
+.userOption:hover {
+    background: white;
+    color: steelblue;
 }
 
 footer {
@@ -70,11 +91,11 @@ input {
 }
 
     input:focus {
-        color: white;
+        color: steelblue;
         box-shadow: 0 0 1px 0 black;
         border: 1px solid black;
-        background: steelblue;
-        color:black;
+        background: white;
+        border: 1px solid steelblue !important;
     }
 
 table {
@@ -103,6 +124,7 @@ table {
 .fileData input {
     float: right;
     text-align: center;
+    width: 200px;
 }
 
 #content {
@@ -127,5 +149,5 @@ table {
 }
 
 .emp-btn {
-    width:90%;
+    width: 90%;
 }

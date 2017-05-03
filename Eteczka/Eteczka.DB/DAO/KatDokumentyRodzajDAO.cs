@@ -9,6 +9,7 @@ using System.Data;
 
 namespace Eteczka.DB.DAO
 {
+    
     public class KatDokumentyRodzajDAO
     {
         private IDbConnectionFactory _ConnectionFactory;

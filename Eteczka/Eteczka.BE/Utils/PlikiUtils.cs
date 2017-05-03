@@ -136,7 +136,7 @@ namespace Eteczka.BE.Utils
                 string aktualneRozszerzenie = nazwaPliku.Substring(nazwaPliku.LastIndexOf(".") + 1);
 
                 //Sprawdzamy, czy aktualnie sprawdzane rozszerzenie bylo juz kiedys znalezione
-                
+
                 if (rozszerzeniaPlikow.ContainsKey(aktualneRozszerzenie))
                 {
                     //Jesli rozszerzenie bylo juz przez nas wczesniej analizowane, musimy wyciagnac poprzednia wartosc licznika
@@ -168,12 +168,69 @@ namespace Eteczka.BE.Utils
             return rozszerzeniaPlikow;
         }
 
+        public Dictionary<string, List<string>> PoliczPlikiWKatalogach_Maciek(List<string> sciezkiPlikow)
+        {
+            Dictionary<string, List<string>> result = new Dictionary<string, List<string>>();
+            foreach (string sciezka in sciezkiPlikow)
+            {
+                string nazwaPliku = this.WezNazwePlikuZeSciezki(sciezka);
+                string nazwaSciezki = sciezka.Substring(0, sciezka.Length - nazwaPliku.Length);
+
+                if (result.Keys.Contains(nazwaSciezki))
+                {
+                    List<string> juzZapisaneSciezki = result[nazwaSciezki];
+                    juzZapisaneSciezki.Add(nazwaPliku);
+
+                    result[nazwaSciezki] = juzZapisaneSciezki;
+
+                }
+                else
+                {
+                    List<string> listaZPierwszymPlikiem = new List<string>();
+                    listaZPierwszymPlikiem.Add(nazwaPliku);
+                    result.Add(nazwaSciezki, listaZPierwszymPlikiem);
+                }
+            }
+
+            return result;
+        }
+
+
         public Dictionary<string, List<string>> PoliczPlikiWKatalogach(List<string> sciezkiPlikow)
         {
             Dictionary<string, List<string>> result = new Dictionary<string, List<string>>();
 
+            foreach (string sciezka in sciezkiPlikow)
+            {
+                string nazwaPliku = WezNazwePlikuZeSciezki(sciezka);
+                int lastSlash = sciezka.LastIndexOf("/");
+                //int lastSlash = nazwaPliku.LastIndexOf("/");
+                if (lastSlash == -1)
+                {
+                    lastSlash = sciezka.LastIndexOf("\\");
+                    //lastSlash = nazwaPliku.LastIndexOf("\\");
+                }
+                string nazwaSciezki = sciezka.Substring(0, lastSlash + 1);
+
+                if (result.ContainsKey(nazwaSciezki))
+                {
+                    List<string> Pliki = result[nazwaSciezki];
+                    Pliki.Add(nazwaPliku);
+                    result[nazwaSciezki] = Pliki;
+                }
+
+                else
+                {
+                    List<string> Pliki = new List<string>();
+                    Pliki.Add(nazwaPliku);
+                    result.Add(nazwaSciezki, Pliki);
+                }
+
+            }
+
             return result;
         }
+
 
     }
 }

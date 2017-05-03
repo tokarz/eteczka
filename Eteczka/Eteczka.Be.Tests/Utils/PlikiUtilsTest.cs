@@ -134,12 +134,14 @@ namespace Eteczka.BE.Utils
             pliki.Add("d:/B/plik1.pdf");
             pliki.Add("d:/B/plik1.zip");
             pliki.Add("d:/B/plik1.rar");
+            pliki.Add("d:\\plik1.rar");
 
             Dictionary<string, List<string>> result = _Sut.PoliczPlikiWKatalogach(pliki);
 
-            Assert.AreEqual(2, result.Count);
+            Assert.AreEqual(3, result.Count);
             Assert.AreEqual(3, result["d:/A/"].Count);
             Assert.AreEqual(3, result["d:/B/"].Count);
+            Assert.AreEqual(1, result["d:\\"].Count);
 
         }
 

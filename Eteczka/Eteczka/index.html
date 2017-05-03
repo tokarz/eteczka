@@ -29,8 +29,8 @@
                             <div class="caption">
                                 <h3>Uzytkownik</h3>
                             </div>
-                            <div class="user-menu-options">
-                                <div ng-repeat="option in userMenuOptions" ng-show="userMenuVisible">
+                            <div class="user-menu-options" ng-show="userMenuVisible">
+                                <div ng-repeat="option in userMenuOptions" class="userOption">
                                     <span ng-click="option.onclick()">{{option.name}}</span>
                                     <span class={{option.iconClass}}></span>
                                 </div>
@@ -43,7 +43,7 @@
                 {{state.currentState}}
             </div>
         </div>
-        <div id="content" class="container-fluid" style="padding:35px;overflow-y:hidden">
+        <div id="content" class="container-fluid" style="overflow-y:hidden">
             <ui-view></ui-view>
         </div>
         <footer id="footer" class="ui-toolbar container-fluid bg-4 text-center" style="height:37px">
@@ -68,6 +68,7 @@
     <script src="app/main/startup/startupService.js"></script>
     <script src="app/views/login/loginViewController.js"></script>
     <script src="app/views/login/loginViewDirective.js"></script>
+    <script src="app/views/login/loginService.js"></script>
     <script src="app/main/session/sessionService.js"></script>
     <script src="app/views/employees/editEmployeesPopup/editEmployeeService.js"></script>
     <script src="app/views/addUsers/addUsersViewController.js"></script>

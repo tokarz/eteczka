@@ -75,6 +75,7 @@
     <Compile Include="Connection\DbConnectionFactory.cs" />
     <Compile Include="Connection\IDbConnectionFactory.cs" />
     <Compile Include="DAO\KatDokumentyRodzajDAO.cs" />
+    <Compile Include="DAO\KatLoginDAO.cs" />
     <Compile Include="DAO\UserDAO.cs" />
     <Compile Include="Entities\KatDokumentyRodzaj.cs" />
     <Compile Include="Entities\KatDzialy.cs" />

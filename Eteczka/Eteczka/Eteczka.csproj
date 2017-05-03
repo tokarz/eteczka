@@ -209,6 +209,7 @@
     <Content Include="app\views\files\filesViewController.js" />
     <Content Include="app\views\files\filesViewDirective.js" />
     <Content Include="app\views\files\filesViewService.js" />
+    <Content Include="app\views\login\loginService.js" />
     <Content Include="app\views\login\loginView.html" />
     <Content Include="app\views\login\loginViewController.js" />
     <Content Include="app\views\login\loginViewDirective.js" />
