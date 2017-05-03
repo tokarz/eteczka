@@ -172,6 +172,35 @@ namespace Eteczka.BE.Utils
         {
             Dictionary<string, List<string>> result = new Dictionary<string, List<string>>();
 
+            
+
+            foreach (string sciezka in sciezkiPlikow)
+            {
+                string nazwaPliku = WezNazwePlikuZeSciezki(sciezka);
+                int lastSlash = sciezka.LastIndexOf("/");
+                if (lastSlash == -1)
+                {
+                    lastSlash = sciezka.LastIndexOf("\\");
+                }
+                string nazwaSciezki = sciezka.Substring(0, lastSlash + 1);
+
+                if (result.ContainsKey(nazwaSciezki))
+                {
+                    List<string> Pliki = result[nazwaSciezki];
+                    Pliki.Add(nazwaPliku);
+                    result[nazwaSciezki] = Pliki;
+                }
+
+                else
+                {
+                    List<string> Pliki = new List<string>();
+                    Pliki.Add(nazwaPliku);
+                    result.Add(nazwaSciezki, Pliki);
+                }
+
+            }
+
+
             return result;
         }
 
