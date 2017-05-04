@@ -34,8 +34,8 @@
 
 .menu-option {
     height: 90%;
-    width: 90%;
-    margin: 22px auto;
+    width: 98%;
+    /*margin: 22px auto;*/
     padding: 90px;
 }
 
@@ -102,7 +102,6 @@ input {
     input:focus {
         color: steelblue;
         box-shadow: 0 0 1px 0 black;
-        border: 1px solid black;
         background: white;
         border: 1px solid steelblue !important;
     }
@@ -161,4 +160,8 @@ table {
 
 .emp-btn {
     width: 90%;
+}
+
+.sub-option {
+    height: 100%;
 }

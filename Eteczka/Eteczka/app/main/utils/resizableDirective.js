@@ -27,7 +27,7 @@ angular.module('et.directives').directive('resizable', ['$timeout', function ($t
                         bottom: $('#content').css('padding-top')
                     };
 
-                    var contentHeight = window.innerHeight - (2 * headerHeight - 2 * footerHeight) - 35;
+                    var contentHeight = window.innerHeight - (2 * parseInt(headerHeight) - 2 * parseInt(footerHeight)) - 35;
 
                     $('#content').css('height', contentHeight);
                 });
