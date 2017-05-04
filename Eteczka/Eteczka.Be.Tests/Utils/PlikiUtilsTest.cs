@@ -163,10 +163,10 @@ namespace Eteczka.BE.Utils
             Assert.IsNotNull(znalezionePliki);
             Assert.IsNotEmpty(znalezionePliki);
 
-            Assert.AreEqual(2, znalezionePliki.Count);
+            Assert.AreEqual(3, znalezionePliki.Count);
             Assert.AreEqual("d:/A/plik1.txt", znalezionePliki[0]);
             Assert.AreEqual("d:/B/plik1.rar", znalezionePliki[1]);
-
+            Assert.AreEqual("d:\\plikOFajnejNazwie.rar", znalezionePliki[2]);
 
         }
 

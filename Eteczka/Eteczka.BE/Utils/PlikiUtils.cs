@@ -206,7 +206,19 @@ namespace Eteczka.BE.Utils
 
         public List<string> ZnajdzPlikiPoNazwie(string nazwa, List<string> sciezkiPlikow)
         {
-            return new List<string>();
+            List<string> SciezkiZPlikami = new List<string>();
+            foreach (string sciezka in sciezkiPlikow)
+            {
+
+                string nazwaPliku = WezNazwePlikuZeSciezki(sciezka);
+                if (nazwaPliku.Contains(nazwa))
+                {
+                    SciezkiZPlikami.Add(sciezka);
+                }
+
+            }
+
+            return SciezkiZPlikami;
         }
 
     }
