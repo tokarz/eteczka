@@ -12,13 +12,13 @@ angular.module('et.directives').directive('resizable', ['$timeout', function ($t
                     bottom: $('#content').css('padding-top')
                 };
 
-                var contentHeight = window.innerHeight - (2 * parseInt(headerHeight) - 2 * parseInt(footerHeight)) - 35;
+                var contentHeight = window.innerHeight - (parseInt(headerHeight) - parseInt(footerHeight)) - 74;
 
                 //$('#content').css('height', contentHeight);
                 $('#content').outerHeight(contentHeight);
             });
 
-            $(window).resize(function () {
+            $(window).resize(function (event) {
                 $timeout(function () {
                     var headerHeight = $('#header').outerHeight();
                     var footerHeight = $('#footer').outerHeight();
@@ -27,9 +27,9 @@ angular.module('et.directives').directive('resizable', ['$timeout', function ($t
                         bottom: $('#content').css('padding-top')
                     };
 
-                    var contentHeight = window.innerHeight - (2 * parseInt(headerHeight) - 2 * parseInt(footerHeight)) - 35;
+                    var contentHeight = event.target.innerHeight - (parseInt(headerHeight) - parseInt(footerHeight)) - 74;
 
-                    $('#content').css('height', contentHeight);
+                    $('#content').outerHeight(contentHeight);
                 });
             });
 

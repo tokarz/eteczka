@@ -43,6 +43,22 @@
         /*box-shadow: 0 0 2px 0 #046249;*/
         box-shadow: 0 0 2px 0 black;
         cursor: pointer;
+        
+    }
+
+    .menu-option.menu-yellow:hover {
+        color: darkgoldenrod;
+    }
+
+    .menu-option.menu-green:hover {
+        color: darkgreen;
+    }
+
+    .menu-option.menu-orange:hover {
+        color: orangered;
+    }
+
+    .menu-option.menu-blue:hover {
         color: steelblue;
     }
 
