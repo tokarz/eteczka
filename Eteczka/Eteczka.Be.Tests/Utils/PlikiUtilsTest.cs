@@ -145,6 +145,31 @@ namespace Eteczka.BE.Utils
 
         }
 
+        [Test]
+        public void ZnajdzPlikiPoNazwie()
+        {
+
+            List<string> pliki = new List<string>();
+            pliki.Add("d:/A/plik1.txt");
+            pliki.Add("d:/A/x.txt");
+            pliki.Add("d:/A/y.pdf");
+            pliki.Add("d:/B/z.pdf");
+            pliki.Add("d:/B/pl1ik.zip");
+            pliki.Add("d:/B/plik1.rar");
+            pliki.Add("d:\\plikOFajnejNazwie.rar");
+
+            List<string> znalezionePliki = _Sut.ZnajdzPlikiPoNazwie("pli", pliki);
+
+            Assert.IsNotNull(znalezionePliki);
+            Assert.IsNotEmpty(znalezionePliki);
+
+            Assert.AreEqual(2, znalezionePliki.Count);
+            Assert.AreEqual("d:/A/plik1.txt", znalezionePliki[0]);
+            Assert.AreEqual("d:/B/plik1.rar", znalezionePliki[1]);
+
+
+        }
+
 
 
     }

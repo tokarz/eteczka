@@ -168,34 +168,6 @@ namespace Eteczka.BE.Utils
             return rozszerzeniaPlikow;
         }
 
-        public Dictionary<string, List<string>> PoliczPlikiWKatalogach_Maciek(List<string> sciezkiPlikow)
-        {
-            Dictionary<string, List<string>> result = new Dictionary<string, List<string>>();
-            foreach (string sciezka in sciezkiPlikow)
-            {
-                string nazwaPliku = this.WezNazwePlikuZeSciezki(sciezka);
-                string nazwaSciezki = sciezka.Substring(0, sciezka.Length - nazwaPliku.Length);
-
-                if (result.Keys.Contains(nazwaSciezki))
-                {
-                    List<string> juzZapisaneSciezki = result[nazwaSciezki];
-                    juzZapisaneSciezki.Add(nazwaPliku);
-
-                    result[nazwaSciezki] = juzZapisaneSciezki;
-
-                }
-                else
-                {
-                    List<string> listaZPierwszymPlikiem = new List<string>();
-                    listaZPierwszymPlikiem.Add(nazwaPliku);
-                    result.Add(nazwaSciezki, listaZPierwszymPlikiem);
-                }
-            }
-
-            return result;
-        }
-
-
         public Dictionary<string, List<string>> PoliczPlikiWKatalogach(List<string> sciezkiPlikow)
         {
             Dictionary<string, List<string>> result = new Dictionary<string, List<string>>();
@@ -232,6 +204,10 @@ namespace Eteczka.BE.Utils
             return result;
         }
 
+        public List<string> ZnajdzPlikiPoNazwie(string nazwa, List<string> sciezkiPlikow)
+        {
+            return new List<string>();
+        }
 
     }
 }
