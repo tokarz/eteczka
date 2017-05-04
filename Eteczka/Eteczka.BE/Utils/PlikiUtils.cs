@@ -200,15 +200,15 @@ namespace Eteczka.BE.Utils
         {
             Dictionary<string, List<string>> result = new Dictionary<string, List<string>>();
 
+            
+
             foreach (string sciezka in sciezkiPlikow)
             {
                 string nazwaPliku = WezNazwePlikuZeSciezki(sciezka);
                 int lastSlash = sciezka.LastIndexOf("/");
-                //int lastSlash = nazwaPliku.LastIndexOf("/");
                 if (lastSlash == -1)
                 {
                     lastSlash = sciezka.LastIndexOf("\\");
-                    //lastSlash = nazwaPliku.LastIndexOf("\\");
                 }
                 string nazwaSciezki = sciezka.Substring(0, lastSlash + 1);
 
@@ -227,6 +227,7 @@ namespace Eteczka.BE.Utils
                 }
 
             }
+
 
             return result;
         }
