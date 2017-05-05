@@ -10,7 +10,7 @@
                         </ul>
                     </div>
                     <div style="float:right">
-                        <input class="glyphicon glyphicon-search" placeholder="Wyszukaj Plik(i)" type="search" style="border:none;border-radius:5px;box-shadow:0 0 1px 1px black" />
+                        <a style="margin-right:-20px" class="glyphicon glyphicon-search"></a><input placeholder="Wyszukaj Plik(i)" type="search" style="border:none;border-radius:5px;box-shadow:0 0 1px 1px black" />
                     </div>
                 </div>
             </div>
@@ -47,11 +47,7 @@
             </div>
         </div>
     </div>
-    <div id="middleFilePanel" class="row resizer" style="height:2%;background-color: steelblue;text-align:center">
-        <div ng-show="!hidePanel" class="glyphicon glyphicon-circle-arrow-down" style="height:16px;width:16px;color:white;margin:auto" ng-click="togglePanel()"></div>
-        <div ng-show="hidePanel" class="glyphicon glyphicon-circle-arrow-up" style="height:16px;width:16px;color:white;margin:auto" ng-click="togglePanel()"></div>
-    </div>
-    <div id="lowerFilePanel" class="row justify-content-md-center" style="height:25%">
+    <div id="lowerFilePanel" ng-show="elementselected.isSelected" class="row justify-content-md-center" style="height:30%">
         <div class="col-md-4" style="box-shadow: 0 0 2px 0 black;height:100%;background-color: white">
             <h3 style="text-align:center">Akcje</h3>
             <div class="row justify-content-md-center">

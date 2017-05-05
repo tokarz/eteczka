@@ -10,12 +10,13 @@ namespace Eteczka
     {
         protected void Application_Start()
         {
+            EteczkaConfig.InitSystem();
+
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-
-            EteczkaConfig.InitSystem();
+            
         }
 
 

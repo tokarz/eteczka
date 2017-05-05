@@ -518,6 +518,7 @@
     <Content Include="Scripts\angular-animate\LICENSE.md" />
     <Content Include="Scripts\angular-animate\package.json" />
     <Content Include="Scripts\angular-animate\README.md" />
+    <None Include="Properties\PublishProfiles\ETeczka.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\d3js\.gitattributes" />
     <Content Include="Scripts\d3js\.gitignore" />
