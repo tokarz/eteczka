@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Organizacja xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="jrwa.xsd">
+  <Substruktura>
+    <name>Zarzadzanie</name>
+    <elementid>0</elementid>
+    <Substruktura>
+      <name>Organy kolegialne</name>
+      <elementid>00</elementid>
+    </Substruktura>
+    <Substruktura>
+      <name>Organizacja</name>
+      <elementid>01</elementid>
+    </Substruktura>
+    <Substruktura>
+      <name>Akty normatywne. Pomoc prawna</name>
+      <elementid>02</elementid>
+    </Substruktura>
+    <Substruktura>
+      <name>Planowanie i spawozdawczosc. Statystyka</name>
+      <elementid>03</elementid>
+    </Substruktura>
+    <Substruktura>
+      <name>Informatyka</name>
+      <elementid>04</elementid>
+    </Substruktura>
+    <Substruktura>
+      <name>Skargi i wnioski</name>
+      <elementid>05</elementid>
+    </Substruktura>
+    <Substruktura>
+      <name>Prace naukowo-badawcze, wydawnictwa, popularyzacja</name>
+      <elementid>06</elementid>
+    </Substruktura>
+    <Substruktura>
+      <name>Wspólpraca z krajowymi jednostkami organizacyjnymi</name>
+      <elementid>07</elementid>
+    </Substruktura>
+    <Substruktura>
+      <name>Wspólpraca z zagranicà</name>
+      <elementid>08</elementid>
+    </Substruktura>
+    <Substruktura>
+      <name>Kontrole</name>
+      <elementid>09</elementid>
+    </Substruktura>
+  </Substruktura>
+
+  <Substruktura>
+    <name>Kadry</name>
+    <elementid>1</elementid>
+    <Substruktura>
+      <name>Ogólne zasady pracy i pΠac</name>
+      <elementid>10</elementid>
+    </Substruktura>
+    <Substruktura>
+      <name>Zatrudnienie</name>
+      <elementid>11</elementid>
+    </Substruktura>
+    <Substruktura>
+      <name>Ewidencja osobowa</name>
+      <elementid>12</elementid>
+    </Substruktura>
+    <Substruktura>
+      <name>Bezpieczeƒstwo i higiena pracy</name>
+      <elementid>13</elementid>
+    </Substruktura>
+    <Substruktura>
+      <name>Szkolenie i doskonalenie zawodowe pracowników</name>
+      <elementid>14</elementid>
+    </Substruktura>
+    <Substruktura>
+      <name>Metody pracy</name>
+      <elementid>15</elementid>
+    </Substruktura>
+    <Substruktura>
+      <name>Dyscyplina pracy</name>
+      <elementid>16</elementid>
+    </Substruktura>
+    <Substruktura>
+      <name>Sprawy socjalno-bytowe</name>
+      <elementid>17</elementid>
+    </Substruktura>
+    <Substruktura>
+      <name>Ubezpieczenia osobowe</name>
+      <elementid>18</elementid>
+    </Substruktura>
+  </Substruktura>
+
+  <Substruktura>
+    <name>Srodki Rzeczowe</name>
+    <elementid>2</elementid>
+    <Substruktura>
+      <name>
+        Podstawowe zasady gospodarowania srodkami trwalymi
+      </name>
+      <elementid>20</elementid>
+    </Substruktura>
+    <Substruktura>
+      <name>Typizacja i normalizacja</name>
+      <elementid>21</elementid>
+    </Substruktura>
+    <Substruktura>
+      <name>Inwestycje i remonty (kapitalne)</name>
+      <elementid>22</elementid>
+    </Substruktura>
+    <Substruktura>
+      <name>Administracja nieruchomoÊci</name>
+      <elementid>23</elementid>
+    </Substruktura>
+    <Substruktura>
+      <name>Gospodarka materialowa</name>
+      <elementid>24</elementid>
+    </Substruktura>
+    <Substruktura>
+      <name>Zródla zaopatrzenia</name>
+      <elementid>25</elementid>
+    </Substruktura>
+    <Substruktura>
+      <name>Transport i lacznosc</name>
+      <elementid>26</elementid>
+    </Substruktura>
+    <Substruktura>
+      <name>Gospodarka energetyczna</name>
+      <elementid>27</elementid>
+    </Substruktura>
+    <Substruktura>
+      <name>Ochrona zakΠadu pracy (mienia)</name>
+      <elementid>28</elementid>
+    </Substruktura>
+    <Substruktura>
+      <name>Ochrona srodowiska</name>
+      <elementid>29</elementid>
+    </Substruktura>
+  </Substruktura>
+
+  <Substruktura>
+    <name>Ekonomika</name>
+    <elementid>3</elementid>
+    <Substruktura>
+      <name>Podstawowe zasady ekonomiczno-finansowe</name>
+      <elementid>30</elementid>
+    </Substruktura>
+    <Substruktura>
+      <name>Finanse, ksiegowosc</name>
+      <elementid>31</elementid>
+    </Substruktura>
+    <Substruktura>
+      <name>Ksiegowosc finansowa</name>
+      <elementid>32</elementid>
+    </Substruktura>
+    <Substruktura>
+      <name>Rozliczenia plac</name>
+      <elementid>33</elementid>
+    </Substruktura>
+    <Substruktura>
+      <name>Ksiegowosc materialowo-towarowa</name>
+      <elementid>34</elementid>
+    </Substruktura>
+    <Substruktura>
+      <name>Koszty i ceny</name>
+      <elementid>35</elementid>
+    </Substruktura>
+    <Substruktura>
+      <name>Fundusze specjalne</name>
+      <elementid>36</elementid>
+    </Substruktura>
+    <Substruktura>
+      <name>Inwentaryzacja</name>
+      <elementid>37</elementid>
+    </Substruktura>
+  </Substruktura>
+
+</Organizacja>
