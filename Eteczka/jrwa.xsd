@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="Substruktura">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="name" type="xs:string"></xs:element>
+        <xs:element name="elementid" type="xs:string"></xs:element>
+        <xs:element ref="Substruktura" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Organizacja" >
+    <xs:complexType>
+      <xs:sequence minOccurs="0" maxOccurs="9">
+        <xs:element ref="Substruktura"></xs:element>
+      </xs:sequence>
+    </xs:complexType>
+
+  </xs:element>
+
+</xs:schema>
