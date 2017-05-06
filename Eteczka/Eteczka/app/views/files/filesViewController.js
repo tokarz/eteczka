@@ -33,7 +33,7 @@ angular.module('et.controllers').controller('filesViewController', ['$scope', '$
 
     }
 
-    $scope.hidePanel = false; 
+    $scope.hidePanel = false;
 
     $scope.togglePanel = function () {
         $scope.hidePanel = !$scope.hidePanel;
@@ -48,24 +48,63 @@ angular.module('et.controllers').controller('filesViewController', ['$scope', '$
 
     };
 
+
+    $scope.elementSelected = {
+        isSelected: false,
+        elm: {
+            id: null
+        }
+    };
+
     $scope.usersForFile = [];
+
+    $scope.deselectElement = function () {
+        $scope.elementSelected.isSelected = false;
+        $scope.elementSelected.elm = {
+            id: null
+        }
+        $('#pdfPreviewer').attr('data', '');
+    };
+
+    $scope.selectElement = function () {
+        $scope.elementSelected.isSelected = true;
+        $scope.elementSelected.elm = elm;
+        httpService.get('Resources/GetRestrictedResource', {
+            fileName: elm.name
+        }).then(function (result) {
+            $('#pdfPreviewer').attr('data', 'data:application/pdf;base64,' + result.data);
+        });
+    }
 
     //$('#pdfPreviewer').attr('src', 'Content/img/logo9.png');
 
     $scope.previewPdf = function (elm) {
         $scope.usersForFile = [$scope.allUsersForFile[elm.id]];
+        if ($scope.elementSelected.elm.id === elm.id) {
+            $scope.deselectElement();
+        } else {
+            $scope.selectElement();
+        }
 
-        $('#pdfPreviewer').addClass('processing');
-        httpService.get('Resources/GetRestrictedResource', {
-            fileName: elm.name
-        }).then(function (result) {
-            $('#pdfPreviewer').removeClass('processing');
-            $('#pdfPreviewer').attr('data', 'data:application/pdf;base64,' + result.data);
-        });
+
     }
 
     $scope.goBack = function () {
         $state.go('options');
+    }
+
+    $scope.isSubMenuVisible = function (panel) {
+        if ($scope.elementSelected.isSelected && panel === 'lower') {
+            return 'lowerPanelVisible';
+
+        } else if ($scope.elementSelected.isSelected && panel === 'upper') {
+            return 'upperPanelVisible'
+
+        } else if (!$scope.elementSelected.isSelected && panel === 'lower') {
+            return 'lowerPanelInvisible';
+        } else {
+            return 'upperPanelInvisible';
+        }
     }
 
 }]);

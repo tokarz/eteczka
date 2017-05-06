@@ -1,7 +1,19 @@
 ﻿'use strict';
 angular.module('et.controllers').controller('menuController', ['$scope', '$state', function ($scope, $state) {
+    $scope.userLoggedIn = false;
+
     $scope.isUserLoggedIn = function () {
-        return $state.current.name !== 'login';        
+        return $scope.userLoggedIn;
+    }
+
+    $scope.$on('USER_LOGGED_IN_EV', function () {
+        $scope.userLoggedIn = true;
+    });
+
+    $scope.goHome = function () {
+        if ($scope.userLoggedIn) {
+            $state.go('options');
+        }
     }
 
     $scope.userMenuVisible = false;
@@ -11,6 +23,7 @@ angular.module('et.controllers').controller('menuController', ['$scope', '$state
             name: "Wyloguj",
             iconClass: "glyphicon glyphicon-log-out",
             onclick: function () {
+                $scope.userLoggedIn = false;
                 $state.go('login')
             }
         },
@@ -28,7 +41,7 @@ angular.module('et.controllers').controller('menuController', ['$scope', '$state
         //        //do nothing
         //    }
         //}
-        ];
+    ];
 
     $scope.showUserOptions = function () {
         $scope.userMenuVisible = !$scope.userMenuVisible;

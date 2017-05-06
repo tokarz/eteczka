@@ -5,3 +5,5 @@ setx EAD_DIR %EAD_DIR% -m
 if not exist %EAD_DIR%\pliki (mkdir %EAD_DIR%\pliki)
 if not exist %EAD_DIR%\archiwum (mkdir %EAD_DIR%\archiwum)
 if not exist %EAD_DIR%\logs (mkdir %EAD_DIR%\logs)
+if not exist %EAD_DIR%\strukturaFirmy (mkdir %EAD_DIR%\strukturaFirmy)
+

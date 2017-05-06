@@ -43,7 +43,6 @@
         /*box-shadow: 0 0 2px 0 #046249;*/
         box-shadow: 0 0 2px 0 black;
         cursor: pointer;
-        
     }
 
     .menu-option.menu-yellow:hover {
@@ -180,4 +179,25 @@ table {
 
 .sub-option {
     height: 100%;
+}
+
+.lowerPanelVisible {
+    height: 30%;
+}
+
+.upperPanelVisible {
+    height: 70%;
+}
+
+.lowerPanelInvisible {
+    height: 0;
+}
+
+.upperPanelInvisible {
+    height: 100%;
+}
+
+tr.selected {
+    background: steelblue;
+    color: white;
 }

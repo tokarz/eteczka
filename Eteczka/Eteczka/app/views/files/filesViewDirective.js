@@ -5,7 +5,8 @@ angular.module('et.directives').directive('filesView', function () {
         scope: {},
         controller: 'filesViewController',
         templateUrl: 'app/views/files/filesView.html',
-        link: function (scope) {
+        link: function (scope, element) {
+
 
             scope.randomData = function () {
                 var diskUsageData = [

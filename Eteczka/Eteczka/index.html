@@ -10,24 +10,25 @@
     <div id="rootWrapper" class="resizable">
         <div id="header" class="jumbotron text-center ui-toolbar" style="padding:0;margin:0">
             <div class="row justify-content-md-center">
-                <div class="col-md-offset-1 col-md-3">
-                    <span class="glyphicon glyphicon-leaf" style="font-size:50px;color:white;float:left"></span><h3 style="text-align:left;float:left;margin-left:5px" ng-bind="startupContext.title"></h3>
+                <div class="col-md-offset-1 col-md-3" ng-click="goHome()">
+                    <span class="glyphicon glyphicon-leaf" style="font-size:50px;color:white;float:left;margin-top:25px"></span>
+                    <h3 style="text-align:left;float:left;margin:30px 10px;padding:0" ng-bind="startupContext.title"></h3>
                 </div>
                 <div class="col-sm-6 col-md-4">
                     <h1 ng-bind="dot.one"></h1>
                 </div>
-                <div class="col-sm-6 col-md-4" ng-controller="menuController">
-                    <div class="row text-center" style="padding:5px" ng-show="isUserLoggedIn()">
+                <div class="col-sm-6 col-md-3" ng-controller="menuController">
+                    <div class="row text-center" style="padding:5px" ng-show="userLoggedIn">
                         <div class=" col-md-offset-3 col-md-4 menu-button">
-                            <div class="glyphicon glyphicon-question-sign" style="font-size:25px"></div>
+                            <!--<div class="glyphicon glyphicon-question-sign" style="font-size:25px"></div>
                             <div class="caption">
                                 <h3>Pomoc</h3>
-                            </div>
+                            </div>-->
                         </div>
                         <div class="col-md-4 menu-button user-button" ng-click="showUserOptions()">
-                            <div class="glyphicon glyphicon-user" style="font-size:25px"></div>
+                            <div class="glyphicon glyphicon-user" style="font-size:25px;margin-top:25px"></div>
                             <div class="caption">
-                                <h3>Uzytkownik</h3>
+                                <h3 style="margin:0;padding:0">Uzytkownik</h3>
                             </div>
                             <div class="user-menu-options" ng-show="userMenuVisible">
                                 <div ng-repeat="option in userMenuOptions" class="userOption">
@@ -80,6 +81,7 @@
     <script src="app/views/employees/employeesViewController.js"></script>
     <script src="app/views/employees/employeesViewDirective.js"></script>
     <script src="app/views/employees/employeesService.js"></script>
+    <script src="app/views/processing/processingDirective.js"></script>
     <script src="app/main/header/menu/menuController.js"></script>
     <script src="app/main/files/filesController.js"></script>
     <script src="app/main/utils/utils.js"></script>

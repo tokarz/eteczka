@@ -59,6 +59,8 @@
     <Compile Include="Controllers\PracownicyKontroler.cs" />
     <Compile Include="Controllers\ResourcesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="DTO\OrganizacjaDTO.cs" />
+    <Compile Include="DTO\PlikJrwaDTO.cs" />
     <Compile Include="DTO\Uprawnienia.cs" />
     <Compile Include="DTO\UserDto.cs" />
     <Compile Include="Services\UsersService.cs" />
@@ -71,6 +73,7 @@
     <Compile Include="Enums\FileType.cs" />
     <Compile Include="Handlers\FileResourcesHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\JrwaParser.cs" />
     <Compile Include="Utils\Osys.cs" />
     <Compile Include="Utils\PlikiUtils.cs" />
   </ItemGroup>
