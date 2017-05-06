@@ -36,7 +36,7 @@
     height: 90%;
     width: 98%;
     /*margin: 22px auto;*/
-    padding: 90px;
+    padding: 0px;
 }
 
     .menu-option:hover {
@@ -173,7 +173,12 @@ table {
     height: 100%;
 }
 
-.emp-btn {
+.modal-footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+    .emp-btn {
     width: 90%;
 }
 
