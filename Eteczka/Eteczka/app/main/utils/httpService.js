@@ -5,8 +5,9 @@ angular.module('et.services').factory('httpService', ['$http', '$q', function ($
             var deferred = $q.defer();
             $http.get(url, { params: params }).then(function (result) {
                 deferred.resolve(result.data);
-            }, function () {
-                deferred.reject(result);
+            }, function (err) {
+                console.error(err);
+                deferred.reject(err);
             });
 
             return deferred.promise;

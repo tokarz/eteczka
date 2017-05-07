@@ -1,5 +1,5 @@
 ﻿<div style="height:100%">
-    <div id="upperFilePanel" class="row justify-content-md-center" style="height:70%">
+    <div id="upperFilePanel" class="row justify-content-md-center" ng-class="isSubMenuVisible('upper')">
         <div class="col-md-6" style="height: 100%;overflow:auto;padding:0">
             <div style="height:5%;width:100%;float:left;color:white">
                 <div style="width:90%;margin:auto;background:steelblue">
@@ -14,7 +14,7 @@
                     </div>
                 </div>
             </div>
-            <div style="height:90%;width:100%;float:left">
+            <div id="fileTableWrapper" style="height:90%;width:100%;float:left">
                 <table class="table-bordered table-hover table-striped" style="width:90%;height:90%;margin:auto">
                     <thead class="info ui-toolbar" style="height:35px">
                         <tr style="height:40px">
@@ -24,7 +24,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="file in files" ng-click="previewPdf(file)" style="cursor:pointer;height:35px">
+                        <tr ng-repeat="file in files" ng-click="previewPdf(file)" style="cursor:pointer;height:35px" ng-class="{selected: file.id === elementSelected.elm.id}">
                             <td>{{file.date}}</td>
                             <td>{{file.name}}</td>
                             <td>{{file.type}}</td>
@@ -47,7 +47,7 @@
             </div>
         </div>
     </div>
-    <div id="lowerFilePanel" ng-show="elementselected.isSelected" class="row justify-content-md-center" style="height:30%">
+    <div id="lowerFilePanel" ng-show="elementSelected.isSelected" class="row justify-content-md-center" ng-class="isSubMenuVisible('lower')">
         <div class="col-md-4" style="box-shadow: 0 0 2px 0 black;height:100%;background-color: white">
             <h3 style="text-align:center">Akcje</h3>
             <div class="row justify-content-md-center">

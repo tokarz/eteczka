@@ -36,14 +36,13 @@
     height: 90%;
     width: 98%;
     /*margin: 22px auto;*/
-    padding: 90px;
+    padding: 0px;
 }
 
     .menu-option:hover {
         /*box-shadow: 0 0 2px 0 #046249;*/
         box-shadow: 0 0 2px 0 black;
         cursor: pointer;
-        
     }
 
     .menu-option.menu-yellow:hover {
@@ -174,10 +173,36 @@ table {
     height: 100%;
 }
 
-.emp-btn {
+.modal-footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+    .emp-btn {
     width: 90%;
 }
 
 .sub-option {
     height: 100%;
+}
+
+.lowerPanelVisible {
+    height: 30%;
+}
+
+.upperPanelVisible {
+    height: 70%;
+}
+
+.lowerPanelInvisible {
+    height: 0;
+}
+
+.upperPanelInvisible {
+    height: 100%;
+}
+
+tr.selected {
+    background: steelblue;
+    color: white;
 }

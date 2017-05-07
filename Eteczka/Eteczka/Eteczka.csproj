@@ -216,8 +216,12 @@
     <Content Include="app\views\options\optionsView.html" />
     <Content Include="app\views\options\optionsViewController.js" />
     <Content Include="app\views\options\optionsViewDirective.js" />
+    <Content Include="app\views\processing\processing.html" />
+    <Content Include="app\views\processing\processingDirective.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\img\cube.svg" />
+    <Content Include="Content\img\load-indicator50.gif" />
     <Content Include="Content\img\logo9.png" />
     <Content Include="Content\Site.css" />
     <Content Include="favicon.ico" />

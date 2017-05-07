@@ -48,13 +48,19 @@ app.config(function ($stateProvider) {
         name: 'addUsers',
         template: '<add-users-view></add-users-view>'
     };
-    
+    var processingState = {
+        url: '/processing',
+        name: 'processing',
+        template: '<processing></processing>'
+    };
+
 
     $stateProvider.state(loginState);
     $stateProvider.state(optionsState);
     $stateProvider.state(filesState);
     $stateProvider.state(employeesState);
     $stateProvider.state(addUsersState);
+    $stateProvider.state(processingState);
 });
 
 // IE chached $http.get Aufrufe (z.B. in statusbarController)
