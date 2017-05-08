@@ -1,11 +1,16 @@
 ﻿<div style="height:100%">
+    <div class="navigationPanel row">
+        <div class="col-md-6">
+            <a ng-click="goBack()" class="glyphicon glyphicon-circle-arrow-left" style="font-size:20px;color:white;background:black"></a>
+        </div>
+    </div>
     <div id="upperFilePanel" class="row justify-content-md-center" ng-class="isSubMenuVisible('upper')">
-        <div class="col-md-6" style="height: 100%;overflow:auto;padding:0">
+        <div style="height: 100%;overflow:auto;padding:0" ng-class="isSubMenuVisible('lowerLeft')">
             <div style="height:5%;width:100%;float:left;color:white">
                 <div style="width:90%;margin:auto;background:steelblue">
                     <div style="float:left">
                         <ul style="list-style:none;display:inline-flex;width:100%;height:50px;padding-left:0">
-                            <li> <button class="btn btn-success">Dodaj</button> </li>
+                            <li> <button class="btn btn-success" ng-click="tryAddFile()">Dodaj</button> </li>
                             <li> <button class="btn btn-danger">Usun</button> </li>
                         </ul>
                     </div>
@@ -15,24 +20,51 @@
                 </div>
             </div>
             <div id="fileTableWrapper" style="height:90%;width:100%;float:left">
-                <table class="table-bordered table-hover table-striped" style="width:90%;height:90%;margin:auto">
+                <table class="table-bordered table-hover table-striped" style="width:90%;margin:auto">
                     <thead class="info ui-toolbar" style="height:35px">
                         <tr style="height:40px">
-                            <th>Data</th>
+                            <th>Typ</th>
                             <th>Nazwa pliku</th>
-                            <th>Grupa</th>
+                            <th>Jrwa</th>
+                            <th>Data utworzenia</th>
+                            <th>Data modyfikacji</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr ng-repeat="file in files" ng-click="previewPdf(file)" style="cursor:pointer;height:35px" ng-class="{selected: file.id === elementSelected.elm.id}">
-                            <td>{{file.date}}</td>
-                            <td>{{file.name}}</td>
-                            <td>{{file.type}}</td>
+                    <tbody style="height:100%">
+                        <tr class="file-row" ng-repeat="file in files" ng-click="previewPdf(file)" style="cursor:pointer;height:35px" ng-class="{selected: file.Id === elementSelected.elm.Id}">
+                            <td>
+                                <div>
+                                    {{file.TypDokumentu}}
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    {{file.Nazwa}}
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    {{file.Jrwa}}
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    {{file.DataUtworzenia}}
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    {{file.DataModyfikacji}}
+                                </div>
+                            </td>
                         </tr>
                     </tbody>
                     <tfoot class="ui-toolbar" style="height:35px">
                         <tr>
-                            <th ng-click="goBack()"><a class="glyphicon glyphicon-circle-arrow-left" style="font-size:20px;color:white"></a></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -41,7 +73,7 @@
 
             </div>
         </div>
-        <div class="col-md-6" style="box-shadow:0 0 2px 0 black;height: 100%">
+        <div style="box-shadow:0 0 2px 0 black;height: 100%" ng-class="isSubMenuVisible('lowerRight')">
             <div style="width:100%;height:100%;">
                 <object id="pdfPreviewer" data="" type="application/pdf" style="height:100%;width:100%" />
             </div>
@@ -127,9 +159,9 @@
                 </tfoot>
             </table>
         </div>
-        <div class="col-md-4" style="box-shadow: 0 0 2px 0 black;height:100%;background-color: lightsteelblue">
-            <h3 style="text-align:center">Statystyki</h3>
-            <div style="height:100%;width:90%;margin:auto">
+        <div class="col-md-4" style="box-shadow: 0 0 2px 0 black;height:100%;background-color: lightsteelblue;padding:15px">
+            <h3 style="text-align:center;padding:0;margin:0">Statystyki</h3>
+            <div style="width:90%;margin:0 auto">
                 <div style="text-align:center">
                     <div id="diskUsage">
                     </div>

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Configuration;
 
 namespace Eteczka.BE.Controllers
 {
@@ -13,7 +14,14 @@ namespace Eteczka.BE.Controllers
 
         public ActionResult GetRestrictedResource(string fileName)
         {
-            string filepath = AppDomain.CurrentDomain.BaseDirectory + "Content/Restricted/" + fileName;
+
+            string eadRootName = ConfigurationManager.AppSettings["rootdir"];
+
+            string eadRoot = System.Environment.GetEnvironmentVariable(eadRootName);
+
+            string configurationPath = eadRoot + "/pliki/";
+
+            string filepath = configurationPath + fileName;
             byte[] filedata = System.IO.File.ReadAllBytes(filepath);
             string contentType = MimeMapping.GetMimeMapping(filepath);
 

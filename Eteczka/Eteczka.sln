@@ -26,6 +26,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eteczka.Utils", "Eteczka.Ut
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eteczka.DB.Tests", "Eteczka.DB.Test\Eteczka.DB.Tests.csproj", "{07720BCE-FB46-4C58-8058-4E1136E84C80}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "jrwa", "jrwa", "{2F2B6F3F-2A9D-4AA9-9BCC-761462FE3515}"
+	ProjectSection(SolutionItems) = preProject
+		jrwa.xml = jrwa.xml
+		jrwa.xsd = jrwa.xsd
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

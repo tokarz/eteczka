@@ -1,20 +1,25 @@
 ﻿'use strict';
-angular.module('et.controllers').controller('filesViewController', ['$scope', '$state', 'httpService', function ($scope, $state, httpService) {
-    $scope.files = [
-        { id: 0, date: '2011-11-11', name: 'FolienMisko.pdf', type: 'Szkolenie' },
-         { id: 1, date: '2011-11-12', name: 'Tiguan.pdf', type: 'Oferta' },
-         { id: 2, date: '2011-11-12', name: 'Tiguan.pdf', type: 'Oferta' },
-         { id: 3, date: '2011-11-12', name: 'Tiguan.pdf', type: 'Oferta' },
-         { id: 4, date: '2011-11-12', name: 'Tiguan.pdf', type: 'Oferta' },
-         { id: 5, date: '2011-11-12', name: 'Tiguan.pdf', type: 'Oferta' },
-         { id: 5, date: '2011-11-12', name: 'Tiguan.pdf', type: 'Oferta' },
-         { id: 6, date: '2011-11-12', name: 'Tiguan.pdf', type: 'Oferta' },
-         { id: 7, date: '2011-11-12', name: 'Tiguan.pdf', type: 'Oferta' },
-         { id: 8, date: '2011-11-12', name: 'Tiguan.pdf', type: 'Oferta' },
-         { id: 8, date: '2011-11-12', name: 'Tiguan.pdf', type: 'Oferta' },
-         { id: 8, date: '2011-11-12', name: 'Tiguan.pdf', type: 'Oferta' },
-         { id: 9, date: '2011-11-12', name: 'Tiguan.pdf', type: 'Oferta' }
-    ];
+angular.module('et.controllers').controller('filesViewController', ['$scope', '$state', 'httpService', 'filesViewService', 'editEmployeeService', function ($scope, $state, httpService, filesViewService, editEmployeeService) {
+    //public string Id { get; set; }
+    //public string Nazwa { get; set; }
+    //public string PelnaSciezka { get; set; }
+    //public string Jrwa { get; set; }
+    //public string JrwaId { get; set; }
+    //public DateTime DataUtworzenia { get; set; }
+    //public DateTime DataModyfikacji { get; set; }
+    //public string TypDokumentu { get; set; }
+
+    $scope.files = [];
+    $scope.addFileTemplate = {
+        title: 'Dodawanie nowego Pliku',
+        templateUrl: 'app/views/files/addFile/addFIle.html'
+    };
+
+    filesViewService.getAllFiles().then(function (res) {
+        if (res && res.pliki) {
+            $scope.files = res.pliki
+        }
+    });
 
     $scope.allUsersForFile = {
         '0': { date: '1410-01-01', name: 'test', type: '01' },
@@ -29,30 +34,12 @@ angular.module('et.controllers').controller('filesViewController', ['$scope', '$
         '9': { date: '1410-01-10', name: 'test', type: 'X0' }
     }
 
-    $scope.fillInUserData = function (user) {
-
-    }
-
     $scope.hidePanel = false;
-
-    $scope.togglePanel = function () {
-        $scope.hidePanel = !$scope.hidePanel;
-
-        if ($scope.hidePanel) {
-            $('#lowerFilePanel').css('height', '0');
-            $('#upperFilePanel').css('height', '98%');
-        } else {
-            $('#upperFilePanel').css('height', '49%');
-            $('#lowerFilePanel').css('height', '49%');
-        }
-
-    };
-
 
     $scope.elementSelected = {
         isSelected: false,
         elm: {
-            id: null
+            Id: null
         }
     };
 
@@ -61,16 +48,16 @@ angular.module('et.controllers').controller('filesViewController', ['$scope', '$
     $scope.deselectElement = function () {
         $scope.elementSelected.isSelected = false;
         $scope.elementSelected.elm = {
-            id: null
+            Id: null
         }
         $('#pdfPreviewer').attr('data', '');
     };
 
-    $scope.selectElement = function () {
+    $scope.selectElement = function (elm) {
         $scope.elementSelected.isSelected = true;
         $scope.elementSelected.elm = elm;
         httpService.get('Resources/GetRestrictedResource', {
-            fileName: elm.name
+            fileName: elm.Nazwa
         }).then(function (result) {
             $('#pdfPreviewer').attr('data', 'data:application/pdf;base64,' + result.data);
         });
@@ -79,14 +66,12 @@ angular.module('et.controllers').controller('filesViewController', ['$scope', '$
     //$('#pdfPreviewer').attr('src', 'Content/img/logo9.png');
 
     $scope.previewPdf = function (elm) {
-        $scope.usersForFile = [$scope.allUsersForFile[elm.id]];
-        if ($scope.elementSelected.elm.id === elm.id) {
+        $scope.usersForFile = [$scope.allUsersForFile[elm.Id]];
+        if ($scope.elementSelected.elm.Id === elm.Id) {
             $scope.deselectElement();
         } else {
-            $scope.selectElement();
+            $scope.selectElement(elm);
         }
-
-
     }
 
     $scope.goBack = function () {
@@ -94,17 +79,49 @@ angular.module('et.controllers').controller('filesViewController', ['$scope', '$
     }
 
     $scope.isSubMenuVisible = function (panel) {
-        if ($scope.elementSelected.isSelected && panel === 'lower') {
-            return 'lowerPanelVisible';
+        if (panel === 'lowerLeft') {
+            if ($scope.elementSelected.isSelected) {
+                return 'col-md-6'
+            } else {
+                return 'col-md-12'
+            }
 
-        } else if ($scope.elementSelected.isSelected && panel === 'upper') {
-            return 'upperPanelVisible'
-
-        } else if (!$scope.elementSelected.isSelected && panel === 'lower') {
-            return 'lowerPanelInvisible';
-        } else {
-            return 'upperPanelInvisible';
+        } else if (panel === 'lowerRight') {
+            if ($scope.elementSelected.isSelected) {
+                return 'col-md-6'
+            } else {
+                return 'not-visible'
+            }
         }
+        else {
+            if ($scope.elementSelected.isSelected && panel === 'lower') {
+                return 'lowerPanelVisible';
+
+            } else if ($scope.elementSelected.isSelected && panel === 'upper') {
+                return 'upperPanelVisible'
+
+            } else if (!$scope.elementSelected.isSelected && panel === 'lower') {
+                return 'lowerPanelInvisible';
+            } else {
+                return 'upperPanelInvisible';
+            }
+
+        }
+
     }
+
+    $scope.ok = function () {
+        alert('OK LOCAL');
+    }
+
+    $scope.tryAddFile = function () {
+        editEmployeeService.showModal($scope.addFileTemplate).then(function (result) {
+            alert('Result ' + result)
+        }).catch(function (error) {
+            console.log("error found!");
+        });
+
+    }
+
 
 }]);

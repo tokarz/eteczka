@@ -21,7 +21,7 @@ namespace Eteczka.DB.DAO
         [SetUp]
         public void setUp()
         {
-            _Sut = new KatLoginDAO(new DbConnectionFactory(new ConnectionDetails("localhost", "5432", "E-Agropin-EAD")));
+            _Sut = new KatLoginDAO(new DbConnectionFactory(new ConnectionDetails("postgres", "admin", "localhost", "5432", "E-Agropin-EAD")));
         }
 
         [Test]

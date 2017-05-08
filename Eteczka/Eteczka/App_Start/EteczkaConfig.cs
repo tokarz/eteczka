@@ -4,8 +4,10 @@ using System.IO;
 
 namespace Eteczka
 {
-    public class EteczkaConfig
+    public static class EteczkaConfig
     {
+        public static string DbUser { get; private set; }
+        public static string DbPassword { get; private set; }
         public static string DbHost { get; private set; }
         public static string DbName { get; private set; }
         public static string DbPort { get; private set; }
@@ -13,6 +15,8 @@ namespace Eteczka
 
         public static void InitSystem()
         {
+            DbUser = ConfigurationManager.AppSettings["dbuser"];
+            DbPassword = ConfigurationManager.AppSettings["dbpassword"];
             DbHost = ConfigurationManager.AppSettings["dbhost"];
             DbName = ConfigurationManager.AppSettings["dbname"];
             DbPort = ConfigurationManager.AppSettings["dbport"];

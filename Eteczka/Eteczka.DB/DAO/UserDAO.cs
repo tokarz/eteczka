@@ -1,8 +1,4 @@
-﻿using System;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data;
 using Eteczka.DB.Entities;
 using Eteczka.DB.Connection;
 using System.Collections.Generic;
@@ -20,7 +16,7 @@ namespace Eteczka.DB.DAO
 
         public User GetUserByName(string name)
         {
-            string sqlQuery = "SELECT * from users where name = '" + name + "';";
+            string sqlQuery = "SELECT * from KatPracownicy where imie = '" + name + "';";
             User fetchedUser = new User();
 
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
@@ -31,8 +27,8 @@ namespace Eteczka.DB.DAO
                 fetchedUser.Imie = row[1].ToString();
                 fetchedUser.Nazwisko = row[2].ToString();
                 fetchedUser.PESEL = row[3].ToString();
-                fetchedUser.DataUrodzenia = row[4].ToString();
-                fetchedUser.Dzial = row[5].ToString();
+                fetchedUser.Dzial = row[4].ToString();
+                fetchedUser.DataUrodzenia = row[5].ToString();
             }
 
             return fetchedUser;
@@ -40,7 +36,7 @@ namespace Eteczka.DB.DAO
 
         public List<User> GetAllUsers()
         {
-            string sqlQuery = "SELECT * from users;";
+            string sqlQuery = "SELECT * from \"KatPracownicy\";";
             List<User> fetchedUsers = new List<User>();
 
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
@@ -52,8 +48,8 @@ namespace Eteczka.DB.DAO
                 fetchedUser.Imie = row[1].ToString();
                 fetchedUser.Nazwisko = row[2].ToString();
                 fetchedUser.PESEL = row[3].ToString();
-                fetchedUser.DataUrodzenia = row[4].ToString();
-                fetchedUser.Dzial = row[5].ToString();
+                fetchedUser.Dzial = row[4].ToString();
+                fetchedUser.DataUrodzenia = row[5].ToString();
 
                 fetchedUsers.Add(fetchedUser);
             }

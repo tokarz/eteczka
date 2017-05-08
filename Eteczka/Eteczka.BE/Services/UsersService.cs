@@ -12,11 +12,13 @@ namespace Eteczka.BE.Services
         {
             UserDto wczytanyUser = null;
 
+            string user = ConfigurationManager.AppSettings["dbuser"];
+            string dbPassword = ConfigurationManager.AppSettings["dbpassword"];
             string host = ConfigurationManager.AppSettings["dbhost"];
             string port = ConfigurationManager.AppSettings["dbport"];
             string name = ConfigurationManager.AppSettings["dbname"];
 
-            KatLoginDAO dao = new KatLoginDAO(new DbConnectionFactory(new ConnectionDetails(host, port, name)));
+            KatLoginDAO dao = new KatLoginDAO(new DbConnectionFactory(new ConnectionDetails(user, dbPassword, host, port, name)));
             KatLoginy result = dao.WczytajPracownikaPoNazwieIHasle(username, password);
             if (result != null)
             {

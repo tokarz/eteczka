@@ -205,6 +205,7 @@
     <Content Include="app\views\employees\employeesView.html" />
     <Content Include="app\views\employees\employeesViewController.js" />
     <Content Include="app\views\employees\employeesViewDirective.js" />
+    <Content Include="app\views\files\addFile\addFIle.html" />
     <Content Include="app\views\files\filesView.html" />
     <Content Include="app\views\files\filesViewController.js" />
     <Content Include="app\views\files\filesViewDirective.js" />
@@ -522,6 +523,7 @@
     <Content Include="Scripts\angular-animate\LICENSE.md" />
     <Content Include="Scripts\angular-animate\package.json" />
     <Content Include="Scripts\angular-animate\README.md" />
+    <Content Include="Content\Restricted\FolienMiskoImport.pdf" />
     <None Include="Properties\PublishProfiles\ETeczka.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\d3js\.gitattributes" />

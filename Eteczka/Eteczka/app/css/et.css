@@ -36,7 +36,7 @@
     height: 90%;
     width: 98%;
     /*margin: 22px auto;*/
-    padding: 90px;
+    padding: 1em;
 }
 
     .menu-option:hover {
@@ -125,6 +125,12 @@ table {
     box-shadow: 1px 1px 3px 1px black;
 }
 
+.row-10 {
+    height: 10%;
+    width: 100%;
+    float: left;
+}
+
 .row-25 {
     height: 25%;
     width: 100%;
@@ -133,6 +139,12 @@ table {
 
 .row-50 {
     height: 50%;
+    width: 100%;
+    float: left;
+}
+
+.row-80 {
+    height: 80%;
     width: 100%;
     float: left;
 }
@@ -151,7 +163,8 @@ table {
 }
 
 #content {
-    min-height: 500px;
+    min-height: 450px;
+    overflow-y: auto;
     overflow-x: hidden;
     background: whitesmoke;
     padding: 0;
@@ -197,7 +210,22 @@ table {
     height: 100%;
 }
 
-tr.selected {
-    background: steelblue;
+tr.selected td {
+    background: darkgray;
     color: white;
+}
+
+.not-visible {
+    display: none;
+}
+
+.file-row,
+.file-row td {
+    height: 35px;
+}
+
+.panel-title {
+    text-align: center;
+    color:white;
+    background: steelblue;
 }

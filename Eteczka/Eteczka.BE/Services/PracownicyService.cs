@@ -17,11 +17,13 @@ namespace Eteczka.BE.Services
 
         public List<PracownikDTO> PobierzWszystkich()
         {
+            string user = ConfigurationManager.AppSettings["dbuser"];
+            string password = ConfigurationManager.AppSettings["dbpassword"];
             string host = ConfigurationManager.AppSettings["dbhost"];
             string port = ConfigurationManager.AppSettings["dbport"];
             string name = ConfigurationManager.AppSettings["dbname"];
 
-            IConnectionDetails connectionDetails = new ConnectionDetails(host, port, name);
+            IConnectionDetails connectionDetails = new ConnectionDetails(user, password, host, port, name);
             IDbConnectionFactory factory = new DbConnectionFactory(connectionDetails);
 
             _Dao = new UserDAO(factory);
