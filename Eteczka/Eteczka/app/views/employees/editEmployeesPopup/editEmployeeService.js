@@ -11,10 +11,10 @@ angular.module('et.services').service('editEmployeeService', ['$uibModal',
                 if (!modalDefaults.controller) {
                     modalDefaults.controller = function ($scope, $uibModalInstance) {
                         $scope.modalOptions = customModalOptions
-                        $scope.employee = {}
+                        $scope.modalResult = {}
 
                         $scope.modalOptions.ok = function () {
-                            $uibModalInstance.close($scope.employee);
+                            $uibModalInstance.close($scope.modalResult);
                         };
                         $scope.modalOptions.cancel = function () {
                             $uibModalInstance.dismiss('cancel');
