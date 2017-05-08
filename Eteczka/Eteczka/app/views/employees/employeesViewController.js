@@ -1,6 +1,11 @@
 ﻿'use strict';
 angular.module('et.controllers').controller('employeesViewController', ['$scope', '$state', 'utilsService', 'employeesService', 'editEmployeeService', function ($scope, $state, utilsService, employeesService, editEmployeeService) {
     $scope.users = [];
+    $scope.selectedUser = null;
+
+    $scope.isUserSet = function () {
+        return ($scope.selectedUser != null)
+    }
 
     employeesService.getAll().then(function (result) {
         $scope.users = result.data.data;
@@ -8,6 +13,11 @@ angular.module('et.controllers').controller('employeesViewController', ['$scope'
 
     $scope.goBack = function () {
         $state.go('options');
+    }
+
+    $scope.setUser = function () {
+        console.log('clicked on a row', this);
+        $scope.selectedUser = this.user;
     }
 
     $scope.triggerAddEmployeePopup = function () {
