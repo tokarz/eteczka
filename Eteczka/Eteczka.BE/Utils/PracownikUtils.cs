@@ -16,13 +16,13 @@ namespace Eteczka.BE.Utils
         {
             List<PracownikDTO> PracownicyZPlikiem = new List<PracownikDTO>();
 
-            foreach (string file in  PracownikDTO.Pliki)  //new PracownikDTO().Pliki???
+            foreach (string file in  new PracownikDTO().Pliki)  //new PracownikDTO().Pliki???
             {
 
                 string nazwaPliku = new PlikiUtils().WezNazwePlikuZeSciezki(file);
                 if (nazwaPliku.Contains(plik))
                 {
-                    PracownicyZPlikiem.Add(PracownikDTO);
+                    PracownicyZPlikiem.Add(new PracownikDTO());
                 }
 
             }
