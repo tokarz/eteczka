@@ -1,18 +1,10 @@
 ﻿'use strict';
 angular.module('et.controllers').controller('filesViewController', ['$scope', '$state', 'httpService', 'filesViewService', 'editEmployeeService', function ($scope, $state, httpService, filesViewService, editEmployeeService) {
-    //public string Id { get; set; }
-    //public string Nazwa { get; set; }
-    //public string PelnaSciezka { get; set; }
-    //public string Jrwa { get; set; }
-    //public string JrwaId { get; set; }
-    //public DateTime DataUtworzenia { get; set; }
-    //public DateTime DataModyfikacji { get; set; }
-    //public string TypDokumentu { get; set; }
-
     $scope.files = [];
     $scope.addFileTemplate = {
         title: 'Dodawanie nowego Pliku',
-        templateUrl: 'app/views/files/addFile/addFIle.html'
+        body: 'app/views/files/addFile/addFile.html',
+        parameters: []
     };
 
     filesViewService.getAllFiles().then(function (res) {
@@ -115,8 +107,12 @@ angular.module('et.controllers').controller('filesViewController', ['$scope', '$
     }
 
     $scope.tryAddFile = function () {
+        $scope.addFileTemplate.parameters = [
+            { jrwa: 'xxx' },
+            { files: ['Umowa', 'Szkolenie', 'BHP', 'Certyfikat'] }
+        ];
         editEmployeeService.showModal($scope.addFileTemplate).then(function (result) {
-            alert('Result ' + result)
+            alert('Result ' + result.selectedFile)
         }).catch(function (error) {
             console.log("error found!");
         });

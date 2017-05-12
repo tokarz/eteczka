@@ -1,8 +1,18 @@
 ﻿<form>
-    <div>
-        <h1>
-            {{modalResult.title}}
-        </h1>
-        <input type="text" value="x...." ng-model="modalResult.title" />
+    <div style="width:50%;height:100%;float:left">
+        <div class="modal-jrwa-header" style="width:100%;height:30%;float:left">
+            <lable for="jrwaInput">Nr Akt</lable>
+            <input type="text" ng-model="parameters[0].jrwa" value="{{parameters[0].jrwa}}" disabled />
+        </div>
+        <div class="modal-file-details" style="width:100%;height:30%;float:left">
+            <label for="fileTypes">Typ Pliku</label>
+            <select name="fileTypes" >
+                <option ng-model="modalResult.selectedFile" ng-repeat="file in parameters[1].files">{{file}}</option>
+            </select>
+        </div>
+        <div class="modal-jrwa-footer" style="width:100%;height:30%;float:left"></div>
+    </div>
+    <div style="width:50%;height:100%;float:left">
+        <div style="height:100%;width:90%;margin:auto;background:darkgray"></div>
     </div>
 </form>

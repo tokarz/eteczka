@@ -178,8 +178,8 @@ table {
 
 
 .modal-dialog {
-    height: 600px;
-    width: 600px;
+     width:90%;
+    height:90%;
 }
 
 .modal-content {
@@ -234,3 +234,4 @@ tr.selected td {
     color:white;
     background: steelblue;
 }
+

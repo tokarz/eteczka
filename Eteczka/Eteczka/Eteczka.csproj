@@ -20,7 +20,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
-    <UseGlobalApplicationHostFile />
+    <UseGlobalApplicationHostFile>True</UseGlobalApplicationHostFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -205,7 +205,7 @@
     <Content Include="app\views\employees\employeesView.html" />
     <Content Include="app\views\employees\employeesViewController.js" />
     <Content Include="app\views\employees\employeesViewDirective.js" />
-    <Content Include="app\views\files\addFile\addFIle.html" />
+    <Content Include="app\views\files\addFile\addFile.html" />
     <Content Include="app\views\files\filesView.html" />
     <Content Include="app\views\files\filesViewController.js" />
     <Content Include="app\views\files\filesViewDirective.js" />
