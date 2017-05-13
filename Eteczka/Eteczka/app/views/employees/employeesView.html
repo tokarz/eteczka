@@ -16,16 +16,15 @@
             </div>
         </div>
         <div id="usersTable" class="col-md-11" style="height:100%;border-right: 1px solid black;box-shadow:0 0 2px 0 black;background:white;text-align:center">
-            <div style="width:90%;margin:auto">
+            <div style="width:90%;margin:auto;height:100%;overflow:auto">
                 <div style="float:right">
-                    <a style="margin-right:-15px" class="glyphicon glyphicon-search"></a><input placeholder="Wyszukaj Pracownika" type="search" style="border:none;border-radius:5px;box-shadow:0 0 1px 1px black" />
+                    <a style="margin-right:-15px" class="glyphicon glyphicon-search"></a>
+                    <input ng-model="searchEmployee" placeholder="Wyszukaj Pracownika" type="search" style="border:none;border-radius:5px;box-shadow:0 0 1px 1px black" />
                 </div>
-                <table style="width:100%">
+                <table class="table-bordered table-striped" style="width:100%">
                     <thead class="info ui-toolbar" style="height:35px">
-                        <tr style="background:white;color:#046249">
-                            <th colspan="6" style="text-align:center">PRACOWNICY</th>
-                        </tr>
-                        <tr>
+
+                        <tr style="height:80px">
                             <th>Id</th>
                             <th>Imie</th>
                             <th>Nazwisko</th>
@@ -35,7 +34,7 @@
                         </tr>
                     </thead>
                     <tbody ng-show="users.length > 0">
-                        <tr ng-repeat="user in users" ng-click="setUser()">
+                        <tr ng-repeat="user in users | filter: searchEmployee" ng-click="setUser()" style="height:50px">
                             <td>{{user.Id}}</td>
                             <td>{{user.Imie}}</td>
                             <td>{{user.Nazwisko}}</td>

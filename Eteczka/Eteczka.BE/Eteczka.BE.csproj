@@ -30,6 +30,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL" />
     <Reference Include="PdfSharp, Version=1.32.3057.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
       <HintPath>..\packages\PDFsharp.1.32.3057.0\lib\net20\PdfSharp.dll</HintPath>
       <Private>True</Private>
@@ -55,16 +56,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\FilesImportController.cs" />
     <Compile Include="Controllers\FileTypeController.cs" />
     <Compile Include="Controllers\PlikiController.cs" />
     <Compile Include="Controllers\PracownicyKontroler.cs" />
     <Compile Include="Controllers\ResourcesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="DTO\ImportResult.cs" />
     <Compile Include="DTO\OrganizacjaDTO.cs" />
     <Compile Include="DTO\PlikiDTO.cs" />
     <Compile Include="DTO\PlikJrwaDTO.cs" />
     <Compile Include="DTO\Uprawnienia.cs" />
     <Compile Include="DTO\UserDto.cs" />
+    <Compile Include="Services\ImportService.cs" />
+    <Compile Include="Services\IImportService.cs" />
     <Compile Include="Services\PlikiService.cs" />
     <Compile Include="Services\IPlikiService.cs" />
     <Compile Include="Services\UsersService.cs" />

@@ -36,5 +36,17 @@ namespace Eteczka.BE.Controllers
                 data = pracownicy
             }, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult ImportujJson(string sessionId)
+        {
+            bool success = false;
+
+            success = this._PracownicyService.ImportujJson(sessionId);
+
+            return Json(new
+            {
+                success = success
+            }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

@@ -8,6 +8,8 @@ using Eteczka.DB.DAO;
 using Eteczka.DB.Connection;
 using Eteczka.DB.Entities;
 using System.Configuration;
+using System.IO;
+using Newtonsoft.Json.Linq;
 
 namespace Eteczka.BE.Services
 {
@@ -48,5 +50,8 @@ namespace Eteczka.BE.Services
 
             return result;
         }
+
+
+        
     }
 }

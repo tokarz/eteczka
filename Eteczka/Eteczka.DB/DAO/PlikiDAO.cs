@@ -8,6 +8,7 @@ using System.Data;
 using Eteczka.DB.Connection;
 using System.Collections.Generic;
 
+
 namespace Eteczka.DB.DAO
 {
     public class PlikiDAO
@@ -49,5 +50,26 @@ namespace Eteczka.DB.DAO
             return fetchedResult;
         }
 
+        public bool ImportujPliki(Dictionary<string, Plik> plikiZMetadanymi)
+        {
+            bool result = false;
+            StringBuilder sqls = new StringBuilder();
+
+
+            foreach(string key in plikiZMetadanymi.Keys)
+            {
+                Plik biezacyPlik = plikiZMetadanymi[key];
+                string valuesLine = "(" + biezacyPlik.Id + ", '" + biezacyPlik.Nazwa + "', 'pdf', '" + biezacyPlik.DataUtworzenia + "', '" + biezacyPlik.DataModyfikacji + "', '???', '" + biezacyPlik.TypDokumentu + "', '" + biezacyPlik.Jrwa + "');";    
+                string singleImport = "INSERT INTO \"Pliki\" (id, nazwa, rozszerzenie, datautworzenia, datamodyfikacji, fizycznalokalizacja, typid, jrwa) VALUES ";
+
+                string fullSqlInsert = singleImport + valuesLine;
+                sqls.Append(fullSqlInsert);
+            }
+
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
+            result = connectionState.ExecuteNonQuery(sqls.ToString());
+
+            return result;
+        }
     }
 }

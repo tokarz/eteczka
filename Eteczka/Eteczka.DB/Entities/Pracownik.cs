@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Eteczka.BE.DTO
+namespace Eteczka.DB.Entities
 {
-    public class PracownikDTO
+    public class Pracownik
     {
         public string Id { get; set; }
         public string Imie { get; set; }

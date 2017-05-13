@@ -76,6 +76,7 @@
     <Compile Include="Connection\IDbConnectionFactory.cs" />
     <Compile Include="DAO\KatDokumentyRodzajDAO.cs" />
     <Compile Include="DAO\KatLoginDAO.cs" />
+    <Compile Include="DAO\PracownikDAO.cs" />
     <Compile Include="DAO\PlikiDAO.cs" />
     <Compile Include="DAO\UserDAO.cs" />
     <Compile Include="Entities\KatDokumentyRodzaj.cs" />
@@ -88,6 +89,8 @@
     <Compile Include="Entities\KatPodWydzialy.cs" />
     <Compile Include="Entities\KatRejony.cs" />
     <Compile Include="Entities\KatTeczki.cs" />
+    <Compile Include="Entities\Plik.cs" />
+    <Compile Include="Entities\Pracownik.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

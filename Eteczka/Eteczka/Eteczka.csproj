@@ -191,6 +191,7 @@
     <Content Include="app\main\header\menu\menuController.js" />
     <Content Include="app\main\mainController.js" />
     <Content Include="app\main\session\sessionService.js" />
+    <Content Include="app\main\settings\settingsController.js" />
     <Content Include="app\main\startup\startupService.js" />
     <Content Include="app\main\utils\httpService.js" />
     <Content Include="app\main\utils\resizableDirective.js" />
@@ -219,6 +220,10 @@
     <Content Include="app\views\options\optionsViewDirective.js" />
     <Content Include="app\views\processing\processing.html" />
     <Content Include="app\views\processing\processingDirective.js" />
+    <Content Include="app\views\settings\settingsController.js" />
+    <Content Include="app\views\settings\settingsService.js" />
+    <Content Include="app\views\settings\settingsView.html" />
+    <Content Include="app\views\settings\settingsDirective.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\img\cube.svg" />

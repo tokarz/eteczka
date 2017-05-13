@@ -59,6 +59,8 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\PracownicyServiceTest.cs" />
+    <Compile Include="Services\PlikiServiceTest.cs" />
     <Compile Include="Utils\JrwaParserTest.cs" />
     <Compile Include="Utils\PlikiUtilsTest.cs" />
     <Compile Include="Utils\OsysTest.cs" />
