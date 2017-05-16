@@ -18,17 +18,15 @@ namespace Eteczka.BE.Utils
 
             foreach (PracownikDTO pracownik in pracownicy)
             {
-                foreach (string sciezkiPlikow in pracownik.Pliki)  
+                foreach (string sciezka in pracownik.Pliki)
                 {
-                    if (sciezkiPlikow.Equals(plik))
+                    if (sciezka.Contains(plik))
                     {
                         PracownicyZPlikiem.Add(pracownik);
                     }
-                    
                 }
 
             }
-
 
             return PracownicyZPlikiem;
         }
