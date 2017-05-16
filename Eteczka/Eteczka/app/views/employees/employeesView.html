@@ -15,16 +15,19 @@
                 </button>
             </div>
         </div>
-        <div id="usersTable" class="col-md-11" style="height:100%;border-right: 1px solid black;box-shadow:0 0 2px 0 black;background:white;text-align:center">
-            <div style="width:90%;margin:auto;height:100%;overflow:auto">
+        <div ng-show="!isTableLoaded">
+            <processing></processing>
+        </div>
+        <div id="usersTable" class="col-md-11" style="height:100%;border-right: 1px solid black;box-shadow:0 0 2px 0 black;background:white;text-align:center" ng-show="isTableLoaded">
+            <div style="width:90%;margin:auto;height:100%;">
                 <div style="float:right">
                     <a style="margin-right:-15px" class="glyphicon glyphicon-search"></a>
                     <input ng-model="searchEmployee" placeholder="Wyszukaj Pracownika" type="search" style="border:none;border-radius:5px;box-shadow:0 0 1px 1px black" />
                 </div>
-                <table class="table-bordered table-striped" style="width:100%">
-                    <thead class="info ui-toolbar" style="height:35px">
+                <table class="scrollable table-bordered table-striped" style="width:100%">
+                    <thead class="info ui-toolbar" style="text-align: center; display:block">
 
-                        <tr style="height:80px">
+                        <tr style="height:80px;text-align:center">
                             <th>Id</th>
                             <th>Imie</th>
                             <th>Nazwisko</th>
@@ -33,7 +36,7 @@
                             <th>Dzial</th>
                         </tr>
                     </thead>
-                    <tbody ng-show="users.length > 0">
+                    <tbody style="display:block;overflow-x:hidden;overflow-y:auto;height:400px">
                         <tr ng-repeat="user in users | filter: searchEmployee" ng-click="setUser()" style="height:50px">
                             <td>{{user.Id}}</td>
                             <td>{{user.Imie}}</td>
@@ -43,11 +46,7 @@
                             <td>{{user.Dzial}}</td>
                         </tr>
                     </tbody>
-                    <tbody ng-show="users.length <= 0">
-                        <tr>
-                            <td colspan="6">Brak Pracownikow</td>
-                        </tr>
-                    </tbody>
+
                     <tfoot class="ui-toolbar">
                         <tr>
                             <th colspan="6" ng-click="goBack()"><a class="glyphicon glyphicon- glyphicon-circle-arrow-left" style="font-size:20px;color:white"></a></th>

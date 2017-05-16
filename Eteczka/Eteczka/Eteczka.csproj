@@ -220,7 +220,7 @@
     <Content Include="app\views\options\optionsViewDirective.js" />
     <Content Include="app\views\processing\processing.html" />
     <Content Include="app\views\processing\processingDirective.js" />
-    <Content Include="app\views\settings\settingsController.js" />
+    <Content Include="app\views\settings\settingsViewController.js" />
     <Content Include="app\views\settings\settingsService.js" />
     <Content Include="app\views\settings\settingsView.html" />
     <Content Include="app\views\settings\settingsDirective.js" />

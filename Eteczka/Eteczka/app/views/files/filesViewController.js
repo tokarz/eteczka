@@ -47,11 +47,14 @@ angular.module('et.controllers').controller('filesViewController', ['$scope', '$
 
     $scope.selectElement = function (elm) {
         $scope.elementSelected.isSelected = true;
+        $scope.startPreview = true;
         $scope.elementSelected.elm = elm;
         httpService.get('Resources/GetRestrictedResource', {
             fileName: elm.Nazwa
         }).then(function (result) {
+
             $('#pdfPreviewer').attr('data', 'data:application/pdf;base64,' + result.data);
+            $scope.startPreview = false;
         });
     }
 

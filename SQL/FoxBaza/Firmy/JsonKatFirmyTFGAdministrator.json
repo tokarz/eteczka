@@ -1,0 +1,24 @@
+{"firm" :
+	[
+		{
+			"id" : "0",
+			"symbol" : "TFG",
+			"nazwa" : "TOP FARMS G£UBCZYCE SP. Z O.O.",
+			"nazwaskrocona" : "TOP FARMS G³ubczyce sp zoo",
+			"ulica" : "BOLES£AWA CHROBREGO",
+			"numerdomu" : "23",
+			"numerlokalu" : "",
+			"miasto" : "G£UBCZYCE",
+			"kodpocztowy" : "48-100",
+			"poczta" : "G£UBCZYCE",
+			"gmina" : "G³ubczyce",
+			"powiat" : "G³ubczyce",
+			"wojewodztwo" : "Opolskie",
+			"kraj" : "Polska",
+			"nip" : "7480007045",
+			"regon" : "530921155",
+			"pesel" : "",
+			"lokalizacjapapier" : "TFG"
+		}
+	]
+}

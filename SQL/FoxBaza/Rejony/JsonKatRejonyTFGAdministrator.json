@@ -1,0 +1,76 @@
+{"area" :
+	[
+		{
+			"id" : "0",
+			"firma" : "2",
+			"symbol" : "BG",
+			"nazwa" : "Bogdanowice"
+		},
+		{
+			"id" : "1",
+			"firma" : "2",
+			"symbol" : "DR",
+			"nazwa" : "Dyrekcja"
+		},
+		{
+			"id" : "2",
+			"firma" : "2",
+			"symbol" : "DZ",
+			"nazwa" : "Dzbañce"
+		},
+		{
+			"id" : "3",
+			"firma" : "2",
+			"symbol" : "G1",
+			"nazwa" : "G³ubczyce 1"
+		},
+		{
+			"id" : "4",
+			"firma" : "2",
+			"symbol" : "WM",
+			"nazwa" : "Warsztat Mechaniczny"
+		},
+		{
+			"id" : "5",
+			"firma" : "2",
+			"symbol" : "PR",
+			"nazwa" : "Prudnik"
+		},
+		{
+			"id" : "6",
+			"firma" : "2",
+			"symbol" : "TT",
+			"nazwa" : "Top Tech"
+		},
+		{
+			"id" : "7",
+			"firma" : "2",
+			"symbol" : "GZ",
+			"nazwa" : "GRUPA ZBO¯OWA"
+		},
+		{
+			"id" : "8",
+			"firma" : "2",
+			"symbol" : "TA",
+			"nazwa" : "Top Agro"
+		},
+		{
+			"id" : "9",
+			"firma" : "2",
+			"symbol" : "GO",
+			"nazwa" : "WGRO Po³udnie"
+		},
+		{
+			"id" : "10",
+			"firma" : "2",
+			"symbol" : "GN",
+			"nazwa" : "WGN Po³udnie"
+		},
+		{
+			"id" : "11",
+			"firma" : "2",
+			"symbol" : "TG",
+			"nazwa" : "Top Gen"
+		}
+	]
+}

@@ -5,10 +5,30 @@
         </div>
     </div>
     <div id="upperSettingsWrapper" class="row justify-content-md-center">
-        <div style="width:80%;margin:auto;text-align:center">
-            <button class="btn btn-warning" ng-click="importFiles()">Import</button>
+        <div class="col-md-6 col-sm-12">
+            <div class="menu-option thumbnail" style="text-align:center;margin: 22px 0 auto auto">
+                <div class="glyphicon glyphicon-cloud-download" style="font-size:80px"></div>
+                <div class="caption">
+                    <h3>Import Danych z Systemu Ksiegowego</h3>
+                    <p>
+                        <button class="btn btn-warning" ng-click="importFiles()">Import Plikow</button>
+                        <button class="btn btn-warning" ng-click="importUsers()">Import Pracownikow</button>
+                        <button class="btn btn-warning" ng-click="importArchives()">Import Lokalizacji Archiwow</button>
+                        <button class="btn btn-warning" ng-click="importFirms()">Import Firm</button>
+                        <button class="btn btn-warning" ng-click="importAreas()">Import Rejonow</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <div class="menu-option thumbnail" style="text-align:center;margin: 22px 0 auto auto">
+                <h2>Uzytkownicy</h2>
+                <ul>
+                    <li>Hanna</li>
+                    <li>Anna</li>
+                    <li>Maria</li>
+                </ul>
+            </div>
         </div>
     </div>
-
-
 </div>

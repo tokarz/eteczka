@@ -56,11 +56,76 @@ namespace Eteczka.DB.DAO
             StringBuilder sqls = new StringBuilder();
 
 
-            foreach(string key in plikiZMetadanymi.Keys)
+            foreach (string key in plikiZMetadanymi.Keys)
             {
                 Plik biezacyPlik = plikiZMetadanymi[key];
-                string valuesLine = "(" + biezacyPlik.Id + ", '" + biezacyPlik.Nazwa + "', 'pdf', '" + biezacyPlik.DataUtworzenia + "', '" + biezacyPlik.DataModyfikacji + "', '???', '" + biezacyPlik.TypDokumentu + "', '" + biezacyPlik.Jrwa + "');";    
-                string singleImport = "INSERT INTO \"Pliki\" (id, nazwa, rozszerzenie, datautworzenia, datamodyfikacji, fizycznalokalizacja, typid, jrwa) VALUES ";
+                string valuesLine = "(" + biezacyPlik.Id + ", '" + biezacyPlik.Nazwa + "', 'pelnaSciezka', '" + biezacyPlik.Jrwa + "', 0,'" + biezacyPlik.DataUtworzenia + "', '" + biezacyPlik.DataModyfikacji + "', '" + biezacyPlik.TypDokumentu + "');";
+                string singleImport = "INSERT INTO \"KatTeczki\" (id, nazwa, pelna_sciezka, jrwa, jrwa_id, data_utworzenia, data_modyfikacji, typid) VALUES ";
+
+                string fullSqlInsert = singleImport + valuesLine;
+                sqls.Append(fullSqlInsert);
+            }
+
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
+            result = connectionState.ExecuteNonQuery(sqls.ToString());
+
+            return result;
+        }
+
+
+        public bool ImportujArchiwa(List<KatLokalPapier> archiwa)
+        {
+            bool result = false;
+            StringBuilder sqls = new StringBuilder();
+            long startingId = archiwa[0].Id;
+
+            foreach (KatLokalPapier biezacyPlik in archiwa)
+            {
+                string valuesLine = "(" + startingId++ + ", '" + biezacyPlik.Symbolfirma + "', '" + biezacyPlik.Symbol + "','" + biezacyPlik.Nazwa + "','" + biezacyPlik.Ulica + "','" + biezacyPlik.Numerdomu + "','" + biezacyPlik.Numerlokalu + "','" + biezacyPlik.Miasto + "','" + biezacyPlik.Kodpocztowy + "','" + biezacyPlik.Poczta + "','" + DateTime.Now + "','0', '0', '" + DateTime.Now + "');";
+                string singleImport = "INSERT INTO \"KatLokalPapier\"(id, symbolfirma, symbol, nazwa, ulica, numerdomu, numerlokalu, miasto, kodpocztowy, poczta, datamodify, idoper, idakcept, dataakcept) VALUES";
+
+                string fullSqlInsert = singleImport + valuesLine;
+                sqls.Append(fullSqlInsert);
+            }
+
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
+            result = connectionState.ExecuteNonQuery(sqls.ToString());
+
+            return result;
+        }
+
+        public bool ImportujFirmy(List<KatFIrmy> firmy)
+        {
+            bool result = false;
+            StringBuilder sqls = new StringBuilder();
+            long startingId = firmy[0].Id;
+
+            foreach (KatFIrmy biezacyPlik in firmy)
+            {
+                string valuesLine = "(" + startingId++ + ", '" + biezacyPlik.Symbol + "', '" + biezacyPlik.Nazwa + "','" + biezacyPlik.Nazwaskrocona + "', '" + biezacyPlik.Ulica + "','" + biezacyPlik.Numerdomu + "','" + biezacyPlik.Numerlokalu + "','" + biezacyPlik.Miasto + "','" + biezacyPlik.Kodpocztowy + "','" + biezacyPlik.Poczta + "','" + biezacyPlik.Gmina + "','" + biezacyPlik.Powiat + "', '" + biezacyPlik.Wojewodztwo + "', '" + biezacyPlik.Kraj + "', '" + biezacyPlik.Nip + "', '" + biezacyPlik.Regon + "', '" + biezacyPlik.Kraj +
+                    "', '" + biezacyPlik.Pesel + "', '" + biezacyPlik.Datamodify + "', '" + biezacyPlik.Idoper + "', '" + biezacyPlik.Idakcept + "', '" + biezacyPlik.Dataakcept + "', '" + biezacyPlik.Lokalizacjapapier + "');";
+                string singleImport = "INSERT INTO \"KatFirmy\"(id, symbol, nazwa, nazwaskrocona, ulica, numerdomu, numerlokalu, miasto, kodpocztowy, poczta, gmina, powiat, wojewodztwo, kraj, nip, regon, krs, pesel, datamodify, idoper, idakcept, dataakcept, lokalizacjapapier) VALUES ";
+
+                string fullSqlInsert = singleImport + valuesLine;
+                sqls.Append(fullSqlInsert);
+            }
+
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
+            result = connectionState.ExecuteNonQuery(sqls.ToString());
+
+            return result;
+        }
+
+        public bool ImportujRejony(List<KatRejony> rejony)
+        {
+            bool result = false;
+            StringBuilder sqls = new StringBuilder();
+            long startingId = rejony[0].Id;
+
+            foreach (KatRejony biezacyPlik in rejony)
+            {
+                string valuesLine = "(" + startingId++ + ", '" + biezacyPlik.Symbol + "', '" + biezacyPlik.Nazwa + "','" + biezacyPlik.Idoper + "','" + biezacyPlik.Idakcept + "','" + biezacyPlik.Dataakcept + "','" + biezacyPlik.Lokalizacjapapier + "','" + biezacyPlik.Datamodify + "','" + biezacyPlik.FirmaId + "');";
+                string singleImport = "INSERT INTO \"KatRejony\"(id, symbol, nazwa, idoper, idakcept, dataakcept, lokalizacjapapier, datamodify, firmaid) VALUES";
 
                 string fullSqlInsert = singleImport + valuesLine;
                 sqls.Append(fullSqlInsert);

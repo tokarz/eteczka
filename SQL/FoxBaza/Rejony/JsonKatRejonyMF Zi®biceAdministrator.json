@@ -1,0 +1,16 @@
+{"area" :
+	[
+		{
+			"id" : "0",
+			"firma" : "4",
+			"symbol" : "UM",
+			"nazwa" : "Ziêbice - umys³owi"
+		},
+		{
+			"id" : "1",
+			"firma" : "4",
+			"symbol" : "FZ",
+			"nazwa" : "Ziêbice - fizyczni"
+		}
+	]
+}

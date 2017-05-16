@@ -1,0 +1,24 @@
+{"firm" :
+	[
+		{
+			"id" : "0",
+			"symbol" : "TFW",
+			"nazwa" : "TOP FARMS WIELKOPOLSKA SP. Z O.O.",
+			"nazwaskrocona" : "TOP FARMS WIELKOPOLSKA SP Z OO",
+			"ulica" : "PIOTROWO PIERWSZE",
+			"numerdomu" : "6",
+			"numerlokalu" : "",
+			"miasto" : "PIOTROWO PIERWSZE",
+			"kodpocztowy" : "64-020",
+			"poczta" : "CZEMPIÑ",
+			"gmina" : "CZEMPIÑ",
+			"powiat" : "KOŒCIAN",
+			"wojewodztwo" : "WIELKOPOLSKIE",
+			"kraj" : "POLSKA",
+			"nip" : "7781357716",
+			"regon" : "639606216",
+			"pesel" : "",
+			"lokalizacjapapier" : "TFW"
+		}
+	]
+}

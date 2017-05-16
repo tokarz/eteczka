@@ -26,9 +26,9 @@ namespace Eteczka.DB.Entities
         public string Regon { get; set; }
         public string Krs { get; set; }
         public string Pesel { get; set; }
-        public string Datamodify { get; set; }
         public long Idoper { get; set; }
         public long Idakcept { get; set; }
+        public DateTime Datamodify { get; set; }
         public DateTime Dataakcept { get; set; }
         public string Lokalizacjapapier { get; set; }
     }

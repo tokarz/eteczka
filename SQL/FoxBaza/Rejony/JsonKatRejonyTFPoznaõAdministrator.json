@@ -1,0 +1,28 @@
+{"area" :
+	[
+		{
+			"id" : "0",
+			"firma" : "1",
+			"symbol" : "S",
+			"nazwa" : "Siedlisko"
+		},
+		{
+			"id" : "1",
+			"firma" : "1",
+			"symbol" : "P",
+			"nazwa" : "Poznañ"
+		},
+		{
+			"id" : "2",
+			"firma" : "1",
+			"symbol" : "PD",
+			"nazwa" : "WGN PO£UDNIE"
+		},
+		{
+			"id" : "3",
+			"firma" : "1",
+			"symbol" : "PN",
+			"nazwa" : "WGN PÓ£NOC"
+		}
+	]
+}

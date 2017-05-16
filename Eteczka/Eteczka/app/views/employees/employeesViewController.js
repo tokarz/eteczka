@@ -2,14 +2,10 @@
 angular.module('et.controllers').controller('employeesViewController', ['$scope', '$state', 'utilsService', 'employeesService', 'editEmployeeService', function ($scope, $state, utilsService, employeesService, editEmployeeService) {
     $scope.users = [];
     $scope.selectedUser = null;
-
+    $scope.isTableLoaded = false;
     $scope.isUserSet = function () {
         return ($scope.selectedUser != null)
     }
-
-    employeesService.getAll().then(function (result) {
-        $scope.users = result.data.data;
-    })
 
     $scope.goBack = function () {
         $state.go('options');
@@ -33,5 +29,10 @@ angular.module('et.controllers').controller('employeesViewController', ['$scope'
             console.log("error found!");
         });
     }
+
+    employeesService.getAll().then(function (result) {
+        $scope.users = result.data.data;
+        $scope.isTableLoaded = true;
+    })
 
 }]);

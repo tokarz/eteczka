@@ -1,0 +1,52 @@
+{"area" :
+	[
+		{
+			"id" : "0",
+			"firma" : "3",
+			"symbol" : "WW",
+			"nazwa" : "Warszawa"
+		},
+		{
+			"id" : "1",
+			"firma" : "3",
+			"symbol" : "BI",
+			"nazwa" : "Bia³ogard"
+		},
+		{
+			"id" : "2",
+			"firma" : "3",
+			"symbol" : "IL",
+			"nazwa" : "I³awa"
+		},
+		{
+			"id" : "3",
+			"firma" : "3",
+			"symbol" : "SR",
+			"nazwa" : "Œrem"
+		},
+		{
+			"id" : "4",
+			"firma" : "3",
+			"symbol" : "TU",
+			"nazwa" : "Turek"
+		},
+		{
+			"id" : "5",
+			"firma" : "3",
+			"symbol" : "PT",
+			"nazwa" : "Piotrków Trybunalski"
+		},
+		{
+			"id" : "6",
+			"firma" : "3",
+			"symbol" : "LS",
+			"nazwa" : "Lwówek Œl¹ski"
+		},
+		{
+			"id" : "7",
+			"firma" : "3",
+			"symbol" : "DB",
+			"nazwa" : "Dobiegniew"
+		}
+	]
+}

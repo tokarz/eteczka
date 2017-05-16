@@ -1,0 +1,24 @@
+{"firm" :
+	[
+		{
+			"id" : "0",
+			"symbol" : "Masfrost",
+			"nazwa" : "Masfrost Sp. z o.o.",
+			"nazwaskrocona" : "MASFROST SP Z O.O.",
+			"ulica" : "Port",
+			"numerdomu" : "1",
+			"numerlokalu" : "",
+			"miasto" : "Tolkmicko",
+			"kodpocztowy" : "82-340",
+			"poczta" : "Tolkmicko",
+			"gmina" : "Tolkmicko",
+			"powiat" : "ELBL¥SKI",
+			"wojewodztwo" : "Warmiñsko-Mazurskie",
+			"kraj" : "POLSKA",
+			"nip" : "5782484605",
+			"regon" : "170435536",
+			"pesel" : "",
+			"lokalizacjapapier" : "Masfrost"
+		}
+	]
+}

@@ -4,7 +4,7 @@
             <a ng-click="goBack()" class="glyphicon glyphicon-circle-arrow-left" style="font-size:20px;color:white;background:steelblue"></a>
         </div>
     </div>
-    <div id="upperFilePanel" class="row justify-content-md-center" ng-class="isSubMenuVisible('upper')">
+    <div id="upperFilePanel" class="row justify-content-md-center" style="height:100%;overflow:auto" ng-class="isSubMenuVisible('upper')">
         <div style="height: 100%;overflow:auto;padding:0" ng-class="isSubMenuVisible('lowerLeft')">
             <div style="height:5%;width:100%;float:left;color:white">
                 <div style="width:90%;margin:auto;background:steelblue">
@@ -15,14 +15,15 @@
                         </ul>
                     </div>
                     <div style="float:right;margin-top:5px">
-                        <a style="margin-right:-20px" class="glyphicon glyphicon-search"></a><input placeholder="Wyszukaj Plik(i)" type="search" style="border:none;border-radius:5px;box-shadow:0 0 1px 1px black" />
+                        <a style="margin-right:-20px" class="glyphicon glyphicon-search"></a>
+                        <input ng-model="searchFile" placeholder="Wyszukaj Plik(i)" type="search" style="border:none;border-radius:5px;box-shadow:0 0 1px 1px black" />
                     </div>
                 </div>
             </div>
             <div id="fileTableWrapper" style="height:90%;width:100%;float:left">
-                <table class="table-bordered table-hover table-striped" style="width:90%;margin:auto">
-                    <thead class="info ui-toolbar" style="height:35px">
-                        <tr style="height:40px">
+                <table class="scrollable table-bordered table-hover table-striped" style="width:90%;margin:auto">
+                    <thead class="info ui-toolbar" style="height:35px;display:block">
+                        <tr style="height:35px">
                             <th>Typ</th>
                             <th>Nazwa pliku</th>
                             <th>Jrwa</th>
@@ -30,8 +31,8 @@
                             <th>Data modyfikacji</th>
                         </tr>
                     </thead>
-                    <tbody style="height:100%">
-                        <tr class="file-row" ng-repeat="file in files" ng-click="previewPdf(file)" style="cursor:pointer;height:35px" ng-class="{selected: file.Id === elementSelected.elm.Id}">
+                    <tbody style="height:400px;display:block;overflow-y:auto;overflow-x:hidden">
+                        <tr class="file-row" ng-repeat="file in files | filter: searchFile" ng-click="previewPdf(file)" style="cursor:pointer;height:35px" ng-class="{selected: file.Id === elementSelected.elm.Id}">
                             <td>
                                 <div>
                                     {{file.TypDokumentu}}
@@ -74,7 +75,10 @@
             </div>
         </div>
         <div style="box-shadow:0 0 2px 0 black;height: 100%" ng-class="isSubMenuVisible('lowerRight')">
-            <div style="width:100%;height:100%;">
+            <div ng-show="startPreview">
+                <processing></processing>
+            </div>
+            <div style="width:100%;height:100%;" ng-show="!startPreview">
                 <object id="pdfPreviewer" data="" type="application/pdf" style="height:100%;width:100%" />
             </div>
         </div>

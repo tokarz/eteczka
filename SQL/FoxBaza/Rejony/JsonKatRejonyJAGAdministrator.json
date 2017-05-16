@@ -1,0 +1,16 @@
+{"area" :
+	[
+		{
+			"id" : "0",
+			"firma" : "6",
+			"symbol" : "PP",
+			"nazwa" : "Piotrowo Pierwsze"
+		},
+		{
+			"id" : "1",
+			"firma" : "6",
+			"symbol" : "JG",
+			"nazwa" : "Jagrol"
+		}
+	]
+}

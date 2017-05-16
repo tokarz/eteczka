@@ -13,7 +13,7 @@ namespace Eteczka.BE.Controllers
             _ImportService = new ImportService();
         }
 
-        public ActionResult ImportujWszystkiePliki(bool nadpisz)
+        public ActionResult ImportujStrukturePlikow(bool nadpisz)
         {
             bool success = false;
 
@@ -24,8 +24,43 @@ namespace Eteczka.BE.Controllers
             {
                 success = result.ImportSukces
             }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult ImportujLokalizacjeArchiwow(string sessionId, bool nadpisz)
+        {
+
+            bool success = false;
+
+            ImportResult result = _ImportService.ImportArchives(nadpisz);
 
 
+            return Json(new
+            {
+                success = result.ImportSukces
+            }, JsonRequestBehavior.AllowGet);
+
+        }
+
+        public ActionResult ImportujFirmy(string sessionId, bool nadpisz)
+        {
+            ImportResult result = _ImportService.ImportFirms(nadpisz);
+
+
+            return Json(new
+            {
+                success = result.ImportSukces
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult ImportujRejony(string sessionId, bool nadpisz)
+        {
+            ImportResult result = _ImportService.ImportAreas(nadpisz);
+
+
+            return Json(new
+            {
+                success = result.ImportSukces
+            }, JsonRequestBehavior.AllowGet);
         }
 
 

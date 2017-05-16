@@ -178,8 +178,8 @@ table {
 
 
 .modal-dialog {
-     width:90%;
-    height:90%;
+    width: 90%;
+    height: 90%;
 }
 
 .modal-content {
@@ -191,7 +191,8 @@ table {
     bottom: 0;
     width: 100%;
 }
-    .emp-btn {
+
+.emp-btn {
     width: 90%;
 }
 
@@ -231,7 +232,10 @@ tr.selected td {
 
 .panel-title {
     text-align: center;
-    color:white;
+    color: white;
     background: steelblue;
 }
 
+th {
+    text-align: center !important;
+}

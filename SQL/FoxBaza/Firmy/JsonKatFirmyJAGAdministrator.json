@@ -1,0 +1,24 @@
+{"firm" :
+	[
+		{
+			"id" : "0",
+			"symbol" : "JAG",
+			"nazwa" : "JAGROL SP. Z O.O.",
+			"nazwaskrocona" : "JAGROL SP. Z O.O.",
+			"ulica" : "PIERZCHNO",
+			"numerdomu" : "14",
+			"numerlokalu" : "",
+			"miasto" : "PIERZCHNO",
+			"kodpocztowy" : "62-035",
+			"poczta" : "KÓRNIK",
+			"gmina" : "KÓRNIK",
+			"powiat" : "KÓRNIK",
+			"wojewodztwo" : "WIELKOPOLSKIE",
+			"kraj" : "POLSKA",
+			"nip" : "7850006033",
+			"regon" : "630352843",
+			"pesel" : "",
+			"lokalizacjapapier" : "JAG"
+		}
+	]
+}

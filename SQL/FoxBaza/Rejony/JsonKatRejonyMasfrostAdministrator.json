@@ -1,0 +1,22 @@
+{"area" :
+	[
+		{
+			"id" : "0",
+			"firma" : "5",
+			"symbol" : "AD",
+			"nazwa" : "Administracja"
+		},
+		{
+			"id" : "1",
+			"firma" : "5",
+			"symbol" : "PR",
+			"nazwa" : "Produkcja"
+		},
+		{
+			"id" : "2",
+			"firma" : "5",
+			"symbol" : "SE",
+			"nazwa" : "Sezon"
+		}
+	]
+}
