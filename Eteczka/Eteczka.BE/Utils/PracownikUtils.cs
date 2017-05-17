@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Eteczka.BE.DTO;
+using Eteczka.DB.Entities;
 
 
 
@@ -27,6 +28,15 @@ namespace Eteczka.BE.Utils
                 }
 
             }
+
+            return PracownicyZPlikiem;
+        }
+
+        public List<PracownikDTO> ZnajdzPracownikowZPlikiem(string plik, List<Pracownik> pracownicy)
+        {
+            List<PracownikDTO> PracownicyZPlikiem = new List<PracownikDTO>();
+
+           
 
             return PracownicyZPlikiem;
         }
