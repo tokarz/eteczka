@@ -17,5 +17,6 @@ namespace Eteczka.BE.DTO
         public DateTime DataUtworzenia { get; set; }
         public DateTime DataModyfikacji { get; set; }
         public string TypDokumentu { get; set; }
+        public string OwnerPesel { get; set; }
     }
 }

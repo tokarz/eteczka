@@ -13,8 +13,7 @@ angular.module('et.services').service('editEmployeeService', ['$uibModal',
                         $scope.parameters = customModalOptions.parameters;
                         $scope.modalOptions = customModalOptions
                         $scope.modalResult = {}
-                        alert($scope.parameters[0].jrwa);
-
+                       
                         $scope.modalOptions.ok = function () {
                             $uibModalInstance.close($scope.modalResult);
                         };

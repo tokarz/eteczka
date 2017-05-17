@@ -15,16 +15,31 @@ angular.module('et.directives').directive('employeesView', function ($timeout) {
                         colWidth,
                         fullWidth = $table.find('tbody').width();
 
-                        var singleColWidth = Math.floor(fullWidth / $bodyCells.length);
+                        if ($bodyCells.length % 2 === 0) {
+                            scope.singleColWidth = Math.ceil(fullWidth / $bodyCells.length);
+
+                            $table.find('thead tr').children().each(function (i, v) {
+                                $(v).width(scope.singleColWidth);
+                            });
+                            $table.find('tbody tr').children().each(function (i, v) {
+                                $(v).width(scope.singleColWidth);
+                            });
+                        } else {
+                            scope.singleColWidth = Math.ceil(fullWidth / $bodyCells.length);
+                            
+
+                            $table.find('thead tr').children().each(function (i, v) {
+                                $(v).width(scope.singleColWidth);
+                            });
+                            $table.find('tbody tr').children().each(function (i, v) {
+                                $(v).width(scope.singleColWidth);
+                            });
+                        }
+
 
 
                         // Set the width of thead columns
-                        $table.find('thead tr').children().each(function (i, v) {
-                            $(v).width(singleColWidth);
-                        });
-                        $table.find('tbody tr').children().each(function (i, v) {
-                            $(v).width(singleColWidth);
-                        });
+                        
 
                        
                     });
