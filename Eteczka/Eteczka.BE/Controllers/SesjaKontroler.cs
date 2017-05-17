@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
+using Eteczka.BE.Model;
 
 namespace Eteczka.BE.Controllers
 {
@@ -16,6 +17,11 @@ namespace Eteczka.BE.Controllers
             {
                 session = session
             }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult UstawFirme(string name)
+        {
+            Sesja.FIRMA = name;
         }
 
     }

@@ -18,21 +18,19 @@ namespace Eteczka.DB.DAO
             this._ConnectionFactory = factory;
         }
 
-        public KatLoginy WczytajPracownikaPoNazwieIHasle(string username, string password)
+        public List<KatLoginy> WczytajPracownikaPoNazwieIHasle(string username, string password)
         {
             //SQL Injection Threat!
             string sqlQuery = "SELECT * from \"KatLoginy\" WHERE identyfikator = '" + username + "' and haslolong = '" + password + "';";
 
-            KatLoginy fetchedResult = null;
+            List<KatLoginy> result = new List<KatLoginy>();
 
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
-            DataTable result = connectionState.ExecuteQuery(sqlQuery);
+            DataTable queryResult = connectionState.ExecuteQuery(sqlQuery);
 
-
-            if (result.Rows.Count == 1)
+            foreach (DataRow row in queryResult.Rows)
             {
-                var row = result.Rows[0];
-                fetchedResult = new KatLoginy();
+                KatLoginy fetchedResult = new KatLoginy();
 
                 fetchedResult.Id = long.Parse(row[0].ToString());
                 fetchedResult.Identyfikator = row[1].ToString();
@@ -53,9 +51,13 @@ namespace Eteczka.DB.DAO
                 fetchedResult.Roladoubleakcept = bool.Parse(row[15].ToString());
 
                 fetchedResult.Datamodify = DateTime.Parse(row[16].ToString());
+                fetchedResult.FirmaSymbol = row[17].ToString();
+
+                result.Add(fetchedResult);
+
             }
 
-            return fetchedResult;
+            return result;
         }
     }
 }

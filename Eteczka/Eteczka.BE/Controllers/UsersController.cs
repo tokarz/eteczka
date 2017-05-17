@@ -14,7 +14,7 @@ namespace Eteczka.BE.Controllers
 
         public ActionResult PobierzPracownika(string nazwa, string haslo)
         {
-            UserDto user = new UsersService().GetUserByNameAndPassword(nazwa, haslo);
+            List<UserDto> user = new UsersService().GetUserByNameAndPassword(nazwa, haslo);
 
             return Json(new
             {

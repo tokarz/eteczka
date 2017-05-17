@@ -25,6 +25,16 @@ app.config(function ($stateProvider) {
         template: '<login-view></login-view>'
     };
 
+    var chooseFirmState = {
+        url: '/choosefirm',
+        name: 'choosefirm',
+        template: '<choosefirm-view></choosefirm-view>',
+        params: {
+            'choices' : []
+        }
+
+    }
+
     var optionsState = {
         url: '/options',
         name: 'options',
@@ -61,6 +71,7 @@ app.config(function ($stateProvider) {
     }
 
     $stateProvider.state(loginState);
+    $stateProvider.state(chooseFirmState);
     $stateProvider.state(optionsState);
     $stateProvider.state(filesState);
     $stateProvider.state(employeesState);

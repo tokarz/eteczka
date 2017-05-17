@@ -27,9 +27,12 @@ namespace Eteczka.DB.DAO
         [Test]
         public void WczytajPracownikaPoNazwieIHasle()
         {
-            KatLoginy result = _Sut.WczytajPracownikaPoNazwieIHasle("M.Tokarz", "tokitoki");
+            List<KatLoginy> result = _Sut.WczytajPracownikaPoNazwieIHasle("M.Tokarz", "tokitoki");
             Assert.IsNotNull(result);
-            Assert.AreEqual("Maciej", result.Imie.Trim());
+            Assert.AreEqual("Maciej", result[0].Imie.Trim());
+            Assert.AreEqual("Maciej", result[1].Imie.Trim());
+            Assert.AreEqual("AFM", result[0].FirmaSymbol.Trim());
+            Assert.AreEqual("JAG", result[1].FirmaSymbol.Trim());
         }
 
 

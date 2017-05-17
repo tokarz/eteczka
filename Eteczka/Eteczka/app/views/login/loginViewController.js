@@ -8,11 +8,26 @@ angular.module('et.controllers').controller('loginViewController', ['$rootScope'
 
     $scope.tryLogin = function (credentials) {
         $state.go('processing');
+        $scope.firmChoices = [];
         loginService.authenticate(credentials.username, credentials.password).then(function (result) {
-            if (result && result.user) {
-                $rootScope.$broadcast('USER_LOGGED_IN_EV', result.user);
-                $state.go('options');
+            if (result) {
+                $scope.fetchedUser = result.user;
+                $rootScope.$broadcast('USER_LOGGED_IN_EV', $scope.fetchedUser);
+                if ($scope.fetchedUser.length > 0) {
+                    $scope.choices = $scope.fetchedUser.map(function (x) {
+                        return x.FirmaSymbol;
+                    });
+
+                    $state.go('choosefirm', {
+                        "choices": $scope.choices
+                    });
+                } else {
+                    $rootScope.$broadcast('USER_LOGGED_IN_EV', $scope.fetchedUser);
+                    $state.go('options');
+                }
+
             }
+
             else {
                 $state.go('login');
                 alert('Login failed!');

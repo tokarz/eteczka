@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('et.controllers').controller('mainController', ['$scope', '$state', 'startupService', function ($scope, $state, startupService) {
+angular.module('et.controllers').controller('mainController', ['$rootScope', '$scope', '$state', 'startupService', function ($rootScope, $scope, $state, startupService) {
     $state.go('login');
     $scope.title = 'ETeczka';
     $scope.isLoaded = false;
@@ -12,5 +12,11 @@ angular.module('et.controllers').controller('mainController', ['$scope', '$state
     $scope.currentState = {
         state: $state.current.name
     };
+
+    $scope.selectedFirm = '';
+
+    $rootScope.$watch('SELECTED_FIRM', function (value) {
+        $scope.selectedFirm = value;
+    });
 
 }]);

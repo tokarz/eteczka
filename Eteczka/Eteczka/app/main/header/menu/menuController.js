@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('et.controllers').controller('menuController', ['$scope', '$state', function ($scope, $state) {
+angular.module('et.controllers').controller('menuController', ['$rootScope', '$scope', '$state', function ($rootScope, $scope, $state) {
     $scope.userLoggedIn = false;
 
     $scope.isUserLoggedIn = function () {
@@ -23,6 +23,7 @@ angular.module('et.controllers').controller('menuController', ['$scope', '$state
             name: "Wyloguj",
             iconClass: "glyphicon glyphicon-log-out",
             onclick: function () {
+                $rootScope.SELECTED_FIRM ='';
                 $scope.userLoggedIn = false;
                 $state.go('login')
             }
