@@ -15,6 +15,21 @@ namespace Eteczka.DB.Entities
         public string JrwaId { get; set; }
         public DateTime DataUtworzenia { get; set; }
         public DateTime DataModyfikacji { get; set; }
+        public string DataUtworzeniaText
+        {
+            get
+            {
+                return this.DataUtworzenia.ToString();
+            }
+        }
+        public string DataModyfikacjiText
+        {
+            get
+            {
+                return this.DataModyfikacji.ToString();
+            }
+        }
         public string TypDokumentu { get; set; }
+        public string Pesel { get; set; }
     }
 }

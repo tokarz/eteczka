@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Text;
-using System.Threading.Tasks;
 using Eteczka.DB.Entities;
 using System.Data;
 using Eteczka.DB.Connection;
-using System.Collections.Generic;
-using Eteczka.DB.Entities;
 
 
 namespace Eteczka.DB.DAO

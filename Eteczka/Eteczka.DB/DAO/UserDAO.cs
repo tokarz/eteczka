@@ -34,6 +34,26 @@ namespace Eteczka.DB.DAO
             return fetchedUser;
         }
 
+        public User GetUserByPesel(string pesel)
+        {
+            string sqlQuery = "SELECT * from \"KatPracownicy\" where pesel = '" + pesel + "';";
+            User fetchedUser = new User();
+
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
+            DataTable result = connectionState.ExecuteQuery(sqlQuery);
+            foreach (DataRow row in result.Rows)
+            {
+                fetchedUser.Id = row[0].ToString();
+                fetchedUser.Imie = row[1].ToString();
+                fetchedUser.Nazwisko = row[2].ToString();
+                fetchedUser.PESEL = row[3].ToString();
+                fetchedUser.Dzial = row[4].ToString();
+                fetchedUser.DataUrodzenia = row[5].ToString();
+            }
+
+            return fetchedUser;
+        }
+
         public List<User> GetAllUsers()
         {
             string sqlQuery = "SELECT * from \"KatPracownicy\";";

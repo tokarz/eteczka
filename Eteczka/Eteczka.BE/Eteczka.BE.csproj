@@ -61,15 +61,22 @@
     <Compile Include="Controllers\PlikiController.cs" />
     <Compile Include="Controllers\PracownicyKontroler.cs" />
     <Compile Include="Controllers\ResourcesController.cs" />
+    <Compile Include="Controllers\StatystykiController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="DTO\DaneWykresowe.cs" />
     <Compile Include="DTO\ImportResult.cs" />
+    <Compile Include="DTO\MetaDanePliku.cs" />
     <Compile Include="DTO\OrganizacjaDTO.cs" />
     <Compile Include="DTO\PlikiDTO.cs" />
     <Compile Include="DTO\PlikJrwaDTO.cs" />
     <Compile Include="DTO\Uprawnienia.cs" />
     <Compile Include="DTO\UserDto.cs" />
+    <Compile Include="Enums\TypWykresu.cs" />
+    <Compile Include="Model\Sesja.cs" />
     <Compile Include="Services\ImportService.cs" />
     <Compile Include="Services\IImportService.cs" />
+    <Compile Include="Services\StatystykiService.cs" />
+    <Compile Include="Services\IStatystykiService.cs" />
     <Compile Include="Services\PlikiService.cs" />
     <Compile Include="Services\IPlikiService.cs" />
     <Compile Include="Services\UsersService.cs" />
@@ -90,9 +97,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Model\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>

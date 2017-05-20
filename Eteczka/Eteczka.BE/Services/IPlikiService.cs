@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Eteczka.DB.Entities;
+using Eteczka.BE.DTO;
 
 namespace Eteczka.BE.Services
 {
@@ -8,5 +9,6 @@ namespace Eteczka.BE.Services
         List<KatTeczki> PobierzWszystkie(string sortOrder = "asc", string sortColumn = "Id");
         List<KatTeczki> PobierzDlaUzytkownika(string userId, string sortOdred = "asc", string sortColumn = "Id");
         List<KatTeczki> PobierzZawierajaceTekst(string searchText, string sortOrder = "asc", string sortColumn = "Id");
+        MetaDanePliku PobierzMetadane(string plik);
     }
 }

@@ -1,11 +1,14 @@
 ﻿'use strict';
-angular.module('et.services').factory('employeesService', ['$http', 'sessionService', function ($http, sessionService) {
+angular.module('et.services').factory('employeesService', ['httpService', 'sessionService', function (httpService, sessionService) {
     return {
         getAll: function () {
-            return $http.get('Pracownicy/PobierzWszystkich', {
-                params: {
-                    sessionID: sessionService.getSessionId()
-                }
+            return httpService.get('Pracownicy/PobierzWszystkich', {
+                sessionID: sessionService.getSessionId()
+            });
+        },
+        getFilesForEmployee: function (pesel) {
+            return httpService.get('Pliki/PobierzDlaPeselu', {
+                pesel: pesel
             });
         }
     };

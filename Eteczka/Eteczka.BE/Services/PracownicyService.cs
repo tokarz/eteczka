@@ -126,5 +126,34 @@ namespace Eteczka.BE.Services
             }
             return result;
         }
+
+        public PracownikDTO PobierzPoPeselu(string pesel)
+        {
+            string user = ConfigurationManager.AppSettings["dbuser"];
+            string password = ConfigurationManager.AppSettings["dbpassword"];
+            string host = ConfigurationManager.AppSettings["dbhost"];
+            string port = ConfigurationManager.AppSettings["dbport"];
+            string name = ConfigurationManager.AppSettings["dbname"];
+
+            IConnectionDetails connectionDetails = new ConnectionDetails(user, password, host, port, name);
+            IDbConnectionFactory factory = new DbConnectionFactory(connectionDetails);
+
+            UserDAO dao = new UserDAO(factory);
+
+            User usr = dao.GetUserByPesel(pesel);
+
+            PracownikDTO maciek = new PracownikDTO
+            {
+                Id = usr.Id,
+                DataUrodzenia = usr.DataUrodzenia,
+                Dzial = usr.Dzial,
+                Imie = usr.Imie,
+                Nazwisko = usr.Nazwisko,
+                PESEL = usr.PESEL
+            };
+
+            return maciek;
+
+        }
     }
 }

@@ -10,7 +10,7 @@ angular.module('et.controllers').controller('loginViewController', ['$rootScope'
         $state.go('processing');
         $scope.firmChoices = [];
         loginService.authenticate(credentials.username, credentials.password).then(function (result) {
-            if (result) {
+            if (result && result.success) {
                 $scope.fetchedUser = result.user;
                 $rootScope.$broadcast('USER_LOGGED_IN_EV', $scope.fetchedUser);
                 if ($scope.fetchedUser.length > 0) {

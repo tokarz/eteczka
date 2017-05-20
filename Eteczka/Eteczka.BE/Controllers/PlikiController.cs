@@ -33,5 +33,33 @@ namespace Eteczka.BE.Controllers
                 pliki = pliki
             }, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult PobierzDlaPeselu(string pesel)
+        {
+            List<KatTeczki> result = new List<KatTeczki>();
+            List<KatTeczki> wszystkiePliki = _PlikiService.PobierzWszystkie();
+            foreach (KatTeczki plik in wszystkiePliki)
+            {
+                //if (plik.Pesel.Equals(pesel))
+                //{
+                result.Add(plik);
+                //}
+            }
+
+            return Json(new
+            {
+                pliki = result
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult PobierzMetadane(string plik)
+        {
+            MetaDanePliku meta = _PlikiService.PobierzMetadane(plik);
+
+            return Json(new
+            {
+                meta = meta
+            }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

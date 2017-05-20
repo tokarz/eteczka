@@ -51,6 +51,44 @@ namespace Eteczka.BE.Services
             return result;
         }
 
+        public MetaDanePliku PobierzMetadane(string plik)
+        {
+            MetaDanePliku result = new MetaDanePliku();
+
+            string user = ConfigurationManager.AppSettings["dbuser"];
+            string password = ConfigurationManager.AppSettings["dbpassword"];
+
+            string host = ConfigurationManager.AppSettings["dbhost"];
+            string port = ConfigurationManager.AppSettings["dbport"];
+            string name = ConfigurationManager.AppSettings["dbname"];
+
+            IConnectionDetails connectionDetails = new ConnectionDetails(user, password, host, port, name);
+            IDbConnectionFactory factory = new DbConnectionFactory(connectionDetails);
+
+            _Dao = new PlikiDAO(factory);
+
+            KatTeczki pobranyPlik = _Dao.PobierzPlikPoNazwie(plik);
+
+            result.ModificationDate = pobranyPlik.DataModyfikacji;
+            result.Jrwa = pobranyPlik.Jrwa;
+            result.Type = pobranyPlik.TypDokumentu;
+
+            string eadRoot = System.Environment.GetEnvironmentVariable("EAD_DIR");
+            
+
+            string sciezkaDoPlikow = Path.Combine(eadRoot, "pliki");
+            string plikDoImportu = Path.Combine(sciezkaDoPlikow, plik);
+
+            if (File.Exists(plikDoImportu))
+            {
+                result.CreationDate = File.GetCreationTime(plikDoImportu);
+                result.Size = new FileInfo(plikDoImportu).Length + "";
+            }
+
+            result.PhysicalLocation = "??";
+            
+            return result;
+        }
 
         
     }

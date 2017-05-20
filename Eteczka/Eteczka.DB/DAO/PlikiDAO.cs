@@ -43,6 +43,7 @@ namespace Eteczka.DB.DAO
                 fetchedDok.DataUtworzenia = DateTime.Parse(row[5].ToString());
                 fetchedDok.DataModyfikacji = DateTime.Parse(row[6].ToString());
                 fetchedDok.TypDokumentu = row[7].ToString();
+                fetchedDok.Pesel = row[8].ToString();
 
                 fetchedResult.Add(fetchedDok);
             }
@@ -55,12 +56,13 @@ namespace Eteczka.DB.DAO
             bool result = false;
             StringBuilder sqls = new StringBuilder();
 
+            int startId = 0;
 
             foreach (string key in plikiZMetadanymi.Keys)
             {
                 Plik biezacyPlik = plikiZMetadanymi[key];
-                string valuesLine = "(" + biezacyPlik.Id + ", '" + biezacyPlik.Nazwa + "', 'pelnaSciezka', '" + biezacyPlik.Jrwa + "', 0,'" + biezacyPlik.DataUtworzenia + "', '" + biezacyPlik.DataModyfikacji + "', '" + biezacyPlik.TypDokumentu + "');";
-                string singleImport = "INSERT INTO \"KatTeczki\" (id, nazwa, pelna_sciezka, jrwa, jrwa_id, data_utworzenia, data_modyfikacji, typid) VALUES ";
+                string valuesLine = "(" + startId++ + ", '" + biezacyPlik.Nazwa + "', 'pelnaSciezka', '" + biezacyPlik.Jrwa + "', 0,'" + biezacyPlik.DataUtworzenia + "', '" + biezacyPlik.DataModyfikacji + "', '" + biezacyPlik.TypDokumentu + "', '" + biezacyPlik.Pesel + "');";
+                string singleImport = "INSERT INTO \"KatTeczki\" (id, nazwa, pelna_sciezka, jrwa, jrwa_id, data_utworzenia, data_modyfikacji, typid, pesel) VALUES ";
 
                 string fullSqlInsert = singleImport + valuesLine;
                 sqls.Append(fullSqlInsert);
@@ -135,6 +137,33 @@ namespace Eteczka.DB.DAO
             result = connectionState.ExecuteNonQuery(sqls.ToString());
 
             return result;
+        }
+
+        public KatTeczki PobierzPlikPoNazwie(string nazwa)
+        {
+            string sqlQuery = "SELECT * from \"KatTeczki\" WHERE nazwa = '" + nazwa + "';";
+
+            KatTeczki fetchedDok = new KatTeczki();
+
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
+            DataTable result = connectionState.ExecuteQuery(sqlQuery);
+            if (result.Rows.Count == 1)
+            {
+                DataRow row = result.Rows[0];
+
+                fetchedDok.Id = row[0].ToString();
+
+                fetchedDok.Id = row[0].ToString();
+                fetchedDok.Nazwa = row[1].ToString();
+                fetchedDok.PelnaSciezka = row[2].ToString();
+                fetchedDok.Jrwa = row[3].ToString();
+                fetchedDok.JrwaId = row[4].ToString();
+                fetchedDok.DataUtworzenia = DateTime.Parse(row[5].ToString());
+                fetchedDok.DataModyfikacji = DateTime.Parse(row[6].ToString());
+                fetchedDok.TypDokumentu = row[7].ToString();
+            }
+
+            return fetchedDok;
         }
     }
 }

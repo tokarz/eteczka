@@ -48,5 +48,16 @@ namespace Eteczka.BE.Controllers
                 success = success
             }, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult PobierzDlaPliku(string id)
+        {
+            PracownikDTO pracownk = _PracownicyService.PobierzPoPeselu(id);
+
+            return Json(new
+            {
+                users = pracownk
+            }, JsonRequestBehavior.AllowGet);
+
+        }
     }
 }

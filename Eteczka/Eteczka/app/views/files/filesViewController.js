@@ -13,18 +13,6 @@ angular.module('et.controllers').controller('filesViewController', ['$scope', '$
         }
     });
 
-    $scope.allUsersForFile = {
-        '0': { date: '1410-01-01', name: 'test', type: '01' },
-        '1': { date: '1410-01-02', name: 'test', type: 'X2' },
-        '2': { date: '1410-01-03', name: 'test', type: 'A3' },
-        '3': { date: '1410-01-04', name: 'test', type: 'X4' },
-        '4': { date: '1410-01-05', name: 'test', type: 'X5' },
-        '5': { date: '1410-01-06', name: 'test', type: 'X6' },
-        '6': { date: '1410-01-07', name: 'test', type: 'X7' },
-        '7': { date: '1410-01-08', name: 'test', type: 'X8' },
-        '8': { date: '1410-01-09', name: 'test', type: 'X9' },
-        '9': { date: '1410-01-10', name: 'test', type: 'X0' }
-    }
 
     $scope.hidePanel = false;
 
@@ -32,6 +20,14 @@ angular.module('et.controllers').controller('filesViewController', ['$scope', '$
         isSelected: false,
         elm: {
             Id: null
+        },
+        metadata: {
+            CreationDate: '',
+            ModificationDate: '',
+            Size: '',
+            PhysicalLocation: '',
+            Type: '',
+            Jrwa: ''
         }
     };
 
@@ -41,7 +37,16 @@ angular.module('et.controllers').controller('filesViewController', ['$scope', '$
         $scope.elementSelected.isSelected = false;
         $scope.elementSelected.elm = {
             Id: null
+        };
+        $scope.elementSelected.metadata = {
+            CreationDate: '',
+            ModificationDate: '',
+            Size: '',
+            PhysicalLocation: '',
+            Type: '',
+            Jrwa: ''
         }
+
         $('#pdfPreviewer').attr('data', '');
     };
 
@@ -54,14 +59,25 @@ angular.module('et.controllers').controller('filesViewController', ['$scope', '$
         }).then(function (result) {
 
             $('#pdfPreviewer').attr('data', 'data:application/pdf;base64,' + result.data);
-            $scope.startPreview = false;
+
+
+            httpService.get('Pliki/PobierzMetadane', { plik: elm.Nazwa }).then(function (metaDane) {
+                $scope.elementSelected.metadata = metaDane.meta
+
+                httpService.get('Pracownicy/PobierzDlaPliku', { id: elm.Pesel }).then(function (usersForFile) {
+                    $scope.usersForFile = [usersForFile.users];
+
+                    httpService.get('Statystyki/PobierzDaneWykresowe').then(function (result) {
+                        $scope.chartDataForSelection = result.chartdata;
+
+                    });
+                    $scope.startPreview = false;
+                });
+            });
         });
     }
 
-    //$('#pdfPreviewer').attr('src', 'Content/img/logo9.png');
-
     $scope.previewPdf = function (elm) {
-        $scope.usersForFile = [$scope.allUsersForFile[elm.Id]];
         if ($scope.elementSelected.elm.Id === elm.Id) {
             $scope.deselectElement();
         } else {
@@ -104,6 +120,10 @@ angular.module('et.controllers').controller('filesViewController', ['$scope', '$
         }
 
     }
+
+    $scope.chartDataForSelection = [
+               
+    ];
 
     $scope.ok = function () {
         alert('OK LOCAL');

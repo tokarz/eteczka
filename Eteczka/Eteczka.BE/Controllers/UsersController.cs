@@ -18,7 +18,8 @@ namespace Eteczka.BE.Controllers
 
             return Json(new
             {
-                user = user
+                user = user,
+                success = user.Count > 0
             }, JsonRequestBehavior.AllowGet);
         }
 

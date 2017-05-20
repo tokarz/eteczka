@@ -22,6 +22,11 @@ namespace Eteczka.BE.Controllers
         public ActionResult UstawFirme(string name)
         {
             Sesja.FIRMA = name;
+
+            return Json(new
+            {
+                success = true
+            }, JsonRequestBehavior.AllowGet);
         }
 
     }

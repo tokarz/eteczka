@@ -207,10 +207,13 @@
     <Content Include="app\views\employees\employeesViewController.js" />
     <Content Include="app\views\employees\employeesViewDirective.js" />
     <Content Include="app\views\files\addFile\addFile.html" />
+    <Content Include="app\views\files\addFile\addFileController.js" />
     <Content Include="app\views\files\filesView.html" />
     <Content Include="app\views\files\filesViewController.js" />
     <Content Include="app\views\files\filesViewDirective.js" />
     <Content Include="app\views\files\filesViewService.js" />
+    <Content Include="app\views\files\statistics\statisticsChart.html" />
+    <Content Include="app\views\files\statistics\statisticsChartDirective.js" />
     <Content Include="app\views\login\choosefirm\chooseFirm.html" />
     <Content Include="app\views\login\choosefirm\chooseFirmController.js" />
     <Content Include="app\views\login\choosefirm\chooseFirmDirective.js" />

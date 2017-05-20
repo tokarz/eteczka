@@ -17,5 +17,6 @@ namespace Eteczka.DB.Entities
         public DateTime DataUtworzenia { get; set; }
         public DateTime DataModyfikacji { get; set; }
         public string TypDokumentu { get; set; }
+        public string Pesel { get; set; }
     }
 }

@@ -70,6 +70,7 @@ namespace Eteczka.BE.Services
                             metaDaneJson.DataUtworzenia = DateTime.Parse(parsedJson["createdate"].ToString());
                             metaDaneJson.DataModyfikacji = DateTime.Parse(parsedJson["lastchangedate"].ToString());
                             metaDaneJson.Komentarz = parsedJson["comment"].ToString();
+                            metaDaneJson.Pesel = parsedJson["pesel"].ToString();
 
                         }
 

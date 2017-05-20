@@ -155,11 +155,13 @@ table {
     cursor: wait;
 }
 
-.fileData select,
-.fileData input {
+.fileData span {
     float: right;
     text-align: center;
     width: 200px;
+    border: 1px solid darkgray;
+    background: lightgray;
+    text-align: center;
 }
 
 #content {
@@ -238,4 +240,39 @@ tr.selected td {
 
 th {
     text-align: center !important;
+}
+
+.buttonsParagraph button {
+    width: 350px;
+    opacity: 0.8;
+    margin: 5px;
+}
+
+    .buttonsParagraph button:hover {
+        width: 350px;
+        opacity: 1;
+        box-shadow: 0 0 2px 0 black;
+        cursor: pointer;
+    }
+
+.buttonsParagraph span.glyphicon-check {
+    float: right;
+    font-size: 20px;
+}
+
+.employeeTopNotSelected {
+    width: 90%;
+    margin: auto;
+    height: 100%;
+}
+
+.employeeDetailNotSelected {
+    display:none;
+}
+
+
+.employeePanelSelected {
+    width: 50%;
+    height: 100%;
+    float:left
 }
