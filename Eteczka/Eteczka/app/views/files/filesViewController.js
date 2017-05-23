@@ -122,25 +122,23 @@ angular.module('et.controllers').controller('filesViewController', ['$scope', '$
     }
 
     $scope.chartDataForSelection = [
-               
+
     ];
 
-    $scope.ok = function () {
-        alert('OK LOCAL');
-    }
 
-    $scope.tryAddFile = function () {
-        $scope.addFileTemplate.parameters = [
-            { jrwa: 'xxx' },
-            { files: ['Umowa', 'Szkolenie', 'BHP', 'Certyfikat'] }
-        ];
+    $scope.tryAddFile = function (edit) {
+        $scope.addFileTemplate.isEdit = edit;
+        $scope.addFileTemplate.selectedElement = $scope.elementSelected;
+        if (edit === true) {
+            $scope.elementSelected.file = $scope.elementSelected.elm;
+        }
+        $scope.addFileTemplate.modalResult = {};
+
         editEmployeeService.showModal($scope.addFileTemplate).then(function (result) {
-            alert('Result ' + result.selectedFile)
+            alert('Dane Zapisane!')
         }).catch(function (error) {
-            console.log("error found!");
+            console.log("error found!, " + error);
         });
-
     }
-
 
 }]);

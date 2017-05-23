@@ -203,11 +203,11 @@ table {
 }
 
 .lowerPanelVisible {
-    height: 30%;
+    height: 50%;
 }
 
 .upperPanelVisible {
-    height: 70%;
+    height: 50%;
 }
 
 .lowerPanelInvisible {
@@ -267,12 +267,28 @@ th {
 }
 
 .employeeDetailNotSelected {
-    display:none;
+    display: none;
 }
 
 
 .employeePanelSelected {
     width: 50%;
     height: 100%;
-    float:left
+    float: left;
+}
+
+.input-raw {
+    width: 100%;
+    float: left;
+}
+
+.addEditFileForm label {
+    color: steelblue;
+    float: left;
+}
+
+.addEditFileForm select,
+.addEditFileForm input {
+    border: 1px solid steelblue;
+    float: right;
 }

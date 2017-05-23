@@ -29,7 +29,7 @@
                     <a style="margin-right:-15px" class="glyphicon glyphicon-search"></a>
                     <input ng-model="searchEmployee" placeholder="Wyszukaj Pracownika" type="search" style="border:none;border-radius:5px;box-shadow:0 0 1px 1px black" />
                 </div>
-                <table class="scrollable table-striped" style="width:100%;height:95%">
+                <table class="scrollable table-striped" style="width:100%;height:85%">
                     <thead class="info ui-toolbar" style="text-align: center; display:block">
 
                         <tr style="height:35px;text-align:center">
@@ -41,7 +41,7 @@
                             <th>Dzial</th>
                         </tr>
                     </thead>
-                    <tbody style="display:block;overflow-x:hidden;overflow-y:auto;height:89%">
+                    <tbody style="display:block;overflow-x:hidden;overflow-y:auto;height:92%">
                         <tr ng-repeat="user in users | filter: searchEmployee" ng-click="setUser(user)" style="height:50px" ng-class="{selected: user.Id === elementSelected.Id}">
                             <td>{{user.Id}}</td>
                             <td>{{user.Imie}}</td>
@@ -55,12 +55,12 @@
 
             </div>
             <div id="detailsView" ng-class="isElementSelected('detail')">
-                <h1>DETALE DLA {{elementSelected.Imie}} {{elementSelected.Nazwisko}}</h1>
+                <h3 style="color:steelblue">DETALE DLA {{elementSelected.Imie}} {{elementSelected.Nazwisko}}</h3>
                 <div ng-show="!isEmpTableLoaded">
                     <processing></processing>
                 </div>
                 <div ng-show="isEmpTableLoaded">
-                    <table class="scrollable table-hover table-striped" style="width:90%;margin:auto;height:96%">
+                    <table class="scrollable table-hover table-striped" style="width:90%;margin:auto;height:85%">
                         <thead class="info ui-toolbar" style="height:35px;display:block">
                             <tr style="height:35px">
                                 <th>Typ</th>
@@ -112,7 +112,7 @@
                     </table>
                 </div>
 
-                
+
 
             </div>
 

@@ -6,13 +6,13 @@
     </div>
     <div id="upperFilePanel" class="row justify-content-md-center" style="overflow:auto" ng-class="isSubMenuVisible('upper')">
         <div style="height: 100%;overflow:auto;padding:0" ng-class="isSubMenuVisible('lowerLeft')">
-            <div style="height:5%;width:100%;float:left;color:white">
+            <div style="height:10%;width:100%;float:left;color:white">
                 <div style="width:90%;margin:auto;background:steelblue">
                     <div style="float:left">
                         <ul style="list-style:none;display:inline-flex;width:100%;height:50px;padding-left:0">
-                            <li style="margin-right:5px"> <button class="btn btn-success" ng-click="tryAddFile()">Dodaj</button> </li>
-                            <li style="margin-right:5px" ng-show="elementSelected.isSelected"> <button class="btn btn-primary" ng-click="tryEditFile()">Edytuj</button> </li>
-                            <li> <button class="btn btn-danger">Usun</button> </li>
+                            <li style="margin-right:5px" ng-show="!elementSelected.isSelected"> <button class="btn btn-success" ng-click="tryAddFile(false)">Dodaj</button> </li>
+                            <li style="margin-right:5px" ng-show="elementSelected.isSelected"> <button class="btn btn-primary" ng-click="tryAddFile(true)">Edytuj</button> </li>
+                            <li> <button class="btn btn-danger" disabled>Usun</button> </li>
                         </ul>
                     </div>
                     <div style="float:right;margin-top:5px">
@@ -21,8 +21,8 @@
                     </div>
                 </div>
             </div>
-            <div id="fileTableWrapper" style="height:90%;width:100%;float:left">
-                <table class="scrollable table-hover table-striped" style="width:90%;margin:auto;height:100%">
+            <div id="fileTableWrapper" style="height:85%;width:100%;float:left">
+                <table class="scrollable table-hover table-striped" style="width:90%;margin:auto;height:95%">
                     <thead class="info ui-toolbar" style="height:35px;display:block">
                         <tr style="height:35px">
                             <th>Typ</th>
@@ -32,7 +32,7 @@
                             <th>Data modyfikacji</th>
                         </tr>
                     </thead>
-                    <tbody style="height:95%;display:block;overflow-y:auto;overflow-x:hidden;text-align:center">
+                    <tbody style="height:92%;display:block;overflow-y:auto;overflow-x:hidden;text-align:center">
                         <tr class="file-row" ng-repeat="file in files | filter: searchFile" ng-click="previewPdf(file)" style="cursor:pointer;height:50px" ng-class="{selected: file.Id === elementSelected.elm.Id}">
                             <td>
                                 <div>

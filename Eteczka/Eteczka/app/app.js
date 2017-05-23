@@ -14,7 +14,8 @@ var app = angular.module('EtApp',
      'et.controllers',
      'et.services',
      'et.directives',
-     'et.utils'
+     'et.utils',
+     'angular-files-drop'
     ]
      );
 

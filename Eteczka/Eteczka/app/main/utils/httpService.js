@@ -11,6 +11,20 @@ angular.module('et.services').factory('httpService', ['$http', '$q', function ($
             });
 
             return deferred.promise;
+        },
+        makeFilePostQuery: function (url, fd, params) {
+            var deferred = $q.defer();
+            $http.post(url, fd, {
+                params: params,
+                transformRequest: angular.identity,
+                headers: { 'Content-Type': undefined }
+            }).success(function (data) {
+                deferred.resolve(data);
+            }).error(function () {
+                deferred.reject(false);
+            });
+
+            return deferred.promise;
         }
     };
 }]);
