@@ -95,7 +95,9 @@
     <Compile Include="Utils\JrwaParser.cs" />
     <Compile Include="Utils\Osys.cs" />
     <Compile Include="Utils\PlikiUtils.cs" />
+    <Compile Include="Utils\DokladnyPracownikUtils.cs" />
     <Compile Include="Utils\PracownikUtils.cs" />
+    <Compile Include="Utils\WyszukiwaczPlikow.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
