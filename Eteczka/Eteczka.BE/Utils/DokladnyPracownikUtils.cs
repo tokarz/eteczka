@@ -11,8 +11,14 @@ using Eteczka.DB.Entities;
 
 namespace Eteczka.BE.Utils
 {
-    public class DokladnyPracownikUtils
+    public class DokladnyPracownikUtils : WyszukiwaczPlikow
     {
+        public List<PracownikDTO> ZnajdzPracownikowZPlikiem(string plik, List<Pracownik> pracownicy)
+        {
+            
 
+            return null;
+
+        }
     }
 }
