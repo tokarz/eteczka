@@ -64,6 +64,7 @@
     <Compile Include="Utils\JrwaParserTest.cs" />
     <Compile Include="Utils\PlikiUtilsTest.cs" />
     <Compile Include="Utils\OsysTest.cs" />
+    <Compile Include="Utils\PracownikUtilsGeneralTest.cs" />
     <Compile Include="Utils\PracownikUtilsTest.cs" />
   </ItemGroup>
   <ItemGroup>

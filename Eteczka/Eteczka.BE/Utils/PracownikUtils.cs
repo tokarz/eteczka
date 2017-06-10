@@ -57,8 +57,14 @@ namespace Eteczka.BE.Utils
             {
 
                 foreach (string sciezka in workerDTO.Pliki)
+                {
                     if (sciezka.Contains(plik))
+                    {
                         PracownicyZPlikiem.Add(workerDTO);
+                    }
+
+                }
+
             }
             return PracownicyZPlikiem;
         }

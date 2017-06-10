@@ -15,10 +15,7 @@ namespace Eteczka.BE.Utils
     {
         public List<PracownikDTO> ZnajdzPracownikowZPlikiem(string plik, List<Pracownik> pracownicy)
         {
-            
-
             return null;
-
         }
     }
 }
