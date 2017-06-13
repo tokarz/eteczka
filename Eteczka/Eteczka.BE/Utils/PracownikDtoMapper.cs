@@ -13,7 +13,14 @@ namespace Eteczka.BE.Utils
         public PracownikDTO mapuj(Pracownik zrodlo)
         {
             PracownikDTO result = new PracownikDTO();
-            
+            result.Pliki = zrodlo.Pliki;
+            result.Id = zrodlo.Id;
+            result.Imie = zrodlo.Imie;
+            result.Nazwisko = zrodlo.Nazwisko;
+            result.PESEL = zrodlo.PESEL;
+            result.DataUrodzenia = zrodlo.DataUrodzenia;
+            result.NumerPracownika = zrodlo.NumerPracownika;
+
 
             return result;
         }
