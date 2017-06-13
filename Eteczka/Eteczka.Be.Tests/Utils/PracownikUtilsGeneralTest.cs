@@ -14,13 +14,33 @@ namespace Eteczka.BE.Utils
     [TestFixture]
     public class PracownikUtilsGeneralTest
     {
+        // Zobacz! Kiedys napisal bys:
+        // private PracownikUtils _Sut;
+        // wtedy tylko ten typ moglbys zainicjalizowac poprzez new : _Sut = new PracownikUtils()
+        //Gdy uzyjesz interfejsu (albo klasy bazowej przy dziedziczeniu ale to potem) mozesz uzyc skladni:
+
+        // TypOgolny x = new Typ1()
+        // TypOgolny y = new Typ2()
+
+        //I teraz mozesz uzyc tego do konfiguracji swojego programu
+
+        //np Program pyta: chcesz Dokladnie sprawdzic czy nie pliki
+        // string odpowiedz = wczytajOdpowiedzZKlawiatury();
+        // if (odpowiedz.equals("T") {
+        // x = newTyp1();
+        // } else { x = newTyp2();} 
+
+
+
         private WyszukiwaczPlikow _Sut;
         private WyszukiwaczPlikow _DokladnySut;
+        private IMapowalnyDoPracownikDto _Mapper;
 
         [SetUp]
         public void Init()
         {
-            _Sut = new PracownikUtils();
+            _Mapper = new PracownikDtoMapper();
+            _Sut = new PracownikUtils(_Mapper);
             _DokladnySut = new DokladnyPracownikUtils();
         }
 

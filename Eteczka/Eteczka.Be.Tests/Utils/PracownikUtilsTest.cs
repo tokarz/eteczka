@@ -18,13 +18,14 @@ namespace Eteczka.BE.Utils
     public class PracownikUtilsTest
     {
         private PracownikUtils _Sut;
+        private IMapowalnyDoPracownikDto _Mapper;
 
         [SetUp]
         public void Init()
         {
-            _Sut = new PracownikUtils();
+            _Mapper = new PracownikDtoMapper();
+            _Sut = new PracownikUtils(_Mapper);
         }
-
 
         [Test]
         public void ZnajdzPracownikowZPlikiem()

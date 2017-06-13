@@ -13,6 +13,13 @@ namespace Eteczka.BE.Utils
 {
     public class PracownikUtils : WyszukiwaczPlikow
     {
+        private IMapowalnyDoPracownikDto _Mapper;
+
+        public PracownikUtils(IMapowalnyDoPracownikDto mapper)
+        {
+            this._Mapper = mapper;
+        }
+
         public List<PracownikDTO> ZnajdzPracownikowZPlikiem(string plik, List<PracownikDTO> pracownicy)
         {
             List<PracownikDTO> PracownicyZPlikiem = new List<PracownikDTO>();
@@ -36,33 +43,17 @@ namespace Eteczka.BE.Utils
         {
             List<PracownikDTO> PracownicyZPlikiem = new List<PracownikDTO>();
             List<PracownikDTO> PracownicyDTO = new List<PracownikDTO>();
-
-
-            foreach (Pracownik pracownik in pracownicy)
+            
+            foreach (Pracownik worker in pracownicy)
             {
-                PracownikDTO pracownikDTO = new PracownikDTO();
-
-
-                pracownikDTO.Pliki = pracownik.Pliki;
-                pracownikDTO.Id = pracownik.Id;
-                pracownikDTO.Imie = pracownik.Imie;
-                pracownikDTO.Nazwisko = pracownik.Nazwisko;
-                pracownikDTO.PESEL = pracownik.PESEL;
-                pracownikDTO.DataUrodzenia = pracownik.DataUrodzenia;
-                pracownikDTO.NumerPracownika = pracownik.NumerPracownika;
-
-                PracownicyDTO.Add(pracownikDTO);
-            }
-            foreach (PracownikDTO workerDTO in PracownicyDTO)
-            {
-
-                foreach (string sciezka in workerDTO.Pliki)
+                foreach (string sciezka in worker.Pliki)
                 {
                     if (sciezka.Contains(plik))
                     {
+                        PracownikDTO workerDTO = this._Mapper.mapuj(worker);
                         PracownicyZPlikiem.Add(workerDTO);
+                        break;
                     }
-
                 }
 
             }
