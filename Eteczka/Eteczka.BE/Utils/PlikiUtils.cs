@@ -227,17 +227,19 @@ namespace Eteczka.BE.Utils
             
             if (string.IsNullOrEmpty(rozszerzenie) || sciezka.EndsWith(rozszerzenie))
             {
+                // PROBUJEMY OTWORZYC PLIK I LAPIEMY EWENTUALNE WYJATKI
                 try
             {   // OTWIERAMY STRUMIEN DO PLIKU
                 using (StreamReader sr = new StreamReader(sciezka))
                 {
-                    // Read the stream to a string, and write the string to the console.
+                    // WCZYTUJEMY 1 LINIJKE Z PLIKU DO NAPOTKANIA KONCA LINII 
                     string linijka = sr.ReadToEnd();
                     plik.Append(linijka);
                 }
             }
             catch (Exception e)
             {
+                // OBSLUGA WYJATKU
                 Console.WriteLine("BLAD ODCZYTU PLIKU!");
                 Console.WriteLine(e.Message);
             }
