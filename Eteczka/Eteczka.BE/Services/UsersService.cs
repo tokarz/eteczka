@@ -29,6 +29,7 @@ namespace Eteczka.BE.Services
                     UserDto wczytanyUser = new UserDto();
                     wczytanyUser.Id = result.Id;
                     wczytanyUser.Nazwa = result.Identyfikator;
+                    wczytanyUser.isAdmin = result.isAdmin;
 
                     Uprawnienia uprawnienia = new Uprawnienia();
                     uprawnienia.RolaReadOnly = result.Rolareadonly;
@@ -41,6 +42,7 @@ namespace Eteczka.BE.Services
                     uprawnienia.RolaRaport = result.Rolaraport;
                     uprawnienia.RolaRaportExport = result.Rolaraportexport;
                     uprawnienia.RolaDoubleAkcept = result.Roladoubleakcept;
+                    
 
                     wczytanyUser.Uprawnienia = uprawnienia;
                     wczytanyUser.DataModify = result.Datamodify;

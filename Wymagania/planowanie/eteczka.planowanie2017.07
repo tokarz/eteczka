@@ -1,0 +1,47 @@
+Planowanie z Paszczakiem. 10.06.2017 (11:09  Zojka spi)
+
+-wyglad: Pasek nawigacyjny z lewej strony, z prawej pulpit (opcja wysuwania i zwijania panelu z opcjami)
+-menu boczne przeslania zawartosc panelu przy wysunieciu (przykladowo)
+
+-panel Admministratora: user: administrator, pierwsze haslo wygenerowane, przy pierwszym logowaniu musi zmienic ( 12 znakow, duze male, cyfra, znak specjalny "3 z listy WYMAGANE)
+-panel Administratora: dodaj uzytkownika 
+-administrator nadaje hasla i uprawnienia
+-obsluga zapomnianego hasla
+-wydruk hasla dla Pani Krysi
+-administrator nadaje email firmowy
+
+- krotkie haslo przed wywolaniem Http/Rest serwera
+
+-Kontroler Sesji ( mozemy razem! )
+- initDb.bat, initSystem.bat 
+- jsTree  (widok drzewa w hierarchii katalogow)
+
+-wysylanie plikow mailem? 
+
+
+wydruki? (poki co nie)
+
+format daty staly : yyyy-mm-dd HH:MM:SS  (dokladnosc do sekund)
+
+- Logowanie (zapis akcji uzytkownika do logow systemowych)
+
+Czas do konca Wrzesnia (!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!)
+
+
+
+
+
+
+
+Dalsza integracja (najlepiej automatyczna) z systemem Paszczaka (3)
+  -  FE wygladajacy dobrze we wszystkich rozdzielczosciach (ekran HD, laptop, tablet)  (X)
+  -  Dodawanie plikow i pracownikow do bazy po nacisnieciu "Zapisz" w okienku modlanym 
+  -  Stworzenie Hierarchii JRWA - Typ Pliku (TopFarms nie ma zdefiniowanego JRWA wiec mozemy sami cos zaproponowac)
+  - Konto administratora ktore zarzadza Uzytkownikami (tworzenie kont i hasel) (1)
+  - obsluga krotkiego Hasla (jak w systemie Paszczaka) (2)
+  - Wsparcie uprawnien (uprawnienia do spolek, akcji itd) (1  patrz KatLoginy)
+  - Logo? (jakies pomysly? teraz mamy bialy listek ale to jest wersja bardzo tymczasowa) (X)
+  - Obsluga sesji (logowanie uzytkownika do bazy danych) (3)
+  - Eksporty (CSV, XML, JSON?) (4)
+  - Populacja bazy danych danymi (5)
+  - skrypty instalujace i ustawiajace DB (2)

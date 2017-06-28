@@ -1,0 +1,42 @@
+﻿<div class="container-fluid">
+    <div class="row">
+
+        <div class="navbar-left col-md-1" style="height:100%; min-height:2000px;border:1px solid black;background:white;padding:0">
+            <ul style="padding-top: 15px">
+                <li class="menu-item" ng-repeat="option in sideMenuOptions">
+                    <i class="{{option.icon}}"></i>
+                    <a>{{option.label}}</a>
+                </li>
+            </ul>
+
+        </div>
+        <div class="col-md-11" style="height:100%;">
+            <div class="row">
+                <div class="col-lg-3 recent-info-panel">
+                    <div class="info-panel-content">
+                        <et-quick-note title="quickNote.files.title" icon="quickNote.files.icon" value="quickNote.files.value" trend="quickNote.files.trend"></et-quick-note>
+                    </div>
+                </div>
+                <div class="col-lg-3 recent-info-panel">
+                    <div class="info-panel-content">
+                        <et-quick-note title="quickNote.users.title" icon="quickNote.users.icon" value="quickNote.users.value" trend="quickNote.users.trend"></et-quick-note>
+                    </div>
+                </div>
+                <div class="col-lg-3 recent-info-panel">
+                    <div class="info-panel-content">
+                        <et-quick-note title="quickNote.imports.title" icon="quickNote.imports.icon" value="quickNote.imports.value" trend="quickNote.imports.trend"></et-quick-note>
+                    </div>
+                </div>
+                <div class="col-lg-3 recent-info-panel">
+                    <div class="info-panel-content">
+                        <et-quick-note title="quickNote.exports.title" icon="quickNote.exports.icon" value="quickNote.exports.value" trend="quickNote.exports.trend"></et-quick-note>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12"></div>
+            </div>
+        </div>
+    </div>
+
+</div>

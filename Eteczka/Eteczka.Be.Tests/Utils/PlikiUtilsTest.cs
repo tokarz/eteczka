@@ -170,7 +170,27 @@ namespace Eteczka.BE.Utils
 
         }
 
+        [Test]
+        public void WczytajPlik()
+        {
+            string zawartoscReadmeTxt = "WITAJ SWIECIE!";
 
+            string result = _Sut.WczytajPlik("../../test-data/README.txt");
+
+            Assert.AreEqual(zawartoscReadmeTxt, result);
+        }
+
+
+        [Test]
+        public void WczytajOsoby()
+        {
+            List<string> osoby = new string[] { "Maciej Tokarz", "Michal Skalacki", "Aleksandra Tokarz", "Zbigniew Tokarz" }.ToList<string>();
+
+            List<string> result = _Sut.WczytajPlikiZFolderu("../../test-data/osoby", "txt");
+
+            Assert.AreEqual(4, result.Count);
+            
+        }
 
     }
 }

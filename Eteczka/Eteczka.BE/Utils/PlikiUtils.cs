@@ -221,5 +221,45 @@ namespace Eteczka.BE.Utils
             return SciezkiZPlikami;
         }
 
+        public string WczytajPlik(string sciezka, string rozszerzenie="")
+        {
+            StringBuilder plik = new StringBuilder();
+            
+            if (string.IsNullOrEmpty(rozszerzenie) || sciezka.EndsWith(rozszerzenie))
+            {
+                try
+            {   // OTWIERAMY STRUMIEN DO PLIKU
+                using (StreamReader sr = new StreamReader(sciezka))
+                {
+                    // Read the stream to a string, and write the string to the console.
+                    string linijka = sr.ReadToEnd();
+                    plik.Append(linijka);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("BLAD ODCZYTU PLIKU!");
+                Console.WriteLine(e.Message);
+            }
+            }
+            
+            
+            return plik.ToString();
+        }
+
+        public List<string> WczytajPlikiZFolderu(string sciezkaDoKatalogu, string rozszerzenie)
+        {
+            List<string> osoby = new List<string>();
+
+            List<string> pliki = Directory.GetFiles(sciezkaDoKatalogu).ToList<string>();
+            foreach(string plik in pliki)
+            {
+                // Tu Pisz;)
+                
+            }
+
+
+            return osoby;
+        }
     }
 }

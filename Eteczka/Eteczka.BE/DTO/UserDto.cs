@@ -17,5 +17,6 @@ namespace Eteczka.BE.DTO
         public DateTime DataModify { get; set; }
         public Uprawnienia Uprawnienia { get; set; }
         public string FirmaSymbol { get; set; }
+        public bool isAdmin { get; set; }
     }
 }
