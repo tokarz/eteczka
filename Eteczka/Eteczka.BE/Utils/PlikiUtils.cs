@@ -254,10 +254,22 @@ namespace Eteczka.BE.Utils
             List<string> osoby = new List<string>();
 
             List<string> pliki = Directory.GetFiles(sciezkaDoKatalogu).ToList<string>();
-            foreach(string plik in pliki)
+            foreach (string plik in pliki)
             {
-                // Tu Pisz;)
-                
+                string zawartoscPliku = WczytajPlik(plik, rozszerzenie);
+
+                /*Pomimo użycia parametru "rozszerzenie"  metoda wczytuje wszystkie pliki, 
+                a nie tylko "txt". Działa prawidłowo dopiero po dodaniu poniższego warunku. */
+
+
+                if (plik.EndsWith(rozszerzenie))
+
+                    /*Dzieje się tak samo nawet wtedy, gdy z metody WczytajPlik 
+                                usunę warunek IsNullOrEmpty. Czy nie powinno być tak, 
+                                że ścieżki inne niż z końcówką "txt" są pomijane? Chyba się zamotałem :))*/
+
+
+                    osoby.Add(zawartoscPliku);
             }
 
 
