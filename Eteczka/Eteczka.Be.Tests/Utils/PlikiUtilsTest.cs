@@ -192,5 +192,28 @@ namespace Eteczka.BE.Utils
             
         }
 
+        [Test]
+        public void ExcellWczytajWiersz()
+        {
+            string sciezkaDoPliku = "../../test-data/excell/Rodzaje_dokumentow_Eteczka.xlsx";
+
+            List<string> result = _Sut.ExcellWczytajWiersz(sciezkaDoPliku, 1, 1);
+            
+            Assert.NotNull(result);
+            Assert.AreEqual(3, result.Count);
+            Assert.AreEqual("nazwa dokumentu", result[0]);
+            Assert.AreEqual("symbol dokumentu", result[1]);
+            Assert.AreEqual("część akt", result[2]);
+
+            List<string> result = _Sut.ExcellWczytajWiersz(sciezkaDoPliku, 1, 2);
+
+            Assert.NotNull(result);
+            Assert.AreEqual(3, result.Count);
+            Assert.AreEqual("kwestionariusz osobowy kandydata", result[0]);
+            Assert.AreEqual("KwOsKand", result[1]);
+            Assert.AreEqual("A", result[2]);
+
+        }
+
     }
 }

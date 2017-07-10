@@ -45,3 +45,13 @@
 .negativeTrend {
     color: firebrick;
 }
+
+.close-x {
+    color: black;
+    
+}
+
+    .close-x:hover {
+        color: white;
+        cursor:pointer;
+    }

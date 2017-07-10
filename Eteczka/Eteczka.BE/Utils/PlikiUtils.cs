@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using Microsoft.Office.Interop.Excel;
+using System.Runtime.InteropServices;
+
 
 namespace Eteczka.BE.Utils
 {
@@ -172,7 +175,7 @@ namespace Eteczka.BE.Utils
         {
             Dictionary<string, List<string>> result = new Dictionary<string, List<string>>();
 
-            
+
 
             foreach (string sciezka in sciezkiPlikow)
             {
@@ -221,31 +224,31 @@ namespace Eteczka.BE.Utils
             return SciezkiZPlikami;
         }
 
-        public string WczytajPlik(string sciezka, string rozszerzenie="")
+        public string WczytajPlik(string sciezka, string rozszerzenie = "")
         {
             StringBuilder plik = new StringBuilder();
-            
+
             if (string.IsNullOrEmpty(rozszerzenie) || sciezka.EndsWith(rozszerzenie))
             {
                 // PROBUJEMY OTWORZYC PLIK I LAPIEMY EWENTUALNE WYJATKI
                 try
-            {   // OTWIERAMY STRUMIEN DO PLIKU
-                using (StreamReader sr = new StreamReader(sciezka))
+                {   // OTWIERAMY STRUMIEN DO PLIKU
+                    using (StreamReader sr = new StreamReader(sciezka))
+                    {
+                        // WCZYTUJEMY 1 LINIJKE Z PLIKU DO NAPOTKANIA KONCA LINII 
+                        string linijka = sr.ReadToEnd();
+                        plik.Append(linijka);
+                    }
+                }
+                catch (Exception e)
                 {
-                    // WCZYTUJEMY 1 LINIJKE Z PLIKU DO NAPOTKANIA KONCA LINII 
-                    string linijka = sr.ReadToEnd();
-                    plik.Append(linijka);
+                    // OBSLUGA WYJATKU
+                    Console.WriteLine("BLAD ODCZYTU PLIKU!");
+                    Console.WriteLine(e.Message);
                 }
             }
-            catch (Exception e)
-            {
-                // OBSLUGA WYJATKU
-                Console.WriteLine("BLAD ODCZYTU PLIKU!");
-                Console.WriteLine(e.Message);
-            }
-            }
-            
-            
+
+
             return plik.ToString();
         }
 
@@ -274,6 +277,45 @@ namespace Eteczka.BE.Utils
 
 
             return osoby;
+        }
+
+        public List<String> ExcellWczytajWiersz(string sciezka, int arkusz, int wiersz)
+        {
+            List<String> result = new List<string>();
+            if (File.Exists(sciezka))
+            {
+                Application xlApp = new Application();
+                Workbook xlWorkbook = xlApp.Workbooks.Open(Path.GetFullPath(sciezka));
+                Worksheet xlWorksheet = xlWorkbook.Sheets[arkusz];
+                Range xlRange = xlWorksheet.UsedRange;
+
+                for (int i = 1; i <= xlRange.Columns.Count; i++)
+                {
+                    result.Add(xlRange.Cells[wiersz, i].Value);
+                }
+
+                ZamknijPlik(xlApp, xlWorkbook, xlWorksheet, xlRange);
+            }
+
+
+            return result;
+        }
+
+        private void ZamknijPlik(Application xlApp, Workbook xlWorkbook, Worksheet xlWorksheet, Range xlRange)
+        {
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+
+            Marshal.ReleaseComObject(xlRange);
+            Marshal.ReleaseComObject(xlWorksheet);
+
+            //close and release
+            xlWorkbook.Close();
+            Marshal.ReleaseComObject(xlWorkbook);
+
+            //quit and release
+            xlApp.Quit();
+            Marshal.ReleaseComObject(xlApp);
         }
     }
 }
