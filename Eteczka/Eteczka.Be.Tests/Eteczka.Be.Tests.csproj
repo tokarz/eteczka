@@ -88,6 +88,7 @@
   <ItemGroup>
     <Content Include="test-data\osoby\Maciek.txt" />
     <Content Include="test-data\osoby\Ola.txt" />
+    <None Include="test-data\excell\Rodzaje_dokumentow_Eteczka_Full.xlsx" />
     <None Include="test-data\excell\Rodzaje_dokumentow_Eteczka.xlsx" />
     <None Include="test-data\osoby\TegoNieWczytuj.costam" />
     <Content Include="test-data\osoby\Paszczak.txt" />
