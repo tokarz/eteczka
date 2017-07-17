@@ -317,5 +317,51 @@ namespace Eteczka.BE.Utils
             xlApp.Quit();
             Marshal.ReleaseComObject(xlApp);
         }
+
+        public ExcelKatDok ExcellWczytajKatDok(string sciezka, int arkusz)
+        {
+            ExcelKatDok result = new ExcelKatDok();
+            
+            if (File.Exists(sciezka))
+            {
+                Application xlApp = new Application();
+                Workbook xlWorkbook = xlApp.Workbooks.Open(Path.GetFullPath(sciezka));
+                Worksheet xlWorksheet = xlWorkbook.Sheets[arkusz];
+                Range xlRange = xlWorksheet.UsedRange;
+                for (int i = 1; i <= xlRange.Columns.Count; i++)
+                {
+                    result.Naglowek.Add(xlRange.Cells[1, i].Value);
+                    //Do wczytania nagłówka rozważałem użycie metody ExcellWczytajWiersz, 
+                    //ale mówiłeś, że otwieranie pliku to kosztowna impreza,
+                    //więc zdecydowałem się na przepisanie kodu w ramach jednego otwarcia.
+
+                }
+
+                for (int y = 1; y <= xlRange.Rows.Count; y++)
+                {
+                    for (int i = 1; i <= xlRange.Columns.Count; i++)
+                    {
+                        int wiersz = 1;
+                        ExcelKatDokPola Pola = new ExcelKatDokPola();
+                        Pola.NazwaDokumentu = (xlRange.Cells[wiersz, 1].Value);
+                        Pola.SymbolDokumentu = (xlRange.Cells[wiersz, 2].Value);
+                        Pola.CzescAkt = (xlRange.Cells[wiersz, 3].Value);
+                        wiersz++;
+
+
+
+                        result.CalyPlik.Add(Pola);
+
+                    }
+                }
+
+                ZamknijPlik(xlApp, xlWorkbook, xlWorksheet, xlRange);
+            }
+
+
+            return result;
+        }
     }
 }
+    
+
