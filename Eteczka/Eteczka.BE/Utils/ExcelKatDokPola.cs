@@ -8,10 +8,8 @@ namespace Eteczka.BE.Utils
 {
     public class ExcelKatDokPola
     {
-        
-            public string NazwaDokumentu { get; set; }
-            public string SymbolDokumentu { get; set; }
-            public string CzescAkt { get; set; }
-        
+        public string NazwaDokumentu { get; set; }
+        public string SymbolDokumentu { get; set; }
+        public string CzescAkt { get; set; }
     }
 }
