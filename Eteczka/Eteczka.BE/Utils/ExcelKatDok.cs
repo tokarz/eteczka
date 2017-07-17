@@ -9,6 +9,6 @@ namespace Eteczka.BE.Utils
     public class ExcelKatDok
     {
         public List<string> Naglowek { get; set; }
-        public List<ExcelKatDokPola> CalyPlik { get; set;}
+        public List<ExcelKatDokPola> CalyPlik { get; set; }
     }
 }
