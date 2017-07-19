@@ -306,71 +306,75 @@ namespace Eteczka.BE.Utils
             GC.Collect();
             GC.WaitForPendingFinalizers();
 
-            Marshal.ReleaseComObject(xlRange);
-            Marshal.ReleaseComObject(xlWorksheet);
+            if (xlApp != null && xlWorkbook != null && xlWorksheet != null && xlRange != null)
+            {
+                Marshal.ReleaseComObject(xlRange);
+                Marshal.ReleaseComObject(xlWorksheet);
 
-            //close and release
-            xlWorkbook.Close();
-            Marshal.ReleaseComObject(xlWorkbook);
+                //close and release
+                xlWorkbook.Close();
+                Marshal.ReleaseComObject(xlWorkbook);
 
-            //quit and release
-            xlApp.Quit();
-            Marshal.ReleaseComObject(xlApp);
+                //quit and release
+                xlApp.Quit();
+                Marshal.ReleaseComObject(xlApp);
+            }
         }
 
         public ExcelKatDok ExcellWczytajKatDok(string sciezka, int arkusz)
         {
-            // Widzialem ze podjales decyzje, by wczytywac Naglowek i Caly plik. Dobrze, jedyny minus to to ze wczytamy naglowek 2 razy, ale
-            // plus jest taki ze zachowamy numeracje wierszy zgodna z excelem:) 
-
             ExcelKatDok result = new ExcelKatDok();
-            
+
             if (File.Exists(sciezka))
             {
-                Application xlApp = new Application();
-                Workbook xlWorkbook = xlApp.Workbooks.Open(Path.GetFullPath(sciezka));
-                Worksheet xlWorksheet = xlWorkbook.Sheets[arkusz];
-                Range xlRange = xlWorksheet.UsedRange;
-                for (int i = 1; i <= xlRange.Columns.Count; i++)
+                Application xlApp = null;
+                Workbook xlWorkbook = null;
+                Worksheet xlWorksheet = null;
+                Range xlRange = null;
+                try
                 {
-                    //Podpowiedz: Stworzyles uzywajac new ExcelKatDok, ale nie jego listy. One sie same nie zainicjalizuja, chyba ze im kazesz.
-                    //Tutaj powinienes uzyc new dla result.Naglowek
-                    result.Naglowek.Add(xlRange.Cells[1, i].Value);
-                    //Do wczytania nagłówka rozważałem użycie metody ExcellWczytajWiersz, 
-                    //ale mówiłeś, że otwieranie pliku to kosztowna impreza,
-                    //więc zdecydowałem się na przepisanie kodu w ramach jednego otwarcia.
+                    xlApp = new Application();
+                    xlWorkbook = xlApp.Workbooks.Open(Path.GetFullPath(sciezka));
+                    xlWorksheet = xlWorkbook.Sheets[arkusz];
+                    xlRange = xlWorksheet.UsedRange;
 
-                    //Bardzo dobrze, o to chodzilo:) 
-
-                }
-
-                for (int y = 1; y <= xlRange.Rows.Count; y++)
-                {
-                    //Czy ten for jest potrzebny, skoro nie uzywasz zmiennej i ? I tak przeciez czytasz tylko kolumny 1,2 i 3, moze petla jest zbedna?
+                    result.Naglowek = new List<string>();
+                    result.CalyPlik = new List<ExcelKatDokPola>();
                     for (int i = 1; i <= xlRange.Columns.Count; i++)
                     {
-                        //to nie zadziala: int bedzie zawsze 1, bo co wejscie do petli ustawiamy je na 1. To powinno isc poza for
-                        int wiersz = 1;
-                        ExcelKatDokPola Pola = new ExcelKatDokPola();
-                        //zmienna idaca po wierszach to y. Moze ona powinna zastapic zmienna wiersz?
-                        Pola.NazwaDokumentu = (xlRange.Cells[wiersz, 1].Value);
-                        Pola.SymbolDokumentu = (xlRange.Cells[wiersz, 2].Value);
-                        Pola.CzescAkt = (xlRange.Cells[wiersz, 3].Value);
-                        wiersz++;
-
-
-                        //Tutaj powinienes uzyc new dla result.CalyPlik
-                        result.CalyPlik.Add(Pola);
+                        result.Naglowek.Add(xlRange.Cells[1, i].Value);
 
                     }
+
+                    for (int y = 1; y <= xlRange.Rows.Count; y++)
+                    {
+
+                        ExcelKatDokPola Pola = new ExcelKatDokPola();
+                        Pola.NazwaDokumentu = (xlRange.Cells[y, 1].Value);
+                        Pola.SymbolDokumentu = (xlRange.Cells[y, 2].Value);
+                        Pola.CzescAkt = (xlRange.Cells[y, 3].Value);
+
+
+                        result.CalyPlik.Add(Pola);
+                    }
+
                 }
 
-                ZamknijPlik(xlApp, xlWorkbook, xlWorksheet, xlRange);
-            }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("BŁĄD ODCZYTU PLIKU!");
+                    Console.WriteLine(ex.Message);
+                }
+                finally
+                {
+                    ZamknijPlik(xlApp, xlWorkbook, xlWorksheet, xlRange); 
+                }
 
+            }
 
             return result;
         }
+
 
         public ExcelKatDok ExcellWczytajKatDok_ZDAJETEST_DLA_MALEJ_POMOCY(string sciezka, int arkusz)
         {
@@ -413,5 +417,5 @@ namespace Eteczka.BE.Utils
         }
     }
 }
-    
+
 
