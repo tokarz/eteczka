@@ -17,11 +17,6 @@ namespace Eteczka.BE.Controllers
     {
         private IPracownicyService _PracownicyService;
 
-        public PracownicyController()
-        {
-            this._PracownicyService = new PracownicyService();
-        }
-
         public PracownicyController(IPracownicyService pracownicyService)
         {
             this._PracownicyService = pracownicyService;

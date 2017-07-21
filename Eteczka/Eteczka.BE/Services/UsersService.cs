@@ -9,18 +9,18 @@ namespace Eteczka.BE.Services
 {
     public class UsersService : IUsersService
     {
+        private KatLoginDAO _Dao;
+
+        public UsersService(KatLoginDAO dao)
+        {
+            this._Dao = dao;
+        }
+
         public List<UserDto> GetUserByNameAndPassword(string username, string password)
         {
             List<UserDto> allUsers = null;
 
-            string user = ConfigurationManager.AppSettings["dbuser"];
-            string dbPassword = ConfigurationManager.AppSettings["dbpassword"];
-            string host = ConfigurationManager.AppSettings["dbhost"];
-            string port = ConfigurationManager.AppSettings["dbport"];
-            string name = ConfigurationManager.AppSettings["dbname"];
-
-            KatLoginDAO dao = new KatLoginDAO(new DbConnectionFactory(new ConnectionDetails(user, dbPassword, host, port, name)));
-            List<KatLoginy> queryResult = dao.WczytajPracownikaPoNazwieIHasle(username, password);
+            List<KatLoginy> queryResult = _Dao.WczytajPracownikaPoNazwieIHasle(username, password);
             if (queryResult != null)
             {
                 allUsers = new List<UserDto>();
@@ -42,7 +42,6 @@ namespace Eteczka.BE.Services
                     uprawnienia.RolaRaport = result.Rolaraport;
                     uprawnienia.RolaRaportExport = result.Rolaraportexport;
                     uprawnienia.RolaDoubleAkcept = result.Roladoubleakcept;
-                    
 
                     wczytanyUser.Uprawnienia = uprawnienia;
                     wczytanyUser.DataModify = result.Datamodify;
@@ -50,9 +49,7 @@ namespace Eteczka.BE.Services
 
                     allUsers.Add(wczytanyUser);
                 }
-
             }
-
 
             return allUsers;
         }

@@ -14,15 +14,20 @@ namespace Eteczka.BE.Services
 {
     public class ImportService : IImportService
     {
+        private PlikiUtils _PlikiUtils;
+        private PlikiDAO _Dao;
+
+        public ImportService(PlikiUtils plikiUtils)
+        {
+            this._PlikiUtils = plikiUtils;
+        }
+
         public ImportResult ImportFiles(bool nadpisz)
         {
             ImportResult result = new ImportResult();
             Dictionary<string, Plik> wczytanePliki = new Dictionary<string, Plik>();
             List<string> znalezionePdf = new List<string>();
             List<string> znalezioneMetaDane = new List<string>();
-
-            PlikiUtils plikiUtils = new PlikiUtils();
-
 
             string eadRoot = System.Environment.GetEnvironmentVariable("EAD_DIR");
 
@@ -60,7 +65,6 @@ namespace Eteczka.BE.Services
                                 jsonMetadataFile.Append(line);
                             }
 
-
                             var rootJson = JObject.Parse(jsonMetadataFile.ToString());
                             var parsedJson = rootJson["file"];
                             metaDaneJson.Id = parsedJson["id"].ToString();
@@ -74,25 +78,12 @@ namespace Eteczka.BE.Services
 
                         }
 
-
                         wczytanePliki.Add(dokument, metaDaneJson);
                     }
                 }
             }
 
-            string user = ConfigurationManager.AppSettings["dbuser"];
-            string password = ConfigurationManager.AppSettings["dbpassword"];
-            string host = ConfigurationManager.AppSettings["dbhost"];
-            string port = ConfigurationManager.AppSettings["dbport"];
-            string name = ConfigurationManager.AppSettings["dbname"];
-
-            IConnectionDetails connectionDetails = new ConnectionDetails(user, password, host, port, name);
-            IDbConnectionFactory factory = new DbConnectionFactory(connectionDetails);
-
-            PlikiDAO dao = new PlikiDAO(factory);
-            result.ImportSukces = dao.ImportujPliki(wczytanePliki);
-
-
+            result.ImportSukces = _Dao.ImportujPliki(wczytanePliki);
 
             return result;
         }
@@ -100,7 +91,6 @@ namespace Eteczka.BE.Services
         public ImportResult ImportArchives(bool nadpisz)
         {
             ImportResult result = new ImportResult();
-
             List<KatLokalPapier> lokalneArchiwum = new List<KatLokalPapier>();
             List<string> filePaths = new List<string>();
             string eadRoot = System.Environment.GetEnvironmentVariable("EAD_DIR");
@@ -109,6 +99,7 @@ namespace Eteczka.BE.Services
 
             string[] pliki = Directory.GetFiles(sciezkaDoPlikow);
             StringBuilder jsonFile = new StringBuilder();
+            
             foreach (string plik in pliki)
             {
                 jsonFile.Clear();
@@ -119,7 +110,6 @@ namespace Eteczka.BE.Services
                     {
                         jsonFile.Append(line);
                     }
-
 
                     var rootJson = JObject.Parse(jsonFile.ToString());
                     var parsedArray = rootJson["arch"];
@@ -143,30 +133,20 @@ namespace Eteczka.BE.Services
                 }
             }
 
-
             string user = ConfigurationManager.AppSettings["dbuser"];
             string password = ConfigurationManager.AppSettings["dbpassword"];
             string host = ConfigurationManager.AppSettings["dbhost"];
             string port = ConfigurationManager.AppSettings["dbport"];
             string name = ConfigurationManager.AppSettings["dbname"];
-
-            IConnectionDetails connectionDetails = new ConnectionDetails(user, password, host, port, name);
-            IDbConnectionFactory factory = new DbConnectionFactory(connectionDetails);
-
-            PlikiDAO dao = new PlikiDAO(factory);
-            result.ImportSukces = dao.ImportujArchiwa(lokalneArchiwum);
-
+            
+            result.ImportSukces = _Dao.ImportujArchiwa(lokalneArchiwum);
 
             return result;
         }
 
-
-
-
         public ImportResult ImportFirms(bool nadpisz)
         {
             ImportResult result = new ImportResult();
-
             List<KatFIrmy> lokalneFirmy = new List<KatFIrmy>();
             List<string> filePaths = new List<string>();
             string eadRoot = System.Environment.GetEnvironmentVariable("EAD_DIR");
@@ -175,6 +155,7 @@ namespace Eteczka.BE.Services
 
             string[] pliki = Directory.GetFiles(sciezkaDoPlikow);
             StringBuilder jsonFile = new StringBuilder();
+            
             foreach (string plik in pliki)
             {
                 jsonFile.Clear();
@@ -185,7 +166,6 @@ namespace Eteczka.BE.Services
                     {
                         jsonFile.Append(line);
                     }
-
 
                     var rootJson = JObject.Parse(jsonFile.ToString());
                     var parsedArray = rootJson["firm"];
@@ -223,19 +203,7 @@ namespace Eteczka.BE.Services
                 }
             }
 
-
-            string user = ConfigurationManager.AppSettings["dbuser"];
-            string password = ConfigurationManager.AppSettings["dbpassword"];
-            string host = ConfigurationManager.AppSettings["dbhost"];
-            string port = ConfigurationManager.AppSettings["dbport"];
-            string name = ConfigurationManager.AppSettings["dbname"];
-
-            IConnectionDetails connectionDetails = new ConnectionDetails(user, password, host, port, name);
-            IDbConnectionFactory factory = new DbConnectionFactory(connectionDetails);
-
-            PlikiDAO dao = new PlikiDAO(factory);
-            result.ImportSukces = dao.ImportujFirmy(lokalneFirmy);
-
+            result.ImportSukces = _Dao.ImportujFirmy(lokalneFirmy);
 
             return result;
 
@@ -263,7 +231,6 @@ namespace Eteczka.BE.Services
                         jsonFile.Append(line);
                     }
 
-
                     var rootJson = JObject.Parse(jsonFile.ToString());
                     var parsedArray = rootJson["area"];
 
@@ -282,25 +249,12 @@ namespace Eteczka.BE.Services
                         aktualnyRejon.Idakcept = 0;
                         aktualnyRejon.Dataakcept = DateTime.Now;
 
-
                         lokalneRejony.Add(aktualnyRejon);
                     }
                 }
             }
-
-
-            string user = ConfigurationManager.AppSettings["dbuser"];
-            string password = ConfigurationManager.AppSettings["dbpassword"];
-            string host = ConfigurationManager.AppSettings["dbhost"];
-            string port = ConfigurationManager.AppSettings["dbport"];
-            string name = ConfigurationManager.AppSettings["dbname"];
-
-            IConnectionDetails connectionDetails = new ConnectionDetails(user, password, host, port, name);
-            IDbConnectionFactory factory = new DbConnectionFactory(connectionDetails);
-
-            PlikiDAO dao = new PlikiDAO(factory);
-            result.ImportSukces = dao.ImportujRejony(lokalneRejony);
-
+            
+            result.ImportSukces = _Dao.ImportujRejony(lokalneRejony);
 
             return result;
         }

@@ -15,9 +15,9 @@ namespace Eteczka.BE.Services
 
         private IPlikiService _PlikiService;
 
-        public StatystykiService()
+        public StatystykiService(IPlikiService plikiService)
         {
-            this._PlikiService = new PlikiService();
+            this._PlikiService = plikiService;
         }
 
         public List<DaneWykresowe> PobierzDaneWykresowe(TypWykresu typWykresu)

@@ -8,9 +8,9 @@ namespace Eteczka.BE.Controllers
     {
         private IImportService _ImportService;
 
-        public FilesImportController()
+        public FilesImportController(IImportService importService)
         {
-            _ImportService = new ImportService();
+            _ImportService = importService;
         }
 
         public ActionResult ImportujStrukturePlikow(bool nadpisz)

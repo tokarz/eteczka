@@ -6,9 +6,6 @@ using System.Threading.Tasks;
 using Eteczka.BE.DTO;
 using Eteczka.DB.Entities;
 
-
-
-
 namespace Eteczka.BE.Utils
 {
     public class DokladnyPracownikUtils : WyszukiwaczPlikow
@@ -18,11 +15,9 @@ namespace Eteczka.BE.Utils
             List<PracownikDTO> PracownicyZPlikiem = new List<PracownikDTO>();
             List<PracownikDTO> PracownicyDTO = new List<PracownikDTO>();
 
-
             foreach (Pracownik pracownik in pracownicy)
             {
                 PracownikDTO pracownikDTO = new PracownikDTO();
-
 
                 pracownikDTO.Pliki = pracownik.Pliki;
                 pracownikDTO.Id = pracownik.Id;
@@ -36,17 +31,15 @@ namespace Eteczka.BE.Utils
             }
             foreach (PracownikDTO workerDTO in PracownicyDTO)
             {
-
                 foreach (string sciezka in workerDTO.Pliki)
                 {
                     if (sciezka.Equals(plik))
                     {
                         PracownicyZPlikiem.Add(workerDTO);
                     }
-
                 }
-
             }
+
             return PracownicyZPlikiem;
         }
     }

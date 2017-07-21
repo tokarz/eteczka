@@ -22,7 +22,7 @@ namespace Eteczka
             DbPort = ConfigurationManager.AppSettings["dbport"];
             string eadRootName = ConfigurationManager.AppSettings["rootdir"];
 
-            EAD_ROOT = System.Environment.GetEnvironmentVariable(eadRootName);
+            EAD_ROOT = Environment.GetEnvironmentVariable(eadRootName);
 
             string configurationPath = EAD_ROOT + "/eteczka.create.txt";
 
