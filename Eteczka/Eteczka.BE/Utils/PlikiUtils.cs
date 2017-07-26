@@ -175,8 +175,6 @@ namespace Eteczka.BE.Utils
         {
             Dictionary<string, List<string>> result = new Dictionary<string, List<string>>();
 
-
-
             foreach (string sciezka in sciezkiPlikow)
             {
                 string nazwaPliku = WezNazwePlikuZeSciezki(sciezka);
@@ -343,21 +341,17 @@ namespace Eteczka.BE.Utils
                     for (int i = 1; i <= xlRange.Columns.Count; i++)
                     {
                         result.Naglowek.Add(xlRange.Cells[1, i].Value);
-
                     }
 
                     for (int y = 1; y <= xlRange.Rows.Count; y++)
                     {
-
                         ExcelKatDokPola Pola = new ExcelKatDokPola();
                         Pola.NazwaDokumentu = (xlRange.Cells[y, 1].Value);
                         Pola.SymbolDokumentu = (xlRange.Cells[y, 2].Value);
                         Pola.CzescAkt = (xlRange.Cells[y, 3].Value);
 
-
                         result.CalyPlik.Add(Pola);
                     }
-
                 }
 
                 catch (Exception ex)

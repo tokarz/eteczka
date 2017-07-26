@@ -213,6 +213,7 @@ CREATE TABLE "KatLoginy"
   roladoubleakcept boolean, -- Rola - uprawnienia do podwójnego akceptu
   datamodify timestamp with time zone,
   firmasymbol character varying(10),
+  "isAdmin" boolean,
   CONSTRAINT "KatLoginy_pkey" PRIMARY KEY (id)
 )
 WITH (
@@ -238,6 +239,8 @@ COMMENT ON COLUMN "KatLoginy".rolasendmail IS 'Rola - uprawnienie do wys³ania p
 COMMENT ON COLUMN "KatLoginy".rolaraport IS 'Rola - uprawnienia do raportów na drukarê';
 COMMENT ON COLUMN "KatLoginy".rolaraportexport IS 'Rola uprawnienia do eksportu raportów np. do xls';
 COMMENT ON COLUMN "KatLoginy".roladoubleakcept IS 'Rola - uprawnienia do podwójnego akceptu';
+
+
 
 -- Table: "KatLokalPapier"
 

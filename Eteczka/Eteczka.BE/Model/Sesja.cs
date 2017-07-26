@@ -8,13 +8,14 @@ namespace Eteczka.BE.Model
 {
     public static class Sesja
     {
+
         public static string FIRMA { get; set; }
-        private static StanSesji STAN_SESJI =  new StanSesji();
+        private static StanSesji STAN_SESJI = new StanSesji();
 
         public static string UtworzSesje()
         {
             string result = "";
-            string sessionId = "??";
+            string sessionId = Guid.NewGuid().ToString("N"); ;
             if (STAN_SESJI.DodajSesje(sessionId))
             {
                 result = sessionId;
@@ -25,11 +26,11 @@ namespace Eteczka.BE.Model
 
         public static StanSesji PobierzStanSesji(string sessionID)
         {
-            return STAN_SESJI;   
+            return STAN_SESJI;
         }
         public static void UtworzLubAktualizujSesje(string sessionID)
         {
-            if(STAN_SESJI.CzySesjaJestOtwarta(sessionID))
+            if (STAN_SESJI.CzySesjaJestOtwarta(sessionID))
             {
                 STAN_SESJI.AktualizujSesje(sessionID);
             }

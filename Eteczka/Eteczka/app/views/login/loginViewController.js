@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('et.controllers').controller('loginViewController', ['$rootScope', '$scope', '$state', 'loginService', function ($rootScope, $scope, $state, loginService) {
+angular.module('et.controllers').controller('loginViewController', ['$rootScope', '$scope', '$state', 'loginService', 'sessionService', function ($rootScope, $scope, $state, loginService, sessionService) {
 
     $scope.credentials = {
         username: '',
