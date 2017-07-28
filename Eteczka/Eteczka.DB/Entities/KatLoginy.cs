@@ -26,5 +26,6 @@ namespace Eteczka.DB.Entities
         public bool Roladoubleakcept { get; set; }
         public DateTime Datamodify { get; set; }
         public string FirmaSymbol { get; set; }
+        public bool isAdmin { get; set; }
     }
 }

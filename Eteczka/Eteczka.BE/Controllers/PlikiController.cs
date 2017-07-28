@@ -7,6 +7,10 @@ using System.Web.Mvc;
 using Eteczka.BE.DTO;
 using Eteczka.BE.Services;
 using Eteczka.DB.Entities;
+using Eteczka.BE.Model;
+using Eteczka;
+using System.Configuration;
+using System.IO;
 
 namespace Eteczka.BE.Controllers
 {
@@ -14,14 +18,9 @@ namespace Eteczka.BE.Controllers
     {
         private IPlikiService _PlikiService;
 
-        public PlikiController()
+        public PlikiController(PlikiService plikiService)
         {
-            _PlikiService = new PlikiService();
-        }
-
-        public PlikiController(PlikiService service)
-        {
-            _PlikiService = service;
+            _PlikiService = plikiService;
         }
 
         public ActionResult PobierzWszystkie()
@@ -40,10 +39,10 @@ namespace Eteczka.BE.Controllers
             List<KatTeczki> wszystkiePliki = _PlikiService.PobierzWszystkie();
             foreach (KatTeczki plik in wszystkiePliki)
             {
-                //if (plik.Pesel.Equals(pesel))
-                //{
-                result.Add(plik);
-                //}
+                if (plik.Pesel.Equals(pesel))
+                {
+                    result.Add(plik);
+                }
             }
 
             return Json(new
@@ -62,6 +61,16 @@ namespace Eteczka.BE.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        
+        public ActionResult PobierzStanZeskanowanychPlikow(string sessionId)
+        {
+            StanSesji sesja = Sesja.PobierzStanSesji(sessionId);
+            StanPlikow stanPlikow = _PlikiService.PobierzStanPlikow(sesja);
+
+            return Json(new
+            {
+                stan = stanPlikow
+            }, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

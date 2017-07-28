@@ -8,7 +8,7 @@
 .ui-toolbar {
     /*background: linear-gradient(-90deg, #047249, #046249);*/
     /*background: #047249;*/
-    background: steelblue;
+    background: #3984b8;
     color: white;
 }
 
@@ -29,7 +29,7 @@
 
         #optionsViewWrapper a.btn:hover {
             background: white;
-            color: steelblue;
+            color: #3984b8;
         }
 
 .menu-option {
@@ -58,7 +58,7 @@
     }
 
     .menu-option.menu-blue:hover {
-        color: steelblue;
+        color: #3984b8;
     }
 
 .help-button {
@@ -88,20 +88,20 @@
 .user-menu-options {
     position: absolute;
     /*background-color: #047249;*/
-    background-color: steelblue;
+    background-color: #3984b8;
     min-width: 160px;
     margin: 6px;
     z-index: 1000;
     line-height: 30px;
     border-radius: 5px;
     padding: 25px;
-    box-shadow: 0 0 1px 2px steelblue;
+    box-shadow: 0 0 1px 2px #3984b8;
     opacity: 0.96;
 }
 
 .userOption:hover {
     background: white;
-    color: steelblue;
+    color: #3984b8;
 }
 
 footer {
@@ -115,10 +115,10 @@ input {
 }
 
     input:focus {
-        color: steelblue;
+        color: #3984b8;
         box-shadow: 0 0 1px 0 black;
         background: white;
-        border: 1px solid steelblue !important;
+        border: 1px solid #3984b8 !important;
     }
 
 table {
@@ -235,7 +235,7 @@ tr.selected td {
 .panel-title {
     text-align: center;
     color: white;
-    background: steelblue;
+    background: #3984b8;
 }
 
 th {
@@ -283,12 +283,18 @@ th {
 }
 
 .addEditFileForm label {
-    color: steelblue;
+    color: #3984b8;
     float: left;
 }
 
 .addEditFileForm select,
 .addEditFileForm input {
-    border: 1px solid steelblue;
+    border: 1px solid #3984b8;
     float: right;
+}
+
+ul {
+    list-style: none;
+    padding:0;
+    margin:0
 }

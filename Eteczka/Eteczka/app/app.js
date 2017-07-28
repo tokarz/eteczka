@@ -36,6 +36,12 @@ app.config(function ($stateProvider) {
 
     }
 
+    var adminState = {
+        url: '/admin',
+        name: 'admin',
+        template: '<admin-view></options-view>'
+    };
+
     var optionsState = {
         url: '/options',
         name: 'options',
@@ -79,6 +85,7 @@ app.config(function ($stateProvider) {
     $stateProvider.state(addUsersState);
     $stateProvider.state(processingState);
     $stateProvider.state(settingsState);
+    $stateProvider.state(adminState);
 });
 
 // IE chached $http.get Aufrufe (z.B. in statusbarController)

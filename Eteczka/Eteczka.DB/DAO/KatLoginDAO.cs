@@ -52,6 +52,7 @@ namespace Eteczka.DB.DAO
 
                 fetchedResult.Datamodify = DateTime.Parse(row[16].ToString());
                 fetchedResult.FirmaSymbol = row[17].ToString();
+                fetchedResult.isAdmin = bool.Parse(row[18].ToString());
 
                 result.Add(fetchedResult);
 

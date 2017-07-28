@@ -1,0 +1,12 @@
+1) Zmiana spolki badz latwy dostep do spolki innej
+2) Filtry dla kazdej kolumny
+3)Podsumowania i dane statystyczne
+4) Widoki managerskie (wykresy)
+5)typ dokumentu wewnetrzny
+6) koszyk raportow (widok eksporty)
+7) logowanie udostepnien dokumentow (GIODO - kontrola)
+8) logowanie cyklu zycia pliku (po nazwie!)
+9) user nie zna lokalizacji i nazwy fizycznej pliku
+10) user z kontem poza firma - ostrzezenie
+11) multilogo dla roznych produktow
+12) wyszukiwanie po tabelach (w spolce, we wszysrkich spolach)

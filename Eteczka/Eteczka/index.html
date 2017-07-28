@@ -5,6 +5,9 @@
     <link rel="stylesheet" href="Scripts/bootstrap-3.3.7-dist/css/bootstrap.css" />
     <link rel="stylesheet" href="Scripts/angular-ui-bootstrap/dist/ui-bootstrap-csp.css" />
     <link rel="stylesheet" href="app/css/et.css" />
+    <link rel="stylesheet" href="app/css/admin.css" />
+    <!--link rel="stylesheet" href="app/css/theme/spacelab/bootstrap.theme.css" / -->
+    <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css" />
 </head>
 <body ng-controller="mainController">
     <div id="rootWrapper" class="resizable">
@@ -47,7 +50,7 @@
         <div id="content" class="container-fluid" style="overflow-y:hidden">
             <ui-view></ui-view>
         </div>
-        <footer id="footer" class="ui-toolbar container-fluid bg-4 text-center" style="height:37px">
+        <footer id="footer" class="ui-toolbar container-fluid bg-4 text-center" style="height:37px;z-index:999">
             <!--<img src="Content/img/logo9.png" height="32" width="32" />-->
         </footer>
     </div>
@@ -68,6 +71,9 @@
     <script src="app/app.js"></script>
     <script src="app/main/mainController.js"></script>
     <script src="app/main/startup/startupService.js"></script>
+    <script src="app/views/admin/adminViewController.js"></script>
+    <script src="app/views/admin/adminViewDirective.js"></script>
+    <script src="app/views/admin/quickNotes/quickNoteDirective.js"></script>
     <script src="app/views/login/loginViewController.js"></script>
     <script src="app/views/login/loginViewDirective.js"></script>
     <script src="app/views/login/loginService.js"></script>

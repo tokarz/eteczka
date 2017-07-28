@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('et.controllers').controller('loginViewController', ['$rootScope', '$scope', '$state', 'loginService', function ($rootScope, $scope, $state, loginService) {
+angular.module('et.controllers').controller('loginViewController', ['$rootScope', '$scope', '$state', 'loginService', 'sessionService', function ($rootScope, $scope, $state, loginService, sessionService) {
 
     $scope.credentials = {
         username: '',
@@ -12,19 +12,26 @@ angular.module('et.controllers').controller('loginViewController', ['$rootScope'
         loginService.authenticate(credentials.username, credentials.password).then(function (result) {
             if (result && result.success) {
                 $scope.fetchedUser = result.user;
-                $rootScope.$broadcast('USER_LOGGED_IN_EV', $scope.fetchedUser);
-                if ($scope.fetchedUser.length > 0) {
-                    $scope.choices = $scope.fetchedUser.map(function (x) {
-                        return x.FirmaSymbol;
-                    });
 
-                    $state.go('choosefirm', {
-                        "choices": $scope.choices
-                    });
+                if ($scope.fetchedUser && $scope.fetchedUser[0].isAdmin) {
+                    $state.go('admin');
                 } else {
                     $rootScope.$broadcast('USER_LOGGED_IN_EV', $scope.fetchedUser);
-                    $state.go('options');
+                    if ($scope.fetchedUser.length > 0) {
+                        $scope.choices = $scope.fetchedUser.map(function (x) {
+                            return x.FirmaSymbol;
+                        });
+
+                        $state.go('choosefirm', {
+                            "choices": $scope.choices
+                        });
+                    } else {
+                        $rootScope.$broadcast('USER_LOGGED_IN_EV', $scope.fetchedUser);
+                        $state.go('options');
+                    }
                 }
+
+                
 
             }
 

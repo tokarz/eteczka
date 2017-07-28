@@ -14,7 +14,6 @@ namespace Eteczka.BE.Controllers
 
         public ActionResult GetRestrictedResource(string fileName)
         {
-
             string eadRootName = ConfigurationManager.AppSettings["rootdir"];
 
             string eadRoot = System.Environment.GetEnvironmentVariable(eadRootName);

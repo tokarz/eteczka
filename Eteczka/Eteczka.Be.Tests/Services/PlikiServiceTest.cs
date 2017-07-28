@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using NSubstitute;
+using Eteczka.DB.DAO;
+using Eteczka.BE.Utils;
 
 namespace Eteczka.BE.Services
 {
@@ -13,11 +15,16 @@ namespace Eteczka.BE.Services
     {
 
         private PlikiService _Sut;
+        private PlikiDAO _PlikDao;
+        private PlikiUtils _PlikiUtils;
 
         [SetUp]
         public void setUp()
         {
-            _Sut = new PlikiService();
+            _PlikDao = Substitute.For<PlikiDAO>();
+            _PlikiUtils = Substitute.For<PlikiUtils>();
+
+            _Sut = new PlikiService(_PlikDao, _PlikiUtils);
         }
 
         [Test]

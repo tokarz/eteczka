@@ -18,13 +18,14 @@ namespace Eteczka.BE.Utils
     public class PracownikUtilsTest
     {
         private PracownikUtils _Sut;
+        private IMapowalnyDoPracownikDto _Mapper;
 
         [SetUp]
         public void Init()
         {
-            _Sut = new PracownikUtils();
+            _Mapper = new PracownikDtoMapper();
+            _Sut = new PracownikUtils(_Mapper);
         }
-
 
         [Test]
         public void ZnajdzPracownikowZPlikiem()
@@ -116,7 +117,7 @@ namespace Eteczka.BE.Utils
             Assert.AreEqual(3, result.Count);
 
             Assert.AreEqual("0", result[0].Id);
-            Assert.AreEqual("1", result[1].Id);
+            Assert.AreEqual("2", result[1].Id);
             Assert.AreEqual("3", result[2].Id);
 
         }

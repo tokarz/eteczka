@@ -11,8 +11,15 @@ using Eteczka.DB.Entities;
 
 namespace Eteczka.BE.Utils
 {
-    public class PracownikUtils
+    public class PracownikUtils : WyszukiwaczPlikow
     {
+        private IMapowalnyDoPracownikDto _Mapper;
+
+        public PracownikUtils(IMapowalnyDoPracownikDto mapper)
+        {
+            this._Mapper = mapper;
+        }
+
         public List<PracownikDTO> ZnajdzPracownikowZPlikiem(string plik, List<PracownikDTO> pracownicy)
         {
             List<PracownikDTO> PracownicyZPlikiem = new List<PracownikDTO>();
@@ -35,9 +42,21 @@ namespace Eteczka.BE.Utils
         public List<PracownikDTO> ZnajdzPracownikowZPlikiem(string plik, List<Pracownik> pracownicy)
         {
             List<PracownikDTO> PracownicyZPlikiem = new List<PracownikDTO>();
+            List<PracownikDTO> PracownicyDTO = new List<PracownikDTO>();
+            
+            foreach (Pracownik worker in pracownicy)
+            {
+                foreach (string sciezka in worker.Pliki)
+                {
+                    if (sciezka.Contains(plik))
+                    {
+                        PracownikDTO workerDTO = this._Mapper.mapuj(worker);
+                        PracownicyZPlikiem.Add(workerDTO);
+                        break;
+                    }
+                }
 
-           
-
+            }
             return PracownicyZPlikiem;
         }
     }

@@ -17,20 +17,16 @@ namespace Eteczka.BE.Services
     public class PracownicyService : IPracownicyService
     {
         private UserDAO _Dao;
+        private PracownikDAO _PracownikDao;
+
+        public PracownicyService(UserDAO dao, PracownikDAO pracownikDao)
+        {
+            _Dao = dao;
+            _PracownikDao = pracownikDao;
+        }
 
         public List<PracownikDTO> PobierzWszystkich()
         {
-            string user = ConfigurationManager.AppSettings["dbuser"];
-            string password = ConfigurationManager.AppSettings["dbpassword"];
-            string host = ConfigurationManager.AppSettings["dbhost"];
-            string port = ConfigurationManager.AppSettings["dbport"];
-            string name = ConfigurationManager.AppSettings["dbname"];
-
-            IConnectionDetails connectionDetails = new ConnectionDetails(user, password, host, port, name);
-            IDbConnectionFactory factory = new DbConnectionFactory(connectionDetails);
-
-            _Dao = new UserDAO(factory);
-
             List<User> usrs = _Dao.GetAllUsers();
 
             List<PracownikDTO> pracownicy = new List<PracownikDTO>();
@@ -78,7 +74,7 @@ namespace Eteczka.BE.Services
         public bool ImportujJson(string sessionId)
         {
             bool result = false;
-            string eadRoot = System.Environment.GetEnvironmentVariable("EAD_DIR");
+            string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
             List<Pracownik> pracownicy = new List<Pracownik>();
 
             string sciezkaDoPlikow = Path.Combine(eadRoot, "zet");
@@ -96,7 +92,6 @@ namespace Eteczka.BE.Services
                     }
                 };
 
-
                 var parsedJson = JObject.Parse(zetDb.ToString());
                 var root = parsedJson["Pracownicy"];
                 foreach (var pracownik in root)
@@ -111,36 +106,14 @@ namespace Eteczka.BE.Services
                     pracownicy.Add(wczytanyPracownik);
                 }
 
-                string user = ConfigurationManager.AppSettings["dbuser"];
-                string password = ConfigurationManager.AppSettings["dbpassword"];
-                string host = ConfigurationManager.AppSettings["dbhost"];
-                string port = ConfigurationManager.AppSettings["dbport"];
-                string name = ConfigurationManager.AppSettings["dbname"];
-
-                IConnectionDetails connectionDetails = new ConnectionDetails(user, password, host, port, name);
-                IDbConnectionFactory factory = new DbConnectionFactory(connectionDetails);
-
-                result = new PracownikDAO(factory).ImportujPracownikow(pracownicy);
-
-
+                result = _PracownikDao.ImportujPracownikow(pracownicy);
             }
             return result;
         }
 
         public PracownikDTO PobierzPoPeselu(string pesel)
         {
-            string user = ConfigurationManager.AppSettings["dbuser"];
-            string password = ConfigurationManager.AppSettings["dbpassword"];
-            string host = ConfigurationManager.AppSettings["dbhost"];
-            string port = ConfigurationManager.AppSettings["dbport"];
-            string name = ConfigurationManager.AppSettings["dbname"];
-
-            IConnectionDetails connectionDetails = new ConnectionDetails(user, password, host, port, name);
-            IDbConnectionFactory factory = new DbConnectionFactory(connectionDetails);
-
-            UserDAO dao = new UserDAO(factory);
-
-            User usr = dao.GetUserByPesel(pesel);
+            User usr = _Dao.GetUserByPesel(pesel);
 
             PracownikDTO maciek = new PracownikDTO
             {
@@ -153,7 +126,6 @@ namespace Eteczka.BE.Services
             };
 
             return maciek;
-
         }
     }
 }

@@ -14,14 +14,13 @@ namespace Eteczka.BE.Controllers
     {
         private IStatystykiService _Service;
 
-        public StatystykiController()
+        public StatystykiController(IStatystykiService service)
         {
-            this._Service = new StatystykiService();
+            this._Service = service;
         }
 
         public ActionResult PobierzDaneWykresowe()
         {
-
             List<DaneWykresowe> result = _Service.PobierzDaneWykresowe(TypWykresu.PIE);
 
             return Json(new

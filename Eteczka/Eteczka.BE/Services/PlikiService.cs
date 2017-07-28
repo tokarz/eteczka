@@ -10,27 +10,24 @@ using Eteczka.DB.Entities;
 using System.Configuration;
 using System.IO;
 using Newtonsoft.Json.Linq;
+using Eteczka.BE.Model;
+using Eteczka.BE.Utils;
 
 namespace Eteczka.BE.Services
 {
     public class PlikiService : IPlikiService
     {
         private PlikiDAO _Dao;
+        private PlikiUtils _PlikiUtils;
+
+        public PlikiService(PlikiDAO dao, PlikiUtils plikiUtils)
+        {
+            this._Dao = dao;
+            this._PlikiUtils = plikiUtils;
+        }
 
         public List<KatTeczki> PobierzWszystkie(string sortOrder = "asc", string sortColumn = "Id")
         {
-
-            string user = ConfigurationManager.AppSettings["dbuser"];
-            string password = ConfigurationManager.AppSettings["dbpassword"];
-
-            string host = ConfigurationManager.AppSettings["dbhost"];
-            string port = ConfigurationManager.AppSettings["dbport"];
-            string name = ConfigurationManager.AppSettings["dbname"];
-
-            IConnectionDetails connectionDetails = new ConnectionDetails(user, password, host, port, name);
-            IDbConnectionFactory factory = new DbConnectionFactory(connectionDetails);
-
-            _Dao = new PlikiDAO(factory);
 
             List<KatTeczki> pobrane = _Dao.PobierzWszystkiePliki(sortOrder, sortColumn);
 
@@ -55,25 +52,13 @@ namespace Eteczka.BE.Services
         {
             MetaDanePliku result = new MetaDanePliku();
 
-            string user = ConfigurationManager.AppSettings["dbuser"];
-            string password = ConfigurationManager.AppSettings["dbpassword"];
-
-            string host = ConfigurationManager.AppSettings["dbhost"];
-            string port = ConfigurationManager.AppSettings["dbport"];
-            string name = ConfigurationManager.AppSettings["dbname"];
-
-            IConnectionDetails connectionDetails = new ConnectionDetails(user, password, host, port, name);
-            IDbConnectionFactory factory = new DbConnectionFactory(connectionDetails);
-
-            _Dao = new PlikiDAO(factory);
-
             KatTeczki pobranyPlik = _Dao.PobierzPlikPoNazwie(plik);
 
             result.ModificationDate = pobranyPlik.DataModyfikacji;
             result.Jrwa = pobranyPlik.Jrwa;
             result.Type = pobranyPlik.TypDokumentu;
 
-            string eadRoot = System.Environment.GetEnvironmentVariable("EAD_DIR");
+            string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
             
 
             string sciezkaDoPlikow = Path.Combine(eadRoot, "pliki");
@@ -87,6 +72,37 @@ namespace Eteczka.BE.Services
 
             result.PhysicalLocation = "??";
             
+            return result;
+        }
+
+        public StanPlikow PobierzStanPlikow(StanSesji sesja)
+        {
+            StanPlikow result = new StanPlikow();
+            result.PlikiPozaSystemem = new List<string>();
+            result.PlikiWSystemie = new List<MetaDanePliku>();
+            List<string> plikiSkanera = new List<string>();
+            if (sesja != null)
+            {
+                string katalogPlikow = Path.Combine(ConfigurationManager.AppSettings["rootdir"], "pliki");
+                if (Directory.Exists(katalogPlikow))
+                {
+                    string[] plikiZeskanowane = Directory.GetFiles(katalogPlikow);
+                    foreach (string zeskanowanyPlik in plikiZeskanowane)
+                    {
+                        string nazwaPliku = _PlikiUtils.WezNazwePlikuZeSciezki(zeskanowanyPlik);
+                        if(File.Exists(nazwaPliku + ".json"))
+                        {
+                            MetaDanePliku danePliku = PobierzMetadane(zeskanowanyPlik);
+                            result.PlikiWSystemie.Add(danePliku);
+                        }
+                        else
+                        {
+                            result.PlikiPozaSystemem.Add(nazwaPliku);
+                        }
+                    }
+                }
+            }
+
             return result;
         }
 

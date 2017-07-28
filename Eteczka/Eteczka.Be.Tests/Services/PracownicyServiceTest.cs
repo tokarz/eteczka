@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using NSubstitute;
+using Eteczka.DB.DAO;
 
 namespace Eteczka.BE.Services
 {
@@ -13,11 +14,15 @@ namespace Eteczka.BE.Services
     {
 
         private PracownicyService _Sut;
+        private UserDAO _UserDao;
+        private PracownikDAO _PracownikDao;
 
         [SetUp]
         public void setUp()
         {
-            _Sut = new PracownicyService();
+            _UserDao = Substitute.For<UserDAO>(null);
+            _PracownikDao = Substitute.For<PracownikDAO>();
+            _Sut = new PracownicyService(_UserDao, _PracownikDao);
         }
 
         [Test]
