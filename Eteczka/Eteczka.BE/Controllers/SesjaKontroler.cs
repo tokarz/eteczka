@@ -21,11 +21,11 @@ namespace Eteczka.BE.Controllers
 
         public ActionResult OdnowSesje(string sessionid)
         {
-            string session = Sesja.UtworzLubAktualizujSesje(sessionid);
+            Sesja.UtworzLubAktualizujSesje(sessionid);
 
             return Json(new
             {
-                session = session
+                session = sessionid
             }, JsonRequestBehavior.AllowGet);
         }
 

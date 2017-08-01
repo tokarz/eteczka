@@ -36,11 +36,19 @@ namespace Eteczka
             }
             else
             {
-                File.Create(configurationPath);
-                using (var tw = new StreamWriter(configurationPath, true))
+                try
                 {
-                    tw.WriteLine("Server Startup Time: " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
-                    tw.Close();
+
+                    File.Create(configurationPath);
+                    using (var tw = new StreamWriter(configurationPath, true))
+                    {
+                        tw.WriteLine("Server Startup Time: " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
+                        tw.Close();
+                    }
+                }
+                catch (Exception ex)
+                {
+
                 }
             }
         }
