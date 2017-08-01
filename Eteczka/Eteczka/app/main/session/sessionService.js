@@ -1,7 +1,9 @@
 ﻿'use strict';
 angular.module('et.services').factory('sessionService', ['httpService', function (httpService) {
-    var sesja = '';
     return {
+        createSession: function() {
+            return httpService.get('Sesja/StworzSesje');
+        },
         getSessionId: function () {
             if (sesja) {
                 return httpService.get('Sesja/OdnowSesje', { sesionid: sesja });
