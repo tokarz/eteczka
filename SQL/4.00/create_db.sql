@@ -1,7 +1,4 @@
-﻿
-
 -- Database: "E-Agropin-EAD"
-
 DROP DATABASE IF EXISTS "E-Agropin-EAD";
 
 CREATE DATABASE "E-Agropin-EAD"
@@ -15,6 +12,9 @@ CREATE DATABASE "E-Agropin-EAD"
 
 
   \connect E-Agropin-EAD
+
+
+  CREATE SEQUENCE MiejscePracy_id_seq;
 
   -- Table: public."KatFirmy"
 
@@ -79,6 +79,8 @@ COMMENT ON COLUMN public."KatFirmy".imie IS 'ImiÄ™ jeĹ›li firma prywatna';
 
 -- DROP TABLE public."MiejscePracy";
 
+
+
 CREATE TABLE public."MiejscePracy"
 (
   firma character(20), -- Symbol firmy
@@ -93,7 +95,7 @@ CREATE TABLE public."MiejscePracy"
   datamodify timestamp without time zone,
   dataakcept timestamp without time zone,
   numeread character(20) NOT NULL,
-  id integer NOT NULL DEFAULT nextval('"MiejscePracy_id_seq"'::regclass),
+  id integer NOT NULL DEFAULT nextval('MiejscePracy_id_seq'::regclass),
   CONSTRAINT "MiejscePracy_pkey" PRIMARY KEY (id)
 )
 WITH (
@@ -479,6 +481,8 @@ ALTER TABLE "KatTeczki"
 
 -- DROP TABLE "Pliki";
 
+CREATE SEQUENCE Pliki_id_seq;
+
 CREATE TABLE public."Pliki"
 (
   symbol character(30),
@@ -496,7 +500,7 @@ CREATE TABLE public."Pliki"
   idakcept character(30),
   datamodify timestamp without time zone,
   dataakcept timestamp without time zone,
-  id integer NOT NULL DEFAULT nextval('"Pliki_id_seq"'::regclass),
+  id integer NOT NULL DEFAULT nextval('Pliki_id_seq'::regclass),
   CONSTRAINT "Pliki_pkey" PRIMARY KEY (id)
 )
 WITH (
@@ -505,7 +509,6 @@ WITH (
 ALTER TABLE public."Pliki"
   OWNER TO postgres;
 COMMENT ON COLUMN public."Pliki".datadokumentu IS 'Data wytworzenia papieru';
-
 
 
 
