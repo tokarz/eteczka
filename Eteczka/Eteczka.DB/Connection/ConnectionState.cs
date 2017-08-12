@@ -32,5 +32,21 @@ namespace Eteczka.DB.Connection
             return table;
 
         }
+
+        public bool ExecuteNonQuery(string query)
+        {
+            bool result = false;
+
+            using (var cmd = _Connection.CreateCommand())
+            {
+                cmd.CommandText = query;
+                _Connection.Open();
+                cmd.ExecuteNonQuery();
+                _Connection.Close();
+            }
+
+            return result;
+
+        }
     }
 }

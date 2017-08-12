@@ -17,11 +17,6 @@ namespace Eteczka.BE.Controllers
     {
         private IPracownicyService _PracownicyService;
 
-        public PracownicyController()
-        {
-            this._PracownicyService = new PracownicyService();
-        }
-
         public PracownicyController(IPracownicyService pracownicyService)
         {
             this._PracownicyService = pracownicyService;
@@ -35,6 +30,29 @@ namespace Eteczka.BE.Controllers
             {
                 data = pracownicy
             }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult ImportujJson(string sessionId)
+        {
+            bool success = false;
+
+            success = this._PracownicyService.ImportujJson(sessionId);
+
+            return Json(new
+            {
+                success = success
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult PobierzDlaPliku(string id)
+        {
+            PracownikDTO pracownk = _PracownicyService.PobierzPoPeselu(id);
+
+            return Json(new
+            {
+                users = pracownk
+            }, JsonRequestBehavior.AllowGet);
+
         }
     }
 }

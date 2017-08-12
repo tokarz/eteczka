@@ -21,15 +21,18 @@ namespace Eteczka.DB.DAO
         [SetUp]
         public void setUp()
         {
-            _Sut = new KatLoginDAO(new DbConnectionFactory(new ConnectionDetails("localhost", "5432", "E-Agropin-EAD")));
+            _Sut = new KatLoginDAO(new DbConnectionFactory(new ConnectionDetails("postgres", "admin", "localhost", "5432", "E-Agropin-EAD")));
         }
 
         [Test]
         public void WczytajPracownikaPoNazwieIHasle()
         {
-            KatLoginy result = _Sut.WczytajPracownikaPoNazwieIHasle("M.Tokarz", "tokitoki");
+            List<KatLoginy> result = _Sut.WczytajPracownikaPoNazwieIHasle("M.Tokarz", "tokitoki");
             Assert.IsNotNull(result);
-            Assert.AreEqual("Maciej", result.Imie.Trim());
+            Assert.AreEqual("Maciej", result[0].Imie.Trim());
+            Assert.AreEqual("Maciej", result[1].Imie.Trim());
+            Assert.AreEqual("AFM", result[0].FirmaSymbol.Trim());
+            Assert.AreEqual("JAG", result[1].FirmaSymbol.Trim());
         }
 
 

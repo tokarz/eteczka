@@ -8,7 +8,7 @@
 .ui-toolbar {
     /*background: linear-gradient(-90deg, #047249, #046249);*/
     /*background: #047249;*/
-    background: steelblue;
+    background: #3984b8;
     color: white;
 }
 
@@ -29,14 +29,14 @@
 
         #optionsViewWrapper a.btn:hover {
             background: white;
-            color: steelblue;
+            color: #3984b8;
         }
 
 .menu-option {
     height: 90%;
     width: 98%;
     /*margin: 22px auto;*/
-    padding: 0px;
+    padding: 1em;
 }
 
     .menu-option:hover {
@@ -58,7 +58,7 @@
     }
 
     .menu-option.menu-blue:hover {
-        color: steelblue;
+        color: #3984b8;
     }
 
 .help-button {
@@ -88,20 +88,20 @@
 .user-menu-options {
     position: absolute;
     /*background-color: #047249;*/
-    background-color: steelblue;
+    background-color: #3984b8;
     min-width: 160px;
     margin: 6px;
     z-index: 1000;
     line-height: 30px;
     border-radius: 5px;
     padding: 25px;
-    box-shadow: 0 0 1px 2px steelblue;
+    box-shadow: 0 0 1px 2px #3984b8;
     opacity: 0.96;
 }
 
 .userOption:hover {
     background: white;
-    color: steelblue;
+    color: #3984b8;
 }
 
 footer {
@@ -115,14 +115,20 @@ input {
 }
 
     input:focus {
-        color: steelblue;
+        color: #3984b8;
         box-shadow: 0 0 1px 0 black;
         background: white;
-        border: 1px solid steelblue !important;
+        border: 1px solid #3984b8 !important;
     }
 
 table {
     box-shadow: 1px 1px 3px 1px black;
+}
+
+.row-10 {
+    height: 10%;
+    width: 100%;
+    float: left;
 }
 
 .row-25 {
@@ -137,21 +143,30 @@ table {
     float: left;
 }
 
+.row-80 {
+    height: 80%;
+    width: 100%;
+    float: left;
+}
+
 .processing {
     background: black;
     opacity: 0.4;
     cursor: wait;
 }
 
-.fileData select,
-.fileData input {
+.fileData span {
     float: right;
     text-align: center;
     width: 200px;
+    border: 1px solid darkgray;
+    background: lightgray;
+    text-align: center;
 }
 
 #content {
-    min-height: 500px;
+    min-height: 450px;
+    overflow-y: auto;
     overflow-x: hidden;
     background: whitesmoke;
     padding: 0;
@@ -165,8 +180,8 @@ table {
 
 
 .modal-dialog {
-    height: 600px;
-    width: 600px;
+    width: 90%;
+    height: 90%;
 }
 
 .modal-content {
@@ -178,7 +193,8 @@ table {
     bottom: 0;
     width: 100%;
 }
-    .emp-btn {
+
+.emp-btn {
     width: 90%;
 }
 
@@ -187,11 +203,11 @@ table {
 }
 
 .lowerPanelVisible {
-    height: 30%;
+    height: 50%;
 }
 
 .upperPanelVisible {
-    height: 70%;
+    height: 50%;
 }
 
 .lowerPanelInvisible {
@@ -202,7 +218,83 @@ table {
     height: 100%;
 }
 
-tr.selected {
-    background: steelblue;
+tr.selected td {
+    background: darkgray;
     color: white;
+}
+
+.not-visible {
+    display: none;
+}
+
+.file-row,
+.file-row td {
+    height: 35px;
+}
+
+.panel-title {
+    text-align: center;
+    color: white;
+    background: #3984b8;
+}
+
+th {
+    text-align: center !important;
+}
+
+.buttonsParagraph button {
+    width: 350px;
+    opacity: 0.8;
+    margin: 5px;
+}
+
+    .buttonsParagraph button:hover {
+        width: 350px;
+        opacity: 1;
+        box-shadow: 0 0 2px 0 black;
+        cursor: pointer;
+    }
+
+.buttonsParagraph span.glyphicon-check {
+    float: right;
+    font-size: 20px;
+}
+
+.employeeTopNotSelected {
+    width: 90%;
+    margin: auto;
+    height: 100%;
+}
+
+.employeeDetailNotSelected {
+    display: none;
+}
+
+
+.employeePanelSelected {
+    width: 50%;
+    height: 100%;
+    float: left;
+}
+
+.input-raw {
+    width: 100%;
+    float: left;
+}
+
+.addEditFileForm label {
+    color: #3984b8;
+    float: left;
+}
+
+.addEditFileForm select,
+.addEditFileForm input {
+    border: 1px solid #3984b8;
+    float: right;
+}
+
+ul {
+    list-style: none;
+    padding:0;
+    margin:0
 }

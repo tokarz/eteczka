@@ -1,0 +1,24 @@
+{"firm" :
+	[
+		{
+			"id" : "0",
+			"symbol" : "MF Ziêbice",
+			"nazwa" : "MASFROST Ziêbice Sp. z o.o.",
+			"nazwaskrocona" : "MASFROST ZIÊBICE SP. Z O.O.",
+			"ulica" : "NADRZECZNA",
+			"numerdomu" : "1A",
+			"numerlokalu" : "",
+			"miasto" : "ZIÊBICE",
+			"kodpocztowy" : "57-220",
+			"poczta" : "ZIÊBICE",
+			"gmina" : "Ziêbice",
+			"powiat" : "Z¥BKOWICKI",
+			"wojewodztwo" : "DOLNOŒL¥SKIE",
+			"kraj" : "POLSKA",
+			"nip" : "8871003879",
+			"regon" : "890178303",
+			"pesel" : "",
+			"lokalizacjapapier" : "MF Ziêbice"
+		}
+	]
+}

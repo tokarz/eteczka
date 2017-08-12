@@ -14,7 +14,8 @@ var app = angular.module('EtApp',
      'et.controllers',
      'et.services',
      'et.directives',
-     'et.utils'
+     'et.utils',
+     'angular-files-drop'
     ]
      );
 
@@ -23,6 +24,22 @@ app.config(function ($stateProvider) {
         url: '/login',
         name: 'login',
         template: '<login-view></login-view>'
+    };
+
+    var chooseFirmState = {
+        url: '/choosefirm',
+        name: 'choosefirm',
+        template: '<choosefirm-view></choosefirm-view>',
+        params: {
+            'choices' : []
+        }
+
+    }
+
+    var adminState = {
+        url: '/admin',
+        name: 'admin',
+        template: '<admin-view></options-view>'
     };
 
     var optionsState = {
@@ -54,13 +71,21 @@ app.config(function ($stateProvider) {
         template: '<processing></processing>'
     };
 
+    var settingsState = {
+        url: '/settings',
+        name: 'settings',
+        template: '<settings></settings>'
+    }
 
     $stateProvider.state(loginState);
+    $stateProvider.state(chooseFirmState);
     $stateProvider.state(optionsState);
     $stateProvider.state(filesState);
     $stateProvider.state(employeesState);
     $stateProvider.state(addUsersState);
     $stateProvider.state(processingState);
+    $stateProvider.state(settingsState);
+    $stateProvider.state(adminState);
 });
 
 // IE chached $http.get Aufrufe (z.B. in statusbarController)

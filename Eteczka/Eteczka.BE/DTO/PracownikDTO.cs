@@ -14,6 +14,7 @@ namespace Eteczka.BE.DTO
         public string PESEL { get; set; }
         public string DataUrodzenia { get; set; }
         public string Dzial { get; set; }
+        public string NumerPracownika { get; set; }
         public List<string> Pliki { get; set; }
     }
 }

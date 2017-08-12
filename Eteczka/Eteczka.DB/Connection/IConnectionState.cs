@@ -10,5 +10,6 @@ namespace Eteczka.DB.Connection
     public interface IConnectionState
     {
         DataTable ExecuteQuery(string query);
+        bool ExecuteNonQuery(string query);
     }
 }

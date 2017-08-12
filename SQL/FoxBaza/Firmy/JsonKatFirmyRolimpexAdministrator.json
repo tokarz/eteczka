@@ -1,0 +1,24 @@
+{"firm" :
+	[
+		{
+			"id" : "0",
+			"symbol" : "Rolimpex",
+			"nazwa" : "ROLIMPEX SPÓ£KA AKCYJNA",
+			"nazwaskrocona" : "ROLIMPEX SPÓ£KA AKCYJNA",
+			"ulica" : "LUBAWSKA",
+			"numerdomu" : "7",
+			"numerlokalu" : "",
+			"miasto" : "I£AWA",
+			"kodpocztowy" : "14-200",
+			"poczta" : "I£AWA",
+			"gmina" : "I³awa",
+			"powiat" : "I£AWA",
+			"wojewodztwo" : "WARMIÑSKO-MAZURSKIE",
+			"kraj" : "POLSKA",
+			"nip" : "7010041205",
+			"regon" : "140697515",
+			"pesel" : "",
+			"lokalizacjapapier" : "Rolimpex"
+		}
+	]
+}

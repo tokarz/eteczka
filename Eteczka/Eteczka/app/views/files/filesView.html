@@ -1,38 +1,72 @@
 ﻿<div style="height:100%">
-    <div id="upperFilePanel" class="row justify-content-md-center" ng-class="isSubMenuVisible('upper')">
-        <div class="col-md-6" style="height: 100%;overflow:auto;padding:0">
-            <div style="height:5%;width:100%;float:left;color:white">
+    <div class="navigationPanel row">
+        <div class="col-md-6">
+            <a ng-click="goBack()" class="glyphicon glyphicon-circle-arrow-left" style="font-size:20px;color:white;background:steelblue"></a>
+        </div>
+    </div>
+    <div id="upperFilePanel" class="row justify-content-md-center" style="overflow:auto" ng-class="isSubMenuVisible('upper')">
+        <div style="height: 100%;overflow:auto;padding:0" ng-class="isSubMenuVisible('lowerLeft')">
+            <div style="height:10%;width:100%;float:left;color:white">
                 <div style="width:90%;margin:auto;background:steelblue">
                     <div style="float:left">
                         <ul style="list-style:none;display:inline-flex;width:100%;height:50px;padding-left:0">
-                            <li> <button class="btn btn-success">Dodaj</button> </li>
-                            <li> <button class="btn btn-danger">Usun</button> </li>
+                            <li style="margin-right:5px" ng-show="!elementSelected.isSelected"> <button class="btn btn-success" ng-click="tryAddFile(false)">Dodaj</button> </li>
+                            <li style="margin-right:5px" ng-show="elementSelected.isSelected"> <button class="btn btn-primary" ng-click="tryAddFile(true)">Edytuj</button> </li>
+                            <li> <button class="btn btn-danger" disabled>Usun</button> </li>
                         </ul>
                     </div>
-                    <div style="float:right">
-                        <a style="margin-right:-20px" class="glyphicon glyphicon-search"></a><input placeholder="Wyszukaj Plik(i)" type="search" style="border:none;border-radius:5px;box-shadow:0 0 1px 1px black" />
+                    <div style="float:right;margin-top:5px">
+                        <a style="margin-right:-20px" class="glyphicon glyphicon-search"></a>
+                        <input ng-model="searchFile" placeholder="Wyszukaj Plik(i)" type="search" style="border:none;border-radius:5px;box-shadow:0 0 1px 1px black" />
                     </div>
                 </div>
             </div>
-            <div id="fileTableWrapper" style="height:90%;width:100%;float:left">
-                <table class="table-bordered table-hover table-striped" style="width:90%;height:90%;margin:auto">
-                    <thead class="info ui-toolbar" style="height:35px">
-                        <tr style="height:40px">
-                            <th>Data</th>
+            <div id="fileTableWrapper" style="height:85%;width:100%;float:left">
+                <table class="scrollable table-hover table-striped" style="width:90%;margin:auto;height:95%">
+                    <thead class="info ui-toolbar" style="height:35px;display:block">
+                        <tr style="height:35px">
+                            <th>Typ</th>
                             <th>Nazwa pliku</th>
-                            <th>Grupa</th>
+                            <th>Jrwa</th>
+                            <th>Data utworzenia</th>
+                            <th>Data modyfikacji</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr ng-repeat="file in files" ng-click="previewPdf(file)" style="cursor:pointer;height:35px" ng-class="{selected: file.id === elementSelected.elm.id}">
-                            <td>{{file.date}}</td>
-                            <td>{{file.name}}</td>
-                            <td>{{file.type}}</td>
+                    <tbody style="height:92%;display:block;overflow-y:auto;overflow-x:hidden;text-align:center">
+                        <tr class="file-row" ng-repeat="file in files | filter: searchFile" ng-click="previewPdf(file)" style="cursor:pointer;height:50px" ng-class="{selected: file.Id === elementSelected.elm.Id}">
+                            <td>
+                                <div>
+                                    {{file.TypDokumentu}}
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    {{file.Nazwa}}
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    {{file.Jrwa}}
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    {{file.DataUtworzeniaText}}
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    {{file.DataModyfikacjiText}}
+                                </div>
+                            </td>
                         </tr>
                     </tbody>
                     <tfoot class="ui-toolbar" style="height:35px">
                         <tr>
-                            <th ng-click="goBack()"><a class="glyphicon glyphicon-circle-arrow-left" style="font-size:20px;color:white"></a></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -41,54 +75,48 @@
 
             </div>
         </div>
-        <div class="col-md-6" style="box-shadow:0 0 2px 0 black;height: 100%">
-            <div style="width:100%;height:100%;">
-                <object id="pdfPreviewer" data="" type="application/pdf" style="height:100%;width:100%" />
+        <div style="box-shadow:0 0 2px 0 black;height: 100%" ng-class="isSubMenuVisible('lowerRight')">
+            <div ng-show="startPreview">
+                <processing></processing>
+            </div>
+            <div style="width:100%;height:100%;" ng-show="!startPreview">
+                <object id="pdfPreviewer" data="" type="application/pdf" style="height:98%;width:100%" />
             </div>
         </div>
     </div>
     <div id="lowerFilePanel" ng-show="elementSelected.isSelected" class="row justify-content-md-center" ng-class="isSubMenuVisible('lower')">
-        <div class="col-md-4" style="box-shadow: 0 0 2px 0 black;height:100%;background-color: white">
-            <h3 style="text-align:center">Akcje</h3>
+        <div class="col-md-4" style="box-shadow: 0 0 2px 0 black;height:100%;background-color: lightsteelblue">
+            <h3 style="text-align:center">Metadane</h3>
             <div class="row justify-content-md-center">
-                <div class="col-md-3">
-                    <ul style="list-style:none">
-                        <li><span class="btn btn-primary" style="width:80%">Edytuj</span></li>
-                        <li><span class="btn btn-danger" style="width:80%">Usun</span></li>
-                        <li><span class="btn btn-success" style="width:80%">Pobierz</span></li>
-                    </ul>
 
-                </div>
-                <div class="col-md-9">
+                <div class="col-md-offset-1 col-md-10">
                     <form class="fileData">
-                        <table style="width:100%; box-shadow: 0 0 0 0">
+                        <table style="width:100%; box-shadow: 0 0 0 0;font-weight:bold">
                             <thead class="ui-toolbar" style="height:35px;width:100%"></thead>
                             <tbody>
                                 <tr>
-                                    <th>Dodany</th>
-                                    <th><input type="date" /></th>
+                                    <td>Dodany</td>
+                                    <td><span ng-bind="elementSelected.metadata.CreationDateText" /></td>
                                 </tr>
                                 <tr>
-                                    <th>Ostatnia Zmiana</th>
-                                    <th><input type="date" /></th>
+                                    <td>Ostatnia Zmiana</td>
+                                    <td><span ng-bind="elementSelected.metadata.ModificationDateText"></span></td>
                                 </tr>
                                 <tr>
-                                    <th>Rozmiar</th>
-                                    <th><input type="text" disabled value="5.61MB" /></th>
+                                    <td>Rozmiar</td>
+                                    <td><span  ng-bind="elementSelected.metadata.Size" /></td>
                                 </tr>
                                 <tr>
-                                    <th>Lokalizacja</th>
-                                    <th><input type="text" value="Sandomierz" /></th>
+                                    <td>Lokalizacja</td>
+                                    <td><span ng-bind="elementSelected.metadata.PhysicalLocation" /></td>
                                 </tr>
                                 <tr>
-                                    <th>Typ</th>
-                                    <th>
-                                        <select>
-                                            <option>Umowa</option>
-                                            <option>Szkolenie</option>
-                                            <option>BHP</option>
-                                        </select>
-                                    </th>
+                                    <td>Typ</td>
+                                    <td><span  ng-bind="elementSelected.metadata.Type" /></td>
+                                </tr>
+                                <tr>
+                                    <td>JRWA</td>
+                                    <td><span  ng-bind="elementSelected.metadata.Jrwa" /></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -99,27 +127,31 @@
         </div>
         <div class="col-md-4" style="box-shadow: 0 0 2px 0 black;height:100%;background-color: lightsteelblue">
             <h3 style="text-align:center">Pracownicy</h3>
-            <table class="table-bordered table-hover table-striped" style="width:100%">
-                <colgroup>
-                    <col width="50%" />
-                    <col width="50%" />
-                </colgroup>
+            <table class="table-hover table-striped" style="width:100%">
                 <thead class="info ui-toolbar" style="height:35px">
                     <tr style="height:40px">
                         <th>Imie</th>
                         <th>Nazwisko</th>
+                        <th>Pesel</th>
+                        <th>Data Urodzenia</th>
                         <th>Dzial</th>
+                        <th>Numer Pracownika</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="users in usersForFile" ng-click="fillInUserData(user)" style="cursor:pointer;height:35px">
-                        <td>{{users.date}}</td>
-                        <td>{{users.name}}</td>
-                        <td>{{users.type}}</td>
-                    </tr>
+                        <td>{{users.Imie}}</td>
+                        <td>{{users.Nazwisko}}</td>
+                        <td>{{users.PESEL}}</td>
+                        <td>{{users.DataUrodzenia}}</td>
+                        <td>{{users.Dzial}}</td>
+                        <td>{{users.NumerPracownika}}</td>
                 </tbody>
                 <tfoot class="ui-toolbar" style="height:35px">
                     <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
                         <th></th>
                         <th></th>
                         <th></th>
@@ -127,14 +159,8 @@
                 </tfoot>
             </table>
         </div>
-        <div class="col-md-4" style="box-shadow: 0 0 2px 0 black;height:100%;background-color: lightsteelblue">
-            <h3 style="text-align:center">Statystyki</h3>
-            <div style="height:100%;width:90%;margin:auto">
-                <div style="text-align:center">
-                    <div id="diskUsage">
-                    </div>
-                </div>
-            </div>
+        <div class="col-md-4" style="box-shadow: 0 0 2px 0 black;height:100%;background-color: lightsteelblue;padding:15px">
+            <statistics-chart data="chartDataForSelection"></statistics-chart>
         </div>
     </div>
 

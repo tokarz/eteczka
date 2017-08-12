@@ -1,0 +1,46 @@
+{"area" :
+	[
+		{
+			"id" : "0",
+			"firma" : "0",
+			"symbol" : "GO",
+			"nazwa" : "Gola"
+		},
+		{
+			"id" : "1",
+			"firma" : "0",
+			"symbol" : "PP",
+			"nazwa" : "Piotrowo Pierwsze"
+		},
+		{
+			"id" : "2",
+			"firma" : "0",
+			"symbol" : "ZA",
+			"nazwa" : "Zarz�d"
+		},
+		{
+			"id" : "3",
+			"firma" : "0",
+			"symbol" : "S",
+			"nazwa" : "Sad"
+		},
+		{
+			"id" : "4",
+			"firma" : "0",
+			"symbol" : "GZ",
+			"nazwa" : "WGZ PӣNOC"
+		},
+		{
+			"id" : "5",
+			"firma" : "0",
+			"symbol" : "OL",
+			"nazwa" : "WGRO PӣNOC"
+		},
+		{
+			"id" : "6",
+			"firma" : "0",
+			"symbol" : "GN",
+			"nazwa" : "WGN PӣNOC"
+		}
+	]
+}

@@ -1,0 +1,24 @@
+{"firm" :
+	[
+		{
+			"id" : "0",
+			"symbol" : "AFM",
+			"nazwa" : "AGRO FUNDUSZ MAZURY SP. Z O.O.",
+			"nazwaskrocona" : "AGRO FUNDUSZ MAZURY SP Z O O",
+			"ulica" : "DROGOSZE",
+			"numerdomu" : "49",
+			"numerlokalu" : "1",
+			"miasto" : "DROGOSZE",
+			"kodpocztowy" : "11-410",
+			"poczta" : "BARCIANY",
+			"gmina" : "BARCIANY",
+			"powiat" : "KÊTRZYN",
+			"wojewodztwo" : "Warmiñsko-Mazurskie",
+			"kraj" : "POLSKA",
+			"nip" : "7421949538",
+			"regon" : "511283531",
+			"pesel" : "",
+			"lokalizacjapapier" : "AFM"
+		}
+	]
+}

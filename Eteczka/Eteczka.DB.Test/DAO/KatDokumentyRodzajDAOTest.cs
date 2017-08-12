@@ -14,7 +14,7 @@ namespace Eteczka.DB.DAO
         [SetUp]
         public void setUp()
         {
-            ConnectionDetails connectionDetails = new ConnectionDetails("localhost", "5432", "postgres");
+            ConnectionDetails connectionDetails = new ConnectionDetails("postgres", "admin", "localhost", "5432", "postgres");
             DbConnectionFactory connectionFactory = new DbConnectionFactory(connectionDetails);
             _Sut = new KatDokumentyRodzajDAO(connectionFactory);
         }

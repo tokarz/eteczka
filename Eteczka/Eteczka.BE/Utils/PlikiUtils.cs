@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using Microsoft.Office.Interop.Excel;
+using System.Runtime.InteropServices;
+
 
 namespace Eteczka.BE.Utils
 {
@@ -172,8 +175,6 @@ namespace Eteczka.BE.Utils
         {
             Dictionary<string, List<string>> result = new Dictionary<string, List<string>>();
 
-            
-
             foreach (string sciezka in sciezkiPlikow)
             {
                 string nazwaPliku = WezNazwePlikuZeSciezki(sciezka);
@@ -221,5 +222,194 @@ namespace Eteczka.BE.Utils
             return SciezkiZPlikami;
         }
 
+        public string WczytajPlik(string sciezka, string rozszerzenie = "")
+        {
+            StringBuilder plik = new StringBuilder();
+
+            if (string.IsNullOrEmpty(rozszerzenie) || sciezka.EndsWith(rozszerzenie))
+            {
+                // PROBUJEMY OTWORZYC PLIK I LAPIEMY EWENTUALNE WYJATKI
+                try
+                {   // OTWIERAMY STRUMIEN DO PLIKU
+                    using (StreamReader sr = new StreamReader(sciezka))
+                    {
+                        // WCZYTUJEMY 1 LINIJKE Z PLIKU DO NAPOTKANIA KONCA LINII 
+                        string linijka = sr.ReadToEnd();
+                        plik.Append(linijka);
+                    }
+                }
+                catch (Exception e)
+                {
+                    // OBSLUGA WYJATKU
+                    Console.WriteLine("BLAD ODCZYTU PLIKU!");
+                    Console.WriteLine(e.Message);
+                }
+            }
+
+
+            return plik.ToString();
+        }
+
+        public List<string> WczytajPlikiZFolderu(string sciezkaDoKatalogu, string rozszerzenie)
+        {
+            List<string> osoby = new List<string>();
+
+            List<string> pliki = Directory.GetFiles(sciezkaDoKatalogu).ToList<string>();
+            foreach (string plik in pliki)
+            {
+                string zawartoscPliku = WczytajPlik(plik, rozszerzenie);
+
+                /*Pomimo użycia parametru "rozszerzenie"  metoda wczytuje wszystkie pliki, 
+                a nie tylko "txt". Działa prawidłowo dopiero po dodaniu poniższego warunku. */
+
+
+                if (plik.EndsWith(rozszerzenie))
+
+                    /*Dzieje się tak samo nawet wtedy, gdy z metody WczytajPlik 
+                                usunę warunek IsNullOrEmpty. Czy nie powinno być tak, 
+                                że ścieżki inne niż z końcówką "txt" są pomijane? Chyba się zamotałem :))*/
+
+
+                    osoby.Add(zawartoscPliku);
+            }
+
+
+            return osoby;
+        }
+
+        public List<String> ExcellWczytajWiersz(string sciezka, int arkusz, int wiersz)
+        {
+            List<String> result = new List<string>();
+            if (File.Exists(sciezka))
+            {
+                Application xlApp = new Application();
+                Workbook xlWorkbook = xlApp.Workbooks.Open(Path.GetFullPath(sciezka));
+                Worksheet xlWorksheet = xlWorkbook.Sheets[arkusz];
+                Range xlRange = xlWorksheet.UsedRange;
+
+                for (int i = 1; i <= xlRange.Columns.Count; i++)
+                {
+                    result.Add(xlRange.Cells[wiersz, i].Value);
+                }
+
+                ZamknijPlik(xlApp, xlWorkbook, xlWorksheet, xlRange);
+            }
+
+
+            return result;
+        }
+
+        private void ZamknijPlik(Application xlApp, Workbook xlWorkbook, Worksheet xlWorksheet, Range xlRange)
+        {
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+
+            if (xlApp != null && xlWorkbook != null && xlWorksheet != null && xlRange != null)
+            {
+                Marshal.ReleaseComObject(xlRange);
+                Marshal.ReleaseComObject(xlWorksheet);
+
+                //close and release
+                xlWorkbook.Close();
+                Marshal.ReleaseComObject(xlWorkbook);
+
+                //quit and release
+                xlApp.Quit();
+                Marshal.ReleaseComObject(xlApp);
+            }
+        }
+
+        public ExcelKatDok ExcellWczytajKatDok(string sciezka, int arkusz)
+        {
+            ExcelKatDok result = new ExcelKatDok();
+
+            if (File.Exists(sciezka))
+            {
+                Application xlApp = null;
+                Workbook xlWorkbook = null;
+                Worksheet xlWorksheet = null;
+                Range xlRange = null;
+                try
+                {
+                    xlApp = new Application();
+                    xlWorkbook = xlApp.Workbooks.Open(Path.GetFullPath(sciezka));
+                    xlWorksheet = xlWorkbook.Sheets[arkusz];
+                    xlRange = xlWorksheet.UsedRange;
+
+                    result.Naglowek = new List<string>();
+                    result.CalyPlik = new List<ExcelKatDokPola>();
+                    for (int i = 1; i <= xlRange.Columns.Count; i++)
+                    {
+                        result.Naglowek.Add(xlRange.Cells[1, i].Value);
+                    }
+
+                    for (int y = 1; y <= xlRange.Rows.Count; y++)
+                    {
+                        ExcelKatDokPola Pola = new ExcelKatDokPola();
+                        Pola.NazwaDokumentu = (xlRange.Cells[y, 1].Value);
+                        Pola.SymbolDokumentu = (xlRange.Cells[y, 2].Value);
+                        Pola.CzescAkt = (xlRange.Cells[y, 3].Value);
+
+                        result.CalyPlik.Add(Pola);
+                    }
+                }
+
+                catch (Exception ex)
+                {
+                    Console.WriteLine("BŁĄD ODCZYTU PLIKU!");
+                    Console.WriteLine(ex.Message);
+                }
+                finally
+                {
+                    ZamknijPlik(xlApp, xlWorkbook, xlWorksheet, xlRange); 
+                }
+
+            }
+
+            return result;
+        }
+
+
+        public ExcelKatDok ExcellWczytajKatDok_ZDAJETEST_DLA_MALEJ_POMOCY(string sciezka, int arkusz)
+        {
+            ExcelKatDok result = new ExcelKatDok();
+            result.Naglowek = new List<string>();
+
+
+            if (File.Exists(sciezka))
+            {
+                Application xlApp = new Application();
+                Workbook xlWorkbook = xlApp.Workbooks.Open(Path.GetFullPath(sciezka));
+                Worksheet xlWorksheet = xlWorkbook.Sheets[arkusz];
+                Range xlRange = xlWorksheet.UsedRange;
+                for (int i = 1; i <= xlRange.Columns.Count; i++)
+                {
+                    result.Naglowek.Add(xlRange.Cells[1, i].Value);
+                    //Do wczytania nagłówka rozważałem użycie metody ExcellWczytajWiersz, 
+                    //ale mówiłeś, że otwieranie pliku to kosztowna impreza,
+                    //więc zdecydowałem się na przepisanie kodu w ramach jednego otwarcia.
+
+                }
+
+                result.CalyPlik = new List<ExcelKatDokPola>();
+                for (int y = 1; y <= xlRange.Rows.Count; y++)
+                {
+                    ExcelKatDokPola Pola = new ExcelKatDokPola();
+
+                    Pola.NazwaDokumentu = (xlRange.Cells[y, 1].Value);
+                    Pola.SymbolDokumentu = (xlRange.Cells[y, 2].Value);
+                    Pola.CzescAkt = (xlRange.Cells[y, 3].Value);
+
+                    result.CalyPlik.Add(Pola);
+                }
+
+                ZamknijPlik(xlApp, xlWorkbook, xlWorksheet, xlRange);
+            }
+
+
+            return result;
+        }
     }
 }
+
+

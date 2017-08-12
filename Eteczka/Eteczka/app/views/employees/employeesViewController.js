@@ -1,28 +1,40 @@
 ﻿'use strict';
 angular.module('et.controllers').controller('employeesViewController', ['$scope', '$state', 'utilsService', 'employeesService', 'editEmployeeService', function ($scope, $state, utilsService, employeesService, editEmployeeService) {
     $scope.users = [];
-    $scope.selectedUser = null;
-
+    $scope.filesForUser = [];
+    $scope.elementSelected = null;
+    $scope.isTableLoaded = false;
     $scope.isUserSet = function () {
-        return ($scope.selectedUser != null)
+        return ($scope.elementSelected != null)
     }
-
-    employeesService.getAll().then(function (result) {
-        $scope.users = result.data.data;
-    })
 
     $scope.goBack = function () {
         $state.go('options');
     }
 
-    $scope.setUser = function () {
-        if($scope.selectedUser == this.user) {
-            console.log('clicked on the same row', this);
-            $scope.selectedUser = null
+    $scope.setUser = function (user) {
+        if ($scope.elementSelected && user.Id === $scope.elementSelected.Id) {
+            $scope.elementSelected = null;
+            $scope.isEmpTableLoaded = true;
+        } else {
+            $scope.isEmpTableLoaded = false;
+            employeesService.getFilesForEmployee(user.Pesel).then(function (result) {
+                $scope.filesForUser = result.pliki;
+                $scope.elementSelected = user;
+                $scope.isEmpTableLoaded = true;
+            });
         }
-        else {
-            console.log('clicked on a new row', this);
-            $scope.selectedUser = this.user;
+    }
+
+    $scope.isElementSelected = function (option) {
+        if ($scope.isUserSet()) {
+            return 'employeePanelSelected';
+        } else {
+            if (option === 'main') {
+                return 'employeeTopNotSelected';
+            } else {
+                return 'employeeDetailNotSelected';
+            }
         }
     }
 
@@ -66,5 +78,10 @@ angular.module('et.controllers').controller('employeesViewController', ['$scope'
             console.log("error found!");
         });
     }
+
+    employeesService.getAll().then(function (result) {
+        $scope.users = result.data;
+        $scope.isTableLoaded = true;
+    })
 
 }]);

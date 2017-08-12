@@ -16,5 +16,7 @@ namespace Eteczka.BE.DTO
         public string HasloLong { get; set; }
         public DateTime DataModify { get; set; }
         public Uprawnienia Uprawnienia { get; set; }
+        public string FirmaSymbol { get; set; }
+        public bool isAdmin { get; set; }
     }
 }

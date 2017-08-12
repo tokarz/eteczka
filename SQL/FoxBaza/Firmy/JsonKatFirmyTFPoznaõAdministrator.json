@@ -1,0 +1,24 @@
+{"firm" :
+	[
+		{
+			"id" : "0",
+			"symbol" : "TFPoznañ",
+			"nazwa" : "TOP FARMS SP. Z O.O.",
+			"nazwaskrocona" : "TOP-FARMS",
+			"ulica" : "PRZELOT",
+			"numerdomu" : "24",
+			"numerlokalu" : "",
+			"miasto" : "POZNAÑ",
+			"kodpocztowy" : "60-408",
+			"poczta" : "POZNAÑ",
+			"gmina" : "POZNAÑ JE¯YCE",
+			"powiat" : "Poznañski",
+			"wojewodztwo" : "Wielkopolskie",
+			"kraj" : "Polska",
+			"nip" : "7811025322",
+			"regon" : "630354612",
+			"pesel" : "",
+			"lokalizacjapapier" : "TFPoznañ"
+		}
+	]
+}
