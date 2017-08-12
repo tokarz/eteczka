@@ -1,7 +1,7 @@
 angular.module('et.services').service('editEmployeeService', ['$uibModal',
     function ($uibModal) {
         return {
-            showModal: function (customModalOptions) {           
+            showModal: function (customModalOptions, employee = {}) {           
 
                 var modalDefaults = {
                     animation: true,
@@ -11,7 +11,7 @@ angular.module('et.services').service('editEmployeeService', ['$uibModal',
                 if (!modalDefaults.controller) {
                     modalDefaults.controller = function ($scope, $uibModalInstance) {
                         $scope.modalOptions = customModalOptions
-                        $scope.employee = {}
+                        $scope.employee = employee
 
                         $scope.modalOptions.ok = function () {
                             $uibModalInstance.close($scope.employee);

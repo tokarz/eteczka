@@ -16,8 +16,14 @@ angular.module('et.controllers').controller('employeesViewController', ['$scope'
     }
 
     $scope.setUser = function () {
-        console.log('clicked on a row', this);
-        $scope.selectedUser = this.user;
+        if($scope.selectedUser == this.user) {
+            console.log('clicked on the same row', this);
+            $scope.selectedUser = null
+        }
+        else {
+            console.log('clicked on a new row', this);
+            $scope.selectedUser = this.user;
+        }
     }
 
     $scope.triggerAddEmployeePopup = function () {
@@ -28,6 +34,33 @@ angular.module('et.controllers').controller('employeesViewController', ['$scope'
         }
 
         editEmployeeService.showModal(modalOptions).then(function (result) {
+            console.log(result)
+        }).catch(function (error) {
+            console.log("error found!");
+        });
+    }
+
+    $scope.triggerEditEmployeePopup = function () {
+        var modalOptions = {
+            title: 'Edytowanie istniejacego pracownika',
+            body: 'app/views/employees/editEmployeesPopup/newUserTemplate.html'
+        }
+
+        editEmployeeService.showModal(modalOptions, $scope.selectedUser).then(function (result) {
+            console.log(result)
+        }).catch(function (error) {
+            console.log("error found!");
+        });
+    }
+
+    $scope.triggerDeleteEmployeePopup = function () {
+        var modalOptions = {
+            title: 'Usuwanie pracownika z bazy danych',
+            body: 'app/views/employees/editEmployeesPopup/deleteUserTemplate.html'
+        }
+
+        editEmployeeService.showModal(modalOptions, $scope.selectedUser).then(function (result) {
+            console.log('result')
             console.log(result)
         }).catch(function (error) {
             console.log("error found!");
