@@ -24,7 +24,7 @@ namespace Eteczka.BE.Model
             return result;
         }
 
-        public static StanSesji PobierzStanSesji(string sessionID)
+        public static StanSesji PobierzStanSesji()
         {
             return STAN_SESJI;
         }

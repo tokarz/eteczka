@@ -136,17 +136,19 @@
     <Compile Include="DAO\UserDAO.cs" />
     <Compile Include="Entities\KatDokumentyRodzaj.cs" />
     <Compile Include="Entities\KatDzialy.cs" />
-    <Compile Include="Entities\KatFIrmy.cs" />
+    <Compile Include="Entities\KatFirmy.cs" />
     <Compile Include="Entities\KatJrwa.cs" />
     <Compile Include="Entities\KatKategorieAkt.cs" />
     <Compile Include="Entities\KatLoginy.cs" />
     <Compile Include="Entities\KatLokalPapier.cs" />
     <Compile Include="Entities\KatPodWydzialy.cs" />
     <Compile Include="Entities\KatRejony.cs" />
-    <Compile Include="Entities\KatTeczki.cs" />
-    <Compile Include="Entities\Plik.cs" />
+    <Compile Include="Entities\MiejscePracy.cs" />
+    <Compile Include="Entities\Pliki.cs" />
     <Compile Include="Entities\Pracownik.cs" />
     <Compile Include="Entities\User.cs" />
+    <Compile Include="Mappers\IPlikiMapper.cs" />
+    <Compile Include="Mappers\PlikiMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -156,6 +158,7 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

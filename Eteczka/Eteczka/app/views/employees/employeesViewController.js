@@ -39,7 +39,6 @@ angular.module('et.controllers').controller('employeesViewController', ['$scope'
     }
 
     $scope.triggerAddEmployeePopup = function () {
-
         var modalOptions = {
             title: 'Dodawanie nowego pracownika',
             body: 'app/views/employees/editEmployeesPopup/newUserTemplate.html'

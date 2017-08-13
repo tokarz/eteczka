@@ -2,7 +2,6 @@ angular.module('et.services').service('editEmployeeService', ['$uibModal',
     function ($uibModal) {
         return {
             showModal: function (customModalOptions, parentScope) {
-
                 var modalDefaults = {
                     animation: true,
                     templateUrl: 'app/views/employees/editEmployeesPopup/addEmployeePopup.html'

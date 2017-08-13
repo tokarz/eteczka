@@ -114,6 +114,7 @@
   <ItemGroup>
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\FilesImportController.cs" />
     <Compile Include="Controllers\FileTypeController.cs" />
     <Compile Include="Controllers\PlikiController.cs" />
@@ -121,6 +122,7 @@
     <Compile Include="Controllers\ResourcesController.cs" />
     <Compile Include="Controllers\StatystykiController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="DTO\AdminQuestion.cs" />
     <Compile Include="DTO\DaneWykresowe.cs" />
     <Compile Include="DTO\ImportResult.cs" />
     <Compile Include="DTO\MetaDanePliku.cs" />
@@ -136,6 +138,8 @@
     <Compile Include="Model\SessionDetails.cs" />
     <Compile Include="Model\StanPlikow.cs" />
     <Compile Include="Model\StanSesji.cs" />
+    <Compile Include="Services\EmailService.cs" />
+    <Compile Include="Services\IEmailService.cs" />
     <Compile Include="Services\ImportService.cs" />
     <Compile Include="Services\IImportService.cs" />
     <Compile Include="Services\StatystykiService.cs" />

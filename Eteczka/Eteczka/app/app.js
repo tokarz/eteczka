@@ -33,7 +33,6 @@ app.config(function ($stateProvider) {
         params: {
             'choices' : []
         }
-
     }
 
     var adminState = {

@@ -25,29 +25,11 @@ namespace Eteczka.BE.Controllers
 
         public ActionResult PobierzWszystkie()
         {
-            List<KatTeczki> pliki = _PlikiService.PobierzWszystkie();
+            List<Pliki> pliki = _PlikiService.PobierzWszystkie();
 
             return Json(new
             {
                 pliki = pliki
-            }, JsonRequestBehavior.AllowGet);
-        }
-
-        public ActionResult PobierzDlaPeselu(string pesel)
-        {
-            List<KatTeczki> result = new List<KatTeczki>();
-            List<KatTeczki> wszystkiePliki = _PlikiService.PobierzWszystkie();
-            foreach (KatTeczki plik in wszystkiePliki)
-            {
-                if (plik.Pesel.Equals(pesel))
-                {
-                    result.Add(plik);
-                }
-            }
-
-            return Json(new
-            {
-                pliki = result
             }, JsonRequestBehavior.AllowGet);
         }
 
@@ -63,8 +45,11 @@ namespace Eteczka.BE.Controllers
 
         public ActionResult PobierzStanZeskanowanychPlikow(string sessionId)
         {
-            StanSesji sesja = Sesja.PobierzStanSesji(sessionId);
-            StanPlikow stanPlikow = _PlikiService.PobierzStanPlikow(sesja);
+            StanPlikow stanPlikow = null;
+            if(Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            {
+                stanPlikow = _PlikiService.PobierzStanPlikow(sessionId);
+            }
 
             return Json(new
             {

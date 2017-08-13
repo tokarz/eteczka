@@ -55,55 +55,80 @@
         </footer>
     </div>
 
+
+    <!--3rd party scripts-->
     <script src="Scripts/jquery-1.10.2.min.js"></script>
     <script src="Scripts/angular/angular.min.js"></script>
     <script src="Scripts/angular-ui-router/angular-ui-router.min.js"></script>
     <script src="Scripts/angular-animate/angular-animate.min.js"></script>
-    <script src="node_modules/angular-files-drop/dist/index.js"></script>
     <!--<script src="Scripts/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>-->
     <!--<script src="Scripts/ui-bootstrap-tpls-0.12.js"></script>-->
     <script src="Scripts/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
     <script src="Scripts/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
 
+    <!--Biblioteka animacji i grafiki wektorowej-->
     <script src="Scripts/d3js/d3.min.js"></script>
     <script src="Scripts/d3pie.min.js"></script>
 
+    <!--Przeciagnij i upusc plik (do importu plikow)-->
+    <script src="node_modules/angular-files-drop/dist/index.js"></script>
+
+    <!--Glowny plik konfiguracyjny-->
     <script src="app/app.js"></script>
+
+    <!--Pliki skryptow nie nalezace do widokow (podwidoki, modale itp.)-->
     <script src="app/main/mainController.js"></script>
     <script src="app/main/startup/startupService.js"></script>
-    <script src="app/views/admin/adminViewController.js"></script>
-    <script src="app/views/admin/adminViewDirective.js"></script>
-    <script src="app/views/admin/quickNotes/quickNoteDirective.js"></script>
+    <script src="app/main/header/menu/menuController.js"></script>
+    <script src="app/main/files/filesController.js"></script>
+    <script src="app/main/session/sessionService.js"></script>
+
+    <!--Widok okna ladowania (processing)-->
+    <script src="app/views/processing/processingDirective.js"></script>
+
+    <!--Popup: Dodawanie Uzytkownika (widok dla Admina!)-->
+    <script src="app/views/addUsers/addUsersViewController.js"></script>
+    <script src="app/views/addUsers/addUsersViewDirective.js"></script>
+    <!--Widok logowania-->
     <script src="app/views/login/loginViewController.js"></script>
     <script src="app/views/login/loginViewDirective.js"></script>
     <script src="app/views/login/loginService.js"></script>
     <script src="app/views/login/choosefirm//chooseFirmController.js"></script>
     <script src="app/views/login/choosefirm//chooseFirmDirective.js"></script>
-    <script src="app/main/session/sessionService.js"></script>
+
+    <!--Widok Admina-->
+    <script src="app/views/admin/adminViewController.js"></script>
+    <script src="app/views/admin/adminViewDirective.js"></script>
+    <script src="app/views/admin/quickNotes/quickNoteDirective.js"></script>
+    <!--Widok Pracownikow-->
     <script src="app/views/employees/editEmployeesPopup/editEmployeeService.js"></script>
-    <script src="app/views/addUsers/addUsersViewController.js"></script>
-    <script src="app/views/addUsers/addUsersViewDirective.js"></script>
+    <script src="app/main/employees/employeesController.js"></script>
+    <script src="app/views/employees/employeesViewController.js"></script>
+    <script src="app/views/employees/employeesViewDirective.js"></script>
+    <script src="app/views/employees/employeesService.js"></script>
+
+    <!--Widok opcji -->
     <script src="app/views/options/optionsViewController.js"></script>
     <script src="app/views/options/optionsViewDirective.js"></script>
+
+    <!--Widok plikow-->
     <script src="app/views/files/filesViewController.js"></script>
     <script src="app/views/files/filesViewService.js"></script>
     <script src="app/views/files/filesViewDirective.js"></script>
     <script src="app/views/files/statistics/statisticsChartDirective.js"></script>
-    <script src="app/views/employees/employeesViewController.js"></script>
-    <script src="app/views/employees/employeesViewDirective.js"></script>
-    <script src="app/views/employees/employeesService.js"></script>
-    <script src="app/views/processing/processingDirective.js"></script>
-    <script src="app/main/header/menu/menuController.js"></script>
-    <script src="app/main/files/filesController.js"></script>
     <script src="app/views/files/addFile/addFileController.js"></script>
-    <script src="app/main/utils/utils.js"></script>
-    <script src="app/main/utils/resizableDirective.js"></script>
-    <script src="app/main/utils/httpService.js"></script>
-    <script src="app/main/employees/employeesController.js"></script>
+
+    <!--Widok ustawien-->
     <script src="app/views/settings/settingsDirective.js"></script>
     <script src="app/views/settings/settingsService.js"></script>
     <script src="app/views/settings/settingsViewController.js"></script>
     <script src="app/main/settings/settingsController.js"></script>
+
+    <!-- Utils : przydatne biblioteki-->
+    <script src="app/main/utils/utils.js"></script>
+    <script src="app/main/utils/resizableDirective.js"></script>
+    <script src="app/main/utils/httpService.js"></script>
+    <script src="app/main/utils/modalService.js"></script>
 
 </body>
 </html>

@@ -224,6 +224,8 @@
     <Content Include="app\main\startup\startupService.js" />
     <Content Include="app\main\utils\fileService.js" />
     <Content Include="app\main\utils\httpService.js" />
+    <Content Include="app\main\utils\modalService.js" />
+    <Content Include="app\main\utils\modalTemplate\modalTemplate.html" />
     <Content Include="app\main\utils\resizableDirective.js" />
     <Content Include="app\main\utils\utils.js" />
     <Content Include="app\views\addUsers\addUsersView.html" />
@@ -253,6 +255,7 @@
     <Content Include="app\views\login\choosefirm\chooseFirm.html" />
     <Content Include="app\views\login\choosefirm\chooseFirmController.js" />
     <Content Include="app\views\login\choosefirm\chooseFirmDirective.js" />
+    <Content Include="app\views\login\contactAdmin\contactAdminForm.html" />
     <Content Include="app\views\login\loginService.js" />
     <Content Include="app\views\login\loginView.html" />
     <Content Include="app\views\login\loginViewController.js" />

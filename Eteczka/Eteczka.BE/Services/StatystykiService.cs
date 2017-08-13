@@ -24,34 +24,34 @@ namespace Eteczka.BE.Services
         {
             List<DaneWykresowe> result = new List<DaneWykresowe>();
 
-            Dictionary<string, double> licznikTypow = new Dictionary<string, double>();
+            //    Dictionary<long, double> licznikTypow = new Dictionary<long, double>();
 
-            List<KatTeczki> wszystkieDokumenty = _PlikiService.PobierzWszystkie();
+            //    List<Pliki> wszystkieDokumenty = _PlikiService.PobierzWszystkie();
 
-            foreach (KatTeczki plik in wszystkieDokumenty)
-            {
-                if (licznikTypow.Keys.Contains(plik.TypDokumentu))
-                {
-                    double licznik = licznikTypow[plik.TypDokumentu];
-                    licznik += 1;
-                    licznikTypow[plik.TypDokumentu] = licznik;
-                }
-                else
-                {
-                    licznikTypow.Add(plik.TypDokumentu, 1);
-                }
-            }
-            int iteration = 0;
-            foreach (string typ in licznikTypow.Keys)
-            {
-                DaneWykresowe daneCzesc = new DaneWykresowe();
-                daneCzesc.label = typ;
-                double procentowaWartosc = (licznikTypow[typ] / wszystkieDokumenty.Count) * 100;
-                daneCzesc.value = Math.Floor(procentowaWartosc);
-                daneCzesc.color = this.COLORS[iteration++];
+            //    foreach (Pliki plik in wszystkieDokumenty)
+            //    {
+            //        if (licznikTypow.Keys.Contains(plik.Typid))
+            //        {
+            //            double licznik = licznikTypow[plik.Typid];
+            //            licznik += 1;
+            //            licznikTypow[plik.Typid] = licznik;
+            //        }
+            //        else
+            //        {
+            //            licznikTypow.Add(plik.TypPliku, 1);
+            //        }
+            //    }
+            //    int iteration = 0;
+            //    foreach (long typ in licznikTypow.Keys)
+            //    {
+            //        DaneWykresowe daneCzesc = new DaneWykresowe();
+            //        daneCzesc.label = "" + typ;
+            //        double procentowaWartosc = (licznikTypow[typ] / wszystkieDokumenty.Count) * 100;
+            //        daneCzesc.value = Math.Floor(procentowaWartosc);
+            //        daneCzesc.color = this.COLORS[iteration++];
 
-                result.Add(daneCzesc);
-            }
+            //        result.Add(daneCzesc);
+            //    }
 
 
             return result;

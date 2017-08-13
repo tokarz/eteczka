@@ -12,7 +12,9 @@ namespace Eteczka
         public static string DbName { get; private set; }
         public static string DbPort { get; private set; }
         public static string EAD_ROOT { get; private set; }
-
+        public static string AdminEmail { get; private set; }
+        public static string SmtpServer { get; private set; }
+        
         public static void InitSystem()
         {
             DbUser = ConfigurationManager.AppSettings["dbuser"];
@@ -20,8 +22,10 @@ namespace Eteczka
             DbHost = ConfigurationManager.AppSettings["dbhost"];
             DbName = ConfigurationManager.AppSettings["dbname"];
             DbPort = ConfigurationManager.AppSettings["dbport"];
-            string eadRootName = ConfigurationManager.AppSettings["rootdir"];
+            AdminEmail = ConfigurationManager.AppSettings["adminemail"];
+            SmtpServer = ConfigurationManager.AppSettings["smtpserver"];
 
+            string eadRootName = ConfigurationManager.AppSettings["rootdir"];
             EAD_ROOT = Environment.GetEnvironmentVariable(eadRootName);
 
             string configurationPath = EAD_ROOT + "/eteczka.create.txt";

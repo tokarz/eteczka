@@ -9,7 +9,7 @@ using System.Data;
 
 namespace Eteczka.DB.DAO
 {
-    
+
     public class KatDokumentyRodzajDAO
     {
         private IDbConnectionFactory _ConnectionFactory;
@@ -30,9 +30,16 @@ namespace Eteczka.DB.DAO
             foreach (DataRow row in result.Rows)
             {
                 KatDokumentyRodzaj fetchedDok = new KatDokumentyRodzaj();
-                fetchedDok.Id = long.Parse(row[0].ToString());
+                fetchedDok.Symbol = row[0].ToString();
                 fetchedDok.Nazwa = row[1].ToString();
-                fetchedDok.Symbol = row[2].ToString();
+                fetchedDok.Dokwlasny = bool.Parse(row[2].ToString());
+                fetchedDok.Jrwa = row[3].ToString();
+                fetchedDok.Teczkadzial = row[4].ToString();
+                fetchedDok.Typedycji = row[5].ToString();
+                fetchedDok.Idoper = row[6].ToString();
+                fetchedDok.Idakcept = row[7].ToString();
+                fetchedDok.Datamodify = DateTime.Parse(row[8].ToString());
+                fetchedDok.Dataakcept = DateTime.Parse(row[9].ToString());
 
                 fetchedResult.Add(fetchedDok);
             }

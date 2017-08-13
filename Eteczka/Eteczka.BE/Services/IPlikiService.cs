@@ -7,10 +7,10 @@ namespace Eteczka.BE.Services
 {
     public interface IPlikiService
     {
-        List<KatTeczki> PobierzWszystkie(string sortOrder = "asc", string sortColumn = "Id");
-        List<KatTeczki> PobierzDlaUzytkownika(string userId, string sortOdred = "asc", string sortColumn = "Id");
-        List<KatTeczki> PobierzZawierajaceTekst(string searchText, string sortOrder = "asc", string sortColumn = "Id");
+        List<Pliki> PobierzWszystkie(string sortOrder = "asc", string sortColumn = "Id");
+        List<Pliki> PobierzDlaUzytkownika(string userId, string sortOdred = "asc", string sortColumn = "Id");
+        List<Pliki> PobierzZawierajaceTekst(string searchText, string sortOrder = "asc", string sortColumn = "Id");
         MetaDanePliku PobierzMetadane(string plik);
-        StanPlikow PobierzStanPlikow(StanSesji sesja);
+        StanPlikow PobierzStanPlikow(string sessionId);
     }
 }

@@ -9,6 +9,7 @@ using System.Configuration;
 using Eteczka.DB.Connection;
 using Eteczka.BE.Utils;
 using System.IO;
+using Eteczka.DB.Mappers;
 
 namespace Eteczka
 {
@@ -46,6 +47,8 @@ namespace Eteczka
             container.RegisterType<IMapowalnyDoPracownikDto, PracownikDtoMapper>();
             container.RegisterType<IMapowalnyDoPracownikDto, PracownikDtoMapper>();
             container.RegisterType<IConnection, Connection>();
+            container.RegisterType<IEmailService, Eteczka.BE.Services.EmailService>();
+            container.RegisterType<IPlikiMapper, PlikiMapper>();
 
             container.RegisterType<PlikiDAO, PlikiDAO>();
             container.RegisterType<UserDAO, UserDAO>();

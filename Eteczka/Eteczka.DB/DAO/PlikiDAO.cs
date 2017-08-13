@@ -7,62 +7,49 @@ using Eteczka.DB.Entities;
 using System.Data;
 using Eteczka.DB.Connection;
 using System.Collections.Generic;
+using Eteczka.DB.Mappers;
 
 
 namespace Eteczka.DB.DAO
 {
     public class PlikiDAO
     {
-
+        private IPlikiMapper _PlikiMapper;
         private IDbConnectionFactory _ConnectionFactory;
 
-        public PlikiDAO(IDbConnectionFactory factory)
+        public PlikiDAO(IDbConnectionFactory factory, IPlikiMapper plikiMapper)
         {
             this._ConnectionFactory = factory;
+            this._PlikiMapper = plikiMapper;
         }
 
-        public List<KatTeczki> PobierzWszystkiePliki(string order, string column)
+        public List<Pliki> PobierzWszystkiePliki(string order, string column)
         {
             string sqlQuery = "SELECT * from \"KatTeczki\" order by " + column + " " + order;
 
-            List<KatTeczki> fetchedResult = new List<KatTeczki>();
+            List<Pliki> fetchedResult = new List<Pliki>();
 
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
             DataTable result = connectionState.ExecuteQuery(sqlQuery);
             foreach (DataRow row in result.Rows)
             {
-                KatTeczki fetchedDok = new KatTeczki();
-                fetchedDok.Id = row[0].ToString();
-
-
-                fetchedDok.Id = row[0].ToString();
-                fetchedDok.Nazwa = row[1].ToString();
-                fetchedDok.PelnaSciezka = row[2].ToString();
-                fetchedDok.Jrwa = row[3].ToString();
-                fetchedDok.JrwaId = row[4].ToString();
-                fetchedDok.DataUtworzenia = DateTime.Parse(row[5].ToString());
-                fetchedDok.DataModyfikacji = DateTime.Parse(row[6].ToString());
-                fetchedDok.TypDokumentu = row[7].ToString();
-                fetchedDok.Pesel = row[8].ToString();
-
+                Pliki fetchedDok = _PlikiMapper.MapujZSql(row);
                 fetchedResult.Add(fetchedDok);
             }
 
             return fetchedResult;
         }
 
-        public bool ImportujPliki(Dictionary<string, Plik> plikiZMetadanymi)
+        public bool ImportujPliki(Dictionary<string, Pliki> plikiZMetadanymi)
         {
             bool result = false;
             StringBuilder sqls = new StringBuilder();
 
-            int startId = 0;
-
             foreach (string key in plikiZMetadanymi.Keys)
             {
-                Plik biezacyPlik = plikiZMetadanymi[key];
-                string valuesLine = "(" + startId++ + ", '" + biezacyPlik.Nazwa + "', 'pelnaSciezka', '" + biezacyPlik.Jrwa + "', 0,'" + biezacyPlik.DataUtworzenia + "', '" + biezacyPlik.DataModyfikacji + "', '" + biezacyPlik.TypDokumentu + "', '" + biezacyPlik.Pesel + "');";
-                string singleImport = "INSERT INTO \"KatTeczki\" (id, nazwa, pelna_sciezka, jrwa, jrwa_id, data_utworzenia, data_modyfikacji, typid, pesel) VALUES ";
+                Pliki biezacyPlik = plikiZMetadanymi[key];
+                string valuesLine = "('" + biezacyPlik.Symbol + "', '" + biezacyPlik.DataSkanu + "', '" + biezacyPlik.DataDokumentu + "', '" + biezacyPlik.DataPocz + "', '" + biezacyPlik.DataKoniec + "', '" + biezacyPlik.NazwaPliku + "', '" + biezacyPlik.PelnaSciezka + "', '" + biezacyPlik.TypPliku + "', '" + biezacyPlik.OpisDodatkowy + "', '" + biezacyPlik.NumerEad + "', '" + biezacyPlik.DokumentWlasny + "', '" + biezacyPlik.IdOper + "', '" + biezacyPlik.IdAkcept + "', '" + biezacyPlik.DataModyfikacji + "', '" + biezacyPlik.DataAkcept + "');";
+                string singleImport = "INSERT INTO \"Pliki\" (symbol, dataskanu, datadokumentu, datapocz, datakoniec, nazwapliku, pelnasciezka, typpliku, opisdodatkowy, numeread, dokwlasny, idoper, idakcept, datamodify, dataakcept) VALUES ";
 
                 string fullSqlInsert = singleImport + valuesLine;
                 sqls.Append(fullSqlInsert);
@@ -79,12 +66,11 @@ namespace Eteczka.DB.DAO
         {
             bool result = false;
             StringBuilder sqls = new StringBuilder();
-            long startingId = archiwa[0].Id;
 
             foreach (KatLokalPapier biezacyPlik in archiwa)
             {
-                string valuesLine = "(" + startingId++ + ", '" + biezacyPlik.Symbolfirma + "', '" + biezacyPlik.Symbol + "','" + biezacyPlik.Nazwa + "','" + biezacyPlik.Ulica + "','" + biezacyPlik.Numerdomu + "','" + biezacyPlik.Numerlokalu + "','" + biezacyPlik.Miasto + "','" + biezacyPlik.Kodpocztowy + "','" + biezacyPlik.Poczta + "','" + DateTime.Now + "','0', '0', '" + DateTime.Now + "');";
-                string singleImport = "INSERT INTO \"KatLokalPapier\"(id, symbolfirma, symbol, nazwa, ulica, numerdomu, numerlokalu, miasto, kodpocztowy, poczta, datamodify, idoper, idakcept, dataakcept) VALUES";
+                string valuesLine = "(" + biezacyPlik.Firma + "', '" + biezacyPlik.LokalPapier + "','" + biezacyPlik.Nazwa + "','" + biezacyPlik.Ulica + "','" + biezacyPlik.Numerdomu + "','" + biezacyPlik.Numerlokalu + "','" + biezacyPlik.Miasto + "','" + biezacyPlik.Kodpocztowy + "','" + biezacyPlik.Poczta + "','" + biezacyPlik.Idoper + "','" + biezacyPlik.Idakcept + "','" + biezacyPlik.Datamodify + "', '" + biezacyPlik.Dataakcept + "');";
+                string singleImport = "INSERT INTO \"KatLokalPapier\"(firma, lokalpapier, nazwa, ulica, numerdomu, numerlokalu, miasto, kodpocztowy, poczta, idoper, idakcept, datamodify, dataakcept) VALUES";
 
                 string fullSqlInsert = singleImport + valuesLine;
                 sqls.Append(fullSqlInsert);
@@ -96,17 +82,16 @@ namespace Eteczka.DB.DAO
             return result;
         }
 
-        public bool ImportujFirmy(List<KatFIrmy> firmy)
+        public bool ImportujFirmy(List<KatFirmy> firmy)
         {
             bool result = false;
             StringBuilder sqls = new StringBuilder();
-            long startingId = firmy[0].Id;
 
-            foreach (KatFIrmy biezacyPlik in firmy)
+            foreach (KatFirmy biezacyPlik in firmy)
             {
-                string valuesLine = "(" + startingId++ + ", '" + biezacyPlik.Symbol + "', '" + biezacyPlik.Nazwa + "','" + biezacyPlik.Nazwaskrocona + "', '" + biezacyPlik.Ulica + "','" + biezacyPlik.Numerdomu + "','" + biezacyPlik.Numerlokalu + "','" + biezacyPlik.Miasto + "','" + biezacyPlik.Kodpocztowy + "','" + biezacyPlik.Poczta + "','" + biezacyPlik.Gmina + "','" + biezacyPlik.Powiat + "', '" + biezacyPlik.Wojewodztwo + "', '" + biezacyPlik.Kraj + "', '" + biezacyPlik.Nip + "', '" + biezacyPlik.Regon + "', '" + biezacyPlik.Kraj +
-                    "', '" + biezacyPlik.Pesel + "', '" + biezacyPlik.Datamodify + "', '" + biezacyPlik.Idoper + "', '" + biezacyPlik.Idakcept + "', '" + biezacyPlik.Dataakcept + "', '" + biezacyPlik.Lokalizacjapapier + "');";
-                string singleImport = "INSERT INTO \"KatFirmy\"(id, symbol, nazwa, nazwaskrocona, ulica, numerdomu, numerlokalu, miasto, kodpocztowy, poczta, gmina, powiat, wojewodztwo, kraj, nip, regon, krs, pesel, datamodify, idoper, idakcept, dataakcept, lokalizacjapapier) VALUES ";
+                string valuesLine = "('" + biezacyPlik.Firma + "', '" + biezacyPlik.Nazwa + "','" + biezacyPlik.Nazwaskrocona + "', '" + biezacyPlik.Ulica + "','" + biezacyPlik.Numerdomu + "','" + biezacyPlik.Numerlokalu + "','" + biezacyPlik.Miasto + "','" + biezacyPlik.Kodpocztowy + "','" + biezacyPlik.Poczta + "','" + biezacyPlik.Gmina + "','" + biezacyPlik.Powiat + "', '" + biezacyPlik.Wojewodztwo + "', '" + biezacyPlik.Nip + "', '" + biezacyPlik.Regon + "', '" + biezacyPlik.Nazwa2 +
+                    "', '" + biezacyPlik.Pesel + "', '" + biezacyPlik.Idoper + "', '" + biezacyPlik.Idakcept + "', '" + biezacyPlik.Nazwisko + "', '" + biezacyPlik.Imie + "', '" + biezacyPlik.Datamodify + "', '" + biezacyPlik.Dataakcept + "');";
+                string singleImport = "INSERT INTO \"KatFirmy\"(firma, nazwa, nazwaskrocona, ulica, numerdomu, numerlokalu, miasto, kodpocztowy, poczta, gmina, powiat, wojewodztwo, nip, regon, nazwa2, pesel, idoper, idakcept, nazwisko, imie, datamodify, dataakcept) VALUES ";
 
                 string fullSqlInsert = singleImport + valuesLine;
                 sqls.Append(fullSqlInsert);
@@ -122,12 +107,11 @@ namespace Eteczka.DB.DAO
         {
             bool result = false;
             StringBuilder sqls = new StringBuilder();
-            long startingId = rejony[0].Id;
 
             foreach (KatRejony biezacyPlik in rejony)
             {
-                string valuesLine = "(" + startingId++ + ", '" + biezacyPlik.Symbol + "', '" + biezacyPlik.Nazwa + "','" + biezacyPlik.Idoper + "','" + biezacyPlik.Idakcept + "','" + biezacyPlik.Dataakcept + "','" + biezacyPlik.Lokalizacjapapier + "','" + biezacyPlik.Datamodify + "','" + biezacyPlik.FirmaId + "');";
-                string singleImport = "INSERT INTO \"KatRejony\"(id, symbol, nazwa, idoper, idakcept, dataakcept, lokalizacjapapier, datamodify, firmaid) VALUES";
+                string valuesLine = "('" + biezacyPlik.Rejon + "', '" + biezacyPlik.Nazwa + "','" + biezacyPlik.Idoper + "','" + biezacyPlik.Idakcept + "','" + biezacyPlik.Firma + "','" + biezacyPlik.Datamodify + "','" + biezacyPlik.Dataakcept + "','" + biezacyPlik.Mnemonik + "');";
+                string singleImport = "INSERT INTO \"KatRejony\"(rejon, nazwa, idoper, idakcept, firma, datamodify, dataakcept, mnemonik) VALUES";
 
                 string fullSqlInsert = singleImport + valuesLine;
                 sqls.Append(fullSqlInsert);
@@ -139,28 +123,17 @@ namespace Eteczka.DB.DAO
             return result;
         }
 
-        public KatTeczki PobierzPlikPoNazwie(string nazwa)
+        public Pliki PobierzPlikPoNazwie(string nazwa)
         {
-            string sqlQuery = "SELECT * from \"KatTeczki\" WHERE nazwa = '" + nazwa + "';";
+            string sqlQuery = "SELECT * from \"Pliki\" WHERE nazwapliku = '" + nazwa + "';";
 
-            KatTeczki fetchedDok = new KatTeczki();
+            Pliki fetchedDok = new Pliki();
 
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
             DataTable result = connectionState.ExecuteQuery(sqlQuery);
             if (result.Rows.Count == 1)
             {
-                DataRow row = result.Rows[0];
-
-                fetchedDok.Id = row[0].ToString();
-
-                fetchedDok.Id = row[0].ToString();
-                fetchedDok.Nazwa = row[1].ToString();
-                fetchedDok.PelnaSciezka = row[2].ToString();
-                fetchedDok.Jrwa = row[3].ToString();
-                fetchedDok.JrwaId = row[4].ToString();
-                fetchedDok.DataUtworzenia = DateTime.Parse(row[5].ToString());
-                fetchedDok.DataModyfikacji = DateTime.Parse(row[6].ToString());
-                fetchedDok.TypDokumentu = row[7].ToString();
+                fetchedDok = _PlikiMapper.MapujZSql(result.Rows[0]);
             }
 
             return fetchedDok;

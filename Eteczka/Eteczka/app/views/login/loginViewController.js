@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('et.controllers').controller('loginViewController', ['$rootScope', '$scope', '$state', 'loginService', 'sessionService', function ($rootScope, $scope, $state, loginService, sessionService) {
+angular.module('et.controllers').controller('loginViewController', ['$rootScope', '$scope', '$state', 'modalService', 'loginService', 'sessionService', function ($rootScope, $scope, $state, modalService, loginService, sessionService) {
 
     $scope.credentials = {
         username: '',
@@ -33,8 +33,8 @@ angular.module('et.controllers').controller('loginViewController', ['$rootScope'
                             $state.go('options');
                         }
                     }
-                }, function () {
-                    alert('Blad Sesji!');
+                }, function (err) {
+                    alert('Blad Sesji! ' + err);
                     $state.go('login');
                 });
             }
@@ -50,8 +50,23 @@ angular.module('et.controllers').controller('loginViewController', ['$rootScope'
         });
     }
 
-    $scope.openAddUserForm = function () {
-        $state.go('addUsers');
-    }
+    $scope.contactAdmin = function () {
+        var modalOptions = {
+            title: 'Kontakt z Adminem',
+            body: 'app/views/login/contactAdmin/contactAdminForm.html'
+        };
+
+        modalService.showModal(modalOptions).then(function (result) {
+            loginService.sendMessageToAdmin(result).then(function (success) {
+                if (success) {
+                    //show message - sent
+                }
+            });
+        }).catch(function (error) {
+            alert("error found!");
+        });
+    };
+
+
 
 }]);

@@ -25,7 +25,7 @@ namespace Eteczka.BE.Services
         public ImportResult ImportFiles(bool nadpisz)
         {
             ImportResult result = new ImportResult();
-            Dictionary<string, Plik> wczytanePliki = new Dictionary<string, Plik>();
+            Dictionary<string, Pliki> wczytanePliki = new Dictionary<string, Pliki>();
             List<string> znalezionePdf = new List<string>();
             List<string> znalezioneMetaDane = new List<string>();
 
@@ -54,7 +54,7 @@ namespace Eteczka.BE.Services
                     string dokumentBezRozszerzenia = dokument.Substring(0, dokument.Length - 4);
                     if (metaDaneBezRozszerzenia.Equals(dokumentBezRozszerzenia))
                     {
-                        Plik metaDaneJson = new Plik();
+                        Pliki wczytanyPlik = new Pliki();
                         StringBuilder jsonMetadataFile = new StringBuilder();
 
                         using (StreamReader reader = new StreamReader(metaDanePliku))
@@ -67,18 +67,23 @@ namespace Eteczka.BE.Services
 
                             var rootJson = JObject.Parse(jsonMetadataFile.ToString());
                             var parsedJson = rootJson["file"];
-                            metaDaneJson.Id = parsedJson["id"].ToString();
-                            metaDaneJson.Jrwa = parsedJson["jrwa"].ToString();
-                            metaDaneJson.Nazwa = parsedJson["name"].ToString() + "." + parsedJson["ext"].ToString();
-                            metaDaneJson.TypDokumentu = parsedJson["type"].ToString();
-                            metaDaneJson.DataUtworzenia = DateTime.Parse(parsedJson["createdate"].ToString());
-                            metaDaneJson.DataModyfikacji = DateTime.Parse(parsedJson["lastchangedate"].ToString());
-                            metaDaneJson.Komentarz = parsedJson["comment"].ToString();
-                            metaDaneJson.Pesel = parsedJson["pesel"].ToString();
-
+                            wczytanyPlik.DataAkcept = DateTime.Parse(parsedJson["pesel"].ToString());
+                            wczytanyPlik.DataDokumentu = DateTime.Parse(parsedJson["datadokumentu"].ToString());
+                            wczytanyPlik.DataModyfikacji = DateTime.Parse(parsedJson["datamodyfikacji"].ToString());
+                            wczytanyPlik.DataPocz = DateTime.Parse(parsedJson["datapocz"].ToString());
+                            wczytanyPlik.DataSkanu = DateTime.Parse(parsedJson["dataSkanu"].ToString());
+                            wczytanyPlik.DokumentWlasny = bool.Parse(parsedJson["dokumentwlasny"].ToString());
+                            wczytanyPlik.IdAkcept = parsedJson["idakcept"].ToString();
+                            wczytanyPlik.IdOper = parsedJson["idoper"].ToString();
+                            wczytanyPlik.NazwaPliku = parsedJson["nazwapliku"].ToString();
+                            wczytanyPlik.NumerEad = parsedJson["numeread"].ToString();
+                            wczytanyPlik.OpisDodatkowy = parsedJson["opisdodatkowy"].ToString();
+                            wczytanyPlik.PelnaSciezka = parsedJson["pelnasciezka"].ToString();
+                            wczytanyPlik.Symbol = parsedJson["symbol"].ToString();
+                            wczytanyPlik.TypPliku = parsedJson["typpliku"].ToString();
                         }
 
-                        wczytanePliki.Add(dokument, metaDaneJson);
+                        wczytanePliki.Add(dokument, wczytanyPlik);
                     }
                 }
             }
@@ -99,7 +104,7 @@ namespace Eteczka.BE.Services
 
             string[] pliki = Directory.GetFiles(sciezkaDoPlikow);
             StringBuilder jsonFile = new StringBuilder();
-            
+
             foreach (string plik in pliki)
             {
                 jsonFile.Clear();
@@ -117,9 +122,7 @@ namespace Eteczka.BE.Services
                     foreach (var parsedJson in parsedArray)
                     {
                         KatLokalPapier aktualneArchiwumDoWczytania = new KatLokalPapier();
-                        aktualneArchiwumDoWczytania.Id = long.Parse(parsedJson["id"].ToString());
-                        aktualneArchiwumDoWczytania.Symbolfirma = parsedJson["symbolfirma"].ToString();
-                        aktualneArchiwumDoWczytania.Symbol = parsedJson["symbol"].ToString();
+                        aktualneArchiwumDoWczytania.Firma = parsedJson["firma"].ToString();
                         aktualneArchiwumDoWczytania.Nazwa = parsedJson["nazwa"].ToString();
                         aktualneArchiwumDoWczytania.Ulica = parsedJson["ulica"].ToString();
                         aktualneArchiwumDoWczytania.Numerdomu = parsedJson["numerdomu"].ToString();
@@ -138,7 +141,7 @@ namespace Eteczka.BE.Services
             string host = ConfigurationManager.AppSettings["dbhost"];
             string port = ConfigurationManager.AppSettings["dbport"];
             string name = ConfigurationManager.AppSettings["dbname"];
-            
+
             result.ImportSukces = _Dao.ImportujArchiwa(lokalneArchiwum);
 
             return result;
@@ -147,7 +150,7 @@ namespace Eteczka.BE.Services
         public ImportResult ImportFirms(bool nadpisz)
         {
             ImportResult result = new ImportResult();
-            List<KatFIrmy> lokalneFirmy = new List<KatFIrmy>();
+            List<KatFirmy> lokalneFirmy = new List<KatFirmy>();
             List<string> filePaths = new List<string>();
             string eadRoot = System.Environment.GetEnvironmentVariable("EAD_DIR");
 
@@ -155,7 +158,7 @@ namespace Eteczka.BE.Services
 
             string[] pliki = Directory.GetFiles(sciezkaDoPlikow);
             StringBuilder jsonFile = new StringBuilder();
-            
+
             foreach (string plik in pliki)
             {
                 jsonFile.Clear();
@@ -172,10 +175,8 @@ namespace Eteczka.BE.Services
 
                     foreach (var parsedJson in parsedArray)
                     {
-                        KatFIrmy aktualnaFirma = new KatFIrmy();
+                        KatFirmy aktualnaFirma = new KatFirmy();
 
-                        aktualnaFirma.Id = long.Parse(parsedJson["id"].ToString());
-                        aktualnaFirma.Symbol = parsedJson["symbol"].ToString();
                         aktualnaFirma.Nazwa = parsedJson["nazwa"].ToString();
                         aktualnaFirma.Nazwaskrocona = parsedJson["nazwaskrocona"].ToString();
                         aktualnaFirma.Ulica = parsedJson["ulica"].ToString();
@@ -187,7 +188,6 @@ namespace Eteczka.BE.Services
                         aktualnaFirma.Gmina = parsedJson["gmina"].ToString();
                         aktualnaFirma.Powiat = parsedJson["powiat"].ToString();
                         aktualnaFirma.Wojewodztwo = parsedJson["wojewodztwo"].ToString();
-                        aktualnaFirma.Kraj = parsedJson["kraj"].ToString();
                         aktualnaFirma.Nip = parsedJson["nip"].ToString();
                         aktualnaFirma.Regon = parsedJson["regon"].ToString();
                         aktualnaFirma.Pesel = parsedJson["pesel"].ToString();
@@ -238,12 +238,10 @@ namespace Eteczka.BE.Services
                     {
                         KatRejony aktualnyRejon = new KatRejony();
 
-                        aktualnyRejon.Id = long.Parse(parsedJson["id"].ToString());
-                        aktualnyRejon.Symbol = parsedJson["symbol"].ToString();
-                        aktualnyRejon.Nazwa= parsedJson["nazwa"].ToString();
-                        aktualnyRejon.Lokalizacjapapier = "jw";
-                        aktualnyRejon.FirmaId = long.Parse(parsedJson["firma"].ToString()); ;
-
+                        aktualnyRejon.Rejon = parsedJson["rejon"].ToString();
+                        aktualnyRejon.Nazwa = parsedJson["nazwa"].ToString();
+                        aktualnyRejon.Firma = parsedJson["firma"].ToString();
+                        aktualnyRejon.Mnemonik = parsedJson["mnemonik"].ToString();
                         aktualnyRejon.Datamodify = DateTime.Now;
                         aktualnyRejon.Idoper = 0;
                         aktualnyRejon.Idakcept = 0;
@@ -253,7 +251,7 @@ namespace Eteczka.BE.Services
                     }
                 }
             }
-            
+
             result.ImportSukces = _Dao.ImportujRejony(lokalneRejony);
 
             return result;

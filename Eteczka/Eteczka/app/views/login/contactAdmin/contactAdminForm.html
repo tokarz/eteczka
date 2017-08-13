@@ -1,0 +1,32 @@
+﻿<div style="width:800px;height:500px;margin:auto">
+    <form novalidate class="simple-form">
+        <div class="row">
+            <span class="col-md-1">Temat</span>
+            <span class="col-md-offset-5 col-md-6">
+                <select ng-model="modalResult.Topic">
+                    <option selected>Stworz/Przypomnij haslo</option>
+                    <option>Stworz/Przypomnij login</option>
+                </select>
+
+            </span>
+        </div>
+        <div class="row">
+            <span class="col-md-1">Nazwa Uzytkownika</span>
+            <span class="col-md-offset-5 col-md-6">
+                <input ng-model="modalResult.Username" />
+            </span>
+        </div>
+        <div class="row">
+            <span class="col-md-1">Haslo</span>
+            <span class="col-md-offset-5 col-md-6">
+                <input type="password" ng-model="modalResult.Password" />
+            </span>
+        </div>
+        <div class="row">
+            <span class="col-md-1">Uwagi</span>
+            <span class="col-md-offset-5 col-md-6">
+                <textarea style="height:400px" ng-model="modalResult.Remarks"></textarea>
+            </span>
+        </div>
+    </form>
+</div>

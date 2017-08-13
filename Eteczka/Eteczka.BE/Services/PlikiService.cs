@@ -26,24 +26,24 @@ namespace Eteczka.BE.Services
             this._PlikiUtils = plikiUtils;
         }
 
-        public List<KatTeczki> PobierzWszystkie(string sortOrder = "asc", string sortColumn = "Id")
+        public List<Pliki> PobierzWszystkie(string sortOrder = "asc", string sortColumn = "Id")
         {
 
-            List<KatTeczki> pobrane = _Dao.PobierzWszystkiePliki(sortOrder, sortColumn);
+            List<Pliki> pobrane = _Dao.PobierzWszystkiePliki(sortOrder, sortColumn);
 
             return pobrane;
         }
 
-        public List<KatTeczki> PobierzDlaUzytkownika(string userId, string sortOdred = "asc", string sortColumn = "Id")
+        public List<Pliki> PobierzDlaUzytkownika(string userId, string sortOdred = "asc", string sortColumn = "Id")
         {
-            List<KatTeczki> result = new List<KatTeczki>();
+            List<Pliki> result = new List<Pliki>();
 
             return result;
         }
 
-        public List<KatTeczki> PobierzZawierajaceTekst(string searchText, string sortOrder = "asc", string sortColumn = "Id")
+        public List<Pliki> PobierzZawierajaceTekst(string searchText, string sortOrder = "asc", string sortColumn = "Id")
         {
-            List<KatTeczki> result = new List<KatTeczki>();
+            List<Pliki> result = new List<Pliki>();
 
             return result;
         }
@@ -52,14 +52,14 @@ namespace Eteczka.BE.Services
         {
             MetaDanePliku result = new MetaDanePliku();
 
-            KatTeczki pobranyPlik = _Dao.PobierzPlikPoNazwie(plik);
+            Pliki pobranyPlik = _Dao.PobierzPlikPoNazwie(plik);
 
             result.ModificationDate = pobranyPlik.DataModyfikacji;
-            result.Jrwa = pobranyPlik.Jrwa;
-            result.Type = pobranyPlik.TypDokumentu;
+            result.Jrwa = pobranyPlik.NumerEad;
+            result.Type = "" + pobranyPlik.TypPliku;
 
             string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
-            
+
 
             string sciezkaDoPlikow = Path.Combine(eadRoot, "pliki");
             string plikDoImportu = Path.Combine(sciezkaDoPlikow, plik);
@@ -71,34 +71,32 @@ namespace Eteczka.BE.Services
             }
 
             result.PhysicalLocation = "??";
-            
+
             return result;
         }
 
-        public StanPlikow PobierzStanPlikow(StanSesji sesja)
+        public StanPlikow PobierzStanPlikow(string sessionId)
         {
             StanPlikow result = new StanPlikow();
             result.PlikiPozaSystemem = new List<string>();
             result.PlikiWSystemie = new List<MetaDanePliku>();
             List<string> plikiSkanera = new List<string>();
-            if (sesja != null)
+
+            string katalogPlikow = Path.Combine(ConfigurationManager.AppSettings["rootdir"], "pliki");
+            if (Directory.Exists(katalogPlikow))
             {
-                string katalogPlikow = Path.Combine(ConfigurationManager.AppSettings["rootdir"], "pliki");
-                if (Directory.Exists(katalogPlikow))
+                string[] plikiZeskanowane = Directory.GetFiles(katalogPlikow);
+                foreach (string zeskanowanyPlik in plikiZeskanowane)
                 {
-                    string[] plikiZeskanowane = Directory.GetFiles(katalogPlikow);
-                    foreach (string zeskanowanyPlik in plikiZeskanowane)
+                    string nazwaPliku = _PlikiUtils.WezNazwePlikuZeSciezki(zeskanowanyPlik);
+                    if (File.Exists(nazwaPliku + ".json"))
                     {
-                        string nazwaPliku = _PlikiUtils.WezNazwePlikuZeSciezki(zeskanowanyPlik);
-                        if(File.Exists(nazwaPliku + ".json"))
-                        {
-                            MetaDanePliku danePliku = PobierzMetadane(zeskanowanyPlik);
-                            result.PlikiWSystemie.Add(danePliku);
-                        }
-                        else
-                        {
-                            result.PlikiPozaSystemem.Add(nazwaPliku);
-                        }
+                        MetaDanePliku danePliku = PobierzMetadane(zeskanowanyPlik);
+                        result.PlikiWSystemie.Add(danePliku);
+                    }
+                    else
+                    {
+                        result.PlikiPozaSystemem.Add(nazwaPliku);
                     }
                 }
             }
@@ -106,6 +104,6 @@ namespace Eteczka.BE.Services
             return result;
         }
 
-        
+
     }
 }

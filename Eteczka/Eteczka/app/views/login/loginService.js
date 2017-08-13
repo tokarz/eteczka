@@ -6,6 +6,11 @@ angular.module('et.services').factory('loginService', ['httpService', function (
                 nazwa: user,
                 haslo: password
             });
+        },
+        sendMessageToAdmin: function (question) {
+            return httpService.post('Admin/SendMessageToAdmin', {
+                question: question
+            });
         }
     };
 

@@ -8,13 +8,14 @@ namespace Eteczka.DB.Entities
 {
     public class KatPodWydzialy
     {
-        public long Id { get; set; }
-        public string Symbol { get; set; }
+        //PRIMARY KEY (firma, wydzial, podwydzial) 
+        public string Podwydzial { get; set; }
         public string Nazwa { get; set; }
-        public string Symboldzialy { get; set; }
+        public string Wydzial { get; set; }
         public DateTime Datamodify { get; set; }
         public long Idoper { get; set; }
         public long Idakcept { get; set; }
         public DateTime Dataakcept { get; set; }
+        public string Firma { get; set; }
     }
 }

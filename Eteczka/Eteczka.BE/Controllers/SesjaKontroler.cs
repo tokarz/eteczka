@@ -4,11 +4,8 @@ using Eteczka.BE.Model;
 
 namespace Eteczka.BE.Controllers
 {
-    [RequireHttps]
     public class SesjaController : Controller
     {
-
-        [HttpGet]
         public ActionResult StworzSesje()
         {
             string session = Sesja.UtworzSesje();

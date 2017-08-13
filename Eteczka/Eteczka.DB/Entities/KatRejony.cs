@@ -8,14 +8,14 @@ namespace Eteczka.DB.Entities
 {
     public class KatRejony
     {
-        public long Id { get; set; }
-        public string Symbol { get; set; }
+        //PRIMARY KEY (firma, rejon)
+        public string Rejon { get; set; }
         public string Nazwa { get; set; }
         public long Idoper { get; set; }
         public long Idakcept { get; set; }
+        public string Firma { get; set; }
         public DateTime Dataakcept { get; set; }
         public DateTime Datamodify { get; set; }
-        public string Lokalizacjapapier { get; set; }
-        public long FirmaId { get; set; }
+        public string Mnemonik { get; set; } //-- Mnemonik, bo rejon nazwywa sie np. R1 a chcemy zeby to bylo bardziej czytelne, np BG - Bogdanowice      
     }
 }
