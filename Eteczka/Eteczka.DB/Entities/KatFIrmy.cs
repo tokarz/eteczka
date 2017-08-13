@@ -24,8 +24,8 @@ namespace Eteczka.DB.Entities
         public string Regon { get; set; }
         public string Nazwa2 { get; set; }
         public string Pesel { get; set; }
-        public long Idoper { get; set; }
-        public long Idakcept { get; set; }
+        public string Idoper { get; set; }
+        public string Idakcept { get; set; }
         public string Nazwisko { get; set; } //Nazwisko jesli firma prywatna
         public string Imie { get; set; } //Imie jesli firma prywatna
         public DateTime Datamodify { get; set; }

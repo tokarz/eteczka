@@ -31,7 +31,7 @@ namespace Eteczka.BE.Controllers
 
             bool success = false;
 
-            ImportResult result = _ImportService.ImportArchives(nadpisz);
+            ImportResult result = _ImportService.ImportKatLokalPapier(nadpisz);
 
 
             return Json(new

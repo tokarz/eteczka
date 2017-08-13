@@ -10,6 +10,7 @@ using Eteczka.DB.Connection;
 using Eteczka.BE.Utils;
 using System.IO;
 using Eteczka.DB.Mappers;
+using Eteczka.BE.Mappers;
 
 namespace Eteczka
 {
@@ -49,6 +50,10 @@ namespace Eteczka
             container.RegisterType<IConnection, Connection>();
             container.RegisterType<IEmailService, Eteczka.BE.Services.EmailService>();
             container.RegisterType<IPlikiMapper, PlikiMapper>();
+            container.RegisterType<IJsonToKatLokalMapper, JsonToKatLokalMapper>();
+            container.RegisterType<IJsonToKatFirmyMapper, JsonToKatFirmyMapper>();
+            container.RegisterType<IJsonToPlikiMapper, JsonToPlikiMapper>();
+            container.RegisterType<IJsonToKatRejonyMapper, JsonToKatRejonyMapper>();
 
             container.RegisterType<PlikiDAO, PlikiDAO>();
             container.RegisterType<UserDAO, UserDAO>();

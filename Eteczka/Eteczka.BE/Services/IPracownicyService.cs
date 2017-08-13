@@ -13,6 +13,5 @@ namespace Eteczka.BE.Services
         PracownikDTO PobierzPoPeselu(string pesel);
         PracownikDTO Pobierz(string name);
         List<PracownikDTO> PobierzDlaSpolki(string spolkaId);
-        bool ImportujJson(string sessionId);
     }
 }

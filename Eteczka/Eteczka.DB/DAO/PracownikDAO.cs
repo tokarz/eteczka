@@ -3,6 +3,7 @@ using System.Text;
 using Eteczka.DB.Entities;
 using System.Data;
 using Eteczka.DB.Connection;
+using Eteczka.DB.Mappers;
 
 
 namespace Eteczka.DB.DAO
@@ -11,19 +12,21 @@ namespace Eteczka.DB.DAO
     {
 
         private IDbConnectionFactory _ConnectionFactory;
+        private IPracownikMapper _PracownikMapper;
 
-        public PracownikDAO(IDbConnectionFactory factory)
+        public PracownikDAO(IDbConnectionFactory factory, IPracownikMapper pracownikMapper)
         {
             this._ConnectionFactory = factory;
+            this._PracownikMapper = pracownikMapper;
         }
 
         public bool ImportujPracownikow(List<Pracownik> pracownicy)
         {
-
             StringBuilder queries = new StringBuilder();
             foreach (Pracownik pracownik in pracownicy)
             {
-                string query = "INSERT INTO \"KatPracownicy\" (id, imie, nazwisko, pesel, dzialid, data_urodzenia, numerpracownika) VALUES (" + pracownik.Id + ", '" + pracownik.Imie + "', '" + pracownik.Nazwisko + "', '" + pracownik.PESEL + "', " + "0" + ", " + "'1999-11-11'," + " '" + pracownik.NumerPracownika + "');";
+                string values = "'" + pracownik.Imie + "', '" + pracownik.Nazwisko + "', '" + pracownik.PESEL + "', '" + pracownik.Numeread + "', '" + pracownik.Kraj + "', '" + pracownik.NazwiskoRodowe + "', '" + pracownik.ImieMatki + "', '" + pracownik.ImieOjca + "', '" + pracownik.PeselInny + "', '" + pracownik.IdOper + "', '" + pracownik.IdAkcept + "', '" + pracownik.DataModify + "', '" + pracownik.DataAkcept + "', '" + pracownik.DataUrodzenia + "', '" + pracownik.Imie2 + "', 'EAD', false";
+                string query = "INSERT INTO \"KatPracownicy\" (imie, nazwisko, pesel, numeread, kraj, nazwiskorodowe, imiematki, imieojca, peselinny, idoper, idakcept, datamodify, dataakcept, dataurodzenia, imie2, systembazowy, usuniety) VALUES (" + values + ");";
                 queries.Append(query);
             }
 
@@ -45,13 +48,7 @@ namespace Eteczka.DB.DAO
             DataTable result = connectionState.ExecuteQuery(sqlQuery);
             foreach (DataRow row in result.Rows)
             {
-                Pracownik fetchedUser = new Pracownik();
-                fetchedUser.Id = row[0].ToString();
-                fetchedUser.Imie = row[1].ToString();
-                fetchedUser.Nazwisko = row[2].ToString();
-                fetchedUser.PESEL = row[3].ToString();
-                fetchedUser.Dzial = row[4].ToString();
-                fetchedUser.DataUrodzenia = row[5].ToString();
+                Pracownik fetchedUser = _PracownikMapper.MapujZSql(row);
 
                 fetchedUsers.Add(fetchedUser);
             }

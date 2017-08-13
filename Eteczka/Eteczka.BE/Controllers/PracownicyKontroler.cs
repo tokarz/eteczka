@@ -16,10 +16,12 @@ namespace Eteczka.BE.Controllers
     public class PracownicyController : Controller
     {
         private IPracownicyService _PracownicyService;
+        private IImportService _ImportService;
 
-        public PracownicyController(IPracownicyService pracownicyService)
+        public PracownicyController(IPracownicyService pracownicyService, IImportService importService)
         {
             this._PracownicyService = pracownicyService;
+            this._ImportService = importService;
         }
 
         public ActionResult PobierzWszystkich(string sessionId)
@@ -36,7 +38,7 @@ namespace Eteczka.BE.Controllers
         {
             bool success = false;
 
-            success = this._PracownicyService.ImportujJson(sessionId);
+            success = this._ImportService.ImportujPracownikow(sessionId).ImportSukces;
 
             return Json(new
             {

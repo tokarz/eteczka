@@ -11,8 +11,8 @@ namespace Eteczka.DB.Entities
         //PRIMARY KEY (firma, rejon)
         public string Rejon { get; set; }
         public string Nazwa { get; set; }
-        public long Idoper { get; set; }
-        public long Idakcept { get; set; }
+        public string Idoper { get; set; }
+        public string Idakcept { get; set; }
         public string Firma { get; set; }
         public DateTime Dataakcept { get; set; }
         public DateTime Datamodify { get; set; }

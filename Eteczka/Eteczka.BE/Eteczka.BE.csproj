@@ -133,6 +133,16 @@
     <Compile Include="DTO\UserDto.cs" />
     <Compile Include="Enums\TypWykresu.cs" />
     <Compile Include="Exceptions\WyjatekSesjaIstnieje.cs" />
+    <Compile Include="Mappers\IJsonToKatRejonyMapper.cs" />
+    <Compile Include="Mappers\JsonToPracownikMapper.cs" />
+    <Compile Include="Mappers\IJsonToPracownikMapper.cs" />
+    <Compile Include="Mappers\JsonToKatRejonyMapper.cs" />
+    <Compile Include="Mappers\JsonToPlikiMapper.cs" />
+    <Compile Include="Mappers\IJsonToPlikiMapper.cs" />
+    <Compile Include="Mappers\IJsonToKatLokalMapper.cs" />
+    <Compile Include="Mappers\IJsonToKatFirmyMapper.cs" />
+    <Compile Include="Mappers\JsonToKatFirmyMapper.cs" />
+    <Compile Include="Mappers\JsonToKatLokalMapper.cs" />
     <Compile Include="Model\ISesja.cs" />
     <Compile Include="Model\Sesja.cs" />
     <Compile Include="Model\SessionDetails.cs" />
@@ -158,8 +168,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\ExcelKatDok.cs" />
     <Compile Include="Utils\ExcelKatDokPola.cs" />
-    <Compile Include="Utils\PracownikDtoMapper.cs" />
-    <Compile Include="Utils\IMapowalnyDoPracownikDto.cs" />
+    <Compile Include="Mappers\PracownikDtoMapper.cs" />
+    <Compile Include="Mappers\IMapowalnyDoPracownikDto.cs" />
     <Compile Include="Utils\JrwaParser.cs" />
     <Compile Include="Utils\Osys.cs" />
     <Compile Include="Utils\PlikiUtils.cs" />

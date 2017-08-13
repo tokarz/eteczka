@@ -2,74 +2,62 @@
 using Eteczka.DB.Entities;
 using Eteczka.DB.Connection;
 using System.Collections.Generic;
+using Eteczka.DB.Mappers;
 
 namespace Eteczka.DB.DAO
 {
     public class UserDAO
     {
         private IDbConnectionFactory _ConnectionFactory;
+        private IPracownikMapper _PracownikMapper;
 
-        public UserDAO(IDbConnectionFactory factory)
+        public UserDAO(IDbConnectionFactory factory, IPracownikMapper pracownikMapper)
         {
             this._ConnectionFactory = factory;
+            this._PracownikMapper = pracownikMapper;
         }
 
-        public User GetUserByName(string name)
+        public Pracownik GetUserByName(string name)
         {
             string sqlQuery = "SELECT * from KatPracownicy where imie = '" + name + "';";
-            User fetchedUser = new User();
 
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
             DataTable result = connectionState.ExecuteQuery(sqlQuery);
-            foreach (DataRow row in result.Rows)
+            Pracownik pracownik = null;
+            if (result.Rows.Count == 1)
             {
-                fetchedUser.Id = row[0].ToString();
-                fetchedUser.Imie = row[1].ToString();
-                fetchedUser.Nazwisko = row[2].ToString();
-                fetchedUser.PESEL = row[3].ToString();
-                fetchedUser.Dzial = row[4].ToString();
-                fetchedUser.DataUrodzenia = row[5].ToString();
+                pracownik = _PracownikMapper.MapujZSql(result.Rows[0]);
             }
 
-            return fetchedUser;
+
+            return pracownik;
         }
 
-        public User GetUserByPesel(string pesel)
+        public Pracownik GetUserByPesel(string pesel)
         {
             string sqlQuery = "SELECT * from \"KatPracownicy\" where pesel = '" + pesel + "';";
-            User fetchedUser = new User();
+            Pracownik fetchedUser = null;
 
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
             DataTable result = connectionState.ExecuteQuery(sqlQuery);
             foreach (DataRow row in result.Rows)
             {
-                fetchedUser.Id = row[0].ToString();
-                fetchedUser.Imie = row[1].ToString();
-                fetchedUser.Nazwisko = row[2].ToString();
-                fetchedUser.PESEL = row[3].ToString();
-                fetchedUser.Dzial = row[4].ToString();
-                fetchedUser.DataUrodzenia = row[5].ToString();
+                fetchedUser = _PracownikMapper.MapujZSql(row);
             }
 
             return fetchedUser;
         }
 
-        public List<User> GetAllUsers()
+        public List<Pracownik> GetAllUsers()
         {
             string sqlQuery = "SELECT * from \"KatPracownicy\";";
-            List<User> fetchedUsers = new List<User>();
+            List<Pracownik> fetchedUsers = new List<Pracownik>();
 
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
             DataTable result = connectionState.ExecuteQuery(sqlQuery);
             foreach (DataRow row in result.Rows)
             {
-                User fetchedUser = new User();
-                fetchedUser.Id = row[0].ToString();
-                fetchedUser.Imie = row[1].ToString();
-                fetchedUser.Nazwisko = row[2].ToString();
-                fetchedUser.PESEL = row[3].ToString();
-                fetchedUser.Dzial = row[4].ToString();
-                fetchedUser.DataUrodzenia = row[5].ToString();
+                Pracownik fetchedUser = _PracownikMapper.MapujZSql(row);
 
                 fetchedUsers.Add(fetchedUser);
             }

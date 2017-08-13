@@ -10,6 +10,14 @@ angular.module('et.controllers').controller('settingsViewController', ['$scope',
         });
     }
 
+    $scope.importAll = function () {
+        //ToDo : import wszystkich plikow i oznaczenie ze sa aktualne
+    }
+
+    $scope.refreshImportStatus = function () {
+
+    }
+
     $scope.importArchives = function () {
         settingsService.importArchives('someSessionId').then(function () {
             alert('successfull');

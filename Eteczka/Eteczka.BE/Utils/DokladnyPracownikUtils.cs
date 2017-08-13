@@ -5,11 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using Eteczka.BE.DTO;
 using Eteczka.DB.Entities;
+using Eteczka.BE.Mappers;
 
 namespace Eteczka.BE.Utils
 {
     public class DokladnyPracownikUtils : WyszukiwaczPlikow
     {
+        private IMapowalnyDoPracownikDto _PracownikDtoMaper;
+
+        public DokladnyPracownikUtils(IMapowalnyDoPracownikDto pracownikDtoMaper)
+        {
+            this._PracownikDtoMaper = pracownikDtoMaper;
+        }
+
         public List<PracownikDTO> ZnajdzPracownikowZPlikiem(string plik, List<Pracownik> pracownicy)
         {
             List<PracownikDTO> PracownicyZPlikiem = new List<PracownikDTO>();
@@ -17,27 +25,13 @@ namespace Eteczka.BE.Utils
 
             foreach (Pracownik pracownik in pracownicy)
             {
-                PracownikDTO pracownikDTO = new PracownikDTO();
-
-                pracownikDTO.Pliki = pracownik.Pliki;
-                pracownikDTO.Id = pracownik.Id;
-                pracownikDTO.Imie = pracownik.Imie;
-                pracownikDTO.Nazwisko = pracownik.Nazwisko;
-                pracownikDTO.PESEL = pracownik.PESEL;
-                pracownikDTO.DataUrodzenia = pracownik.DataUrodzenia;
-                pracownikDTO.NumerPracownika = pracownik.NumerPracownika;
+                PracownikDTO pracownikDTO = _PracownikDtoMaper.mapuj(pracownik);
 
                 PracownicyDTO.Add(pracownikDTO);
             }
             foreach (PracownikDTO workerDTO in PracownicyDTO)
             {
-                foreach (string sciezka in workerDTO.Pliki)
-                {
-                    if (sciezka.Equals(plik))
-                    {
-                        PracownicyZPlikiem.Add(workerDTO);
-                    }
-                }
+                
             }
 
             return PracownicyZPlikiem;

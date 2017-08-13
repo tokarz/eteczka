@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Eteczka.BE.DTO;
 using Eteczka.DB.Entities;
 
-namespace Eteczka.BE.Utils
+namespace Eteczka.BE.Mappers
 {
     public interface IMapowalnyDoPracownikDto
     {

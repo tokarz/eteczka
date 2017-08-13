@@ -13,16 +13,16 @@ namespace Eteczka.BE.Services
     public class PracownicyServiceTest
     {
 
-        private PracownicyService _Sut;
-        private UserDAO _UserDao;
-        private PracownikDAO _PracownikDao;
+        //private PracownicyService _Sut;
+        //private UserDAO _UserDao;
+        //private PracownikDAO _PracownikDao;
 
         [SetUp]
         public void setUp()
         {
-            _UserDao = Substitute.For<UserDAO>(null);
-            _PracownikDao = Substitute.For<PracownikDAO>();
-            _Sut = new PracownicyService(_UserDao, _PracownikDao);
+            //_UserDao = Substitute.For<UserDAO>(null);
+            //_PracownikDao = Substitute.For<PracownikDAO>();
+            //_Sut = new PracownicyService(_UserDao, _PracownikDao);
         }
 
         [Test]

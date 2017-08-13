@@ -25,7 +25,7 @@ namespace Eteczka.DB.DAO
 
         public List<Pliki> PobierzWszystkiePliki(string order, string column)
         {
-            string sqlQuery = "SELECT * from \"KatTeczki\" order by " + column + " " + order;
+            string sqlQuery = "SELECT * from \"Pliki\" order by " + column + " " + order;
 
             List<Pliki> fetchedResult = new List<Pliki>();
 
@@ -48,8 +48,8 @@ namespace Eteczka.DB.DAO
             foreach (string key in plikiZMetadanymi.Keys)
             {
                 Pliki biezacyPlik = plikiZMetadanymi[key];
-                string valuesLine = "('" + biezacyPlik.Symbol + "', '" + biezacyPlik.DataSkanu + "', '" + biezacyPlik.DataDokumentu + "', '" + biezacyPlik.DataPocz + "', '" + biezacyPlik.DataKoniec + "', '" + biezacyPlik.NazwaPliku + "', '" + biezacyPlik.PelnaSciezka + "', '" + biezacyPlik.TypPliku + "', '" + biezacyPlik.OpisDodatkowy + "', '" + biezacyPlik.NumerEad + "', '" + biezacyPlik.DokumentWlasny + "', '" + biezacyPlik.IdOper + "', '" + biezacyPlik.IdAkcept + "', '" + biezacyPlik.DataModyfikacji + "', '" + biezacyPlik.DataAkcept + "');";
-                string singleImport = "INSERT INTO \"Pliki\" (symbol, dataskanu, datadokumentu, datapocz, datakoniec, nazwapliku, pelnasciezka, typpliku, opisdodatkowy, numeread, dokwlasny, idoper, idakcept, datamodify, dataakcept) VALUES ";
+                string valuesLine = "('" + biezacyPlik.Symbol + "', '" + biezacyPlik.DataSkanu + "', '" + biezacyPlik.DataDokumentu + "', '" + biezacyPlik.DataPocz + "', '" + biezacyPlik.DataKoniec + "', '" + biezacyPlik.NazwaPliku + "', '" + biezacyPlik.PelnaSciezka + "', '" + biezacyPlik.TypPliku + "', '" + biezacyPlik.OpisDodatkowy + "', '" + biezacyPlik.NumerEad + "', '" + biezacyPlik.DokumentWlasny + "', '" + biezacyPlik.IdOper + "', '" + biezacyPlik.IdAkcept + "', '" + biezacyPlik.DataModyfikacji + "', '" + biezacyPlik.DataAkcept + "', 'EAD', 'false');";
+                string singleImport = "INSERT INTO \"Pliki\" (symbol, dataskanu, datadokumentu, datapocz, datakoniec, nazwapliku, pelnasciezka, typpliku, opisdodatkowy, numeread, dokwlasny, idoper, idakcept, datamodify, dataakcept, systembazowy, usuniety) VALUES ";
 
                 string fullSqlInsert = singleImport + valuesLine;
                 sqls.Append(fullSqlInsert);
@@ -69,8 +69,8 @@ namespace Eteczka.DB.DAO
 
             foreach (KatLokalPapier biezacyPlik in archiwa)
             {
-                string valuesLine = "(" + biezacyPlik.Firma + "', '" + biezacyPlik.LokalPapier + "','" + biezacyPlik.Nazwa + "','" + biezacyPlik.Ulica + "','" + biezacyPlik.Numerdomu + "','" + biezacyPlik.Numerlokalu + "','" + biezacyPlik.Miasto + "','" + biezacyPlik.Kodpocztowy + "','" + biezacyPlik.Poczta + "','" + biezacyPlik.Idoper + "','" + biezacyPlik.Idakcept + "','" + biezacyPlik.Datamodify + "', '" + biezacyPlik.Dataakcept + "');";
-                string singleImport = "INSERT INTO \"KatLokalPapier\"(firma, lokalpapier, nazwa, ulica, numerdomu, numerlokalu, miasto, kodpocztowy, poczta, idoper, idakcept, datamodify, dataakcept) VALUES";
+                string valuesLine = "('" + biezacyPlik.Firma + "', '" + biezacyPlik.LokalPapier + "','" + biezacyPlik.Nazwa + "','" + biezacyPlik.Ulica + "','" + biezacyPlik.Numerdomu + "','" + biezacyPlik.Numerlokalu + "','" + biezacyPlik.Miasto + "','" + biezacyPlik.Kodpocztowy + "','" + biezacyPlik.Poczta + "','" + biezacyPlik.Idoper + "','" + biezacyPlik.Idakcept + "','" + biezacyPlik.Datamodify + "', '" + biezacyPlik.Dataakcept + "', 'EAD', 'false');";
+                string singleImport = "INSERT INTO \"KatLokalPapier\"(firma, lokalpapier, nazwa, ulica, numerdomu, numerlokalu, miasto, kodpocztowy, poczta, idoper, idakcept, datamodify, dataakcept, systembazowy, usuniety) VALUES";
 
                 string fullSqlInsert = singleImport + valuesLine;
                 sqls.Append(fullSqlInsert);
@@ -90,8 +90,8 @@ namespace Eteczka.DB.DAO
             foreach (KatFirmy biezacyPlik in firmy)
             {
                 string valuesLine = "('" + biezacyPlik.Firma + "', '" + biezacyPlik.Nazwa + "','" + biezacyPlik.Nazwaskrocona + "', '" + biezacyPlik.Ulica + "','" + biezacyPlik.Numerdomu + "','" + biezacyPlik.Numerlokalu + "','" + biezacyPlik.Miasto + "','" + biezacyPlik.Kodpocztowy + "','" + biezacyPlik.Poczta + "','" + biezacyPlik.Gmina + "','" + biezacyPlik.Powiat + "', '" + biezacyPlik.Wojewodztwo + "', '" + biezacyPlik.Nip + "', '" + biezacyPlik.Regon + "', '" + biezacyPlik.Nazwa2 +
-                    "', '" + biezacyPlik.Pesel + "', '" + biezacyPlik.Idoper + "', '" + biezacyPlik.Idakcept + "', '" + biezacyPlik.Nazwisko + "', '" + biezacyPlik.Imie + "', '" + biezacyPlik.Datamodify + "', '" + biezacyPlik.Dataakcept + "');";
-                string singleImport = "INSERT INTO \"KatFirmy\"(firma, nazwa, nazwaskrocona, ulica, numerdomu, numerlokalu, miasto, kodpocztowy, poczta, gmina, powiat, wojewodztwo, nip, regon, nazwa2, pesel, idoper, idakcept, nazwisko, imie, datamodify, dataakcept) VALUES ";
+                    "', '" + biezacyPlik.Pesel + "', '" + biezacyPlik.Idoper + "', '" + biezacyPlik.Idakcept + "', '" + biezacyPlik.Nazwisko + "', '" + biezacyPlik.Imie + "', '" + biezacyPlik.Datamodify + "', '" + biezacyPlik.Dataakcept + "', 'EAD', 'false');";
+                string singleImport = "INSERT INTO \"KatFirmy\"(firma, nazwa, nazwaskrocona, ulica, numerdomu, numerlokalu, miasto, kodpocztowy, poczta, gmina, powiat, wojewodztwo, nip, regon, nazwa2, pesel, idoper, idakcept, nazwisko, imie, datamodify, dataakcept, systembazowy, usuniety) VALUES ";
 
                 string fullSqlInsert = singleImport + valuesLine;
                 sqls.Append(fullSqlInsert);
@@ -110,8 +110,8 @@ namespace Eteczka.DB.DAO
 
             foreach (KatRejony biezacyPlik in rejony)
             {
-                string valuesLine = "('" + biezacyPlik.Rejon + "', '" + biezacyPlik.Nazwa + "','" + biezacyPlik.Idoper + "','" + biezacyPlik.Idakcept + "','" + biezacyPlik.Firma + "','" + biezacyPlik.Datamodify + "','" + biezacyPlik.Dataakcept + "','" + biezacyPlik.Mnemonik + "');";
-                string singleImport = "INSERT INTO \"KatRejony\"(rejon, nazwa, idoper, idakcept, firma, datamodify, dataakcept, mnemonik) VALUES";
+                string valuesLine = "('" + biezacyPlik.Rejon + "', '" + biezacyPlik.Nazwa + "','" + biezacyPlik.Idoper + "','" + biezacyPlik.Idakcept + "','" + biezacyPlik.Firma + "','" + biezacyPlik.Datamodify + "','" + biezacyPlik.Dataakcept + "','" + biezacyPlik.Mnemonik + "', 'EAD', 'false');";
+                string singleImport = "INSERT INTO \"KatRejony\"(rejon, nazwa, idoper, idakcept, firma, datamodify, dataakcept, mnemonik, systembazowy, usuniety) VALUES";
 
                 string fullSqlInsert = singleImport + valuesLine;
                 sqls.Append(fullSqlInsert);

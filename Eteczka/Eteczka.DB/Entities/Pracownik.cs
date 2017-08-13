@@ -8,13 +8,24 @@ namespace Eteczka.DB.Entities
 {
     public class Pracownik
     {
-        public string Id { get; set; }
         public string Imie { get; set; }
         public string Nazwisko { get; set; }
         public string PESEL { get; set; }
-        public string DataUrodzenia { get; set; }
-        public string Dzial { get; set; }
-        public string NumerPracownika { get; set; }
-        public List<string> Pliki { get; set; }
+        public string Numeread { get; set; }
+        public string Kraj { get; set; }
+        public string NazwiskoRodowe { get; set; }
+
+        public string ImieMatki { get; set; }
+        public string ImieOjca { get; set; }
+        public string PeselInny{ get; set; }
+        public string IdOper { get; set; }
+        public string IdAkcept { get; set; }
+        public DateTime DataModify{ get; set; }
+        public DateTime DataAkcept{ get; set; }
+        public string DataUrodzenia{ get; set; }
+        public string Imie2{ get; set; }
+        public string SystemBazowy { get; set; }
+        public bool Usuniety { get; set; }
+
     }
 }

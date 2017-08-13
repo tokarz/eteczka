@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Eteczka.BE.DTO;
 using Eteczka.DB.Entities;
+using Eteczka.BE.Mappers;
 
 
 
@@ -24,17 +25,7 @@ namespace Eteczka.BE.Utils
         {
             List<PracownikDTO> PracownicyZPlikiem = new List<PracownikDTO>();
 
-            foreach (PracownikDTO pracownik in pracownicy)
-            {
-                foreach (string sciezka in pracownik.Pliki)
-                {
-                    if (sciezka.Contains(plik))
-                    {
-                        PracownicyZPlikiem.Add(pracownik);
-                    }
-                }
-
-            }
+            
 
             return PracownicyZPlikiem;
         }
@@ -44,19 +35,7 @@ namespace Eteczka.BE.Utils
             List<PracownikDTO> PracownicyZPlikiem = new List<PracownikDTO>();
             List<PracownikDTO> PracownicyDTO = new List<PracownikDTO>();
             
-            foreach (Pracownik worker in pracownicy)
-            {
-                foreach (string sciezka in worker.Pliki)
-                {
-                    if (sciezka.Contains(plik))
-                    {
-                        PracownikDTO workerDTO = this._Mapper.mapuj(worker);
-                        PracownicyZPlikiem.Add(workerDTO);
-                        break;
-                    }
-                }
-
-            }
+            
             return PracownicyZPlikiem;
         }
     }
