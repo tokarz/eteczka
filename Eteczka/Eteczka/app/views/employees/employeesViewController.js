@@ -51,6 +51,33 @@ angular.module('et.controllers').controller('employeesViewController', ['$scope'
         });
     }
 
+    $scope.triggerEditEmployeePopup = function () {
+        var modalOptions = {
+            title: 'Edytowanie istniejacego pracownika',
+            body: 'app/views/employees/editEmployeesPopup/newUserTemplate.html'
+        }
+
+        editEmployeeService.showModal(modalOptions, $scope.selectedUser).then(function (result) {
+            console.log(result)
+        }).catch(function (error) {
+            console.log("error found!");
+        });
+    }
+
+    $scope.triggerDeleteEmployeePopup = function () {
+        var modalOptions = {
+            title: 'Usuwanie pracownika z bazy danych',
+            body: 'app/views/employees/editEmployeesPopup/deleteUserTemplate.html'
+        }
+
+        editEmployeeService.showModal(modalOptions, $scope.selectedUser).then(function (result) {
+            console.log('result')
+            console.log(result)
+        }).catch(function (error) {
+            console.log("error found!");
+        });
+    }
+
     employeesService.getAll().then(function (result) {
         $scope.users = result.data;
         $scope.isTableLoaded = true;

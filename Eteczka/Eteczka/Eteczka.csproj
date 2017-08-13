@@ -238,6 +238,7 @@
     <Content Include="app\views\admin\quickNotes\quickNoteDirective.js" />
     <Content Include="app\views\admin\quickNotes\quickNotes.html" />
     <Content Include="app\views\employees\editEmployeesPopup\addEmployeePopup.html" />
+    <Content Include="app\views\employees\editEmployeesPopup\deleteUserTemplate.html" />
     <Content Include="app\views\employees\editEmployeesPopup\editEmployeeService.js" />
     <Content Include="app\views\employees\editEmployeesPopup\newUserTemplate.html" />
     <Content Include="app\views\employees\employeesService.js" />
