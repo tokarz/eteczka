@@ -8,7 +8,7 @@
 --order by nazwisko,imie ; 
 
 
-select numeread,nazwisko,imie from "KatPracownicy" where numeread in  
-(select numeread from "MiejscePracy"   
-where firma in ([listafirm w apostrofach z KatLoginy])  and  [data dzisiaj text] between "MiejscePracy".datapocz and "MiejscePracy".datakoniec)
+select {views} from "KatPracownicy" where numeread in
+(select numeread from "MiejscePracy"
+where firma in ({listafirm})  and {datadzisaj} between "MiejscePracy".datapocz and "MiejscePracy".datakoniec)
 order by nazwisko,imie ; 
