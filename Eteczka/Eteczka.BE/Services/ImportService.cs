@@ -24,7 +24,7 @@ namespace Eteczka.BE.Services
         private PlikiDAO _Dao;
         private PracownikDAO _PracownikDao;
 
-        public ImportService(IJsonToKatLokalMapper mapper, IJsonToKatFirmyMapper firmyMapper, IJsonToPlikiMapper plikiMapper,IJsonToKatRejonyMapper rejonyMapper, IJsonToPracownikMapper pracownikMapper, PlikiUtils plikiUtils, PlikiDAO dao, PracownikDAO pracownikDao)
+        public ImportService(IJsonToKatLokalMapper mapper, IJsonToKatFirmyMapper firmyMapper, IJsonToPlikiMapper plikiMapper, IJsonToKatRejonyMapper rejonyMapper, IJsonToPracownikMapper pracownikMapper, PlikiUtils plikiUtils, PlikiDAO dao, PracownikDAO pracownikDao)
         {
             this._JsonToKatLokalMapper = mapper;
             this._JsonToKatFirmyMapper = firmyMapper;
@@ -225,22 +225,23 @@ namespace Eteczka.BE.Services
             string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
             List<Pracownik> pracownicy = new List<Pracownik>();
 
-            string sciezkaDoPlikow = Path.Combine(eadRoot, "zet");
-            string plikDoImportu = Path.Combine(sciezkaDoPlikow, "KatPracownicy");
+            string sciezkaDoKatalogu = Path.Combine(eadRoot, "zet");
+            string sciezkaDoPlikow = Path.Combine(sciezkaDoKatalogu, "KatPracownicy");
 
-            if (File.Exists(plikDoImportu))
+            string[] pliki = Directory.GetFiles(sciezkaDoPlikow);
+            StringBuilder wczytaniPracownicy = new StringBuilder();
+            foreach (string plik in pliki)
             {
-                StringBuilder zetDb = new StringBuilder();
-                using (StreamReader reader = new StreamReader(plikDoImportu))
+                using (StreamReader reader = new StreamReader(plik))
                 {
                     string line;
                     while ((line = reader.ReadLine()) != null)
                     {
-                        zetDb.Append(line);
+                        wczytaniPracownicy.Append(line);
                     }
                 };
 
-                var parsedJson = JObject.Parse(zetDb.ToString());
+                var parsedJson = JObject.Parse(wczytaniPracownicy.ToString());
                 var root = parsedJson["KatPracownicy"];
                 foreach (var pracownik in root)
                 {

@@ -45,15 +45,18 @@ namespace Eteczka
             container.RegisterType<IImportService, ImportService>();
             container.RegisterType<IPracownicyService, PracownicyService>();
             container.RegisterType<IStatystykiService, StatystykiService>();
-            container.RegisterType<IMapowalnyDoPracownikDto, PracownikDtoMapper>();
-            container.RegisterType<IMapowalnyDoPracownikDto, PracownikDtoMapper>();
             container.RegisterType<IConnection, Connection>();
             container.RegisterType<IEmailService, Eteczka.BE.Services.EmailService>();
             container.RegisterType<IPlikiMapper, PlikiMapper>();
-            container.RegisterType<IJsonToKatLokalMapper, JsonToKatLokalMapper>();
+            container.RegisterType<IPracownikMapper, PracownikMapper>();
+            
             container.RegisterType<IJsonToKatFirmyMapper, JsonToKatFirmyMapper>();
-            container.RegisterType<IJsonToPlikiMapper, JsonToPlikiMapper>();
+            container.RegisterType<IJsonToKatLokalMapper, JsonToKatLokalMapper>();
             container.RegisterType<IJsonToKatRejonyMapper, JsonToKatRejonyMapper>();
+            container.RegisterType<IJsonToPlikiMapper, JsonToPlikiMapper>();
+            container.RegisterType<IJsonToPracownikMapper, JsonToPracownikMapper>();
+            container.RegisterType<IJsonToPracownikMapper, JsonToPracownikMapper>();
+            container.RegisterType<IMapowalnyDoPracownikDto, PracownikDtoMapper>();
 
             container.RegisterType<PlikiDAO, PlikiDAO>();
             container.RegisterType<UserDAO, UserDAO>();
@@ -61,7 +64,6 @@ namespace Eteczka
             container.RegisterType<KatLoginDAO, KatLoginDAO>();
             container.RegisterType<PlikiUtils, PlikiUtils>();
         }
-
 
         public static void RegisterStaticTypes(IUnityContainer container)
         {
