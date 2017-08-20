@@ -57,7 +57,7 @@ angular.module('et.controllers').controller('employeesViewController', ['$scope'
             body: 'app/views/employees/editEmployeesPopup/newUserTemplate.html'
         }
 
-        editEmployeeService.showModal(modalOptions, $scope.selectedUser).then(function (result) {
+        editEmployeeService.showModal(modalOptions, $scope.elementSelected).then(function (result) {
             console.log(result)
         }).catch(function (error) {
             console.log("error found!");
@@ -70,7 +70,7 @@ angular.module('et.controllers').controller('employeesViewController', ['$scope'
             body: 'app/views/employees/editEmployeesPopup/deleteUserTemplate.html'
         }
 
-        editEmployeeService.showModal(modalOptions, $scope.selectedUser).then(function (result) {
+        editEmployeeService.showModal(modalOptions, $scope.elementSelected).then(function (result) {
             console.log('result')
             console.log(result)
         }).catch(function (error) {
