@@ -67,5 +67,12 @@ namespace Eteczka.BE.Services
 
             return maciek;
         }
+        public PracownikDTO PobierzPoId(string numeread)
+        {
+
+            Pracownik pracownik = _PracownikDao.PobierzPracownikaPoId(numeread);
+            PracownikDTO pracownikDTO= _PracownikDtoMapper.mapuj(pracownik);
+            return pracownikDTO;
+        }
     }
 }

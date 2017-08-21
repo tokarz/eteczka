@@ -56,5 +56,17 @@ namespace Eteczka.BE.Controllers
             }, JsonRequestBehavior.AllowGet);
 
         }
+        public ActionResult PobierzPracownikaDlaId(string numeread)
+        {
+
+            PracownikDTO pracownik =  _PracownicyService.PobierzPoId(numeread);
+
+
+            return Json(new
+            {
+               pracownik = pracownik 
+            }, JsonRequestBehavior.AllowGet);
+                
+        }
     }
 }

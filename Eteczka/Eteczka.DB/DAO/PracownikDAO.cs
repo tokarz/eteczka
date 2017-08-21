@@ -6,6 +6,7 @@ using Eteczka.DB.Connection;
 using Eteczka.DB.Mappers;
 
 
+
 namespace Eteczka.DB.DAO
 {
     public class PracownikDAO
@@ -55,6 +56,22 @@ namespace Eteczka.DB.DAO
 
             return fetchedUsers;
         }
+        public Pracownik PobierzPracownikaPoId(string numeread)
+        {
+            Pracownik PobranyPracownik = new Pracownik();
+            string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE numeread = '" + numeread + "' ";
+            
+
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
+            DataTable result = connectionState.ExecuteQuery(sqlQuery);
+            
+           
+            PobranyPracownik = _PracownikMapper.MapujZSql(result.Rows[0]);
+            
+            return PobranyPracownik;
+            
+        }
+        
 
     }
 }
