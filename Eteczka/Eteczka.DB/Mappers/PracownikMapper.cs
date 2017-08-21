@@ -27,9 +27,9 @@ namespace Eteczka.DB.Mappers
             fetchedUser.DataModify= DateTime.Parse(row[11].ToString());
             fetchedUser.DataAkcept= DateTime.Parse(row[12].ToString());
             fetchedUser.DataUrodzenia = row[13].ToString();
-            fetchedUser.Imie2 = row[13].ToString();
-            fetchedUser.SystemBazowy = row[14].ToString();
-            fetchedUser.Usuniety = bool.Parse(row[15].ToString());
+            fetchedUser.Imie2 = row[14].ToString();
+            fetchedUser.SystemBazowy = row[15].ToString();
+            fetchedUser.Usuniety = bool.Parse(row[16].ToString());
 
             return fetchedUser;
         }
