@@ -1,0 +1,13 @@
+﻿@import 'vars.scss';
+
+@mixin translate($transformX, $transformY) {
+    -moz-transform: translate($transformX, $transformY);
+    -ms-transform: translate($transformX, $transformY);
+    -o-transform: translate($transformX, $transformY);
+    -webkit-transform: translate($transformX, $transformY);
+    transform: translate($transformX, $transformY);
+}
+
+
+
+

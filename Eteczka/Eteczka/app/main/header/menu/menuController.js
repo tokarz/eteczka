@@ -1,13 +1,14 @@
 ﻿'use strict';
 angular.module('et.controllers').controller('menuController', ['$rootScope', '$scope', '$state', 'sessionService', function ($rootScope, $scope, $state, sessionService) {
     $scope.userLoggedIn = false;
-
+    $scope.loginStatus = 'TUTAJ BEDZIE LOGIN STATUS OCHODZKIEJ';
     $scope.isUserLoggedIn = function () {
         return $scope.userLoggedIn;
     }
 
     $scope.$on('USER_LOGGED_IN_EV', function () {
         $scope.userLoggedIn = true;
+        $scope.loginStatus = 'OCHODZKA ZALOGOWANA!';
     });
 
     $scope.goHome = function () {

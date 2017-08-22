@@ -213,8 +213,49 @@
   <ItemGroup>
     <Content Include="app\app.js" />
     <Content Include="app\css\admin.css" />
+    <Content Include="app\css\content.css">
+      <DependentUpon>content.scss</DependentUpon>
+    </Content>
+    <Content Include="app\css\content.min.css">
+      <DependentUpon>content.css</DependentUpon>
+    </Content>
+    <Content Include="app\css\header.css">
+      <DependentUpon>header.scss</DependentUpon>
+    </Content>
+    <Content Include="app\css\header.min.css">
+      <DependentUpon>header.css</DependentUpon>
+    </Content>
+    <Content Include="app\css\login.css">
+      <DependentUpon>login.scss</DependentUpon>
+    </Content>
+    <Content Include="app\css\login.min.css">
+      <DependentUpon>login.css</DependentUpon>
+    </Content>
+    <Content Include="app\css\mixins.css">
+      <DependentUpon>mixins.scss</DependentUpon>
+    </Content>
+    <Content Include="app\css\mixins.min.css">
+      <DependentUpon>mixins.css</DependentUpon>
+    </Content>
+    <Content Include="app\css\navigation.css">
+      <DependentUpon>navigation.scss</DependentUpon>
+    </Content>
+    <Content Include="app\css\navigation.min.css">
+      <DependentUpon>navigation.css</DependentUpon>
+    </Content>
+    <Content Include="app\css\vars.css">
+      <DependentUpon>vars.scss</DependentUpon>
+    </Content>
+    <Content Include="app\css\vars.min.css">
+      <DependentUpon>vars.css</DependentUpon>
+    </Content>
+    <Content Include="app\css\ead.css">
+      <DependentUpon>ead.scss</DependentUpon>
+    </Content>
+    <Content Include="app\css\ead.min.css">
+      <DependentUpon>ead.css</DependentUpon>
+    </Content>
     <Content Include="app\css\et.css" />
-    <Content Include="app\css\theme\spacelab\bootstrap.theme.css" />
     <Content Include="app\main\employees\employeesController.js" />
     <Content Include="app\main\files\filesController.js" />
     <Content Include="app\main\header\menu\menuController.js" />
@@ -275,6 +316,8 @@
     <Content Include="Content\img\cube.svg" />
     <Content Include="Content\img\load-indicator50.gif" />
     <Content Include="Content\img\logo9.png" />
+    <Content Include="Content\img\logo_eAD.png" />
+    <Content Include="Content\img\logo_TopFarms_transparent.png" />
     <Content Include="Content\Site.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -636,6 +679,34 @@
     <Content Include="node_modules\font-awesome\scss\_screen-reader.scss" />
     <Content Include="node_modules\font-awesome\scss\_stacked.scss" />
     <Content Include="node_modules\font-awesome\scss\_variables.scss" />
+    <Content Include="app\css\ead.scss" />
+    <Content Include="app\css\ead.css.map">
+      <DependentUpon>ead.css</DependentUpon>
+    </Content>
+    <Content Include="app\css\vars.scss" />
+    <Content Include="app\css\vars.css.map">
+      <DependentUpon>vars.css</DependentUpon>
+    </Content>
+    <Content Include="app\css\header.scss" />
+    <Content Include="app\css\header.css.map">
+      <DependentUpon>header.css</DependentUpon>
+    </Content>
+    <Content Include="app\css\login.scss" />
+    <Content Include="app\css\login.css.map">
+      <DependentUpon>login.css</DependentUpon>
+    </Content>
+    <Content Include="app\css\mixins.scss" />
+    <Content Include="app\css\mixins.css.map">
+      <DependentUpon>mixins.css</DependentUpon>
+    </Content>
+    <Content Include="app\css\content.scss" />
+    <Content Include="app\css\content.css.map">
+      <DependentUpon>content.css</DependentUpon>
+    </Content>
+    <Content Include="app\css\navigation.scss" />
+    <Content Include="app\css\navigation.css.map">
+      <DependentUpon>navigation.css</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\ETeczka.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\d3js\.gitattributes" />
@@ -1227,7 +1298,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>49558</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:49248/</IISUrl>
+          <IISUrl>http://localhost:49249/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

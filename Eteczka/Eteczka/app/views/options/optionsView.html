@@ -1,54 +1,35 @@
-﻿<div id="optionsViewWrapper">
-    <div class="row justify-content-md-center" style="height:50%">
-        <div class="sub-option col-sm-12 col-md-6">
-            <div class="menu-option menu-green thumbnail" style="text-align:center;margin: 10px 0 auto auto" ng-controller="employeesController">
-                <div class="glyphicon glyphicon-user" style="font-size:80px"></div>
-                <div class="caption">
-                    <h3>Pracownicy</h3>
-                    <p></p>
-                    <p>
-                        <a href="#" class="btn btn-primary" role="button" ng-click="goToUsers()">Otworz</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="sub-option col-sm-12 col-md-6" style="text-align:center">
-            <div class="menu-option menu-yellow thumbnail" ng-controller="filesController" style="margin: 10px auto auto 0">
-                <div class="glyphicon glyphicon-folder-open" style="font-size:80px"></div>
-                <div class="caption">
-                    <h3>Pliki</h3>
-                    <p></p>
-                    <p>
-                        <a href="#" class="btn btn-primary" role="button" ng-click="goToFileAdd()">Dodaj </a>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row justify-content-md-center" style="height:50%">
-        <div class="sub-option col-sm-12 col-md-6">
-            <div class="menu-option menu-orange thumbnail" ng-controller="settingsController" style="text-align:center;margin: -10px 0 10px auto">
-                <div class="glyphicon glyphicon-cog" style="font-size:80px"></div>
-                <div class="caption">
-                    <h3>Ustawienia</h3>
-                    <p>
-                        <a href="#" class="btn btn-primary" role="button" ng-click="goToSettings()">Otworz</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="sub-option col-sm-12 col-md-6" style="text-align:center;margin: -10px 0">
-            <div class="menu-option menu-blue thumbnail">
-                <div class="glyphicon glyphicon-export" style="font-size:80px"></div>
-                <div class="caption">
-                    <h3>Eksporty</h3>
-                    <p></p>
-                    <p>
-                        <a href="#" class="btn btn-primary" role="button">Button</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-
+﻿<div class="options-wrapper">
+    <nav class="navigation-pane">
+        <ul class="menu-wrapper">
+            <li class="menu-button menu-button-one">
+                <span class="menu-icon-group">
+                    <i class="menu-icon fa fa-user-o"></i>
+                    <i class="menu-icon fa fa-user-o"></i>
+                    <i class="menu-icon fa fa-user-o"></i>
+                </span>
+                Pracownicy
+            </li>
+            <li class="menu-button menu-button-two">
+                <span class="menu-icon-group">
+                    <i class="menu-icon fa fa-folder-open-o"></i>
+                </span>
+                Dokumenty
+            </li>
+            <li class="menu-button menu-button-three">
+                <span class="menu-icon-group">
+                    <i class="menu-icon fa fa-bar-chart"></i>
+                </span>
+                Raporty
+            </li>
+            <li class="menu-button menu-button-four">
+                <span class="menu-icon-group">
+                    <i class="menu-icon fa fa-cogs"></i>
+                </span>
+                Administracja
+            </li>
+        </ul>
+    </nav>
+    <article class="logo-wrapper">
+        <img id="customer-logo" src="../../../Content/img/logo_TopFarms_transparent.png" />
+    </article>
 </div>

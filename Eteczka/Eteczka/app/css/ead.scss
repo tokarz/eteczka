@@ -1,0 +1,43 @@
+﻿@import 'vars.scss';
+@import 'header.scss';
+@import 'login.scss';
+@import 'navigation.scss';
+
+html {
+    height: 100vh;
+    width: 100%;
+}
+
+body {
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    background-color: whitesmoke;
+    font-family: monospace, sans-serif;
+    height: 100%;
+    width: 100%;
+}
+
+li {
+    list-style: none;
+}
+
+#rootWrapper {
+    height: 100%;
+    width: 100%;
+}
+
+.logo-wrapper {
+}
+
+
+
+#customer-logo {
+    width: 40%;
+    margin: auto;
+    display: block;
+    -moz-animation: 2s fadein;
+    -o-animation: 2s fadein;
+    -webkit-animation: 2s fadein;
+    animation: 2s fadein;
+}

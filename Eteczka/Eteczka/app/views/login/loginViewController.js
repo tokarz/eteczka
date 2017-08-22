@@ -20,18 +20,7 @@ angular.module('et.controllers').controller('loginViewController', ['$rootScope'
                         $state.go('admin');
                     } else {
                         $rootScope.$broadcast('USER_LOGGED_IN_EV', $scope.fetchedUser);
-                        if ($scope.fetchedUser.length > 0) {
-                            $scope.choices = $scope.fetchedUser.map(function (x) {
-                                return x.FirmaSymbol;
-                            });
-
-                            $state.go('choosefirm', {
-                                "choices": $scope.choices
-                            });
-                        } else {
-                            $rootScope.$broadcast('USER_LOGGED_IN_EV', $scope.fetchedUser);
-                            $state.go('options');
-                        }
+                        $state.go('options');
                     }
                 }, function (err) {
                     alert('Blad Sesji! ' + err);

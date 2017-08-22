@@ -2,57 +2,24 @@
 <html xmlns="http://www.w3.org/1999/xhtml" ng-app="EtApp">
 <head>
     <title>EAd 2017 v0.1a</title>
-    <link rel="stylesheet" href="Scripts/bootstrap-3.3.7-dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="Scripts/angular-ui-bootstrap/dist/ui-bootstrap-csp.css" />
-    <link rel="stylesheet" href="app/css/et.css" />
+    <link rel="stylesheet" href="app/css/ead.css" />
     <link rel="stylesheet" href="app/css/admin.css" />
-    <!--link rel="stylesheet" href="app/css/theme/spacelab/bootstrap.theme.css" / -->
     <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css" />
 </head>
 <body ng-controller="mainController">
     <div id="rootWrapper" class="resizable">
-        <div id="header" class="jumbotron text-center ui-toolbar" style="padding:0;margin:0">
-            <div class="row justify-content-md-center">
-                <div class="col-md-offset-1 col-md-3" ng-click="goHome()">
-                    <span class="glyphicon glyphicon-leaf" style="font-size:50px;color:white;float:left;margin-top:25px"></span>
-                    <h3 style="text-align:left;float:left;margin:30px 10px;padding:0" ng-bind="startupContext.title"></h3>
-                </div>
-                <div class="col-sm-6 col-md-4">
-                    <h1 style="color:white">{{selectedFirm}}</h1>
-                </div>
-                <div class="col-sm-6 col-md-4" ng-controller="menuController">
-                    <div class="row text-center" style="padding:5px" ng-show="userLoggedIn">
-                        <div class=" col-md-offset-3 col-md-4 menu-button">
-                            <!--<div class="glyphicon glyphicon-question-sign" style="font-size:25px"></div>
-                            <div class="caption">
-                                <h3>Pomoc</h3>
-                            </div>-->
-                        </div>
-                        <div class="col-md-4 menu-button user-button" ng-click="showUserOptions()">
-                            <div class="glyphicon glyphicon-user" style="font-size:25px;margin-top:25px"></div>
-                            <div class="caption">
-                                <h3 style="margin:0;padding:0">Uzytkownik</h3>
-                            </div>
-                            <div class="user-menu-options" ng-show="userMenuVisible">
-                                <div ng-repeat="option in userMenuOptions" class="userOption">
-                                    <span ng-click="option.onclick()">{{option.name}}</span>
-                                    <span class={{option.iconClass}}></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-md-center" style="height:20px;background:steelblue">
-                {{state.currentState}}
-            </div>
+        <div id="header">
+            <img src="Content/img/logo_eAD.png" class="header-logo" />
+            <span class="menu-pane-wrapper">
+                {{loginStatus}}
+                <span class="user-icon fa fa-user-circle"></span>
+            </span>
         </div>
+        
         <div id="content" class="container-fluid" style="overflow-y:hidden">
             <ui-view></ui-view>
         </div>
-        <footer id="footer" class="ui-toolbar container-fluid bg-4 text-center" style="height:37px;z-index:999">
-            <!--<img src="Content/img/logo9.png" height="32" width="32" />-->
-        </footer>
+        <footer></footer>
     </div>
 
 
