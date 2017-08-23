@@ -41,3 +41,37 @@ li {
     -webkit-animation: 2s fadein;
     animation: 2s fadein;
 }
+
+
+.document-cart {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    height: 150px;
+    width: 80px;
+    background: $darkgrey;
+    -moz-transform: translate(0, -50%);
+    -ms-transform: translate(0, -50%);
+    -o-transform: translate(0, -50%);
+    -webkit-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+}
+
+.document-cart > span {
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+    -moz-transform-origin: left bottom 0;
+    -ms-transform-origin: left bottom 0;
+    -o-transform-origin: left bottom 0;
+    -webkit-transform-origin: left bottom 0;
+    transform-origin: left bottom 0;
+    position: absolute;
+    color: white;
+    font-weight: bold;
+}
+
+
+

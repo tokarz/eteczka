@@ -4,6 +4,12 @@ angular.module('et.controllers').controller('mainController', ['$rootScope', '$s
     $scope.title = 'ETeczka';
     $scope.isLoaded = false;
 
+    $scope.isLoggedIn = false;
+
+    $scope.$on('USER_LOGGED_IN_EV', function () {
+        $scope.isLoggedIn = true;
+    });
+
     $scope.startupContext = {
         title: 'EAd',
         version: '0.1a'

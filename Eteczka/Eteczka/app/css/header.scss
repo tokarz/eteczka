@@ -27,9 +27,99 @@
     -o-transition: font-size 0.1s linear;
     -webkit-transition: font-size 0.1s linear;
     transition: font-size 0.1s linear;
+    display: inline-block;
 }
 
 .user-icon:hover {
     font-size: 44px !important;
     cursor: pointer;
+}
+
+.user-icon:hover + .callout {
+    opacity: 1;
+}
+
+
+.dropdown-menu-wrapper {
+    position: fixed;
+    /* background: red; */
+    right: 5px;
+    top: 150px;
+    height: 200px;
+    box-shadow: 0 0 3px $darkblue;
+    color: $darkblue;
+    font-size: 20px;
+}
+
+.dropdown-menu-wrapper ul {
+    padding: 0;
+    margin: 0;
+}
+
+.login-name-label {
+    display: inline-block;
+    float: left;
+    margin: 55px 10px;
+    color: white;
+}
+
+.user-options-wrapper {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.user-options-wrapper li {
+    border-bottom: 1px solid $lightgray;
+    padding: 10px 0;
+    color: $darkblue;
+}
+
+.user-options-wrapper li:hover {
+    text-shadow: 0 0 1px $darkblue;
+    cursor: pointer;
+}
+
+.callout {
+    width: 200px;
+    background-color: white;
+    position: fixed;
+    top: 130px;
+    right: 10px;
+    color: $darkblue;
+    padding: 10px;
+    border-radius: 3px;
+    box-shadow: 0 0 20px black;
+    min-height: 50px;
+    border: 1px solid $darkgrey;
+    opacity: 0;
+    -moz-transition: opacity 0.4s ease-in;
+    -o-transition: opacity 0.4s ease-in;
+    -webkit-transition: opacity 0.4s ease-in;
+    transition: opacity 0.4s ease-in;
+}
+
+.callout:hover {
+    opacity: 1;
+}
+
+.callout::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border: 0.8em solid transparent;
+    position: absolute;
+}
+
+.callout.bottom::before {
+    left: 80%;
+    top: -23px;
+    border-bottom: 10px solid white;
+}
+
+.user-option {
+    float: left;
+    margin-right: 10px;
+    font-size: 20px !important;
+    color: $lightgray;
 }

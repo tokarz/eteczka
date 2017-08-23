@@ -43,11 +43,100 @@
   -o-transition: font-size 0.1s linear;
   -webkit-transition: font-size 0.1s linear;
   transition: font-size 0.1s linear;
+  display: inline-block;
 }
 
 .user-icon:hover {
   font-size: 44px !important;
   cursor: pointer;
+}
+
+.user-icon:hover + .callout {
+  opacity: 1;
+}
+
+.dropdown-menu-wrapper {
+  position: fixed;
+  /* background: red; */
+  right: 5px;
+  top: 150px;
+  height: 200px;
+  box-shadow: 0 0 3px #074C75;
+  color: #074C75;
+  font-size: 20px;
+}
+
+.dropdown-menu-wrapper ul {
+  padding: 0;
+  margin: 0;
+}
+
+.login-name-label {
+  display: inline-block;
+  float: left;
+  margin: 55px 10px;
+  color: white;
+}
+
+.user-options-wrapper {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.user-options-wrapper li {
+  border-bottom: 1px solid #E3E3E3;
+  padding: 10px 0;
+  color: #074C75;
+}
+
+.user-options-wrapper li:hover {
+  text-shadow: 0 0 1px #074C75;
+  cursor: pointer;
+}
+
+.callout {
+  width: 200px;
+  background-color: white;
+  position: fixed;
+  top: 130px;
+  right: 10px;
+  color: #074C75;
+  padding: 10px;
+  border-radius: 3px;
+  box-shadow: 0 0 20px black;
+  min-height: 50px;
+  border: 1px solid #666161;
+  opacity: 0;
+  -moz-transition: opacity 0.4s ease-in;
+  -o-transition: opacity 0.4s ease-in;
+  -webkit-transition: opacity 0.4s ease-in;
+  transition: opacity 0.4s ease-in;
+}
+
+.callout:hover {
+  opacity: 1;
+}
+
+.callout::before {
+  content: "";
+  width: 0;
+  height: 0;
+  border: 0.8em solid transparent;
+  position: absolute;
+}
+
+.callout.bottom::before {
+  left: 80%;
+  top: -23px;
+  border-bottom: 10px solid white;
+}
+
+.user-option {
+  float: left;
+  margin-right: 10px;
+  font-size: 20px !important;
+  color: #E3E3E3;
 }
 
 @keyframes fadein {
@@ -232,6 +321,36 @@ li {
   -o-animation: 2s fadein;
   -webkit-animation: 2s fadein;
   animation: 2s fadein;
+}
+
+.document-cart {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  height: 150px;
+  width: 80px;
+  background: #666161;
+  -moz-transform: translate(0, -50%);
+  -ms-transform: translate(0, -50%);
+  -o-transform: translate(0, -50%);
+  -webkit-transform: translate(0, -50%);
+  transform: translate(0, -50%);
+}
+
+.document-cart > span {
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+  -moz-transform-origin: left bottom 0;
+  -ms-transform-origin: left bottom 0;
+  -o-transform-origin: left bottom 0;
+  -webkit-transform-origin: left bottom 0;
+  transform-origin: left bottom 0;
+  position: absolute;
+  color: white;
+  font-weight: bold;
 }
 
 /*# sourceMappingURL=ead.css.map */

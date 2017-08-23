@@ -21,8 +21,8 @@ angular.module('et.controllers').controller('menuController', ['$rootScope', '$s
 
     $scope.userMenuOptions = [
         {
-            name: "Wyloguj",
-            iconClass: "glyphicon glyphicon-log-out",
+            name: 'Wyloguj',
+            iconClass: 'user-option fa fa-power-off',
             onclick: function () {
                 sessionService.killSession($rootScope.SESSIONID).then(function () {
                     $rootScope.SELECTED_FIRM = '';
@@ -37,6 +37,40 @@ angular.module('et.controllers').controller('menuController', ['$rootScope', '$s
                 });
             }
         },
+        {
+            name: 'Wyloguj',
+            iconClass: 'user-option fa fa-power-off',
+            onclick: function () {
+                sessionService.killSession($rootScope.SESSIONID).then(function () {
+                    $rootScope.SELECTED_FIRM = '';
+                    $scope.userLoggedIn = false;
+
+                    $state.go('login');
+                }, function (err) {
+                    $rootScope.SELECTED_FIRM = '';
+                    $scope.userLoggedIn = false;
+                    $state.go('login');
+                    console.error(err);
+                });
+            }
+        },
+        {
+            name: 'Wyloguj',
+            iconClass: 'user-option fa fa-power-off',
+            onclick: function () {
+                sessionService.killSession($rootScope.SESSIONID).then(function () {
+                    $rootScope.SELECTED_FIRM = '';
+                    $scope.userLoggedIn = false;
+
+                    $state.go('login');
+                }, function (err) {
+                    $rootScope.SELECTED_FIRM = '';
+                    $scope.userLoggedIn = false;
+                    $state.go('login');
+                    console.error(err);
+                });
+            }
+        }
         //{
         //    name: "Edytuj Profil",
         //    iconClass: "glyphicon glyphicon-pencil",

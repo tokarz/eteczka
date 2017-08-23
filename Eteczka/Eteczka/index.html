@@ -10,18 +10,28 @@
     <div id="rootWrapper" class="resizable">
         <div id="header">
             <img src="Content/img/logo_eAD.png" class="header-logo" />
-            <span class="menu-pane-wrapper">
-                {{loginStatus}}
+            <span class="menu-pane-wrapper" ng-controller="menuController">
+                
+                <span class="login-name-label">{{loginStatus}}</span>
                 <span class="user-icon fa fa-user-circle"></span>
+                <span class="callout bottom">
+                    <ul class="user-options-wrapper">
+                        <li ng-repeat="userOption in userMenuOptions" ng-click="userOption.onclick()">
+                            <i ng-class="userOption.iconClass"></i>{{userOption.name}}
+                        </li>
+                    </ul>
+                </span>
             </span>
         </div>
-        
+
         <div id="content" class="container-fluid" style="overflow-y:hidden">
             <ui-view></ui-view>
         </div>
         <footer></footer>
     </div>
-
+    <div ng-controller="document-cart-controller" class="document-cart" ng-if="isLoggedIn">
+        <span class="cart-label">Koszyk Akt</span>
+    </div>
 
     <!--3rd party scripts-->
     <script src="Scripts/jquery-1.10.2.min.js"></script>
