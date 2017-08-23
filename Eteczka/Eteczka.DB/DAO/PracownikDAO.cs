@@ -60,7 +60,7 @@ namespace Eteczka.DB.DAO
         {
             Pracownik PobranyPracownik = null;
             string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE numeread = '" + (numeread.ToLower().Trim()) + "' ";
-            
+
 
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
             DataTable result = connectionState.ExecuteQuery(sqlQuery);
@@ -71,9 +71,9 @@ namespace Eteczka.DB.DAO
 
 
             return PobranyPracownik;
-            
+
         }
-        public List<Pracownik>WyszukiwaczPracownikow (string search)
+        public List<Pracownik> WyszukiwaczPracownikow(string search)
         {
             List<Pracownik> WyszukaniPracownicy = new List<Pracownik>();
             //string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE  LOWER (imie) = LOWER (TRIM('" + search + "')) OR LOWER (nazwisko) =  LOWER (TRIM('" + search + "')) OR LOWER (pesel) = LOWER (TRIM('" + search + "')) ";
@@ -89,7 +89,19 @@ namespace Eteczka.DB.DAO
 
             return WyszukaniPracownicy;
         }
-        
+
+        public int PoliczPracownikowWBazie()
+        {
+            int result = 0;
+            string sqlQuery = "SELECT COUNT(*) FROM \"KatPracownicy\";";
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
+            DataTable count = connectionState.ExecuteQuery(sqlQuery);
+            if(count != null && count.Rows != null && count.Rows.Count > 0) {
+                result = int.Parse(count.Rows[0][0].ToString());
+            }
+            
+            return result;
+        }
 
     }
 }

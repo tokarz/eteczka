@@ -15,10 +15,7 @@ namespace Eteczka.BE.Controllers
 
         public ActionResult ImportujStrukturePlikow(bool nadpisz)
         {
-            bool success = false;
-
             ImportResult result = _ImportService.ImportFiles(nadpisz);
-
 
             return Json(new
             {
@@ -28,11 +25,7 @@ namespace Eteczka.BE.Controllers
 
         public ActionResult ImportujLokalizacjeArchiwow(string sessionId, bool nadpisz)
         {
-
-            bool success = false;
-
             ImportResult result = _ImportService.ImportKatLokalPapier(nadpisz);
-
 
             return Json(new
             {
@@ -62,6 +55,57 @@ namespace Eteczka.BE.Controllers
                 success = result.ImportSukces
             }, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult ImportujMiejscaPracy(string sessionId)
+        {
+            ImportResult result = _ImportService.ImportWorkplaces(sessionId);
+
+            return Json(new
+       {
+           success = result.ImportSukces
+       }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult ImportujPodwydzialy(string sessionId)
+        {
+            ImportResult result = _ImportService.ImportSubDepartments(sessionId);
+
+            return Json(new
+       {
+           success = result.ImportSukces
+       }, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult ImportujWydzialy(string sessionId)
+        {
+            ImportResult result = _ImportService.ImportDepartments(sessionId);
+
+            return Json(new
+       {
+           success = result.ImportSukces
+       }, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult ImportujKonta5(string sessionId)
+        {
+            ImportResult result = _ImportService.ImportAccounts5(sessionId);
+
+            return Json(new
+            {
+                success = result.ImportSukces
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult SprawdzUpdate(string sessionId, string type)
+        {
+            ImportResult result = _ImportService.CheckImportStatus(type);
+
+            return Json(new
+            {
+                success = result.CountImportJson == result.CountImportDb,
+                importJson = result.CountImportJson,
+                importDb = result.CountImportDb
+            }, JsonRequestBehavior.AllowGet);
+        }
+
 
 
     }

@@ -23,6 +23,6 @@ namespace Eteczka.DB.Entities
         public string NumerEad { get; set; }// character(20) NOT NULL,
         public string SystemBazowy { get; set; }
         public bool Usuniety { get; set; }
-        public long Id { get; private set; }//Autoincrement
+        public long Id { get; set; }
     }
 }

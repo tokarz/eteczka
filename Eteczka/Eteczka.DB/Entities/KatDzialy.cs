@@ -8,12 +8,12 @@ namespace Eteczka.DB.Entities
 {
     public class KatDzialy
     {
-        public long Id { get; set; }
-        public string Symbol { get; set; }
+        public string Wydzial { get; set; }
         public string Nazwa { get; set; }
-        public string Datamodify { get; set; }
-        public long Idoper { get; set; }
-        public long Idakcept { get; set; }
+        public DateTime Datamodify { get; set; }
+        public string Idoper { get; set; }
+        public string Idakcept { get; set; }
         public DateTime Dataakcept { get; set; }
+        public string Firma { get; set; }
     }
 }

@@ -1,0 +1,69 @@
+﻿@import 'vars.scss';
+@import 'mixins.scss';
+
+.main-admin-wrapper {
+    width: 90%;
+    height: 100%;
+    margin: auto;
+}
+
+.settings-wrapper {
+    width: 100%;
+    padding: 25px;
+}
+
+
+.buttonsParagraph button {
+    width: 400px;
+    height: 50px;
+    background: $darkblue;
+    color: white;
+    padding: 0.3em 3em;
+    border-radius: 5px;
+    opacity: 0.8;
+}
+
+.buttonsParagraph button:hover {
+    opacity: 1;
+    cursor:pointer;
+}
+
+.admin-option {
+    width: 95%;
+    margin: auto;
+    
+    height: 500px;
+    box-shadow: 0 0 2px black;
+    padding: 25px;
+    -moz-animation: 4s fadein;
+    -o-animation: 4s fadein;
+    -webkit-animation: 4s fadein;
+    animation: 4s fadein;
+    position: relative;
+}
+
+
+.admin-option-content {
+    margin-top: 50px;
+    width: 100%;
+}
+
+.admin-option-header {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    background: $darkblue;
+    color: white;
+    text-align: center;
+}
+
+.admin-option-header h3 {
+    font-size: 20px;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.settings-main-wrapper {
+    text-align: center;
+}

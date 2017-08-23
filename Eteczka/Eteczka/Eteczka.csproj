@@ -212,7 +212,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
-    <Content Include="app\css\admin.css" />
+    <Content Include="app\css\admin.css">
+      <DependentUpon>admin.scss</DependentUpon>
+    </Content>
+    <Content Include="app\css\admin.min.css">
+      <DependentUpon>admin.css</DependentUpon>
+    </Content>
     <Content Include="app\css\content.css">
       <DependentUpon>content.scss</DependentUpon>
     </Content>
@@ -276,8 +281,6 @@
     <Content Include="app\views\admin\adminViewController.js" />
     <Content Include="app\views\admin\adminViewDirective.js" />
     <Content Include="app\views\admin\adminViewService.js" />
-    <Content Include="app\views\admin\quickNotes\quickNoteDirective.js" />
-    <Content Include="app\views\admin\quickNotes\quickNotes.html" />
     <Content Include="app\views\employees\editEmployeesPopup\addEmployeePopup.html" />
     <Content Include="app\views\employees\editEmployeesPopup\deleteUserTemplate.html" />
     <Content Include="app\views\employees\editEmployeesPopup\editEmployeeService.js" />
@@ -706,6 +709,10 @@
     <Content Include="app\css\navigation.scss" />
     <Content Include="app\css\navigation.css.map">
       <DependentUpon>navigation.css</DependentUpon>
+    </Content>
+    <Content Include="app\css\admin.scss" />
+    <Content Include="app\css\admin.css.map">
+      <DependentUpon>admin.css</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\ETeczka.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />

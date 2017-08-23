@@ -1,45 +1,5 @@
-﻿<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12" style="height:100%;">
-            <div id="mySidenav" class="navbar-left" style="width:60px;height:100%; min-height:2000px;box-shadow: 0 0 10px 0 steelblue;background:white;padding:0">
-                <ul style="padding-top: 15px">
-                    <li class="menu-item" ng-repeat="option in sideMenuOptions" style="padding: 0 20px">
-                        <span style="color:steelblue;font-size:25px" class="{{option.icon}}"></span>
-                        <span class="option-label option-hidden">{{option.label}}</span>
-                    </li>
-                </ul>
-                <div ng-click="toggleDetails()" ng-class="showPanelMoveDirection()" style="position:absolute;right:0;top: 500px;width:10px;height:10px;color:steelblue;cursor:pointer">
-
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-3 recent-info-panel">
-                    <div class="info-panel-content">
-                        <et-quick-note title="quickNote.files.title" icon="quickNote.files.icon" value="quickNote.files.value" trend="quickNote.files.trend"></et-quick-note>
-                    </div>
-                </div>
-                <div class="col-lg-3 recent-info-panel">
-                    <div class="info-panel-content">
-                        <et-quick-note title="quickNote.users.title" icon="quickNote.users.icon" value="quickNote.users.value" trend="quickNote.users.trend"></et-quick-note>
-                    </div>
-                </div>
-                <div class="col-lg-3 recent-info-panel">
-                    <div class="info-panel-content">
-                        <et-quick-note title="quickNote.imports.title" icon="quickNote.imports.icon" value="quickNote.imports.value" trend="quickNote.imports.trend"></et-quick-note>
-                    </div>
-                </div>
-                <div class="col-lg-3 recent-info-panel">
-                    <div class="info-panel-content">
-                        <et-quick-note title="quickNote.exports.title" icon="quickNote.exports.icon" value="quickNote.exports.value" trend="quickNote.exports.trend"></et-quick-note>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="settings-wrapper">
-                    <settings></settings>
-                </div>
-            </div>
-        </div>
+﻿<div class="main-admin-wrapper">
+    <div class="settings-wrapper">
+        <settings></settings>
     </div>
-
 </div>

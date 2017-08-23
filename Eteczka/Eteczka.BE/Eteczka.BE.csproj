@@ -135,6 +135,14 @@
     <Compile Include="Enums\TypWykresu.cs" />
     <Compile Include="Exceptions\WyjatekSesjaIstnieje.cs" />
     <Compile Include="Mappers\IJsonToKatRejonyMapper.cs" />
+    <Compile Include="Mappers\IJsonToMiejscePracyMapper.cs" />
+    <Compile Include="Mappers\IJsonToKonto5Mapper.cs" />
+    <Compile Include="Mappers\IJsonToWydzialMapper.cs" />
+    <Compile Include="Mappers\JsonToKonto5Mapper.cs" />
+    <Compile Include="Mappers\JsonToWydzialMapper.cs" />
+    <Compile Include="Mappers\JsonToPodwydzialMapper.cs" />
+    <Compile Include="Mappers\IJsonToPodwydzialMapper.cs" />
+    <Compile Include="Mappers\JsonToMiejscePracyMapper.cs" />
     <Compile Include="Mappers\JsonToPracownikMapper.cs" />
     <Compile Include="Mappers\IJsonToPracownikMapper.cs" />
     <Compile Include="Mappers\JsonToKatRejonyMapper.cs" />

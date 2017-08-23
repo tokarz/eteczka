@@ -1,28 +1,60 @@
 ﻿'use strict';
-angular.module('et.services').factory('settingsService', ['httpService', function (httpService) {
+angular.module('et.services').factory('settingsService', ['httpService', 'sessionService', function (httpService, sessionService) {
     return {
         importFiles: function () {
             return httpService.get('FilesImport/ImportujStrukturePlikow', { nadpisz: true });
         },
-        importUsers: function (sessionId) {
-            return httpService.get('Pracownicy/ImportujJson', { sessionId: sessionId });
+        importUsers: function () {
+            return httpService.get('Pracownicy/ImportujJson',
+                {
+                    sessionId: sessionService.getSessionId(),
+                });
         },
-        importArchives: function (sessionId) {
+        importArchives: function () {
             return httpService.get('FilesImport/ImportujLokalizacjeArchiwow', {
-                sessionId: sessionId,
+                sessionId: sessionService.getSessionId(),
                 nadpisz: true
             });
         },
-        importFirms: function (sessionId) {
+        importFirms: function () {
             return httpService.get('FilesImport/ImportujFirmy', {
-                sessionId: sessionId,
+                sessionId: sessionService.getSessionId(),
                 nadpisz: true
             });
         },
-        importAreas: function (sessionId) {
+        importAreas: function () {
             return httpService.get('FilesImport/ImportujRejony', {
-                sessionId: sessionId,
+                sessionId: sessionService.getSessionId(),
                 nadpisz: true
+            });
+        },
+        importWorkplaces: function () {
+            return httpService.get('FilesImport/ImportujMiejscaPracy', {
+                sessionId: sessionService.getSessionId()
+            });
+        },
+
+        importSubdepartments: function () {
+            return httpService.get('FilesImport/ImportujPodwydzialy', {
+                sessionId: sessionService.getSessionId()
+            });
+        },
+        importDepartments: function () {
+            return httpService.get('FilesImport/ImportujWydzialy', {
+                sessionId: sessionService.getSessionId()
+            });
+        },
+        importAccount5: function () {
+            return httpService.get('FilesImport/ImportujKonta5', {
+                sessionId: sessionService.getSessionId()
+            });
+        },
+
+
+        checkUpdateStatus: function (type) {
+            return httpService.get('FilesImport/SprawdzUpdate', {
+                sessionId: sessionService.getSessionId(),
+                type: type
             });
         }
 

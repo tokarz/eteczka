@@ -2,6 +2,7 @@
 @import 'header.scss';
 @import 'login.scss';
 @import 'navigation.scss';
+@import 'mixins.scss';
 
 html {
     height: 100vh;
@@ -74,4 +75,12 @@ li {
 }
 
 
+.button-success {
+    background-color: $darkgreen !important;
+    color:white;
+}
 
+.button-error {
+    background-color: $error-red !important;
+    color:white;
+}

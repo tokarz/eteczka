@@ -62,66 +62,6 @@ namespace Eteczka.DB.DAO
         }
 
 
-        public bool ImportujArchiwa(List<KatLokalPapier> archiwa)
-        {
-            bool result = false;
-            StringBuilder sqls = new StringBuilder();
-
-            foreach (KatLokalPapier biezacyPlik in archiwa)
-            {
-                string valuesLine = "('" + biezacyPlik.Firma + "', '" + biezacyPlik.LokalPapier + "','" + biezacyPlik.Nazwa + "','" + biezacyPlik.Ulica + "','" + biezacyPlik.Numerdomu + "','" + biezacyPlik.Numerlokalu + "','" + biezacyPlik.Miasto + "','" + biezacyPlik.Kodpocztowy + "','" + biezacyPlik.Poczta + "','" + biezacyPlik.Idoper + "','" + biezacyPlik.Idakcept + "','" + biezacyPlik.Datamodify + "', '" + biezacyPlik.Dataakcept + "', 'EAD', 'false');";
-                string singleImport = "INSERT INTO \"KatLokalPapier\"(firma, lokalpapier, nazwa, ulica, numerdomu, numerlokalu, miasto, kodpocztowy, poczta, idoper, idakcept, datamodify, dataakcept, systembazowy, usuniety) VALUES";
-
-                string fullSqlInsert = singleImport + valuesLine;
-                sqls.Append(fullSqlInsert);
-            }
-
-            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
-            result = connectionState.ExecuteNonQuery(sqls.ToString());
-
-            return result;
-        }
-
-        public bool ImportujFirmy(List<KatFirmy> firmy)
-        {
-            bool result = false;
-            StringBuilder sqls = new StringBuilder();
-
-            foreach (KatFirmy biezacyPlik in firmy)
-            {
-                string valuesLine = "('" + biezacyPlik.Firma + "', '" + biezacyPlik.Nazwa + "','" + biezacyPlik.Nazwaskrocona + "', '" + biezacyPlik.Ulica + "','" + biezacyPlik.Numerdomu + "','" + biezacyPlik.Numerlokalu + "','" + biezacyPlik.Miasto + "','" + biezacyPlik.Kodpocztowy + "','" + biezacyPlik.Poczta + "','" + biezacyPlik.Gmina + "','" + biezacyPlik.Powiat + "', '" + biezacyPlik.Wojewodztwo + "', '" + biezacyPlik.Nip + "', '" + biezacyPlik.Regon + "', '" + biezacyPlik.Nazwa2 +
-                    "', '" + biezacyPlik.Pesel + "', '" + biezacyPlik.Idoper + "', '" + biezacyPlik.Idakcept + "', '" + biezacyPlik.Nazwisko + "', '" + biezacyPlik.Imie + "', '" + biezacyPlik.Datamodify + "', '" + biezacyPlik.Dataakcept + "', 'EAD', 'false');";
-                string singleImport = "INSERT INTO \"KatFirmy\"(firma, nazwa, nazwaskrocona, ulica, numerdomu, numerlokalu, miasto, kodpocztowy, poczta, gmina, powiat, wojewodztwo, nip, regon, nazwa2, pesel, idoper, idakcept, nazwisko, imie, datamodify, dataakcept, systembazowy, usuniety) VALUES ";
-
-                string fullSqlInsert = singleImport + valuesLine;
-                sqls.Append(fullSqlInsert);
-            }
-
-            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
-            result = connectionState.ExecuteNonQuery(sqls.ToString());
-
-            return result;
-        }
-
-        public bool ImportujRejony(List<KatRejony> rejony)
-        {
-            bool result = false;
-            StringBuilder sqls = new StringBuilder();
-
-            foreach (KatRejony biezacyPlik in rejony)
-            {
-                string valuesLine = "('" + biezacyPlik.Rejon + "', '" + biezacyPlik.Nazwa + "','" + biezacyPlik.Idoper + "','" + biezacyPlik.Idakcept + "','" + biezacyPlik.Firma + "','" + biezacyPlik.Datamodify + "','" + biezacyPlik.Dataakcept + "','" + biezacyPlik.Mnemonik + "', 'EAD', 'false');";
-                string singleImport = "INSERT INTO \"KatRejony\"(rejon, nazwa, idoper, idakcept, firma, datamodify, dataakcept, mnemonik, systembazowy, usuniety) VALUES";
-
-                string fullSqlInsert = singleImport + valuesLine;
-                sqls.Append(fullSqlInsert);
-            }
-
-            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
-            result = connectionState.ExecuteNonQuery(sqls.ToString());
-
-            return result;
-        }
 
         public Pliki PobierzPlikPoNazwie(string nazwa)
         {

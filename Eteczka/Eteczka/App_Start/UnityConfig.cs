@@ -49,20 +49,31 @@ namespace Eteczka
             container.RegisterType<IEmailService, Eteczka.BE.Services.EmailService>();
             container.RegisterType<IPlikiMapper, PlikiMapper>();
             container.RegisterType<IPracownikMapper, PracownikMapper>();
-            
+
             container.RegisterType<IJsonToKatFirmyMapper, JsonToKatFirmyMapper>();
             container.RegisterType<IJsonToKatLokalMapper, JsonToKatLokalMapper>();
             container.RegisterType<IJsonToKatRejonyMapper, JsonToKatRejonyMapper>();
             container.RegisterType<IJsonToPlikiMapper, JsonToPlikiMapper>();
             container.RegisterType<IJsonToPracownikMapper, JsonToPracownikMapper>();
             container.RegisterType<IJsonToPracownikMapper, JsonToPracownikMapper>();
+            container.RegisterType<IJsonToMiejscePracyMapper, JsonToMiejscePracyMapper>();
+            container.RegisterType<IJsonToPodwydzialMapper, JsonToPodwydzialMapper>();
+            container.RegisterType<IJsonToWydzialMapper, JsonToWydzialMapper>();
+            container.RegisterType<IJsonToKonto5Mapper, JsonToKonto5Mapper>();
             container.RegisterType<IMapowalnyDoPracownikDto, PracownikDtoMapper>();
 
             container.RegisterType<PlikiDAO, PlikiDAO>();
             container.RegisterType<UserDAO, UserDAO>();
             container.RegisterType<PracownikDAO, PracownikDAO>();
             container.RegisterType<KatLoginDAO, KatLoginDAO>();
+            container.RegisterType<FirmyDAO, FirmyDAO>();
+            container.RegisterType<MiejscePracyDAO, MiejscePracyDAO>();
+            container.RegisterType<KatPodwydzialDAO, KatPodwydzialDAO>();
+            container.RegisterType<KatWydzialDAO, KatWydzialDAO>();
+            container.RegisterType<Konto5DAO, Konto5DAO>();
+
             container.RegisterType<PlikiUtils, PlikiUtils>();
+
         }
 
         public static void RegisterStaticTypes(IUnityContainer container)

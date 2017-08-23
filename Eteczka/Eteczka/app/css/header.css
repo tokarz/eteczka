@@ -15,7 +15,7 @@
 }
 
 .menu-pane-wrapper {
-  width: 400px;
+  width: 450px;
   height: 100%;
   float: right;
 }
@@ -64,7 +64,7 @@
 
 .login-name-label {
   display: inline-block;
-  float: left;
+  max-width: 300px;
   margin: 55px 10px;
   color: white;
 }
@@ -128,6 +128,25 @@
   margin-right: 10px;
   font-size: 20px !important;
   color: #E3E3E3;
+}
+
+@media screen and (max-width: 960px) and (min-width: 720px) {
+  .header-logo {
+    height: 50px;
+    margin: 10px 12px;
+  }
+}
+
+@media screen and (max-width: 719px) and (min-width: 420px) {
+  .header-logo {
+    display: none;
+  }
+  .login-name-label {
+    display: block;
+    color: white;
+    margin: auto;
+    text-align: center;
+  }
 }
 
 /*# sourceMappingURL=header.css.map */
