@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('et.controllers').controller('employeesViewController', ['$scope', '$state', 'utilsService', 'employeesService', 'editEmployeeService', function ($scope, $state, utilsService, employeesService, editEmployeeService) {
+angular.module('et.controllers').controller('employeesViewController', ['$scope', '$state', 'employeesService', 'modalService', function ($scope, $state, employeesService, modalService) {
     $scope.users = [];
     $scope.filesForUser = [];
     $scope.elementSelected = null;
@@ -18,7 +18,7 @@ angular.module('et.controllers').controller('employeesViewController', ['$scope'
             $scope.isEmpTableLoaded = true;
         } else {
             $scope.isEmpTableLoaded = false;
-            employeesService.getFilesForEmployee(user.Pesel).then(function (result) {
+            employeesService.getFilesForEmployee(user.id).then(function (result) {
                 $scope.filesForUser = result.pliki;
                 $scope.elementSelected = user;
                 $scope.isEmpTableLoaded = true;
@@ -41,10 +41,11 @@ angular.module('et.controllers').controller('employeesViewController', ['$scope'
     $scope.triggerAddEmployeePopup = function () {
         var modalOptions = {
             title: 'Dodawanie nowego pracownika',
-            body: 'app/views/employees/editEmployeesPopup/newUserTemplate.html'
+            body: 'app/views/employees/editEmployeesPopup/upsertUserModal.html'
         }
 
-        editEmployeeService.showModal(modalOptions).then(function (result) {
+        modalService.showModal(modalOptions).then(function (result) {
+            // do wywyołania funkcja z serwisu pracownika - dodajPracownika
             console.log(result)
         }).catch(function (error) {
             console.log("error found!");
@@ -54,10 +55,11 @@ angular.module('et.controllers').controller('employeesViewController', ['$scope'
     $scope.triggerEditEmployeePopup = function () {
         var modalOptions = {
             title: 'Edytowanie istniejacego pracownika',
-            body: 'app/views/employees/editEmployeesPopup/newUserTemplate.html'
+            body: 'app/views/employees/editEmployeesPopup/upsertUserModal.html'
         }
-
-        editEmployeeService.showModal(modalOptions, $scope.elementSelected).then(function (result) {
+        // do poprawienia format daty w templacie vs ng-model
+        modalService.showModal(modalOptions, $scope.elementSelected).then(function (result) {
+            // do wywyołania funkcja z serwisu pracownika - edytujPracownika
             console.log(result)
         }).catch(function (error) {
             console.log("error found!");
@@ -67,11 +69,11 @@ angular.module('et.controllers').controller('employeesViewController', ['$scope'
     $scope.triggerDeleteEmployeePopup = function () {
         var modalOptions = {
             title: 'Usuwanie pracownika z bazy danych',
-            body: 'app/views/employees/editEmployeesPopup/deleteUserTemplate.html'
+            body: 'app/views/employees/editEmployeesPopup/deleteUserModal.html'
         }
 
-        editEmployeeService.showModal(modalOptions, $scope.elementSelected).then(function (result) {
-            console.log('result')
+        modalService.showModal(modalOptions, $scope.elementSelected).then(function (result) {
+            // do wywyołania funkcja z serwisu pracownika - usunPracownika
             console.log(result)
         }).catch(function (error) {
             console.log("error found!");
