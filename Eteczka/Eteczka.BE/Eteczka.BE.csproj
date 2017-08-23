@@ -126,6 +126,7 @@
     <Compile Include="DTO\DaneWykresowe.cs" />
     <Compile Include="DTO\ImportResult.cs" />
     <Compile Include="DTO\MetaDanePliku.cs" />
+    <Compile Include="DTO\MiejscePracyDTO.cs" />
     <Compile Include="DTO\OrganizacjaDTO.cs" />
     <Compile Include="DTO\PlikiDTO.cs" />
     <Compile Include="DTO\PlikJrwaDTO.cs" />
@@ -143,6 +144,7 @@
     <Compile Include="Mappers\IJsonToKatFirmyMapper.cs" />
     <Compile Include="Mappers\JsonToKatFirmyMapper.cs" />
     <Compile Include="Mappers\JsonToKatLokalMapper.cs" />
+    <Compile Include="Mappers\MiejscePracyDtoMapper.cs" />
     <Compile Include="Model\ISesja.cs" />
     <Compile Include="Model\Sesja.cs" />
     <Compile Include="Model\SessionDetails.cs" />

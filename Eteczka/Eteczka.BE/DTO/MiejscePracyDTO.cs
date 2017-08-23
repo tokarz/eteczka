@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Eteczka.DB.Entities
+namespace Eteczka.BE.DTO
 {
-    public class MiejscePracy
+    public class MiejscePracyDTO
     {
-        
         public string Firma { get; set; }// character(20), -- Symbol firmy
         public string Rejon { get; set; }// character(20), -- Symbol rejonu w ramach firmy
         public string Wydzial { get; set; }// character(20), -- Symbol dziaĹ‚u
@@ -23,6 +22,6 @@ namespace Eteczka.DB.Entities
         public string NumerEad { get; set; }// character(20) NOT NULL,
         public string SystemBazowy { get; set; }
         public bool Usuniety { get; set; }
-        public long Id { get; private set; }//Autoincrement
+        //public long Id { get; private set; }//Autoincrement
     }
 }

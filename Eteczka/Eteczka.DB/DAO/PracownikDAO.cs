@@ -58,15 +58,19 @@ namespace Eteczka.DB.DAO
         }
         public Pracownik PobierzPracownikaPoId(string numeread)
         {
-            Pracownik PobranyPracownik = new Pracownik();
+            Pracownik PobranyPracownik = null;
             string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE numeread = '" + numeread + "' ";
             
 
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
             DataTable result = connectionState.ExecuteQuery(sqlQuery);
+            if (result.Rows.Count == 1)
+            {
+                PobranyPracownik = _PracownikMapper.MapujZSql(result.Rows[0]);
+            }
+
+
             
-           
-            PobranyPracownik = _PracownikMapper.MapujZSql(result.Rows[0]);
             
             return PobranyPracownik;
             

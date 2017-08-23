@@ -20,6 +20,7 @@ namespace Eteczka.BE.Mappers
             result.NazwiskoRodowe = zrodlo.NazwiskoRodowe;
             result.ImieMatki = zrodlo.ImieMatki;
             result.ImieOjca = zrodlo.ImieOjca;
+            result.Kraj = zrodlo.Kraj;
 
             result.PeselInny = zrodlo.PeselInny;
             result.IdOper = zrodlo.IdOper;
@@ -28,6 +29,8 @@ namespace Eteczka.BE.Mappers
             result.DataAkcept = zrodlo.DataAkcept;
             result.DataUrodzenia = zrodlo.DataUrodzenia;
             result.Imie2 = zrodlo.Imie2;
+            result.SystemBazowy = zrodlo.SystemBazowy;
+            result.Usuniety = zrodlo.Usuniety;
 
             return result;
         }
