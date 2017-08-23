@@ -59,7 +59,7 @@ namespace Eteczka.DB.DAO
         public Pracownik PobierzPracownikaPoId(string numeread)
         {
             Pracownik PobranyPracownik = null;
-            string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE numeread = '" + numeread + "' ";
+            string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE numeread = '" + (numeread.ToLower().Trim()) + "' ";
             
 
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
@@ -70,10 +70,24 @@ namespace Eteczka.DB.DAO
             }
 
 
-            
-            
             return PobranyPracownik;
             
+        }
+        public List<Pracownik>WyszukiwaczPracownikow (string search)
+        {
+            List<Pracownik> WyszukaniPracownicy = new List<Pracownik>();
+            //string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE  LOWER (imie) = LOWER (TRIM('" + search + "')) OR LOWER (nazwisko) =  LOWER (TRIM('" + search + "')) OR LOWER (pesel) = LOWER (TRIM('" + search + "')) ";
+            string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE  LOWER (imie) = '" + (search.ToLower().Trim()) + "' OR LOWER (nazwisko) = '" + (search.ToLower().Trim()) + "' OR LOWER (pesel) = '" + (search.ToLower().Trim()) + "' ";
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
+            DataTable result = connectionState.ExecuteQuery(sqlQuery);
+
+            foreach (DataRow row in result.Rows)
+            {
+                Pracownik fetchedPracownik = _PracownikMapper.MapujZSql(row);
+                WyszukaniPracownicy.Add(fetchedPracownik);
+            }
+
+            return WyszukaniPracownicy;
         }
         
 
