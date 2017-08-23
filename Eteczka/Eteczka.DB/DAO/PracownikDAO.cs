@@ -58,18 +58,36 @@ namespace Eteczka.DB.DAO
         }
         public Pracownik PobierzPracownikaPoId(string numeread)
         {
-            Pracownik PobranyPracownik = new Pracownik();
-            string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE numeread = '" + numeread + "' ";
+            Pracownik PobranyPracownik = null;
+            string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE numeread = '" + (numeread.ToLower().Trim()) + "' ";
             
 
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
             DataTable result = connectionState.ExecuteQuery(sqlQuery);
-            
-           
-            PobranyPracownik = _PracownikMapper.MapujZSql(result.Rows[0]);
-            
+            if (result.Rows.Count == 1)
+            {
+                PobranyPracownik = _PracownikMapper.MapujZSql(result.Rows[0]);
+            }
+
+
             return PobranyPracownik;
             
+        }
+        public List<Pracownik>WyszukiwaczPracownikow (string search)
+        {
+            List<Pracownik> WyszukaniPracownicy = new List<Pracownik>();
+            //string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE  LOWER (imie) = LOWER (TRIM('" + search + "')) OR LOWER (nazwisko) =  LOWER (TRIM('" + search + "')) OR LOWER (pesel) = LOWER (TRIM('" + search + "')) ";
+            string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE  LOWER (imie) = '" + (search.ToLower().Trim()) + "' OR LOWER (nazwisko) = '" + (search.ToLower().Trim()) + "' OR LOWER (pesel) = '" + (search.ToLower().Trim()) + "' ";
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
+            DataTable result = connectionState.ExecuteQuery(sqlQuery);
+
+            foreach (DataRow row in result.Rows)
+            {
+                Pracownik fetchedPracownik = _PracownikMapper.MapujZSql(row);
+                WyszukaniPracownicy.Add(fetchedPracownik);
+            }
+
+            return WyszukaniPracownicy;
         }
         
 

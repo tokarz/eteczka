@@ -24,5 +24,7 @@ namespace Eteczka.BE.DTO
         public DateTime DataAkcept { get; set; }
         public string DataUrodzenia { get; set; }
         public string Imie2 { get; set; }
+        public string SystemBazowy { get; set; }
+        public bool Usuniety { get; set; }
     }
 }

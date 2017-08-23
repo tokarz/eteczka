@@ -148,6 +148,7 @@
     <Compile Include="Entities\Pracownik.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Mappers\IPlikiMapper.cs" />
+    <Compile Include="Mappers\MiejscePracyMapper.cs" />
     <Compile Include="Mappers\PracownikMapper.cs" />
     <Compile Include="Mappers\IPracownikMapper.cs" />
     <Compile Include="Mappers\PlikiMapper.cs" />

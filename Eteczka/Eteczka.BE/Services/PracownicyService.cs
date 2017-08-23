@@ -74,5 +74,23 @@ namespace Eteczka.BE.Services
             PracownikDTO pracownikDTO= _PracownikDtoMapper.mapuj(pracownik);
             return pracownikDTO;
         }
+
+
+        public List<PracownikDTO>ZnajdzPracownikow(string search)
+        {
+            List<PracownikDTO> PracownicyDTO = new List<PracownikDTO>();
+            List<Pracownik> Pracownicy = _PracownikDao.WyszukiwaczPracownikow(search);
+
+            foreach (Pracownik pracownik in Pracownicy)
+            {
+                PracownikDTO worker = _PracownikDtoMapper.mapuj(pracownik);
+                PracownicyDTO.Add(worker);
+
+
+            }
+            return PracownicyDTO;
+
+
+        }
     }
 }
