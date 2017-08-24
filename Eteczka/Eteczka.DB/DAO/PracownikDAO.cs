@@ -4,6 +4,7 @@ using Eteczka.DB.Entities;
 using System.Data;
 using Eteczka.DB.Connection;
 using Eteczka.DB.Mappers;
+using System;
 
 
 
@@ -56,40 +57,87 @@ namespace Eteczka.DB.DAO
 
             return fetchedUsers;
         }
+
         public Pracownik PobierzPracownikaPoId(string numeread)
         {
+
             Pracownik PobranyPracownik = null;
             string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE numeread = '" + (numeread.ToLower().Trim()) + "' ";
-            
-
-            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
-            DataTable result = connectionState.ExecuteQuery(sqlQuery);
-            if (result.Rows.Count == 1)
+            try
             {
-                PobranyPracownik = _PracownikMapper.MapujZSql(result.Rows[0]);
+                IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
+                DataTable result = connectionState.ExecuteQuery(sqlQuery);
+
+
+                if (result.Rows.Count == 1)
+                {
+
+                    PobranyPracownik = _PracownikMapper.MapujZSql(result.Rows[0]);
+
+                }
             }
 
+            catch (Exception ex)
+            {
+                
+            }
+             
 
             return PobranyPracownik;
-            
+
         }
+
+
         public List<Pracownik>WyszukiwaczPracownikow (string search)
         {
             List<Pracownik> WyszukaniPracownicy = new List<Pracownik>();
-            //string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE  LOWER (imie) = LOWER (TRIM('" + search + "')) OR LOWER (nazwisko) =  LOWER (TRIM('" + search + "')) OR LOWER (pesel) = LOWER (TRIM('" + search + "')) ";
+            
             string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE  LOWER (imie) = '" + (search.ToLower().Trim()) + "' OR LOWER (nazwisko) = '" + (search.ToLower().Trim()) + "' OR LOWER (pesel) = '" + (search.ToLower().Trim()) + "' ";
-            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
-            DataTable result = connectionState.ExecuteQuery(sqlQuery);
 
-            foreach (DataRow row in result.Rows)
+            try
             {
-                Pracownik fetchedPracownik = _PracownikMapper.MapujZSql(row);
-                WyszukaniPracownicy.Add(fetchedPracownik);
+                IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
+                DataTable result = connectionState.ExecuteQuery(sqlQuery);
+
+                foreach (DataRow row in result.Rows)
+                {
+                    Pracownik fetchedPracownik = _PracownikMapper.MapujZSql(row);
+                    WyszukaniPracownicy.Add(fetchedPracownik);
+                }
+            }
+            catch (Exception ex)
+            {
+
             }
 
             return WyszukaniPracownicy;
         }
-        
+
+        public List<Pracownik> WyszukiwaczPracownikowPoTekscie(string search)
+        {
+            List<Pracownik> WyszukaniPracownicyPoTekscie = new List<Pracownik>();
+            
+            string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE  LOWER (imie) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (nazwisko) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (pesel) LIKE '%" + (search.ToLower().Trim()) + "%' ";
+
+            try
+            {
+                IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
+                DataTable result = connectionState.ExecuteQuery(sqlQuery);
+
+                foreach (DataRow row in result.Rows)
+                {
+                    Pracownik fetchedPracownik = _PracownikMapper.MapujZSql(row);
+                    WyszukaniPracownicyPoTekscie.Add(fetchedPracownik);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return WyszukaniPracownicyPoTekscie;
+        }
+
 
     }
 }

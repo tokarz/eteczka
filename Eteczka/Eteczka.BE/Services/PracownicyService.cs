@@ -69,9 +69,13 @@ namespace Eteczka.BE.Services
         }
         public PracownikDTO PobierzPoId(string numeread)
         {
-
+            PracownikDTO pracownikDTO = null;
             Pracownik pracownik = _PracownikDao.PobierzPracownikaPoId(numeread);
-            PracownikDTO pracownikDTO= _PracownikDtoMapper.mapuj(pracownik);
+            if (pracownik != null)
+            {
+                pracownikDTO = _PracownikDtoMapper.mapuj(pracownik);
+            }
+            
             return pracownikDTO;
         }
 
@@ -90,7 +94,18 @@ namespace Eteczka.BE.Services
             }
             return PracownicyDTO;
 
+        }
+        public List<PracownikDTO> ZnajdzPracownikowPoTekcie(string search)
+        {
+            List<PracownikDTO> PracownicyDTO = new List<PracownikDTO>();
+            List<Pracownik> Pracownicy = _PracownikDao.WyszukiwaczPracownikowPoTekscie(search);
+            foreach (Pracownik pracownik in Pracownicy)
+            {
+                PracownikDTO pracownikDTO = _PracownikDtoMapper.mapuj(pracownik);
+                PracownicyDTO.Add(pracownikDTO);
 
+            }
+            return PracownicyDTO;
         }
     }
 }

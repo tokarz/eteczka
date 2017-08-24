@@ -15,5 +15,6 @@ namespace Eteczka.BE.Services
         List<PracownikDTO> PobierzDlaSpolki(string spolkaId);
         PracownikDTO PobierzPoId(string numeread);
         List<PracownikDTO> ZnajdzPracownikow(string search);
+        List<PracownikDTO> ZnajdzPracownikowPoTekcie(string search);
     }
 }
