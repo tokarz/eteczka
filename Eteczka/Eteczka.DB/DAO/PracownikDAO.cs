@@ -62,7 +62,7 @@ namespace Eteczka.DB.DAO
         {
 
             Pracownik PobranyPracownik = null;
-            string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE numeread = '" + (numeread.ToLower().Trim()) + "' ";
+            string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE LOWER (numeread) = '" + (numeread.ToLower().Trim()) + "' ";
             try
             {
                 IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
