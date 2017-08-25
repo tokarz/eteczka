@@ -447,39 +447,37 @@ COMMENT ON COLUMN "KatKategorieAkt".datamodify IS 'Data dokonania wpisu';
 COMMENT ON COLUMN "KatKategorieAkt".idakcept IS 'Identyfikator osoby akceptujÂącej';
 COMMENT ON COLUMN "KatKategorieAkt".dataakcept IS 'Data akceptu przez idakcept';
 
--- Table: "KatPracownicy"
-
 -- DROP TABLE "KatPracownicy";
 
-CREATE TABLE public."KatPracownicy"
+CREATE TABLE "KatPracownicy"
 (
-  imie character varying(50),
-  nazwisko character varying(50),
-  pesel character varying(11),
+  imie character varying(50) NOT NULL,
+  nazwisko character varying(50) NOT NULL,
+  pesel character varying(11) NOT NULL,
   numeread character(20) NOT NULL, -- ID w e-teczka
-  kraj character(5), -- Kraj
-  nazwiskorodowe character(50),
-  imiematki character(30),
-  imieojca character(30),
-  peselinny character(20), -- Identyfikator dodatkowy, jeżeli nie ma numeru PESEL
-  idoper character(30),
-  idakcept character(30),
+  kraj character(5) DEFAULT ''::bpchar, -- Kraj
+  nazwiskorodowe character(50) DEFAULT ''::bpchar,
+  imiematki character(30) DEFAULT ''::bpchar,
+  imieojca character(30) DEFAULT ''::bpchar,
+  peselinny character(20) DEFAULT ''::bpchar, -- Identyfikator dodatkowy, jeÅ¼eli nie ma numeru PESEL
+  idoper character(30) DEFAULT ''::bpchar,
+  idakcept character(30) DEFAULT ''::bpchar,
   datamodify timestamp without time zone,
   dataakcept timestamp without time zone,
-  dataurodzenia character(10),
-  imie2 character varying(30),
-  systembazowy  character(3) NOT NULL,
-  usuniety boolean,
+  dataurodzenia character(20) NOT NULL,
+  imie2 character varying(30) DEFAULT ''::character varying,
+  systembazowy character(3) NOT NULL,
+  usuniety boolean NOT NULL,
   CONSTRAINT "KatPracownicy_pkey" PRIMARY KEY (numeread)
 )
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE public."KatPracownicy"
+ALTER TABLE "KatPracownicy"
   OWNER TO postgres;
-COMMENT ON COLUMN public."KatPracownicy".numeread IS 'ID w e-teczka';
-COMMENT ON COLUMN public."KatPracownicy".kraj IS 'Kraj';
-COMMENT ON COLUMN public."KatPracownicy".peselinny IS 'Identyfikator dodatkowy, jeżeli nie ma numeru PESEL';
+COMMENT ON COLUMN "KatPracownicy".numeread IS 'ID w e-teczka';
+COMMENT ON COLUMN "KatPracownicy".kraj IS 'Kraj';
+COMMENT ON COLUMN "KatPracownicy".peselinny IS 'Identyfikator dodatkowy, jeÅ¼eli nie ma numeru PESEL';
 
 
   -- Table: "Pliki"
