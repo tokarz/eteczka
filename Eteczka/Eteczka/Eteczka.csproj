@@ -261,6 +261,8 @@
       <DependentUpon>ead.css</DependentUpon>
     </Content>
     <Content Include="app\css\et.css" />
+    <Content Include="app\main\components\menu-table\menuTable.html" />
+    <Content Include="app\main\components\menu-table\menuTableDirective.js" />
     <Content Include="app\main\employees\employeesController.js" />
     <Content Include="app\main\files\filesController.js" />
     <Content Include="app\main\header\menu\menuController.js" />

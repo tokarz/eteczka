@@ -11,7 +11,7 @@
         <div id="header">
             <img src="Content/img/logo_eAD.png" class="header-logo" />
             <span class="menu-pane-wrapper" ng-controller="menuController">
-                
+
                 <span class="login-name-label">{{loginStatus}}</span>
                 <span class="user-icon fa fa-user-circle"></span>
                 <span class="callout bottom">
@@ -29,10 +29,9 @@
         </div>
         <footer></footer>
     </div>
-    <div ng-controller="document-cart-controller" class="document-cart" ng-if="isLoggedIn">
+    <!--<div ng-controller="document-cart-controller" class="document-cart" ng-if="isLoggedIn">
         <span class="cart-label">Koszyk Akt</span>
-    </div>
-
+    </div>-->
     <!--3rd party scripts-->
     <script src="Scripts/jquery-1.10.2.min.js"></script>
     <script src="Scripts/angular/angular.min.js"></script>
@@ -99,6 +98,9 @@
     <script src="app/views/settings/settingsService.js"></script>
     <script src="app/views/settings/settingsViewController.js"></script>
     <script src="app/main/settings/settingsController.js"></script>
+
+    <!--Komponenty -->
+    <script src="app/main/components/menu-table/menuTableDirective.js"></script>
 
     <!-- Utils : przydatne biblioteki-->
     <script src="app/main/utils/utils.js"></script>
