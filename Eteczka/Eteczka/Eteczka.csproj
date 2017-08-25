@@ -20,7 +20,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
-    <UseGlobalApplicationHostFile>True</UseGlobalApplicationHostFile>
+    <UseGlobalApplicationHostFile>true</UseGlobalApplicationHostFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -283,10 +283,8 @@
     <Content Include="app\views\admin\adminViewController.js" />
     <Content Include="app\views\admin\adminViewDirective.js" />
     <Content Include="app\views\admin\adminViewService.js" />
-    <Content Include="app\views\employees\editEmployeesPopup\addEmployeePopup.html" />
-    <Content Include="app\views\employees\editEmployeesPopup\deleteUserTemplate.html" />
-    <Content Include="app\views\employees\editEmployeesPopup\editEmployeeService.js" />
-    <Content Include="app\views\employees\editEmployeesPopup\newUserTemplate.html" />
+    <Content Include="app\views\employees\editEmployeesPopup\deleteUserModal.html" />
+    <Content Include="app\views\employees\editEmployeesPopup\upsertUserModal.html" />
     <Content Include="app\views\employees\employeesService.js" />
     <Content Include="app\views\employees\employeesView.html" />
     <Content Include="app\views\employees\employeesViewController.js" />

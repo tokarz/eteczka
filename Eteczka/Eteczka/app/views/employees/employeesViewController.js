@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('et.controllers').controller('employeesViewController', ['$scope', '$state', 'utilsService', 'employeesService', 'editEmployeeService', function ($scope, $state, utilsService, employeesService, editEmployeeService) {
+angular.module('et.controllers').controller('employeesViewController', ['$scope', '$state', 'employeesService', 'modalService', function ($scope, $state, employeesService, modalService) {
     $scope.employees = [];
 
     employeesService.getAll().then(function (result) {

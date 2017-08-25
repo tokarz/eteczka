@@ -79,5 +79,14 @@ namespace Eteczka.BE.Controllers
 
 
         }
+
+        public ActionResult WyszukajPracownikowPoTekscie (string search)
+        {
+            List<PracownikDTO> Pracownicy = _PracownicyService.ZnajdzPracownikowPoTekcie(search);
+            return Json(new
+            {
+                Pracownicy = Pracownicy
+            }, JsonRequestBehavior.AllowGet);
+        }
     }
 }
