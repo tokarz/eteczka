@@ -14,11 +14,11 @@ using Eteczka.BE.Services;
 
 namespace Eteczka.BE.Controllers
 {
-    public class FirmyKontroler : Controller
+    public class FirmyController : Controller
     {
         private IFirmyService _firmyService;
 
-        public FirmyKontroler(IFirmyService firmyService)
+        public FirmyController(IFirmyService firmyService)
         {
             this._firmyService = firmyService;
         }
