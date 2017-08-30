@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Eteczka.DB.Entities
+namespace Eteczka.BE.DTO
 {
-    public class KatFirmy
+    public class FirmaDTO
     {
-        
         public string Firma { get; set; } //-- Identyfikator firmy : np. TFG, TFNI itp.    
         public string Nazwa { get; set; }
         public string Nazwaskrocona { get; set; }

@@ -6,16 +6,20 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Eteczka.DB.Mappers;
 
 namespace Eteczka.DB.DAO
 {
     public class FirmyDAO
     {
         private IDbConnectionFactory _ConnectionFactory;
+        private IFirmyMapper _FirmyMapper;
+        
 
-        public FirmyDAO(IDbConnectionFactory factory)
+        public FirmyDAO(IDbConnectionFactory factory, IFirmyMapper firmyMapper)
         {
             this._ConnectionFactory = factory;
+            this._FirmyMapper = firmyMapper;
         }
 
         public bool ImportujFirmy(List<KatFirmy> firmy)
@@ -52,5 +56,24 @@ namespace Eteczka.DB.DAO
 
             return result;
         }
+
+        public List <KatFirmy>PobierzFirmyZBazy()
+        {
+
+            List<KatFirmy> PobraneFirmy = new List<KatFirmy>();
+
+            string sqlQuery = "SELECT * FROM \"KatFirmy\";";
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
+            DataTable result = connectionState.ExecuteQuery(sqlQuery);
+            foreach (DataRow row in result.Rows)
+            {
+                KatFirmy pobranaFirma = _FirmyMapper.MapujZSql(row);
+                PobraneFirmy.Add(pobranaFirma);
+            }
+
+            return PobraneFirmy;
+        }
+
+        
     }
 }

@@ -155,6 +155,8 @@
     <Compile Include="Entities\Pliki.cs" />
     <Compile Include="Entities\Pracownik.cs" />
     <Compile Include="Entities\User.cs" />
+    <Compile Include="Mappers\FirmyMapper.cs" />
+    <Compile Include="Mappers\IFirmyMapper.cs" />
     <Compile Include="Mappers\IPlikiMapper.cs" />
     <Compile Include="Mappers\MiejscePracyMapper.cs" />
     <Compile Include="Mappers\PracownikMapper.cs" />

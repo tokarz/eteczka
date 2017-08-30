@@ -117,6 +117,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\FilesImportController.cs" />
     <Compile Include="Controllers\FileTypeController.cs" />
+    <Compile Include="Controllers\FirmyKontroler.cs" />
     <Compile Include="Controllers\PlikiController.cs" />
     <Compile Include="Controllers\PracownicyKontroler.cs" />
     <Compile Include="Controllers\ResourcesController.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="DTO\AdminQuestion.cs" />
     <Compile Include="DTO\DaneWykresowe.cs" />
+    <Compile Include="DTO\FirmaDTO.cs" />
     <Compile Include="DTO\ImportResult.cs" />
     <Compile Include="DTO\MetaDanePliku.cs" />
     <Compile Include="DTO\MiejscePracyDTO.cs" />
@@ -134,10 +136,12 @@
     <Compile Include="DTO\UserDto.cs" />
     <Compile Include="Enums\TypWykresu.cs" />
     <Compile Include="Exceptions\WyjatekSesjaIstnieje.cs" />
+    <Compile Include="Mappers\FirmaDtoMapper.cs" />
     <Compile Include="Mappers\IJsonToKatRejonyMapper.cs" />
     <Compile Include="Mappers\IJsonToMiejscePracyMapper.cs" />
     <Compile Include="Mappers\IJsonToKonto5Mapper.cs" />
     <Compile Include="Mappers\IJsonToWydzialMapper.cs" />
+    <Compile Include="Mappers\ImapowalnyDoFirmaDto.cs" />
     <Compile Include="Mappers\JsonToKonto5Mapper.cs" />
     <Compile Include="Mappers\JsonToWydzialMapper.cs" />
     <Compile Include="Mappers\JsonToPodwydzialMapper.cs" />
@@ -159,7 +163,9 @@
     <Compile Include="Model\StanPlikow.cs" />
     <Compile Include="Model\StanSesji.cs" />
     <Compile Include="Services\EmailService.cs" />
+    <Compile Include="Services\FirmyService.cs" />
     <Compile Include="Services\IEmailService.cs" />
+    <Compile Include="Services\IFirmyService.cs" />
     <Compile Include="Services\ImportService.cs" />
     <Compile Include="Services\IImportService.cs" />
     <Compile Include="Services\StatystykiService.cs" />
