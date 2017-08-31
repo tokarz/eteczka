@@ -1,15 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Eteczka.DB.Connection;
-using Eteczka.DB.Entities;
-using System.Collections.Generic;
+﻿using Eteczka.DB.Connection;
 using Eteczka.DB.Entities;
 using NUnit.Framework;
-using NSubstitute;
-using Eteczka.DB.Connection;
 
 namespace Eteczka.DB.DAO
 {
@@ -27,12 +18,10 @@ namespace Eteczka.DB.DAO
         [Test]
         public void WczytajPracownikaPoNazwieIHasle()
         {
-            List<KatLoginy> result = _Sut.WczytajPracownikaPoNazwieIHasle("M.Tokarz", "tokitoki");
+            KatLoginy result = _Sut.WczytajPracownikaPoNazwieIHasle("M.Tokarz", "haslohaslo");
             Assert.IsNotNull(result);
-            Assert.AreEqual("Maciej", result[0].Imie.Trim());
-            Assert.AreEqual("Maciej", result[1].Imie.Trim());
-            Assert.AreEqual("AFM", result[0].FirmaSymbol.Trim());
-            Assert.AreEqual("JAG", result[1].FirmaSymbol.Trim());
+            Assert.AreEqual("Maciej", result.Imie.Trim());
+            
         }
 
 

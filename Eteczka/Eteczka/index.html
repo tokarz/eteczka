@@ -1,9 +1,8 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" ng-app="EtApp">
 <head>
-    <title>EAd 2017 v0.1a</title>
+    <title>EAd 2017 v0.2-092017</title>
     <link rel="stylesheet" href="app/css/ead.css" />
-    <link rel="stylesheet" href="app/css/admin.css" />
     <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css" />
 </head>
 <body ng-controller="mainController">
@@ -11,15 +10,16 @@
         <div id="header">
             <img src="Content/img/logo_eAD.png" class="header-logo" />
             <span class="menu-pane-wrapper" ng-controller="menuController">
-
-                <span class="login-name-label">{{loginStatus}}</span>
-                <span class="user-icon fa fa-user-circle"></span>
-                <span class="callout bottom">
-                    <ul class="user-options-wrapper">
-                        <li ng-repeat="userOption in userMenuOptions" ng-click="userOption.onclick()">
-                            <i ng-class="userOption.iconClass"></i>{{userOption.name}}
-                        </li>
-                    </ul>
+                <span ng-if="userLoggedIn">
+                    <span class="login-name-label" ng-bind="loginStatus"></span>
+                    <span class="user-icon fa fa-user-circle"></span>
+                    <span class="callout bottom">
+                        <ul class="user-options-wrapper">
+                            <li ng-repeat="userOption in userMenuOptions" ng-click="userOption.onclick()">
+                                <i ng-class="userOption.iconClass"></i>{{userOption.name}}
+                            </li>
+                        </ul>
+                    </span>
                 </span>
             </span>
         </div>
@@ -76,8 +76,6 @@
     <script src="app/views/admin/adminViewController.js"></script>
     <script src="app/views/admin/adminViewDirective.js"></script>
     <!--Widok Pracownikow-->
-    <script src="app/views/employees/editEmployeesPopup/editEmployeeService.js"></script>
-    <script src="app/main/employees/employeesController.js"></script>
     <script src="app/views/employees/employeesViewController.js"></script>
     <script src="app/views/employees/employeesViewDirective.js"></script>
     <script src="app/views/employees/employeesService.js"></script>
@@ -100,7 +98,12 @@
     <script src="app/main/settings/settingsController.js"></script>
 
     <!--Komponenty -->
+    <script src="app/main/components/menu-table/menuTableController.js"></script>
     <script src="app/main/components/menu-table/menuTableDirective.js"></script>
+
+    <script src="app/main/components/menu-content/menuContentController.js"></script>
+    <script src="app/main/components/menu-content/menuContentDirective.js"></script>
+    <script src="app/main/components/menu-content/menuContentService.js"></script>
 
     <!-- Utils : przydatne biblioteki-->
     <script src="app/main/utils/utils.js"></script>

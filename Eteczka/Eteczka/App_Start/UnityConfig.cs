@@ -45,15 +45,14 @@ namespace Eteczka
             container.RegisterType<IImportService, ImportService>();
             container.RegisterType<IPracownicyService, PracownicyService>();
             container.RegisterType<IStatystykiService, StatystykiService>();
-            container.RegisterType<IConnection, Connection>();
+            container.RegisterType<IMiejscePracyService, MiejscePracyService>();
             container.RegisterType<IEmailService, Eteczka.BE.Services.EmailService>();
+            container.RegisterType<IFirmyService, FirmyService>();
+
+            container.RegisterType<IConnection, Connection>();
             container.RegisterType<IPlikiMapper, PlikiMapper>();
             container.RegisterType<IPracownikMapper, PracownikMapper>();
-            container.RegisterType<IFirmyService, FirmyService>();
             container.RegisterType<IFirmyMapper, FirmyMapper>();
-            container.RegisterType<ImapowalnyDoFirmaDto, FirmaDtoMapper>();
-            
-
 
             container.RegisterType<IJsonToKatFirmyMapper, JsonToKatFirmyMapper>();
             container.RegisterType<IJsonToKatLokalMapper, JsonToKatLokalMapper>();
@@ -66,6 +65,7 @@ namespace Eteczka
             container.RegisterType<IJsonToWydzialMapper, JsonToWydzialMapper>();
             container.RegisterType<IJsonToKonto5Mapper, JsonToKonto5Mapper>();
             container.RegisterType<IMapowalnyDoPracownikDto, PracownikDtoMapper>();
+            container.RegisterType<ImapowalnyDoFirmaDto, FirmaDtoMapper>();
 
             container.RegisterType<PlikiDAO, PlikiDAO>();
             container.RegisterType<UserDAO, UserDAO>();

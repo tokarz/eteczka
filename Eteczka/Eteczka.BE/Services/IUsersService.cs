@@ -5,6 +5,6 @@ namespace Eteczka.BE.Services
 {
     public interface IUsersService
     {
-        List<UserDto> GetUserByNameAndPassword(string name, string password);
+        UserDto GetUserByNameAndPassword(string name, string password);
     }
 }

@@ -11,7 +11,8 @@ namespace Eteczka.DB.Connection
     {
         public string GetConnectionString(IConnectionDetails connectionDetails)
         {
-            return "User ID=" + connectionDetails.getUser() +  ";Password=" + connectionDetails.getPassword() + ";Host=" + connectionDetails.getHost() + ";Port=" + connectionDetails.getPort() + ";Database=" + connectionDetails.getDbName() + ";Pooling=true";
+            return "User ID=" + connectionDetails.getUser() + ";Password=" + connectionDetails.getPassword() + ";Server=" + connectionDetails.getHost() + ";Port=" + connectionDetails.getPort() + ";Database=" + connectionDetails.getDbName() + ";Pooling=true";
+            //return "Driver={PostgreSQL UNICODE};Server=" + connectionDetails.getHost() + ";Port=" + connectionDetails.getPort() + ";Database=" + connectionDetails.getDbName() + "; Uid=" + connectionDetails.getUser() + ";Pwd=" + connectionDetails.getPassword();
         }
     }
 }

@@ -1,9 +1,16 @@
 ﻿<div class="menu-table-wrapper">
-    <table>
-        <tbody>
-            <tr ng-repeat="row in rows">
-                <td>{{row.Imie}} {{row.Nazwisko}}</td>
-            </tr>
-        </tbody>
-    </table>
+    <ul class="view-tabs toolbar-panel">
+        <li ng-repeat="tab in tabs" ng-class="isTabActive(tab)" ng-click="setTabActive(tab)">{{tab.Name}}</li>
+    </ul>
+    <div class="toolbar-content">
+        <input type="search" ng-model="search" style="width:100%;margin:5px auto;margin-bottom:5px;border:1px solid black;border-radius:5px;"/>
+        <table style="width:100%;height:97%;margin:auto;overflow:hidden;display:block;padding:0">
+            <tbody style="overflow:auto;display:block;height:100%;width:100%">
+                <tr ng-repeat="row in rows" ng-click="selectUser(row)" ng-class="getRowStyle(row)" style="width: 100%;display:block">
+                    <td>{{row.Imie}} {{row.Nazwisko}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
 </div>

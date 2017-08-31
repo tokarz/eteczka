@@ -3,11 +3,13 @@ angular.module('et.controllers').controller('mainController', ['$rootScope', '$s
     $state.go('login');
     $scope.title = 'ETeczka';
     $scope.isLoaded = false;
+    $scope.selectedUser = '';
 
     $scope.isLoggedIn = false;
 
-    $scope.$on('USER_LOGGED_IN_EV', function () {
+    $scope.$on('USER_LOGGED_IN_EV', function (ev, user) {
         $scope.isLoggedIn = true;
+        $scope.selectedUser = user; 
     });
 
     $scope.startupContext = {

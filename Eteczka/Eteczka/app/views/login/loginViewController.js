@@ -16,7 +16,7 @@ angular.module('et.controllers').controller('loginViewController', ['$rootScope'
                     $scope.fetchedUser = result.user;
 
 
-                    if ($scope.fetchedUser && $scope.fetchedUser[0].isAdmin) {
+                    if ($scope.fetchedUser && $scope.fetchedUser.isAdmin) {
                         $state.go('admin');
                     } else {
                         $rootScope.$broadcast('USER_LOGGED_IN_EV', $scope.fetchedUser);

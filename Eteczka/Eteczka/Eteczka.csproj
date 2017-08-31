@@ -218,6 +218,12 @@
     <Content Include="app\css\admin.min.css">
       <DependentUpon>admin.css</DependentUpon>
     </Content>
+    <Content Include="app\css\components.css">
+      <DependentUpon>components.scss</DependentUpon>
+    </Content>
+    <Content Include="app\css\components.min.css">
+      <DependentUpon>components.css</DependentUpon>
+    </Content>
     <Content Include="app\css\content.css">
       <DependentUpon>content.scss</DependentUpon>
     </Content>
@@ -261,9 +267,13 @@
       <DependentUpon>ead.css</DependentUpon>
     </Content>
     <Content Include="app\css\et.css" />
+    <Content Include="app\main\components\menu-content\menuContentController.js" />
+    <Content Include="app\main\components\menu-content\menuContentDirective.js" />
+    <Content Include="app\main\components\menu-content\menuContentService.js" />
+    <Content Include="app\main\components\menu-content\menuContentView.html" />
     <Content Include="app\main\components\menu-table\menuTable.html" />
+    <Content Include="app\main\components\menu-table\menuTableController.js" />
     <Content Include="app\main\components\menu-table\menuTableDirective.js" />
-    <Content Include="app\main\employees\employeesController.js" />
     <Content Include="app\main\files\filesController.js" />
     <Content Include="app\main\header\menu\menuController.js" />
     <Content Include="app\main\mainController.js" />
@@ -713,6 +723,10 @@
     <Content Include="app\css\admin.scss" />
     <Content Include="app\css\admin.css.map">
       <DependentUpon>admin.css</DependentUpon>
+    </Content>
+    <Content Include="app\css\components.scss" />
+    <Content Include="app\css\components.css.map">
+      <DependentUpon>components.css</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\ETeczka.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />

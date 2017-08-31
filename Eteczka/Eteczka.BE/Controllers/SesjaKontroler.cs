@@ -1,5 +1,4 @@
-﻿using System;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using Eteczka.BE.Model;
 
 namespace Eteczka.BE.Controllers

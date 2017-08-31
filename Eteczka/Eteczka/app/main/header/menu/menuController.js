@@ -1,14 +1,18 @@
 ﻿'use strict';
 angular.module('et.controllers').controller('menuController', ['$rootScope', '$scope', '$state', 'sessionService', function ($rootScope, $scope, $state, sessionService) {
     $scope.userLoggedIn = false;
-    $scope.loginStatus = 'TUTAJ BEDZIE LOGIN STATUS OCHODZKIEJ';
+    $scope.loginStatus = '';
+    $scope.userMenuVisible = false;
+
     $scope.isUserLoggedIn = function () {
         return $scope.userLoggedIn;
     }
 
-    $scope.$on('USER_LOGGED_IN_EV', function () {
+    $scope.$on('USER_LOGGED_IN_EV', function (ev, user) {
         $scope.userLoggedIn = true;
-        $scope.loginStatus = 'OCHODZKA ZALOGOWANA!';
+        if (user) {
+            $scope.loginStatus = 'ZALOGOWANO, ' + user.Nazwa;
+        }
     });
 
     $scope.goHome = function () {
@@ -16,8 +20,6 @@ angular.module('et.controllers').controller('menuController', ['$rootScope', '$s
             $state.go('options');
         }
     }
-
-    $scope.userMenuVisible = false;
 
     $scope.userMenuOptions = [
         {
@@ -27,50 +29,18 @@ angular.module('et.controllers').controller('menuController', ['$rootScope', '$s
                 sessionService.killSession($rootScope.SESSIONID).then(function () {
                     $rootScope.SELECTED_FIRM = '';
                     $scope.userLoggedIn = false;
-
+                    $scope.loginStatus = '';
                     $state.go('login');
                 }, function (err) {
                     $rootScope.SELECTED_FIRM = '';
-                    $scope.userLoggedIn = false;
-                    $state.go('login');
-                    console.error(err);
-                });
-            }
-        },
-        {
-            name: 'Wyloguj',
-            iconClass: 'user-option fa fa-power-off',
-            onclick: function () {
-                sessionService.killSession($rootScope.SESSIONID).then(function () {
-                    $rootScope.SELECTED_FIRM = '';
-                    $scope.userLoggedIn = false;
-
-                    $state.go('login');
-                }, function (err) {
-                    $rootScope.SELECTED_FIRM = '';
-                    $scope.userLoggedIn = false;
-                    $state.go('login');
-                    console.error(err);
-                });
-            }
-        },
-        {
-            name: 'Wyloguj',
-            iconClass: 'user-option fa fa-power-off',
-            onclick: function () {
-                sessionService.killSession($rootScope.SESSIONID).then(function () {
-                    $rootScope.SELECTED_FIRM = '';
-                    $scope.userLoggedIn = false;
-
-                    $state.go('login');
-                }, function (err) {
-                    $rootScope.SELECTED_FIRM = '';
+                    $scope.loginStatus = '';
                     $scope.userLoggedIn = false;
                     $state.go('login');
                     console.error(err);
                 });
             }
         }
+
         //{
         //    name: "Edytuj Profil",
         //    iconClass: "glyphicon glyphicon-pencil",

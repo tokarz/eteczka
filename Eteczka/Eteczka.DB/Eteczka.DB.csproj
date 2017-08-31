@@ -141,6 +141,7 @@
     <Compile Include="DAO\KatPodwydzialDAO.cs" />
     <Compile Include="DAO\RejonyDAO.cs" />
     <Compile Include="DAO\UserDAO.cs" />
+    <Compile Include="DTO\MiejscePracyDlaPracownikaDto.cs" />
     <Compile Include="Entities\KatDokumentyRodzaj.cs" />
     <Compile Include="Entities\KatDzialy.cs" />
     <Compile Include="Entities\KatFirmy.cs" />

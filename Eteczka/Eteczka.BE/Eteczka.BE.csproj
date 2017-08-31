@@ -118,6 +118,7 @@
     <Compile Include="Controllers\FilesImportController.cs" />
     <Compile Include="Controllers\FileTypeController.cs" />
     <Compile Include="Controllers\FirmyKontroler.cs" />
+    <Compile Include="Controllers\MiejscePracyController.cs" />
     <Compile Include="Controllers\PlikiController.cs" />
     <Compile Include="Controllers\PracownicyKontroler.cs" />
     <Compile Include="Controllers\ResourcesController.cs" />
@@ -166,6 +167,8 @@
     <Compile Include="Services\FirmyService.cs" />
     <Compile Include="Services\IEmailService.cs" />
     <Compile Include="Services\IFirmyService.cs" />
+    <Compile Include="Services\MiejscePracyService.cs" />
+    <Compile Include="Services\IMiejscePracyService.cs" />
     <Compile Include="Services\ImportService.cs" />
     <Compile Include="Services\IImportService.cs" />
     <Compile Include="Services\StatystykiService.cs" />
