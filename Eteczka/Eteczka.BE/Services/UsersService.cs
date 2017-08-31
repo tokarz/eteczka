@@ -16,42 +16,36 @@ namespace Eteczka.BE.Services
             this._Dao = dao;
         }
 
-        public List<UserDto> GetUserByNameAndPassword(string username, string password)
+        public UserDto GetUserByNameAndPassword(string username, string password)
         {
-            List<UserDto> allUsers = null;
+            UserDto wczytanyUser = null;
 
-            List<KatLoginy> queryResult = _Dao.WczytajPracownikaPoNazwieIHasle(username, password);
+            KatLoginy queryResult = _Dao.WczytajPracownikaPoNazwieIHasle(username, password);
             if (queryResult != null)
             {
-                allUsers = new List<UserDto>();
-                foreach (KatLoginy result in queryResult)
-                {
-                    UserDto wczytanyUser = new UserDto();
-                    wczytanyUser.Id = result.Id;
-                    wczytanyUser.Nazwa = result.Identyfikator;
-                    wczytanyUser.isAdmin = result.isAdmin;
+                wczytanyUser = new UserDto();
+                wczytanyUser.Id = queryResult.Id;
+                wczytanyUser.Nazwa = queryResult.Identyfikator;
+                wczytanyUser.isAdmin = queryResult.isAdmin;
 
-                    Uprawnienia uprawnienia = new Uprawnienia();
-                    uprawnienia.RolaReadOnly = result.Rolareadonly;
-                    uprawnienia.RolaAddPracownik = result.Rolaaddpracownik;
-                    uprawnienia.RolaModifyPracownik = result.Rolamodifypracownik;
-                    uprawnienia.RolaAddFile = result.Rolaaddfile;
-                    uprawnienia.RolaModifyFile = result.Rolamodifyfile;
-                    uprawnienia.RolaSlowniki = result.Rolaslowniki;
-                    uprawnienia.RolaSendEmail = result.Rolasendmail;
-                    uprawnienia.RolaRaport = result.Rolaraport;
-                    uprawnienia.RolaRaportExport = result.Rolaraportexport;
-                    uprawnienia.RolaDoubleAkcept = result.Roladoubleakcept;
+                Uprawnienia uprawnienia = new Uprawnienia();
+                uprawnienia.RolaReadOnly = queryResult.Rolareadonly;
+                uprawnienia.RolaAddPracownik = queryResult.Rolaaddpracownik;
+                uprawnienia.RolaModifyPracownik = queryResult.Rolamodifypracownik;
+                uprawnienia.RolaAddFile = queryResult.Rolaaddfile;
+                uprawnienia.RolaModifyFile = queryResult.Rolamodifyfile;
+                uprawnienia.RolaSlowniki = queryResult.Rolaslowniki;
+                uprawnienia.RolaSendEmail = queryResult.Rolasendmail;
+                uprawnienia.RolaRaport = queryResult.Rolaraport;
+                uprawnienia.RolaRaportExport = queryResult.Rolaraportexport;
+                uprawnienia.RolaDoubleAkcept = queryResult.Roladoubleakcept;
 
-                    wczytanyUser.Uprawnienia = uprawnienia;
-                    wczytanyUser.DataModify = result.Datamodify;
-                    wczytanyUser.FirmaSymbol = result.FirmaSymbol;
-
-                    allUsers.Add(wczytanyUser);
-                }
+                wczytanyUser.Uprawnienia = uprawnienia;
+                wczytanyUser.DataModify = queryResult.Datamodify;
+                wczytanyUser.FirmaSymbol = queryResult.FirmaSymbol;
             }
 
-            return allUsers;
+            return wczytanyUser;
         }
     }
 }

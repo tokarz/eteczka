@@ -1,11 +1,6 @@
 ﻿using Eteczka.BE.DTO;
 using Eteczka.BE.Model;
 using Eteczka.BE.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace Eteczka.BE.Controllers

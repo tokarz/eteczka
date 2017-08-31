@@ -10,6 +10,11 @@ angular.module('et.services').factory('employeesService', ['httpService', 'sessi
             return httpService.get('Pliki/PobierzDlaPeselu', {
                 pesel: pesel
             });
+        },
+        searchByText: function (text) {
+            return httpService.get('Pracownicy/WyszukajPracownikowPoTekscie', {
+                search: text
+            });
         }
     };
 }]);

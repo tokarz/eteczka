@@ -16,6 +16,24 @@
   }
 }
 
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 #header {
   position: sticky;
   height: 150px;
@@ -343,6 +361,110 @@
   }
 }
 
+.option-wrapper {
+  width: 90%;
+  height: 100%;
+  padding: 5px;
+  margin: auto;
+}
+
+.menu-table-wrapper {
+  width: 400px;
+  float: left;
+  box-shadow: 0 0 2px #666161;
+  height: 80vh;
+  padding: 5px;
+  position: relative;
+  margin-bottom: 1px;
+}
+
+.component-main-wrapper {
+  height: 80vh;
+}
+
+.component-content-wrapper {
+  width: 1200px;
+  float: right;
+  box-shadow: 0 0 2px #666161;
+  height: 100%;
+  padding: 5px;
+  background: #E3E3E3;
+}
+
+.tab {
+  cursor: pointer;
+  display: inline-block;
+  margin: 0 5px;
+}
+
+.tab-default {
+  color: black;
+}
+
+.tab-active {
+  color: white;
+  padding: 5px 5px;
+}
+
+.table-row {
+  color: #074C75;
+  background: white;
+  cursor: pointer;
+}
+
+.table-row:hover {
+  background: #666161;
+  font-weight: bold;
+}
+
+.toolbar-panel {
+  height: 30px;
+  background-color: #074C75;
+  color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.toolbar-option {
+  width: 30px;
+  height: 30px;
+  font-size: 12px;
+}
+
+.toolbar-option:hover {
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.option-three {
+  float: right;
+  margin-right: 5px;
+}
+
+.toolbar-content {
+  margin-top: 30px;
+  overflow: hidden;
+  height: calc(100% - 30px);
+  background: white;
+}
+
+.user-details,
+.user-history {
+  position: relative;
+  width: 100%;
+  float: left;
+  height: 50%;
+}
+
+.active-row {
+  background: #8FE1E1;
+  color: white;
+}
+
 @keyframes fadein {
   0% {
     opacity: 0;
@@ -350,6 +472,88 @@
   100% {
     opacity: 1;
   }
+}
+
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.main-admin-wrapper {
+  width: 90%;
+  height: 100%;
+  margin: auto;
+}
+
+.settings-wrapper {
+  width: 100%;
+  padding: 25px;
+}
+
+.buttonsParagraph button {
+  width: 400px;
+  height: 50px;
+  background: #074C75;
+  color: white;
+  padding: 0.3em 3em;
+  border-radius: 5px;
+  opacity: 0.8;
+}
+
+.buttonsParagraph button:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.admin-option {
+  width: 95%;
+  margin: auto;
+  height: 500px;
+  box-shadow: 0 0 2px black;
+  padding: 25px;
+  -moz-animation: 4s fadein;
+  -o-animation: 4s fadein;
+  -webkit-animation: 4s fadein;
+  animation: 4s fadein;
+  position: relative;
+}
+
+.admin-option-content {
+  margin-top: 50px;
+  width: 100%;
+}
+
+.admin-option-header {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  background: #074C75;
+  color: white;
+  text-align: center;
+}
+
+.admin-option-header h3 {
+  font-size: 20px;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.settings-main-wrapper {
+  text-align: center;
 }
 
 html {
@@ -424,6 +628,10 @@ li {
 .button-error {
   background-color: red !important;
   color: white;
+}
+
+.table-header {
+  background: #134557;
 }
 
 /*# sourceMappingURL=ead.css.map */

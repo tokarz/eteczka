@@ -1,0 +1,109 @@
+﻿@import 'vars.scss';
+
+
+.option-wrapper {
+    width: 90%;
+    height: 100%;
+    padding: 5px;
+    margin: auto;
+}
+
+.menu-table-wrapper {
+    width: 400px;
+    float: left;
+    box-shadow: 0 0 2px $darkgrey;
+    height: 80vh;
+    padding: 5px;
+    position: relative;
+    margin-bottom: 1px;
+}
+
+.component-main-wrapper {
+    height:80vh;
+}
+
+.component-content-wrapper {
+    width: 1200px;
+    float: right;
+    box-shadow: 0 0 2px $darkgrey;
+    height: 100%;
+    padding: 5px;
+    background: $lightgray;
+}
+
+.tab {
+    cursor: pointer;
+    display: inline-block;
+    margin: 0 5px;
+}
+
+.tab-default {
+    color: black;
+}
+
+.tab-active {
+    color: white;
+    padding: 5px 5px;
+}
+
+.table-row {
+    color: $darkblue;
+    background: white;
+    cursor: pointer;
+}
+
+.table-row:hover {
+    background: $darkgrey;
+    font-weight: bold;
+}
+
+.toolbar-panel {
+    height: 30px;
+    background-color: $darkblue;
+    color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 0;
+    margin: 0;
+}
+
+.toolbar-option {
+    width: 30px;
+    height: 30px;
+    font-size: 12px;
+}
+
+
+
+.toolbar-option:hover {
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.option-three {
+    float: right;
+    margin-right: 5px;
+}
+
+.toolbar-content {
+    margin-top: 30px;
+    overflow: hidden;
+    height: calc(100% - 30px);
+    background: white;
+}
+
+.user-details,
+.user-history {
+    position: relative;
+    width: 100%;
+    float: left;
+    height:50%;
+}
+
+
+.active-row {
+    background: $lightblue;
+    color: white;
+}

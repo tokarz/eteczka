@@ -40,10 +40,10 @@ namespace Eteczka.DB.DAO
             return result;
         }
 
-        public List<Pracownik> PobierzPracownikow()
+        public List<Pracownik> PobierzPracownikow(int limit = 100)
         {
 
-            string sqlQuery = "SELECT * from KatPracownicy;";
+            string sqlQuery = "SELECT * from \"KatPracownicy\" LIMIT " + limit;
             List<Pracownik> fetchedUsers = new List<Pracownik>();
 
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());

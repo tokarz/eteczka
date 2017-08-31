@@ -83,23 +83,23 @@ COMMENT ON COLUMN public."KatFirmy".imie IS 'ImiÄ™ jeĹ›li firma prywatna';
 
 
 
-CREATE TABLE public."MiejscePracy"
+CREATE TABLE "MiejscePracy"
 (
   firma character(20), -- Symbol firmy
   rejon character(20), -- Symbol rejonu w ramach firmy
-  wydzial character(20), -- Symbol dziaĹ‚u
-  podwydzial character(20), -- Symbol podwydziaĹ‚u
-  konto5 character(20), -- Symbol konta ksiÄ™gowego
-  datapocz character(20) NOT NULL, -- Data poczÄ…tkowa w miejscu pracy
-  datakoniec character(20), -- Data koĹ„cowa w miejscu pracy
+  wydzial character(20), -- Symbol dziaÄ¹â€šu
+  podwydzial character(20) DEFAULT ''::bpchar, -- Symbol podwydziaÄ¹â€šu
+  konto5 character(20), -- Symbol konta ksiÃ„â„¢gowego
+  datapocz character(20) NOT NULL, -- Data poczÃ„â€¦tkowa w miejscu pracy
+  datakoniec character(20), -- Data koÄ¹â€žcowa w miejscu pracy
   idoper character(30), -- ID operatora
-  idakcept character(30), -- Identyfikator osoby akceptujÄ…cej
+  idakcept character(30), -- Identyfikator osoby akceptujÃ„â€¦cej
   datamodify timestamp without time zone,
   dataakcept timestamp without time zone,
   numeread character(20) NOT NULL,
-  systembazowy  character(3) NOT NULL,
+  systembazowy character(3) NOT NULL,
   usuniety boolean,
-  id integer NOT NULL DEFAULT nextval('MiejscePracy_id_seq'::regclass),
+  id integer NOT NULL DEFAULT nextval('miejscepracy_id_seq'::regclass),
   CONSTRAINT "MiejscePracy_pkey" PRIMARY KEY (id)
 )
 WITH (

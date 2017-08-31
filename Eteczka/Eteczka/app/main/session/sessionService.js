@@ -15,17 +15,14 @@ angular.module('et.services').factory('sessionService', ['$q', 'httpService', fu
         },
         getSessionId: function () {
             if (sesja) {
-                return httpService.get('Sesja/OdnowSesje', { sessionid: sesja });
-            } else {
-                return httpService.get('Sesja/StworzSesje');
+                httpService.get('Sesja/OdnowSesje', { sessionid: sesja });
             }
+
+            return sesja
         },
         killSession: function (sessionid) {
             sesja = '';
             return httpService.get('Sesja/ZamknijSesje', { token: sessionid });
-        },
-        setCompany: function (name) {
-            return httpService.get('Sesja/UstawFirme', { name: name });
         }
     }
 }])

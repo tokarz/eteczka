@@ -1,8 +1,10 @@
 ﻿@import 'vars.scss';
+@import 'mixins.scss';
 @import 'header.scss';
 @import 'login.scss';
 @import 'navigation.scss';
-@import 'mixins.scss';
+@import 'components.scss';
+@import 'admin.scss';
 
 html {
     height: 100vh;
@@ -30,8 +32,6 @@ li {
 
 .logo-wrapper {
 }
-
-
 
 #customer-logo {
     width: 40%;
@@ -77,10 +77,14 @@ li {
 
 .button-success {
     background-color: $darkgreen !important;
-    color:white;
+    color: white;
 }
 
 .button-error {
     background-color: $error-red !important;
-    color:white;
+    color: white;
+}
+
+.table-header {
+    background:$blue;
 }

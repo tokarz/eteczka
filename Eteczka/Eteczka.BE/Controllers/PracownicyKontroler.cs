@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using Eteczka.BE.Utils;
 using Eteczka.BE.DTO;
-using Eteczka.DB.DAO;
-using Eteczka.DB.Connection;
-using Eteczka.DB.Entities;
 using Eteczka.BE.Services;
 
 namespace Eteczka.BE.Controllers
@@ -46,21 +38,9 @@ namespace Eteczka.BE.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult PobierzDlaPliku(string id)
-        {
-            PracownikDTO pracownk = _PracownicyService.PobierzPoPeselu(id);
-
-            return Json(new
-            {
-                users = pracownk
-            }, JsonRequestBehavior.AllowGet);
-
-        }
         public ActionResult PobierzPracownikaDlaId(string numeread)
         {
-
             PracownikDTO pracownik =  _PracownicyService.PobierzPoId(numeread);
-
 
             return Json(new
             {
@@ -85,7 +65,7 @@ namespace Eteczka.BE.Controllers
             List<PracownikDTO> Pracownicy = _PracownicyService.ZnajdzPracownikowPoTekcie(search);
             return Json(new
             {
-                Pracownicy = Pracownicy
+                pracownicy = Pracownicy
             }, JsonRequestBehavior.AllowGet);
         }
     }

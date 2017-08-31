@@ -11,5 +11,6 @@ namespace Eteczka.BE.Mappers
     public interface IMapowalnyDoPracownikDto
     {
         PracownikDTO mapuj(Pracownik zrodlo);
+        Pracownik mapuj(PracownikDTO zrodlo);
     }
 }

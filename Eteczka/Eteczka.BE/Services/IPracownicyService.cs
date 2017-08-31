@@ -10,9 +10,6 @@ namespace Eteczka.BE.Services
     public interface IPracownicyService
     {
         List<PracownikDTO> PobierzWszystkich();
-        PracownikDTO PobierzPoPeselu(string pesel);
-        PracownikDTO Pobierz(string name);
-        List<PracownikDTO> PobierzDlaSpolki(string spolkaId);
         PracownikDTO PobierzPoId(string numeread);
         List<PracownikDTO> ZnajdzPracownikow(string search);
         List<PracownikDTO> ZnajdzPracownikowPoTekcie(string search);

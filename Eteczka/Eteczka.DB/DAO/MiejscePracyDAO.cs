@@ -1,4 +1,5 @@
 ﻿using Eteczka.DB.Connection;
+using Eteczka.DB.DTO;
 using Eteczka.DB.Entities;
 using System;
 using System.Collections.Generic;
@@ -6,16 +7,19 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Eteczka.DB.Mappers;
 
 namespace Eteczka.DB.DAO
 {
     public class MiejscePracyDAO
     {
         private IDbConnectionFactory _ConnectionFactory;
+        private MiejscePracyMapper _MiejscePracyMapper;
 
-        public MiejscePracyDAO(IDbConnectionFactory factory)
+        public MiejscePracyDAO(IDbConnectionFactory factory, MiejscePracyMapper miejscePracyMapper)
         {
             this._ConnectionFactory = factory;
+            this._MiejscePracyMapper = miejscePracyMapper;
         }
 
         public bool ImportujMiejscaPracy(List<MiejscePracy> miejscaPracy)
@@ -34,6 +38,21 @@ namespace Eteczka.DB.DAO
 
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
             result = connectionState.ExecuteNonQuery(sqls.ToString());
+
+            return result;
+        }
+
+        public List<MiejscePracyDlaPracownikaDto> PobierzMiejscaPracyDlaPracownika(Pracownik pracownik)
+        {
+            List<MiejscePracyDlaPracownikaDto> result = new List<MiejscePracyDlaPracownikaDto>();
+            string sqlQuery = "SELECT datapocz, datakoniec, \"MiejscePracy\".firma, \"KatRejony\".nazwa as rejon, \"KatWydzial\".nazwa as wydzial, \"KatPodWydzial\".nazwa as podwydzial, konto5 from \"MiejscePracy\" left outer join \"KatRejony\" on \"MiejscePracy\".rejon = \"KatRejony\".rejon and \"MiejscePracy\".firma = \"KatRejony\".firma left outer join \"KatWydzial\" on \"MiejscePracy\".wydzial = \"KatWydzial\".wydzial and \"MiejscePracy\".firma = \"KatWydzial\".firma left outer join \"KatPodWydzial\" on \"MiejscePracy\".podwydzial = \"KatPodWydzial\".podwydzial and \"MiejscePracy\".firma = \"KatPodWydzial\".firma and \"MiejscePracy\".wydzial = \"KatPodWydzial\".wydzial where numeread = '" + pracownik.Numeread + "';";
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
+            DataTable fetchedResult = connectionState.ExecuteQuery(sqlQuery);
+            foreach (DataRow row in fetchedResult.Rows)
+            {
+                MiejscePracyDlaPracownikaDto miejscePracyDto = _MiejscePracyMapper.MapujZSqlDto(row);
+                result.Add(miejscePracyDto);
+            }
 
             return result;
         }

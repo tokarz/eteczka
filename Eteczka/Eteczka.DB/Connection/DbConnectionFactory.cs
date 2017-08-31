@@ -20,7 +20,8 @@ namespace Eteczka.DB.Connection
 
         public IConnectionState CreateConnectionToDB(IConnection connection)
         {
-            IDbConnection dbConnection = new NpgsqlConnection(connection.GetConnectionString(_ConnectionDetails));
+            string connectionString = connection.GetConnectionString(_ConnectionDetails);
+            IDbConnection dbConnection = new NpgsqlConnection(connectionString);
 
             IConnectionState result = new ConnectionState(dbConnection);
 
