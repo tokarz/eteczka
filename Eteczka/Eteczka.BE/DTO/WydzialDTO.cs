@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Eteczka.DB.Entities
+namespace Eteczka.BE.DTO
 {
-    public class KatDzialy
+    public class WydzialDTO
     {
+
         public string Wydzial { get; set; }
         public string Nazwa { get; set; }
         public DateTime Datamodify { get; set; }

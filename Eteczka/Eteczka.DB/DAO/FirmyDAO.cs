@@ -74,6 +74,8 @@ namespace Eteczka.DB.DAO
             return PobraneFirmy;
         }
 
+       
+
         
     }
 }

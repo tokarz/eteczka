@@ -134,6 +134,7 @@
     <Compile Include="DTO\PlikJrwaDTO.cs" />
     <Compile Include="DTO\Uprawnienia.cs" />
     <Compile Include="DTO\UserDto.cs" />
+    <Compile Include="DTO\WydzialDTO.cs" />
     <Compile Include="Enums\TypWykresu.cs" />
     <Compile Include="Exceptions\WyjatekSesjaIstnieje.cs" />
     <Compile Include="Mappers\FirmaDtoMapper.cs" />
@@ -142,6 +143,7 @@
     <Compile Include="Mappers\IJsonToKonto5Mapper.cs" />
     <Compile Include="Mappers\IJsonToWydzialMapper.cs" />
     <Compile Include="Mappers\ImapowalnyDoFirmaDto.cs" />
+    <Compile Include="Mappers\IMapowalnyDoWydzialDto.cs" />
     <Compile Include="Mappers\JsonToKonto5Mapper.cs" />
     <Compile Include="Mappers\JsonToWydzialMapper.cs" />
     <Compile Include="Mappers\JsonToPodwydzialMapper.cs" />
@@ -156,6 +158,7 @@
     <Compile Include="Mappers\IJsonToKatFirmyMapper.cs" />
     <Compile Include="Mappers\JsonToKatFirmyMapper.cs" />
     <Compile Include="Mappers\JsonToKatLokalMapper.cs" />
+    <Compile Include="Mappers\MapowalnyDoWydzialDto.cs" />
     <Compile Include="Mappers\MiejscePracyDtoMapper.cs" />
     <Compile Include="Model\ISesja.cs" />
     <Compile Include="Model\Sesja.cs" />
