@@ -10,6 +10,6 @@ namespace Eteczka.BE.Mappers
 {
     public interface IJsonToWydzialMapper
     {
-        KatDzialy Map(JToken token);
+        KatWydzialy Map(JToken token);
     }
 }

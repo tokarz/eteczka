@@ -10,7 +10,7 @@ namespace Eteczka.BE.Mappers
 {
     public class MapowalnyDoWydzialDto : IMapowalnyDoWydzialDto
     {
-        public WydzialDTO Mapper(KatDzialy zrodlo)
+        public WydzialDTO Mapper(KatWydzialy zrodlo)
         {
             WydzialDTO dzialDTO = new WydzialDTO();
 
@@ -24,7 +24,7 @@ namespace Eteczka.BE.Mappers
             dzialDTO.Systembazowy = zrodlo.Systembazowy;
             dzialDTO.Usuniety = zrodlo.Usuniety;
 
-            return null;
+            return dzialDTO;
         }
 
     }

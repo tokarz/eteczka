@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Eteczka.DB.Entities
 {
-    public class KatDzialy
+    public class KatWydzialy
     {
         public string Wydzial { get; set; }
         public string Nazwa { get; set; }

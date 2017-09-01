@@ -10,6 +10,6 @@ namespace Eteczka.BE.Mappers
 {
     public interface IMapowalnyDoWydzialDto
     {
-        WydzialDTO Mapper(KatDzialy zrodlo);
+        WydzialDTO Mapper(KatWydzialy zrodlo);
     }
 }

@@ -48,6 +48,10 @@ namespace Eteczka
             container.RegisterType<IMiejscePracyService, MiejscePracyService>();
             container.RegisterType<IEmailService, Eteczka.BE.Services.EmailService>();
             container.RegisterType<IFirmyService, FirmyService>();
+            container.RegisterType<IKatWydzialMapper, KatWydzialMapper>();
+            container.RegisterType<IMapowalnyDoWydzialDto, MapowalnyDoWydzialDto>();
+
+
 
             container.RegisterType<IConnection, Connection>();
             container.RegisterType<IPlikiMapper, PlikiMapper>();

@@ -10,9 +10,9 @@ namespace Eteczka.BE.Mappers
 {
     public class JsonToWydzialMapper : IJsonToWydzialMapper
     {
-        public KatDzialy Map(JToken token)
+        public KatWydzialy Map(JToken token)
         {
-            KatDzialy wczytanyWydzial = new KatDzialy();
+            KatWydzialy wczytanyWydzial = new KatWydzialy();
             wczytanyWydzial.Wydzial = token["wydzial"].ToString();
             wczytanyWydzial.Nazwa = token["nazwa"].ToString();
             wczytanyWydzial.Datamodify = DateTime.Parse(token["datamodify"].ToString());

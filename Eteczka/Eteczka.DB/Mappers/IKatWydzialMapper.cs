@@ -8,8 +8,8 @@ using System.Data;
 
 namespace Eteczka.DB.Mappers
 {
-    interface IKatWydzialMapper
+    public interface IKatWydzialMapper
     {
-        KatDzialy MapujzSql(DataRow row);
+        KatWydzialy MapujzSql(DataRow row);
     }
 }

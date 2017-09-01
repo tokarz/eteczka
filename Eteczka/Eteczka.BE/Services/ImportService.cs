@@ -366,7 +366,7 @@ namespace Eteczka.BE.Services
         {
             ImportResult result = new ImportResult();
             string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
-            List<KatDzialy> dzialy = new List<KatDzialy>();
+            List<KatWydzialy> dzialy = new List<KatWydzialy>();
 
             string sciezkaDoKatalogu = Path.Combine(eadRoot, "zet");
             string sciezkaDoPlikow = Path.Combine(sciezkaDoKatalogu, "KatWydzial");
@@ -388,7 +388,7 @@ namespace Eteczka.BE.Services
                 var root = parsedJson["KatWydzial"];
                 foreach (var wydzial in root)
                 {
-                    KatDzialy wczytanyWydzial = _JsonToWydzialMapper.Map(wydzial);
+                    KatWydzialy wczytanyWydzial = _JsonToWydzialMapper.Map(wydzial);
 
                     dzialy.Add(wczytanyWydzial);
                 }

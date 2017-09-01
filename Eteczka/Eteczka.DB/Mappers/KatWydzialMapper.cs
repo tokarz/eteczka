@@ -10,9 +10,9 @@ namespace Eteczka.DB.Mappers
 {
     public class KatWydzialMapper : IKatWydzialMapper
     {
-        public KatDzialy MapujzSql(DataRow row)
+        public KatWydzialy MapujzSql(DataRow row)
         {
-            KatDzialy fetchedDzialy = new KatDzialy();
+            KatWydzialy fetchedDzialy = new KatWydzialy();
 
             fetchedDzialy.Wydzial = row[0].ToString();
             fetchedDzialy.Nazwa = row[1].ToString();
