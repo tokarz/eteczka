@@ -39,17 +39,51 @@
   height: 150px;
   width: 100%;
   background-color: #074C75;
+  z-index: 20;
 }
 
 .menu-pane-wrapper {
-  width: 450px;
+  width: 300px;
   height: 100%;
   float: right;
+}
+
+.menu-buttons-wrapper {
+  width: 580px;
+  height: 100%;
+  float: left;
+}
+
+.top-menu-button {
+  width: 120px;
+  height: 50px;
+  color: white;
+  /* box-shadow: 0 0 2px 0 black; */
+  display: inline-block;
+  float: left;
+  margin: 35px 0;
+  /* opacity: 0.8; */
+  -moz-transition: width 0.2s linear, height 0.2s linear, opacity 0.2s ease-in;
+  -o-transition: width 0.2s linear, height 0.2s linear, opacity 0.2s ease-in;
+  -webkit-transition: width 0.2s linear, height 0.2s linear, opacity 0.2s ease-in;
+  transition: width 0.2s linear, height 0.2s linear, opacity 0.2s ease-;
+}
+
+.top-menu-button:hover {
+  color: #8FE1E1;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.option-active {
+  color: #31B1DE;
+  font-weight: bold;
 }
 
 .header-logo {
   height: 100px;
   margin: 20px 25px;
+  float: left;
 }
 
 .user-icon {
@@ -117,6 +151,7 @@
   width: 200px;
   background-color: white;
   position: fixed;
+  z-index: 99;
   top: 130px;
   right: 10px;
   color: #074C75;
@@ -228,7 +263,7 @@
 }
 
 .logged-in-icon {
-  color: #0deb1f;
+  color: #0DEB1F;
 }
 
 .login-button {
@@ -450,6 +485,35 @@
   overflow: hidden;
   height: calc(100% - 30px);
   background: white;
+}
+
+.table-search {
+  width: 100%;
+  margin: 5px auto;
+  margin-bottom: 5px;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.menu-table-wrapper .toolbar-content table {
+  width: 100%;
+  height: 97%;
+  margin: auto;
+  overflow: hidden;
+  display: block;
+  padding: 0;
+}
+
+.menu-table-wrapper .toolbar-content tbody {
+  overflow: auto;
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.menu-table-wrapper .toolbar-content table tbody tr {
+  width: 100%;
+  display: block;
 }
 
 .user-details,

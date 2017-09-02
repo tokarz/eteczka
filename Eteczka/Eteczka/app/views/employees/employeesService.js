@@ -6,6 +6,16 @@ angular.module('et.services').factory('employeesService', ['httpService', 'sessi
                 sessionID: sessionService.getSessionId()
             });
         },
+        getHired: function () {
+            return httpService.get('Pracownicy/PobierzWszystkichZatrudnionych', {
+                sessionID: sessionService.getSessionId()
+            });
+        },
+        getRemaining: function () {
+            return httpService.get('Pracownicy/PobierzPozostalych', {
+                sessionID: sessionService.getSessionId()
+            });
+        },
         getFilesForEmployee: function (pesel) {
             return httpService.get('Pliki/PobierzDlaPeselu', {
                 pesel: pesel

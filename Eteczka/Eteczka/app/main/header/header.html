@@ -1,0 +1,41 @@
+﻿<div id="header">
+    <img src="Content/img/logo_eAD.png" class="header-logo" ng-click="goHome()" />
+    <div style="width:900px;height:100%;float:right">
+        <div class="menu-buttons-wrapper" ng-if="menusVisible">
+
+            <ul class="menu-wrapper">
+                <li class="top-menu-button" ng-click="navigateTo('employees')" ng-class="isActive('employees')">
+                    <span class="menu-icon-group">
+                        <i class="menu-icon fa fa-user-o"></i>
+                        <i class="menu-icon fa fa-user-o"></i>
+                        <i class="menu-icon fa fa-user-o"></i>
+                    </span>
+                    <span class="menu-button-text">Pracownicy</span>
+
+                </li>
+                <li class="top-menu-button" ng-click="navigateTo('documents')" ng-class="isActive('documents')">
+                    <span class="menu-icon-group">
+                        <i class="menu-icon fa fa-folder-open-o"></i>
+                    </span>
+                    <span class="menu-button-text">Dokumenty</span>
+                </li>
+                <li class="top-menu-button" ng-click="navigateTo('raports')" ng-class="isActive('raports')">
+                    <span class="menu-icon-group">
+                        <i class="menu-icon fa fa-bar-chart"></i>
+                    </span>
+                    <span class="menu-button-text">Raporty</span>
+
+                </li>
+                <li class="top-menu-button" ng-click="navigateTo('admin')" ng-class="isActive('admin')">
+                    <span class="menu-icon-group">
+                        <i class="menu-icon fa fa-cogs"></i>
+                    </span>
+                    <span class="menu-button-text">Administracja</span>
+                </li>
+            </ul>
+        </div>
+        <div class="menu-pane-wrapper" ng-if="userLoggedIn">
+            <user-menu loginstatus="loginStatus" useroptions="userOptions"></user-menu>
+        </div>
+    </div>
+</div>

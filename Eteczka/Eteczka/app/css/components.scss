@@ -19,7 +19,7 @@
 }
 
 .component-main-wrapper {
-    height:80vh;
+    height: 80vh;
 }
 
 .component-content-wrapper {
@@ -94,12 +94,41 @@
     background: white;
 }
 
+.table-search {
+    width: 100%;
+    margin: 5px auto;
+    margin-bottom: 5px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.menu-table-wrapper .toolbar-content table {
+    width: 100%;
+    height: 97%;
+    margin: auto;
+    overflow: hidden;
+    display: block;
+    padding: 0;
+}
+
+.menu-table-wrapper .toolbar-content tbody {
+    overflow: auto;
+    display: block;
+    height: 100%;
+    width: 100%;
+}
+
+.menu-table-wrapper .toolbar-content table tbody tr {
+    width: 100%;
+    display: block;
+}
+
 .user-details,
 .user-history {
     position: relative;
     width: 100%;
     float: left;
-    height:50%;
+    height: 50%;
 }
 
 

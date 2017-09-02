@@ -275,7 +275,12 @@
     <Content Include="app\main\components\menu-table\menuTableController.js" />
     <Content Include="app\main\components\menu-table\menuTableDirective.js" />
     <Content Include="app\main\files\filesController.js" />
+    <Content Include="app\main\header\header.html" />
+    <Content Include="app\main\header\headerController.js" />
+    <Content Include="app\main\header\headerDirective.js" />
     <Content Include="app\main\header\menu\menuController.js" />
+    <Content Include="app\main\header\menu\menuDirective.js" />
+    <Content Include="app\main\header\menu\userMenu.html" />
     <Content Include="app\main\mainController.js" />
     <Content Include="app\main\session\sessionService.js" />
     <Content Include="app\main\settings\settingsController.js" />

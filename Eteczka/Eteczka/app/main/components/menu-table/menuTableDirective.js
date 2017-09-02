@@ -5,8 +5,10 @@ angular.module('et.directives').directive('menuTable', function () {
         scope: {
             rows: '=',
             tabs: '=',
+            activetab: '=',
             user: '=',
-            search: '='
+            search: '=',
+            loading: '='
         },
         controller: 'menuTableController',
         templateUrl: 'app/main/components/menu-table/menuTable.html'

@@ -2,6 +2,8 @@
 using System.Web.Mvc;
 using Eteczka.BE.DTO;
 using Eteczka.BE.Services;
+using System.Web.Script.Serialization;
+using System;
 
 namespace Eteczka.BE.Controllers
 {
@@ -20,9 +22,48 @@ namespace Eteczka.BE.Controllers
         {
             List<PracownikDTO> pracownicy = _PracownicyService.PobierzWszystkich();
 
+            var result =  Json(new
+            {
+                data = pracownicy,
+                count = pracownicy != null ? pracownicy.Count : 0
+            }, JsonRequestBehavior.AllowGet);
+            
+            var serializer = new JavaScriptSerializer();
+
+            // For simplicity just use Int32's max value.
+            // You could always read the value from the config section mentioned above.
+            serializer.MaxJsonLength = Int32.MaxValue;
+
+            var resultSerialized = new ContentResult
+            {
+                Content = serializer.Serialize(result),
+                ContentType = "application/json"
+            };
+            return resultSerialized;
+
+
+        }
+
+        public ActionResult PobierzWszystkichZatrudnionych(string sessionmId)
+        {
+            List<PracownikDTO> pracownicy = _PracownicyService.PobierzWszystkichZatrudnionych();
+
             return Json(new
             {
-                data = pracownicy
+                data = pracownicy,
+                count = pracownicy != null ? pracownicy.Count : 0
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public ActionResult PobierzPozostalych(string sessionmId)
+        {
+            List<PracownikDTO> pracownicy = _PracownicyService.PobierzPozostalych();
+
+            return Json(new
+            {
+                data = pracownicy,
+                count = pracownicy != null ? pracownicy.Count : 0
             }, JsonRequestBehavior.AllowGet);
         }
 
@@ -40,13 +81,13 @@ namespace Eteczka.BE.Controllers
 
         public ActionResult PobierzPracownikaDlaId(string numeread)
         {
-            PracownikDTO pracownik =  _PracownicyService.PobierzPoId(numeread);
+            PracownikDTO pracownik = _PracownicyService.PobierzPoId(numeread);
 
             return Json(new
             {
-               pracownik = pracownik 
+                pracownik = pracownik
             }, JsonRequestBehavior.AllowGet);
-                
+
         }
 
         public ActionResult WyszukajPracownikow(string search)
@@ -60,7 +101,7 @@ namespace Eteczka.BE.Controllers
 
         }
 
-        public ActionResult WyszukajPracownikowPoTekscie (string search)
+        public ActionResult WyszukajPracownikowPoTekscie(string search)
         {
             List<PracownikDTO> Pracownicy = _PracownicyService.ZnajdzPracownikowPoTekcie(search);
             return Json(new
