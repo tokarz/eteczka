@@ -10,5 +10,6 @@ namespace Eteczka.BE.Services
     public interface IFirmyService
     {
         List <FirmaDTO> PobierzWszystkie();
+        List<WydzialDTO> PobierzWydzialyDlaFirmy(string firma);
     }
 }
