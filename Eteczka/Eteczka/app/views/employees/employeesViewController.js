@@ -50,12 +50,13 @@ angular.module('et.controllers').controller('employeesViewController', ['$scope'
             console.error(err);
         });
     };
-
+    $scope.clearedByTabChange = false;
     $scope.$watch('parameters.activeTab', function (val, oldVal) {
         if (val) {
             $scope.startProcessing();
             if ($scope.parameters.searchTerm.trim() !== '') {
                 $scope.parameters.searchTerm = '';
+                $scope.clearedByTabChange = true;
             }
             if (val.Id === 0) {
                 $scope.getHired();
@@ -78,14 +79,18 @@ angular.module('et.controllers').controller('employeesViewController', ['$scope'
                 console.error(err);
             });
         } else {
-            if (val.trim() !== '') {
-                var val = $scope.parameters.activeTab;
-                if (val.Id === 0) {
-                    $scope.getHired();
-                } else if (val.Id === 1) {
-                    $scope.getAll();
+            if (value === '') {
+                if ($scope.clearedByTabChange) {
+                    $scope.clearedByTabChange = false;
                 } else {
-                    $scope.getRemaining();
+                    var val = $scope.parameters.activeTab;
+                    if (val.Id === 0) {
+                        $scope.getHired();
+                    } else if (val.Id === 1) {
+                        $scope.getAll();
+                    } else {
+                        $scope.getRemaining();
+                    }
                 }
             }
         }

@@ -1,5 +1,12 @@
 ﻿<div id="header">
-    <img src="Content/img/logo_eAD.png" class="header-logo" ng-click="goHome()" />
+    <div style="height:100%;display:inline-block">
+        <img src="Content/img/logo_eAD.png" class="header-logo" ng-click="goHome()" />
+        <span style="height:20px;width:280px;color:white;display:block" ng-if="menuEmployeesVisible">
+            <span ng-class="smallOption.className" style="margin-left:48px;font-size:25px"></span>
+            <span>{{smallOption.label}}</span>
+        </span>
+    </div>
+
     <div style="width:900px;height:100%;float:right">
         <div class="menu-buttons-wrapper" ng-if="menusVisible">
 

@@ -1,5 +1,10 @@
 ﻿'use strict';
 angular.module('et.controllers').controller('headerController', ['$rootScope', '$scope', '$state', 'sessionService', function ($rootScope, $scope, $state, sessionService) {
+    $scope.smallOption = {
+        className: 'fa fa-address-book-o',
+        label: 'Katalog pracownikow'
+    }
+
     $scope.userOptions = [
         {
             name: 'Wyloguj',
@@ -20,10 +25,12 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
             }
         }
     ];
+    $scope.menuEmployeesVisible = false;
     $scope.menusVisible = false;
     $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
         $scope.activeOption = toState.name;
         $scope.menusVisible = toState.name !== 'options' && toState.name !== 'login' && toState.name !== 'processing';
+        $scope.menuEmployeesVisible = toState.name === 'employees';
     });
 
     $scope.isActive = function (tab) {

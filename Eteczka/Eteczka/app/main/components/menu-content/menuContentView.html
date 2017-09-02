@@ -7,32 +7,32 @@
         </div>
         <div class="user-details-list toolbar-content">
             <div class="details-row">
-                <span>Pesel</span>
-                <span>{{user.PESEL}}</span>
+                <span class="details-label">Pesel</span>
+                <span class="details-value">{{user.PESEL}}</span>
             </div>
             <div class="details-row">
-                <span>Data Urodzenia</span>
-                <span>{{user.DataUrodzenia}}</span>
+                <span class="details-label">Data Urodzenia</span>
+                <span class="details-value">{{user.DataUrodzenia}}</span>
             </div>
             <div class="details-row">
-                <span>Nazwisko</span>
-                <span>{{user.Nazwisko}}</span>
+                <span class="details-label">Nazwisko</span>
+                <span class="details-value">{{user.Nazwisko}}</span>
             </div>
             <div class="details-row">
-                <span>Imie</span>
-                <span>{{user.Imie}}</span>
+                <span class="details-label">Imie</span>
+                <span class="details-value">{{user.Imie}}</span>
             </div>
             <div ng-if="user.Imie2" class="details-row">
-                <span>Drugie Imie</span>
-                <span>{{user.Imie2}}</span>
+                <span class="details-label">Drugie Imie</span>
+                <span class="details-value">{{user.Imie2}}</span>
             </div>
             <div ng-if="user.Kraj" class="details-row">
-                <span>Kraj</span>
-                <span>{{user.Kraj}}</span>
+                <span class="details-label">Kraj</span>
+                <span class="details-value">{{user.Kraj}}</span>
             </div>
             <div ng-if="user.PeselInny" class="details-row">
-                <span>Pesel obcy</span>
-                <span>{{user.PeselInny}}</span>
+                <span class="details-label">Pesel obcy</span>
+                <span class="details-value">{{user.PeselInny}}</span>
             </div>
         </div>
     </div>
@@ -44,7 +44,7 @@
         </div>
         <div class="toolbar-content">
             <h3>Miejsce Pracy</h3>
-            <table style="width:100%" class="table-bordered" border="1">
+            <table style="width:100%">
                 <thead class="table-header">
                     <tr>
                         <th>Data pocz.</th>
