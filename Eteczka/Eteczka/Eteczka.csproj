@@ -290,6 +290,7 @@
     <Content Include="app\main\utils\httpService.js" />
     <Content Include="app\main\utils\modalService.js" />
     <Content Include="app\main\utils\modalTemplate\modalTemplate.html" />
+    <Content Include="app\main\utils\modal\modalDirective.js" />
     <Content Include="app\main\utils\modal\modalService.js" />
     <Content Include="app\main\utils\modal\modalTemplate.html" />
     <Content Include="app\main\utils\resizableDirective.js" />

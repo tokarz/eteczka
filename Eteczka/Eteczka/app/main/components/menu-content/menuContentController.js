@@ -17,6 +17,7 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
         var modalOptions = {
             title: 'Dodawanie nowego pracownika',
             body: 'app/views/employees/editEmployeesPopup/upsertUserModal.html'
+
         }
         console.log('should display employee dialog')
 
