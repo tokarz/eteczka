@@ -7,23 +7,7 @@
 </head>
 <body ng-controller="mainController">
     <div id="rootWrapper" class="resizable">
-        <div id="header">
-            <img src="Content/img/logo_eAD.png" class="header-logo" />
-            <span class="menu-pane-wrapper" ng-controller="menuController">
-                <span ng-if="userLoggedIn">
-                    <span class="login-name-label" ng-bind="loginStatus"></span>
-                    <span class="user-icon fa fa-user-circle"></span>
-                    <span class="callout bottom">
-                        <ul class="user-options-wrapper">
-                            <li ng-repeat="userOption in userMenuOptions" ng-click="userOption.onclick()">
-                                <i ng-class="userOption.iconClass"></i>{{userOption.name}}
-                            </li>
-                        </ul>
-                    </span>
-                </span>
-            </span>
-        </div>
-
+        <header></header>
         <div id="content" class="container-fluid" style="overflow-y:hidden">
             <ui-view></ui-view>
         </div>
@@ -75,6 +59,14 @@
     <!--Widok Admina-->
     <script src="app/views/admin/adminViewController.js"></script>
     <script src="app/views/admin/adminViewDirective.js"></script>
+
+    <!--Naglowek -->
+    <script src="app/main/header/headerController.js"></script>
+    <script src="app/main/header/headerDirective.js"></script>
+    <!--Menu Dropdown-->
+    <script src="app/main/header/menu/menuController.js"></script>
+    <script src="app/main/header/menu/menuDirective.js"></script>
+
     <!--Widok Pracownikow-->
     <script src="app/views/employees/employeesViewController.js"></script>
     <script src="app/views/employees/employeesViewDirective.js"></script>

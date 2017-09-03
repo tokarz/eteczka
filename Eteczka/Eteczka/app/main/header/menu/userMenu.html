@@ -1,0 +1,9 @@
+﻿<span class="login-name-label" ng-bind="loginstatus"></span>
+<span class="user-icon fa fa-user-circle"></span>
+<span class="callout bottom">
+    <ul class="user-options-wrapper">
+        <li ng-repeat="userOption in useroptions" ng-click="userOption.onclick()">
+            <i ng-class="userOption.iconClass"></i>{{userOption.name}}
+        </li>
+    </ul>
+</span>

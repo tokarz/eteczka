@@ -40,10 +40,51 @@ namespace Eteczka.DB.DAO
             return result;
         }
 
-        public List<Pracownik> PobierzPracownikow(int limit = 100)
-        {
 
-            string sqlQuery = "SELECT * from \"KatPracownicy\" LIMIT " + limit;
+
+        public List<Pracownik> PobierzPozostalychPracownikow(string orderby = "nazwisko", bool asc = true)
+        {
+            string orderDirection = asc ? " ASC " : " DESC ";
+
+            string sqlQuery = "select * from \"KatPracownicy\" where numeread not in (select numeread from \"MiejscePracy\" where '02.09.2017 00:00:00' between \"MiejscePracy\".datapocz and \"MiejscePracy\".datakoniec) and numeread in (select numeread from \"MiejscePracy\") ORDER BY " + orderby + orderDirection;
+            List<Pracownik> fetchedUsers = new List<Pracownik>();
+
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
+            DataTable result = connectionState.ExecuteQuery(sqlQuery);
+            foreach (DataRow row in result.Rows)
+            {
+                Pracownik fetchedUser = _PracownikMapper.MapujZSql(row);
+
+                fetchedUsers.Add(fetchedUser);
+            }
+
+            return fetchedUsers;
+        }
+
+        public List<Pracownik> PobierzZatrudnionychPracownikow(string orderby = "nazwisko", bool asc = true)
+        {
+            string orderDirection = asc ? " ASC " : " DESC ";
+
+            string sqlQuery = "select * from \"KatPracownicy\" where numeread in (select numeread from \"MiejscePracy\" where '" + DateTime.Now.ToString() + "' between \"MiejscePracy\".datapocz and \"MiejscePracy\".datakoniec) ORDER BY " + orderby + orderDirection;
+            List<Pracownik> fetchedUsers = new List<Pracownik>();
+
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
+            DataTable result = connectionState.ExecuteQuery(sqlQuery);
+            foreach (DataRow row in result.Rows)
+            {
+                Pracownik fetchedUser = _PracownikMapper.MapujZSql(row);
+
+                fetchedUsers.Add(fetchedUser);
+            }
+
+            return fetchedUsers;
+        }
+
+        public List<Pracownik> PobierzPracownikow(string limit = "100", string offset = "0", string orderby = "nazwisko", bool asc = true)
+        {
+            string orderDirection = asc ? " ASC " : " DESC ";
+
+            string sqlQuery = "SELECT * from \"KatPracownicy\" ORDER BY " + orderby + orderDirection + this.AddLimitOffsetStatement(limit, offset);
             List<Pracownik> fetchedUsers = new List<Pracownik>();
 
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
@@ -79,9 +120,9 @@ namespace Eteczka.DB.DAO
 
             catch (Exception ex)
             {
-                
+
             }
-             
+
 
             return PobranyPracownik;
 
@@ -91,7 +132,7 @@ namespace Eteczka.DB.DAO
         public List<Pracownik> WyszukiwaczPracownikow(string search)
         {
             List<Pracownik> WyszukaniPracownicy = new List<Pracownik>();
-            
+
             string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE  LOWER (imie) = '" + (search.ToLower().Trim()) + "' OR LOWER (nazwisko) = '" + (search.ToLower().Trim()) + "' OR LOWER (pesel) = '" + (search.ToLower().Trim()) + "' ";
 
             try
@@ -113,11 +154,12 @@ namespace Eteczka.DB.DAO
             return WyszukaniPracownicy;
         }
 
-        public List<Pracownik> WyszukiwaczPracownikowPoTekscie(string search)
+        public List<Pracownik> WyszukiwaczPracownikowPoTekscie(string search, int limit = 100, string orderby = "nazwisko", bool asc = true)
         {
             List<Pracownik> WyszukaniPracownicyPoTekscie = new List<Pracownik>();
-            
-            string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE  LOWER (imie) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (nazwisko) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (pesel) LIKE '%" + (search.ToLower().Trim()) + "%' ";
+            string orderDirection = asc ? " ASC " : " DESC ";
+
+            string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE  LOWER (imie) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (nazwisko) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (pesel) LIKE '%" + (search.ToLower().Trim()) + "%' ORDER BY " + orderby + orderDirection + "LIMIT " + limit;
 
             try
             {
@@ -138,16 +180,32 @@ namespace Eteczka.DB.DAO
             return WyszukaniPracownicyPoTekscie;
         }
 
-public int PoliczPracownikowWBazie()
+        public int PoliczPracownikowWBazie()
         {
             int result = 0;
             string sqlQuery = "SELECT COUNT(*) FROM \"KatPracownicy\";";
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
             DataTable count = connectionState.ExecuteQuery(sqlQuery);
-            if(count != null && count.Rows != null && count.Rows.Count > 0) {
+            if (count != null && count.Rows != null && count.Rows.Count > 0)
+            {
                 result = int.Parse(count.Rows[0][0].ToString());
             }
-            
+
+            return result;
+        }
+
+        private string AddLimitOffsetStatement(string limit, string offset)
+        {
+            string result = "";
+            if (limit == "*")
+            {
+                result = "";
+            }
+            else
+            {
+                result = "LIMIT " + limit + " OFFSET " + offset;
+            }
+
             return result;
         }
     }

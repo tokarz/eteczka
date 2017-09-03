@@ -27,7 +27,37 @@ namespace Eteczka.BE.Services
 
         public List<PracownikDTO> PobierzWszystkich()
         {
-            List<Pracownik> pracownicy = _PracownikDao.PobierzPracownikow();
+            List<Pracownik> pracownicy = _PracownikDao.PobierzPracownikow("*");
+
+            List<PracownikDTO> result = new List<PracownikDTO>();
+            foreach (Pracownik pracownik in pracownicy)
+            {
+                PracownikDTO maciek = _PracownikDtoMapper.mapuj(pracownik);
+
+                result.Add(maciek);
+
+            }
+            return result;
+        }
+
+        public List<PracownikDTO> PobierzWszystkichZatrudnionych()
+        {
+            List<Pracownik> pracownicy = _PracownikDao.PobierzZatrudnionychPracownikow();
+
+            List<PracownikDTO> result = new List<PracownikDTO>();
+            foreach (Pracownik pracownik in pracownicy)
+            {
+                PracownikDTO maciek = _PracownikDtoMapper.mapuj(pracownik);
+
+                result.Add(maciek);
+
+            }
+            return result;
+        }
+
+        public List<PracownikDTO> PobierzPozostalych()
+        {
+            List<Pracownik> pracownicy = _PracownikDao.PobierzPozostalychPracownikow();
 
             List<PracownikDTO> result = new List<PracownikDTO>();
             foreach (Pracownik pracownik in pracownicy)
