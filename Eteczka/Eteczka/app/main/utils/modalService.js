@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('et.utils').factory('modalService', ['$uibModal', function ($uibModal) {
+angular.module('et.utils').factory('modalServiceOld', ['$uibModal', function ($uibModal) {
     var defaultUrl = 'app/main/utils/modalTemplate/modalTemplate.html';
 
     return {
