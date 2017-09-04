@@ -57,12 +57,15 @@ namespace Eteczka.DB.DAO
             return result;
         }
 
-        public List <KatFirmy>PobierzFirmyZBazy()
+        public List <KatFirmy>PobierzFirmyZBazy(string orderBy = "firma")
+
         {
 
             List<KatFirmy> PobraneFirmy = new List<KatFirmy>();
 
-            string sqlQuery = "SELECT * FROM \"KatFirmy\";";
+
+            string sqlQuery = "SELECT * FROM \"KatFirmy\" ORDER BY " + orderBy;
+
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
             DataTable result = connectionState.ExecuteQuery(sqlQuery);
             foreach (DataRow row in result.Rows)
