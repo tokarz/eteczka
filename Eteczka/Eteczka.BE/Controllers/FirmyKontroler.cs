@@ -26,36 +26,9 @@ namespace Eteczka.BE.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult PobierzWydzialy(string firma)
-        {
+       
 
-            List<WydzialDTO> PobraneWydzialy = _firmyService.PobierzWydzialyDlaFirmy(firma);
-
-            return Json(new
-            {
-                Wydzialy = PobraneWydzialy
-            }, JsonRequestBehavior.AllowGet);
-        }
-
-        public ActionResult PobierzWszystkieRejony()
-        {
-            List<RejonDTO> PobraneRejony = _firmyService.PobierzRejony();
-
-            return Json(new
-            {
-                Rejony = PobraneRejony
-            }, JsonRequestBehavior.AllowGet);
-
-        }
-        public ActionResult PobierzRejonyDlaWybranejFirmy (string firma)
-        {
-            List<RejonDTO> PobraneRejony = _firmyService.PobierzRejonyDlaFirmy(firma);
-            return Json(new
-            {
-                Rejony = PobraneRejony
-            }, JsonRequestBehavior.AllowGet);
-
-        }
+        
     }
 }
 

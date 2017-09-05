@@ -122,9 +122,11 @@
     <Compile Include="Controllers\MiejscePracyController.cs" />
     <Compile Include="Controllers\PlikiController.cs" />
     <Compile Include="Controllers\PracownicyKontroler.cs" />
+    <Compile Include="Controllers\RejonyController.cs" />
     <Compile Include="Controllers\ResourcesController.cs" />
     <Compile Include="Controllers\StatystykiController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Controllers\WydzialyController.cs" />
     <Compile Include="DTO\AdminQuestion.cs" />
     <Compile Include="DTO\DaneWykresowe.cs" />
     <Compile Include="DTO\FirmaDTO.cs" />
@@ -174,10 +176,13 @@
     <Compile Include="Services\FirmyService.cs" />
     <Compile Include="Services\IEmailService.cs" />
     <Compile Include="Services\IFirmyService.cs" />
+    <Compile Include="Services\IWydzialyService.cs" />
     <Compile Include="Services\MiejscePracyService.cs" />
     <Compile Include="Services\IMiejscePracyService.cs" />
     <Compile Include="Services\ImportService.cs" />
     <Compile Include="Services\IImportService.cs" />
+    <Compile Include="Services\IRejonyService.cs" />
+    <Compile Include="Services\RejonyService.cs" />
     <Compile Include="Services\StatystykiService.cs" />
     <Compile Include="Services\IStatystykiService.cs" />
     <Compile Include="Services\PlikiService.cs" />
@@ -192,6 +197,7 @@
     <Compile Include="Enums\FileType.cs" />
     <Compile Include="Handlers\FileResourcesHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\WydzialyService.cs" />
     <Compile Include="Utils\ExcelKatDok.cs" />
     <Compile Include="Utils\ExcelKatDokPola.cs" />
     <Compile Include="Mappers\PracownikDtoMapper.cs" />
