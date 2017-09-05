@@ -11,5 +11,7 @@ namespace Eteczka.BE.Services
     {
         List <FirmaDTO> PobierzWszystkie();
         List<WydzialDTO> PobierzWydzialyDlaFirmy(string firma);
+        List<RejonDTO> PobierzRejony();
+        List<RejonDTO> PobierzRejonyDlaFirmy(string firma);
     }
 }

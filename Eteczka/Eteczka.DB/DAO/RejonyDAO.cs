@@ -6,16 +6,20 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Eteczka.DB.Mappers;
+
 
 namespace Eteczka.DB.DAO
 {
     public class RejonyDAO
     {
         private IDbConnectionFactory _ConnectionFactory;
+        private IRejonMapper _RejonMapper;
 
-        public RejonyDAO(IDbConnectionFactory factory)
+        public RejonyDAO(IDbConnectionFactory factory, IRejonMapper RejonMapper)
         {
             this._ConnectionFactory = factory;
+            this._RejonMapper = RejonMapper;
         }
 
         public bool ImportujRejony(List<KatRejony> rejony)
@@ -50,6 +54,42 @@ namespace Eteczka.DB.DAO
             }
 
             return result;
+
         }
+
+        public List<KatRejony> PobieraczRejonow()
+        {
+            List<KatRejony> PobraneRejony = new List<KatRejony>();
+            string sqlQuery = "SELECT * FROM \"KatRejony\" ORDER BY nazwa"; 
+
+        IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
+        DataTable result = connectionState.ExecuteQuery(sqlQuery);
+            foreach (DataRow row in result.Rows)
+            {
+                KatRejony pobranyRejon = _RejonMapper.MapujZSql(row);
+                PobraneRejony.Add(pobranyRejon);
+            }
+            return PobraneRejony;
+        }
+        public List<KatRejony> PobieraczRejonowDlaFirmy (string firma)
+        {
+            List<KatRejony> PobraneRejony = new List<KatRejony>();
+            string sqlQuery = "SELECT * FROM \"KatRejony\" where LOWER(firma) = '"+ (firma.ToLower().Trim()) +"' ORDER BY nazwa";
+
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
+            DataTable result = connectionState.ExecuteQuery(sqlQuery);
+            foreach (DataRow row in result.Rows)
+            {
+                KatRejony pobranyRejon = _RejonMapper.MapujZSql(row);
+                PobraneRejony.Add(pobranyRejon);
+            }
+            return PobraneRejony;
+
+        }
+
     }
+
+
+
 }
+

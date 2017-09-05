@@ -14,14 +14,18 @@ namespace Eteczka.BE.Services
     {
         private FirmyDAO _Dao;
         private KatWydzialDAO _WydzialDao;
+        private RejonyDAO _RejonDao;
+        private RejonDtoMapper _RejonDtoMapper;
         private ImapowalnyDoFirmaDto _Mapper;
         private IMapowalnyDoWydzialDto _WydzialMapper;
-        public FirmyService (ImapowalnyDoFirmaDto mapper, FirmyDAO firmaDAO, IMapowalnyDoWydzialDto wydzialMapper, KatWydzialDAO wydzialDao)
+        public FirmyService (ImapowalnyDoFirmaDto mapper, FirmyDAO firmaDAO, IMapowalnyDoWydzialDto wydzialMapper, KatWydzialDAO wydzialDao, RejonyDAO RejonDao, RejonDtoMapper RejonDtoMapper)
         {
             this._Mapper = mapper;
             this._Dao = firmaDAO;
             this._WydzialMapper = wydzialMapper;
             this._WydzialDao = wydzialDao;
+            this._RejonDao = RejonDao;
+            this._RejonDtoMapper = RejonDtoMapper;
         }
 
         public List<FirmaDTO> PobierzWszystkie()
@@ -48,6 +52,31 @@ namespace Eteczka.BE.Services
                 WydzialyDTO.Add(wydzialDTO);
             }
             return WydzialyDTO;
+        }
+
+        public List<RejonDTO> PobierzRejony()
+        {
+            List<RejonDTO> PobraneRejonyDto = new  List<RejonDTO>();
+            List<KatRejony> PobraneRejony = _RejonDao.PobieraczRejonow();
+            foreach (KatRejony pobranyRejon in PobraneRejony)
+            {
+                RejonDTO pobranyRejonDto = _RejonDtoMapper.mapuj(pobranyRejon);
+                PobraneRejonyDto.Add(pobranyRejonDto);
+
+            }
+            return PobraneRejonyDto;
+        }
+        public List<RejonDTO> PobierzRejonyDlaFirmy(string firma)
+        {
+            List<RejonDTO> PobraneRejonyDTO = new List<RejonDTO>();
+            List<KatRejony> PobraneRejony = _RejonDao.PobieraczRejonowDlaFirmy(firma);
+            foreach (KatRejony pobranyRejon in PobraneRejony)
+            {
+                RejonDTO pobranyRejonDto = _RejonDtoMapper.mapuj(pobranyRejon);
+                PobraneRejonyDTO.Add(pobranyRejonDto);
+            }
+            return PobraneRejonyDTO;
+
         }
     }
 }
