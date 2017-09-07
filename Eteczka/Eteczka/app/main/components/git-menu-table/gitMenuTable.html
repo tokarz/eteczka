@@ -1,0 +1,35 @@
+﻿<div class="menu-table-wrapper">
+    <div class="add-button-wrapper">
+        <button ng-click="stageFile">Dodaj Plik</button>
+    </div>
+    <div class="toolbar-content">
+        <input class="table-search" type="search" ng-model="search" />
+        <table>
+            <tbody>
+                <tr ng-if="loading" style="text-align:center">
+                    <td style="display:block;width:90%;margin:auto">
+                        <processing></processing>
+                    </td>
+                </tr>
+                <tr ng-if="!loading" ng-repeat="row in newrows">
+                    <td>{{row.Nazwa}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="toolbar file-transfer-toolbar"></div>
+    <div class="staged-files-wrapper">
+        <table>
+            <tbody>
+                <tr ng-if="loading" style="text-align:center">
+                    <td style="display:block;width:90%;margin:auto">
+                        <processing></processing>
+                    </td>
+                </tr>
+                <tr ng-if="!loading" ng-repeat="row in stagedrows">
+                    <td>{{row.Nazwa}} </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

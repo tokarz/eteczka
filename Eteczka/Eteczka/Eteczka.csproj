@@ -272,6 +272,9 @@
     <Content Include="app\main\components\menu-content\menuContentDirective.js" />
     <Content Include="app\main\components\menu-content\menuContentService.js" />
     <Content Include="app\main\components\menu-content\menuContentView.html" />
+    <Content Include="app\main\components\git-menu-table\gitMenuTable.html" />
+    <Content Include="app\main\components\git-menu-table\gitMenuTableController.js" />
+    <Content Include="app\main\components\git-menu-table\gitMenuTableDirective.js" />
     <Content Include="app\main\components\menu-table\menuTable.html" />
     <Content Include="app\main\components\menu-table\menuTableController.js" />
     <Content Include="app\main\components\menu-table\menuTableDirective.js" />
