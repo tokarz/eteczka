@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Eteczka.DB.Entities
+namespace Eteczka.BE.DTO
 {
-    public class KatRejony
+    public class RejonDTO
     {
-        //PRIMARY KEY (firma, rejon)
         public string Rejon { get; set; }
         public string Nazwa { get; set; }
         public string Idoper { get; set; }

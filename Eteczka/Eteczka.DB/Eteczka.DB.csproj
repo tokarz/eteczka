@@ -160,11 +160,13 @@
     <Compile Include="Mappers\IFirmyMapper.cs" />
     <Compile Include="Mappers\IKatWydzialMapper.cs" />
     <Compile Include="Mappers\IPlikiMapper.cs" />
+    <Compile Include="Mappers\IRejonMapper.cs" />
     <Compile Include="Mappers\KatWydzialMapper.cs" />
     <Compile Include="Mappers\MiejscePracyMapper.cs" />
     <Compile Include="Mappers\PracownikMapper.cs" />
     <Compile Include="Mappers\IPracownikMapper.cs" />
     <Compile Include="Mappers\PlikiMapper.cs" />
+    <Compile Include="Mappers\RejonMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

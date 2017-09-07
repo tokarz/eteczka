@@ -5,11 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Eteczka.BE.DTO;
 
+
 namespace Eteczka.BE.Services
 {
-    public interface IFirmyService
+    public interface IRejonyService
     {
-        List <FirmaDTO> PobierzWszystkie();
-        
+        List<RejonDTO> PobierzRejony();
+        List<RejonDTO> PobierzRejonyDlaFirmy(string firma);
     }
 }

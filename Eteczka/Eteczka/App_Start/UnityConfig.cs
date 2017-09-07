@@ -50,6 +50,10 @@ namespace Eteczka
             container.RegisterType<IFirmyService, FirmyService>();
             container.RegisterType<IKatWydzialMapper, KatWydzialMapper>();
             container.RegisterType<IMapowalnyDoWydzialDto, MapowalnyDoWydzialDto>();
+            container.RegisterType<IRejonMapper, RejonMapper>();
+            container.RegisterType<IRejonDtoMapper, RejonDtoMapper>();
+            container.RegisterType<IRejonyService, RejonyService>();
+            container.RegisterType<IWydzialyService, WydzialyService>();
 
 
 

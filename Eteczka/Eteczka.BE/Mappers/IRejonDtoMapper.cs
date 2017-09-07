@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Eteczka.DB.Entities;
 using Eteczka.BE.DTO;
 
-namespace Eteczka.BE.Services
+namespace Eteczka.BE.Mappers
 {
-    public interface IFirmyService
+    public interface IRejonDtoMapper
     {
-        List <FirmaDTO> PobierzWszystkie();
-        
+        RejonDTO mapuj(KatRejony zrodlo);
     }
 }

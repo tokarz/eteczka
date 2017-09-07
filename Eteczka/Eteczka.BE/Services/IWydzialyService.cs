@@ -7,9 +7,9 @@ using Eteczka.BE.DTO;
 
 namespace Eteczka.BE.Services
 {
-    public interface IFirmyService
+    public interface IWydzialyService
     {
-        List <FirmaDTO> PobierzWszystkie();
-        
+        List<WydzialDTO> PobierzWydzialyDlaFirmy(string firma);
+
     }
 }

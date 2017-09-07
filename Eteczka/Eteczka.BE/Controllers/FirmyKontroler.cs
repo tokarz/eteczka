@@ -26,16 +26,9 @@ namespace Eteczka.BE.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult PobierzWydzialy(string firma)
-        {
+       
 
-            List<WydzialDTO> PobraneWydzialy = _firmyService.PobierzWydzialyDlaFirmy(firma);
-
-            return Json(new
-            {
-                Wydzialy = PobraneWydzialy
-            }, JsonRequestBehavior.AllowGet);
-        }
+        
     }
 }
 

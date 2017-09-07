@@ -120,7 +120,7 @@ namespace Eteczka.DB.DAO
 
             catch (Exception ex)
             {
-
+                //logi
             }
 
 
@@ -148,7 +148,7 @@ namespace Eteczka.DB.DAO
             }
             catch (Exception ex)
             {
-
+             // logi
             }
 
             return WyszukaniPracownicy;
@@ -159,8 +159,8 @@ namespace Eteczka.DB.DAO
             List<Pracownik> WyszukaniPracownicyPoTekscie = new List<Pracownik>();
             string orderDirection = asc ? " ASC " : " DESC ";
 
-            string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE  LOWER (imie) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (nazwisko) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (pesel) LIKE '%" + (search.ToLower().Trim()) + "%' ORDER BY " + orderby + orderDirection + "LIMIT " + limit;
-
+            //string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE  LOWER (imie) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (nazwisko) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (pesel) LIKE '%" + (search.ToLower().Trim()) + "%' ORDER BY " + orderby + orderDirection + "LIMIT " + limit;
+            string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE  LOWER (nazwisko) || ' ' || LOWER (imie) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (pesel) LIKE '%" + (search.ToLower().Trim()) + "%' ORDER BY " + orderby + orderDirection + "LIMIT " + limit;
             try
             {
                 IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
@@ -174,7 +174,7 @@ namespace Eteczka.DB.DAO
             }
             catch (Exception ex)
             {
-
+                //logi
             }
 
             return WyszukaniPracownicyPoTekscie;
