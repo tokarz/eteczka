@@ -125,7 +125,7 @@
     <Compile Include="Controllers\RejonyController.cs" />
     <Compile Include="Controllers\ResourcesController.cs" />
     <Compile Include="Controllers\StatystykiController.cs" />
-    <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Controllers\KatLoginyController.cs" />
     <Compile Include="Controllers\WydzialyController.cs" />
     <Compile Include="DTO\AdminQuestion.cs" />
     <Compile Include="DTO\DaneWykresowe.cs" />
@@ -137,8 +137,6 @@
     <Compile Include="DTO\PlikiDTO.cs" />
     <Compile Include="DTO\PlikJrwaDTO.cs" />
     <Compile Include="DTO\RejonDTO.cs" />
-    <Compile Include="DTO\Uprawnienia.cs" />
-    <Compile Include="DTO\UserDto.cs" />
     <Compile Include="DTO\WydzialDTO.cs" />
     <Compile Include="Enums\TypWykresu.cs" />
     <Compile Include="Exceptions\WyjatekSesjaIstnieje.cs" />
@@ -187,8 +185,8 @@
     <Compile Include="Services\IStatystykiService.cs" />
     <Compile Include="Services\PlikiService.cs" />
     <Compile Include="Services\IPlikiService.cs" />
-    <Compile Include="Services\UsersService.cs" />
-    <Compile Include="Services\IUsersService.cs" />
+    <Compile Include="Services\KatLoginyService.cs" />
+    <Compile Include="Services\IKatLoginyService.cs" />
     <Compile Include="Services\PracownicyService.cs" />
     <Compile Include="Services\IPracownicyService.cs" />
     <Compile Include="Controllers\SesjaKontroler.cs" />

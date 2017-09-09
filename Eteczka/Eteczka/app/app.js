@@ -59,6 +59,12 @@ app.config(function ($stateProvider) {
         template: '<employees-view></employees-view>'
     };
 
+    var employeesFilesState = {
+        url: '/employeesfiles',
+        name: 'employeesfiles',
+        template: '<employees-files-view></employees-files-view>'
+    };
+
     var addUsersState = {
         url: '/addUsers',
         name: 'addUsers',
@@ -81,6 +87,7 @@ app.config(function ($stateProvider) {
     $stateProvider.state(optionsState);
     $stateProvider.state(filesState);
     $stateProvider.state(employeesState);
+    $stateProvider.state(employeesFilesState);
     $stateProvider.state(addUsersState);
     $stateProvider.state(processingState);
     $stateProvider.state(settingsState);

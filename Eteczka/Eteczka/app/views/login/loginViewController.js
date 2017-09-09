@@ -13,10 +13,10 @@ angular.module('et.controllers').controller('loginViewController', ['$rootScope'
             if (result && result.success) {
                 sessionService.createSession().then(function (sessionId) {
                     $rootScope.SESSIONID = sessionId;
-                    $scope.fetchedUser = result.user;
+                    $scope.fetchedUser = result.userdetails;
 
-
-                    if ($scope.fetchedUser && $scope.fetchedUser.isAdmin) {
+                    if (result.isadmin) {
+                        $rootScope.$broadcast('USER_LOGGED_IN_EV', $scope.fetchedUser);
                         $state.go('admin');
                     } else {
                         $rootScope.$broadcast('USER_LOGGED_IN_EV', $scope.fetchedUser);

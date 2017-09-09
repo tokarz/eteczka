@@ -1,46 +1,49 @@
 ﻿<div id="header">
-    <div style="height:100%;display:inline-block">
+    <div style="height:100%;display:inline-block;float:left">
         <img src="Content/img/logo_eAD.png" class="header-logo" ng-click="goHome()" />
-        <span style="height:20px;width:280px;color:white;display:block" ng-if="menuEmployeesVisible">
-            <span ng-class="smallOption.className" style="margin-left:48px;font-size:25px"></span>
-            <span>{{smallOption.label}}</span>
+        <span class="employees-small-options" ng-if="menuEmployeesVisible">
+            <span ng-repeat="smallOption in smallOptions" class="small-option">
+                <span style="height:100%;width:100%" ng-click="smallOption.action()" ng-class="isSmallOptionActive(smallOption)">
+                    <span ng-class="smallOption.className"></span>
+                    <span>{{smallOption.label}}</span>
+                </span>
+            </span>
         </span>
     </div>
+    <div class="menu-buttons-wrapper" ng-if="menusVisible">
 
-    <div style="width:900px;height:100%;float:right">
-        <div class="menu-buttons-wrapper" ng-if="menusVisible">
+        <ul class="menu-wrapper">
+            <li class="top-menu-button" ng-click="navigateTo('employees')" ng-class="isActive('employees')">
+                <span class="menu-icon-group">
+                    <i class="menu-icon fa fa-user-o"></i>
+                    <i class="menu-icon fa fa-user-o"></i>
+                    <i class="menu-icon fa fa-user-o"></i>
+                </span>
+                <span class="menu-button-text">Pracownicy</span>
 
-            <ul class="menu-wrapper">
-                <li class="top-menu-button" ng-click="navigateTo('employees')" ng-class="isActive('employees')">
-                    <span class="menu-icon-group">
-                        <i class="menu-icon fa fa-user-o"></i>
-                        <i class="menu-icon fa fa-user-o"></i>
-                        <i class="menu-icon fa fa-user-o"></i>
-                    </span>
-                    <span class="menu-button-text">Pracownicy</span>
+            </li>
+            <li class="top-menu-button" ng-click="navigateTo('files')" ng-class="isActive('files')">
+                <span class="menu-icon-group">
+                    <i class="menu-icon fa fa-folder-open-o"></i>
+                </span>
+                <span class="menu-button-text">Dokumenty</span>
+            </li>
+            <li class="top-menu-button" ng-click="navigateTo('raports')" ng-class="isActive('raports')">
+                <span class="menu-icon-group">
+                    <i class="menu-icon fa fa-bar-chart"></i>
+                </span>
+                <span class="menu-button-text">Raporty</span>
 
-                </li>
-                <li class="top-menu-button" ng-click="navigateTo('files')" ng-class="isActive('files')">
-                    <span class="menu-icon-group">
-                        <i class="menu-icon fa fa-folder-open-o"></i>
-                    </span>
-                    <span class="menu-button-text">Dokumenty</span>
-                </li>
-                <li class="top-menu-button" ng-click="navigateTo('raports')" ng-class="isActive('raports')">
-                    <span class="menu-icon-group">
-                        <i class="menu-icon fa fa-bar-chart"></i>
-                    </span>
-                    <span class="menu-button-text">Raporty</span>
-
-                </li>
-                <li class="top-menu-button" ng-click="navigateTo('admin')" ng-class="isActive('admin')">
-                    <span class="menu-icon-group">
-                        <i class="menu-icon fa fa-cogs"></i>
-                    </span>
-                    <span class="menu-button-text">Administracja</span>
-                </li>
-            </ul>
-        </div>
+            </li>
+            <!--<li class="top-menu-button" ng-click="navigateTo('admin')" ng-class="isActive('admin')">
+                <span class="menu-icon-group">
+                    <i class="menu-icon fa fa-cogs"></i>
+                </span>
+                <span class="menu-button-text">Administracja</span>
+            </li>-->
+        </ul>
+    </div>
+    <div style="width:500px;height:100%;float:right">
         <div class="menu-pane-wrapper" ng-if="userLoggedIn">
             <user-menu loginstatus="loginStatus" useroptions="userOptions"></user-menu>
         </div>

@@ -6,16 +6,19 @@ using System.Threading.Tasks;
 using Eteczka.DB.Connection;
 using Eteczka.DB.Entities;
 using System.Data;
+using Eteczka.DB.Mappers;
 
 namespace Eteczka.DB.DAO
 {
     public class KatLoginDAO
     {
         private IDbConnectionFactory _ConnectionFactory;
+        private IKatLoginyMapper _KatLoginyMapper;
 
-        public KatLoginDAO(IDbConnectionFactory factory)
+        public KatLoginDAO(IDbConnectionFactory factory, IKatLoginyMapper mapper)
         {
             this._ConnectionFactory = factory;
+            this._KatLoginyMapper = mapper;
         }
 
         public KatLoginy WczytajPracownikaPoNazwieIHasle(string username, string password)
@@ -23,36 +26,24 @@ namespace Eteczka.DB.DAO
             //SQL Injection Threat!
             string sqlQuery = "SELECT * from \"KatLoginy\" WHERE identyfikator = '" + username + "' and haslolong = '" + password + "';";
 
-            KatLoginy fetchedResult = new KatLoginy();
 
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
             DataTable queryResult = connectionState.ExecuteQuery(sqlQuery);
-            if (queryResult != null && queryResult.Rows.Count == 1)
-            {
-                DataRow row = queryResult.Rows[0];
+            KatLoginy fetchedResult = this._KatLoginyMapper.Map(queryResult);
+            
 
-                fetchedResult.Id = long.Parse(row[0].ToString());
-                fetchedResult.Identyfikator = row[1].ToString();
-                fetchedResult.Nazwisko = row[2].ToString();
-                fetchedResult.Imie = row[3].ToString();
-                fetchedResult.Hasloshort = "(Not_Needed_Here)";
-                fetchedResult.Haslolong = "(Authenticated!)";
+            return fetchedResult;
+        }
 
-                fetchedResult.Rolareadonly = bool.Parse(row[6].ToString());
-                fetchedResult.Rolaaddpracownik = bool.Parse(row[7].ToString());
-                fetchedResult.Rolamodifypracownik = bool.Parse(row[8].ToString());
-                fetchedResult.Rolaaddfile = bool.Parse(row[9].ToString());
-                fetchedResult.Rolamodifyfile = bool.Parse(row[10].ToString());
-                fetchedResult.Rolaslowniki = bool.Parse(row[11].ToString());
-                fetchedResult.Rolasendmail = bool.Parse(row[12].ToString());
-                fetchedResult.Rolaraport = bool.Parse(row[13].ToString());
-                fetchedResult.Rolaraportexport = bool.Parse(row[14].ToString());
-                fetchedResult.Roladoubleakcept = bool.Parse(row[15].ToString());
+        public KatLoginyDetale WczytajDetaleDlaUzytkownika(string id)
+        {
+            string sqlQuery = "SELECT * from \"KatLoginyDetale\" WHERE identyfikator = '" + id + "';";
 
-                fetchedResult.Datamodify = DateTime.Parse(row[16].ToString());
-                fetchedResult.FirmaSymbol = row[17].ToString();
-                fetchedResult.isAdmin = bool.Parse(row[18].ToString());
-            }
+
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
+            DataTable queryResult = connectionState.ExecuteQuery(sqlQuery);
+            KatLoginyDetale fetchedResult = this._KatLoginyMapper.MapDetails(queryResult);
+
 
             return fetchedResult;
         }

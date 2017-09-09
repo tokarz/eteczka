@@ -143,6 +143,7 @@
     <Compile Include="DAO\UserDAO.cs" />
     <Compile Include="DTO\MiejscePracyDlaPracownikaDto.cs" />
     <Compile Include="Entities\KatDokumentyRodzaj.cs" />
+    <Compile Include="Entities\KatLoginyDetale.cs" />
     <Compile Include="Entities\KatWydzialy.cs" />
     <Compile Include="Entities\KatFirmy.cs" />
     <Compile Include="Entities\KatJrwa.cs" />
@@ -155,12 +156,17 @@
     <Compile Include="Entities\MiejscePracy.cs" />
     <Compile Include="Entities\Pliki.cs" />
     <Compile Include="Entities\Pracownik.cs" />
+    <Compile Include="Entities\Uprawnienia.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Mappers\FirmyMapper.cs" />
     <Compile Include="Mappers\IFirmyMapper.cs" />
+    <Compile Include="Mappers\IKatLoginyMapper.cs" />
     <Compile Include="Mappers\IKatWydzialMapper.cs" />
     <Compile Include="Mappers\IPlikiMapper.cs" />
     <Compile Include="Mappers\IRejonMapper.cs" />
+    <Compile Include="Mappers\UprawnieniaMapper.cs" />
+    <Compile Include="Mappers\IUprawnieniaMapper.cs" />
+    <Compile Include="Mappers\KatLoginyMapper.cs" />
     <Compile Include="Mappers\KatWydzialMapper.cs" />
     <Compile Include="Mappers\MiejscePracyMapper.cs" />
     <Compile Include="Mappers\PracownikMapper.cs" />

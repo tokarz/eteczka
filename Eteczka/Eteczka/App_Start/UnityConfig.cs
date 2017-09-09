@@ -39,7 +39,7 @@ namespace Eteczka
         public static void RegisterTypes(IUnityContainer container)
         {
             //container.RegisterType<IMessageDecoderExtensionsPoint, MessageDecoderExtensionsPoint>();
-            container.RegisterType<IUsersService, UsersService>();
+            container.RegisterType<IKatLoginyService, KatLoginyService>();
             container.RegisterType<IDbConnectionFactory, DbConnectionFactory>();
             container.RegisterType<IPlikiService, PlikiService>();
             container.RegisterType<IImportService, ImportService>();
@@ -61,6 +61,9 @@ namespace Eteczka
             container.RegisterType<IPlikiMapper, PlikiMapper>();
             container.RegisterType<IPracownikMapper, PracownikMapper>();
             container.RegisterType<IFirmyMapper, FirmyMapper>();
+            container.RegisterType<IKatLoginyMapper, KatLoginyMapper>();
+            container.RegisterType<IUprawnieniaMapper, UprawnieniaMapper>();
+            
 
             container.RegisterType<IJsonToKatFirmyMapper, JsonToKatFirmyMapper>();
             container.RegisterType<IJsonToKatLokalMapper, JsonToKatLokalMapper>();

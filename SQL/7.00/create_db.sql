@@ -269,14 +269,11 @@ COMMENT ON COLUMN public."KatKonta5".kontoskr IS 'SkrÃ³t konta';
 CREATE TABLE public."KatLoginy"
 (
   identyfikator character(30) NOT NULL, -- Identyfikator - login
-  nazwisko character(40), -- Nazwisko u¿ytkownika
-  imie character(20), -- Imiê u¿ytkownika
   hasloshort character(50), -- Has³o krótkie
   haslolong character(50), -- Has³o do logowania
   datamodify time without time zone,
   isadmin boolean,
   usuniety boolean,
-  pocztaemail character(30), -- E-mail u¿ytkownika na wszelki wypadek
   CONSTRAINT "KatLoginy_pkey" PRIMARY KEY (identyfikator)
 )
 WITH (
@@ -287,11 +284,9 @@ ALTER TABLE public."KatLoginy"
 COMMENT ON TABLE public."KatLoginy"
   IS 'Katalog uÃ‚Å¼ytkownikÄ‚Å‚w systemu';
 COMMENT ON COLUMN public."KatLoginy".identyfikator IS 'Identyfikator - login';
-COMMENT ON COLUMN public."KatLoginy".nazwisko IS 'Nazwisko u¿ytkownika';
-COMMENT ON COLUMN public."KatLoginy".imie IS 'Imiê u¿ytkownika';
 COMMENT ON COLUMN public."KatLoginy".hasloshort IS 'Has³o krótkie';
 COMMENT ON COLUMN public."KatLoginy".haslolong IS 'Has³o do logowania';
-COMMENT ON COLUMN public."KatLoginy".pocztaemail IS 'E-mail u¿ytkownika na wszelki wypadek';
+
 
 
 -- Table: public."KatLoginyDetale"
@@ -301,7 +296,10 @@ COMMENT ON COLUMN public."KatLoginy".pocztaemail IS 'E-mail u¿ytkownika na wszel
 CREATE TABLE public."KatLoginyDetale"
 (
   identyfikator character(30) NOT NULL,
+  nazwisko character(40), -- Nazwisko u¿ytkownika
+  imie character(20), -- Imiê u¿ytkownika
   firma character(20) NOT NULL,
+  pocztaemail character(30), -- E-mail u¿ytkownika na wszelki wypadek
   rolareadonly boolean,
   rolaaddpracownik boolean,
   rolamodifypracownik boolean,
@@ -325,6 +323,7 @@ ALTER TABLE public."KatLoginyDetale"
   OWNER TO postgres;
 COMMENT ON COLUMN public."KatLoginyDetale".confidential IS 'Poziom poufnoœci';
 COMMENT ON COLUMN public."KatLoginyDetale".kodkierownik IS 'Kod kierownikado  któego jest przypisanypracownik';
+COMMENT ON COLUMN public."KatLoginyDetale".pocztaemail IS 'E-mail u¿ytkownika na wszelki wypadek';
 
 -- Table: public."KatDokumentyRodzaj"
 
@@ -577,87 +576,87 @@ COMMENT ON COLUMN public."SerwerSmtp".smtpport IS 'Numer portu';
 -- INSERT STATEMENTS
 
 INSERT INTO "KatLoginy"(
-            identyfikator, nazwisko, imie, hasloshort, haslolong, 
-            datamodify, isadmin, usuniety, pocztaemail)
-    VALUES ('Administrator', 'Krzysztof', 'Jarzyna', 'admin', 'adminadmin', 
-            '2017-05-02 13:44:00', true, false, 'poczta@poczta.pl');
+            identyfikator, hasloshort, haslolong,
+            datamodify, isadmin, usuniety)
+    VALUES ('Administrator', 'admin', 'adminadmin',
+            '2017-05-02 13:44:00', true, false);
 
 INSERT INTO "KatLoginy"(
-            identyfikator, nazwisko, imie, hasloshort, haslolong, 
-            datamodify, isadmin, usuniety, pocztaemail)
-    VALUES ('Z.Tokarz', 'Zbigniew', 'Tokarz', 'ksglmp', 'ksglmpksglmp', 
-            '2017-05-02 13:44:00', true, false, 'poczta@poczta.pl');
+            identyfikator,  hasloshort, haslolong,
+            datamodify, isadmin, usuniety)
+    VALUES ('Z.Tokarz', 'ksglmp', 'ksglmpksglmp',
+            '2017-05-02 13:44:00', false, false);
 
 INSERT INTO "KatLoginy"(
-            identyfikator, nazwisko, imie, hasloshort, haslolong, 
-            datamodify, isadmin, usuniety, pocztaemail)
-    VALUES ('M.Tokarz', 'Maciej', 'Tokarz', 'haslo', 'haslohaslo', 
-            '2017-05-02 13:44:00', true, false, 'poczta@poczta.pl');
+            identyfikator,  hasloshort, haslolong,
+            datamodify, isadmin, usuniety)
+    VALUES ('M.Tokarz', 'haslo', 'haslohaslo',
+            '2017-05-02 13:44:00', false, false);
 
 INSERT INTO "KatLoginy"(
-            identyfikator, nazwisko, imie, hasloshort, haslolong, 
-            datamodify, isadmin, usuniety, pocztaemail)
-    VALUES ('A.Tokarz', 'Aleksandra', 'Tokarz', 'haslo', 'haslohaslo', 
-            '2017-05-02 13:44:00', true, false, 'poczta@poczta.pl');
+            identyfikator, hasloshort, haslolong,
+            datamodify, isadmin, usuniety)
+    VALUES ('A.Tokarz', 'haslo', 'haslohaslo',
+            '2017-05-02 13:44:00', false, false);
 
 INSERT INTO "KatLoginy"(
-            identyfikator, nazwisko, imie, hasloshort, haslolong, 
-            datamodify, isadmin, usuniety, pocztaemail)
-    VALUES ('M.Skalacki', 'Michal', 'Skalacki', 'haslo', 'haslohaslo', 
-            '2017-05-02 13:44:00', true, false, 'poczta@poczta.pl'); 
+            identyfikator, hasloshort, haslolong,
+            datamodify, isadmin, usuniety)
+    VALUES ('M.Skalacki', 'haslo', 'haslohaslo',
+            '2017-05-02 13:44:00', false, false);
 
 
 ---KatLoginyDetale
 
 
 INSERT INTO "KatLoginyDetale"(
-            identyfikator, firma, rolareadonly,
+            identyfikator, nazwisko, imie, firma, pocztaemail, rolareadonly,
             rolaaddpracownik, rolamodifypracownik, rolaaddfile, rolamodifyfile,
             rolaslowniki, rolasendmail, rolaraport, rolaraportexport, roladoubleakcept,
             datamodify,  usuniety, confidential, kodkierownik)
-    VALUES ('Administrator', 'AFM', 
+    VALUES ('Administrator', 'Jarzyna', 'Krzysztof', 'AFM', 'poczta@poczta.pl',
             false, false, false, false, false,
             false, false, false, false, false,
             '2017-05-02 13:44:00',  false, 0, '');
 
 
 INSERT INTO "KatLoginyDetale"(
-            identyfikator, firma, rolareadonly,
+            identyfikator,nazwisko, imie, firma, pocztaemail,rolareadonly,
             rolaaddpracownik, rolamodifypracownik, rolaaddfile, rolamodifyfile,
             rolaslowniki, rolasendmail, rolaraport, rolaraportexport, roladoubleakcept,
             datamodify,  usuniety, confidential, kodkierownik)
-    VALUES ('Z.Tokarz', 'AFM', 
+    VALUES ('Z.Tokarz', 'Tokarz', 'Zbigniew', 'AFM', 'poczta@poczta.pl',
             false, false, false, false, false,
             false, false, false, false, false,
             '2017-05-02 13:44:00',  false, 0, '');
 
 
 INSERT INTO "KatLoginyDetale"(
-            identyfikator, firma, rolareadonly,
+            identyfikator,nazwisko, imie, firma, pocztaemail,rolareadonly,
             rolaaddpracownik, rolamodifypracownik, rolaaddfile, rolamodifyfile,
             rolaslowniki, rolasendmail, rolaraport, rolaraportexport, roladoubleakcept,
             datamodify,  usuniety, confidential, kodkierownik)
-    VALUES ('M.Tokarz', 'AFM', 
+    VALUES ('M.Tokarz', 'Tokarz', 'Maciej', 'AFM', 'poczta@poczta.pl',
             false, false, false, false, false,
             false, false, false, false, false,
             '2017-05-02 13:44:00',  false, 0, '');
 
 INSERT INTO "KatLoginyDetale"(
-            identyfikator, firma, rolareadonly,
+            identyfikator,nazwisko, imie, firma, pocztaemail,rolareadonly,
             rolaaddpracownik, rolamodifypracownik, rolaaddfile, rolamodifyfile,
             rolaslowniki, rolasendmail, rolaraport, rolaraportexport, roladoubleakcept,
             datamodify,  usuniety, confidential, kodkierownik)
-    VALUES ('A.Tokarz', 'AFM', 
+    VALUES ('A.Tokarz', 'Tokarz', 'Aleksandra', 'AFM', 'poczta@poczta.pl',
             false, false, false, false, false,
             false, false, false, false, false,
             '2017-05-02 13:44:00',  false, 0, '');
 
 INSERT INTO "KatLoginyDetale"(
-            identyfikator, firma, rolareadonly,
+            identyfikator,nazwisko, imie, firma, pocztaemail,rolareadonly,
             rolaaddpracownik, rolamodifypracownik, rolaaddfile, rolamodifyfile,
             rolaslowniki, rolasendmail, rolaraport, rolaraportexport, roladoubleakcept,
             datamodify,  usuniety, confidential, kodkierownik)
-    VALUES ('M.Skalacki', 'AFM', 
+    VALUES ('M.Skalacki', 'SKalacki', 'Michal','AFM', 'poczta@poczta.pl',
             false, false, false, false, false,
             false, false, false, false, false,
             '2017-05-02 13:44:00',  false, 0, '');

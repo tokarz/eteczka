@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Eteczka.BE.DTO
+namespace Eteczka.DB.Entities
 {
     public class Uprawnienia
     {

@@ -1,8 +1,36 @@
 ﻿'use strict';
 angular.module('et.controllers').controller('headerController', ['$rootScope', '$scope', '$state', 'sessionService', function ($rootScope, $scope, $state, sessionService) {
-    $scope.smallOption = {
-        className: 'fa fa-address-book-o',
-        label: 'Katalog pracownikow'
+    $scope.smallOptions = [
+        {
+            className: 'fa fa-address-book-o small-option-one',
+            label: 'Katalog pracownikow',
+            active: true,
+            action: function () {
+                $scope.activeSmallOption = $scope.smallOptions[0];
+                $scope.navigateTo('employees');
+            }
+        },
+        {
+            className: 'fa  fa-file-text-o small-option-two',
+            label: 'Teczki akt osobowych',
+            active: false,
+            action: function () {
+                $scope.activeSmallOption = $scope.smallOptions[1];
+                $scope.navigateTo('employeesfiles');
+            }
+        }
+    ];
+
+    $scope.activeSmallOption = $scope.smallOptions[0];
+
+    $scope.isSmallOptionActive = function (op) {
+        var result = '';
+
+        if (op === $scope.activeSmallOption) {
+            result = 'option-active';
+        }
+
+        return result;
     }
 
     $scope.userOptions = [
@@ -29,8 +57,8 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
     $scope.menusVisible = false;
     $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
         $scope.activeOption = toState.name;
-        $scope.menusVisible = toState.name !== 'options' && toState.name !== 'login' && toState.name !== 'processing';
-        $scope.menuEmployeesVisible = toState.name === 'employees';
+        $scope.menusVisible = toState.name !== 'options' && toState.name !== 'login' && toState.name !== 'processing' && toState.name !== 'admin';
+        $scope.menuEmployeesVisible = (toState.name === 'employees' || toState.name === 'employeesfiles');
     });
 
     $scope.isActive = function (tab) {
@@ -84,7 +112,7 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
     $rootScope.$on('USER_LOGGED_IN_EV', function (ev, user) {
         $scope.userLoggedIn = true;
         if (user) {
-            $scope.loginStatus = 'ZALOGOWANO, ' + user.Nazwa;
+            $scope.loginStatus = 'ZALOGOWANO, ' + user.Nazwisko + ' ' + user.Imie;
         }
     });
 

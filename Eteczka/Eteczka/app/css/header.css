@@ -16,15 +16,20 @@
 }
 
 .menu-pane-wrapper {
-  width: 300px;
   height: 100%;
   float: right;
 }
 
 .menu-buttons-wrapper {
-  width: 580px;
+  width: 600px;
   height: 100%;
-  float: left;
+  position: absolute;
+  left: 50%;
+  -moz-transform: translate(-50%, 0);
+  -ms-transform: translate(-50%, 0);
+  -o-transform: translate(-50%, 0);
+  -webkit-transform: translate(-50%, 0);
+  transform: translate(-50%, 0);
 }
 
 .top-menu-button {
@@ -33,7 +38,6 @@
   color: white;
   /* box-shadow: 0 0 2px 0 black; */
   display: inline-block;
-  float: left;
   margin: 35px 0;
   /* opacity: 0.8; */
   -moz-transition: width 0.2s linear, height 0.2s linear, opacity 0.2s ease-in;
@@ -163,6 +167,30 @@
   margin-right: 10px;
   font-size: 20px !important;
   color: #E3E3E3;
+}
+
+.employees-small-options {
+  height: 20px;
+  /* width: 280px; */
+  color: white;
+  display: block;
+  position: absolute;
+  bottom: 10px;
+}
+
+.small-option:hover {
+  color: #31B1DE;
+  cursor: pointer;
+}
+
+.small-option-one {
+  margin-left: 48px;
+  font-size: 25px;
+}
+
+.small-option-two {
+  margin-left: 41px;
+  font-size: 25px;
 }
 
 @media screen and (max-width: 960px) and (min-width: 720px) {
