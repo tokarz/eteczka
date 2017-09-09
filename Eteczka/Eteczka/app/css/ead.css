@@ -721,29 +721,4 @@ li {
   background: #31B1DE;
 }
 
-.modal-window {
-  position: absolute;
-  width: 800px;
-  height: 800px;
-  z-index: 500;
-  border: 5px solid black;
-  top: 50%;
-  left: 50%;
-  background: white;
-  -moz-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  -o-transform: translate(-50%, -50%);
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  display: none;
-}
-
-.modal-window.open {
-  display: block;
-  -moz-animation: 2s fadein;
-  -o-animation: 2s fadein;
-  -webkit-animation: 2s fadein;
-  animation: 2s fadein;
-}
-
 /*# sourceMappingURL=ead.css.map */

@@ -11,21 +11,46 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
         }
     });
 
-    $scope.triggerUpsertEmployeeDialog = function () {
+    var openModal = function (modalOptions, executor, user) {
+        modalService.showModal(modalOptions, user)
+            .then(function (result) { executor(result) })
+            .catch(function (error) {
+                if (error !== 'cancel' && error !== 'backdrop click') {
+                    console.log("error found!", error);
+                }
+            });
+    }
+
+    $scope.triggerAddEmployeeDialog = function () {
         var modalOptions = {
             title: 'Dodawanie nowego pracownika',
             body: 'app/views/employees/editEmployeesPopup/upsertUserModal.html'
 
         }
-        console.log('should display employee dialog')
 
-        // modalService.openModal(modalOptions, 'default-modal-body')
+        openModal(
+            modalOptions,
+            function (value) { console.log('tu bedzie wywolanie funkcji dodawania pracownika', value) }
+        )
+    }
 
-        modalService.showModal(modalOptions, $scope.elementSelected).then(function (result) {
-            // do wywyołania funkcja z serwisu pracownika - edytujPracownika
-            console.log(result)
-        }).catch(function (error) {
-            console.log("error found!");
-        });
-    } 
+    $scope.triggerEditEmployeeDialog = function () {
+        var modalOptions = {
+            title: 'Edytowanie pracownika',
+            body: 'app/views/employees/editEmployeesPopup/upsertUserModal.html'
+        }
+        var userToPass = Object.assign({}, $scope.user)
+
+        openModal(
+            modalOptions,
+            function (value) { console.log('tu bedzie wywolanie funkcji edytowania pracownika', value) },
+            userToPass
+        )
+    }
+
+    $scope.triggerDeleteEmployeePopup = function () {        var modalOptions = {            title: 'Usuwanie pracownika z bazy danych',            body: 'app/views/employees/editEmployeesPopup/deleteUserModal.html'        }        openModal(
+            modalOptions,
+            function (value) { console.log('tu bedzie wywolanie funkcji usuwania pracownika', value) },
+            $scope.user
+        )    }
 }]);

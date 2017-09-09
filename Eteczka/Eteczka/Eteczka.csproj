@@ -248,7 +248,7 @@
     <Content Include="app\css\mixins.min.css">
       <DependentUpon>mixins.css</DependentUpon>
     </Content>
-    <None Include="app\css\modal.scss" />
+    <Content Include="app\css\modal.css" />
     <Content Include="app\css\navigation.css">
       <DependentUpon>navigation.scss</DependentUpon>
     </Content>
