@@ -1,11 +1,12 @@
 ﻿<div class="component-main-wrapper">
     <div class="user-details">
-        <div class="toolbar-panel">
+        <div class="top-toolbar toolbar-panel">
             <span class="toolbar-option option-one fa fa-plus-circle" ng-click="triggerAddEmployeeDialog()"></span>
             <span class="toolbar-option option-two fa fa-pencil-square" ng-click="triggerEditEmployeeDialog()"></span>
-            <span class="toolbar-option option-three fa fa-minus-square" ng-click="triggerDeleteEmployeePopup()"></span>
+            <span class="toolbar-option option-three fa fa-trash-o" ng-click="triggerDeleteEmployeePopup()"></span>
         </div>
         <div class="user-details-list toolbar-content">
+            <h3 style="margin:auto;text-align:center">Dane Pracownika</h3>
             <div class="details-row">
                 <span class="details-label">Pesel</span>
                 <span class="details-value">{{user.PESEL}}</span>
@@ -37,14 +38,14 @@
         </div>
     </div>
     <div class="user-history">
-        <div class="toolbar-panel">
+        <div class="top-toolbar toolbar-panel">
             <span class="toolbar-option option-one fa fa-plus-circle"></span>
             <span class="toolbar-option option-two fa fa-pencil-square"></span>
-            <span class="toolbar-option option-three fa fa-minus-square"></span>
+            <span class="toolbar-option option-three fa fa-trash-o"></span>
         </div>
         <div class="toolbar-content">
-            <h3>Miejsce Pracy</h3>
-            <table style="width:100%">
+            <h3 style="margin:auto;text-align:center">Miejsce Pracy</h3>
+            <table style="width:100%;text-align:center">
                 <thead class="table-header">
                     <tr>
                         <th>Data pocz.</th>
@@ -56,7 +57,7 @@
                         <th>Konto5</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody >
                     <tr ng-repeat="workplace in workplaces">
                         <td>{{workplace.DataPoczatkowa}}</td>
                         <td>{{workplace.DataKoniec}}</td>

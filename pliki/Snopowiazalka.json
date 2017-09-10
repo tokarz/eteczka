@@ -1,0 +1,11 @@
+{file: {
+       id: 0,
+       name: 'Snopowiazalka',
+       "ext": 'pdf',
+       "type": '1',
+       "jrwa": '0013',
+       "createdate": '2011-11-11',
+       "lastchangedate" : '2012-12-12',
+       comment: 'Plik Kowalskiego nt. Szkolenia',
+       "pesel" : "20552205522"
+}}

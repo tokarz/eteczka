@@ -4,9 +4,9 @@ angular.module('et.directives').directive('menuTable', function () {
         restrict: 'E',
         scope: {
             rows: '=',
+            selectedrow: '=',
             tabs: '=',
             activetab: '=',
-            user: '=',
             search: '=',
             loading: '='
         },

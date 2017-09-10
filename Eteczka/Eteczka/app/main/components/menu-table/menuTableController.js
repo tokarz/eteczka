@@ -1,12 +1,12 @@
 ﻿'use strict';
 angular.module('et.controllers').controller('menuTableController', ['$scope', function ($scope) {
-    $scope.user = {};
+    $scope.selectedrow = {};
 
-    $scope.selectUser = function (user) {
-        if ($scope.user === user) {
-            $scope.user = {};
+    $scope.selectRow = function (user) {
+        if ($scope.selectedrow === user) {
+            $scope.selectedrow = {};
         } else {
-            $scope.user = user;
+            $scope.selectedrow = user;
         }
     }
 
@@ -25,7 +25,7 @@ angular.module('et.controllers').controller('menuTableController', ['$scope', fu
     $scope.getRowStyle = function (user) {
         var result = 'table-row';
 
-        if (user === $scope.user) {
+        if (user === $scope.selectedrow) {
             result += ' active-row';
         }
 

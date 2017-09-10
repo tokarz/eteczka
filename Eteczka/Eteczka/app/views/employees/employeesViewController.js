@@ -51,6 +51,7 @@ angular.module('et.controllers').controller('employeesViewController', ['$scope'
         });
     };
     $scope.clearedByTabChange = false;
+
     $scope.$watch('parameters.activeTab', function (val, oldVal) {
         if (val) {
             $scope.startProcessing();

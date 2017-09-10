@@ -2,6 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" ng-app="EtApp">
 <head>
     <title>EAd 2017 v0.2-092017</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge;text/html" charset="utf-8" />
     <link rel="stylesheet" href="app/css/ead.css" />
     <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css" />
     <link rel="stylesheet" href="app/css/modal.css" />
@@ -9,7 +11,7 @@
 <body ng-controller="mainController">
     <div id="rootWrapper" class="resizable">
         <header></header>
-        <div id="content" class="container-fluid" style="overflow-y:hidden">
+        <div id="content">
             <ui-view></ui-view>
         </div>
         <footer></footer>
@@ -69,6 +71,9 @@
     <script src="app/main/header/menu/menuController.js"></script>
     <script src="app/main/header/menu/menuDirective.js"></script>
 
+    <!--Widok Plokow Pracownikow-->
+    <script src="app/views/employeesfiles/employeesFilesViewDirective.js"></script>
+
     <!--Widok Pracownikow-->
     <script src="app/views/employees/employeesViewController.js"></script>
     <script src="app/views/employees/employeesViewDirective.js"></script>
@@ -98,6 +103,11 @@
     <script src="app/main/components/menu-content/menuContentController.js"></script>
     <script src="app/main/components/menu-content/menuContentDirective.js"></script>
     <script src="app/main/components/menu-content/menuContentService.js"></script>
+
+    <script src="app/main/components/menu-files-content/menuFilesContentController.js"></script>
+    <script src="app/main/components/menu-files-content/menuFilesContentDirective.js"></script>
+
+    <script src="app/main/components/filepreview/filePreviewDirective.js"></script>
 
     <script src="app/main/components/git-menu-table/gitMenuTableController.js"></script>
     <script src="app/main/components/git-menu-table/gitMenuTableDirective.js"></script>

@@ -268,6 +268,8 @@
       <DependentUpon>ead.css</DependentUpon>
     </Content>
     <Content Include="app\css\et.css" />
+    <Content Include="app\main\components\filepreview\filePreviewDirective.js" />
+    <Content Include="app\main\components\filepreview\filePreviewView.html" />
     <Content Include="app\main\components\menu-content\menuContentController.js" />
     <Content Include="app\main\components\menu-content\menuContentDirective.js" />
     <Content Include="app\main\components\menu-content\menuContentService.js" />
@@ -275,6 +277,9 @@
     <Content Include="app\main\components\git-menu-table\gitMenuTable.html" />
     <Content Include="app\main\components\git-menu-table\gitMenuTableController.js" />
     <Content Include="app\main\components\git-menu-table\gitMenuTableDirective.js" />
+    <Content Include="app\main\components\menu-files-content\menuFilesContentController.js" />
+    <Content Include="app\main\components\menu-files-content\menuFilesContentDirective.js" />
+    <Content Include="app\main\components\menu-files-content\menuFilesContentView.html" />
     <Content Include="app\main\components\menu-table\menuTable.html" />
     <Content Include="app\main\components\menu-table\menuTableController.js" />
     <Content Include="app\main\components\menu-table\menuTableDirective.js" />
@@ -302,6 +307,7 @@
     <Content Include="app\views\admin\adminViewController.js" />
     <Content Include="app\views\admin\adminViewDirective.js" />
     <Content Include="app\views\admin\adminViewService.js" />
+    <Content Include="app\views\employeesfiles\employeesFilesController.js" />
     <Content Include="app\views\employeesfiles\employeesFilesView.html" />
     <Content Include="app\views\employeesfiles\employeesFilesViewDirective.js" />
     <Content Include="app\views\employees\editEmployeesPopup\deleteUserModal.html" />

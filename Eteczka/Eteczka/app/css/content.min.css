@@ -1,1 +1,1 @@
-﻿@keyframes fadein{0%{opacity:0}100%{opacity:1}}#content{min-height:450px;overflow-y:auto;overflow-x:hidden;background:#e3e3e3;padding:0;margin-top:150px}
+﻿@keyframes fadein{0%{opacity:0}100%{opacity:1}}#content{height:calc(100% - 150px);float:left;width:100%;overflow-y:auto;overflow-x:hidden;background:#e3e3e3;padding:0}

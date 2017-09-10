@@ -59,24 +59,20 @@
 
 .header-logo {
   height: 80px;
-  margin: 20px 25px;
+  margin: 20px 45px;
   float: left;
 }
 
 .user-icon {
-  margin: 45px 25px;
+  position: absolute;
+  top: 50px;
+  right: 50px;
   font-size: 40px !important;
   color: white;
-  float: right;
-  -moz-transition: font-size 0.1s linear;
-  -o-transition: font-size 0.1s linear;
-  -webkit-transition: font-size 0.1s linear;
-  transition: font-size 0.1s linear;
   display: inline-block;
 }
 
 .user-icon:hover {
-  font-size: 44px !important;
   cursor: pointer;
 }
 
@@ -101,9 +97,13 @@
 }
 
 .login-name-label {
+  /*display: inline-block;
+    max-width: 300px;
+    margin: 70px 10px;
+    color: white;*/
   display: inline-block;
   max-width: 300px;
-  margin: 70px 10px;
+  margin: 50px 125px;
   color: white;
 }
 
@@ -129,8 +129,8 @@
   background-color: white;
   position: fixed;
   z-index: 99;
-  top: 130px;
-  right: 10px;
+  top: 110px;
+  right: 35px;
   color: #074C75;
   padding: 10px;
   border-radius: 3px;
@@ -138,10 +138,10 @@
   min-height: 50px;
   border: 1px solid #666161;
   opacity: 0;
-  -moz-transition: opacity 0.4s ease-in;
-  -o-transition: opacity 0.4s ease-in;
-  -webkit-transition: opacity 0.4s ease-in;
-  transition: opacity 0.4s ease-in;
+  -moz-transition: opacity 0.7s ease-in;
+  -o-transition: opacity 0.7s ease-in;
+  -webkit-transition: opacity 0.7s ease-in;
+  transition: opacity 0.7s ease-in;
 }
 
 .callout:hover {
@@ -193,7 +193,34 @@
   font-size: 25px;
 }
 
-@media screen and (max-width: 960px) and (min-width: 720px) {
+@media screen and (max-width: 1100px) {
+  .menu-buttons-wrapper {
+    height: 100%;
+    position: absolute;
+    left: 50%;
+    -moz-transform: translate(-50%, 0);
+    -ms-transform: translate(-50%, 0);
+    -o-transform: translate(-50%, 0);
+    -webkit-transform: translate(-50%, 0);
+    transform: translate(-50%, 0);
+    width: auto;
+  }
+  .top-menu-button {
+    width: 120px;
+    color: white;
+    display: block;
+    -moz-transition: width 0.2s linear, height 0.2s linear, opacity 0.2s ease-in;
+    -o-transition: width 0.2s linear, height 0.2s linear, opacity 0.2s ease-in;
+    -webkit-transition: width 0.2s linear, height 0.2s linear, opacity 0.2s ease-in;
+    transition: width 0.2s linear, height 0.2s linear, opacity 0.2s ease-in;
+    margin: 0;
+  }
+  .small-option-label {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 959px) and (min-width: 720px) {
   .header-logo {
     height: 50px;
     margin: 10px 12px;

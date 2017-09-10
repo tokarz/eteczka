@@ -3,6 +3,7 @@ angular.module('et.directives').directive('employeesFilesView', function ($timeo
     return {
         restrict: 'E',
         scope: {},
+        controller: 'employeesViewController',
         templateUrl: 'app/views/employeesfiles/employeesFilesView.html'
     }
 

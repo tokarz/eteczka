@@ -1,11 +1,12 @@
 ﻿@import 'vars.scss';
 @import 'mixins.scss';
-@import 'header.scss';
 @import 'login.scss';
+@import 'admin.scss';
+@import 'header.scss';
 @import 'navigation.scss';
+@import 'content.scss';
 @import 'modal.css';
 @import 'components.scss';
-@import 'admin.scss';
 
 html {
     height: 100vh;
@@ -13,7 +14,7 @@ html {
 }
 
 body {
-    overflow-x: hidden;
+    overflow: hidden;
     margin: 0;
     padding: 0;
     background-color: whitesmoke;
@@ -88,4 +89,5 @@ li {
 
 .table-header {
     background: $tableHeader;
+    color:white;
 }
