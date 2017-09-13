@@ -26,5 +26,7 @@ namespace Eteczka.BE.DTO
         public string Imie2 { get; set; }
         public string SystemBazowy { get; set; }
         public bool Usuniety { get; set; }
+        public string Kodkierownik { get; set; }
+        public int Confidential { get; set; }
     }
 }
