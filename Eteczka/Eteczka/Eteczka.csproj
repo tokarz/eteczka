@@ -268,6 +268,7 @@
       <DependentUpon>ead.css</DependentUpon>
     </Content>
     <Content Include="app\css\et.css" />
+    <Content Include="app\main\companies\companiesService.js" />
     <Content Include="app\main\components\filepreview\filePreviewDirective.js" />
     <Content Include="app\main\components\filepreview\filePreviewView.html" />
     <Content Include="app\main\components\menu-content\menuContentController.js" />

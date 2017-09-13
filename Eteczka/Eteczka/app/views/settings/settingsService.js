@@ -49,7 +49,12 @@ angular.module('et.services').factory('settingsService', ['httpService', 'sessio
                 sessionId: sessionService.getSessionId()
             });
         },
-
+        createSourceFolder: function(name) {
+            return httpService.get('FilesImport/CreateSourceFolder', {
+                sessionId: sessionService.getSessionId(),
+                firma: name
+            });
+        },
 
         checkUpdateStatus: function (type) {
             return httpService.get('FilesImport/SprawdzUpdate', {

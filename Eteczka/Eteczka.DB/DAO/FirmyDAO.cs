@@ -14,7 +14,6 @@ namespace Eteczka.DB.DAO
     {
         private IDbConnectionFactory _ConnectionFactory;
         private IFirmyMapper _FirmyMapper;
-        
 
         public FirmyDAO(IDbConnectionFactory factory, IFirmyMapper firmyMapper)
         {
@@ -57,12 +56,9 @@ namespace Eteczka.DB.DAO
             return result;
         }
 
-        public List <KatFirmy>PobierzFirmyZBazy(string orderBy = "firma")
-
+        public List<KatFirmy> PobierzFirmyZBazy(string orderBy = "firma")
         {
-
             List<KatFirmy> PobraneFirmy = new List<KatFirmy>();
-
 
             string sqlQuery = "SELECT * FROM \"KatFirmy\" ORDER BY " + orderBy;
 
@@ -77,8 +73,16 @@ namespace Eteczka.DB.DAO
             return PobraneFirmy;
         }
 
-       
+        public bool ZapiszKatalogRoboczy(string firma, string sciezka)
+        {
+            bool result = false;
 
-        
+            string sqlQuery = "UPDATE \"KatFirmy\" SET  katalogroboczy='" + sciezka + "' WHERE firma = '" + firma + "';";
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
+            result = connectionState.ExecuteNonQuery(sqlQuery);
+
+            return result;
+        }
+
     }
 }

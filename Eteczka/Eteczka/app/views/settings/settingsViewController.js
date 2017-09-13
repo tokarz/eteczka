@@ -1,7 +1,6 @@
 ﻿'use strict';
-angular.module('et.controllers').controller('settingsViewController', ['$scope', 'settingsService', function ($scope, settingsService) {
-
-
+angular.module('et.controllers').controller('settingsViewController', ['$scope', 'settingsService', 'companiesService', function ($scope, settingsService, companiesService) {
+    $scope.folders = [];
 
     $scope.importFiles = function () {
         settingsService.importFiles(true).then(function () {
@@ -12,12 +11,10 @@ angular.module('et.controllers').controller('settingsViewController', ['$scope',
         });
     }
 
-    $scope.importAll = function () {
-        //ToDo : import wszystkich plikow i oznaczenie ze sa aktualne
-    }
-
-    $scope.refreshImportStatus = function () {
-
+    $scope.importAllCompanies = function () {
+        companiesService.getAll().then(function (result) {
+            $scope.folders = result.Firmy;
+        });
     }
 
     $scope.importArchives = function () {
@@ -163,6 +160,14 @@ angular.module('et.controllers').controller('settingsViewController', ['$scope',
     $scope.checkUpdateStatus('subdepartment');
     $scope.checkUpdateStatus('department');
     $scope.checkUpdateStatus('account5');
+    $scope.importAllCompanies();
 
+    $scope.createSourceFolder = function (name) {
+        settingsService.createSourceFolder(name).then(function (result) {
+            if (result.success) {
+                //Refresh
+            }
+        });
+    }
 
 }]);

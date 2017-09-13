@@ -7,7 +7,6 @@
             <div class="buttonsParagraph">
                 <div>
                     <button ng-class="checkButtonClass('users')" ng-click="importUsers()">Import Pracownikow Json[{{updateStatus.users.countJson}}]-Db[{{updateStatus.users.countDb}}]</button>
-
                 </div>
                 <div>
                     <button ng-class="checkButtonClass('archives')" ng-click="importArchives()">Import Lokalizacji Archiwow[{{updateStatus.archives.countJson}}]-Db[{{updateStatus.archives.countDb}}]</button>
@@ -35,7 +34,13 @@
     </div>
     <div class="admin-option admin-option-two">
         <div class="admin-option-header">
-            <h3><i class="fa fa-user-o"></i>Uzytkownicy</h3>
+            <h3><i class="fa fa-files-o"></i>Foldery i Pliki</h3>
+        </div>
+        <div class="admin-option-content">
+            <div ng-repeat="folder in folders">
+                <span title="{{folder.Nazwa}}">{{folder.Firma}}</span>
+                <button class="button-success" ng-click="createSourceFolder(folder.Firma)">Utworz Katalog</button>
+            </div>
         </div>
     </div>
     <div class="admin-option admin-option-one">

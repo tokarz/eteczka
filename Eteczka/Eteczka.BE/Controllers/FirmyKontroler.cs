@@ -19,7 +19,6 @@ namespace Eteczka.BE.Controllers
         {
             List<FirmaDTO> PobraneFirmyDTO = _firmyService.PobierzWszystkie();
 
-
             return Json(new
             {
                 Firmy = PobraneFirmyDTO

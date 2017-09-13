@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using Microsoft.Office.Interop.Excel;
 using System.Runtime.InteropServices;
+using System.Web;
 
 
 namespace Eteczka.BE.Utils
@@ -406,6 +407,23 @@ namespace Eteczka.BE.Utils
                 ZamknijPlik(xlApp, xlWorkbook, xlWorksheet, xlRange);
             }
 
+
+            return result;
+        }
+
+        public string PobierzZaszyfrowanaZawartoscPliku(string sciezka)
+        {
+            byte[] filedata = File.ReadAllBytes(sciezka);
+            //string contentType = MimeMapping.GetMimeMapping(sciezka);
+
+            //var cd = new ContentDisposition
+            //{
+            //    FileName = fileName,
+            //    Inline = true,
+            //};
+
+            //Response.AppendHeader("Content-Disposition", cd.ToString());
+            string result = Convert.ToBase64String(filedata, 0, filedata.Length);
 
             return result;
         }

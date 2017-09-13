@@ -1,32 +1,32 @@
-﻿using System.Web;
+﻿using System;
+using System.Web;
 using System.Web.Mvc;
 using System.Configuration;
+using System.Net.Mime;
+using Eteczka.BE.Utils;
 
 namespace Eteczka.BE.Controllers
 {
     public class ResourcesController : Controller
     {
+        private PlikiUtils _PlikiUtils;
+
+        public ResourcesController(PlikiUtils plikiUtils)
+        {
+            this._PlikiUtils = plikiUtils;
+        }
 
         public ActionResult GetRestrictedResource(string fileName)
         {
             string eadRootName = ConfigurationManager.AppSettings["rootdir"];
+            string pliki = ConfigurationManager.AppSettings["filesdir"];
 
-            string eadRoot = System.Environment.GetEnvironmentVariable(eadRootName);
+            string eadRoot = Environment.GetEnvironmentVariable(eadRootName);
 
-            string configurationPath = eadRoot + "/pliki/";
+            string filepath = System.IO.Path.Combine(eadRoot, pliki, fileName);
 
-            string filepath = configurationPath + fileName;
-            byte[] filedata = System.IO.File.ReadAllBytes(filepath);
-            string contentType = MimeMapping.GetMimeMapping(filepath);
-
-            var cd = new System.Net.Mime.ContentDisposition
-            {
-                FileName = fileName,
-                Inline = true,
-            };
-
-            Response.AppendHeader("Content-Disposition", cd.ToString());
-            string base64PDF = System.Convert.ToBase64String(filedata, 0, filedata.Length);
+            string base64PDF = _PlikiUtils.PobierzZaszyfrowanaZawartoscPliku(filepath);
+           
 
             return Json(new
             {

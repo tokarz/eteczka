@@ -94,6 +94,16 @@ namespace Eteczka.BE.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult CreateSourceFolder(string sessionId, string firma)
+        {
+            bool success = _ImportService.CreateSourceFolder(firma); ;
+
+            return Json(new
+            {
+                success = success
+            }, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult SprawdzUpdate(string sessionId, string type)
         {
             ImportResult result = _ImportService.CheckImportStatus(type);
