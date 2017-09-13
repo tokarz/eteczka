@@ -31,6 +31,8 @@ namespace Eteczka.BE.Mappers
             result.Imie2 = zrodlo.Imie2;
             result.SystemBazowy = zrodlo.SystemBazowy;
             result.Usuniety = zrodlo.Usuniety;
+            result.Kodkierownik = zrodlo.Kodkierownik;
+            result.Confidential = zrodlo.Confidential;
 
             return result;
         }

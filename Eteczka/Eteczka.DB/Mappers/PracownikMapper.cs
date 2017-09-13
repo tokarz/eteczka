@@ -30,6 +30,8 @@ namespace Eteczka.DB.Mappers
             fetchedUser.Imie2 = row[14].ToString();
             fetchedUser.SystemBazowy = row[15].ToString();
             fetchedUser.Usuniety = bool.Parse(row[16].ToString());
+            fetchedUser.Kodkierownik = row[17].ToString();
+            fetchedUser.Confidential = int.Parse(row [18].ToString());
 
             return fetchedUser;
         }
