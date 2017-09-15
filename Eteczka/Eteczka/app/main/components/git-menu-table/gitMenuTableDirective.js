@@ -3,9 +3,7 @@ angular.module('et.directives').directive('gitMenuTable', function () {
     return {
         restrict: 'E',
         scope: {
-            newrows: '=',
-            stagedrows: '=',
-            loading: '='
+            company: '=',
         },
         controller: 'gitMenuTableController',
         templateUrl: 'app/main/components/git-menu-table/gitMenuTable.html'

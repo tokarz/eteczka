@@ -13,30 +13,31 @@ namespace Eteczka.DB.Mappers
         public Pracownik MapujZSql(DataRow row)
         {
             Pracownik fetchedUser = new Pracownik();
-            fetchedUser.Imie = row[0].ToString();
-            fetchedUser.Nazwisko = row[1].ToString();
-            fetchedUser.PESEL = row[2].ToString();
-            fetchedUser.Numeread = row[3].ToString();
-            fetchedUser.Kraj = row[4].ToString();
-            fetchedUser.NazwiskoRodowe= row[5].ToString();
-            fetchedUser.ImieMatki = row[6].ToString();
-            fetchedUser.ImieOjca= row[7].ToString();
-            fetchedUser.PeselInny= row[8].ToString();
-            fetchedUser.IdOper = row[9].ToString();
-            fetchedUser.IdAkcept= row[10].ToString();
-            fetchedUser.DataModify= DateTime.Parse(row[11].ToString());
-            fetchedUser.DataAkcept= DateTime.Parse(row[12].ToString());
-            fetchedUser.DataUrodzenia = row[13].ToString();
-            fetchedUser.Imie2 = row[14].ToString();
-            fetchedUser.SystemBazowy = row[15].ToString();
-            fetchedUser.Usuniety = bool.Parse(row[16].ToString());
-            fetchedUser.Kodkierownik = row[17].ToString();
-            fetchedUser.Confidential = int.Parse(row [18].ToString());
+            fetchedUser.Imie = row["imie"].ToString();
+            fetchedUser.Nazwisko = row["nazwisko"].ToString();
+            fetchedUser.PESEL = row["pesel"].ToString();
+            fetchedUser.Numeread = row["numeread"].ToString();
+            fetchedUser.Kraj = row["kraj"].ToString();
+            fetchedUser.NazwiskoRodowe = row["nazwiskorodowe"].ToString();
+            fetchedUser.ImieMatki = row["imiematki"].ToString();
+            fetchedUser.ImieOjca = row["imieojca"].ToString();
+            fetchedUser.PeselInny = row["peselinny"].ToString();
+            fetchedUser.IdOper = row["idoper"].ToString();
+            fetchedUser.IdAkcept = row["idakcept"].ToString();
+            fetchedUser.DataModify = DateTime.Parse(row["datamodify"].ToString());
+            fetchedUser.DataAkcept = DateTime.Parse(row["dataakcept"].ToString());
+            fetchedUser.DataUrodzenia = row["dataurodzenia"].ToString();
+            fetchedUser.Imie2 = row["imie2"].ToString();
+            fetchedUser.SystemBazowy = row["systembazowy"].ToString();
+            fetchedUser.Usuniety = bool.Parse(row["usuniety"].ToString());
+            fetchedUser.Kodkierownik = row["kodkierownik"].ToString();
+            int parsedInt = -1;
+            if (int.TryParse(row["confidential"].ToString(), out parsedInt))
+            {
+                fetchedUser.Confidential = parsedInt;
+            }
 
             return fetchedUser;
         }
-       
-            
     }
-    
 }

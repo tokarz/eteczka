@@ -11,10 +11,21 @@ angular.module('et.controllers').controller('settingsViewController', ['$scope',
         });
     }
 
+    $scope.existingFolders = {};
+
     $scope.importAllCompanies = function () {
         companiesService.getAll().then(function (result) {
             $scope.folders = result.Firmy;
+            angular.forEach($scope.folders, function (folder) {
+                settingsService.doesFolderExist(folder.Firma).then(function (result) {
+                    $scope.existingFolders[folder.Firma] = result.success;
+                });
+            });
         });
+    }
+
+    $scope.doesFolderExist ) function() {
+
     }
 
     $scope.importArchives = function () {
@@ -140,6 +151,8 @@ angular.module('et.controllers').controller('settingsViewController', ['$scope',
 
         return result;
     }
+
+    
 
     $scope.checkUpdateStatus = function (type) {
         settingsService.checkUpdateStatus(type).then(function (result) {

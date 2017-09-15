@@ -70,10 +70,11 @@ namespace Eteczka.DB.DAO
 
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
             DataTable result = connectionState.ExecuteQuery(sqlQuery);
+            int x = 0;
             foreach (DataRow row in result.Rows)
             {
                 Pracownik fetchedUser = _PracownikMapper.MapujZSql(row);
-
+                x += 1;
                 fetchedUsers.Add(fetchedUser);
             }
 

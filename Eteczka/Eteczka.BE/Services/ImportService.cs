@@ -78,11 +78,25 @@ namespace Eteczka.BE.Services
             this._Konto5DAO = konto5DAO;
         }
 
+        public bool DoesFolderExist(string folder)
+        {
+            bool result = false;
+            string eadRoot = System.Environment.GetEnvironmentVariable("EAD_DIR");
+            string sciezkaDoWaitingRoom = Path.Combine(eadRoot, "waitingroom");
+            string finalFolderLocation = Path.Combine(sciezkaDoWaitingRoom, folder);
+            return Directory.Exists(finalFolderLocation);
+        }
+
         public bool CreateSourceFolder(string folder)
         {
             bool result = false;
             string eadRoot = System.Environment.GetEnvironmentVariable("EAD_DIR");
-            string finalFolderLocation = Path.Combine(eadRoot, "strukturaFirmy", folder);
+            string sciezkaDoWaitingRoom = Path.Combine(eadRoot, "waitingroom");
+            if (!Directory.Exists(sciezkaDoWaitingRoom))
+            {
+                Directory.CreateDirectory(sciezkaDoWaitingRoom);
+            }
+            string finalFolderLocation = Path.Combine(sciezkaDoWaitingRoom, folder);
             if (!Directory.Exists(finalFolderLocation))
             {
                 try

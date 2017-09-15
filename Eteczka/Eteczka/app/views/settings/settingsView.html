@@ -37,9 +37,8 @@
             <h3><i class="fa fa-files-o"></i>Foldery i Pliki</h3>
         </div>
         <div class="admin-option-content">
-            <div ng-repeat="folder in folders">
-                <span title="{{folder.Nazwa}}">{{folder.Firma}}</span>
-                <button class="button-success" ng-click="createSourceFolder(folder.Firma)">Utworz Katalog</button>
+            <div ng-repeat="folder in folders" class="buttonsParagraph">
+                <button title="{{folder.Nazwa}}" ng-click="createSourceFolder(folder.Firma)" ng-class="doesFolderExist(folder.Firma)">Utworz Katalog {{folder.Firma}}</button>
             </div>
         </div>
     </div>
