@@ -1,8 +1,6 @@
 ﻿'use strict';
-angular.module('et.controllers').controller('filesViewController', ['$scope', '$state', 'httpService', 'filesViewService', 'editEmployeeService', function ($scope, $state, httpService, filesViewService, editEmployeeService) {
+angular.module('et.controllers').controller('filesViewController', ['$scope', function ($scope) {
     $scope.parameters = {
         company: 'AFM',
     };
-
-
 }]);

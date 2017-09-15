@@ -1,6 +1,25 @@
 ﻿<div class="option-wrapper">
-    <git-menu-table stagedrows="parameters.stagedrows" newrows="parameters.newrows" loading="parameters.loading"></git-menu-table>
-    <div class="component-content-wrapper">
-        <git-menu-table company="parameters.company"></git-menu-table>
+    <git-menu-table company="parameters.company" selectedfile="selectedfile"></git-menu-table>
+    <div class="component-content-wrapper" style="width:50vw">
+        <h1 style="text-align:center">Podglad</h1>
+        <div style="width:95%;margin:auto;height:40vh">
+            <file-preview file="selectedfile"></file-preview>
+        </div>
+        <div style="width:95%;margin:auto;height:30vh;background:whitesmoke">
+            <div style="width: 150px;float:left;height:100%;background:lightgray">
+                <ul>
+                    <li><span class="fa fa-pencil-square"></span>Opisz</li>
+                    <li <span class="fa fa-check-square"></span>Zatwierdz</li>
+                    <li><span class="fa fa-history"></span>Historia</li>
+                </ul>
+            </div>
+            <div style="width: 350px;float:right;height:100%">
+                <duv style="height:20px;width:100%;text-align:center">
+                    <h3>Metrzczka Dokumentu</h3>
+                </duv>
+                <div style="height:100px;width:100%;text-align:justify;background:white"></div>
+            </div>
+        </div>
+
     </div>
 </div>

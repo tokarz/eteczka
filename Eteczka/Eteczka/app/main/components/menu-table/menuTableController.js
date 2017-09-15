@@ -2,14 +2,6 @@
 angular.module('et.controllers').controller('menuTableController', ['$scope', function ($scope) {
     $scope.selectedrow = {};
 
-    $scope.selectRow = function (user) {
-        if ($scope.selectedrow === user) {
-            $scope.selectedrow = {};
-        } else {
-            $scope.selectedrow = user;
-        }
-    }
-
     $scope.isTabActive = function (tab) {
         var result = 'tab tab-default'
         if (tab === $scope.activetab) {
@@ -20,6 +12,14 @@ angular.module('et.controllers').controller('menuTableController', ['$scope', fu
     }
     $scope.setTabActive = function (tab) {
         $scope.activetab = tab;
+    }
+
+    $scope.selectRow = function (user) {
+        if ($scope.selectedrow === user) {
+            $scope.selectedrow = {};
+        } else {
+            $scope.selectedrow = user;
+        }
     }
 
     $scope.getRowStyle = function (user) {
