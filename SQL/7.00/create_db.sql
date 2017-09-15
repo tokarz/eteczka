@@ -42,6 +42,7 @@ CREATE TABLE public."KatFirmy"
   idakcept character(30), -- Identyfikator osoby akceptujÂącej
   nazwisko character(30), -- Nazwisko, jeżeli jest to firma prywatna
   imie character(30), -- Imię jeśli firma prywatna
+  waitingroom character varying(254),
   datamodify timestamp without time zone,
   dataakcept timestamp without time zone,
   systembazowy  character(3) NOT NULL,

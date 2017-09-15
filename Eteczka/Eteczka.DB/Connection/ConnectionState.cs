@@ -12,7 +12,7 @@ namespace Eteczka.DB.Connection
     public class ConnectionState : IConnectionState
     {
         private IDbConnection _Connection;
-        
+
         public ConnectionState(IDbConnection connection)
         {
             this._Connection = connection;
@@ -57,12 +57,28 @@ namespace Eteczka.DB.Connection
         {
             bool result = false;
 
-            using (var cmd = _Connection.CreateCommand())
+            using (_Connection)
             {
-                cmd.CommandText = query;
                 _Connection.Open();
-                cmd.ExecuteNonQuery();
-                _Connection.Close();
+                using (var tran = _Connection.BeginTransaction())
+                {
+                    using (var cmd = _Connection.CreateCommand())
+                    {
+                        try
+                        {
+                            cmd.CommandText = query;
+                            cmd.ExecuteNonQuery();
+                            tran.Commit();
+                            result = true;
+                        }
+                        catch (Exception)
+                        {
+                            result = false;
+                            tran.Rollback();
+                        }
+                    }
+
+                }
             }
 
             return result;

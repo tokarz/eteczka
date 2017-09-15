@@ -16,17 +16,17 @@ angular.module('et.controllers').controller('settingsViewController', ['$scope',
     $scope.importAllCompanies = function () {
         companiesService.getAll().then(function (result) {
             $scope.folders = result.Firmy;
-            angular.forEach($scope.folders, function (folder) {
-                settingsService.doesFolderExist(folder.Firma).then(function (result) {
-                    $scope.existingFolders[folder.Firma] = result.success;
-                });
-            });
+            $scope.checkButtonsState($scope.folders);
         });
     }
 
-    $scope.doesFolderExist ) function() {
-
-    }
+    $scope.checkButtonsState = function (folders) {
+        angular.forEach(folders, function (folder) {
+            settingsService.doesFolderExist(folder).then(function (result) {
+                $scope.existingFolders[folder] = result.success;
+            });
+        });
+    };
 
     $scope.importArchives = function () {
         settingsService.importArchives().then(function () {
@@ -152,7 +152,14 @@ angular.module('et.controllers').controller('settingsViewController', ['$scope',
         return result;
     }
 
-    
+    $scope.doesFolderExist = function (folder) {
+        var result = 'button-error';
+        if ($scope.existingFolders[folder]) {
+            var result = 'button-success';
+        }
+
+        return result;
+    }
 
     $scope.checkUpdateStatus = function (type) {
         settingsService.checkUpdateStatus(type).then(function (result) {
@@ -176,11 +183,12 @@ angular.module('et.controllers').controller('settingsViewController', ['$scope',
     $scope.importAllCompanies();
 
     $scope.createSourceFolder = function (name) {
-        settingsService.createSourceFolder(name).then(function (result) {
-            if (result.success) {
-                //Refresh
-            }
-        });
+        if (!$scope.existingFolders[name]) {
+            settingsService.createSourceFolder(name).then(function (result) {
+                if (result.success) {
+                    $scope.checkButtonsState([name]);
+                }
+            });
+        }
     }
-
 }]);

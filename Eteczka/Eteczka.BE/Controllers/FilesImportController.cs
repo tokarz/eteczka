@@ -96,7 +96,7 @@ namespace Eteczka.BE.Controllers
 
         public ActionResult CzyFolderIstnieje(string sessionId, string folder)
         {
-            bool success = _ImportService.DoesFolderExist(firma); ;
+            bool success = _ImportService.DoesFolderExist(folder); ;
 
             return Json(new
             {

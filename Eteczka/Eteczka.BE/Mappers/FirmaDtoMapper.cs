@@ -38,6 +38,7 @@ namespace Eteczka.BE.Mappers
             firma.Dataakcept = zrodlo.Dataakcept;
             firma.Systembazowy = zrodlo.Systembazowy;
             firma.Usuniety = zrodlo.Usuniety;
+            firma.Waitingroom = zrodlo.Waitingroom;
 
             return firma;
         }

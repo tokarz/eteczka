@@ -13,31 +13,31 @@ namespace Eteczka.DB.Mappers
         public KatFirmy MapujZSql(DataRow row)
         {
             KatFirmy fetchedFirma = new KatFirmy();
-            fetchedFirma.Firma = row[0].ToString();
-            fetchedFirma.Nazwa = row[1].ToString();
-            fetchedFirma.Nazwaskrocona = row[2].ToString();
-            fetchedFirma.Ulica = row[3].ToString();
-            fetchedFirma.Numerdomu = row[4].ToString();
-            fetchedFirma.Numerlokalu = row[5].ToString();
-            fetchedFirma.Miasto = row[6].ToString();
-            fetchedFirma.Kodpocztowy = row [7].ToString();
-            fetchedFirma.Poczta = row[8].ToString();
-            fetchedFirma.Gmina = row[9].ToString();
-            fetchedFirma.Powiat = row[10].ToString();
-            fetchedFirma.Wojewodztwo = row[11].ToString();
-            fetchedFirma.Nip = row[12].ToString();
-            fetchedFirma.Regon = row[13].ToString();
-            fetchedFirma.Nazwa2 = row[14].ToString();
-            fetchedFirma.Pesel = row[15].ToString();
-            fetchedFirma.Idoper = row[16].ToString();
-            fetchedFirma.Idakcept = row[17].ToString();
-            fetchedFirma.Nazwisko = row[18].ToString();
-            fetchedFirma.Imie = row[19].ToString();
-            fetchedFirma.Datamodify = DateTime.Parse(row[20].ToString());
-            fetchedFirma.Dataakcept = DateTime.Parse(row[21].ToString());
-            fetchedFirma.Systembazowy = row[22].ToString();
-            fetchedFirma.Usuniety = bool.Parse(row[23].ToString());
-
+            fetchedFirma.Firma = row["firma"].ToString();
+            fetchedFirma.Nazwa = row["nazwa"].ToString();
+            fetchedFirma.Nazwaskrocona = row["nazwaskrocona"].ToString();
+            fetchedFirma.Ulica = row["ulica"].ToString();
+            fetchedFirma.Numerdomu = row["numerdomu"].ToString();
+            fetchedFirma.Numerlokalu = row["numerlokalu"].ToString();
+            fetchedFirma.Miasto = row["miasto"].ToString();
+            fetchedFirma.Kodpocztowy = row ["kodpocztowy"].ToString();
+            fetchedFirma.Poczta = row["poczta"].ToString();
+            fetchedFirma.Gmina = row["gmina"].ToString();
+            fetchedFirma.Powiat = row["powiat"].ToString();
+            fetchedFirma.Wojewodztwo = row["wojewodztwo"].ToString();
+            fetchedFirma.Nip = row["nip"].ToString();
+            fetchedFirma.Regon = row["regon"].ToString();
+            fetchedFirma.Nazwa2 = row["nazwa2"].ToString();
+            fetchedFirma.Pesel = row["pesel"].ToString();
+            fetchedFirma.Idoper = row["idoper"].ToString();
+            fetchedFirma.Idakcept = row["idakcept"].ToString();
+            fetchedFirma.Nazwisko = row["nazwisko"].ToString();
+            fetchedFirma.Imie = row["imie"].ToString();
+            fetchedFirma.Datamodify = DateTime.Parse(row["datamodify"].ToString());
+            fetchedFirma.Dataakcept = DateTime.Parse(row["dataakcept"].ToString());
+            fetchedFirma.Systembazowy = row["systembazowy"].ToString();
+            fetchedFirma.Usuniety = bool.Parse(row["usuniety"].ToString());
+            fetchedFirma.Waitingroom = row["waitingroom"].ToString();
 
             return fetchedFirma;
         }

@@ -33,5 +33,6 @@ namespace Eteczka.DB.Entities
         public DateTime Dataakcept { get; set; }
         public string Systembazowy { get; set; }
         public bool Usuniety { get; set; }
+        public string Waitingroom { get; set; }
     }
 }

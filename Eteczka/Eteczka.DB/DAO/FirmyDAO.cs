@@ -77,7 +77,7 @@ namespace Eteczka.DB.DAO
         {
             bool result = false;
 
-            string sqlQuery = "UPDATE \"KatFirmy\" SET  katalogroboczy='" + sciezka + "' WHERE firma = '" + firma + "';";
+            string sqlQuery = "UPDATE \"KatFirmy\" SET  waitingroom='" + sciezka + "' WHERE firma = '" + firma + "';";
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
             result = connectionState.ExecuteNonQuery(sqlQuery);
 
