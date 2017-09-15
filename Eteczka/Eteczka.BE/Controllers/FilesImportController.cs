@@ -126,6 +126,15 @@ namespace Eteczka.BE.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult WczytajDokDoPostgres()
+        {
+            ImportResult result = _ImportService.WczytajDokZExcela(true);
+            return Json(new
+            {
+
+            }, JsonRequestBehavior.AllowGet);
+        }
+
 
 
     }

@@ -77,6 +77,7 @@ namespace Eteczka
             container.RegisterType<IJsonToKonto5Mapper, JsonToKonto5Mapper>();
             container.RegisterType<IMapowalnyDoPracownikDto, PracownikDtoMapper>();
             container.RegisterType<ImapowalnyDoFirmaDto, FirmaDtoMapper>();
+            container.RegisterType<IKatRodzajeDokumentowExcelMapper, KatRodzajeDokumentowExcelMapper>();
 
             container.RegisterType<PlikiDAO, PlikiDAO>();
             container.RegisterType<UserDAO, UserDAO>();
@@ -88,6 +89,7 @@ namespace Eteczka
             container.RegisterType<KatWydzialDAO, KatWydzialDAO>();
             container.RegisterType<Konto5DAO, Konto5DAO>();
             container.RegisterType<FirmyDAO, FirmyDAO>();
+            container.RegisterType<KatDokumentyRodzajDAO, KatDokumentyRodzajDAO>();
 
             container.RegisterType<PlikiUtils, PlikiUtils>();
 

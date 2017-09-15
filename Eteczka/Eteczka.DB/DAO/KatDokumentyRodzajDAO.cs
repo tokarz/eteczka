@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using Eteczka.DB.Entities;
 using Eteczka.DB.Connection;
 using System.Data;
+using Eteczka.DB.Mappers;
+
+
 
 namespace Eteczka.DB.DAO
 {
@@ -13,10 +16,12 @@ namespace Eteczka.DB.DAO
     public class KatDokumentyRodzajDAO
     {
         private IDbConnectionFactory _ConnectionFactory;
+        private IKatRodzajeDokumentowExcelMapper _KatRodzajeDokumentowExcelMapper;
 
-        public KatDokumentyRodzajDAO(IDbConnectionFactory factory)
+        public KatDokumentyRodzajDAO(IDbConnectionFactory factory, IKatRodzajeDokumentowExcelMapper KatRodzajeDokumentowExcelMapper)
         {
             this._ConnectionFactory = factory;
+            this._KatRodzajeDokumentowExcelMapper = KatRodzajeDokumentowExcelMapper;
         }
 
         public List<KatDokumentyRodzaj> PobierzWszystkich(string sessionId)
@@ -47,6 +52,28 @@ namespace Eteczka.DB.DAO
             return fetchedResult;
 
         }
+        public bool ZapiszRodzajeDokDoBazy (string plik)
+        {
+            List<KatDokumentyRodzaj> RodzajeDokumentow = _KatRodzajeDokumentowExcelMapper.PobierzRodzajeDokZExcela(plik);
+            StringBuilder queries = new StringBuilder();
+            foreach (KatDokumentyRodzaj dokument in RodzajeDokumentow)
+            {
+                string values = "'" + dokument.Symbol + "', '" + dokument.Nazwa + "', '" + dokument.Teczkadzial + "', '" + dokument.Typedycji + "', '" + dokument.SystemBazowy + "'";
+                string query = "INSERT INTO \"KatDokumentyRodzaj\" ( symbol, nazwa, teczkadzial, typedycji,systembazowy) VALUES (" + values + ");";
+                queries.Append(query);
+            }
 
+
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
+            bool result = connectionState.ExecuteNonQuery(queries.ToString());
+
+
+            return result;
+        }
+
+            
+        
+
+       
     }
 }
