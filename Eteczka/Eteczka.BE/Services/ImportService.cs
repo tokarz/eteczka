@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Eteczka.DB.Entities;
 using Eteczka.DB.DAO;
+using Eteczka.DB.Mappers;
 using Eteczka.DB.Connection;
 using System.Configuration;
 using System.IO;
@@ -24,6 +25,7 @@ namespace Eteczka.BE.Services
         private IJsonToPodwydzialMapper _JsonToPodwydzialMapper;
         private IJsonToWydzialMapper _JsonToWydzialMapper;
         private IJsonToKonto5Mapper _JsonToKonto5Mapper;
+        
 
         private PlikiUtils _PlikiUtils;
         private PlikiDAO _Dao;
@@ -35,6 +37,7 @@ namespace Eteczka.BE.Services
         private KatPodwydzialDAO _KatPodwydzialDAO;
         private KatWydzialDAO _KatWydzialDAO;
         private Konto5DAO _Konto5DAO;
+        private KatDokumentyRodzajDAO _KatDokumentyRodzajDAO;
 
         public ImportService(
             IJsonToKatLokalMapper mapper,
@@ -55,7 +58,7 @@ namespace Eteczka.BE.Services
             MiejscePracyDAO miejscePracyDao,
             KatPodwydzialDAO katPodwydzialDAO,
         KatWydzialDAO katWydzialDAO,
-        Konto5DAO konto5DAO)
+        Konto5DAO konto5DAO, KatDokumentyRodzajDAO KatDokumentyRodzajDAO)
         {
             this._JsonToKatLokalMapper = mapper;
             this._JsonToKatFirmyMapper = firmyMapper;
@@ -76,6 +79,7 @@ namespace Eteczka.BE.Services
             this._KatPodwydzialDAO = katPodwydzialDAO;
             this._KatWydzialDAO = katWydzialDAO;
             this._Konto5DAO = konto5DAO;
+            this._KatDokumentyRodzajDAO = KatDokumentyRodzajDAO;
         }
 
         public ImportResult ImportFiles(bool nadpisz)
@@ -731,6 +735,22 @@ namespace Eteczka.BE.Services
                     }
 
             }
+
+            return result;
+        }
+
+        public ImportResult WczytajDokZExcela(bool nadpisz)
+        {
+            ImportResult result = new ImportResult();
+            string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
+            
+
+            string sciezkaDoPliku = Path.Combine(eadRoot, "excel\\Rodzaje_dokumentow_Eteczka.xlsx");
+            
+
+
+            result.ImportSukces = _KatDokumentyRodzajDAO.ZapiszRodzajeDokDoBazy(sciezkaDoPliku);
+
 
             return result;
         }

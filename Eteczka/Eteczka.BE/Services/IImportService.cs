@@ -14,6 +14,7 @@ namespace Eteczka.BE.Services
         ImportResult ImportSubDepartments(string sessionId);
         ImportResult ImportDepartments(string sessionId);
         ImportResult ImportAccounts5(string sessionId);
+        ImportResult WczytajDokZExcela(bool nadpisz);
 
 
     }

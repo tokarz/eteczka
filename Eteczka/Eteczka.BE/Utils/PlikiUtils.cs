@@ -346,9 +346,11 @@ namespace Eteczka.BE.Utils
                     for (int y = 1; y <= xlRange.Rows.Count; y++)
                     {
                         ExcelKatDokPola Pola = new ExcelKatDokPola();
-                        Pola.NazwaDokumentu = (xlRange.Cells[y, 1].Value);
-                        Pola.SymbolDokumentu = (xlRange.Cells[y, 2].Value);
-                        Pola.CzescAkt = (xlRange.Cells[y, 3].Value);
+                        Pola.Symbol = (xlRange.Cells[y, 1].Value);
+                        Pola.Nazwa = (xlRange.Cells[y, 2].Value);
+                        Pola.TeczkaDzial = (xlRange.Cells[y, 3].Value);
+                        Pola.TypEdycji = (xlRange.Cells[y, 4].Value);
+                        Pola.SystemBazowy = (xlRange.Cells[y, 5].Value);
 
                         result.CalyPlik.Add(Pola);
                     }
@@ -396,9 +398,12 @@ namespace Eteczka.BE.Utils
                 {
                     ExcelKatDokPola Pola = new ExcelKatDokPola();
 
-                    Pola.NazwaDokumentu = (xlRange.Cells[y, 1].Value);
-                    Pola.SymbolDokumentu = (xlRange.Cells[y, 2].Value);
-                    Pola.CzescAkt = (xlRange.Cells[y, 3].Value);
+                    Pola.Symbol = (xlRange.Cells[y, 1].Value);
+                    Pola.Nazwa = (xlRange.Cells[y, 2].Value);
+                    Pola.TeczkaDzial = (xlRange.Cells[y, 3].Value);
+                    Pola.TypEdycji = (xlRange.Cells[y, 4].Value);
+                    Pola.SystemBazowy = (xlRange.Cells[y, 5].Value);
+
 
                     result.CalyPlik.Add(Pola);
                 }
@@ -408,7 +413,10 @@ namespace Eteczka.BE.Utils
 
 
             return result;
+
+
         }
+        
     }
 }
 
