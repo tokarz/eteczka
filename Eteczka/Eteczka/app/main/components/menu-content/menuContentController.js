@@ -11,6 +11,26 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
         }
     });
 
+    $scope.selectedWorkplace = {};
+
+    $scope.selectRow = function (workplace) {
+        if ($scope.selectedWorkplace === workplace) {
+            $scope.selectedWorkplace = {};
+        } else {
+            $scope.selectedWorkplace = workplace;
+        }
+    }
+
+    $scope.getRowStyle = function (workplace) {
+        var result = 'details-table-row';
+
+        if (workplace === $scope.selectedWorkplace) {
+            result += ' active-row';
+        }
+
+        return result;
+    }
+
     var openModal = function (modalOptions, executor, user) {
         modalService.showModal(modalOptions, user)
             .then(function (result) { executor(result) })
@@ -73,4 +93,52 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
             function (value) { console.log('tu bedzie wywolanie funkcji usuwania pracownika', value) },
             $scope.user
         )    }
+
+    /*
+    * funkcjonalnosc dodawania i edycji miejsc pracy nie bedzie udostepniona w wersji 1.0.
+    * (dyskusja i decyzja z dnia 16.09.2017)
+    *
+    var upsertWorkplaceModalFunctions = {
+        loadRegionList: function (company) {
+        },
+        loadDepartmentList: function (region) {
+        },
+        loadSubDepartmentList: function (department) {
+        }
+    }
+
+    $scope.triggerAddWorkplaceDialog = function () {
+        var modalOptions = {
+            title: 'Dodawanie nowego miejca pracy pracownika',
+            body: 'app/views/employees/editWorkplacesPopup/upsertWorkplaceModal.html'
+        }
+
+        openModal(
+            Object.assign(modalOptions, upsertWorkplaceModalFunctions),
+            function (value) { console.log('tu bedzie wywolanie funkcji dodawania miejsca pracy', value) }
+        )
+    }
+
+    $scope.triggerEditWorkplaceDialog = function () {
+        var modalOptions = {
+            title: 'Edytowanie miejsca pracy pracownika',
+            body: 'app/views/employees/editWorkplacesPopup/upsertWorkplaceModal.html'
+        }
+        var workplaceToPass = Object.assign({}, $scope.workplace)
+
+        console.log(workplaceToPass)
+
+        openModal(
+            Object.assign(modalOptions, upsertWorkplaceModalFunctions),
+            function (value) { console.log('tu bedzie wywolanie funkcji edytowania miejsca pracy', value) },
+            workplaceToPass
+        )
+    }
+
+    $scope.triggerDeleteWorkplaceDialog = function () {        var modalOptions = {            title: 'Usuwanie miejsca pracy pracownika',            body: 'app/views/employees/editWorkplacesPopup/deleteWorkplaceModal.html'        }        openModal(
+            modalOptions,
+            function (value) { console.log('tu bedzie wywolanie funkcji usuwania miejsca pracy', value) },
+            $scope.workplace
+        )    }
+    */
 }]);

@@ -619,6 +619,16 @@
   font-weight: bold;
 }
 
+.details-table-row {
+    background: white;
+    cursor: pointer;
+}
+
+    .details-table-row:hover {
+        background: #a89f9f;
+        font-weight: bold;
+    }
+
 .top-toolbar {
   position: absolute;
   top: 0;

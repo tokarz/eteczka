@@ -39,9 +39,10 @@
     </div>
     <div class="user-history">
         <div class="top-toolbar toolbar-panel">
-            <span class="toolbar-option option-one fa fa-plus-circle"></span>
-            <span class="toolbar-option option-two fa fa-pencil-square"></span>
-            <span class="toolbar-option option-three fa fa-trash-o"></span>
+            <!--funkcjonalnosc dodawania i edycji miejsc pracy nie bedzie udostepniona w wersji 1.0 (dyskusja i decyzja z dnia 16.09.2017)-->
+            <!--<span class="toolbar-option option-one fa fa-plus-circle" ng-click="triggerAddWorkplaceDialog()"></span>
+            <span class="toolbar-option option-two fa fa-pencil-square" ng-click="triggerEditWorkplaceDialog()"></span>
+            <span class="toolbar-option option-three fa fa-trash-o" ng-click="triggerDeleteWorkplaceDialog()"></span>-->
         </div>
         <div class="toolbar-content">
             <h3 style="margin:auto;text-align:center">Miejsce Pracy</h3>
@@ -57,8 +58,8 @@
                         <th>Konto5</th>
                     </tr>
                 </thead>
-                <tbody >
-                    <tr ng-repeat="workplace in workplaces">
+                <tbody>
+                    <tr ng-repeat="workplace in workplaces" ng-click="selectRow(workplace)" ng-class="getRowStyle(workplace)">
                         <td>{{workplace.DataPoczatkowa}}</td>
                         <td>{{workplace.DataKoniec}}</td>
                         <td>{{workplace.Firma}}</td>
@@ -71,5 +72,4 @@
             </table>
         </div>
     </div>
-
 </div>

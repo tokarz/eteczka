@@ -313,6 +313,8 @@
     <Content Include="app\views\employeesfiles\employeesFilesViewDirective.js" />
     <Content Include="app\views\employees\editEmployeesPopup\deleteUserModal.html" />
     <Content Include="app\views\employees\editEmployeesPopup\upsertUserModal.html" />
+    <Content Include="app\views\employees\editWorkplacesPopup\deleteWorkplace.html" />
+    <Content Include="app\views\employees\editWorkplacesPopup\upsertWorkplaceModal.html" />
     <Content Include="app\views\employees\employeesService.js" />
     <Content Include="app\views\employees\employeesView.html" />
     <Content Include="app\views\employees\employeesViewController.js" />
