@@ -214,6 +214,20 @@
     background: whitesmoke;
 }
 
+#git-metrics-side-panel {
+    width: 19vw;
+    float: left;
+    height: 100%;
+    background: $tableHeader;
+    color: white;
+}
+
+#git-metrics-details {
+    width: 49vw;
+    float: right;
+    height: 100%;
+}
+
 @media screen and (max-width:1360px) and (min-width: 961px) {
 }
 

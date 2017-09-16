@@ -772,6 +772,20 @@
   background: whitesmoke;
 }
 
+#git-metrics-side-panel {
+  width: 19vw;
+  float: left;
+  height: 100%;
+  background: #31B1DE;
+  color: white;
+}
+
+#git-metrics-details {
+  width: 49vw;
+  float: right;
+  height: 100%;
+}
+
 html {
   height: 100vh;
   width: 100%;

@@ -1,11 +1,10 @@
-﻿<div class="menu-table-wrapper" style="width: 40vw">
-    <h1>[{{company}}]</h1>
-    <div class="add-button-wrapper" style="height: 3vh;width:95%;margin:auto;background: #31B1DE;color:white">
+﻿<div class="menu-table-wrapper">
+    <div class="toolbar-panel">
         <span style="width:50%;float:left;text-align:left">
             <span class="fa fa-plus-square"></span><span>Dodaj Pliki</span>
         </span>
     </div>
-    <div class="toolbar-content" style="height: 40vh;width:95%;margin:auto">
+    <div class="toolbar-content" style="height: 40vh;width:100%;margin:auto">
         <table style="width:100%;text-align:center">
             <tbody>
                 <tr ng-if="loading" style="text-align:center">
@@ -19,7 +18,7 @@
             </tbody>
         </table>
     </div>
-    <div class="toolbar file-transfer-toolbar" style="height: 3vh;width:95%;margin:auto;background: #31B1DE;color:white">
+    <div class="toolbar-panel">
         <span style="width:50%;float:left;text-align:left">
             <span class="fa fa-arrow-up"></span><span>Zrodlowe</span>
         </span>
@@ -27,7 +26,7 @@
             <span class="fa fa-arrow-down"></span><span>Do Opracowania</span>
         </span>
     </div>
-    <div class="staged-files-wrapper" style="height: 25vh;width:95%;margin:auto;background:white">
+    <div class="staged-files-wrapper" style="height: 35vh;width:100%;margin:auto;background:white">
         <table style="width:100%;text-align:center">
             <tbody>
                 <tr ng-if="loading" style="text-align:center">
