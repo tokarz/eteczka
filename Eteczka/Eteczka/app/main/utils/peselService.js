@@ -2,7 +2,7 @@
 
 angular.module('et.utils').factory('peselService', [function () {
     return {
-        isPeselValid: function (pesel, gender) {
+        isPeselValid: function (pesel) {
             if (pesel === null || typeof pesel === 'undefined') {
                 return false
             }
@@ -26,8 +26,6 @@ angular.module('et.utils').factory('peselService', [function () {
                 8: 9,  
                 default: 1
             }
-            var femaleDigits = '02468'
-            var maleDigits = '13579'
 
             pesel.split('').forEach((peselDigit, index) => {
                 if (index === 10) {
@@ -41,18 +39,10 @@ angular.module('et.utils').factory('peselService', [function () {
                 return false
             }
 
-            if (gender.trim() === 'M' && !maleDigits.includes(peselControlDigit)) {
-                return false
-            }
-
-            if (gender.trim() === 'K' && !femaleDigits.includes(peselControlDigit)) {
-                return false
-            }
-
             return true
         },
-        getDateFromPesel: function (pesel, gender) {
-            if (!this.isPeselValid(pesel, gender)) {
+        getDateFromPesel: function (pesel) {
+            if (!this.isPeselValid(pesel)) {
                 console.log('invalid pesel')
                 return null
             }
@@ -80,7 +70,7 @@ angular.module('et.utils').factory('peselService', [function () {
             if (monthString.length === 1) {
                 monthString = '0' + monthString
             }
-            console.log('data', century.toString() + pesel.substr(0, 2) + '-' + monthString + '-' + pesel.substr(4, 2))
+
             return century.toString() + pesel.substr(0, 2) + '-' + monthString + '-' + pesel.substr(4, 2)
         }
     }

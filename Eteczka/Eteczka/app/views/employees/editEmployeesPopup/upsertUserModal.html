@@ -6,7 +6,7 @@
                name="pesel" type="text" 
                ng-model="modalResult.PESEL" 
                ng-pattern="/^\d{11}$/" 
-               ng-change="modalResult.DataUrodzenia = modalOptions.isPeselValid(modalResult.PESEL, 'M') ? modalOptions.getBirthdate(modalResult.PESEL, 'M') : modalResult.DataUrodzenia" 
+               ng-change="modalResult.DataUrodzenia = modalOptions.isPeselValid(modalResult.PESEL) ? modalOptions.getBirthdate(modalResult.PESEL) : modalResult.DataUrodzenia" 
                ng-model-options="{updateOn: 'blur'}" 
          />
     </div>
