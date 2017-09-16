@@ -1,29 +1,32 @@
-﻿<div style="font-weight: bold">Ponizszy uzytkownik zostanie wykasowany z bazy danych</div>
-<br />
-<table class="table table-striped" style="width:100%;border-right: 1px solid black;text-align:center">
-    <tr>
-        <th class="ui-toolbar" style="height:20px">numer Eod</th>
-        <td>{{modalResult.Numeread}}</td>
-    </tr>
-    <tr>
-        <th class="ui-toolbar" style="height:20px">Imie</th>
-        <td>{{modalResult.Imie}}</td>
-    </tr>
-    <tr>
-        <th class="ui-toolbar" style="height:20px">Drugie Imie</th>
-        <td>{{modalResult.Imie2}}</td>
-    </tr>
-    <tr>
-        <th class="ui-toolbar" style="height:20px">Nazwisko</th>
-        <td>{{modalResult.Nazwisko}}</td>
-    </tr>
-    <tr>
-        <th class="ui-toolbar" style="height:20px">PESEL</th>
-        <td>{{modalResult.PESEL}}</td>
-    </tr>
-    <tr>
-        <th class="ui-toolbar" style="height:20px">Pesel obcy</th>
-        <td>{{modalResult.PeselInny}}</td>
-    </tr>
-</table>
+﻿<form>
+    <div class="modal-table-title">Ponizszy uzytkownik zostanie wykasowany z bazy danych</div>
+    <div class="modal-table-row">
+        <label class="modal-table-label" for="pesel">PESEL</label>
+        <input class="modal-table-input" name="pesel" type="text" ng-model="modalResult.PESEL" disabled/>
+    </div>
+    <div class="modal-table-row">
+        <label class="modal-table-label" for="peselOther">Pesel obcy</label>
+        <input class="modal-table-input" name="peselOther" type="text" ng-model="modalResult.PeselInny" disabled/>
+    </div>
+    <div class="modal-table-row">
+        <label class="modal-table-label" for="lastName">Nazwisko</label>
+        <input class="modal-table-input" name="lastName" type="text" ng-model="modalResult.Nazwisko" disabled/>
+    </div>
+    <div class="modal-table-row">
+        <label class="modal-table-label" for="familyName">Nazwisko Rodowe</label>
+        <input class="modal-table-input" name="familyName" type="text" ng-model="modalResult.NazwiskoRodowe" disabled/>
+    </div>
+    <div class="modal-table-row">
+        <label class="modal-table-label" for="firstName">Imie</label>
+        <input class="modal-table-input" name="firstName" type="text" ng-model="modalResult.Imie" disabled/>
+    </div>
+    <div class="modal-table-row">
+        <label class="modal-table-label" for="secondName">Drugie Imie</label>
+        <input class="modal-table-input" name="secondName" type="text" ng-model="modalResult.Imie2" disabled/>
+    </div>
+    <div class="modal-table-row">
+        <label class="modal-table-label" for="teamLeadCode">Kod kierownika</label>
+        <input class="modal-table-input" name="teamLeadCode" type="text" ng-model="modalResult.kodkierownik" disabled/>
+    </div>
+</form>
 
