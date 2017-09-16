@@ -148,7 +148,7 @@ namespace Eteczka.DB.DAO
             }
             catch (Exception ex)
             {
-             // logi
+                // logi
             }
 
             return WyszukaniPracownicy;
@@ -207,6 +207,60 @@ namespace Eteczka.DB.DAO
             }
 
             return result;
+        }
+
+        public List<Pracownik> WyszukiwaczZatrPracownikowPoTekscie(string search, int limit = 100, string orderby = "nazwisko", bool asc = true)
+        {
+            List<Pracownik> WyszukaniPracownicyPoTekscie = new List<Pracownik>();
+            string orderDirection = asc ? " ASC " : " DESC ";
+
+            //string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE  LOWER (imie) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (nazwisko) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (pesel) LIKE '%" + (search.ToLower().Trim()) + "%' ORDER BY " + orderby + orderDirection + "LIMIT " + limit;
+            string sqlQuery = "SELECT * FROM \"KatPracownicy\" where numeread in (select numeread from \"MiejscePracy\" where '" + DateTime.Now.ToString() + "' between \"MiejscePracy\".datapocz and \"MiejscePracy\".datakoniec) AND  LOWER (nazwisko) || ' ' || LOWER (imie) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (pesel) LIKE '%" + (search.ToLower().Trim()) + "%' ORDER BY " + orderby + orderDirection + "LIMIT " + limit;
+            try
+            {
+                IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
+                DataTable result = connectionState.ExecuteQuery(sqlQuery);
+
+                foreach (DataRow row in result.Rows)
+                {
+                    Pracownik fetchedPracownik = _PracownikMapper.MapujZSql(row);
+                    WyszukaniPracownicyPoTekscie.Add(fetchedPracownik);
+                }
+            }
+            catch (Exception ex)
+            {
+                //logi
+            }
+
+            return WyszukaniPracownicyPoTekscie;
+
+        }
+
+        public List<Pracownik> WyszukiwaczPozostZatrPracownikowPoTekscie(string search, int limit = 100, string orderby = "nazwisko", bool asc = true)
+        {
+            List<Pracownik> WyszukaniPracownicyPoTekscie = new List<Pracownik>();
+            string orderDirection = asc ? " ASC " : " DESC ";
+
+            //string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE  LOWER (imie) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (nazwisko) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (pesel) LIKE '%" + (search.ToLower().Trim()) + "%' ORDER BY " + orderby + orderDirection + "LIMIT " + limit;
+            string sqlQuery = "SELECT * FROM \"KatPracownicy\" where numeread not in (select numeread from \"MiejscePracy\" where '" + DateTime.Now.ToString() + "' between \"MiejscePracy\".datapocz and \"MiejscePracy\".datakoniec) AND  LOWER (nazwisko) || ' ' || LOWER (imie) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (pesel) LIKE '%" + (search.ToLower().Trim()) + "%' ORDER BY " + orderby + orderDirection + "LIMIT " + limit;
+            try
+            {
+                IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
+                DataTable result = connectionState.ExecuteQuery(sqlQuery);
+
+                foreach (DataRow row in result.Rows)
+                {
+                    Pracownik fetchedPracownik = _PracownikMapper.MapujZSql(row);
+                    WyszukaniPracownicyPoTekscie.Add(fetchedPracownik);
+                }
+            }
+            catch (Exception ex)
+            {
+                //logi
+            }
+
+            return WyszukaniPracownicyPoTekscie;
+
         }
     }
 }
