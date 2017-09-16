@@ -250,3 +250,51 @@ fieldset[disabled] .btn-info.focus {
         box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
     }
 }
+
+.modal-table-title {
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.modal-table-row {
+    margin-bottom: 15px;
+}
+
+.modal-table-label {
+    width: 30%;
+    float: left;
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+    padding-bottom: 3px;
+    padding-top: 3px;
+    margin-bottom: 5px;
+}
+
+.modal-table-input {
+    width: 55%;
+    float: left;
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+    padding-bottom: 3px;
+    padding-top: 3px;
+    margin-bottom: 5px;
+}
+
+.modal-table-error {
+    display: inline-block;
+    width: 100%;
+    color: darkred;
+    float: left;
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+    padding-bottom: 3px;
+    padding-top: 3px;
+    margin-bottom: 15px;
+}

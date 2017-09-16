@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('et.controllers').controller('menuContentController', ['$scope', 'menuContentService', 'modalService', function ($scope, menuContentService, modalService) {
+angular.module('et.controllers').controller('menuContentController', ['$scope', 'menuContentService', 'modalService', 'peselService', 'utilsService', function ($scope, menuContentService, modalService, peselService, utilsService) {
 
     $scope.$watch('user', function (value) {
         console.log('watching user', value)
@@ -21,15 +21,33 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
             });
     }
 
+    var upsertEmployeeModalFunctions = {
+        shouldDisableByPesel: function (pesel, field) {
+            var isNoPesel = (pesel === null || pesel === '' || typeof pesel === 'undefined')
+            var fieldHasValue = (typeof field === 'string' && field.trim() !== '')
+
+            if (fieldHasValue || (!fieldHasValue && isNoPesel)) {
+                return false;
+            }
+
+            return true;
+        },
+        isPeselValid: function (pesel, gender) {
+            return peselService.isPeselValid(pesel, gender)
+        },
+        getBirthdate: function (pesel, gender) {
+            return peselService.getDateFromPesel(pesel, gender)
+        }
+    }
+
     $scope.triggerAddEmployeeDialog = function () {
         var modalOptions = {
             title: 'Dodawanie nowego pracownika',
             body: 'app/views/employees/editEmployeesPopup/upsertUserModal.html'
-
         }
 
         openModal(
-            modalOptions,
+            Object.assign(modalOptions, upsertEmployeeModalFunctions),
             function (value) { console.log('tu bedzie wywolanie funkcji dodawania pracownika', value) }
         )
     }
@@ -41,8 +59,10 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
         }
         var userToPass = Object.assign({}, $scope.user)
 
+        console.log(userToPass)
+
         openModal(
-            modalOptions,
+            Object.assign(modalOptions, upsertEmployeeModalFunctions),
             function (value) { console.log('tu bedzie wywolanie funkcji edytowania pracownika', value) },
             userToPass
         )
