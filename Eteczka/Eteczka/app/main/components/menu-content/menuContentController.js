@@ -5,7 +5,6 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
         console.log('watching user', value)
         if (value && value !== {}) {
             menuContentService.getUserWorkplaces(value).then(function (result) {
-                console.log('result', result)
                 $scope.workplaces = result.MiejscaPracy;
             });
         }
@@ -31,9 +30,9 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
         return result;
     }
 
-    var openModal = function (modalOptions, executor, user) {
-        modalService.showModal(modalOptions, user)
-            .then(function (result) { executor(result) })
+    var openModal = function (modalOptions, executor, initialInput) {
+        return modalService.showModal(modalOptions, initialInput)
+            .then(function (result) { return executor(result) })
             .catch(function (error) {
                 if (error !== 'cancel' && error !== 'backdrop click') {
                     console.log("error found!", error);
@@ -88,12 +87,56 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
         )
     }
 
-    $scope.triggerDeleteEmployeePopup = function () {        var modalOptions = {            title: 'Usuwanie pracownika z bazy danych',            body: 'app/views/employees/editEmployeesPopup/deleteUserModal.html'        }        openModal(
-            modalOptions,
-            function (value) { console.log('tu bedzie wywolanie funkcji usuwania pracownika', value) },
-            $scope.user
-        )    }
+    $scope.triggerDeleteEmployeePopup = function () {        triggerAdminPasswordCheck()            .then(function (isAdminPasswordCorrect) {                if (typeof isAdminPasswordCorrect === 'undefined') {                    return 
+                }                               if (isAdminPasswordCorrect === false) {                    return alert('haslo administratora niepoprawne')
+                }
 
+                var modalOptions = {                    title: 'Usuwanie pracownika z bazy danych',                    body: 'app/views/employees/editEmployeesPopup/deleteUserModal.html'                }                openModal(
+                    modalOptions,
+                    function (value) {
+                        triggerShortPasswordCheck()
+                            .then(function (isShortPasswordCorrect) {
+                                if (typeof isShortPasswordCorrect === 'undefined') {                                    return
+                                }
+
+                                if (isShortPasswordCorrect === false) {                                    return alert('haslo uzytkownika niepoprawne')
+                                }
+
+                                console.log('tu bedzie wywolanie funkcji usuwania pracownika', value)
+                            })
+                            .catch(console.error)
+                    },
+                    $scope.user
+                )
+            })        .catch(console.error)    }
+
+    var triggerAdminPasswordCheck = function() {
+        var modalOptions = {            title: 'Wymagane haslo administratora',            body: 'app/main/utils/modalTemplate/adminPasswordModal.html'        }        return openModal(
+            modalOptions,
+            function (value) {
+                /* return menuContentService.getCurrentAdminPassword().then(function (result) {
+                    return result === value
+                })
+                */
+
+                return true
+            }
+        )
+    }
+
+    var triggerShortPasswordCheck = function () {
+        var modalOptions = {            title: 'Wymagane potwierdzenie haslem uzytkownika',            body: 'app/main/utils/modalTemplate/userPasswordModal.html'        }        return openModal(
+            modalOptions,
+            function (value) {
+                /* return menuContentService.getUserPassword().then(function (result) {
+                    return result === value
+                })
+                */
+
+                return true
+            }
+        )
+    }
     /*
     * funkcjonalnosc dodawania i edycji miejsc pracy nie bedzie udostepniona w wersji 1.0.
     * (dyskusja i decyzja z dnia 16.09.2017)

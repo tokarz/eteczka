@@ -297,6 +297,8 @@
     <Content Include="app\main\utils\fileService.js" />
     <Content Include="app\main\utils\httpService.js" />
     <Content Include="app\main\utils\modalService.js" />
+    <Content Include="app\main\utils\modalTemplate\userPasswordModal.html" />
+    <Content Include="app\main\utils\modalTemplate\adminPasswordModal.html" />
     <Content Include="app\main\utils\modalTemplate\modalTemplate.html" />
     <Content Include="app\main\utils\peselService.js" />
     <Content Include="app\main\utils\resizableDirective.js" />
