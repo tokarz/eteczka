@@ -109,5 +109,23 @@ namespace Eteczka.BE.Controllers
                 pracownicy = Pracownicy
             }, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult WyszukajZatrPracownikowPoTekscie(string search)
+        {
+            List<PracownikDTO> Pracownicy = _PracownicyService.ZnajdzZatrPracownikowPoTekcie(search);
+            return Json(new
+            {
+                pracownicy = Pracownicy
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult WyszukajPozostPracownikowPoTekscie(string search)
+        {
+            List<PracownikDTO> Pracownicy = _PracownicyService.ZnajdzPozostPracownikowPoTekcie(search);
+            return Json(new
+            {
+                pracownicy = Pracownicy
+            }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

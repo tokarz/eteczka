@@ -298,6 +298,8 @@
     <Content Include="app\main\utils\fileService.js" />
     <Content Include="app\main\utils\httpService.js" />
     <Content Include="app\main\utils\modalService.js" />
+    <Content Include="app\main\utils\modalTemplate\userPasswordModal.html" />
+    <Content Include="app\main\utils\modalTemplate\adminPasswordModal.html" />
     <Content Include="app\main\utils\modalTemplate\modalTemplate.html" />
     <Content Include="app\main\utils\peselService.js" />
     <Content Include="app\main\utils\resizableDirective.js" />
@@ -314,12 +316,15 @@
     <Content Include="app\views\employeesfiles\employeesFilesViewDirective.js" />
     <Content Include="app\views\employees\editEmployeesPopup\deleteUserModal.html" />
     <Content Include="app\views\employees\editEmployeesPopup\upsertUserModal.html" />
+    <Content Include="app\views\employees\editWorkplacesPopup\deleteWorkplace.html" />
+    <Content Include="app\views\employees\editWorkplacesPopup\upsertWorkplaceModal.html" />
     <Content Include="app\views\employees\employeesService.js" />
     <Content Include="app\views\employees\employeesView.html" />
     <Content Include="app\views\employees\employeesViewController.js" />
     <Content Include="app\views\employees\employeesViewDirective.js" />
     <Content Include="app\views\files\addFile\addFile.html" />
     <Content Include="app\views\files\addFile\addFileController.js" />
+    <Content Include="app\views\files\addFile\fileDescriptionPopup\upsertFileDescription.html" />
     <Content Include="app\views\files\filesView.html" />
     <Content Include="app\views\files\filesViewController.js" />
     <Content Include="app\views\files\filesViewDirective.js" />

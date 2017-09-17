@@ -110,5 +110,31 @@ namespace Eteczka.BE.Services
             }
             return PracownicyDTO;
         }
+
+        public List<PracownikDTO> ZnajdzZatrPracownikowPoTekcie(string search)
+        {
+            List<PracownikDTO> PracownicyDTO = new List<PracownikDTO>();
+            List<Pracownik> Pracownicy = _PracownikDao.WyszukiwaczZatrPracownikowPoTekscie(search);
+            foreach (Pracownik pracownik in Pracownicy)
+            {
+                PracownikDTO pracownikDTO = _PracownikDtoMapper.mapuj(pracownik);
+                PracownicyDTO.Add(pracownikDTO);
+
+            }
+            return PracownicyDTO;
+        }
+
+        public List<PracownikDTO> ZnajdzPozostPracownikowPoTekcie(string search)
+        {
+            List<PracownikDTO> PracownicyDTO = new List<PracownikDTO>();
+            List<Pracownik> Pracownicy = _PracownikDao.WyszukiwaczPozostZatrPracownikowPoTekscie(search);
+            foreach (Pracownik pracownik in Pracownicy)
+            {
+                PracownikDTO pracownikDTO = _PracownikDtoMapper.mapuj(pracownik);
+                PracownicyDTO.Add(pracownikDTO);
+
+            }
+            return PracownicyDTO;
+        }
     }
 }
