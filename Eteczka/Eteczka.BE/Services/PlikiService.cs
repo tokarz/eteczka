@@ -48,6 +48,33 @@ namespace Eteczka.BE.Services
             return result;
         }
 
+        public List<Pliki> PobierzPlikiDlaFirmy(string firma)
+        {
+            List<Pliki> result = new List<Pliki>();
+            string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
+            string sciezkaDoWaitingRoomu = Path.Combine(eadRoot, "waitingroom", firma);
+
+            if(Directory.Exists(sciezkaDoWaitingRoomu))
+            {
+                string[] plikiDlaFirmy = Directory.GetFiles(sciezkaDoWaitingRoomu);
+                foreach(string plikDlaFirmy in plikiDlaFirmy)
+                {
+
+                    Pliki plik = new Pliki()
+                    {
+                        NazwaPliku = _PlikiUtils.WezNazwePlikuZeSciezki(plikDlaFirmy),
+                        DataDokumentu = File.GetCreationTime(plikDlaFirmy),
+                        PelnaSciezka = plikDlaFirmy
+                    };
+
+                    result.Add(plik);
+                }
+
+            }
+
+            return result;
+        }
+
         public MetaDanePliku PobierzMetadane(string plik)
         {
             MetaDanePliku result = new MetaDanePliku();

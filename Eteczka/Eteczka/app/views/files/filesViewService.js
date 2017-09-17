@@ -6,10 +6,10 @@ angular.module('et.services').factory('filesViewService', ['httpService', 'sessi
                 sessionId: sessionService.getSessionId(),
             });
         },
-        getFilesForUser: function (userid) {
+        getFilesForUser: function (user) {
             return httpService.get('Pliki/PobierzDlaUzytkownika', {
                 sessionId: sessionService.getSessionId(),
-                userid: userid
+                numeread: user.Numeread
             });
         },
         getGitStateForCompany: function (firma) {

@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using System.Configuration;
 using System.Net.Mime;
 using Eteczka.BE.Utils;
+using System.IO;
 
 namespace Eteczka.BE.Controllers
 {
@@ -27,6 +28,20 @@ namespace Eteczka.BE.Controllers
 
             string base64PDF = _PlikiUtils.PobierzZaszyfrowanaZawartoscPliku(filepath);
            
+
+            return Json(new
+            {
+                data = base64PDF
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetResource(string fileName)
+        {
+            string eadRootName = ConfigurationManager.AppSettings["rootdir"];
+            string eadRoot = Environment.GetEnvironmentVariable(eadRootName);
+            string filepath = Path.Combine(eadRoot, "waitingroom", "AFM", fileName);
+
+            string base64PDF = _PlikiUtils.PobierzZaszyfrowanaZawartoscPliku(filepath);
 
             return Json(new
             {

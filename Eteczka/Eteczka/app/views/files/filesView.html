@@ -1,24 +1,26 @@
 ﻿<div class="option-wrapper">
     <git-menu-table company="parameters.company" selectedfile="selectedfile"></git-menu-table>
     <div class="component-content-wrapper">
-        <div style="width:100%;height:50vh">
-            <file-preview file="selectedfile"></file-preview>
+        <div style="width:100%;height:55vh">
+            <file-preview file="selectedfile" fileproperty="NazwaPliku" secure="false"></file-preview>
         </div>
-        <div style="width:100%;height:30vh;background:whitesmoke">
+        <div style="width:100%;height:25vh;background:whitesmoke">
             <div id="git-metrics-side-panel">
-                <ul style="margin: 5px 0">
-                    <li><span class="fa fa-pencil-square"></span>Opisz</li>
-                    <li><span class="fa fa-check-square"></span>Zatwierdz</li>
-                    <li><span class="fa fa-history"></span>Historia</li>
+                <ul style="margin: 30px 0">
+                    <li class="git-metric-li"><span class="fa fa-pencil-square"></span>Opisz</li>
+                    <li class="git-metric-li"><span class="fa fa-check-square"></span>Zatwierdz</li>
+                    <li class="git-metric-li"><span class="fa fa-history"></span>Historia</li>
                 </ul>
             </div>
             <div id="git-metrics-details">
-                <div style="height:20px;width:100%;text-align:center">
+                <div class="git-metric-part">
                     <h3>Metryczka Dokumentu</h3>
                 </div>
-                <div style="height:100px;width:100%;text-align:justify;background:white"></div>
+                <div class="git-comment-area"></div>
             </div>
         </div>
 
     </div>
 </div>
+
+

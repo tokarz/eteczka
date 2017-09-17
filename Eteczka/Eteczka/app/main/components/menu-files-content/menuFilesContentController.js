@@ -1,35 +1,13 @@
 ﻿'use strict';
-angular.module('et.controllers').controller('menuFilesContentController', ['$scope', function ($scope) {
+angular.module('et.controllers').controller('menuFilesContentController', ['$scope', 'filesViewService', function ($scope, filesViewService) {
     $scope.selectedFile = null;
 
-    $scope.userFiles = [
-        {
-            Type: 'Badania Lekarskie',
-            DataDok: '2011-11-11',
-            DataPocz: '2012-12-12',
-            DataKon: '2013-12-12',
-            checked: false
-        },
-        {
-            Type: 'Badania Lekarskie2',
-            DataDok: '2011-11-11',
-            DataPocz: '2012-12-12',
-            DataKon: '2013-12-12',
-            checked: false
-        },
-        {
-            Type: 'Badania Lekarskie3',
-            DataDok: '2011-11-11',
-            DataPocz: '2012-12-12',
-            DataKon: '2013-12-12',
-            checked: false
-        }
-    ];
-
+    $scope.userFiles = [];
 
     $scope.selectFile = function (file) {
         if ($scope.selectedFile === file) {
             $scope.selectedFile = null;
+            $scope.userFiles = [];
         } else {
             $scope.selectedFile = file;
         }
@@ -45,4 +23,11 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$sco
         return result;
     }
 
+    $scope.$watch('user', function (user) {
+        if (user) {
+            filesViewService.getFilesForUser(user).then(function (result) {
+                $scope.userFiles = result.pliki;
+            });
+        }
+    });
 }]);

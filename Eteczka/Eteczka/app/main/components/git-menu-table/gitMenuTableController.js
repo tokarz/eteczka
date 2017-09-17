@@ -8,13 +8,29 @@ angular.module('et.controllers').controller('gitMenuTableController', ['$scope',
         if (value) {
             $scope.loading = true;
             filesViewService.getGitStateForCompany(value).then(function (result) {
-                $scope.stagedrows = result.staged;
                 $scope.newrows = result.newfiles;
+                $scope.stagedrows = [];
                 $scope.loading = false;
             });
         }
     });
 
+    $scope.selectStagedFile = function (file) {
+        if ($scope.selectedStagedFile == file) {
+            $scope.selectedStagedFile = {};
+        } else {
+            $scope.selectedStagedFile = file;
+        }
+    }
+    $scope.getStagedRowStyle = function (file) {
+        var result = 'table-row';
+
+        if (file === $scope.selectedStagedFile) {
+            result += ' active-row';
+        }
+
+        return result;
+    }
     $scope.selectFile = function (file) {
         if ($scope.selectedfile == file) {
             $scope.selectedfile = {};
@@ -31,6 +47,20 @@ angular.module('et.controllers').controller('gitMenuTableController', ['$scope',
         }
 
         return result;
+    }
+
+    $scope.stageFile = function (row) {
+        if (row && $scope.selectedfile !== {}) {
+            $scope.newrows.splice($scope.newrows.indexOf(row), 1);
+            $scope.stagedrows.push(row);
+        }
+    }
+
+    $scope.unstageFile = function (row) {
+        if (row && $scope.selectedStagedFile !== {}) {
+            $scope.stagedrows.splice($scope.stagedrows.indexOf(row), 1);
+            $scope.newrows.push(row);
+        }
     }
 
 }]);

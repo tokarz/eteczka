@@ -10,7 +10,9 @@ namespace Eteczka.BE.Services
         List<Pliki> PobierzWszystkie(string sortOrder = "asc", string sortColumn = "Id");
         List<Pliki> PobierzDlaUzytkownika(string userId, string sortOdred = "asc", string sortColumn = "Id");
         List<Pliki> PobierzZawierajaceTekst(string searchText, string sortOrder = "asc", string sortColumn = "Id");
+        List<Pliki> PobierzPlikiDlaFirmy(string firma);
         MetaDanePliku PobierzMetadane(string plik);
         StanPlikow PobierzStanPlikow(string sessionId);
+
     }
 }

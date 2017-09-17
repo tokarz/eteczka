@@ -1,7 +1,9 @@
 ﻿<div class="menu-table-wrapper">
-    <div class="toolbar-panel">
+    <div class="toolbar-panel git-panel">
         <span style="width:50%;float:left;text-align:left">
-            <span class="fa fa-plus-square"></span><span>Dodaj Pliki</span>
+            <span class="git-icon">
+                <span class="fa fa-plus-square"></span><span> Dodaj Pliki</span>
+            </span>
         </span>
     </div>
     <div class="toolbar-content" style="height: 40vh;width:100%;margin:auto">
@@ -18,23 +20,27 @@
             </tbody>
         </table>
     </div>
-    <div class="toolbar-panel">
+    <div class="toolbar-panel git-panel">
         <span style="width:50%;float:left;text-align:left">
-            <span class="fa fa-arrow-up"></span><span>Zrodlowe</span>
+            <span ng-click="unstageFile(selectedStagedFile)" class="git-icon">
+                <span class="fa fa-arrow-up"></span><span>Zrodlowe</span>
+            </span>
         </span>
         <span style="width:50%;float:right;text-align:right">
-            <span class="fa fa-arrow-down"></span><span>Do Opracowania</span>
+            <span ng-click="stageFile(selectedfile)" class="git-icon">
+                <span class="fa fa-arrow-down"></span><span> Do Opracowania</span>
+            </span>
         </span>
     </div>
     <div class="staged-files-wrapper" style="height: 35vh;width:100%;margin:auto;background:white">
         <table style="width:100%;text-align:center">
             <tbody>
-                <tr ng-if="loading" style="text-align:center">
+                <tr ng-if="loading">
                     <td style="display:block;width:90%;margin:auto">
                         <processing></processing>
                     </td>
                 </tr>
-                <tr ng-if="!loading" ng-repeat="row in stagedrows">
+                <tr ng-if="!loading" ng-repeat="row in stagedrows" ng-click="selectStagedFile(row)" ng-class="getStagedRowStyle(row)">
                     <td>{{row.NazwaPliku}} </td>
                 </tr>
             </tbody>

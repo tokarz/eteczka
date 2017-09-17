@@ -3,23 +3,30 @@ angular.module('et.directives').directive('filePreview', function () {
     return {
         restrict: 'E',
         scope: {
-            file: '='
+            file: '=',
+            secure: '@',
+            fileproperty: '@'
         },
         templateUrl: 'app/main/components/filepreview/filePreviewView.html',
         controller: function ($scope, httpService) {
+
             $scope.$watch('file', function (value) {
                 if (value) {
-                    $scope.previewPdf(value);
+                    if ($scope.secure === 'true') {
+                        $scope.previewPdf(value, 'GetRestrictedResource');
+                    } else {
+                        $scope.previewPdf(value, 'GetResource');
+                    }
                 } else {
                     $('#pdfPreviewer').attr('data', '');
                 }
             });
 
-            $scope.previewPdf = function (elm) {
-                $('#pdfPreviewer').attr('src', 'FILE_FETCH?src=' + elm.name + '.fetchfile');
+            $scope.previewPdf = function (elm, ctrl) {
+                $('#pdfPreviewer').attr('src', 'FILE_FETCH?src=' + elm[$scope.fileproperty] + '.fetchfile');
                 $('#pdfPreviewer').addClass('processing');
-                httpService.get('Resources/GetRestrictedResource', {
-                    fileName: 'Snopowiazalka.pdf'//elm.name
+                httpService.get('Resources/' + ctrl, {
+                    fileName: elm[$scope.fileproperty]
                 }).then(function (result) {
                     $('#pdfPreviewer').removeClass('processing');
                     $('#pdfPreviewer').attr('data', 'data:application/pdf;base64,' + result.data);

@@ -36,6 +36,20 @@ namespace Eteczka.BE.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult PobierzDlaUzytkownika(string sessionId, string numeread)
+        {
+            List<Pliki> pliki = new List<Pliki>();
+            pliki.Add(new Pliki()
+            {
+                NazwaPliku = "Snopowiazalka.pdf"
+            });
+
+            return Json(new
+            {
+                pliki = pliki
+            }, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult PobierzStanZeskanowanychPlikow(string sessionId)
         {
             StanPlikow stanPlikow = null;
@@ -52,31 +66,11 @@ namespace Eteczka.BE.Controllers
 
         public ActionResult PobierzGitStatusDlaFirmy(string sessionId, string firma)
         {
-            List<Pliki> newFiles = new List<Pliki>()
-            {
-                new Pliki()
-                {
-                    NazwaPliku = "Plik1",
-                    TypPliku = "Dok1"
-                },
-                new Pliki()
-                {
-                    NazwaPliku = "Plik2",
-                    TypPliku = "Pdf"
-                }
-            };
-            List<Pliki> staged = new List<Pliki>() { 
-             new Pliki()
-                {
-                    NazwaPliku = "PlikX",
-                    TypPliku = "Pdf"
-                }
-            };
+            List<Pliki> pliki = _PlikiService.PobierzPlikiDlaFirmy(firma);
 
             return Json(new
             {
-                staged = staged,
-                newfiles = newFiles
+                newfiles = pliki
             }, JsonRequestBehavior.AllowGet);
         }
 

@@ -634,6 +634,11 @@
   margin: 0;
 }
 
+.git-panel {
+  background-color: whitesmoke;
+  color: #134557;
+}
+
 .toolbar-option {
   width: 30px;
   height: 30px;
@@ -773,17 +778,57 @@
 }
 
 #git-metrics-side-panel {
-  width: 19vw;
+  width: 10vw;
   float: left;
   height: 100%;
-  background: #31B1DE;
+  background: whitesmoke;
   color: white;
 }
 
 #git-metrics-details {
-  width: 49vw;
+  width: 60vw;
   float: right;
   height: 100%;
+}
+
+.git-icon {
+  margin: 4px;
+  cursor: pointer;
+}
+
+.git-icon:hover {
+  color: #134557;
+}
+
+.git-metric-li {
+  margin: 5px 0;
+  cursor: pointer;
+  color: #134557;
+  opacity: 0.8;
+}
+
+.git-metric-li:hover {
+  opacity: 1;
+}
+
+.git-metric-part {
+  height: 20px;
+  width: 100%;
+  text-align: center;
+}
+
+.git-metric-part h3 {
+  color: #134557;
+  margin: 0;
+}
+
+.git-comment-area {
+  height: 200px;
+  width: 99%;
+  text-align: justify;
+  background: white;
+  margin: auto;
+  box-shadow: 0 0 2px black;
 }
 
 html {
