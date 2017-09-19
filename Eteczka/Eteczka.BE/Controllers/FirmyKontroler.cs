@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using Eteczka.BE.DTO;
+using Eteczka.Model.Entities;
 using Eteczka.BE.Services;
 
 
@@ -17,17 +17,17 @@ namespace Eteczka.BE.Controllers
 
         public ActionResult PobierzWszystkieFirmy()
         {
-            List<FirmaDTO> PobraneFirmyDTO = _firmyService.PobierzWszystkie();
+            List<KatFirmy> pobraneFirmy = _firmyService.PobierzWszystkie();
 
             return Json(new
             {
-                Firmy = PobraneFirmyDTO
+                Firmy = pobraneFirmy
             }, JsonRequestBehavior.AllowGet);
         }
 
-       
 
-        
+
+
     }
 }
 

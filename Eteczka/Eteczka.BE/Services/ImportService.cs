@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Eteczka.DB.Entities;
 using Eteczka.DB.DAO;
 using Eteczka.DB.Mappers;
 using Eteczka.DB.Connection;
@@ -11,6 +10,7 @@ using Eteczka.BE.DTO;
 using System.Text;
 using Eteczka.BE.Utils;
 using Eteczka.BE.Mappers;
+using Eteczka.Model.Entities;
 
 namespace Eteczka.BE.Services
 {
@@ -87,7 +87,7 @@ namespace Eteczka.BE.Services
             bool result = false;
             string eadRoot = System.Environment.GetEnvironmentVariable("EAD_DIR");
             string sciezkaDoWaitingRoom = Path.Combine(eadRoot, "waitingroom");
-            string finalFolderLocation = Path.Combine(sciezkaDoWaitingRoom, folder);
+            string finalFolderLocation = Path.Combine(sciezkaDoWaitingRoom, folder.Trim());
             return Directory.Exists(finalFolderLocation);
         }
 

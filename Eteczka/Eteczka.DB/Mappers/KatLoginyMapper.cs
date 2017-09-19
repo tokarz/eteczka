@@ -1,4 +1,4 @@
-﻿using Eteczka.DB.Entities;
+﻿using Eteczka.Model.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -37,29 +37,26 @@ namespace Eteczka.DB.Mappers
             return fetchedResult;
         }
 
-        public KatLoginyDetale MapDetails(DataTable queryResult)
+        public List<KatLoginyDetale> MapDetails(DataTable queryResult)
         {
-            KatLoginyDetale fetchedResult = new KatLoginyDetale();
-
-            if (queryResult != null && queryResult.Rows.Count == 1)
+            List<KatLoginyDetale> result = new List<KatLoginyDetale>();
+            foreach (DataRow row in queryResult.Rows)
             {
-                DataRow row = queryResult.Rows[0];
-
-                fetchedResult.Identyfikator = row["Identyfikator".ToLower()].ToString();
-                fetchedResult.Nazwisko = row["Nazwisko".ToLower()].ToString();
-                fetchedResult.Imie = row["Imie".ToLower()].ToString();
-                fetchedResult.Firma = row["Firma".ToLower()].ToString();
+                KatLoginyDetale fetchedResult = new KatLoginyDetale();
+                fetchedResult.Identyfikator = row["identyfikator"].ToString();
+                fetchedResult.Nazwisko = row["nazwisko"].ToString();
+                fetchedResult.Imie = row["imie"].ToString();
+                fetchedResult.Firma = row["firma"].ToString();
                 fetchedResult.Email = row["pocztaemail"].ToString();
 
                 Uprawnienia uprawnienia = _UprawnieniaMapper.Map(row);
 
                 fetchedResult.Uprawnienia = uprawnienia;
+
+                result.Add(fetchedResult);
             }
 
-
-
-
-            return fetchedResult;
+            return result;
         }
     }
 }

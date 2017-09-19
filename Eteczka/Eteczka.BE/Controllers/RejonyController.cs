@@ -1,27 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using Eteczka.BE.DTO;
+using Eteczka.Model.Entities;
 using Eteczka.BE.Services;
 
 namespace Eteczka.BE.Controllers
 {
     public class RejonyController : Controller
-
     {
         private IRejonyService _rejonyService;
 
-        public RejonyController (IRejonyService rejonyService)
+        public RejonyController(IRejonyService rejonyService)
         {
             this._rejonyService = rejonyService;
         }
 
         public ActionResult PobierzWszystkieRejony()
         {
-            List<RejonDTO> PobraneRejony = _rejonyService.PobierzRejony();
+            List<KatRejony> PobraneRejony = _rejonyService.PobierzRejony();
 
             return Json(new
             {
@@ -31,7 +26,7 @@ namespace Eteczka.BE.Controllers
         }
         public ActionResult PobierzRejonyDlaWybranejFirmy(string firma)
         {
-            List<RejonDTO> PobraneRejony = _rejonyService.PobierzRejonyDlaFirmy(firma);
+            List<KatRejony> PobraneRejony = _rejonyService.PobierzRejonyDlaFirmy(firma);
             return Json(new
             {
                 Rejony = PobraneRejony

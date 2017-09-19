@@ -57,7 +57,7 @@ angular.module('et.services').factory('settingsService', ['httpService', 'sessio
         },
         doesFolderExist: function (folder) {
             return httpService.get('FilesImport/CzyFolderIstnieje', {
-                sessionId: sessionService.getSessionId(),
+                sesja: sessionService.getSessionId(),
                 folder: folder
             });
         },
@@ -65,6 +65,11 @@ angular.module('et.services').factory('settingsService', ['httpService', 'sessio
             return httpService.get('FilesImport/SprawdzUpdate', {
                 sessionId: sessionService.getSessionId(),
                 type: type
+            });
+        },
+        fetchAllOpenSessions: function () {
+            return httpService.get('Sesja/PobierzOtwarteSesje', {
+                sessionId: sessionService.getSessionId()
             });
         }
 

@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Web;
 using System.Web.Mvc;
 using System.Configuration;
-using System.Net.Mime;
 using Eteczka.BE.Utils;
 using System.IO;
 

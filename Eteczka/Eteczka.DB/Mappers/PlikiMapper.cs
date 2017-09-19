@@ -1,4 +1,4 @@
-﻿using Eteczka.DB.Entities;
+﻿using Eteczka.Model.Entities;
 using System;
 using System.Data;
 

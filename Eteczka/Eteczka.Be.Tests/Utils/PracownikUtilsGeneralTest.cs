@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using NSubstitute;
 using Eteczka.BE.DTO;
-using Eteczka.DB.Entities;
 using Eteczka.BE.Mappers;
 
 namespace Eteczka.BE.Utils

@@ -4,7 +4,9 @@ angular.module('et.utils').directive('userMenu', function () {
         restrict: 'AE',
         scope: {
             loginstatus: '=',
-            useroptions: '='
+            useroptions: '=',
+            firms: '=',
+            selectedfirm: '='
         },
         templateUrl: 'app/main/header/menu/userMenu.html',
         controller: 'headerController'

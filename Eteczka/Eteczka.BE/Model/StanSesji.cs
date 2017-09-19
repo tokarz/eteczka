@@ -1,19 +1,24 @@
-﻿using Eteczka.BE.Exceptions;
-using System;
+﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Eteczka.BE.Model
 {
     public class StanSesji
     {
         private static Dictionary<string, SessionDetails> OTWARTE_SESJE = new Dictionary<string, SessionDetails>();
+        private static Dictionary<string, SessionDetails> ZAMKNIETE_SESJE = new Dictionary<string, SessionDetails>();
 
         public bool CzySesjaJestOtwarta(string idSesji)
         {
-            return OTWARTE_SESJE.ContainsKey(idSesji);
+            bool result = false;
+            if (OTWARTE_SESJE.ContainsKey(idSesji))
+            {
+                SessionDetails daneSesji = OTWARTE_SESJE[idSesji];
+                result = daneSesji.SesjaAktywna && (DateTime.Now.Subtract(daneSesji.OstatniaAktywnoscSesji) <= TimeSpan.FromMinutes(10));
+            }
+
+            return result;
         }
 
         public void AktualizujSesje(string idSesji)
@@ -24,12 +29,33 @@ namespace Eteczka.BE.Model
             }
         }
 
-        public bool DodajSesje(string idSesji)
+        public SessionDetails PobierzSesje(string sessionID)
         {
-            bool result = true;
+            SessionDetails result = null;
+            if (OTWARTE_SESJE.ContainsKey(sessionID))
+            {
+                result = OTWARTE_SESJE[sessionID];
+            }
+            return result;
+        }
+
+        public List<SessionDetails> PobierzOtwarteSesje()
+        {
+            List<SessionDetails> sesje = new List<SessionDetails>();
+
+            foreach(SessionDetails detale in OTWARTE_SESJE.Values)
+            {
+                sesje.Add(detale);
+            }
+
+            return sesje;
+        }
+
+        public SessionDetails DodajSesje(string idSesji)
+        {
             if (OTWARTE_SESJE.ContainsKey(idSesji))
             {
-                result = false;
+                return null;
             }
             SessionDetails nowaSesja = new SessionDetails()
             {
@@ -40,22 +66,21 @@ namespace Eteczka.BE.Model
             };
             OTWARTE_SESJE.Add(idSesji, nowaSesja);
 
-            return result;
+            return nowaSesja;
         }
 
-        public bool ZamknijSesje(string idSesji)
+        public bool ZamknijSesje(string session)
         {
             bool result = false;
-            if (OTWARTE_SESJE.ContainsKey(idSesji))
+            if (OTWARTE_SESJE.ContainsKey(session))
             {
-                SessionDetails zamkniecieSesji = new SessionDetails()
-                {
-                    IdSesji = idSesji,
-                    PoczatekSesji = OTWARTE_SESJE[idSesji].PoczatekSesji,
-                    OstatniaAktywnoscSesji = DateTime.Now,
-                    SesjaAktywna = false
-                };
-                OTWARTE_SESJE[idSesji] = zamkniecieSesji;
+                SessionDetails sesja = OTWARTE_SESJE[session];
+
+                sesja.OstatniaAktywnoscSesji = DateTime.Now;
+                sesja.SesjaAktywna = false;
+
+                ZAMKNIETE_SESJE[sesja.IdSesji] = sesja;
+                OTWARTE_SESJE.Remove(sesja.IdSesji);
                 result = true;
             }
 

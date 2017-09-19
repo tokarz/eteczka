@@ -1,9 +1,9 @@
 ﻿using Eteczka.BE.DTO;
 using Eteczka.DB.DAO;
 using Eteczka.DB.Connection;
-using Eteczka.DB.Entities;
 using System.Configuration;
 using System.Collections.Generic;
+using Eteczka.Model.Entities;
 
 namespace Eteczka.BE.Services
 {
@@ -23,9 +23,9 @@ namespace Eteczka.BE.Services
             return queryResult;
         }
 
-        public KatLoginyDetale GetUserDetails(string identyfikator)
+        public List<KatLoginyDetale> GetUserDetails(string identyfikator)
         {
-            KatLoginyDetale queryResult = _Dao.WczytajDetaleDlaUzytkownika(identyfikator);
+            List<KatLoginyDetale> queryResult = _Dao.WczytajDetaleDlaUzytkownika(identyfikator);
 
             return queryResult;
         }

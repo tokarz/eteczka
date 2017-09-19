@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using Eteczka.BE.Services;
 using Eteczka.BE.DTO;
+using Eteczka.BE.Model;
 
 namespace Eteczka.BE.Controllers
 {
@@ -94,9 +95,13 @@ namespace Eteczka.BE.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult CzyFolderIstnieje(string sessionId, string folder)
+        public ActionResult CzyFolderIstnieje(string sesja, string folder)
         {
-            bool success = _ImportService.DoesFolderExist(folder); ;
+            bool success = false;
+            if(Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sesja))
+            {
+                success = _ImportService.DoesFolderExist(folder); ;
+            }
 
             return Json(new
             {

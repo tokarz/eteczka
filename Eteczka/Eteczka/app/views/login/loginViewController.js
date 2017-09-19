@@ -11,21 +11,20 @@ angular.module('et.controllers').controller('loginViewController', ['$rootScope'
         $scope.firmChoices = [];
         loginService.authenticate(credentials.username, credentials.password).then(function (result) {
             if (result && result.success) {
-                sessionService.createSession().then(function (sessionId) {
-                    $rootScope.SESSIONID = sessionId;
-                    $scope.fetchedUser = result.userdetails;
+                $rootScope.SESSIONID = result.sesja;
+                sessionService.createSession(result.sesja);
+                $scope.fetchedUser = {
+                    companies: result.firms,
+                    userdetails: result.userdetails
+                };
 
-                    if (result.isadmin) {
-                        $rootScope.$broadcast('USER_LOGGED_IN_EV', $scope.fetchedUser);
-                        $state.go('admin');
-                    } else {
-                        $rootScope.$broadcast('USER_LOGGED_IN_EV', $scope.fetchedUser);
-                        $state.go('options');
-                    }
-                }, function (err) {
-                    alert('Blad Sesji! ' + err);
-                    $state.go('login');
-                });
+                if (result.isadmin) {
+                    $rootScope.$broadcast('USER_LOGGED_IN_EV', $scope.fetchedUser);
+                    $state.go('admin');
+                } else {
+                    $rootScope.$broadcast('USER_LOGGED_IN_EV', $scope.fetchedUser);
+                    $state.go('options');
+                }
             }
 
             else {

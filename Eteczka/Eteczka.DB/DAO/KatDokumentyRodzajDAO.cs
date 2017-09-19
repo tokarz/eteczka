@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Eteczka.DB.Entities;
+using Eteczka.Model.Entities;
 using Eteczka.DB.Connection;
 using System.Data;
 using Eteczka.DB.Mappers;
-
-
 
 namespace Eteczka.DB.DAO
 {
@@ -17,11 +15,13 @@ namespace Eteczka.DB.DAO
     {
         private IDbConnectionFactory _ConnectionFactory;
         private IKatRodzajeDokumentowExcelMapper _KatRodzajeDokumentowExcelMapper;
+        private IConnection _Connection;
 
-        public KatDokumentyRodzajDAO(IDbConnectionFactory factory, IKatRodzajeDokumentowExcelMapper KatRodzajeDokumentowExcelMapper)
+        public KatDokumentyRodzajDAO(IDbConnectionFactory factory, IKatRodzajeDokumentowExcelMapper KatRodzajeDokumentowExcelMapper, IConnection connection)
         {
             this._ConnectionFactory = factory;
             this._KatRodzajeDokumentowExcelMapper = KatRodzajeDokumentowExcelMapper;
+            this._Connection = connection;
         }
 
         public List<KatDokumentyRodzaj> PobierzWszystkich(string sessionId)
@@ -30,7 +30,7 @@ namespace Eteczka.DB.DAO
 
             List<KatDokumentyRodzaj> fetchedResult = new List<KatDokumentyRodzaj>();
 
-            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
             DataTable result = connectionState.ExecuteQuery(sqlQuery);
             foreach (DataRow row in result.Rows)
             {
@@ -52,7 +52,7 @@ namespace Eteczka.DB.DAO
             return fetchedResult;
 
         }
-        public bool ZapiszRodzajeDokDoBazy (string plik)
+        public bool ZapiszRodzajeDokDoBazy(string plik)
         {
             List<KatDokumentyRodzaj> RodzajeDokumentow = _KatRodzajeDokumentowExcelMapper.PobierzRodzajeDokZExcela(plik);
             StringBuilder queries = new StringBuilder();
@@ -63,17 +63,10 @@ namespace Eteczka.DB.DAO
                 queries.Append(query);
             }
 
-
-            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
             bool result = connectionState.ExecuteNonQuery(queries.ToString());
-
 
             return result;
         }
-
-            
-        
-
-       
     }
 }

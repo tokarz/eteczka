@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Eteczka.DB.Entities;
+using Eteczka.Model.Entities;
 using System.Data;
-using Eteczka.DB.DTO;
+using Eteczka.Model.DTO;
 
 namespace Eteczka.DB.Mappers
 {
@@ -34,18 +34,18 @@ namespace Eteczka.DB.Mappers
             return fetchedMiejscePracy;
         }
 
-        public MiejscePracyDlaPracownikaDto MapujZSqlDto(DataRow row)
+        public MiejscePracyDlaPracownika MapujZSqlDto(DataRow row)
         {
-            MiejscePracyDlaPracownikaDto result = new MiejscePracyDlaPracownikaDto();
-            result.DataPoczatkowa = DateTime.Parse(row[0].ToString()).ToShortDateString();
-            result.DataKoniec = DateTime.Parse(row[1].ToString()).ToShortDateString();
-            result.Firma = row[2].ToString();
-            result.Rejon = row[3].ToString();
-            result.Wydzial = row[4].ToString();
-            result.Podwydzial = row[5].ToString();
-            result.Konto5 = row[6].ToString();
-
-
+            MiejscePracyDlaPracownika result = new MiejscePracyDlaPracownika()
+            {
+                DataPoczatkowa = DateTime.Parse(row[0].ToString()).ToShortDateString(),
+                DataKoniec = DateTime.Parse(row[1].ToString()).ToShortDateString(),
+                Firma = row[2].ToString(),
+                Rejon = row[3].ToString(),
+                Wydzial = row[4].ToString(),
+                Podwydzial = row[5].ToString(),
+                Konto5 = row[6].ToString()
+            };
 
             return result;
         }

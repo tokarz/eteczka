@@ -103,7 +103,35 @@
     color: white;*/
   display: inline-block;
   max-width: 300px;
-  margin: 50px 125px;
+  margin: 50px 125px 0;
+  color: white;
+}
+
+.companies-label {
+  margin-top: 10px;
+}
+
+.companies-label .single-company-label,
+.companies-label select {
+  width: 200px;
+  height: 2em;
+  background: white;
+  color: #074C75;
+  padding: 0.3em 3em;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 0 2px black;
+}
+
+.companies-label option {
+  cursor: pointer;
+  background: white;
+  color: #074C75;
+}
+
+.companies-label option:hover {
+  cursor: pointer;
+  background: #074C75;
   color: white;
 }
 

@@ -1,9 +1,10 @@
 ﻿'use strict';
 angular.module('et.services').factory('menuContentService', ['httpService', 'sessionService', function (httpService, sessionService) {
     return {
-        getUserWorkplaces: function (user) {
-            return httpService.post('MiejscePracy/MiejscePracyDlaPracownika?sessionId=' + sessionService.getSessionId(), {
-                user: user
+        getUserWorkplaces: function (pracownik) {
+            return httpService.get('MiejscePracy/MiejscePracyDlaPracownika', {
+                sessionId: sessionService.getSessionId(),
+                pracownik: pracownik
             });
         }
     }

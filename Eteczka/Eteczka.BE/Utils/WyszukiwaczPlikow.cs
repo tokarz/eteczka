@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Eteczka.BE.DTO;
-using Eteczka.DB.Entities;
+using Eteczka.Model.Entities;
 
 namespace Eteczka.BE.Utils
 {
     public interface WyszukiwaczPlikow
     {
-        List<PracownikDTO> ZnajdzPracownikowZPlikiem(string plik, List<Pracownik> pracownicy);
+        List<Pracownik> ZnajdzPracownikowZPlikiem(string plik, List<Pracownik> pracownicy);
     }
 }

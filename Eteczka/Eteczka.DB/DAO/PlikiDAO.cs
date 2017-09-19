@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Eteczka.DB.Entities;
+using Eteczka.Model.Entities;
 using System.Data;
 using Eteczka.DB.Connection;
 using System.Collections.Generic;
@@ -16,11 +16,13 @@ namespace Eteczka.DB.DAO
     {
         private IPlikiMapper _PlikiMapper;
         private IDbConnectionFactory _ConnectionFactory;
+        private IConnection _Connection;
 
-        public PlikiDAO(IDbConnectionFactory factory, IPlikiMapper plikiMapper)
+        public PlikiDAO(IDbConnectionFactory factory, IPlikiMapper plikiMapper, IConnection connection)
         {
             this._ConnectionFactory = factory;
             this._PlikiMapper = plikiMapper;
+            this._Connection = connection;
         }
 
         public List<Pliki> PobierzWszystkiePliki(string order, string column)
@@ -29,7 +31,7 @@ namespace Eteczka.DB.DAO
 
             List<Pliki> fetchedResult = new List<Pliki>();
 
-            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
             DataTable result = connectionState.ExecuteQuery(sqlQuery);
             foreach (DataRow row in result.Rows)
             {
@@ -55,7 +57,7 @@ namespace Eteczka.DB.DAO
                 sqls.Append(fullSqlInsert);
             }
 
-            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
             result = connectionState.ExecuteNonQuery(sqls.ToString());
 
             return result;
@@ -69,7 +71,7 @@ namespace Eteczka.DB.DAO
 
             Pliki fetchedDok = new Pliki();
 
-            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
             DataTable result = connectionState.ExecuteQuery(sqlQuery);
             if (result.Rows.Count == 1)
             {

@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('et.controllers').controller('settingsViewController', ['$scope', 'settingsService', 'companiesService', function ($scope, settingsService, companiesService) {
+angular.module('et.controllers').controller('settingsViewController', ['$scope', 'settingsService', 'companiesService', 'sessionService', function ($scope, settingsService, companiesService, sessionService) {
     $scope.folders = [];
 
     $scope.importFiles = function () {
@@ -22,8 +22,8 @@ angular.module('et.controllers').controller('settingsViewController', ['$scope',
 
     $scope.checkButtonsState = function (folders) {
         angular.forEach(folders, function (folder) {
-            settingsService.doesFolderExist(folder).then(function (result) {
-                $scope.existingFolders[folder] = result.success;
+            settingsService.doesFolderExist(folder.Firma).then(function (result) {
+                $scope.existingFolders[folder.Firma] = result.success;
             });
         });
     };
@@ -72,7 +72,6 @@ angular.module('et.controllers').controller('settingsViewController', ['$scope',
             alert('failed!');
         });
     }
-
 
     $scope.importSubdepartments = function () {
         settingsService.importSubdepartments().then(function () {
@@ -171,6 +170,18 @@ angular.module('et.controllers').controller('settingsViewController', ['$scope',
         });
     }
 
+    $scope.killSession = function (session) {
+        sessionService.killGivenSession(session.IdSesji).then(function (result) {
+            $scope.fetchAllSessions();
+        });
+    }
+
+    $scope.openSessions = [];
+    $scope.fetchAllSessions = function () {
+        settingsService.fetchAllOpenSessions().then(function (res) {
+            $scope.openSessions = res.sesje;
+        });
+    }
 
     $scope.checkUpdateStatus('users');
     $scope.checkUpdateStatus('firms');
@@ -181,6 +192,7 @@ angular.module('et.controllers').controller('settingsViewController', ['$scope',
     $scope.checkUpdateStatus('department');
     $scope.checkUpdateStatus('account5');
     $scope.importAllCompanies();
+    $scope.fetchAllSessions();
 
     $scope.createSourceFolder = function (name) {
         if (!$scope.existingFolders[name]) {

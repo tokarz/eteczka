@@ -1,5 +1,5 @@
 ﻿using Eteczka.DB.Connection;
-using Eteczka.DB.Entities;
+using Eteczka.Model.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -12,10 +12,12 @@ namespace Eteczka.DB.DAO
     public class ArchiwaDAO
     {
         private IDbConnectionFactory _ConnectionFactory;
+        private IConnection _Connection;
 
-        public ArchiwaDAO(IDbConnectionFactory factory)
+        public ArchiwaDAO(IDbConnectionFactory factory, IConnection connection)
         {
             this._ConnectionFactory = factory;
+            this._Connection = connection;
         }
 
         public bool ImportujArchiwa(List<KatLokalPapier> archiwa)
@@ -32,7 +34,7 @@ namespace Eteczka.DB.DAO
                 sqls.Append(fullSqlInsert);
             }
 
-            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
             result = connectionState.ExecuteNonQuery(sqls.ToString());
 
             return result;
@@ -42,7 +44,7 @@ namespace Eteczka.DB.DAO
         {
             int result = 0;
             string sqlQuery = "SELECT COUNT(*) FROM \"KatLokalPapier\"; ";
-            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
             DataTable count = connectionState.ExecuteQuery(sqlQuery);
             if (count != null && count.Rows != null && count.Rows.Count > 0)
             {

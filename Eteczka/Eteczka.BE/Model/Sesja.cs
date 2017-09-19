@@ -1,27 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Eteczka.BE.Model
 {
     public static class Sesja
     {
-
-        public static string FIRMA { get; set; }
         private static StanSesji STAN_SESJI = new StanSesji();
 
-        public static string UtworzSesje()
+        public static SessionDetails UtworzSesje()
         {
-            string result = "";
             string sessionId = Guid.NewGuid().ToString("N"); ;
-            if (STAN_SESJI.DodajSesje(sessionId))
-            {
-                result = sessionId;
-            }
+            SessionDetails sesja = STAN_SESJI.DodajSesje(sessionId);
 
-            return result;
+            return sesja;
         }
 
         public static StanSesji PobierzStanSesji()
@@ -39,9 +29,9 @@ namespace Eteczka.BE.Model
                 STAN_SESJI.DodajSesje(sessionID);
             }
         }
-        public static void ZamknijSesje(string sessionID)
+        public static void ZamknijSesje(string sesja)
         {
-            STAN_SESJI.ZamknijSesje(sessionID);
+            STAN_SESJI.ZamknijSesje(sesja);
         }
 
     }

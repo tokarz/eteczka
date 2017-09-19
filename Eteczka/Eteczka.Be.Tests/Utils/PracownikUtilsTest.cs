@@ -6,11 +6,7 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using NSubstitute;
 using Eteczka.BE.DTO;
-using Eteczka.DB.Entities;
 using Eteczka.BE.Mappers;
-
-
-
 
 namespace Eteczka.BE.Utils
 {
@@ -19,13 +15,11 @@ namespace Eteczka.BE.Utils
     public class PracownikUtilsTest
     {
         private PracownikUtils _Sut;
-        private IMapowalnyDoPracownikDto _Mapper;
 
         [SetUp]
         public void Init()
         {
-            _Mapper = new PracownikDtoMapper();
-            _Sut = new PracownikUtils(_Mapper);
+            _Sut = new PracownikUtils();
         }
 
         //[Test]

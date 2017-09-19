@@ -42,14 +42,39 @@
             </div>
         </div>
     </div>
-    <div class="admin-option admin-option-one">
+    <div class="admin-option admin-option-two">
         <div class="admin-option-header">
-            <h3><i class="fa fa-universal-access"></i>Uprawnienia</h3>
+            <h3><i class="fa fa-database"></i>Baza Danych</h3>
         </div>
     </div>
-    <div class="admin-option admin-option-two">
-        <h<div class="admin-option-header">
-            <h3><i class="fa fa-database"></i>Baza Danych</h3>
+</div>
+<div id="settings-main-wrapper">
+    <div class="admin-option admin-option-full">
+        <div class="admin-option-header">
+            <h3><i class="fa fa-users"></i>Sesje</h3>
+        </div>
+        <div class="admin-option-content">
+            <table style="width:100%;box-shadow: 0 0 2px black">
+                <thead class="table-header">
+                    <tr>
+                        <th>Sesja</th>
+                        <th>Uzytkownik</th>
+                        <th>Ostatnia Aktywnosc</th>
+                        <th>Czas Zalogowania</th>
+                        <th>Zakoncz</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="session in openSessions" class="details-table-row" ng-if="openSessions.length < 1"></tr>
+                    <tr ng-repeat="session in openSessions" class="details-table-row" ng-if="openSessions.length >= 1">
+                        <td>{{session.IdSesji}}</td>
+                        <td>{{session.AktywnyUser.Identyfikator}}</td>
+                        <td>{{session.OstatniaAktywnoscSesji}}</td>
+                        <td>{{session.PoczatekSesji}}</td>
+                        <td><i class="fa fa-user-times close-session-icon"  ng-click="killSession(session)"></i></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

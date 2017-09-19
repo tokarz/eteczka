@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using Eteczka.DB.Entities;
-using Eteczka.BE.DTO;
+using Eteczka.Model.Entities;
+using Eteczka.Model.DTO;
 using Eteczka.BE.Model;
 
 namespace Eteczka.BE.Services

@@ -146,23 +146,6 @@
     <Compile Include="DAO\KatPodwydzialDAO.cs" />
     <Compile Include="DAO\RejonyDAO.cs" />
     <Compile Include="DAO\UserDAO.cs" />
-    <Compile Include="DTO\MiejscePracyDlaPracownikaDto.cs" />
-    <Compile Include="Entities\KatDokumentyRodzaj.cs" />
-    <Compile Include="Entities\KatLoginyDetale.cs" />
-    <Compile Include="Entities\KatWydzialy.cs" />
-    <Compile Include="Entities\KatFirmy.cs" />
-    <Compile Include="Entities\KatJrwa.cs" />
-    <Compile Include="Entities\KatKategorieAkt.cs" />
-    <Compile Include="Entities\KatKonto5.cs" />
-    <Compile Include="Entities\KatLoginy.cs" />
-    <Compile Include="Entities\KatLokalPapier.cs" />
-    <Compile Include="Entities\KatPodWydzialy.cs" />
-    <Compile Include="Entities\KatRejony.cs" />
-    <Compile Include="Entities\MiejscePracy.cs" />
-    <Compile Include="Entities\Pliki.cs" />
-    <Compile Include="Entities\Pracownik.cs" />
-    <Compile Include="Entities\Uprawnienia.cs" />
-    <Compile Include="Entities\User.cs" />
     <Compile Include="Mappers\FirmyMapper.cs" />
     <Compile Include="Mappers\IFirmyMapper.cs" />
     <Compile Include="Mappers\IKatLoginyMapper.cs" />
@@ -181,6 +164,7 @@
     <Compile Include="Mappers\PlikiMapper.cs" />
     <Compile Include="Mappers\RejonMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\CryptoUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -189,7 +173,15 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Eteczka.Model\Eteczka.Model.csproj">
+      <Project>{7a4f0a5e-5387-4532-8761-51ff431bdaa0}</Project>
+      <Name>Eteczka.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DTO\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Eteczka.DB.Entities;
+using Eteczka.Model.Entities;
 using NUnit.Framework;
 using NSubstitute;
 using Eteczka.DB.Connection;
@@ -11,6 +11,7 @@ namespace Eteczka.DB.DAO
     public class KatDokumentyRodzajDAOTest
     {
         private IKatRodzajeDokumentowExcelMapper _Mapper;
+        private IConnection _Connection;
         private KatDokumentyRodzajDAO _Sut;
 
         [SetUp]
@@ -19,7 +20,8 @@ namespace Eteczka.DB.DAO
             ConnectionDetails connectionDetails = new ConnectionDetails("postgres", "admin", "localhost", "5432", "postgres");
             DbConnectionFactory connectionFactory = new DbConnectionFactory(connectionDetails);
             _Mapper = Substitute.For<IKatRodzajeDokumentowExcelMapper>();
-            _Sut = new KatDokumentyRodzajDAO(connectionFactory, _Mapper);
+            _Connection = Substitute.For<IConnection>();
+            _Sut = new KatDokumentyRodzajDAO(connectionFactory, _Mapper, _Connection);
         }
 
         [Test]

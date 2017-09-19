@@ -1,4 +1,4 @@
-﻿using Eteczka.DB.Entities;
+﻿using Eteczka.Model.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,6 +11,6 @@ namespace Eteczka.DB.Mappers
     public interface IKatLoginyMapper
     {
         KatLoginy Map(DataTable result);
-        KatLoginyDetale MapDetails(DataTable result);
+        List<KatLoginyDetale> MapDetails(DataTable result);
     }
 }

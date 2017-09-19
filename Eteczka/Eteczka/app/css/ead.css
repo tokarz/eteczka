@@ -146,14 +146,15 @@
 }
 
 .main-admin-wrapper {
-  width: 90%;
+  width: 98%;
   height: 100%;
   margin: auto;
 }
 
 .settings-wrapper {
   width: 100%;
-  padding: 25px;
+  padding: 25px 0;
+  text-align: center;
 }
 
 .buttonsParagraph button {
@@ -172,8 +173,8 @@
 }
 
 .admin-option {
-  width: 95%;
-  margin: auto;
+  width: 500px;
+  margin: 10px 10px;
   height: 500px;
   box-shadow: 0 0 2px black;
   padding: 25px;
@@ -182,6 +183,14 @@
   -webkit-animation: 4s fadein;
   animation: 4s fadein;
   position: relative;
+  text-align: center;
+  display: inline-block;
+  background: white;
+  vertical-align: text-bottom;
+}
+
+.admin-option-full {
+  width: 91%;
 }
 
 .admin-option-content {
@@ -194,19 +203,37 @@
   left: 0;
   top: 0;
   right: 0;
-  background: #074C75;
-  color: white;
+  background: whitesmoke;
+  color: #074C75;
+  padding: 5px;
   text-align: center;
+  box-shadow: 0 0 4px black;
+}
+
+.close-session-icon {
+  color: darkred;
+  cursor: pointer;
+}
+
+.close-session-icon:hover {
+  background: darkred;
+  color: white;
+}
+
+.admin-option-header .fa {
+  margin: 0 5px;
 }
 
 .admin-option-header h3 {
-  font-size: 20px;
+  font-size: 25px;
   text-transform: uppercase;
   margin: 0;
 }
 
 .settings-main-wrapper {
   text-align: center;
+  width: 98%;
+  margin: auto;
 }
 
 @keyframes fadein {
@@ -314,7 +341,35 @@
     color: white;*/
   display: inline-block;
   max-width: 300px;
-  margin: 50px 125px;
+  margin: 50px 125px 0;
+  color: white;
+}
+
+.companies-label {
+  margin-top: 10px;
+}
+
+.companies-label .single-company-label,
+.companies-label select {
+  width: 200px;
+  height: 2em;
+  background: white;
+  color: #074C75;
+  padding: 0.3em 3em;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 0 2px black;
+}
+
+.companies-label option {
+  cursor: pointer;
+  background: white;
+  color: #074C75;
+}
+
+.companies-label option:hover {
+  cursor: pointer;
+  background: #074C75;
   color: white;
 }
 
@@ -618,16 +673,6 @@
   background: #666161;
   font-weight: bold;
 }
-
-.details-table-row {
-    background: white;
-    cursor: pointer;
-}
-
-    .details-table-row:hover {
-        background: #a89f9f;
-        font-weight: bold;
-    }
 
 .top-toolbar {
   position: absolute;

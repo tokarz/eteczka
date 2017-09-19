@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Eteczka.DB.Entities;
+using Eteczka.Model.Entities;
 using Microsoft.Office.Interop.Excel;
 using System.IO;
 using System.Runtime.InteropServices;

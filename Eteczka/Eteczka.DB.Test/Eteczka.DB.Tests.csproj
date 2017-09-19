@@ -77,6 +77,10 @@
       <Project>{0f7010a0-6122-4433-a265-7130b2e3a947}</Project>
       <Name>Eteczka.DB</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Eteczka.Model\Eteczka.Model.csproj">
+      <Project>{7a4f0a5e-5387-4532-8761-51ff431bdaa0}</Project>
+      <Name>Eteczka.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

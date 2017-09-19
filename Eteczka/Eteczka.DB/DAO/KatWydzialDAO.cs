@@ -1,5 +1,5 @@
 ﻿using Eteczka.DB.Connection;
-using Eteczka.DB.Entities;
+using Eteczka.Model.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -15,11 +15,13 @@ namespace Eteczka.DB.DAO
     {
         private IDbConnectionFactory _ConnectionFactory;
         private IKatWydzialMapper _KatWydzialMapper;
+        private IConnection _Connection;
 
-        public KatWydzialDAO(IDbConnectionFactory factory, IKatWydzialMapper WydzialMapper)
+        public KatWydzialDAO(IDbConnectionFactory factory, IKatWydzialMapper WydzialMapper, IConnection connection)
         {
             this._ConnectionFactory = factory;
             this._KatWydzialMapper = WydzialMapper;
+            this._Connection = connection;
         }
 
         public bool ImportujWydzialy(List<KatWydzialy> dzialy)
@@ -36,7 +38,7 @@ namespace Eteczka.DB.DAO
                 sqls.Append(fullSqlInsert);
             }
 
-            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
             result = connectionState.ExecuteNonQuery(sqls.ToString());
 
             return result;
@@ -46,7 +48,7 @@ namespace Eteczka.DB.DAO
         {
             int result = 0;
             string sqlQuery = "SELECT COUNT(*) FROM \"KatWydzial\"; ";
-            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
             DataTable count = connectionState.ExecuteQuery(sqlQuery);
             if (count != null && count.Rows != null && count.Rows.Count > 0)
             {
@@ -64,7 +66,7 @@ namespace Eteczka.DB.DAO
             
             string sqlQuery = "SELECT *  FROM \"KatWydzial\" WHERE LOWER(\"KatWydzial\".firma) in ('" + firma.ToLower().Trim() + "') ORDER BY firma;";
 
-            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
             DataTable result = connectionState.ExecuteQuery(sqlQuery);
 
             foreach (DataRow row in result.Rows)

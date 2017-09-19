@@ -129,25 +129,13 @@
     <Compile Include="Controllers\WydzialyController.cs" />
     <Compile Include="DTO\AdminQuestion.cs" />
     <Compile Include="DTO\DaneWykresowe.cs" />
-    <Compile Include="DTO\FirmaDTO.cs" />
     <Compile Include="DTO\ImportResult.cs" />
-    <Compile Include="DTO\MetaDanePliku.cs" />
-    <Compile Include="DTO\MiejscePracyDTO.cs" />
-    <Compile Include="DTO\OrganizacjaDTO.cs" />
-    <Compile Include="DTO\PlikiDTO.cs" />
-    <Compile Include="DTO\PlikJrwaDTO.cs" />
-    <Compile Include="DTO\RejonDTO.cs" />
-    <Compile Include="DTO\WydzialDTO.cs" />
     <Compile Include="Enums\TypWykresu.cs" />
     <Compile Include="Exceptions\WyjatekSesjaIstnieje.cs" />
-    <Compile Include="Mappers\FirmaDtoMapper.cs" />
     <Compile Include="Mappers\IJsonToKatRejonyMapper.cs" />
     <Compile Include="Mappers\IJsonToMiejscePracyMapper.cs" />
     <Compile Include="Mappers\IJsonToKonto5Mapper.cs" />
     <Compile Include="Mappers\IJsonToWydzialMapper.cs" />
-    <Compile Include="Mappers\ImapowalnyDoFirmaDto.cs" />
-    <Compile Include="Mappers\IMapowalnyDoWydzialDto.cs" />
-    <Compile Include="Mappers\IRejonDtoMapper.cs" />
     <Compile Include="Mappers\JsonToKonto5Mapper.cs" />
     <Compile Include="Mappers\JsonToWydzialMapper.cs" />
     <Compile Include="Mappers\JsonToPodwydzialMapper.cs" />
@@ -162,13 +150,9 @@
     <Compile Include="Mappers\IJsonToKatFirmyMapper.cs" />
     <Compile Include="Mappers\JsonToKatFirmyMapper.cs" />
     <Compile Include="Mappers\JsonToKatLokalMapper.cs" />
-    <Compile Include="Mappers\MapowalnyDoWydzialDto.cs" />
-    <Compile Include="Mappers\MiejscePracyDtoMapper.cs" />
-    <Compile Include="Mappers\RejonDtoMapper.cs" />
     <Compile Include="Model\ISesja.cs" />
     <Compile Include="Model\Sesja.cs" />
     <Compile Include="Model\SessionDetails.cs" />
-    <Compile Include="Model\StanPlikow.cs" />
     <Compile Include="Model\StanSesji.cs" />
     <Compile Include="Services\EmailService.cs" />
     <Compile Include="Services\FirmyService.cs" />
@@ -191,16 +175,12 @@
     <Compile Include="Services\IPracownicyService.cs" />
     <Compile Include="Controllers\SesjaKontroler.cs" />
     <Compile Include="Controllers\UtilsController.cs" />
-    <Compile Include="DTO\PracownikDTO.cs" />
     <Compile Include="Enums\FileType.cs" />
     <Compile Include="Handlers\FileResourcesHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\WydzialyService.cs" />
     <Compile Include="Utils\ExcelKatDok.cs" />
     <Compile Include="Utils\ExcelKatDokPola.cs" />
-    <Compile Include="Mappers\PracownikDtoMapper.cs" />
-    <Compile Include="Mappers\IMapowalnyDoPracownikDto.cs" />
-    <Compile Include="Utils\JrwaParser.cs" />
     <Compile Include="Utils\Osys.cs" />
     <Compile Include="Utils\PlikiUtils.cs" />
     <Compile Include="Utils\DokladnyPracownikUtils.cs" />
@@ -218,6 +198,10 @@
     <ProjectReference Include="..\Eteczka.DB\Eteczka.DB.csproj">
       <Project>{0f7010a0-6122-4433-a265-7130b2e3a947}</Project>
       <Name>Eteczka.DB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Eteczka.Model\Eteczka.Model.csproj">
+      <Project>{7a4f0a5e-5387-4532-8761-51ff431bdaa0}</Project>
+      <Name>Eteczka.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\Eteczka.Utils\Eteczka.Utils.csproj">
       <Project>{78fb888c-3385-4e27-87dd-7530864c63d9}</Project>

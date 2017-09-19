@@ -1,4 +1,10 @@
 ﻿<span class="login-name-label" ng-bind="loginstatus"></span>
+<span class="login-name-label companies-label">
+    <span class="single-company-label" ng-if="firms.length <= 1">{{selectedfirm}}</span>
+    <span ng-if="firms.length > 1">
+        <select ng-options="firm for firm in firms" ng-model="selectedfirm"></select>
+    </span>
+</span>
 <span class="user-icon fa fa-user-circle"></span>
 <span class="callout bottom">
     <ul class="user-options-wrapper">

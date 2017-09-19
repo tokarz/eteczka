@@ -1,7 +1,6 @@
 ﻿using System.Web;
 using System.Web.SessionState;
 using Eteczka.BE.Utils;
-using System.IO;
 
 namespace Eteczka.BE.Handlers
 {

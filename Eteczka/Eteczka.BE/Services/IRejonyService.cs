@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Eteczka.BE.DTO;
+using Eteczka.Model.Entities;
 
 
 namespace Eteczka.BE.Services
 {
     public interface IRejonyService
     {
-        List<RejonDTO> PobierzRejony();
-        List<RejonDTO> PobierzRejonyDlaFirmy(string firma);
+        List<KatRejony> PobierzRejony();
+        List<KatRejony> PobierzRejonyDlaFirmy(string firma);
     }
 }

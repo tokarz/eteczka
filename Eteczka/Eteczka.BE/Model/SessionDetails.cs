@@ -1,8 +1,6 @@
 ﻿using System;
+using Eteczka.Model.Entities;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Eteczka.BE.Model
 {
@@ -12,5 +10,9 @@ namespace Eteczka.BE.Model
         public DateTime PoczatekSesji { get; set; }
         public DateTime OstatniaAktywnoscSesji { get; set; }
         public bool SesjaAktywna { get; set; }
+        public string AktywnaFirma { get; set; }
+        public List<string> Firmy { get; set; }
+        public KatLoginyDetale AktywnyUser { get; set; }
+        public bool IsAdmin {get; set;}
     }
 }

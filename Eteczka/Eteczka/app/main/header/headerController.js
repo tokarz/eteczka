@@ -1,5 +1,6 @@
 ﻿'use strict';
 angular.module('et.controllers').controller('headerController', ['$rootScope', '$scope', '$state', 'sessionService', function ($rootScope, $scope, $state, sessionService) {
+    $scope.selectedcompany = null;
     $scope.smallOptions = [
         {
             className: 'fa fa-address-book-o small-option-one',
@@ -38,7 +39,7 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
             name: 'Wyloguj',
             iconClass: 'user-option fa fa-power-off',
             onclick: function () {
-                sessionService.killSession($rootScope.SESSIONID).then(function () {
+                sessionService.killSession($rootScope.SESSIONID.IdSesji).then(function () {
                     $rootScope.SELECTED_FIRM = '';
                     $scope.userLoggedIn = false;
                     $scope.loginStatus = '';
@@ -109,10 +110,18 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
         $state.go(view);
     }
 
+    $scope.$watch('selectedcompany', function (company) {
+        if (company) {
+            $rootScope.$broadcast('MODEL_CHANGED', company);
+        }
+    });
+
     $rootScope.$on('USER_LOGGED_IN_EV', function (ev, user) {
         $scope.userLoggedIn = true;
         if (user) {
-            $scope.loginStatus = 'ZALOGOWANO, ' + user.Nazwisko + ' ' + user.Imie;
+            $scope.loginStatus = 'ZALOGOWANO, ' + user.userdetails.Nazwisko + ' ' + user.userdetails.Imie;
+            $scope.companies = user.companies;
+            $scope.selectedcompany = user.companies[0];
         }
     });
 

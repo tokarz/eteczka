@@ -1,5 +1,5 @@
 ﻿using Eteczka.BE.DTO;
-using Eteczka.DB.Entities;
+using Eteczka.Model.Entities;
 using System.Collections.Generic;
 
 namespace Eteczka.BE.Services
@@ -7,6 +7,6 @@ namespace Eteczka.BE.Services
     public interface IKatLoginyService
     {
         KatLoginy GetUserByNameAndPassword(string name, string password);
-        KatLoginyDetale GetUserDetails(string identyfikator);
+        List<KatLoginyDetale> GetUserDetails(string identyfikator);
     }
 }

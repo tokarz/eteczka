@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text;
-using Eteczka.DB.Entities;
+using Eteczka.Model.Entities;
 using System.Data;
 using Eteczka.DB.Connection;
 using Eteczka.DB.Mappers;
@@ -12,14 +12,15 @@ namespace Eteczka.DB.DAO
 {
     public class PracownikDAO
     {
-
         private IDbConnectionFactory _ConnectionFactory;
         private IPracownikMapper _PracownikMapper;
+        private IConnection _Connection;
 
-        public PracownikDAO(IDbConnectionFactory factory, IPracownikMapper pracownikMapper)
+        public PracownikDAO(IDbConnectionFactory factory, IPracownikMapper pracownikMapper, IConnection connection)
         {
             this._ConnectionFactory = factory;
             this._PracownikMapper = pracownikMapper;
+            this._Connection = connection;
         }
 
         public bool ImportujPracownikow(List<Pracownik> pracownicy)
@@ -33,7 +34,7 @@ namespace Eteczka.DB.DAO
             }
 
 
-            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
             bool result = connectionState.ExecuteNonQuery(queries.ToString());
 
 
@@ -49,7 +50,7 @@ namespace Eteczka.DB.DAO
             string sqlQuery = "select * from \"KatPracownicy\" where numeread not in (select numeread from \"MiejscePracy\" where '02.09.2017 00:00:00' between \"MiejscePracy\".datapocz and \"MiejscePracy\".datakoniec) and numeread in (select numeread from \"MiejscePracy\") ORDER BY " + orderby + orderDirection;
             List<Pracownik> fetchedUsers = new List<Pracownik>();
 
-            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
             DataTable result = connectionState.ExecuteQuery(sqlQuery);
             foreach (DataRow row in result.Rows)
             {
@@ -68,7 +69,7 @@ namespace Eteczka.DB.DAO
             string sqlQuery = "select * from \"KatPracownicy\" where numeread in (select numeread from \"MiejscePracy\" where '" + DateTime.Now.ToString() + "' between \"MiejscePracy\".datapocz and \"MiejscePracy\".datakoniec) ORDER BY " + orderby + orderDirection;
             List<Pracownik> fetchedUsers = new List<Pracownik>();
 
-            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
             DataTable result = connectionState.ExecuteQuery(sqlQuery);
             int x = 0;
             foreach (DataRow row in result.Rows)
@@ -88,7 +89,7 @@ namespace Eteczka.DB.DAO
             string sqlQuery = "SELECT * from \"KatPracownicy\" ORDER BY " + orderby + orderDirection + this.AddLimitOffsetStatement(limit, offset);
             List<Pracownik> fetchedUsers = new List<Pracownik>();
 
-            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
             DataTable result = connectionState.ExecuteQuery(sqlQuery);
             foreach (DataRow row in result.Rows)
             {
@@ -107,7 +108,7 @@ namespace Eteczka.DB.DAO
             string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE LOWER (numeread) = '" + (numeread.ToLower().Trim()) + "' ";
             try
             {
-                IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
+                IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
                 DataTable result = connectionState.ExecuteQuery(sqlQuery);
 
 
@@ -138,7 +139,7 @@ namespace Eteczka.DB.DAO
 
             try
             {
-                IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
+                IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
                 DataTable result = connectionState.ExecuteQuery(sqlQuery);
 
                 foreach (DataRow row in result.Rows)
@@ -164,7 +165,7 @@ namespace Eteczka.DB.DAO
             string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE  LOWER (nazwisko) || ' ' || LOWER (imie) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (pesel) LIKE '%" + (search.ToLower().Trim()) + "%' ORDER BY " + orderby + orderDirection + "LIMIT " + limit;
             try
             {
-                IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
+                IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
                 DataTable result = connectionState.ExecuteQuery(sqlQuery);
 
                 foreach (DataRow row in result.Rows)
@@ -185,7 +186,7 @@ namespace Eteczka.DB.DAO
         {
             int result = 0;
             string sqlQuery = "SELECT COUNT(*) FROM \"KatPracownicy\";";
-            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
             DataTable count = connectionState.ExecuteQuery(sqlQuery);
             if (count != null && count.Rows != null && count.Rows.Count > 0)
             {
@@ -219,7 +220,7 @@ namespace Eteczka.DB.DAO
             string sqlQuery = "SELECT * FROM \"KatPracownicy\" where numeread in (select numeread from \"MiejscePracy\" where '" + DateTime.Now.ToString() + "' between \"MiejscePracy\".datapocz and \"MiejscePracy\".datakoniec) AND  LOWER (nazwisko) || ' ' || LOWER (imie) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (pesel) LIKE '%" + (search.ToLower().Trim()) + "%' ORDER BY " + orderby + orderDirection + "LIMIT " + limit;
             try
             {
-                IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
+                IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
                 DataTable result = connectionState.ExecuteQuery(sqlQuery);
 
                 foreach (DataRow row in result.Rows)
@@ -246,7 +247,7 @@ namespace Eteczka.DB.DAO
             string sqlQuery = "SELECT * FROM \"KatPracownicy\" where numeread not in (select numeread from \"MiejscePracy\" where '" + DateTime.Now.ToString() + "' between \"MiejscePracy\".datapocz and \"MiejscePracy\".datakoniec) AND  LOWER (nazwisko) || ' ' || LOWER (imie) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (pesel) LIKE '%" + (search.ToLower().Trim()) + "%' ORDER BY " + orderby + orderDirection + "LIMIT " + limit;
             try
             {
-                IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
+                IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
                 DataTable result = connectionState.ExecuteQuery(sqlQuery);
 
                 foreach (DataRow row in result.Rows)

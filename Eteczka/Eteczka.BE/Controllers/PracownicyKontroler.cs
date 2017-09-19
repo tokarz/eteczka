@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using Eteczka.BE.DTO;
+using Eteczka.Model.Entities;
 using Eteczka.BE.Services;
 using System.Web.Script.Serialization;
 using System;
@@ -20,7 +20,7 @@ namespace Eteczka.BE.Controllers
 
         public ActionResult PobierzWszystkich(string sessionId)
         {
-            List<PracownikDTO> pracownicy = _PracownicyService.PobierzWszystkich();
+            List<Pracownik> pracownicy = _PracownicyService.PobierzWszystkich();
 
             var result =  Json(new
             {
@@ -46,7 +46,7 @@ namespace Eteczka.BE.Controllers
 
         public ActionResult PobierzWszystkichZatrudnionych(string sessionmId)
         {
-            List<PracownikDTO> pracownicy = _PracownicyService.PobierzWszystkichZatrudnionych();
+            List<Pracownik> pracownicy = _PracownicyService.PobierzWszystkichZatrudnionych();
 
             return Json(new
             {
@@ -58,7 +58,7 @@ namespace Eteczka.BE.Controllers
 
         public ActionResult PobierzPozostalych(string sessionmId)
         {
-            List<PracownikDTO> pracownicy = _PracownicyService.PobierzPozostalych();
+            List<Pracownik> pracownicy = _PracownicyService.PobierzPozostalych();
 
             return Json(new
             {
@@ -81,7 +81,7 @@ namespace Eteczka.BE.Controllers
 
         public ActionResult PobierzPracownikaDlaId(string numeread)
         {
-            PracownikDTO pracownik = _PracownicyService.PobierzPoId(numeread);
+            Pracownik pracownik = _PracownicyService.PobierzPoId(numeread);
 
             return Json(new
             {
@@ -92,7 +92,7 @@ namespace Eteczka.BE.Controllers
 
         public ActionResult WyszukajPracownikow(string search)
         {
-            List<PracownikDTO> Pracownicy = _PracownicyService.ZnajdzPracownikow(search);
+            List<Pracownik> Pracownicy = _PracownicyService.ZnajdzPracownikow(search);
             return Json(new
             {
                 Pracownicy = Pracownicy
@@ -103,7 +103,7 @@ namespace Eteczka.BE.Controllers
 
         public ActionResult WyszukajPracownikowPoTekscie(string search)
         {
-            List<PracownikDTO> Pracownicy = _PracownicyService.ZnajdzPracownikowPoTekcie(search);
+            List<Pracownik> Pracownicy = _PracownicyService.ZnajdzPracownikowPoTekscie(search);
             return Json(new
             {
                 pracownicy = Pracownicy
@@ -112,7 +112,7 @@ namespace Eteczka.BE.Controllers
 
         public ActionResult WyszukajZatrPracownikowPoTekscie(string search)
         {
-            List<PracownikDTO> Pracownicy = _PracownicyService.ZnajdzZatrPracownikowPoTekcie(search);
+            List<Pracownik> Pracownicy = _PracownicyService.ZnajdzZatrPracownikowPoTekscie(search);
             return Json(new
             {
                 pracownicy = Pracownicy
@@ -121,7 +121,7 @@ namespace Eteczka.BE.Controllers
 
         public ActionResult WyszukajPozostPracownikowPoTekscie(string search)
         {
-            List<PracownikDTO> Pracownicy = _PracownicyService.ZnajdzPozostPracownikowPoTekcie(search);
+            List<Pracownik> Pracownicy = _PracownicyService.ZnajdzPozostPracownikowPoTekscie(search);
             return Json(new
             {
                 pracownicy = Pracownicy

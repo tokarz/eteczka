@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using Eteczka.BE.DTO;
 using Eteczka.BE.Services;
-using Eteczka.DB.Entities;
+using Eteczka.Model.DTO;
+using Eteczka.Model.Entities;
 using Eteczka.BE.Model;
 
 namespace Eteczka.BE.Controllers

@@ -1,8 +1,8 @@
 ﻿using System.Web.Mvc;
-using Eteczka.BE.DTO;
 using System.Collections.Generic;
 using Eteczka.BE.Services;
-using Eteczka.DB.DTO;
+using Eteczka.Model.Entities;
+using Eteczka.Model.DTO;
 
 namespace Eteczka.BE.Controllers
 {
@@ -15,10 +15,9 @@ namespace Eteczka.BE.Controllers
             this._MiejscePracyService = miejscePracyService;
         }
 
-        public ActionResult MiejscePracyDlaPracownika(string sessionId, PracownikDTO user)
+        public ActionResult MiejscePracyDlaPracownika(string sessionId, Pracownik pracownik)
         {
-            List<MiejscePracyDlaPracownikaDto> miejscaPracy = _MiejscePracyService.PobierzMiejscaPracyDlaPracownika(user);
-
+            List<MiejscePracyDlaPracownika> miejscaPracy = _MiejscePracyService.PobierzMiejscaPracyDlaPracownika(pracownik);
             return Json(new
             {
                 MiejscaPracy = miejscaPracy

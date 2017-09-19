@@ -1,11 +1,11 @@
-﻿using Eteczka.BE.DTO;
-using Eteczka.DB.DTO;
+﻿using Eteczka.Model.DTO;
 using System.Collections.Generic;
+using Eteczka.Model.Entities;
 
 namespace Eteczka.BE.Services
 {
     public interface IMiejscePracyService
     {
-        List<MiejscePracyDlaPracownikaDto> PobierzMiejscaPracyDlaPracownika(PracownikDTO pracownik);
+        List<MiejscePracyDlaPracownika> PobierzMiejscaPracyDlaPracownika(Pracownik pracownik);
     }
 }

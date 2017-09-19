@@ -1,5 +1,5 @@
 ﻿using Eteczka.DB.Connection;
-using Eteczka.DB.Entities;
+using Eteczka.Model.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -14,11 +14,13 @@ namespace Eteczka.DB.DAO
     {
         private IDbConnectionFactory _ConnectionFactory;
         private IFirmyMapper _FirmyMapper;
+        private IConnection _Connection;
 
-        public FirmyDAO(IDbConnectionFactory factory, IFirmyMapper firmyMapper)
+        public FirmyDAO(IDbConnectionFactory factory, IFirmyMapper firmyMapper, IConnection connection)
         {
             this._ConnectionFactory = factory;
             this._FirmyMapper = firmyMapper;
+            this._Connection = connection ;
         }
 
         public bool ImportujFirmy(List<KatFirmy> firmy)
@@ -36,7 +38,7 @@ namespace Eteczka.DB.DAO
                 sqls.Append(fullSqlInsert);
             }
 
-            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
             result = connectionState.ExecuteNonQuery(sqls.ToString());
 
             return result;
@@ -46,7 +48,7 @@ namespace Eteczka.DB.DAO
         {
             int result = 0;
             string sqlQuery = "SELECT COUNT(*) FROM \"KatFirmy\"; ";
-            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
             DataTable count = connectionState.ExecuteQuery(sqlQuery);
             if (count != null && count.Rows != null && count.Rows.Count > 0)
             {
@@ -62,7 +64,7 @@ namespace Eteczka.DB.DAO
 
             string sqlQuery = "SELECT * FROM \"KatFirmy\" ORDER BY " + orderBy;
 
-            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
             DataTable result = connectionState.ExecuteQuery(sqlQuery);
             foreach (DataRow row in result.Rows)
             {
@@ -78,7 +80,7 @@ namespace Eteczka.DB.DAO
             bool result = false;
 
             string sqlQuery = "UPDATE \"KatFirmy\" SET  waitingroom='" + sciezka + "' WHERE firma = '" + firma + "';";
-            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
             result = connectionState.ExecuteNonQuery(sqlQuery);
 
             return result;

@@ -1,28 +1,31 @@
 ﻿'use strict';
 angular.module('et.services').factory('sessionService', ['$q', 'httpService', function ($q, httpService) {
     var sesja = '';
+    var detale = '';
     return {
-        createSession: function () {
-            var deferred = $q.defer();
-            httpService.get('Sesja/StworzSesje').then(function (result) {
-                sesja = result.session;
-                deferred.resolve(sesja);
-            }, function (err) {
-                deferred.reject(err);
-            });
-
-            return deferred.promise;
+        createSession: function (sessionDetails) {
+            detale = sessionDetails;
+            sesja = sessionDetails.IdSesji;
         },
         getSessionId: function () {
             if (sesja) {
                 httpService.get('Sesja/OdnowSesje', { sessionid: sesja });
             }
 
-            return sesja
+            return sesja;
         },
-        killSession: function (sessionid) {
-            sesja = '';
-            return httpService.get('Sesja/ZamknijSesje', { token: sessionid });
+        killGivenSession: function (sessionId) {
+            return httpService.get('Sesja/ZamknijSesje', {
+                sessionId: sesja,
+                toKill: sessionId
+            });
+        },
+        killSession: function () {
+            return httpService.get('Sesja/ZamknijSesje',
+                {
+                    sessionId: sesja,
+                    sesja: sesja
+                });
         }
     }
 }])

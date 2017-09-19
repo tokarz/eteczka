@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using Eteczka.BE.Model;
+using System.Collections.Generic;
 
 namespace Eteczka.BE.Controllers
 {
@@ -7,11 +8,11 @@ namespace Eteczka.BE.Controllers
     {
         public ActionResult StworzSesje()
         {
-            string session = Sesja.UtworzSesje();
+            SessionDetails sesja = Sesja.UtworzSesje();
 
             return Json(new
             {
-                session = session
+                session = sesja
             }, JsonRequestBehavior.AllowGet);
         }
 
@@ -25,25 +26,33 @@ namespace Eteczka.BE.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult ZamknijSesje(string token)
+        public ActionResult ZamknijSesje(string sessionID, string toKill)
         {
-            Sesja.ZamknijSesje(token);
+            bool success = false;
+            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionID))
+            {
+                Sesja.ZamknijSesje(toKill);
+                success = true;
+            }
 
             return Json(new
             {
-                session = token
+                success = success
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult UstawFirme(string name)
+        public ActionResult PobierzOtwarteSesje(string sessionId)
         {
-            Sesja.FIRMA = name;
+            List<SessionDetails> sesje = new List<SessionDetails>();
+            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            {
+                sesje = Sesja.PobierzStanSesji().PobierzOtwarteSesje();
+            }
 
             return Json(new
             {
-                success = true
+                sesje = sesje
             }, JsonRequestBehavior.AllowGet);
         }
-
     }
 }

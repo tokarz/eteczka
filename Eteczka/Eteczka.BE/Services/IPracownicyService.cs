@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Eteczka.BE.DTO;
+using Eteczka.Model.Entities;
 
 namespace Eteczka.BE.Services
 {
     public interface IPracownicyService
     {
-        List<PracownikDTO> PobierzWszystkich();
-        List<PracownikDTO> PobierzWszystkichZatrudnionych();
-        List<PracownikDTO> PobierzPozostalych();
-        PracownikDTO PobierzPoId(string numeread);
-        List<PracownikDTO> ZnajdzPracownikow(string search);
-        List<PracownikDTO> ZnajdzPracownikowPoTekcie(string search);
-        List<PracownikDTO> ZnajdzZatrPracownikowPoTekcie(string search);
-        List<PracownikDTO> ZnajdzPozostPracownikowPoTekcie(string search);
+        List<Pracownik> PobierzWszystkich();
+        List<Pracownik> PobierzWszystkichZatrudnionych();
+        List<Pracownik> PobierzPozostalych();
+        Pracownik PobierzPoId(string numeread);
+        List<Pracownik> ZnajdzPracownikow(string search);
+        List<Pracownik> ZnajdzPracownikowPoTekscie(string search);
+        List<Pracownik> ZnajdzZatrPracownikowPoTekscie(string search);
+        List<Pracownik> ZnajdzPozostPracownikowPoTekscie(string search);
     }
 }
