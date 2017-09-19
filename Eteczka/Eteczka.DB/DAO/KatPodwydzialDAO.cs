@@ -6,16 +6,19 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Eteczka.DB.Mappers;
 
 namespace Eteczka.DB.DAO
 {
     public class KatPodwydzialDAO
     {
         private IDbConnectionFactory _ConnectionFactory;
+        private IKatPodWydzialMapper _KatPodWydzialMapper;
 
-        public KatPodwydzialDAO(IDbConnectionFactory factory)
+        public KatPodwydzialDAO(IDbConnectionFactory factory, IKatPodWydzialMapper KatPodWydzialMapper)
         {
             this._ConnectionFactory = factory;
+            this._KatPodWydzialMapper = KatPodWydzialMapper;
         }
 
         public bool ImportujPodwydzialy(List<KatPodWydzialy> podwydzialy)
@@ -50,6 +53,22 @@ namespace Eteczka.DB.DAO
             }
 
             return result;
+        }
+        public List<KatPodWydzialy> PobierzPodWydzialy()
+        {
+
+            List<KatPodWydzialy> PobranePodWydzialy = new List<KatPodWydzialy>();
+            string sqlQuery = "SELECT * FROM \"KatPodWydzial\" ORDER BY nazwa";
+
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
+            DataTable result = connectionState.ExecuteQuery(sqlQuery);
+
+            foreach (DataRow row in result.Rows)
+            {
+                KatPodWydzialy PobranyPodWydzial = _KatPodWydzialMapper.MapujZSql(row);
+                PobranePodWydzialy.Add(PobranyPodWydzial);
+            }
+            return PobranePodWydzialy;
         }
     }
 }

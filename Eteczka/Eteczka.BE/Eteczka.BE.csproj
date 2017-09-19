@@ -121,6 +121,7 @@
     <Compile Include="Controllers\FirmyKontroler.cs" />
     <Compile Include="Controllers\MiejscePracyController.cs" />
     <Compile Include="Controllers\PlikiController.cs" />
+    <Compile Include="Controllers\PodWydzialController.cs" />
     <Compile Include="Controllers\PracownicyKontroler.cs" />
     <Compile Include="Controllers\RejonyController.cs" />
     <Compile Include="Controllers\ResourcesController.cs" />
@@ -136,6 +137,7 @@
     <Compile Include="DTO\OrganizacjaDTO.cs" />
     <Compile Include="DTO\PlikiDTO.cs" />
     <Compile Include="DTO\PlikJrwaDTO.cs" />
+    <Compile Include="DTO\PodWydzialDTO.cs" />
     <Compile Include="DTO\RejonDTO.cs" />
     <Compile Include="DTO\WydzialDTO.cs" />
     <Compile Include="Enums\TypWykresu.cs" />
@@ -147,6 +149,7 @@
     <Compile Include="Mappers\IJsonToWydzialMapper.cs" />
     <Compile Include="Mappers\ImapowalnyDoFirmaDto.cs" />
     <Compile Include="Mappers\IMapowalnyDoWydzialDto.cs" />
+    <Compile Include="Mappers\IPodWydzialDtoMapper.cs" />
     <Compile Include="Mappers\IRejonDtoMapper.cs" />
     <Compile Include="Mappers\JsonToKonto5Mapper.cs" />
     <Compile Include="Mappers\JsonToWydzialMapper.cs" />
@@ -164,6 +167,7 @@
     <Compile Include="Mappers\JsonToKatLokalMapper.cs" />
     <Compile Include="Mappers\MapowalnyDoWydzialDto.cs" />
     <Compile Include="Mappers\MiejscePracyDtoMapper.cs" />
+    <Compile Include="Mappers\PodWydzialDtoMapper.cs" />
     <Compile Include="Mappers\RejonDtoMapper.cs" />
     <Compile Include="Model\ISesja.cs" />
     <Compile Include="Model\Sesja.cs" />
@@ -174,12 +178,14 @@
     <Compile Include="Services\FirmyService.cs" />
     <Compile Include="Services\IEmailService.cs" />
     <Compile Include="Services\IFirmyService.cs" />
+    <Compile Include="Services\IPodWydzialService.cs" />
     <Compile Include="Services\IWydzialyService.cs" />
     <Compile Include="Services\MiejscePracyService.cs" />
     <Compile Include="Services\IMiejscePracyService.cs" />
     <Compile Include="Services\ImportService.cs" />
     <Compile Include="Services\IImportService.cs" />
     <Compile Include="Services\IRejonyService.cs" />
+    <Compile Include="Services\PodWydzialService.cs" />
     <Compile Include="Services\RejonyService.cs" />
     <Compile Include="Services\StatystykiService.cs" />
     <Compile Include="Services\IStatystykiService.cs" />

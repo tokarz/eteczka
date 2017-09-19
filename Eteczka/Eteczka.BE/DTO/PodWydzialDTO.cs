@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Eteczka.DB.Entities
+namespace Eteczka.BE.DTO
 {
-    public class KatPodWydzialy
+    public class PodWydzialDTO
     {
-        //PRIMARY KEY (firma, wydzial, podwydzial) 
         public string Podwydzial { get; set; }
         public string Nazwa { get; set; }
         public string Wydzial { get; set; }
