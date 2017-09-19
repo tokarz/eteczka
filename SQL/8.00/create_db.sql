@@ -15,8 +15,8 @@
    WITH OWNER = eadadmin
        ENCODING = 'UTF8'
        TABLESPACE = pg_default
-       LC_COLLATE = 'German_Germany.1252'
-       LC_CTYPE = 'German_Germany.1252'
+       LC_COLLATE = 'Polish_Poland.1250'
+       LC_CTYPE = 'Polish_Poland.1250'
        CONNECTION LIMIT = -1;
   ALTER DEFAULT PRIVILEGES
     GRANT INSERT, SELECT, UPDATE, DELETE, TRUNCATE, REFERENCES, TRIGGER ON TABLES
