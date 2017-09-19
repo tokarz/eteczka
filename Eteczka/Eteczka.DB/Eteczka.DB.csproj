@@ -152,7 +152,9 @@
     <Compile Include="Mappers\IKatRodzajeDokumentowExcelMapper.cs" />
     <Compile Include="Mappers\IKatWydzialMapper.cs" />
     <Compile Include="Mappers\IPlikiMapper.cs" />
+    <Compile Include="Mappers\IKatPodWydzialMapper.cs" />
     <Compile Include="Mappers\IRejonMapper.cs" />
+    <Compile Include="Mappers\KatPodWydzialMapper.cs" />
     <Compile Include="Mappers\KatRodzajeDokumentowExcelMapper.cs" />
     <Compile Include="Mappers\UprawnieniaMapper.cs" />
     <Compile Include="Mappers\IUprawnieniaMapper.cs" />
