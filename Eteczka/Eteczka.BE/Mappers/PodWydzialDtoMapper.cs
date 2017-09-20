@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Eteczka.BE.DTO;
-using Eteczka.DB.Entities;
+using Eteczka.Model.Entities;
 
 namespace Eteczka.BE.Mappers
 {

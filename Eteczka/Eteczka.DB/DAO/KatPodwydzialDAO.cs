@@ -16,7 +16,7 @@ namespace Eteczka.DB.DAO
         private IConnection _Connection;
         private IKatPodWydzialMapper _KatPodWydzialMapper;
 
-        public KatPodwydzialDAO(IDbConnectionFactory factory, IKatPodWydzialMapper KatPodWydzialMapper)
+        public KatPodwydzialDAO(IDbConnectionFactory factory, IKatPodWydzialMapper KatPodWydzialMapper, IConnection connection)
         {
             this._ConnectionFactory = factory;
             this._Connection = connection;
@@ -62,7 +62,7 @@ namespace Eteczka.DB.DAO
             List<KatPodWydzialy> PobranePodWydzialy = new List<KatPodWydzialy>();
             string sqlQuery = "SELECT * FROM \"KatPodWydzial\" ORDER BY nazwa";
 
-            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(new Eteczka.DB.Connection.Connection());
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
             DataTable result = connectionState.ExecuteQuery(sqlQuery);
 
             foreach (DataRow row in result.Rows)

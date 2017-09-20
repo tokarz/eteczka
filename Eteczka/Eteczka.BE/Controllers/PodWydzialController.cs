@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using Eteczka.BE.DTO;
+using Eteczka.Model.Entities;
 using Eteczka.BE.Services;
 
 namespace Eteczka.BE.Controllers
@@ -20,10 +20,10 @@ namespace Eteczka.BE.Controllers
 
         public ActionResult PobierzWszystkiePodwydzialy()
         {
-            List<PodWydzialDTO> PobranePodWydzialy = _PodWydzialService.PobranaListaPodWydzialow();
+            List<KatPodWydzialy> pobranePodWydzialy = _PodWydzialService.PobranaListaPodWydzialow();
             return Json(new
             {
-                PodWydzialy = PobranePodWydzialy
+                PodWydzialy = pobranePodWydzialy
             }, JsonRequestBehavior.AllowGet);
         }
 
