@@ -273,6 +273,17 @@
     box-shadow: 0 0 2px black;
 }
 
+.md-title {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    background: #074C75;
+    color: white;
+}
+
 @media screen and (max-width:1360px) and (min-width: 961px) {
 }
 

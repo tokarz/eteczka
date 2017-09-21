@@ -276,4 +276,15 @@
   box-shadow: 0 0 2px black;
 }
 
+.md-title {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  background: #074C75;
+  color: white;
+}
+
 /*# sourceMappingURL=components.css.map */

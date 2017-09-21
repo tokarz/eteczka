@@ -8,6 +8,22 @@ angular.module('et.utils').directive('userMenu', function () {
             firmparams: '='
         },
         templateUrl: 'app/main/header/menu/userMenu.html',
-        controller: 'menuController'
+        controller: 'menuController',
+        link: function (scope, element) {
+
+            $('.user-icon', element).bind('click', function (ev) {
+                $('.callout', element).toggleClass('element-invisible');
+            });
+
+            $(document).bind('click', function (e) {
+                if (!$(e.target).is('.user-icon') && !$(e.target).parents(".user-icon").is(".user-icon")) {
+                    var elm = $('.callout', element);
+                    if (!elm.hasClass('element-invisible')) {
+                        elm.addClass('element-invisible');
+
+                    }
+                }
+            });
+        }
     }
 });
