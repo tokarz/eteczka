@@ -1,13 +1,20 @@
 ﻿'use strict';
 angular.module('et.controllers').controller('menuContentController', ['$scope', 'menuContentService', 'modalService', 'peselService', 'utilsService', function ($scope, menuContentService, modalService, peselService, utilsService) {
     $scope.$watch('user', function (value) {
-        console.log('watching user', value)
         if (value && value !== {}) {
             menuContentService.getUserWorkplaces(value).then(function (result) {
                 $scope.workplaces = result.MiejscaPracy;
             });
         }
     });
+
+    $scope.$watch('company', function (value) {        console.log('watch company', value)        loadRegionList('AFM')        loadDepartmentList('AFM')    });
+    $scope.$watch('firmparams.selectedfirm', function (value) {        console.log('watch selectedfirm', value)    });
+    $scope.workplaceParams = {        loadingRegions: false,        loadingDepartments: false,        loadingSubDepartments: false,        regions: [],        departments: [],        subDepartments: []    };
+
+    var loadRegionList = function (company) {        $scope.workplaceParams.loadingRegions = true;        $scope.workplaceParams.regions = []
+        return menuContentService.getRegionsForFirm(company)            .then(function (result) {                $scope.workplaceParams.loadingRegions = false;                $scope.workplaceParams.regions = result.Rejony.map(function (region) { return region.Nazwa })            })            .catch(function (error) {                $scope.workplaceParams.loadingRegions = false;                console.error(error)            });    }
+    var loadDepartmentList = function (company) {        $scope.workplaceParams.loadingDepartments = true;        $scope.workplaceParams.departments = []        return menuContentService.getDepartmentsForFirm(company)            .then(function (result) {                $scope.workplaceParams.loadingDepartments = false;                $scope.workplaceParams.departments = result.Wydzialy.map(function (department) { return department.Nazwa})            })            .catch(function (error) {                $scope.workplaceParams.loadingDepartments = false;                console.error(error)            });    }
 
     $scope.selectedWorkplace = {};
 
@@ -136,16 +143,10 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
             }
         )
     }
-    /*
-    * funkcjonalnosc dodawania i edycji miejsc pracy nie bedzie udostepniona w wersji 1.0.
-    * (dyskusja i decyzja z dnia 16.09.2017)
-    *
+
     var upsertWorkplaceModalFunctions = {
-        loadRegionList: function (company) {
-        },
-        loadDepartmentList: function (region) {
-        },
         loadSubDepartmentList: function (department) {
+            $scope.workplaceParams.loadingSubDepartments = true;            $scope.workplaceParams.subDepartments = []
         }
     }
 
@@ -157,7 +158,12 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
 
         openModal(
             Object.assign(modalOptions, upsertWorkplaceModalFunctions),
-            function (value) { console.log('tu bedzie wywolanie funkcji dodawania miejsca pracy', value) }
+            function (value) { console.log('tu bedzie wywolanie funkcji dodawania miejsca pracy', value) },
+            {
+                Firma: 'AFM',
+                availableRegions: $scope.workplaceParams.regions,
+                availableDepartments: $scope.workplaceParams.departments
+            }
         )
     }
 
@@ -166,7 +172,7 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
             title: 'Edytowanie miejsca pracy pracownika',
             body: 'app/views/employees/editWorkplacesPopup/upsertWorkplaceModal.html'
         }
-        var workplaceToPass = Object.assign({}, $scope.workplace)
+        var workplaceToPass = Object.assign({}, $scope.selectedWorkplace)
 
         console.log(workplaceToPass)
 
@@ -180,7 +186,6 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
     $scope.triggerDeleteWorkplaceDialog = function () {        var modalOptions = {            title: 'Usuwanie miejsca pracy pracownika',            body: 'app/views/employees/editWorkplacesPopup/deleteWorkplaceModal.html'        }        openModal(
             modalOptions,
             function (value) { console.log('tu bedzie wywolanie funkcji usuwania miejsca pracy', value) },
-            $scope.workplace
+            $scope.selectedWorkplace
         )    }
-    */
 }]);

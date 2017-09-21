@@ -6,6 +6,12 @@ angular.module('et.services').factory('menuContentService', ['httpService', 'ses
                 sessionId: sessionService.getSessionId(),
                 numeread: pracownik.Numeread
             });
+        },
+        getRegionsForFirm: function (firm) {
+            return httpService.get('Rejony/PobierzRejonyDlaWybranejFirmy', { firma: firm })
+        },
+        getDepartmentsForFirm: function (firm) {
+            return httpService.get('Wydzialy/PobierzWydzialy', { firma: firm })
         }
     }
 }]);

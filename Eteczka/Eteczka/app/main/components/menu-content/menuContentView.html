@@ -2,8 +2,8 @@
     <div class="user-details">
         <div class="top-toolbar toolbar-panel">
             <span class="toolbar-option option-one fa fa-plus-circle" ng-click="triggerAddEmployeeDialog()"></span>
-            <span class="toolbar-option option-two fa fa-pencil-square" ng-click="triggerEditEmployeeDialog()"></span>
-            <span class="toolbar-option option-three fa fa-trash-o" ng-click="triggerDeleteEmployeePopup()"></span>
+            <span ng-show="user.Nazwisko" class="toolbar-option option-two fa fa-pencil-square" ng-click="triggerEditEmployeeDialog()"></span>
+            <span ng-show="user.Nazwisko" class="toolbar-option option-three fa fa-trash-o" ng-click="triggerDeleteEmployeePopup()"></span>
         </div>
         <div class="user-details-list toolbar-content">
             <h3 style="margin:auto;text-align:center">Dane Pracownika</h3>
@@ -39,10 +39,9 @@
     </div>
     <div class="user-history">
         <div class="top-toolbar toolbar-panel">
-            <!--funkcjonalnosc dodawania i edycji miejsc pracy nie bedzie udostepniona w wersji 1.0 (dyskusja i decyzja z dnia 16.09.2017)-->
-            <!--<span class="toolbar-option option-one fa fa-plus-circle" ng-click="triggerAddWorkplaceDialog()"></span>
-            <span class="toolbar-option option-two fa fa-pencil-square" ng-click="triggerEditWorkplaceDialog()"></span>
-            <span class="toolbar-option option-three fa fa-trash-o" ng-click="triggerDeleteWorkplaceDialog()"></span>-->
+            <span ng-show="user.Nazwisko" class="toolbar-option option-one fa fa-plus-circle" ng-click="triggerAddWorkplaceDialog()"></span>
+            <span ng-show="selectedWorkplace.Firma" class="toolbar-option option-two fa fa-pencil-square" ng-click="triggerEditWorkplaceDialog()"></span>
+            <span ng-show="selectedWorkplace.Firma" class="toolbar-option option-three fa fa-trash-o" ng-click="triggerDeleteWorkplaceDialog()"></span>
         </div>
         <div class="toolbar-content">
             <h3 style="margin:auto;text-align:center">Miejsce Pracy</h3>
