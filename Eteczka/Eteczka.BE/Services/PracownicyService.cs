@@ -10,6 +10,7 @@ using System.Configuration;
 using System.IO;
 using Newtonsoft.Json.Linq;
 using Eteczka.BE.Mappers;
+using Eteczka.BE.Model;
 
 namespace Eteczka.BE.Services
 {
@@ -22,9 +23,9 @@ namespace Eteczka.BE.Services
             this._PracownikDao = pracownikDao;
         }
 
-        public List<Pracownik> PobierzWszystkich()
+        public List<Pracownik> PobierzWszystkich(SessionDetails sesja)
         {
-            List<Pracownik> pracownicy = _PracownikDao.PobierzPracownikow("*");
+            List<Pracownik> pracownicy = _PracownikDao.PobierzPracownikow(sesja.AktywnaFirma);
 
             return pracownicy;
         }

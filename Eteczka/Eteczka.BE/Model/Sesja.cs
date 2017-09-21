@@ -18,6 +18,8 @@ namespace Eteczka.BE.Model
         {
             return STAN_SESJI;
         }
+
+
         public static void UtworzLubAktualizujSesje(string sessionID)
         {
             if (STAN_SESJI.CzySesjaJestOtwarta(sessionID))

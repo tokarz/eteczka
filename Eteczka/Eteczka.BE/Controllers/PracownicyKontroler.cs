@@ -4,6 +4,7 @@ using Eteczka.Model.Entities;
 using Eteczka.BE.Services;
 using System.Web.Script.Serialization;
 using System;
+using Eteczka.BE.Model;
 
 namespace Eteczka.BE.Controllers
 {
@@ -20,14 +21,34 @@ namespace Eteczka.BE.Controllers
 
         public ActionResult PobierzWszystkich(string sessionId)
         {
-            List<Pracownik> pracownicy = _PracownicyService.PobierzWszystkich();
+            /*
+                 (YO MICHAL!)
+                 1)Od teraz autoryzacja sesji przebiega tak: 
+                  if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                 2) Klasa Eteczka.BE.Model.Sesja jest globalna i zawiera liste otwartycz sesji
+                 3) Zmiany w tej klasie sa bardzo grozne! lepiej sie z nimi konsultujmy
+                 4) Kontroler po autoryzacji sesji za pomoca operacji:
+                    SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+             
+                 pobiera obiekt sesji : SessionDetails (zawiera np KatLoginyDetale) 
+                    ten obiekt przekatujemy dalej do serwisow i innych hefalumpow aby operaowac na 
+                    firmach, uzyszkodnikach itd itp.
+             */
 
-            var result =  Json(new
+
+            List<Pracownik> pracownicy = new List<Pracownik>();
+            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            {
+                SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                pracownicy = _PracownicyService.PobierzWszystkich(sesja);
+            }
+
+            var result = Json(new
             {
                 data = pracownicy,
                 count = pracownicy != null ? pracownicy.Count : 0
             }, JsonRequestBehavior.AllowGet);
-            
+
             var serializer = new JavaScriptSerializer();
 
             // For simplicity just use Int32's max value.

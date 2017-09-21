@@ -82,7 +82,7 @@ namespace Eteczka.DB.DAO
             return fetchedUsers;
         }
 
-        public List<Pracownik> PobierzPracownikow(string limit = "100", string offset = "0", string orderby = "nazwisko", bool asc = true)
+        public List<Pracownik> PobierzPracownikow(string firma, string limit = "100", string offset = "0", string orderby = "nazwisko", bool asc = true)
         {
             string orderDirection = asc ? " ASC " : " DESC ";
 

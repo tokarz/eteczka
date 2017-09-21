@@ -29,6 +29,22 @@ namespace Eteczka.BE.Model
             }
         }
 
+        public bool UstawAktywnaFirme(string sessionID, string company)
+        {
+            bool result = false;
+            lock (OTWARTE_SESJE)
+            {
+                if (OTWARTE_SESJE.ContainsKey(sessionID))
+                {
+                    SessionDetails detaleSesji = OTWARTE_SESJE[sessionID];
+                    detaleSesji.AktywnaFirma = company;
+                    result = true;
+                }
+            }
+
+            return result;
+        }
+
         public SessionDetails PobierzSesje(string sessionID)
         {
             SessionDetails result = null;
@@ -43,7 +59,7 @@ namespace Eteczka.BE.Model
         {
             List<SessionDetails> sesje = new List<SessionDetails>();
 
-            foreach(SessionDetails detale in OTWARTE_SESJE.Values)
+            foreach (SessionDetails detale in OTWARTE_SESJE.Values)
             {
                 sesje.Add(detale);
             }
