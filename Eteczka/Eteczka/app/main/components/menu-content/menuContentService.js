@@ -6,6 +6,11 @@ angular.module('et.services').factory('menuContentService', ['httpService', 'ses
                 sessionId: sessionService.getSessionId(),
                 numeread: pracownik.Numeread
             });
+        },
+        getRegionsForFirm: function (firm) {
+            console.log('in promise')
+            // do wywolania jak bedzie dostepna: httpService.get('<pathToMethod>', {firm})
+            return Promise.resolve(['rejon A', 'rejon B', 'rejon C'])
         }
     }
 }]);

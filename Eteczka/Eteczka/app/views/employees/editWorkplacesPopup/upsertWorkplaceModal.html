@@ -1,33 +1,53 @@
-﻿<!--funkcjonalnosc dodawania i edycji miejsc pracy nie bedzie udostepniona w wersji 1.0. (dyskusja i decyzja z dnia 16.09.2017)-->
-<!--
-     <form name="upsertEmployee">
+﻿<form name="upsertEmployee">
     <div class="modal-table-row">
-        <label class="modal-table-label" for="company">Firma</label>
-        <input class="modal-table-input" name="company" type="text" ng-model="workplace.Firma" />
+        <label class="modal-table-label" for="firm">Firma</label>
+        <input class="modal-table-input" name="firm" type="text" ng-model="modalResult.Firma" ng-disabled="true" />
     </div>
     <div class="modal-table-row">
         <label class="modal-table-label" for="region">Rejon</label>
-        <input class="modal-table-input" name="region" type="text" ng-model="workplace.Rejon" ng-disabled="true" />
+        <select ng-if="workplaceParams.loadingRegions"
+                class="modal-table-input"
+                name="region"
+                ng-options="option for option in ['processing...']"
+        />
+        <select 
+                ng-if="!workplaceParams.loadingRegions"
+                class="modal-table-input" 
+                name="region" 
+                type="text" 
+                ng-model="modalResult.Rejon" 
+                ng-options="option for option in workplaceParams.regions" 
+        />
     </div>
     <div class="modal-table-row">
         <label class="modal-table-label" for="department">Wydzial</label>
-        <input class="modal-table-input" name="department" type="text" ng-model="workplace.Wydzial" ng-disabled="true" />
+        <select ng-if="workplaceParams.loadingDepartments"
+                class="modal-table-input"
+                name="department"
+                ng-options="option for option in ['processing...']" 
+        />
+        <select ng-if="!workplaceParams.loadingDepartments"
+                class="modal-table-input" 
+                name="department" 
+                ng-model="modalResult.Wydzial"
+                ng-options="option for option in workplaceParams.departments" 
+                ng-init="modalResult.Wydzial"
+        />
     </div>
     <div class="modal-table-row">
         <label class="modal-table-label" for="subDepartment">Podwydzial</label>
-        <input class="modal-table-input" name="subDepartment" type="text" ng-model="workplace.Podwydzial" ng-disabled="true"/>
+        <input class="modal-table-input" name="subDepartment" type="text" ng-model="modalResult.Podwydzial" ng-disabled="modalResult.Wydzial"/>
     </div>
     <div class="modal-table-row">
         <label class="modal-table-label" for="account5">Konto 5</label>
-        <input class="modal-table-input" name="birthday" type="text" ng-model="workplace.Konto5" ng-disabled="true"/>
+        <input class="modal-table-input" name="birthday" type="text" ng-model="modalResult.Konto5" ng-disabled="modalResult.Podwydzial"/>
     </div>
     <div class="modal-table-row">
         <label class="modal-table-label" for="startDate">Data poczatkowa</label>
-        <input class="modal-table-input" name="startDate" type="text" ng-model="workplace.DataPoczatkowa" required/>
+        <input class="modal-table-input" name="startDate" type="text" ng-model="modalResult.DataPoczatkowa" required/>
     </div>
     <div class="modal-table-row">
         <label class="modal-table-label" for="endDate">Data koncowa</label>
-        <input class="modal-table-input" name="endDate" type="text" ng-model="workplace.DataKoniec" required />
+        <input class="modal-table-input" name="endDate" type="text" ng-model="modalResult.DataKoniec" required />
     </div>
 </form>
- -->
