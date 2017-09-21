@@ -30,7 +30,7 @@ angular.module('et.controllers').controller('settingsViewController', ['$scope',
 
     $scope.importArchives = function () {
         settingsService.importArchives().then(function () {
-            alert('successfull');
+            $scope.checkUpdateStatus('archives');
         },
         function () {
             alert('failed!');
@@ -39,7 +39,8 @@ angular.module('et.controllers').controller('settingsViewController', ['$scope',
 
     $scope.importUsers = function () {
         settingsService.importUsers().then(function () {
-            alert('successfull');
+            $scope.checkUpdateStatus('users');
+
         },
         function () {
             alert('failed!');
@@ -48,7 +49,8 @@ angular.module('et.controllers').controller('settingsViewController', ['$scope',
 
     $scope.importFirms = function () {
         settingsService.importFirms().then(function () {
-            alert('successfull');
+            $scope.checkUpdateStatus('firms');
+
         },
         function () {
             alert('failed!');
@@ -57,7 +59,8 @@ angular.module('et.controllers').controller('settingsViewController', ['$scope',
 
     $scope.importAreas = function () {
         settingsService.importAreas().then(function () {
-            alert('successfull');
+            $scope.checkUpdateStatus('areas');
+
         },
         function () {
             alert('failed!');
@@ -66,7 +69,8 @@ angular.module('et.controllers').controller('settingsViewController', ['$scope',
 
     $scope.importWorkplaces = function () {
         settingsService.importWorkplaces().then(function () {
-            alert('successfull');
+            $scope.checkUpdateStatus('workplaces');
+
         },
         function () {
             alert('failed!');
@@ -75,7 +79,8 @@ angular.module('et.controllers').controller('settingsViewController', ['$scope',
 
     $scope.importSubdepartments = function () {
         settingsService.importSubdepartments().then(function () {
-            alert('successfull');
+            $scope.checkUpdateStatus('subdepartment');
+
         },
         function () {
             alert('failed!');
@@ -83,7 +88,8 @@ angular.module('et.controllers').controller('settingsViewController', ['$scope',
     }
     $scope.importDepartments = function () {
         settingsService.importDepartments().then(function () {
-            alert('successfull');
+            $scope.checkUpdateStatus('department');
+
         },
         function () {
             alert('failed!');
@@ -91,7 +97,7 @@ angular.module('et.controllers').controller('settingsViewController', ['$scope',
     }
     $scope.importAccount5 = function () {
         settingsService.importAccount5().then(function () {
-            alert('successfull');
+            $scope.checkUpdateStatus('account5');
         },
         function () {
             alert('failed!');

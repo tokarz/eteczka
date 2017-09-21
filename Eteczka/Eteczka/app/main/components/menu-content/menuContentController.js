@@ -1,6 +1,5 @@
 ﻿'use strict';
 angular.module('et.controllers').controller('menuContentController', ['$scope', 'menuContentService', 'modalService', 'peselService', 'utilsService', function ($scope, menuContentService, modalService, peselService, utilsService) {
-
     $scope.$watch('user', function (value) {
         console.log('watching user', value)
         if (value && value !== {}) {

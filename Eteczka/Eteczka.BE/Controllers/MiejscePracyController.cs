@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Eteczka.BE.Services;
 using Eteczka.Model.Entities;
 using Eteczka.Model.DTO;
+using Eteczka.BE.Model;
 
 namespace Eteczka.BE.Controllers
 {
@@ -15,15 +16,21 @@ namespace Eteczka.BE.Controllers
             this._MiejscePracyService = miejscePracyService;
         }
 
-        public ActionResult MiejscePracyDlaPracownika(string sessionId, Pracownik pracownik)
+        public ActionResult MiejscePracyDlaPracownika(string sessionId, string numeread)
         {
-            List<MiejscePracyDlaPracownika> miejscaPracy = _MiejscePracyService.PobierzMiejscaPracyDlaPracownika(pracownik);
+            List<MiejscePracyDlaPracownika> miejscaPracy = new List<MiejscePracyDlaPracownika>();
+
+            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            {
+                if (numeread != null)
+                {
+                    miejscaPracy = _MiejscePracyService.PobierzMiejscaPracyDlaPracownika(numeread);
+                }
+            }
             return Json(new
             {
                 MiejscaPracy = miejscaPracy
             }, JsonRequestBehavior.AllowGet);
-
         }
-
     }
 }

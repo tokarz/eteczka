@@ -4,7 +4,7 @@ angular.module('et.services').factory('menuContentService', ['httpService', 'ses
         getUserWorkplaces: function (pracownik) {
             return httpService.get('MiejscePracy/MiejscePracyDlaPracownika', {
                 sessionId: sessionService.getSessionId(),
-                pracownik: pracownik
+                numeread: pracownik.Numeread
             });
         }
     }
