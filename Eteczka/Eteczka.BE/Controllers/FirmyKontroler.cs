@@ -44,6 +44,20 @@ namespace Eteczka.BE.Controllers
                 success = success
             }, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult PobierzAktywnaFirme(string sessionId)
+        {
+            string firma = "";
+            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            {
+                firma = Sesja.PobierzStanSesji().PobierzSesje(sessionId).AktywnaFirma;
+            }
+
+            return Json(new
+            {
+                firma = firma
+            }, JsonRequestBehavior.AllowGet);
+        }
     }
 }
 

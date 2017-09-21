@@ -72,6 +72,5 @@ angular.module('et.services').factory('settingsService', ['httpService', 'sessio
                 sessionId: sessionService.getSessionId()
             });
         }
-
     };
 }]);

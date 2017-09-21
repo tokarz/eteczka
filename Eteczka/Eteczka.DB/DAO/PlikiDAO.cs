@@ -50,8 +50,8 @@ namespace Eteczka.DB.DAO
             foreach (string key in plikiZMetadanymi.Keys)
             {
                 Pliki biezacyPlik = plikiZMetadanymi[key];
-                string valuesLine = "('" + biezacyPlik.Symbol + "', '" + biezacyPlik.DataSkanu + "', '" + biezacyPlik.DataDokumentu + "', '" + biezacyPlik.DataPocz + "', '" + biezacyPlik.DataKoniec + "', '" + biezacyPlik.NazwaPliku + "', '" + biezacyPlik.PelnaSciezka + "', '" + biezacyPlik.TypPliku + "', '" + biezacyPlik.OpisDodatkowy + "', '" + biezacyPlik.NumerEad + "', '" + biezacyPlik.DokumentWlasny + "', '" + biezacyPlik.IdOper + "', '" + biezacyPlik.IdAkcept + "', '" + biezacyPlik.DataModyfikacji + "', '" + biezacyPlik.DataAkcept + "', 'EAD', 'false');";
-                string singleImport = "INSERT INTO \"Pliki\" (symbol, dataskanu, datadokumentu, datapocz, datakoniec, nazwapliku, pelnasciezka, typpliku, opisdodatkowy, numeread, dokwlasny, idoper, idakcept, datamodify, dataakcept, systembazowy, usuniety) VALUES ";
+                string valuesLine = "('" + biezacyPlik.Firma + "', '" + biezacyPlik.NumerEad + "', '" + biezacyPlik.Symbol + "', '" + biezacyPlik.DataSkanu + "', '" + biezacyPlik.DataDokumentu + "', '" + biezacyPlik.DataPocz + "', '" + biezacyPlik.DataKoniec + "', '" + biezacyPlik.NazwaScan + "', '" + biezacyPlik.NazwaEad + "', '" + biezacyPlik.PelnasciezkaEad + "', '" + biezacyPlik.TypPliku + "', '" + biezacyPlik.OpisDodatkowy + "', '" + biezacyPlik.DokumentWlasny + "', '" + biezacyPlik.Systembazowy + "', '" + biezacyPlik.Usuniety + "', '" + biezacyPlik.IdOper + "', '" + biezacyPlik.IdAkcept + "', '" + biezacyPlik.DataModyfikacji + "', '" + biezacyPlik.DataAkcept + "');";
+                string singleImport = "INSERT INTO \"Pliki\" (firma, numeread, symbol, dataskanu, datadokumentu, datapocz, datakoniec, nazwascan, nazwaead, pelnasciezkaead, typpliku, opisdodatkowy, dokwlasny, systembazowy, usuniety, idoper, idakcept, datamodify, dataakcept) VALUES ";
 
                 string fullSqlInsert = singleImport + valuesLine;
                 sqls.Append(fullSqlInsert);

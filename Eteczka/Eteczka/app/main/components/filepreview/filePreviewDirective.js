@@ -8,7 +8,7 @@ angular.module('et.directives').directive('filePreview', function () {
             fileproperty: '@'
         },
         templateUrl: 'app/main/components/filepreview/filePreviewView.html',
-        controller: function ($scope, httpService) {
+        controller: function ($scope, httpService, sessionService) {
 
             $scope.$watch('file', function (value) {
                 if (value) {
@@ -26,6 +26,7 @@ angular.module('et.directives').directive('filePreview', function () {
                 $('#pdfPreviewer').attr('src', 'FILE_FETCH?src=' + elm[$scope.fileproperty] + '.fetchfile');
                 $('#pdfPreviewer').addClass('processing');
                 httpService.get('Resources/' + ctrl, {
+                    sessionId: sessionService.getSessionId(),
                     fileName: elm[$scope.fileproperty]
                 }).then(function (result) {
                     $('#pdfPreviewer').removeClass('processing');

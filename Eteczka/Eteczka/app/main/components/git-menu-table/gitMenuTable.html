@@ -15,7 +15,7 @@
                     </td>
                 </tr>
                 <tr ng-if="!loading" ng-repeat="row in newrows" ng-click="selectFile(row)" ng-class="getRowStyle(row)">
-                    <td>{{row.NazwaPliku}}</td>
+                    <td>{{row.NazwaEad}}</td>
                 </tr>
             </tbody>
         </table>
@@ -41,7 +41,7 @@
                     </td>
                 </tr>
                 <tr ng-if="!loading" ng-repeat="row in stagedrows" ng-click="selectStagedFile(row)" ng-class="getStagedRowStyle(row)">
-                    <td>{{row.NazwaPliku}} </td>
+                    <td>{{row.NazwaEad}} </td>
                 </tr>
             </tbody>
         </table>

@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('et.controllers').controller('loginViewController', ['$rootScope', '$scope', '$state', 'modalService', 'loginService', 'sessionService', function ($rootScope, $scope, $state, modalService, loginService, sessionService) {
+angular.module('et.controllers').controller('loginViewController', ['$rootScope', '$scope', '$state', '$mdDialog', 'modalService', 'loginService', 'sessionService', function ($rootScope, $scope, $state, $mdDialog, modalService, loginService, sessionService) {
 
     $scope.credentials = {
         username: '',
@@ -28,13 +28,30 @@ angular.module('et.controllers').controller('loginViewController', ['$rootScope'
             }
 
             else {
-                $state.go('login');
-                alert('Login failed!');
+                $mdDialog.show(
+                 $mdDialog.alert()
+                    .clickOutsideToClose(true)
+                    .title('Blad Logowania')
+                    .textContent('Haslo lub nazwa Uzytkownika jest nieprawidlowa')
+                    .ariaLabel('Alert Dialog Demo')
+                    .ok('Rozumiem')
+                 ).then(function () {
+                     $state.go('login');
+                 });
+
             }
         },
         function (err) {
-            console.error('LOGIN FAILED!' + err);
-            $state.go('login');
+            $mdDialog.show(
+                 $mdDialog.alert()
+                    .clickOutsideToClose(true)
+                    .title('Blad Logowania')
+                    .textContent('Blad Serwera! Skontaktuj sie z Administratorem lub sprobuj ponownie za kilka minut')
+                    .ariaLabel('Alert Dialog Demo')
+                    .ok('Rozumiem')
+                 ).then(function () {
+                     $state.go('login');
+                 });
         });
     }
 
@@ -51,7 +68,16 @@ angular.module('et.controllers').controller('loginViewController', ['$rootScope'
                 }
             });
         }).catch(function (error) {
-            alert("error found!");
+            $mdDialog.show(
+                $mdDialog.alert()
+                   .clickOutsideToClose(true)
+                   .title('Blad Formularza')
+                   .textContent('Blad Serwera! Skontaktuj sie z Administratorem lub sprobuj ponownie za kilka minut')
+                   .ariaLabel('Alert Dialog Demo')
+                   .ok('Rozumiem')
+                ).then(function () {
+                    $state.go('login');
+                });
         });
     };
 

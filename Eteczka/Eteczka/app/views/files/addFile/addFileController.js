@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('et.controllers').controller('addFileController', ['$scope', 'httpService', function ($scope, httpService) {
+angular.module('et.controllers').controller('addFileController', ['$scope', 'addFileService', 'employeesService', function ($scope, addFileService, employeesService) {
     $scope.isElementChosen = false;
 
     $scope.wczytajPlik = function () {
@@ -19,7 +19,7 @@ angular.module('et.controllers').controller('addFileController', ['$scope', 'htt
         $scope.isElementChosen = true;
 
         $scope.showUploadedFile($scope.upload.files);
-        httpService.get('Pliki/PobierzMetadane', { name: $scope.upload.visiblePath }).then(function (result) {
+        addFileService.pobierzMetadane($scope.upload.visiblePath).then(function () {
             $scope.modalResult = result.meta;
         });
     });
@@ -38,7 +38,7 @@ angular.module('et.controllers').controller('addFileController', ['$scope', 'htt
         $scope.isElementChosen = true;
 
         $scope.showUploadedFile($files);
-        httpService.get('Pliki/PobierzMetadane', { name: $scope.upload.visiblePath }).then(function (result) {
+        addFileService.pobierzMetadane($scope.upload.visiblePath).then(function () {
             $scope.modalResult = result.meta;
         });
     }
@@ -52,21 +52,17 @@ angular.module('et.controllers').controller('addFileController', ['$scope', 'htt
     }
 
     if ($scope.modalOptions.isEdit) {
-        httpService.get('Resources/GetRestrictedResource', {
-            fileName: $scope.modalOptions.selectedElement.file.Nazwa
-        }).then(function (result) {
 
+        addFileService.pobierzBezpieczniePlik($scope.modalOptions.selectedElement.file.Nazwa).then(function (result) {
             $('.pdfPreviewer').attr('data', 'data:application/pdf;base64,' + result.data);
 
-            httpService.get('Pracownicy/PobierzDlaPliku', { id: $scope.modalOptions.selectedElement.file.Pesel }).then(function (usersForFile) {
+            employeesService.getEmployeesForFile($scope.modalOptions.selectedElement.file.Pesel).then(function (usersForFile) {
                 $scope.modalResult.eployeeToModify = {
                     pesel: usersForFile.users ? [usersForFile.users][0].PESEL : '',
                     name: usersForFile.users ? [usersForFile.users][0].Nazwisko : ''
                 }
-            });
 
+            });
         });
     }
-
-
 }]);

@@ -19,11 +19,11 @@ namespace Eteczka.BE.Controllers
         public ActionResult PobierzPracownika(string nazwa, string haslo)
         {
             KatLoginy user = _KatLoginyService.GetUserByNameAndPassword(nazwa, haslo);
-            List<KatLoginyDetale> userDetails = null;
+            List<KatLoginyDetale> userDetails = new List<KatLoginyDetale>();
             List<string> firmy = new List<string>();
             SessionDetails sesja = null;
             bool success = user != null;
-            
+
             if (success)
             {
                 userDetails = _KatLoginyService.GetUserDetails(user.Identyfikator);
@@ -42,11 +42,11 @@ namespace Eteczka.BE.Controllers
 
             return Json(new
             {
-                sesja = sesja != null ? sesja : null,
-                userdetails = userDetails[0],
+                sesja = sesja,
+                userdetails = userDetails.Count == 0 ? null : userDetails[0],
                 firms = firmy,
                 success = success,
-                isadmin = user.IsAdmin
+                isadmin = success ? user.IsAdmin : false
             }, JsonRequestBehavior.AllowGet);
         }
 

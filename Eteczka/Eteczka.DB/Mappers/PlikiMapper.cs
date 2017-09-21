@@ -6,26 +6,31 @@ namespace Eteczka.DB.Mappers
 {
     public class PlikiMapper : IPlikiMapper
     {
-
         public Pliki MapujZSql(DataRow row)
         {
-            Pliki fetchedDok = new Pliki();
-
-            fetchedDok.Symbol = row[0].ToString();
-            fetchedDok.DataSkanu = DateTime.Parse(row[0].ToString());
-            fetchedDok.DataDokumentu = DateTime.Parse(row[0].ToString());
-            fetchedDok.DataPocz = DateTime.Parse(row[0].ToString());
-            fetchedDok.DataKoniec = DateTime.Parse(row[0].ToString());
-            fetchedDok.NazwaPliku = row[0].ToString();
-            fetchedDok.PelnaSciezka = row[0].ToString();
-            fetchedDok.TypPliku = row[0].ToString();
-            fetchedDok.OpisDodatkowy = row[0].ToString();
-            fetchedDok.NumerEad = row[0].ToString();
-            fetchedDok.DokumentWlasny = bool.Parse(row[0].ToString());
-            fetchedDok.IdOper = row[0].ToString();
-            fetchedDok.IdAkcept = row[0].ToString();
-            fetchedDok.DataModyfikacji = DateTime.Parse(row[0].ToString());
-            fetchedDok.DataAkcept = DateTime.Parse(row[0].ToString());
+            Pliki fetchedDok = new Pliki()
+            {
+                Id = long.Parse(row["id"].ToString()),
+                Firma = row["firma"].ToString(),
+                NumerEad = row["numeread"].ToString(),
+                Symbol = row["symbol"].ToString(),
+                DataSkanu = DateTime.Parse(row["dataskanu"].ToString()),
+                DataDokumentu = DateTime.Parse(row["datadokumentu"].ToString()),
+                DataPocz = DateTime.Parse(row["datapocz"].ToString()),
+                DataKoniec = DateTime.Parse(row["datakoniec"].ToString()),
+                NazwaScan = row["nazwascan"].ToString(),
+                NazwaEad = row["nazwaead"].ToString(),
+                PelnasciezkaEad = row["pelnasciezkaead"].ToString(),
+                TypPliku = row["typpliku"].ToString(),
+                OpisDodatkowy = row["opisdodatkowy"].ToString(),
+                DokumentWlasny = bool.Parse(row["dokwlasny"].ToString()),
+                IdOper = row["idoper"].ToString(),
+                IdAkcept = row["idakcept"].ToString(),
+                DataModyfikacji = DateTime.Parse(row["datamodify"].ToString()),
+                DataAkcept = DateTime.Parse(row["dataakcept"].ToString()),
+                Systembazowy = row["systembazowy"].ToString(),//EAD
+                Usuniety = bool.Parse(row["usuniety"].ToString()),
+            };
 
             return fetchedDok;
         }

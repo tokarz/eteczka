@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('et.controllers').controller('menuController', ['$rootScope', '$scope', '$mdDialog', function ($rootScope, $scope, $mdDialog) {
+angular.module('et.controllers').controller('menuController', ['$rootScope', '$scope', '$mdDialog', '$state', 'companiesService', function ($rootScope, $scope, $mdDialog, $state, companiesService) {
     $scope.userMenuVisible = false;
     $scope.valueRejected = false;
     $scope.showUserOptions = function () {
@@ -17,8 +17,6 @@ angular.module('et.controllers').controller('menuController', ['$rootScope', '$s
         }
     })
 
-    
-
     $scope.changefirm = function (newValue, oldValue) {
         var confirm = $mdDialog.confirm()
               .title('Czy Chcesz zmienic firme?')
@@ -28,7 +26,16 @@ angular.module('et.controllers').controller('menuController', ['$rootScope', '$s
               .cancel('Nie');
 
         $mdDialog.show(confirm).then(function (value) {
-            $rootScope.$broadcat('MODEL_CHANGED', newValue);
+            companiesService.setActiveCompany(newValue).then(function (res) {
+                if (res && res.success) {
+                    console.log('Ustawiono firme: [' + newValue + ']');
+                    $state.reload();
+                }
+            },
+            function (err) {
+                console.error('Blad ustawiania firmy [' + newValue + ']', err);
+                $scope.firmparams.selectedfirm = oldValue;
+            });
         }, function () {
             $scope.firmparams.selectedfirm = oldValue;
             $scope.valueRejected = true;

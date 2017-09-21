@@ -8,21 +8,31 @@ namespace Eteczka.BE.Mappers
     {
         public Pliki Map(JToken parsedJson)
         {
-            Pliki wczytanyPlik = new Pliki();
-            wczytanyPlik.DataAkcept = DateTime.Parse(parsedJson["pesel"].ToString());
-            wczytanyPlik.DataDokumentu = DateTime.Parse(parsedJson["datadokumentu"].ToString());
-            wczytanyPlik.DataModyfikacji = DateTime.Parse(parsedJson["datamodyfikacji"].ToString());
-            wczytanyPlik.DataPocz = DateTime.Parse(parsedJson["datapocz"].ToString());
-            wczytanyPlik.DataSkanu = DateTime.Parse(parsedJson["dataSkanu"].ToString());
-            wczytanyPlik.DokumentWlasny = bool.Parse(parsedJson["dokumentwlasny"].ToString());
-            wczytanyPlik.IdAkcept = parsedJson["idakcept"].ToString();
-            wczytanyPlik.IdOper = parsedJson["idoper"].ToString();
-            wczytanyPlik.NazwaPliku = parsedJson["nazwapliku"].ToString();
-            wczytanyPlik.NumerEad = parsedJson["numeread"].ToString();
-            wczytanyPlik.OpisDodatkowy = parsedJson["opisdodatkowy"].ToString();
-            wczytanyPlik.PelnaSciezka = parsedJson["pelnasciezka"].ToString();
-            wczytanyPlik.Symbol = parsedJson["symbol"].ToString();
-            wczytanyPlik.TypPliku = parsedJson["typpliku"].ToString();
+
+
+            Pliki wczytanyPlik = new Pliki()
+            {
+                Id = long.Parse(parsedJson["id"].ToString()),
+                Firma = parsedJson["firma"].ToString(),
+                NumerEad = parsedJson["numeread"].ToString(),
+                Symbol = parsedJson["symbol"].ToString(),
+                DataSkanu = DateTime.Parse(parsedJson["dataskanu"].ToString()),
+                DataDokumentu = DateTime.Parse(parsedJson["datadokumentu"].ToString()),
+                DataPocz = DateTime.Parse(parsedJson["datapocz"].ToString()),
+                DataKoniec = DateTime.Parse(parsedJson["datakoniec"].ToString()),
+                NazwaScan = parsedJson["nazwascan"].ToString(),
+                NazwaEad = parsedJson["nazwaead"].ToString(),
+                PelnasciezkaEad = parsedJson["pelnasciezkaead"].ToString(),
+                TypPliku = parsedJson["typpliku"].ToString(),
+                OpisDodatkowy = parsedJson["opisdodatkowy"].ToString(),
+                DokumentWlasny = bool.Parse(parsedJson["dokwlasny"].ToString()),
+                IdOper = parsedJson["idoper"].ToString(),
+                IdAkcept = parsedJson["idakcept"].ToString(),
+                DataModyfikacji = DateTime.Parse(parsedJson["datamodify"].ToString()),
+                DataAkcept = DateTime.Parse(parsedJson["dataakcept"].ToString()),
+                Systembazowy = parsedJson["systembazowy"].ToString(),//EAD
+                Usuniety = bool.Parse(parsedJson["usuniety"].ToString()),
+            };
 
             return wczytanyPlik;
         }

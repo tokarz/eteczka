@@ -54,17 +54,18 @@ namespace Eteczka.BE.Services
             string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
             string sciezkaDoWaitingRoomu = Path.Combine(eadRoot, "waitingroom", firma);
 
-            if(Directory.Exists(sciezkaDoWaitingRoomu))
+            if (Directory.Exists(sciezkaDoWaitingRoomu))
             {
                 string[] plikiDlaFirmy = Directory.GetFiles(sciezkaDoWaitingRoomu);
-                foreach(string plikDlaFirmy in plikiDlaFirmy)
+                foreach (string plikDlaFirmy in plikiDlaFirmy)
                 {
 
                     Pliki plik = new Pliki()
                     {
-                        NazwaPliku = _PlikiUtils.WezNazwePlikuZeSciezki(plikDlaFirmy),
+                        NazwaScan = _PlikiUtils.WezNazwePlikuZeSciezki(plikDlaFirmy),
+                        NazwaEad = _PlikiUtils.WezNazwePlikuZeSciezki(plikDlaFirmy),
                         DataDokumentu = File.GetCreationTime(plikDlaFirmy),
-                        PelnaSciezka = plikDlaFirmy
+                        PelnasciezkaEad = plikDlaFirmy
                     };
 
                     result.Add(plik);

@@ -26,9 +26,13 @@ namespace Eteczka.BE.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult PobierzMetadane(string plik)
+        public ActionResult PobierzMetadane(string sessionId, string plik)
         {
-            MetaDanePliku meta = _PlikiService.PobierzMetadane(plik);
+            MetaDanePliku meta = new MetaDanePliku(); ;
+            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            {
+                meta = _PlikiService.PobierzMetadane(plik);
+            }
 
             return Json(new
             {
@@ -39,10 +43,11 @@ namespace Eteczka.BE.Controllers
         public ActionResult PobierzDlaUzytkownika(string sessionId, string numeread)
         {
             List<Pliki> pliki = new List<Pliki>();
-            pliki.Add(new Pliki()
+
+            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
             {
-                NazwaPliku = "Snopowiazalka.pdf"
-            });
+
+            }
 
             return Json(new
             {

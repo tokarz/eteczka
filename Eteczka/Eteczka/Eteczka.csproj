@@ -324,6 +324,7 @@
     <Content Include="app\views\employees\employeesViewDirective.js" />
     <Content Include="app\views\files\addFile\addFile.html" />
     <Content Include="app\views\files\addFile\addFileController.js" />
+    <Content Include="app\views\files\addFile\addFileService.js" />
     <Content Include="app\views\files\addFile\fileDescriptionPopup\upsertFileDescription.html" />
     <Content Include="app\views\files\filesView.html" />
     <Content Include="app\views\files\filesViewController.js" />

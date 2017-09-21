@@ -21,6 +21,11 @@ angular.module('et.services').factory('employeesService', ['httpService', 'sessi
                 pesel: pesel
             });
         },
+        getEmployeesForFile: function (file) {
+            return httpService.get('Pracownicy/PobierzDlaPliku', {
+                file: file
+            });
+        },
         searchByText: function (text) {
             return httpService.get('Pracownicy/WyszukajPracownikowPoTekscie', {
                 search: text

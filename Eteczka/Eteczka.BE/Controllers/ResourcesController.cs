@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using System.Configuration;
 using Eteczka.BE.Utils;
 using System.IO;
+using Eteczka.BE.Model;
 
 namespace Eteczka.BE.Controllers
 {
@@ -15,17 +16,22 @@ namespace Eteczka.BE.Controllers
             this._PlikiUtils = plikiUtils;
         }
 
-        public ActionResult GetRestrictedResource(string fileName)
+        public ActionResult GetRestrictedResource(string sessionId, string fileName)
         {
-            string eadRootName = ConfigurationManager.AppSettings["rootdir"];
-            string pliki = ConfigurationManager.AppSettings["filesdir"];
+            string base64PDF = "";
+            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            {
+                string firma = Sesja.PobierzStanSesji().PobierzSesje(sessionId).AktywnaFirma;
+                string eadRootName = ConfigurationManager.AppSettings["rootdir"];
+                string pliki = ConfigurationManager.AppSettings["filesdir"];
 
-            string eadRoot = Environment.GetEnvironmentVariable(eadRootName);
+                string eadRoot = Environment.GetEnvironmentVariable(eadRootName);
 
-            string filepath = System.IO.Path.Combine(eadRoot, pliki, fileName);
+                string filepath = System.IO.Path.Combine(eadRoot, pliki, firma,  fileName);
 
-            string base64PDF = _PlikiUtils.PobierzZaszyfrowanaZawartoscPliku(filepath);
-           
+                base64PDF = _PlikiUtils.PobierzZaszyfrowanaZawartoscPliku(filepath);
+            }
+
 
             return Json(new
             {
@@ -33,13 +39,18 @@ namespace Eteczka.BE.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult GetResource(string fileName)
+        public ActionResult GetResource(string sessionId, string fileName)
         {
-            string eadRootName = ConfigurationManager.AppSettings["rootdir"];
-            string eadRoot = Environment.GetEnvironmentVariable(eadRootName);
-            string filepath = Path.Combine(eadRoot, "waitingroom", "AFM", fileName);
+            string base64PDF = "";
+            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            {
+                string firma = Sesja.PobierzStanSesji().PobierzSesje(sessionId).AktywnaFirma;
+                string eadRootName = ConfigurationManager.AppSettings["rootdir"];
+                string eadRoot = Environment.GetEnvironmentVariable(eadRootName);
+                string filepath = Path.Combine(eadRoot, "waitingroom", firma, fileName);
 
-            string base64PDF = _PlikiUtils.PobierzZaszyfrowanaZawartoscPliku(filepath);
+                base64PDF = _PlikiUtils.PobierzZaszyfrowanaZawartoscPliku(filepath);
+            }
 
             return Json(new
             {

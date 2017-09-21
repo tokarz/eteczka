@@ -20,9 +20,10 @@ namespace Eteczka.DB.Mappers
 
         public KatLoginy Map(DataTable queryResult)
         {
-            KatLoginy fetchedResult = new KatLoginy();
+            KatLoginy fetchedResult = null;
             if (queryResult != null && queryResult.Rows.Count == 1)
             {
+                fetchedResult = new KatLoginy();
                 DataRow row = queryResult.Rows[0];
 
                 fetchedResult.Identyfikator = row["Identyfikator".ToLower()].ToString();

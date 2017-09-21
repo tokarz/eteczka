@@ -24,7 +24,7 @@ angular.module('et.services').factory('sessionService', ['$q', 'httpService', fu
             return httpService.get('Sesja/ZamknijSesje',
                 {
                     sessionId: sesja,
-                    sesja: sesja
+                    toKill: sesja
                 });
         }
     }
