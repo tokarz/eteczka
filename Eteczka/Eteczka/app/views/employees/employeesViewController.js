@@ -72,13 +72,33 @@ angular.module('et.controllers').controller('employeesViewController', ['$scope'
     $scope.$watch('parameters.searchTerm', function (value) {
         if (value && value.trim() !== '' && value.trim().length > 1) {
             $scope.startProcessing();
-            employeesService.searchByText(value).then(function (result) {
-                $scope.parameters.loading = false;
-                $scope.parameters.employees = result.pracownicy;
-            }, function (err) {
-                $scope.parameters.loading = false;
-                console.error(err);
-            });
+
+            if ($scope.parameters.activeTab === 0) {
+                employeesService.searchHiredByText(value).then(function (result) {
+                    $scope.parameters.loading = false;
+                    $scope.parameters.employees = result.pracownicy;
+                }, function (err) {
+                    $scope.parameters.loading = false;
+                    console.error(err);
+                });
+            } else if ($scope.parameters.activeTab === 1) {
+                employeesService.searchByText(value).then(function (result) {
+                    $scope.parameters.loading = false;
+                    $scope.parameters.employees = result.pracownicy;
+                }, function (err) {
+                    $scope.parameters.loading = false;
+                    console.error(err);
+                });
+            } else {
+                employeesService.searchRemainingByText(value).then(function (result) {
+                    $scope.parameters.loading = false;
+                    $scope.parameters.employees = result.pracownicy;
+                }, function (err) {
+                    $scope.parameters.loading = false;
+                    console.error(err);
+                });
+            }
+
         } else {
             if (value === '') {
                 if ($scope.clearedByTabChange) {

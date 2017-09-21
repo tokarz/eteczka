@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('et.controllers').controller('headerController', ['$rootScope', '$scope', '$state', 'sessionService', function ($rootScope, $scope, $state, sessionService) {
+angular.module('et.controllers').controller('headerController', ['$rootScope', '$scope', '$state', '$mdDialog', 'sessionService', function ($rootScope, $scope, $state, $mdDialog, sessionService) {
     $scope.selectedcompany = null;
     $scope.smallOptions = [
         {
@@ -110,18 +110,15 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
         $state.go(view);
     }
 
-    $scope.$watch('selectedcompany', function (company) {
-        if (company) {
-            $rootScope.$broadcast('MODEL_CHANGED', company);
-        }
-    });
-
     $rootScope.$on('USER_LOGGED_IN_EV', function (ev, user) {
         $scope.userLoggedIn = true;
         if (user) {
             $scope.loginStatus = 'ZALOGOWANO, ' + user.userdetails.Nazwisko + ' ' + user.userdetails.Imie;
-            $scope.companies = user.companies;
-            $scope.selectedcompany = user.companies[0];
+
+            $scope.firmparams = {
+                selectedfirm: user.companies[0],
+                firms: user.companies
+            }
         }
     });
 

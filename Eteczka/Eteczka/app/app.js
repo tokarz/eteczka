@@ -15,7 +15,10 @@ var app = angular.module('EtApp',
      'et.services',
      'et.directives',
      'et.utils',
-     'angular-files-drop'
+     'angular-files-drop',
+     'ngAnimate',
+     'ngAria',
+     'ngMaterial'
     ]
      );
 

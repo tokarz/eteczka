@@ -25,6 +25,16 @@ angular.module('et.services').factory('employeesService', ['httpService', 'sessi
             return httpService.get('Pracownicy/WyszukajPracownikowPoTekscie', {
                 search: text
             });
+        },
+        searchHiredByText: function (text) {
+            return httpService.get('Pracownicy/WyszukajZatrPracownikowPoTekscie', {
+                search: text
+            });
+        },
+        searchRemainingByText: function (text) {
+            return httpService.get('Pracownicy/WyszukajPozostPracownikowPoTekscie', {
+                search: text
+            });
         }
     };
 }]);

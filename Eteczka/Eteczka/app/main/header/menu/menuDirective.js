@@ -5,10 +5,9 @@ angular.module('et.utils').directive('userMenu', function () {
         scope: {
             loginstatus: '=',
             useroptions: '=',
-            firms: '=',
-            selectedfirm: '='
+            firmparams: '='
         },
         templateUrl: 'app/main/header/menu/userMenu.html',
-        controller: 'headerController'
+        controller: 'menuController'
     }
 });

@@ -15,8 +15,6 @@
    WITH OWNER = eadadmin
        ENCODING = 'UTF8'
        TABLESPACE = pg_default
-       LC_COLLATE = 'Polish_Poland.1250'
-       LC_CTYPE = 'Polish_Poland.1250'
        CONNECTION LIMIT = -1;
   ALTER DEFAULT PRIVILEGES
     GRANT INSERT, SELECT, UPDATE, DELETE, TRUNCATE, REFERENCES, TRIGGER ON TABLES
@@ -544,6 +542,8 @@ COMMENT ON COLUMN public."KatPracownicy".confidential IS 'Poufnosc';
 
 -- DROP TABLE public."Pliki";
 
+CREATE SEQUENCE Pliki_id_seq;
+
 CREATE TABLE public."Pliki"
 (
   firma character(20) NOT NULL, -- np. TFW
@@ -715,3 +715,47 @@ INSERT INTO "KatLoginyDetale"(
             false, false, false, false, false,
             '2017-05-02 13:44:00',  false, 0, '');
 
+
+
+            --DRUGA FIRMA
+
+            INSERT INTO "KatLoginyDetale"(
+            identyfikator,nazwisko, imie, firma, pocztaemail,rolareadonly,
+            rolaaddpracownik, rolamodifypracownik, rolaaddfile, rolamodifyfile,
+            rolaslowniki, rolasendmail, rolaraport, rolaraportexport, roladoubleakcept,
+            datamodify,  usuniety, confidential, kodkierownik)
+    VALUES ('Z.Tokarz', 'Tokarz', 'Zbigniew', 'JAGROL', 'poczta@poczta.pl',
+            false, false, false, false, false,
+            false, false, false, false, false,
+            '2017-05-02 13:44:00',  false, 0, '');
+
+
+INSERT INTO "KatLoginyDetale"(
+            identyfikator,nazwisko, imie, firma, pocztaemail,rolareadonly,
+            rolaaddpracownik, rolamodifypracownik, rolaaddfile, rolamodifyfile,
+            rolaslowniki, rolasendmail, rolaraport, rolaraportexport, roladoubleakcept,
+            datamodify,  usuniety, confidential, kodkierownik)
+    VALUES ('M.Tokarz', 'Tokarz', 'Maciej', 'JAGROL', 'poczta@poczta.pl',
+            false, false, false, false, false,
+            false, false, false, false, false,
+            '2017-05-02 13:44:00',  false, 0, '');
+
+INSERT INTO "KatLoginyDetale"(
+            identyfikator,nazwisko, imie, firma, pocztaemail,rolareadonly,
+            rolaaddpracownik, rolamodifypracownik, rolaaddfile, rolamodifyfile,
+            rolaslowniki, rolasendmail, rolaraport, rolaraportexport, roladoubleakcept,
+            datamodify,  usuniety, confidential, kodkierownik)
+    VALUES ('A.Tokarz', 'Tokarz', 'Aleksandra', 'JAGROL', 'poczta@poczta.pl',
+            false, false, false, false, false,
+            false, false, false, false, false,
+            '2017-05-02 13:44:00',  false, 0, '');
+
+INSERT INTO "KatLoginyDetale"(
+            identyfikator,nazwisko, imie, firma, pocztaemail,rolareadonly,
+            rolaaddpracownik, rolamodifypracownik, rolaaddfile, rolamodifyfile,
+            rolaslowniki, rolasendmail, rolaraport, rolaraportexport, roladoubleakcept,
+            datamodify,  usuniety, confidential, kodkierownik)
+    VALUES ('M.Skalacki', 'SKalacki', 'Michal','JAGROL', 'poczta@poczta.pl',
+            false, false, false, false, false,
+            false, false, false, false, false,
+            '2017-05-02 13:44:00',  false, 0, '');
