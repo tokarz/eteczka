@@ -8,13 +8,13 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
         }
     });
 
-    $scope.$watch('company', function (value) {        console.log('watch company', value)        loadRegionList(value)        loadDepartmentList(value)    });
+    $scope.$watch('company', function (value) {        console.log('watch company', value)        loadRegionList('AFM')        loadDepartmentList('AFM')    });
     $scope.$watch('firmparams.selectedfirm', function (value) {        console.log('watch selectedfirm', value)    });
     $scope.workplaceParams = {        loadingRegions: false,        loadingDepartments: false,        loadingSubDepartments: false,        regions: [],        departments: [],        subDepartments: []    };
 
     var loadRegionList = function (company) {        $scope.workplaceParams.loadingRegions = true;        $scope.workplaceParams.regions = []
-        return menuContentService.getRegionsForFirm(company)            .then(function (result) {                console.log('after promise')                $scope.workplaceParams.loadingRegions = false;                console.log(result)                $scope.workplaceParams.regions = result                console.log($scope.workplaceParams.regions)            })            .catch(function (error) {                $scope.workplaceParams.loadingRegions = false;                console.error(error)            });    }
-    var loadDepartmentList = function (company) {        $scope.workplaceParams.loadingDepartments = true;        $scope.workplaceParams.departments = []    }
+        return menuContentService.getRegionsForFirm(company)            .then(function (result) {                $scope.workplaceParams.loadingRegions = false;                $scope.workplaceParams.regions = result.Rejony.map(function (region) { return region.Nazwa })            })            .catch(function (error) {                $scope.workplaceParams.loadingRegions = false;                console.error(error)            });    }
+    var loadDepartmentList = function (company) {        $scope.workplaceParams.loadingDepartments = true;        $scope.workplaceParams.departments = []        return menuContentService.getDepartmentsForFirm(company)            .then(function (result) {                $scope.workplaceParams.loadingDepartments = false;                $scope.workplaceParams.departments = result.Wydzialy.map(function (department) { return department.Nazwa})            })            .catch(function (error) {                $scope.workplaceParams.loadingDepartments = false;                console.error(error)            });    }
 
     $scope.selectedWorkplace = {};
 
@@ -159,7 +159,11 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
         openModal(
             Object.assign(modalOptions, upsertWorkplaceModalFunctions),
             function (value) { console.log('tu bedzie wywolanie funkcji dodawania miejsca pracy', value) },
-            {Firma: 'TFW', availableRegions: null}
+            {
+                Firma: 'AFM',
+                availableRegions: $scope.workplaceParams.regions,
+                availableDepartments: $scope.workplaceParams.departments
+            }
         )
     }
 

@@ -8,9 +8,10 @@ angular.module('et.services').factory('menuContentService', ['httpService', 'ses
             });
         },
         getRegionsForFirm: function (firm) {
-            console.log('in promise')
-            // do wywolania jak bedzie dostepna: httpService.get('<pathToMethod>', {firm})
-            return Promise.resolve(['rejon A', 'rejon B', 'rejon C'])
+            return httpService.get('Rejony/PobierzRejonyDlaWybranejFirmy', { firma: firm })
+        },
+        getDepartmentsForFirm: function (firm) {
+            return httpService.get('Wydzialy/PobierzWydzialy', { firma: firm })
         }
     }
 }]);

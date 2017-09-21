@@ -16,7 +16,7 @@
                 name="region" 
                 type="text" 
                 ng-model="modalResult.Rejon" 
-                ng-options="option for option in workplaceParams.regions" 
+                ng-options="option for option in modalResult.availableRegions" 
         />
     </div>
     <div class="modal-table-row">
@@ -30,17 +30,25 @@
                 class="modal-table-input" 
                 name="department" 
                 ng-model="modalResult.Wydzial"
-                ng-options="option for option in workplaceParams.departments" 
+                ng-options="option for option in modalResult.availableDepartments" 
                 ng-init="modalResult.Wydzial"
         />
     </div>
     <div class="modal-table-row">
         <label class="modal-table-label" for="subDepartment">Podwydzial</label>
-        <input class="modal-table-input" name="subDepartment" type="text" ng-model="modalResult.Podwydzial" ng-disabled="modalResult.Wydzial"/>
+        <select class="modal-table-input" 
+                name="subDepartment" 
+                ng-model="modalResult.Podwydzial" 
+                ng-disabled="!modalResult.Wydzial"
+        />
     </div>
     <div class="modal-table-row">
         <label class="modal-table-label" for="account5">Konto 5</label>
-        <input class="modal-table-input" name="birthday" type="text" ng-model="modalResult.Konto5" ng-disabled="modalResult.Podwydzial"/>
+        <select class="modal-table-input" 
+                name="account5" 
+                ng-model="modalResult.Konto5" 
+                ng-disabled="!modalResult.Podwydzial"
+        />
     </div>
     <div class="modal-table-row">
         <label class="modal-table-label" for="startDate">Data poczatkowa</label>
