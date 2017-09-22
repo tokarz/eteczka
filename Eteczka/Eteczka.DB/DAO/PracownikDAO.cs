@@ -43,11 +43,11 @@ namespace Eteczka.DB.DAO
 
 
 
-        public List<Pracownik> PobierzPozostalychPracownikow(string orderby = "nazwisko", bool asc = true)
+        public List<Pracownik> PobierzPozostalychPracownikow(string firma, string orderby = "nazwisko", bool asc = true)
         {
             string orderDirection = asc ? " ASC " : " DESC ";
 
-            string sqlQuery = "select * from \"KatPracownicy\" where numeread not in (select numeread from \"MiejscePracy\" where '02.09.2017 00:00:00' between \"MiejscePracy\".datapocz and \"MiejscePracy\".datakoniec) and numeread in (select numeread from \"MiejscePracy\") ORDER BY " + orderby + orderDirection;
+            string sqlQuery = "select * from \"KatPracownicy\" where numeread not in (select numeread from \"MiejscePracy\" where   firma in ('" + firma + "') and '02.09.2017 00:00:00' between \"MiejscePracy\".datapocz and \"MiejscePracy\".datakoniec) and numeread in (select numeread from \"MiejscePracy\") ORDER BY " + orderby + orderDirection;
             List<Pracownik> fetchedUsers = new List<Pracownik>();
 
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
@@ -62,11 +62,11 @@ namespace Eteczka.DB.DAO
             return fetchedUsers;
         }
 
-        public List<Pracownik> PobierzZatrudnionychPracownikow(string orderby = "nazwisko", bool asc = true)
+        public List<Pracownik> PobierzZatrudnionychPracownikow(string firma, string orderby = "nazwisko", bool asc = true)
         {
             string orderDirection = asc ? " ASC " : " DESC ";
 
-            string sqlQuery = "select * from \"KatPracownicy\" where numeread in (select numeread from \"MiejscePracy\" where '" + DateTime.Now.ToString() + "' between \"MiejscePracy\".datapocz and \"MiejscePracy\".datakoniec) ORDER BY " + orderby + orderDirection;
+            string sqlQuery = "select * from \"KatPracownicy\" where numeread in (select numeread from \"MiejscePracy\" where  firma in ('" + firma + "') and '" + DateTime.Now.ToString() + "' between \"MiejscePracy\".datapocz and \"MiejscePracy\".datakoniec) ORDER BY " + orderby + orderDirection;
             List<Pracownik> fetchedUsers = new List<Pracownik>();
 
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
@@ -86,7 +86,7 @@ namespace Eteczka.DB.DAO
         {
             string orderDirection = asc ? " ASC " : " DESC ";
 
-            string sqlQuery = "SELECT * from \"KatPracownicy\" ORDER BY " + orderby + orderDirection + this.AddLimitOffsetStatement(limit, offset);
+            string sqlQuery = "SELECT * from \"KatPracownicy\" where numeread in (select numeread from \"MiejscePracy\" where firma = '"+ firma +"') ORDER BY " + orderby + orderDirection + this.AddLimitOffsetStatement(limit, offset);
             List<Pracownik> fetchedUsers = new List<Pracownik>();
 
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
@@ -156,13 +156,15 @@ namespace Eteczka.DB.DAO
             return WyszukaniPracownicy;
         }
 
-        public List<Pracownik> WyszukiwaczPracownikowPoTekscie(string search, int limit = 100, string orderby = "nazwisko", bool asc = true)
+        public List<Pracownik> WyszukiwaczPracownikowPoTekscie(string search, string firma="AFM", int limit = 100, string orderby = "nazwisko", bool asc = true)
         {
             List<Pracownik> WyszukaniPracownicyPoTekscie = new List<Pracownik>();
             string orderDirection = asc ? " ASC " : " DESC ";
 
-            //string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE  LOWER (imie) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (nazwisko) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (pesel) LIKE '%" + (search.ToLower().Trim()) + "%' ORDER BY " + orderby + orderDirection + "LIMIT " + limit;
-            string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE  LOWER (nazwisko) || ' ' || LOWER (imie) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (pesel) LIKE '%" + (search.ToLower().Trim()) + "%' ORDER BY " + orderby + orderDirection + "LIMIT " + limit;
+
+            //string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE  LOWER (nazwisko) || ' ' || LOWER (imie) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (pesel) LIKE '%" + (search.ToLower().Trim()) + "%' ORDER BY " + orderby + orderDirection + "LIMIT " + limit;
+           
+            string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE  numeread in (select numeread from \"MiejscePracy\" where  firma in ('" + firma + "') and LOWER (nazwisko) || ' ' || LOWER (imie) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (pesel) LIKE '%" + (search.ToLower().Trim()) + "%') ORDER BY " + orderby + orderDirection + "LIMIT " + limit;
             try
             {
                 IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
@@ -211,13 +213,13 @@ namespace Eteczka.DB.DAO
             return result;
         }
 
-        public List<Pracownik> WyszukiwaczZatrPracownikowPoTekscie(string search, int limit = 100, string orderby = "nazwisko", bool asc = true)
+        public List<Pracownik> WyszukiwaczZatrPracownikowPoTekscie(string search, string firma, int limit = 100, string orderby = "nazwisko", bool asc = true)
         {
             List<Pracownik> WyszukaniPracownicyPoTekscie = new List<Pracownik>();
             string orderDirection = asc ? " ASC " : " DESC ";
 
-            //string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE  LOWER (imie) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (nazwisko) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (pesel) LIKE '%" + (search.ToLower().Trim()) + "%' ORDER BY " + orderby + orderDirection + "LIMIT " + limit;
-            string sqlQuery = "SELECT * FROM \"KatPracownicy\" where numeread in (select numeread from \"MiejscePracy\" where '" + DateTime.Now.ToString() + "' between \"MiejscePracy\".datapocz and \"MiejscePracy\".datakoniec) AND  LOWER (nazwisko) || ' ' || LOWER (imie) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (pesel) LIKE '%" + (search.ToLower().Trim()) + "%' ORDER BY " + orderby + orderDirection + "LIMIT " + limit;
+            
+            string sqlQuery = "SELECT * FROM \"KatPracownicy\" where numeread in (select numeread from \"MiejscePracy\" where firma IN ('" + firma + "') and '" + DateTime.Now.ToString() + "' between \"MiejscePracy\".datapocz and \"MiejscePracy\".datakoniec) AND  LOWER (nazwisko) || ' ' || LOWER (imie) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (pesel) LIKE '%" + (search.ToLower().Trim()) + "%') ORDER BY " + orderby + orderDirection + "LIMIT " + limit;
             try
             {
                 IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
@@ -238,13 +240,13 @@ namespace Eteczka.DB.DAO
 
         }
 
-        public List<Pracownik> WyszukiwaczPozostZatrPracownikowPoTekscie(string search, int limit = 100, string orderby = "nazwisko", bool asc = true)
+        public List<Pracownik> WyszukiwaczPozostZatrPracownikowPoTekscie(string search, string firma, int limit = 100, string orderby = "nazwisko", bool asc = true)
         {
             List<Pracownik> WyszukaniPracownicyPoTekscie = new List<Pracownik>();
             string orderDirection = asc ? " ASC " : " DESC ";
 
             //string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE  LOWER (imie) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (nazwisko) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (pesel) LIKE '%" + (search.ToLower().Trim()) + "%' ORDER BY " + orderby + orderDirection + "LIMIT " + limit;
-            string sqlQuery = "SELECT * FROM \"KatPracownicy\" where numeread not in (select numeread from \"MiejscePracy\" where '" + DateTime.Now.ToString() + "' between \"MiejscePracy\".datapocz and \"MiejscePracy\".datakoniec) AND  LOWER (nazwisko) || ' ' || LOWER (imie) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (pesel) LIKE '%" + (search.ToLower().Trim()) + "%' ORDER BY " + orderby + orderDirection + "LIMIT " + limit;
+            string sqlQuery = "SELECT * FROM \"KatPracownicy\" where numeread not in  (select numeread from \"MiejscePracy\" where firma IN ('" + firma + "') and '" + DateTime.Now.ToString() + "' between \"MiejscePracy\".datapocz and \"MiejscePracy\".datakoniec) AND  LOWER (nazwisko) || ' ' || LOWER (imie) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (pesel) LIKE '%" + (search.ToLower().Trim()) + "%') ORDER BY " + orderby + orderDirection + "LIMIT " + limit;
             try
             {
                 IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);

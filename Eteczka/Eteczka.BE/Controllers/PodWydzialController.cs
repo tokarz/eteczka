@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using Eteczka.Model.Entities;
 using Eteczka.BE.Services;
+using Eteczka.BE.Model;
 
 namespace Eteczka.BE.Controllers
 {
@@ -18,9 +19,16 @@ namespace Eteczka.BE.Controllers
             this._PodWydzialService = PodWydzialService;
         }
 
-        public ActionResult PobierzWszystkiePodwydzialy()
+        public ActionResult PobierzWszystkiePodwydzialy(string sessionId, string wydzial)
         {
-            List<KatPodWydzialy> pobranePodWydzialy = _PodWydzialService.PobranaListaPodWydzialow();
+
+            List<KatPodWydzialy> pobranePodWydzialy = new List<KatPodWydzialy>();
+            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            {
+                SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                pobranePodWydzialy = _PodWydzialService.PobranaListaPodWydzialow(sesja, wydzial);
+            }
+            //List<KatPodWydzialy> pobranePodWydzialy = _PodWydzialService.PobranaListaPodWydzialow(firma, wydzial);
             return Json(new
             {
                 PodWydzialy = pobranePodWydzialy

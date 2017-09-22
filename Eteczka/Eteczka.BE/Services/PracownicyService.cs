@@ -30,16 +30,16 @@ namespace Eteczka.BE.Services
             return pracownicy;
         }
 
-        public List<Pracownik> PobierzWszystkichZatrudnionych()
+        public List<Pracownik> PobierzWszystkichZatrudnionych(SessionDetails sesja)
         {
-            List<Pracownik> pracownicy = _PracownikDao.PobierzZatrudnionychPracownikow();
+            List<Pracownik> pracownicy = _PracownikDao.PobierzZatrudnionychPracownikow(sesja.AktywnaFirma);
 
             return pracownicy;
         }
 
-        public List<Pracownik> PobierzPozostalych()
+        public List<Pracownik> PobierzPozostalych(SessionDetails sesja)
         {
-            List<Pracownik> pracownicy = _PracownikDao.PobierzPozostalychPracownikow();
+            List<Pracownik> pracownicy = _PracownikDao.PobierzPozostalychPracownikow(sesja.AktywnaFirma);
 
             return pracownicy;
         }
@@ -58,22 +58,22 @@ namespace Eteczka.BE.Services
             return pracownicy;
 
         }
-        public List<Pracownik> ZnajdzPracownikowPoTekscie(string search)
+        public List<Pracownik> ZnajdzPracownikowPoTekscie(string search, SessionDetails sesja)
         {
-            List<Pracownik> pracownicy = _PracownikDao.WyszukiwaczPracownikowPoTekscie(search);
+            List<Pracownik> pracownicy = _PracownikDao.WyszukiwaczPracownikowPoTekscie(search, firma);
 
             return pracownicy;
         }
 
-        public List<Pracownik> ZnajdzZatrPracownikowPoTekscie(string search)
+        public List<Pracownik> ZnajdzZatrPracownikowPoTekscie(string search, SessionDetails sesja)
         {
-            List<Pracownik> pracownicy = _PracownikDao.WyszukiwaczZatrPracownikowPoTekscie(search);
+            List<Pracownik> pracownicy = _PracownikDao.WyszukiwaczZatrPracownikowPoTekscie(search, sesja.AktywnaFirma);
             return pracownicy;
         }
 
-        public List<Pracownik> ZnajdzPozostPracownikowPoTekscie(string search)
+        public List<Pracownik> ZnajdzPozostPracownikowPoTekscie(string search, SessionDetails sesja)
         {
-            List<Pracownik> pracownicy = _PracownikDao.WyszukiwaczPozostZatrPracownikowPoTekscie(search);
+            List<Pracownik> pracownicy = _PracownikDao.WyszukiwaczPozostZatrPracownikowPoTekscie(search, sesja.AktywnaFirma);
 
             return pracownicy;
         }

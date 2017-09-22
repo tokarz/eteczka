@@ -11,12 +11,12 @@ namespace Eteczka.BE.Services
     public interface IPracownicyService
     {
         List<Pracownik> PobierzWszystkich(SessionDetails sessionDetails);
-        List<Pracownik> PobierzWszystkichZatrudnionych();
-        List<Pracownik> PobierzPozostalych();
+        List<Pracownik> PobierzWszystkichZatrudnionych(SessionDetails sesja);
+        List<Pracownik> PobierzPozostalych(SessionDetails sesja);
         Pracownik PobierzPoId(string numeread);
         List<Pracownik> ZnajdzPracownikow(string search);
-        List<Pracownik> ZnajdzPracownikowPoTekscie(string search);
-        List<Pracownik> ZnajdzZatrPracownikowPoTekscie(string search);
-        List<Pracownik> ZnajdzPozostPracownikowPoTekscie(string search);
+        List<Pracownik> ZnajdzPracownikowPoTekscie(string search, SessionDetails sesja);
+        List<Pracownik> ZnajdzZatrPracownikowPoTekscie(string search, SessionDetails sesja);
+        List<Pracownik> ZnajdzPozostPracownikowPoTekscie(string search, SessionDetails sesja);
     }
 }

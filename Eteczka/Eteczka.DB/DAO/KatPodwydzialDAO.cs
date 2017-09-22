@@ -56,11 +56,12 @@ namespace Eteczka.DB.DAO
 
             return result;
         }
-        public List<KatPodWydzialy> PobierzPodWydzialy()
+        public List<KatPodWydzialy> PobierzPodWydzialy(string firma, string wydzial)
         {
 
             List<KatPodWydzialy> PobranePodWydzialy = new List<KatPodWydzialy>();
-            string sqlQuery = "SELECT * FROM \"KatPodWydzial\" ORDER BY nazwa";
+            //string sqlQuery = "SELECT * FROM \"KatPodWydzial\" ORDER BY nazwa";
+            string sqlQuery = "SELECT * from \"KatPodWydzial\" where \"KatPodWydzial\".firma IN ('" + firma + "') and \"KatPodWydzial\".wydzial IN ('" + wydzial + "') ORDER BY firma, wydzial";
 
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
             DataTable result = connectionState.ExecuteQuery(sqlQuery);

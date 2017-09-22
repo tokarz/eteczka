@@ -6,23 +6,24 @@ using System.Threading.Tasks;
 using Eteczka.DB.DAO;
 using Eteczka.BE.Mappers;
 using Eteczka.Model.Entities;
+using Eteczka.BE.Model;
 
 namespace Eteczka.BE.Services
 {
     public class PodWydzialService : IPodWydzialService
     {
         private KatPodwydzialDAO _PodWydzialDAO;
-        private IPodWydzialDtoMapper _PodWydzialDtoMapper;
+     
 
-        public PodWydzialService(KatPodwydzialDAO PodWydzialDAO, IPodWydzialDtoMapper PodWydzialDtoMapper)
+        public PodWydzialService(KatPodwydzialDAO PodWydzialDAO)
         {
             this._PodWydzialDAO = PodWydzialDAO;
-            this._PodWydzialDtoMapper = PodWydzialDtoMapper;
+            
         }
 
-        public List<KatPodWydzialy> PobranaListaPodWydzialow()
+        public List<KatPodWydzialy> PobranaListaPodWydzialow(SessionDetails sesja, string wydzial)
         {
-            List<KatPodWydzialy> pobranePodWydzialy = _PodWydzialDAO.PobierzPodWydzialy();
+            List<KatPodWydzialy> pobranePodWydzialy = _PodWydzialDAO.PobierzPodWydzialy(sesja.AktywnaFirma, wydzial);
 
             return pobranePodWydzialy;
         }
