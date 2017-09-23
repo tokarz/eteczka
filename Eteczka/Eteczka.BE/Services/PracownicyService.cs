@@ -60,7 +60,7 @@ namespace Eteczka.BE.Services
         }
         public List<Pracownik> ZnajdzPracownikowPoTekscie(string search, SessionDetails sesja)
         {
-            List<Pracownik> pracownicy = _PracownikDao.WyszukiwaczPracownikowPoTekscie(search, firma);
+            List<Pracownik> pracownicy = _PracownikDao.WyszukiwaczPracownikowPoTekscie(search, sesja.AktywnaFirma);
 
             return pracownicy;
         }
