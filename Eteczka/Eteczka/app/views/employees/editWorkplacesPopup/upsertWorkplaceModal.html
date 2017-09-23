@@ -14,9 +14,8 @@
                 ng-if="!workplaceParams.loadingRegions"
                 class="modal-table-input" 
                 name="region" 
-                type="text" 
                 ng-model="modalResult.Rejon" 
-                ng-options="option for option in modalResult.availableRegions" 
+                ng-options="option.Nazwa for option in modalOptions.availableRegions" 
         />
     </div>
     <div class="modal-table-row">
@@ -30,7 +29,7 @@
                 class="modal-table-input" 
                 name="department" 
                 ng-model="modalResult.Wydzial"
-                ng-options="option for option in modalResult.availableDepartments" 
+                ng-options="option.Nazwa for option in modalOptions.availableDepartments" 
                 ng-init="modalResult.Wydzial"
         />
     </div>
