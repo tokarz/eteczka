@@ -1,32 +1,21 @@
-﻿<div style="width:800px;height:500px;margin:auto">
-    <form novalidate class="simple-form">
-        <div class="row">
-            <span class="col-md-1">Temat</span>
-            <span class="col-md-offset-5 col-md-6">
-                <select ng-model="modalResult.Topic">
-                    <option selected>Stworz/Przypomnij haslo</option>
-                    <option>Stworz/Przypomnij login</option>
-                </select>
-
-            </span>
-        </div>
-        <div class="row">
-            <span class="col-md-1">Nazwa Uzytkownika</span>
-            <span class="col-md-offset-5 col-md-6">
-                <input ng-model="modalResult.Username" />
-            </span>
-        </div>
-        <div class="row">
-            <span class="col-md-1">Haslo</span>
-            <span class="col-md-offset-5 col-md-6">
-                <input type="password" ng-model="modalResult.Password" />
-            </span>
-        </div>
-        <div class="row">
-            <span class="col-md-1">Uwagi</span>
-            <span class="col-md-offset-5 col-md-6">
-                <textarea style="height:400px" ng-model="modalResult.Remarks"></textarea>
-            </span>
-        </div>
-    </form>
-</div>
+﻿<form name="adminContact">
+    <div class="modal-table-row">
+        <label class="modal-table-label" for="topic">Temat</label>
+        <select class="modal-table-input" 
+                name="topic" 
+                ng-model="modalResult.Topic"
+                ng-options="option for option in modalOptions.topicChoises" />
+    </div>
+    <div class="modal-table-row">
+        <label class="modal-table-label" for="userName">Nazwa Uzytkownika</label>
+        <input class="modal-table-input" name="userName" type="text" ng-model="modalResult.Username" />
+    </div>
+    <div class="modal-table-row">
+        <label class="modal-table-label" for="password">Haslo</label>
+        <input class="modal-table-input" name="password" type="text" ng-model="modalResult.Password" />
+    </div>
+    <div class="modal-table-row">
+        <label class="modal-table-label" for="remarks">Uwagi</label>
+        <textarea rows="12" cols="78" class="modal-table-input" name="remarks" ng-model="modalResult.Remarks" />
+    </div>
+</form>
