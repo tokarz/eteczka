@@ -16,8 +16,6 @@ var app = angular.module('EtApp',
      'et.directives',
      'et.utils',
      'angular-files-drop',
-     'ngAnimate',
-     'ngAria',
      'ngMaterial'
     ]
      );
@@ -34,7 +32,7 @@ app.config(function ($stateProvider) {
         name: 'choosefirm',
         template: '<choosefirm-view></choosefirm-view>',
         params: {
-            'choices' : []
+            'choices': []
         }
     }
 

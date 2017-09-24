@@ -297,6 +297,7 @@
     <Content Include="app\main\startup\startupService.js" />
     <Content Include="app\main\utils\fileService.js" />
     <Content Include="app\main\utils\httpService.js" />
+    <Content Include="app\main\utils\modalController.js" />
     <Content Include="app\main\utils\modalService.js" />
     <Content Include="app\main\utils\modalTemplate\userPasswordModal.html" />
     <Content Include="app\main\utils\modalTemplate\adminPasswordModal.html" />

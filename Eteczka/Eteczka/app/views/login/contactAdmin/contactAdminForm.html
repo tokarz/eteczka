@@ -1,8 +1,8 @@
-﻿<form name="adminContact">
+﻿<!--<form name="adminContact">
     <div class="modal-table-row">
         <label class="modal-table-label" for="topic">Temat</label>
-        <select class="modal-table-input" 
-                name="topic" 
+        <select class="modal-table-input"
+                name="topic"
                 ng-model="modalResult.Topic"
                 ng-options="option for option in modalOptions.topicChoises" />
     </div>
@@ -18,4 +18,49 @@
         <label class="modal-table-label" for="remarks">Uwagi</label>
         <textarea rows="12" cols="78" class="modal-table-input" name="remarks" ng-model="modalResult.Remarks" />
     </div>
-</form>
+</form>-->
+<md-dialog aria-label="Kontakt z Administratorem">
+    <form ng-cloak>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Kontakt z Administratorem</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content style="padding:15px">
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="topic">Temat</label>
+                <select class="modal-table-input"
+                        name="topic"
+                        ng-model="modalResult.Topic"
+                        ng-options="option for option in ['Stworz/Przypomnij haslo', 'Stworz/Przypomnij login']" ,
+                        ng-init="['Stworz/Przypomnij haslo', 'Stworz/Przypomnij login'][0]" />
+            </div>
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="userName">Nazwa Uzytkownika</label>
+                <input class="modal-table-input" name="userName" type="text" ng-model="modalResult.Username" />
+            </div>
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="password">Haslo</label>
+                <input class="modal-table-input" name="password" type="text" ng-model="modalResult.Password" />
+            </div>
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="remarks">Uwagi</label>
+                <textarea rows="12" cols="78" class="modal-table-input" name="remarks" ng-model="modalResult.Remarks" style="resize:none" />
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <md-button ng-click="cancel()">
+                Anuluj
+            </md-button>
+            <md-button ng-click="answer(modalResult)">
+                Wyslij
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>
