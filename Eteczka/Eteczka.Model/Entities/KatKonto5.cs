@@ -16,5 +16,7 @@ namespace Eteczka.Model.Entities
         public string Kontoskr { get; set; }
         public DateTime Datamodify { get; set; }
         public DateTime Dataakcept { get; set; }
+        public string Systembazowy { get; set; }
+        public bool Usuniety { get; set; }
     }
 }

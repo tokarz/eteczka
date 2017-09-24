@@ -159,7 +159,6 @@ namespace Eteczka.BE.Controllers
                 SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
                 Pracownicy = _PracownicyService.ZnajdzZatrPracownikowPoTekscie(search, sesja);
             }
-            //List<Pracownik> Pracownicy = _PracownicyService.ZnajdzZatrPracownikowPoTekscie(search);
             return Json(new
             {
                 pracownicy = Pracownicy

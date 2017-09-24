@@ -119,6 +119,7 @@
     <Compile Include="Controllers\FilesImportController.cs" />
     <Compile Include="Controllers\FileTypeController.cs" />
     <Compile Include="Controllers\FirmyKontroler.cs" />
+    <Compile Include="Controllers\Konto5Controller.cs" />
     <Compile Include="Controllers\MiejscePracyController.cs" />
     <Compile Include="Controllers\PlikiController.cs" />
     <Compile Include="Controllers\PodWydzialController.cs" />
@@ -162,8 +163,10 @@
     <Compile Include="Services\FirmyService.cs" />
     <Compile Include="Services\IEmailService.cs" />
     <Compile Include="Services\IFirmyService.cs" />
+    <Compile Include="Services\IKonto5Service.cs" />
     <Compile Include="Services\IPodWydzialService.cs" />
     <Compile Include="Services\IWydzialyService.cs" />
+    <Compile Include="Services\Konto5Service.cs" />
     <Compile Include="Services\MiejscePracyService.cs" />
     <Compile Include="Services\IMiejscePracyService.cs" />
     <Compile Include="Services\ImportService.cs" />
