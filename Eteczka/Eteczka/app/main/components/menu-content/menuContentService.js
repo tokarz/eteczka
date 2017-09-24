@@ -12,6 +12,12 @@ angular.module('et.services').factory('menuContentService', ['httpService', 'ses
         },
         getDepartmentsForFirm: function (firm) {
             return httpService.get('Wydzialy/PobierzWydzialy', { firma: firm })
+        },
+        getSubDepartmets: function (sessionId, department) {
+            return httpService.get('PodWydzial/PobierzWszystkiePodwydzialy', {
+                sessionId: sessionId,
+                department: department
+            });
         }
     }
 }]);

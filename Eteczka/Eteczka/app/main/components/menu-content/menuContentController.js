@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('et.controllers').controller('menuContentController', ['$scope', 'menuContentService', 'modalService', 'peselService', 'utilsService', function ($scope, menuContentService, modalService, peselService, utilsService) {
+angular.module('et.controllers').controller('menuContentController', ['$rootScope', '$scope', 'menuContentService', 'modalService', 'peselService', 'utilsService', function ($rootScope, $scope, menuContentService, modalService, peselService, utilsService) {
     $scope.$watch('user', function (value) {
         if (value && value !== {}) {
             menuContentService.getUserWorkplaces(value).then(function (result) {
@@ -8,15 +8,56 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
         }
     });
 
-    $scope.$watch('company', function (value) {        console.log('watch company', value)        loadRegionList('AFM')        loadDepartmentList('AFM')    });
-    $scope.$watch('firmparams.selectedfirm', function (value) {        console.log('watch selectedfirm', value)    });
-    $scope.workplaceParams = {        loadingRegions: false,        loadingDepartments: false,        loadingSubDepartments: false,        regions: [],        departments: [],        subDepartments: []    };
-
-    var loadRegionList = function (company) {        $scope.workplaceParams.loadingRegions = true;        $scope.workplaceParams.regions = []
-        return menuContentService.getRegionsForFirm(company)            .then(function (result) {                $scope.workplaceParams.loadingRegions = false;                $scope.workplaceParams.regions = result.Rejony            })            .catch(function (error) {                $scope.workplaceParams.loadingRegions = false;                console.error(error)            });    }
-    var loadDepartmentList = function (company) {        $scope.workplaceParams.loadingDepartments = true;        $scope.workplaceParams.departments = []        return menuContentService.getDepartmentsForFirm(company)            .then(function (result) {                $scope.workplaceParams.loadingDepartments = false;                $scope.workplaceParams.departments = result.Wydzialy            })            .catch(function (error) {                $scope.workplaceParams.loadingDepartments = false;                console.error(error)            });    }
-
+    $scope.activeSession = {}
     $scope.selectedWorkplace = {};
+
+    $rootScope.$watch('SESSIONID', function (value) {
+        if (value && value !== $scope.activeSession) {
+            console.log('selectedfirm changed', value, $scope.activeSession)
+            $scope.activeSession = value
+            loadRegionList($scope.activeSession.AktywnaFirma)
+            loadDepartmentList($scope.activeSession.AktywnaFirma)
+        }
+    })
+
+    $scope.workplaceParams = {
+        loadingRegions: false,
+        loadingDepartments: false,
+        loadingSubDepartments: false,
+        regions: [],
+        departments: [],
+        subDepartments: []
+    };
+
+    var loadRegionList = function (company) {
+        $scope.workplaceParams.loadingRegions = true;
+        $scope.workplaceParams.regions = []
+
+        return menuContentService.getRegionsForFirm(company)
+            .then(function (result) {
+                $scope.workplaceParams.loadingRegions = false;
+                $scope.workplaceParams.regions = result.Rejony
+            })
+            .catch(function (error) {
+                $scope.workplaceParams.loadingRegions = false;
+                console.error(error)
+            });
+    }
+
+    var loadDepartmentList = function (company) {
+        $scope.workplaceParams.loadingDepartments = true;
+        $scope.workplaceParams.departments = []
+
+        return menuContentService.getDepartmentsForFirm(company)
+            .then(function (result) {
+                $scope.workplaceParams.loadingDepartments = false;
+                $scope.workplaceParams.departments = result.Wydzialy
+            })
+            .catch(function (error) {
+                $scope.workplaceParams.loadingDepartments = false;
+                console.error(error)
+            });
+    }
 
     $scope.selectRow = function (workplace) {
         if ($scope.selectedWorkplace === workplace) {
@@ -93,19 +134,33 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
         )
     }
 
-    $scope.triggerDeleteEmployeePopup = function () {        triggerAdminPasswordCheck()            .then(function (isAdminPasswordCorrect) {                if (typeof isAdminPasswordCorrect === 'undefined') {                    return 
-                }                               if (isAdminPasswordCorrect === false) {                    return alert('haslo administratora niepoprawne')
+    $scope.triggerDeleteEmployeePopup = function () {
+        triggerAdminPasswordCheck()
+            .then(function (isAdminPasswordCorrect) {
+                if (typeof isAdminPasswordCorrect === 'undefined') {
+                    return 
+                }
+               
+                if (isAdminPasswordCorrect === false) {
+                    return alert('haslo administratora niepoprawne')
                 }
 
-                var modalOptions = {                    title: 'Usuwanie pracownika z bazy danych',                    body: 'app/views/employees/editEmployeesPopup/deleteUserModal.html'                }                openModal(
+                var modalOptions = {
+                    title: 'Usuwanie pracownika z bazy danych',
+                    body: 'app/views/employees/editEmployeesPopup/deleteUserModal.html'
+                }
+
+                openModal(
                     modalOptions,
                     function (value) {
                         triggerShortPasswordCheck()
                             .then(function (isShortPasswordCorrect) {
-                                if (typeof isShortPasswordCorrect === 'undefined') {                                    return
+                                if (typeof isShortPasswordCorrect === 'undefined') {
+                                    return
                                 }
 
-                                if (isShortPasswordCorrect === false) {                                    return alert('haslo uzytkownika niepoprawne')
+                                if (isShortPasswordCorrect === false) {
+                                    return alert('haslo uzytkownika niepoprawne')
                                 }
 
                                 console.log('tu bedzie wywolanie funkcji usuwania pracownika', value)
@@ -114,10 +169,17 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
                     },
                     $scope.user
                 )
-            })        .catch(console.error)    }
+            })
+        .catch(console.error)
+    }
 
     var triggerAdminPasswordCheck = function() {
-        var modalOptions = {            title: 'Wymagane haslo administratora',            body: 'app/main/utils/modalTemplate/adminPasswordModal.html'        }        return openModal(
+        var modalOptions = {
+            title: 'Wymagane haslo administratora',
+            body: 'app/main/utils/modalTemplate/adminPasswordModal.html'
+        }
+
+        return openModal(
             modalOptions,
             function (value) {
                 /* return menuContentService.getCurrentAdminPassword().then(function (result) {
@@ -131,7 +193,12 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
     }
 
     var triggerShortPasswordCheck = function () {
-        var modalOptions = {            title: 'Wymagane potwierdzenie haslem uzytkownika',            body: 'app/main/utils/modalTemplate/userPasswordModal.html'        }        return openModal(
+        var modalOptions = {
+            title: 'Wymagane potwierdzenie haslem uzytkownika',
+            body: 'app/main/utils/modalTemplate/userPasswordModal.html'
+        }
+
+        return openModal(
             modalOptions,
             function (value) {
                 /* return menuContentService.getUserPassword().then(function (result) {
@@ -145,8 +212,19 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
     }
 
     var upsertWorkplaceModalCommonOptions = {
-        loadSubDepartmentList: function (department) {
-            $scope.workplaceParams.loadingSubDepartments = true;            $scope.workplaceParams.subDepartments = []
+        loadSubDepartmentList: function (workplaceParams, department) {
+            workplaceParams.loadingSubDepartments = true;
+            workplaceParams.subDepartments = []
+            return menuContentService.getSubDepartmets($scope.activeSession, department.Nazwa)
+                .then(function (result) {
+                    console.log('podwydzialy', result)
+                    workplaceParams.loadingSubDepartments = false;
+                    workplaceParams.subDepartments = result.PodWydzialy
+                })
+                .catch(function (error) {
+                    workplaceParams.loadingSubDepartments = false;
+                    console.error(error)
+                });
         }
     }
 
@@ -154,14 +232,13 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
         var modalOptions = {
             title: 'Dodawanie nowego miejca pracy pracownika',
             body: 'app/views/employees/editWorkplacesPopup/upsertWorkplaceModal.html',
-            availableRegions: $scope.workplaceParams.regions,
-            availableDepartments: $scope.workplaceParams.departments
+            workplaceParams: $scope.workplaceParams
         }
 
         openModal(
             Object.assign(modalOptions, upsertWorkplaceModalCommonOptions),
             function (value) { console.log('tu bedzie wywolanie funkcji dodawania miejsca pracy', value) },
-            { Firma: 'AFM' }
+            { Firma: $scope.activeSession.AktywnaFirma }
         )
     }
 
@@ -183,9 +260,16 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
         )
     }
 
-    $scope.triggerDeleteWorkplaceDialog = function () {        var modalOptions = {            title: 'Usuwanie miejsca pracy pracownika',            body: 'app/views/employees/editWorkplacesPopup/deleteWorkplaceModal.html'        }        openModal(
+    $scope.triggerDeleteWorkplaceDialog = function () {
+        var modalOptions = {
+            title: 'Usuwanie miejsca pracy pracownika',
+            body: 'app/views/employees/editWorkplacesPopup/deleteWorkplaceModal.html'
+        }
+
+        openModal(
             modalOptions,
             function (value) { console.log('tu bedzie wywolanie funkcji usuwania miejsca pracy', value) },
             $scope.selectedWorkplace
-        )    }
+        )
+    }
 }]);

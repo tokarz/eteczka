@@ -15,7 +15,7 @@
                 class="modal-table-input" 
                 name="region" 
                 ng-model="modalResult.Rejon" 
-                ng-options="option.Nazwa for option in modalOptions.availableRegions" 
+                ng-options="option.Nazwa for option in modalOptions.workplaceParams.regions"
         />
     </div>
     <div class="modal-table-row">
@@ -29,16 +29,26 @@
                 class="modal-table-input" 
                 name="department" 
                 ng-model="modalResult.Wydzial"
-                ng-options="option.Nazwa for option in modalOptions.availableDepartments" 
+                ng-options="option.Nazwa for option in modalOptions.workplaceParams.departments" 
                 ng-init="modalResult.Wydzial"
+                ng-change="modalOptions.loadSubDepartmentList(modalOptions.workplaceParams, modalResult.Wydzial)"
         />
     </div>
     <div class="modal-table-row">
         <label class="modal-table-label" for="subDepartment">Podwydzial</label>
-        <select class="modal-table-input" 
-                name="subDepartment" 
+        <select ng-if="modalOptions.workplaceParams.loadingSubDepartments"
+                class="modal-table-input"
+                name="subDepartment"
                 ng-model="modalResult.Podwydzial" 
                 ng-disabled="!modalResult.Wydzial"
+                ng-options="option for option in ['processing...']" />
+        <select ng-if="!modalOptions.workplaceParams.loadingSubDepartments"
+                class="modal-table-input"
+                name="subDepartment"
+                ng-model="modalResult.Podwydzial" 
+                ng-disabled="!modalResult.Wydzial || modalOptions.workplaceParams.subDepartments.length === 0"
+                ng-options="option.Nazwa for option in modalOptions.workplaceParams.subDepartments"
+                ng-init="modalResult.Podwydzial"
         />
     </div>
     <div class="modal-table-row">
