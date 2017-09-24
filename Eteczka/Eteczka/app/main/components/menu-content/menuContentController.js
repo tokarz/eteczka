@@ -17,6 +17,7 @@ angular.module('et.controllers').controller('menuContentController', ['$rootScop
             $scope.activeSession = value
             loadRegionList($scope.activeSession.AktywnaFirma)
             loadDepartmentList($scope.activeSession.AktywnaFirma)
+            loadAccounts5($scope.activeSession.IdSesji)
         }
     })
 
@@ -24,9 +25,11 @@ angular.module('et.controllers').controller('menuContentController', ['$rootScop
         loadingRegions: false,
         loadingDepartments: false,
         loadingSubDepartments: false,
+        loadingAccouts5: false,
         regions: [],
         departments: [],
-        subDepartments: []
+        subDepartments: [],
+        accounts5: []
     };
 
     var loadRegionList = function (company) {
@@ -55,6 +58,22 @@ angular.module('et.controllers').controller('menuContentController', ['$rootScop
             })
             .catch(function (error) {
                 $scope.workplaceParams.loadingDepartments = false;
+                console.error(error)
+            });
+    }
+
+    var loadAccounts5 = function (sessionId) {
+        $scope.workplaceParams.loadingAccouts5 = true;
+        $scope.workplaceParams.accounts5 = []
+
+        return menuContentService.getAccounts5(sessionId)
+            .then(function (result) {
+                console.log('konta5', result)
+                $scope.workplaceParams.loadingAccouts5 = false;
+                $scope.workplaceParams.accounts5 = result.pobraneKonta5
+            })
+            .catch(function (error) {
+                $scope.workplaceParams.loadingAccouts5 = false;
                 console.error(error)
             });
     }
@@ -215,7 +234,8 @@ angular.module('et.controllers').controller('menuContentController', ['$rootScop
         loadSubDepartmentList: function (workplaceParams, department) {
             workplaceParams.loadingSubDepartments = true;
             workplaceParams.subDepartments = []
-            return menuContentService.getSubDepartmets($scope.activeSession, department.Nazwa)
+            console.log($scope.activeSession, department)
+            return menuContentService.getSubDepartmets($scope.activeSession.IdSesji, department.Wydzial)
                 .then(function (result) {
                     console.log('podwydzialy', result)
                     workplaceParams.loadingSubDepartments = false;
@@ -225,6 +245,17 @@ angular.module('et.controllers').controller('menuContentController', ['$rootScop
                     workplaceParams.loadingSubDepartments = false;
                     console.error(error)
                 });
+        },
+        validateIfProperAccount(account5skr) {
+            console.log(account5)
+            var account5 = $scope.workplaceParams.accounts5.find(function (acc) {
+                return acc.Kontoskr.trim() === account5skr.trim()})
+            if (account5) {
+                console.log('account5 found', account5)
+            }
+            else {
+                console.error('account not found')
+            }
         }
     }
 

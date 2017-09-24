@@ -52,12 +52,13 @@
         />
     </div>
     <div class="modal-table-row">
-        <label class="modal-table-label" for="account5">Konto 5</label>
-        <select class="modal-table-input" 
-                name="account5" 
-                ng-model="modalResult.Konto5" 
-                ng-disabled="!modalResult.Podwydzial"
-        />
+        <label class="modal-table-label" for="account5">Konto 5 (skrot)</label>
+        <select ng-if="!modalOptions.workplaceParams.loadingSubDepartments"
+                class="modal-table-input"
+                name="account5"
+                ng-model="modalResult.Konto5"
+                ng-options="option.Kontoskr for option in modalOptions.workplaceParams.accounts5"
+      />
     </div>
     <div class="modal-table-row">
         <label class="modal-table-label" for="startDate">Data poczatkowa</label>

@@ -16,8 +16,14 @@ angular.module('et.services').factory('menuContentService', ['httpService', 'ses
         getSubDepartmets: function (sessionId, department) {
             return httpService.get('PodWydzial/PobierzWszystkiePodwydzialy', {
                 sessionId: sessionId,
-                department: department
+                wydzial: department
+            });
+        },
+        getAccounts5: function (sessionId) {
+            return httpService.get('Konto5/PobierzKonta5', {
+                sessionId: sessionId
             });
         }
+        
     }
 }]);
