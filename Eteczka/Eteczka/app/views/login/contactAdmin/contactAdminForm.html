@@ -22,12 +22,12 @@
 <md-dialog aria-label="Kontakt z Administratorem">
     <form ng-cloak>
         <md-toolbar>
-            <div class="md-toolbar-tools">
+            <div class="modal-header md-toolbar-tools">
                 <h2>Kontakt z Administratorem</h2>
                 <span flex></span>
-                <md-button class="md-icon-button" ng-click="cancel()">
+                <!--<md-button class="md-icon-button" ng-click="cancel()">
                     <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
-                </md-button>
+                </md-button>-->
             </div>
         </md-toolbar>
 
@@ -55,12 +55,10 @@
         </md-dialog-content>
 
         <md-dialog-actions layout="row">
-            <md-button ng-click="cancel()">
-                Anuluj
-            </md-button>
-            <md-button ng-click="answer(modalResult)">
-                Wyslij
-            </md-button>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" ng-click="cancel()">Anuluj</button>
+                <button type="button" class="btn btn-primary" ng-click="answer(modalResult)">Wyslij</button>
+            </div>
         </md-dialog-actions>
     </form>
 </md-dialog>

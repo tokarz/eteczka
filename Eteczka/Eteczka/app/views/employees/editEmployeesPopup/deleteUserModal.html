@@ -1,33 +1,52 @@
-﻿<form>
-    <div class="modal-table-title">Ponizszy uzytkownik zostanie wykasowany z bazy danych</div>
-    <div class="modal-table-row">
-        <label class="modal-table-label" for="pesel">PESEL</label>
-        <input class="modal-table-input" name="pesel" type="text" ng-model="modalResult.PESEL" disabled/>
-    </div>
-    <div class="modal-table-row">
-        <label class="modal-table-label" for="peselOther">Pesel obcy</label>
-        <input class="modal-table-input" name="peselOther" type="text" ng-model="modalResult.PeselInny" disabled/>
-    </div>
-    <div class="modal-table-row">
-        <label class="modal-table-label" for="lastName">Nazwisko</label>
-        <input class="modal-table-input" name="lastName" type="text" ng-model="modalResult.Nazwisko" disabled/>
-    </div>
-    <div class="modal-table-row">
-        <label class="modal-table-label" for="familyName">Nazwisko Rodowe</label>
-        <input class="modal-table-input" name="familyName" type="text" ng-model="modalResult.NazwiskoRodowe" disabled/>
-    </div>
-    <div class="modal-table-row">
-        <label class="modal-table-label" for="firstName">Imie</label>
-        <input class="modal-table-input" name="firstName" type="text" ng-model="modalResult.Imie" disabled/>
-    </div>
-    <div class="modal-table-row">
-        <label class="modal-table-label" for="secondName">Drugie Imie</label>
-        <input class="modal-table-input" name="secondName" type="text" ng-model="modalResult.Imie2" disabled/>
-    </div>
-    <div class="modal-table-row">
-        <label class="modal-table-label" for="teamLeadCode">Kod kierownika</label>
-        <input class="modal-table-input" name="teamLeadCode" type="text" ng-model="modalResult.kodkierownik" disabled/>
-    </div>
-    <div class="modal-table-title">Wazne - wraz z wykasowaniem pracownika zostana usuniete wszystkie jego dokumenty</div>
-</form>
+﻿<md-dialog aria-label="Usuwanie pracownika z bazy danych">
+    <form ng-cloak>
+        <md-toolbar>
+            <div class="modal-header md-toolbar-tools">
+                <h2>Ponizszy uzytkownik zostanie wykasowany z bazy danych</h2>
+                <span flex></span>
+                <!--<md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+                </md-button>-->
+            </div>
+        </md-toolbar>
 
+        <md-dialog-content style="padding:15px">
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="pesel">PESEL</label>
+                <input class="modal-table-input" name="pesel" type="text" ng-model="modalResult.PESEL" disabled />
+            </div>
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="peselOther">Pesel obcy</label>
+                <input class="modal-table-input" name="peselOther" type="text" ng-model="modalResult.PeselInny" disabled />
+            </div>
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="lastName">Nazwisko</label>
+                <input class="modal-table-input" name="lastName" type="text" ng-model="modalResult.Nazwisko" disabled />
+            </div>
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="familyName">Nazwisko Rodowe</label>
+                <input class="modal-table-input" name="familyName" type="text" ng-model="modalResult.NazwiskoRodowe" disabled />
+            </div>
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="firstName">Imie</label>
+                <input class="modal-table-input" name="firstName" type="text" ng-model="modalResult.Imie" disabled />
+            </div>
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="secondName">Drugie Imie</label>
+                <input class="modal-table-input" name="secondName" type="text" ng-model="modalResult.Imie2" disabled />
+            </div>
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="teamLeadCode">Kod kierownika</label>
+                <input class="modal-table-input" name="teamLeadCode" type="text" ng-model="modalResult.kodkierownik" disabled />
+            </div>
+            <div class="modal-table-title">Wazne - wraz z wykasowaniem pracownika zostana usuniete wszystkie jego dokumenty</div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" ng-click="cancel()">Anuluj</button>
+                <button type="button" class="btn btn-primary" ng-click="answer(modalResult)">Zatwierdz</button>
+            </div>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

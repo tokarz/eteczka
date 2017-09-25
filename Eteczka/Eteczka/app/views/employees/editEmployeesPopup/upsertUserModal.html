@@ -1,68 +1,87 @@
-<form name="upsertEmployee">
-    <div class="modal-table-row">
-        <label class="modal-table-label" for="pesel">PESEL</label>
-        <input 
-               class="modal-table-input" 
-               name="pesel" type="text" 
-               ng-model="modalResult.PESEL" 
-               ng-pattern="/^\d{11}$/" 
-               ng-change="modalResult.DataUrodzenia = modalOptions.isPeselValid(modalResult.PESEL) ? modalOptions.getBirthdate(modalResult.PESEL) : modalResult.DataUrodzenia" 
-               ng-model-options="{updateOn: 'blur'}" 
-         />
-    </div>
-    <div>
-        <span class="modal-table-error" ng-show="upsertEmployee.pesel.$error.pattern">W polu PESEL musi znajdowac sie 11 cyfr!</span>
-    </div>
-    <div class="modal-table-row">
-        <label class="modal-table-label" for="birthday">Data Urodzenia</label>
-        <input class="modal-table-input"
-               name="birthday" type="text"
-               ng-model="modalResult.DataUrodzenia"
-               ng-pattern="/^\s*(\d{4})-(\d{2})-(\d{2})\s*$/"
-               ng-model-options="{updateOn: 'blur'}" />
-    </div>
-    <div>
-        <span class="modal-table-error" ng-show="upsertEmployee.birthday.$error.pattern">Data musi miec format: RRRR-MM-DD</span>
-    </div>
-    <div class="modal-table-row">
-        <label class="modal-table-label" for="lastName">Nazwisko</label>
-        <input class="modal-table-input" name="lastName" type="text" ng-model="modalResult.Nazwisko" required/>
-    </div>
-    <div class="modal-table-row">
-        <label class="modal-table-label" for="firstName">Imie</label>
-        <input class="modal-table-input" name="firstName" type="text" ng-model="modalResult.Imie" required/>
-    </div>
-    <div class="modal-table-row">
-        <label class="modal-table-label" for="secondName">Drugie Imie</label>
-        <input class="modal-table-input" name="secondName" type="text" ng-model="modalResult.Imie2"/>
-    </div>
-    <div class="modal-table-row">
-        <label class="modal-table-label" for="familyName">Nazwisko Rodowe</label>
-        <input class="modal-table-input" name="familyName" type="text" ng-model="modalResult.NazwiskoRodowe" />
-    </div>
-    <div class="modal-table-row">
-        <label class="modal-table-label" for="motherName">Imie Matki</label>
-        <input class="modal-table-input" name="motherName" type="text" ng-model="modalResult.ImieMatki" required/>
-    </div>
-    <div class="modal-table-row">
-        <label class="modal-table-label" for="fatherName">Imie Ojca</label>
-        <input class="modal-table-input" name="fatherName" type="text" ng-model="modalResult.ImieOjca" required/>
-    </div>
-    <div class="modal-table-row">
-        <label class="modal-table-label" for="teamLeadCode">Kod kierownika</label>
-        <input class="modal-table-input" name="teamLeadCode" type="text" ng-model="modalResult.kodkierownik" />
-    </div>
-    <div class="modal-table-row">
-        <label class="modal-table-label" for="confidential">Stopien Poufnosci</label>
-        <select class="modal-table-input" ng-model="modalResult.confidential" ng-options="option for option in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" ng-init="modalResult.confidential = 0"></select>
-    </div>
-    <!-- pole nie bedzie udostepnione, bo nie jest chwilowo nigdzie uzywane
-    <div class="modal-table-row">
-        <label class="modal-table-label" for="country">Kraj</label>
-        <input class="modal-table-input" name="country" type="text" ng-model="modalResult.Kraj" />
-    </div>-->
-    <div class="modal-table-row">
-        <label class="modal-table-label" for="peselOther">Pesel obcy</label>
-        <input class="modal-table-input" name="peselOther" type="text" ng-model="modalResult.PeselInny" ng-disabled="modalOptions.shouldDisableByPesel(modalResult.PESEL, modalResult.PeselInny);" />
-    </div>
-</form>
+<md-dialog aria-label="Edycja nowego pracownika">
+    <form ng-cloak name="upsertEmployee">
+        <md-toolbar>
+            <div class="modal-header md-toolbar-tools">
+                <h2>Dodawanie nowego pracownika</h2>
+                <span flex></span>
+                <!--<md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+                </md-button>-->
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content style="padding:15px">
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="pesel">PESEL</label>
+                <input class="modal-table-input"
+                       name="pesel" type="text"
+                       ng-model="modalResult.PESEL"
+                       ng-pattern="/^\d{11}$/"
+                       ng-change="modalResult.DataUrodzenia = isPeselValid(modalResult.PESEL) ? getBirthdate(modalResult.PESEL) : modalResult.DataUrodzenia"
+                       ng-model-options="{updateOn: 'blur'}" />
+            </div>
+            <div>
+                <span class="modal-table-error" ng-show="upsertEmployee.pesel.$error.pattern">W polu PESEL musi znajdowac sie 11 cyfr!</span>
+            </div>
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="birthday">Data Urodzenia</label>
+                <input class="modal-table-input"
+                       name="birthday" type="text"
+                       ng-model="modalResult.DataUrodzenia"
+                       ng-pattern="/^\s*(\d{4})-(\d{2})-(\d{2})\s*$/"
+                       ng-model-options="{updateOn: 'blur'}" />
+            </div>
+            <div>
+                <span class="modal-table-error" ng-show="upsertEmployee.birthday.$error.pattern">Data musi miec format: RRRR-MM-DD</span>
+            </div>
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="lastName">Nazwisko</label>
+                <input class="modal-table-input" name="lastName" type="text" ng-model="modalResult.Nazwisko" required />
+            </div>
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="firstName">Imie</label>
+                <input class="modal-table-input" name="firstName" type="text" ng-model="modalResult.Imie" required />
+            </div>
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="secondName">Drugie Imie</label>
+                <input class="modal-table-input" name="secondName" type="text" ng-model="modalResult.Imie2" />
+            </div>
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="familyName">Nazwisko Rodowe</label>
+                <input class="modal-table-input" name="familyName" type="text" ng-model="modalResult.NazwiskoRodowe" />
+            </div>
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="motherName">Imie Matki</label>
+                <input class="modal-table-input" name="motherName" type="text" ng-model="modalResult.ImieMatki" required />
+            </div>
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="fatherName">Imie Ojca</label>
+                <input class="modal-table-input" name="fatherName" type="text" ng-model="modalResult.ImieOjca" required />
+            </div>
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="teamLeadCode">Kod kierownika</label>
+                <input class="modal-table-input" name="teamLeadCode" type="text" ng-model="modalResult.kodkierownik" />
+            </div>
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="confidential">Stopien Poufnosci</label>
+                <select class="modal-table-input" ng-model="modalResult.confidential" ng-options="option for option in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" ng-init="modalResult.confidential = 0"></select>
+            </div>
+            <!-- pole nie bedzie udostepnione, bo nie jest chwilowo nigdzie uzywane
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="country">Kraj</label>
+                <input class="modal-table-input" name="country" type="text" ng-model="modalResult.Kraj" />
+            </div>-->
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="peselOther">Pesel obcy</label>
+                <input class="modal-table-input" name="peselOther" type="text" ng-model="modalResult.PeselInny" ng-disabled="shouldDisableByPesel(modalResult.PESEL, modalResult.PeselInny);" />
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" ng-click="cancel()">Anuluj</button>
+                <button type="button" class="btn btn-primary" ng-click="answer(modalResult)">Zatwierdz</button>
+            </div>
+        </md-dialog-actions>
+    </form>
+</md-dialog>
