@@ -2,6 +2,9 @@
 using System.Web.Mvc;
 using Eteczka.Model.Entities;
 using Eteczka.BE.Services;
+using System;
+using Eteczka.BE.Model;
+
 
 namespace Eteczka.BE.Controllers
 {
@@ -24,9 +27,16 @@ namespace Eteczka.BE.Controllers
             }, JsonRequestBehavior.AllowGet);
 
         }
-        public ActionResult PobierzRejonyDlaWybranejFirmy(string firma)
+        public ActionResult PobierzRejonyDlaWybranejFirmy(string sessionId)
         {
-            List<KatRejony> PobraneRejony = _rejonyService.PobierzRejonyDlaFirmy(firma);
+
+            List<KatRejony> PobraneRejony = new List<KatRejony>();
+            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            {
+                SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                PobraneRejony = _rejonyService.PobierzRejonyDlaFirmy(sesja);
+            }
+            
             return Json(new
             {
                 Rejony = PobraneRejony

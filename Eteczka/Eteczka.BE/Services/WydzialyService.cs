@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Eteczka.DB.DAO;
 using Eteczka.Model.Entities;
 using Eteczka.BE.Mappers;
+using Eteczka.BE.Model;
 
 namespace Eteczka.BE.Services
 {
@@ -18,9 +19,9 @@ namespace Eteczka.BE.Services
             this._WydzialDao = wydzialDao;
         }
 
-        public List<KatWydzialy> PobierzWydzialyDlaFirmy(string firma)
+        public List<KatWydzialy> PobierzWydzialyDlaFirmy(SessionDetails sesja)
         {
-            List<KatWydzialy> pobraneWydzialy = _WydzialDao.PobierzDlaFirmy(firma);
+            List<KatWydzialy> pobraneWydzialy = _WydzialDao.PobierzDlaFirmy(sesja.AktywnaFirma);
 
             return pobraneWydzialy;
         }

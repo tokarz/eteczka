@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Eteczka.Model.Entities;
 using Eteczka.DB.DAO;
 using Eteczka.BE.Mappers;
+using Eteczka.BE.Model;
 
 namespace Eteczka.BE.Services
 {
@@ -24,9 +25,9 @@ namespace Eteczka.BE.Services
 
             return pobraneRejony;
         }
-        public List<KatRejony> PobierzRejonyDlaFirmy(string firma)
+        public List<KatRejony> PobierzRejonyDlaFirmy(SessionDetails sesja)
         {
-            List<KatRejony> pobraneRejony = _RejonDao.PobieraczRejonowDlaFirmy(firma);
+            List<KatRejony> pobraneRejony = _RejonDao.PobieraczRejonowDlaFirmy(sesja.AktywnaFirma);
             return pobraneRejony;
         }
     }

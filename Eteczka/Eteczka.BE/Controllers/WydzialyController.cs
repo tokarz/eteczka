@@ -2,6 +2,9 @@
 using System.Web.Mvc;
 using Eteczka.Model.Entities;
 using Eteczka.BE.Services;
+using System;
+using Eteczka.BE.Model;
+
 
 namespace Eteczka.BE.Controllers
 {
@@ -14,9 +17,15 @@ namespace Eteczka.BE.Controllers
             this._wydzialyService = wydzialyService;
         }
 
-        public ActionResult PobierzWydzialy(string firma)
+        public ActionResult PobierzWydzialy(string sessionId)
         {
-            List<KatWydzialy> PobraneWydzialy = _wydzialyService.PobierzWydzialyDlaFirmy(firma);
+            List<KatWydzialy> PobraneWydzialy = new List<KatWydzialy>();
+            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            {
+                SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                PobraneWydzialy = _wydzialyService.PobierzWydzialyDlaFirmy(sesja);
+            }
+         
 
             return Json(new
             {
