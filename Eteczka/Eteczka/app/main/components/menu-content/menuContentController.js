@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('et.controllers').controller('menuContentController', ['$rootScope', '$scope', 'menuContentService', 'modalService', 'peselService', 'utilsService', function ($rootScope, $scope, menuContentService, modalService, peselService, utilsService) {
+angular.module('et.controllers').controller('menuContentController', ['$scope', 'menuContentService', 'modalService', 'peselService', 'utilsService', 'sessionService', function ($scope, menuContentService, modalService, peselService, utilsService, sessionService) {
     $scope.$watch('user', function (value) {
         if (value && value !== {}) {
             menuContentService.getUserWorkplaces(value).then(function (result) {
@@ -8,19 +8,9 @@ angular.module('et.controllers').controller('menuContentController', ['$rootScop
         }
     });
 
-    $scope.activeSession = {}
+    $scope.sessionId = null;
+    $scope.company = null;
     $scope.selectedWorkplace = {};
-
-    $rootScope.$watch('SESSIONID', function (value) {
-        if (value && value !== $scope.activeSession) {
-            console.log('selectedfirm changed', value, $scope.activeSession)
-            $scope.activeSession = value
-            loadRegionList($scope.activeSession.AktywnaFirma)
-            loadDepartmentList($scope.activeSession.AktywnaFirma)
-            loadAccounts5($scope.activeSession.IdSesji)
-        }
-    })
-
     $scope.workplaceParams = {
         loadingRegions: false,
         loadingDepartments: false,
@@ -32,12 +22,31 @@ angular.module('et.controllers').controller('menuContentController', ['$rootScop
         accounts5: []
     };
 
-    var loadRegionList = function (company) {
+    var loadDataWithSesionId = function () {
+        $scope.sessionId = sessionService.getSessionId()
+        console.log('sesja', $scope.sessionId)
+
+        loadActiveCompany($scope.sessionId)
+        loadRegionList($scope.sessionId)
+        loadDepartmentList($scope.sessionId)
+        loadAccounts5($scope.sessionId)
+    }
+
+    var loadActiveCompany = function (sessionId) {
+        return menuContentService.getActiveCompany(sessionId)
+            .then(function (activeCompany) {
+                console.log('zaladowano firme')
+                $scope.company = activeCompany
+            })
+    }
+
+    var loadRegionList = function (sessionId) {
         $scope.workplaceParams.loadingRegions = true;
         $scope.workplaceParams.regions = []
 
-        return menuContentService.getRegionsForFirm(company)
+        return menuContentService.getRegionsForFirm(sessionId)
             .then(function (result) {
+                console.log('zaladowano rejony')
                 $scope.workplaceParams.loadingRegions = false;
                 $scope.workplaceParams.regions = result.Rejony
             })
@@ -47,12 +56,13 @@ angular.module('et.controllers').controller('menuContentController', ['$rootScop
             });
     }
 
-    var loadDepartmentList = function (company) {
+    var loadDepartmentList = function (sessionId) {
         $scope.workplaceParams.loadingDepartments = true;
         $scope.workplaceParams.departments = []
 
-        return menuContentService.getDepartmentsForFirm(company)
+        return menuContentService.getDepartmentsForFirm(sessionId)
             .then(function (result) {
+                console.log('zaladowano wydzialy')
                 $scope.workplaceParams.loadingDepartments = false;
                 $scope.workplaceParams.departments = result.Wydzialy
             })
@@ -68,7 +78,7 @@ angular.module('et.controllers').controller('menuContentController', ['$rootScop
 
         return menuContentService.getAccounts5(sessionId)
             .then(function (result) {
-                console.log('konta5', result)
+                console.log('zaladowano konta5')
                 $scope.workplaceParams.loadingAccouts5 = false;
                 $scope.workplaceParams.accounts5 = result.pobraneKonta5
             })
@@ -234,8 +244,8 @@ angular.module('et.controllers').controller('menuContentController', ['$rootScop
         loadSubDepartmentList: function (workplaceParams, department) {
             workplaceParams.loadingSubDepartments = true;
             workplaceParams.subDepartments = []
-            console.log($scope.activeSession, department)
-            return menuContentService.getSubDepartmets($scope.activeSession.IdSesji, department.Wydzial)
+            console.log($scope.sessionId, department)
+            return menuContentService.getSubDepartmets($scope.sessionId, department.Wydzial)
                 .then(function (result) {
                     console.log('podwydzialy', result)
                     workplaceParams.loadingSubDepartments = false;
@@ -269,7 +279,7 @@ angular.module('et.controllers').controller('menuContentController', ['$rootScop
         openModal(
             Object.assign(modalOptions, upsertWorkplaceModalCommonOptions),
             function (value) { console.log('tu bedzie wywolanie funkcji dodawania miejsca pracy', value) },
-            { Firma: $scope.activeSession.AktywnaFirma }
+            { Firma: $scope.company }
         )
     }
 
@@ -303,4 +313,6 @@ angular.module('et.controllers').controller('menuContentController', ['$rootScop
             $scope.selectedWorkplace
         )
     }
+
+    loadDataWithSesionId();
 }]);

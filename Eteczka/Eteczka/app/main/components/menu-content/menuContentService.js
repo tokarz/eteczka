@@ -7,11 +7,14 @@ angular.module('et.services').factory('menuContentService', ['httpService', 'ses
                 numeread: pracownik.Numeread
             });
         },
-        getRegionsForFirm: function (firm) {
-            return httpService.get('Rejony/PobierzRejonyDlaWybranejFirmy', { firma: firm })
+        getActiveCompany: function (sessionId) {
+            return httpService.get('Firmy/PobierzAktywnaFirme', { sessionId: sessionId })
         },
-        getDepartmentsForFirm: function (firm) {
-            return httpService.get('Wydzialy/PobierzWydzialy', { firma: firm })
+        getRegionsForFirm: function (sessionId) {
+            return httpService.get('Rejony/PobierzRejonyDlaWybranejFirmy', { sessionId: sessionId })
+        },
+        getDepartmentsForFirm: function (sessionId) {
+            return httpService.get('Wydzialy/PobierzWydzialy', { sessionId: sessionId })
         },
         getSubDepartmets: function (sessionId, department) {
             return httpService.get('PodWydzial/PobierzWszystkiePodwydzialy', {
