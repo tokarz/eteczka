@@ -24,7 +24,6 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
 
     var loadDataWithSesionId = function () {
         $scope.sessionId = sessionService.getSessionId()
-        console.log('sesja', $scope.sessionId)
 
         loadActiveCompany($scope.sessionId)
         loadRegionList($scope.sessionId)
@@ -116,8 +115,8 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
             });
     }
 
-    var upsertEmployeeModalFunctions = {
-        shouldDisableByPesel: function (pesel, field) {
+    var upsertEmployeeModalFunctions = function ($scope, $mdDialog) {
+        $scope.shouldDisableByPesel = function (pesel, field) {
             var isNoPesel = (pesel === null || pesel === '' || typeof pesel === 'undefined')
             var fieldHasValue = (typeof field === 'string' && field.trim() !== '')
 
@@ -126,30 +125,28 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
             }
 
             return true;
-        },
-        isPeselValid: function (pesel, gender) {
+        }
+        $scope.isPeselValid = function (pesel, gender) {
             return peselService.isPeselValid(pesel, gender)
-        },
-        getBirthdate: function (pesel, gender) {
+        }
+        $scope.getBirthdate = function (pesel, gender) {
             return peselService.getDateFromPesel(pesel, gender)
         }
     }
 
     $scope.triggerAddEmployeeDialog = function () {
         var modalOptions = {
-            title: 'Dodawanie nowego pracownika',
             body: 'app/views/employees/editEmployeesPopup/upsertUserModal.html'
         }
 
         openModal(
-            Object.assign(modalOptions, upsertEmployeeModalFunctions),
+            Object.assign(modalOptions, { controller: upsertEmployeeModalFunctions }),
             function (value) { console.log('tu bedzie wywolanie funkcji dodawania pracownika', value) }
         )
     }
 
     $scope.triggerEditEmployeeDialog = function () {
         var modalOptions = {
-            title: 'Edytowanie pracownika',
             body: 'app/views/employees/editEmployeesPopup/upsertUserModal.html'
         }
         var userToPass = Object.assign({}, $scope.user)
@@ -157,7 +154,7 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
         console.log(userToPass)
 
         openModal(
-            Object.assign(modalOptions, upsertEmployeeModalFunctions),
+            Object.assign(modalOptions, { controller: upsertEmployeeModalFunctions }),
             function (value) { console.log('tu bedzie wywolanie funkcji edytowania pracownika', value) },
             userToPass
         )
@@ -175,7 +172,6 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
                 }
 
                 var modalOptions = {
-                    title: 'Usuwanie pracownika z bazy danych',
                     body: 'app/views/employees/editEmployeesPopup/deleteUserModal.html'
                 }
 
@@ -240,8 +236,8 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
         )
     }
 
-    var upsertWorkplaceModalCommonOptions = {
-        loadSubDepartmentList: function (workplaceParams, department) {
+    var upsertWorkplaceModalCommonOptions = function ($scope, $mdDialog) {
+        $scope.loadSubDepartmentList = function (workplaceParams, department) {
             workplaceParams.loadingSubDepartments = true;
             workplaceParams.subDepartments = []
             console.log($scope.sessionId, department)
@@ -255,8 +251,8 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
                     workplaceParams.loadingSubDepartments = false;
                     console.error(error)
                 });
-        },
-        validateIfProperAccount(account5skr) {
+        }
+        $scope.validateIfProperAccount = function (account5skr) {
             console.log(account5)
             var account5 = $scope.workplaceParams.accounts5.find(function (acc) {
                 return acc.Kontoskr.trim() === account5skr.trim()})
@@ -271,7 +267,6 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
 
     $scope.triggerAddWorkplaceDialog = function () {
         var modalOptions = {
-            title: 'Dodawanie nowego miejca pracy pracownika',
             body: 'app/views/employees/editWorkplacesPopup/upsertWorkplaceModal.html',
             workplaceParams: $scope.workplaceParams
         }
@@ -285,7 +280,6 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
 
     $scope.triggerEditWorkplaceDialog = function () {
         var modalOptions = {
-            title: 'Edytowanie miejsca pracy pracownika',
             body: 'app/views/employees/editWorkplacesPopup/upsertWorkplaceModal.html',
             availableRegions: $scope.workplaceParams.regions,
             availableDepartments: $scope.workplaceParams.departments
@@ -303,8 +297,7 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
 
     $scope.triggerDeleteWorkplaceDialog = function () {
         var modalOptions = {
-            title: 'Usuwanie miejsca pracy pracownika',
-            body: 'app/views/employees/editWorkplacesPopup/deleteWorkplaceModal.html'
+            body: 'app/views/employees/editWorkplacesPopup/deleteWorkplace.html'
         }
 
         openModal(

@@ -3,7 +3,7 @@ angular.module('et.utils').factory('modalService', ['$mdDialog', function ($mdDi
     var defaultUrl = 'app/main/utils/modalTemplate/modalTemplate.html';
 
     return {
-        showModal: function (customModalOptions) {
+        showModal: function (customModalOptions, initialInput) {
             //var modalDefaults = {
             //    animation: true,
             //    templateUrl: modalUrl
@@ -26,9 +26,16 @@ angular.module('et.utils').factory('modalService', ['$mdDialog', function ($mdDi
 
             //return $uibModal.open(modalDefaults).result;
 
+            var mergedController = function ($scope, $mdDialog) {
+                console.log(arguments)
+                customModalOptions.controller.apply(this, arguments);
+                ModalController.apply(this, arguments);
+            }
+
             var dialogParams = {
-                controller: customModalOptions.controller ? customModalOptions.controller : 'ModalController',
+                controller: customModalOptions.controller ? mergedController : 'ModalController',
                 templateUrl: customModalOptions.body ? customModalOptions.body : defaultUrl,
+                initialValue: initialInput,
                 clickOutsideToClose: true
             }
 
