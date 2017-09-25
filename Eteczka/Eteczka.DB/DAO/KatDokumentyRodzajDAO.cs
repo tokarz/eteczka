@@ -16,17 +16,19 @@ namespace Eteczka.DB.DAO
         private IDbConnectionFactory _ConnectionFactory;
         private IKatRodzajeDokumentowExcelMapper _KatRodzajeDokumentowExcelMapper;
         private IConnection _Connection;
+        private IKatRodzajeDokumentowMapper _KatRodzajeDokumentowMapper;
 
-        public KatDokumentyRodzajDAO(IDbConnectionFactory factory, IKatRodzajeDokumentowExcelMapper KatRodzajeDokumentowExcelMapper, IConnection connection)
+        public KatDokumentyRodzajDAO(IDbConnectionFactory factory, IKatRodzajeDokumentowExcelMapper KatRodzajeDokumentowExcelMapper, IConnection connection, IKatRodzajeDokumentowMapper KatRodzajeDokumentowMapper)
         {
             this._ConnectionFactory = factory;
             this._KatRodzajeDokumentowExcelMapper = KatRodzajeDokumentowExcelMapper;
             this._Connection = connection;
+            this._KatRodzajeDokumentowMapper = KatRodzajeDokumentowMapper;
         }
 
-        public List<KatDokumentyRodzaj> PobierzWszystkich(string sessionId)
+        public List<KatDokumentyRodzaj> PobierzWszystkieRodzDok()
         {
-            string sqlQuery = "SELECT * from KatDokumentyRodzaj";
+            string sqlQuery = "SELECT * from \"KatDokumentyRodzaj\" ORDER BY symbol";
 
             List<KatDokumentyRodzaj> fetchedResult = new List<KatDokumentyRodzaj>();
 
@@ -34,17 +36,7 @@ namespace Eteczka.DB.DAO
             DataTable result = connectionState.ExecuteQuery(sqlQuery);
             foreach (DataRow row in result.Rows)
             {
-                KatDokumentyRodzaj fetchedDok = new KatDokumentyRodzaj();
-                fetchedDok.Symbol = row[0].ToString();
-                fetchedDok.Nazwa = row[1].ToString();
-                fetchedDok.Dokwlasny = bool.Parse(row[2].ToString());
-                fetchedDok.Jrwa = row[3].ToString();
-                fetchedDok.Teczkadzial = row[4].ToString();
-                fetchedDok.Typedycji = row[5].ToString();
-                fetchedDok.Idoper = row[6].ToString();
-                fetchedDok.Idakcept = row[7].ToString();
-                fetchedDok.Datamodify = DateTime.Parse(row[8].ToString());
-                fetchedDok.Dataakcept = DateTime.Parse(row[9].ToString());
+                KatDokumentyRodzaj fetchedDok = _KatRodzajeDokumentowMapper.MapujZSql(row);
 
                 fetchedResult.Add(fetchedDok);
             }
@@ -58,8 +50,8 @@ namespace Eteczka.DB.DAO
             StringBuilder queries = new StringBuilder();
             foreach (KatDokumentyRodzaj dokument in RodzajeDokumentow)
             {
-                string values = "'" + dokument.Symbol + "', '" + dokument.Nazwa + "', '" + dokument.Teczkadzial + "', '" + dokument.Typedycji + "', '" + dokument.SystemBazowy + "'";
-                string query = "INSERT INTO \"KatDokumentyRodzaj\" ( symbol, nazwa, teczkadzial, typedycji,systembazowy) VALUES (" + values + ");";
+                string values = "'" + dokument.Symbol + "', '" + dokument.Nazwa + "', 'TRUE', '22', '" + dokument.Teczkadzial + "', '" + dokument.Typedycji + "', 'Administrator', 'Administrator', '2017-09-25 22:30:00', '2017-09-25 22:30:00', '" + dokument.SystemBazowy + "', 'FALSE', '0'";
+                string query = "INSERT INTO \"KatDokumentyRodzaj\" (symbol, nazwa, dokwlasny, jrwa, teczkadzial, typedycji, idoper, idakcept, datamodify, dataakcept, systembazowy, usuniety, confidential) VALUES (" + values + ");";
                 queries.Append(query);
             }
 
