@@ -55,18 +55,22 @@ angular.module('et.controllers').controller('loginViewController', ['$rootScope'
         });
     }
 
-
-    
+    $scope.adminContactController = function ($scope) {
+        $scope.topics = ['Stworz/Przypomnij haslo', 'Stworz/Przypomnij login'];
+        $scope.modalResult = {
+            Topic: $scope.topics[0]
+        };
+    }
 
     $scope.contactAdmin = function () {
         var modalOptions = {
-            body: 'app/views/login/contactAdmin/contactAdminForm.html'
+            body: 'app/views/login/contactAdmin/contactAdminForm.html',
+            controller: $scope.adminContactController
         };
 
         modalService.showModal(modalOptions)
             .then(function (result) {
                 // dodaj funkcje wyslania wiadomosci
-                alert(result.Username);
                 $mdDialog.show(
                     $mdDialog.confirm()
                         .clickOutsideToClose(true)
@@ -74,13 +78,10 @@ angular.module('et.controllers').controller('loginViewController', ['$rootScope'
                         .textContent('wiadomosc przeslana do administatora')
                         .ok('OK')
                 ).then(function (err) {
-                    
                     alert(err);
                 });
             })
             .catch(function (error) {
-                alert(err);
-                console.log(error)
                 if (error === 'cancel' || error === 'backdrop click') {
                     return;
                 }

@@ -73,7 +73,7 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
 
     var loadAccounts5 = function (sessionId) {
         $scope.workplaceParams.loadingAccouts5 = true;
-        $scope.workplaceParams.accounts5 = []
+        $scope.workplaceParams.accounts5 = [];
 
         return menuContentService.getAccounts5(sessionId)
             .then(function (result) {
@@ -105,9 +105,11 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
         return result;
     }
 
-    var openModal = function (modalOptions, executor, initialInput) {
-        return modalService.showModal(modalOptions, initialInput)
-            .then(function (result) { return executor(result) })
+    var openModal = function (modalOptions, executor) {
+        return modalService.showModal(modalOptions)
+            .then(function (result) {
+                return executor(result);
+            })
             .catch(function (error) {
                 if (error !== 'cancel' && error !== 'backdrop click') {
                     console.log("error found!", error);
@@ -115,7 +117,44 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
             });
     }
 
-    var upsertEmployeeModalFunctions = function ($scope, $mdDialog) {
+
+    $scope.triggerAddEmployeeDialog = function () {
+        var modalOptions = {
+            body: 'app/views/employees/editEmployeesPopup/upsertUserModal.html',
+            controller: $scope.addEmployeeCtrl
+        };
+
+        openModal(modalOptions, function (value) {
+            console.log('tu bedzie wywolanie funkcji dodawania pracownika', value)
+        });
+    }
+
+    $scope.editEmployeeCtrl = function ($scope, $mdDialog, user) {
+        if (user) {
+            $scope.modalResult = {
+                PESEL: user.PESEL
+            };
+        }
+
+        $scope.hide = function () {
+            $mdDialog.hide();
+        };
+
+        $scope.cancel = function () {
+            $mdDialog.cancel();
+        };
+
+        $scope.answer = function (answer) {
+            $mdDialog.hide(answer);
+        };
+
+        $scope.isPeselValid = function (pesel, gender) {
+            return peselService.isPeselValid(pesel, gender)
+        }
+        $scope.getBirthdate = function (pesel, gender) {
+            return peselService.getDateFromPesel(pesel, gender)
+        }
+
         $scope.shouldDisableByPesel = function (pesel, field) {
             var isNoPesel = (pesel === null || pesel === '' || typeof pesel === 'undefined')
             var fieldHasValue = (typeof field === 'string' && field.trim() !== '')
@@ -126,37 +165,22 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
 
             return true;
         }
-        $scope.isPeselValid = function (pesel, gender) {
-            return peselService.isPeselValid(pesel, gender)
-        }
-        $scope.getBirthdate = function (pesel, gender) {
-            return peselService.getDateFromPesel(pesel, gender)
-        }
-    }
-
-    $scope.triggerAddEmployeeDialog = function () {
-        var modalOptions = {
-            body: 'app/views/employees/editEmployeesPopup/upsertUserModal.html'
-        }
-
-        openModal(
-            Object.assign(modalOptions, { controller: upsertEmployeeModalFunctions }),
-            function (value) { console.log('tu bedzie wywolanie funkcji dodawania pracownika', value) }
-        )
     }
 
     $scope.triggerEditEmployeeDialog = function () {
         var modalOptions = {
-            body: 'app/views/employees/editEmployeesPopup/upsertUserModal.html'
-        }
-        var userToPass = Object.assign({}, $scope.user)
-
-        console.log(userToPass)
+            body: 'app/views/employees/editEmployeesPopup/upsertUserModal.html',
+            controller: $scope.editEmployeeCtrl,
+            locals: {
+                user: $scope.user
+            }
+        };
 
         openModal(
-            Object.assign(modalOptions, { controller: upsertEmployeeModalFunctions }),
-            function (value) { console.log('tu bedzie wywolanie funkcji edytowania pracownika', value) },
-            userToPass
+            modalOptions,
+            function (value) {
+                console.log('tu bedzie wywolanie funkcji edytowania pracownika', value);
+            }
         )
     }
 
@@ -164,9 +188,9 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
         triggerAdminPasswordCheck()
             .then(function (isAdminPasswordCorrect) {
                 if (typeof isAdminPasswordCorrect === 'undefined') {
-                    return 
+                    return
                 }
-               
+
                 if (isAdminPasswordCorrect === false) {
                     return alert('haslo administratora niepoprawne')
                 }
@@ -198,7 +222,7 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
         .catch(console.error)
     }
 
-    var triggerAdminPasswordCheck = function() {
+    var triggerAdminPasswordCheck = function () {
         var modalOptions = {
             title: 'Wymagane haslo administratora',
             body: 'app/main/utils/modalTemplate/adminPasswordModal.html'
@@ -255,7 +279,8 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
         $scope.validateIfProperAccount = function (account5skr) {
             console.log(account5)
             var account5 = $scope.workplaceParams.accounts5.find(function (acc) {
-                return acc.Kontoskr.trim() === account5skr.trim()})
+                return acc.Kontoskr.trim() === account5skr.trim()
+            })
             if (account5) {
                 console.log('account5 found', account5)
             }

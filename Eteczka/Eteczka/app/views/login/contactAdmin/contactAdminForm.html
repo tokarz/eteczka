@@ -37,8 +37,7 @@
                 <select class="modal-table-input"
                         name="topic"
                         ng-model="modalResult.Topic"
-                        ng-options="option for option in ['Stworz/Przypomnij haslo', 'Stworz/Przypomnij login']" ,
-                        ng-init="['Stworz/Przypomnij haslo', 'Stworz/Przypomnij login'][0]" />
+                        ng-options="option for option in topics" />
             </div>
             <div class="modal-table-row">
                 <label class="modal-table-label" for="userName">Nazwa Uzytkownika</label>
