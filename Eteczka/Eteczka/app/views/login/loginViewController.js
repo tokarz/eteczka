@@ -55,10 +55,25 @@ angular.module('et.controllers').controller('loginViewController', ['$rootScope'
         });
     }
 
-    $scope.adminContactController = function ($scope) {
+    $scope.adminContactController = function ($scope, $mdDialog) {
         $scope.topics = ['Stworz/Przypomnij haslo', 'Stworz/Przypomnij login'];
         $scope.modalResult = {
             Topic: $scope.topics[0]
+        };
+
+        $scope.hide = function () {
+            $mdDialog.hide();
+        };
+
+        $scope.cancel = function () {
+            $mdDialog.cancel();
+        };
+
+        $scope.answer = function (answer, errors) {
+            console.log(errors)
+            if (!errors || Object.keys(errors).length === 0) {
+                $mdDialog.hide(answer);
+            }
         };
     }
 
@@ -72,7 +87,6 @@ angular.module('et.controllers').controller('loginViewController', ['$rootScope'
             .then(function (result) {
 
                 // dodaj funkcje wyslania wiadomosci
-                alert(result.Username);
                 $mdDialog.show(
                     $mdDialog.confirm()
                         .clickOutsideToClose(true)
@@ -85,7 +99,6 @@ angular.module('et.controllers').controller('loginViewController', ['$rootScope'
                 });
             })
             .catch(function (error) {
-                alert(error);
                 if (error === 'cancel' || error === 'backdrop click') {
                     return;
                 }
