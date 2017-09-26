@@ -286,6 +286,11 @@ fieldset[disabled] .btn-info.focus {
     margin-bottom: 5px;
 }
 
+    .modal-table-input .ng-invalid {
+        border-color: transparent;
+        border: 1px solid red;
+    }
+    
 .modal-table-error {
     display: inline-block;
     width: 100%;

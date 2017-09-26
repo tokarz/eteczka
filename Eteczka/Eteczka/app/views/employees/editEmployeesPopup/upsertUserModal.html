@@ -1,5 +1,5 @@
 <md-dialog aria-label="Edycja nowego pracownika">
-    <form ng-cloak name="upsertEmployee">
+    <form ng-cloak name="upsertEmployee" novalidate>
         <md-toolbar>
             <div class="modal-header md-toolbar-tools">
                 <h2>Dodawanie nowego pracownika</h2>
@@ -20,18 +20,21 @@
                        ng-change="modalResult.DataUrodzenia = isPeselValid(modalResult.PESEL) ? getBirthdate(modalResult.PESEL) : modalResult.DataUrodzenia"
                        ng-model-options="{updateOn: 'blur'}" />
             </div>
-            <div>
+            <div ng-show="upsertEmployee.$submitted || upsertEmployee.pesel.$touched">
                 <span class="modal-table-error" ng-show="upsertEmployee.pesel.$error.pattern">W polu PESEL musi znajdowac sie 11 cyfr!</span>
             </div>
             <div class="modal-table-row">
                 <label class="modal-table-label" for="birthday">Data Urodzenia</label>
                 <input class="modal-table-input"
-                       name="birthday" type="text"
+                       name="birthday" 
+                       type="text"
                        ng-model="modalResult.DataUrodzenia"
                        ng-pattern="/^\s*(\d{4})-(\d{2})-(\d{2})\s*$/"
-                       ng-model-options="{updateOn: 'blur'}" />
+                       ng-model-options="{updateOn: 'blur'}" 
+                       required
+                />
             </div>
-            <div>
+            <div ng-show="upsertEmployee.$submitted || upsertEmployee.birthday.$touched">
                 <span class="modal-table-error" ng-show="upsertEmployee.birthday.$error.pattern">Data musi miec format: RRRR-MM-DD</span>
             </div>
             <div class="modal-table-row">
@@ -64,7 +67,12 @@
             </div>
             <div class="modal-table-row">
                 <label class="modal-table-label" for="confidential">Stopien Poufnosci</label>
-                <select class="modal-table-input" ng-model="modalResult.confidential" ng-options="option for option in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" ng-init="modalResult.confidential = 0"></select>
+                <select class="modal-table-input" 
+                        ng-model="modalResult.confidential" 
+                        ng-options="option for option in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" 
+                        ng-init="modalResult.confidential = 0">
+
+                </select>
             </div>
             <!-- pole nie bedzie udostepnione, bo nie jest chwilowo nigdzie uzywane
             <div class="modal-table-row">
@@ -73,14 +81,19 @@
             </div>-->
             <div class="modal-table-row">
                 <label class="modal-table-label" for="peselOther">Pesel obcy</label>
-                <input class="modal-table-input" name="peselOther" type="text" ng-model="modalResult.PeselInny" ng-disabled="shouldDisableByPesel(modalResult.PESEL, modalResult.PeselInny);" />
+                <input class="modal-table-input" 
+                       name="peselOther" 
+                       type="text" 
+                       ng-model="modalResult.PeselInny" 
+                       ng-disabled="shouldDisableByPesel(modalResult.PESEL, modalResult.PeselInny);"
+                       ng-required="!modalResult.PESEL"/>
             </div>
         </md-dialog-content>
 
         <md-dialog-actions layout="row">
             <div class="modal-footer">
                 <button type="button" class="btn btn-info" ng-click="cancel()">Anuluj</button>
-                <button type="button" class="btn btn-primary" ng-click="answer(modalResult)">Zatwierdz</button>
+                <button type="submit" class="btn btn-primary" ng-click="answer(modalResult, upsertEmployee.$error)">Zatwierdz</button>
             </div>
         </md-dialog-actions>
     </form>

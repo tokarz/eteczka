@@ -10,7 +10,10 @@ function ModalController($scope, $mdDialog) {
         $mdDialog.cancel();
     };
 
-    $scope.answer = function (answer) {
-        $mdDialog.hide(answer);
+    $scope.answer = function (answer, errors) {
+        console.log(errors)
+        if (!errors || Object.keys(errors).length === 0) {
+            $mdDialog.hide(answer);
+        }
     };
 }

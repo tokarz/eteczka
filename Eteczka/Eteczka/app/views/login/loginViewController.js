@@ -70,7 +70,9 @@ angular.module('et.controllers').controller('loginViewController', ['$rootScope'
 
         modalService.showModal(modalOptions)
             .then(function (result) {
+
                 // dodaj funkcje wyslania wiadomosci
+                alert(result.Username);
                 $mdDialog.show(
                     $mdDialog.confirm()
                         .clickOutsideToClose(true)
@@ -78,10 +80,12 @@ angular.module('et.controllers').controller('loginViewController', ['$rootScope'
                         .textContent('wiadomosc przeslana do administatora')
                         .ok('OK')
                 ).then(function (err) {
-                    alert(err);
+                    
+                    // alert(err);
                 });
             })
             .catch(function (error) {
+                alert(error);
                 if (error === 'cancel' || error === 'backdrop click') {
                     return;
                 }
