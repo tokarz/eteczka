@@ -1,0 +1,20 @@
+update "KatPracownicy" set 
+pesel='6024955444',
+peselinny='inny',
+nazwisko='Mordechaj',
+imie='Icek',
+imie2='uczciwy',
+imieojca='Abraham',
+imiematki='Natura',
+nazwiskorodowe='Piast',
+kraj='DE',
+dataurodzenia='1410-07-15',
+idoper='M.Skalacki',
+datamodify='2017-10-14 14:17',
+idakcept='',
+dataakcept='9999-12-31',
+systembazowy='EAD',
+usuniety=false,
+kodkierownik='07',
+confidential=1
+where numeread = 'Paszczak' 
