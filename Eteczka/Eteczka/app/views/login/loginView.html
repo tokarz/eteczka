@@ -10,12 +10,15 @@
                 <br />
                 <label for="password">Haslo</label>
                 <br />
-                <input class="login-input" name="password" type="password" ng-model="credentials.password" />
-                <p>Problem z logowaniem? <a href="#" ng-click="contactAdmin()">Skontaktuj sie z Administratorem</a></p>
+                <input tabindex="2" class="login-input" name="password" type="password" ng-model="credentials.password" />
+                <div tabindex="4">
+                    <p>Problem z logowaniem? <a href="#" ng-click="contactAdmin()">Skontaktuj sie z Administratorem</a></p>
+                </div>
 
-                <p><span class="login-button" role="button" ng-click="tryLogin(credentials)">Zaloguj</span></p>
-
-
+                <p><span tabindex="3" type="submit" class="login-button" role="button" ng-click="tryLogin(credentials)">Zaloguj</span></p>
+                <input type="submit"
+                       style="position: absolute; left: -9999px; width: 1px; height: 1px;"
+                       tabindex="-1" />
                 <div id="loginErrorMsg" class="login-error-message">{{loginErrorMsg}}</div>
             </form>
         </div>
