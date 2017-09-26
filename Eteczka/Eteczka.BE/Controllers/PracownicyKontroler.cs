@@ -5,11 +5,13 @@ using Eteczka.BE.Services;
 using System.Web.Script.Serialization;
 using System;
 using Eteczka.BE.Model;
+using NLog;
 
 namespace Eteczka.BE.Controllers
 {
     public class PracownicyController : Controller
     {
+        Logger LOGGER = LogManager.GetLogger("PracownicyController");
         private IPracownicyService _PracownicyService;
         private IImportService _ImportService;
 
@@ -21,26 +23,14 @@ namespace Eteczka.BE.Controllers
 
         public ActionResult PobierzWszystkich(string sessionId)
         {
-            /*
-                 (YO MICHAL!)
-                 1)Od teraz autoryzacja sesji przebiega tak: 
-                  if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
-                 2) Klasa Eteczka.BE.Model.Sesja jest globalna i zawiera liste otwartycz sesji
-                 3) Zmiany w tej klasie sa bardzo grozne! lepiej sie z nimi konsultujmy
-                 4) Kontroler po autoryzacji sesji za pomoca operacji:
-                    SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
-             
-                 pobiera obiekt sesji : SessionDetails (zawiera np KatLoginyDetale) 
-                    ten obiekt przekatujemy dalej do serwisow i innych hefalumpow aby operaowac na 
-                    firmach, uzyszkodnikach itd itp.
-             */
-
+            LOGGER.Info("Pobieranie pracownikow dla [" + sessionId + "]");
 
             List<Pracownik> pracownicy = new List<Pracownik>();
             if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
             {
                 SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
                 pracownicy = _PracownicyService.PobierzWszystkich(sesja);
+                LOGGER.Info("Pobrano pracownikow [" + (pracownicy != null ? pracownicy.Count : 0) + "]");
             }
 
             var result = Json(new
@@ -167,7 +157,7 @@ namespace Eteczka.BE.Controllers
 
         public ActionResult WyszukajPozostPracownikowPoTekscie(string search, string sessionId)
         {
-            List<Pracownik> Pracownicy = new List<Pracownik>();
+           List<Pracownik> Pracownicy = new List<Pracownik>();
             if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
             {
                 SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);

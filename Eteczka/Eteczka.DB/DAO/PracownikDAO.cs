@@ -5,6 +5,7 @@ using System.Data;
 using Eteczka.DB.Connection;
 using Eteczka.DB.Mappers;
 using System;
+using NLog;
 
 
 
@@ -12,6 +13,8 @@ namespace Eteczka.DB.DAO
 {
     public class PracownikDAO
     {
+        Logger LOGGER = LogManager.GetLogger("PracownikDAO");
+
         private IDbConnectionFactory _ConnectionFactory;
         private IPracownikMapper _PracownikMapper;
         private IConnection _Connection;
@@ -64,6 +67,7 @@ namespace Eteczka.DB.DAO
 
         public List<Pracownik> PobierzZatrudnionychPracownikow(string firma, string orderby = "nazwisko", bool asc = true)
         {
+            LOGGER.Info("POBIERANIE ZATRUDNIONYCH PRACOWNIKOW DLA " + firma);
             string orderDirection = asc ? " ASC " : " DESC ";
 
             string sqlQuery = "select * from \"KatPracownicy\" where numeread in (select numeread from \"MiejscePracy\" where  firma in ('" + firma + "') and '" + DateTime.Now.ToString() + "' between \"MiejscePracy\".datapocz and \"MiejscePracy\".datakoniec) ORDER BY " + orderby + orderDirection;
@@ -164,7 +168,7 @@ namespace Eteczka.DB.DAO
 
             //string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE  LOWER (nazwisko) || ' ' || LOWER (imie) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (pesel) LIKE '%" + (search.ToLower().Trim()) + "%' ORDER BY " + orderby + orderDirection + "LIMIT " + limit;
            
-            string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE  numeread in (select numeread from \"MiejscePracy\" where  firma in ('" + firma + "') and LOWER (nazwisko) || ' ' || LOWER (imie) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (pesel) LIKE '%" + (search.ToLower().Trim()) + "%') ORDER BY " + orderby + orderDirection + "LIMIT " + limit;
+            string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE  numeread in (select numeread from \"MiejscePracy\" where  firma in ('" + firma + "') and LOWER (nazwisko) || ' ' || LOWER (imie) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (pesel) LIKE '%" + (search.ToLower().Trim()) + "%' ORDER BY " + orderby + orderDirection + "LIMIT " + limit;
             try
             {
                 IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
@@ -219,7 +223,7 @@ namespace Eteczka.DB.DAO
             string orderDirection = asc ? " ASC " : " DESC ";
 
             
-            string sqlQuery = "SELECT * FROM \"KatPracownicy\" where numeread in (select numeread from \"MiejscePracy\" where firma IN ('" + firma + "') and '" + DateTime.Now.ToString() + "' between \"MiejscePracy\".datapocz and \"MiejscePracy\".datakoniec) AND  LOWER (nazwisko) || ' ' || LOWER (imie) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (pesel) LIKE '%" + (search.ToLower().Trim()) + "%') ORDER BY " + orderby + orderDirection + "LIMIT " + limit;
+            string sqlQuery = "SELECT * FROM \"KatPracownicy\" where numeread in (select numeread from \"MiejscePracy\" where firma IN ('" + firma + "') and '" + DateTime.Now.ToString() + "' between \"MiejscePracy\".datapocz and \"MiejscePracy\".datakoniec) AND  LOWER (nazwisko) || ' ' || LOWER (imie) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (pesel) LIKE '%" + (search.ToLower().Trim()) + "%' ORDER BY " + orderby + orderDirection + "LIMIT " + limit;
             try
             {
                 IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
@@ -246,7 +250,7 @@ namespace Eteczka.DB.DAO
             string orderDirection = asc ? " ASC " : " DESC ";
 
             //string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE  LOWER (imie) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (nazwisko) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (pesel) LIKE '%" + (search.ToLower().Trim()) + "%' ORDER BY " + orderby + orderDirection + "LIMIT " + limit;
-            string sqlQuery = "SELECT * FROM \"KatPracownicy\" where numeread not in  (select numeread from \"MiejscePracy\" where firma IN ('" + firma + "') and '" + DateTime.Now.ToString() + "' between \"MiejscePracy\".datapocz and \"MiejscePracy\".datakoniec) AND  LOWER (nazwisko) || ' ' || LOWER (imie) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (pesel) LIKE '%" + (search.ToLower().Trim()) + "%') ORDER BY " + orderby + orderDirection + "LIMIT " + limit;
+            string sqlQuery = "SELECT * FROM \"KatPracownicy\" where numeread not in  (select numeread from \"MiejscePracy\" where firma IN ('" + firma + "') and '" + DateTime.Now.ToString() + "' between \"MiejscePracy\".datapocz and \"MiejscePracy\".datakoniec) AND  LOWER (nazwisko) || ' ' || LOWER (imie) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (pesel) LIKE '%" + (search.ToLower().Trim()) + "%' ORDER BY " + orderby + orderDirection + "LIMIT " + limit;
             try
             {
                 IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);

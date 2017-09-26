@@ -3,17 +3,17 @@ angular.module('et.services').factory('employeesService', ['httpService', 'sessi
     return {
         getAll: function () {
             return httpService.get('Pracownicy/PobierzWszystkich', {
-                sessionID: sessionService.getSessionId()
+                sessionId: sessionService.getSessionId()
             });
         },
         getHired: function () {
             return httpService.get('Pracownicy/PobierzWszystkichZatrudnionych', {
-                sessionID: sessionService.getSessionId()
+                sessionId: sessionService.getSessionId()
             });
         },
         getRemaining: function () {
             return httpService.get('Pracownicy/PobierzPozostalych', {
-                sessionID: sessionService.getSessionId()
+                sessionId: sessionService.getSessionId()
             });
         },
         getFilesForEmployee: function (pesel) {
@@ -28,17 +28,20 @@ angular.module('et.services').factory('employeesService', ['httpService', 'sessi
         },
         searchByText: function (text) {
             return httpService.get('Pracownicy/WyszukajPracownikowPoTekscie', {
-                search: text
+                search: text,
+                sessionId: sessionService.getSessionId()
             });
         },
         searchHiredByText: function (text) {
             return httpService.get('Pracownicy/WyszukajZatrPracownikowPoTekscie', {
-                search: text
+                search: text,
+                sessionId: sessionService.getSessionId()
             });
         },
         searchRemainingByText: function (text) {
             return httpService.get('Pracownicy/WyszukajPozostPracownikowPoTekscie', {
-                search: text
+                search: text,
+                sessionId: sessionService.getSessionId()
             });
         }
     };

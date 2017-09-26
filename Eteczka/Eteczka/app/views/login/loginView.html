@@ -10,12 +10,12 @@
                 <br />
                 <label for="password">Haslo</label>
                 <br />
-                <input tabindex="2" class="login-input" name="password" type="password" ng-model="credentials.password" />
-                <div tabindex="4">
-                    <p>Problem z logowaniem? <a href="#" ng-click="contactAdmin()">Skontaktuj sie z Administratorem</a></p>
+                <input class="login-input" name="password" type="password" ng-model="credentials.password" />
+                <div tabindex="-1">
+                    <p tabindex="-1">Problem z logowaniem? <a tabindex="-1" href="#" ng-click="contactAdmin()">Skontaktuj sie z Administratorem</a></p>
                 </div>
 
-                <p><span tabindex="3" type="submit" class="login-button" role="button" ng-click="tryLogin(credentials)">Zaloguj</span></p>
+                <span type="submit" class="login-button" role="button" ng-click="tryLogin(credentials)">Zaloguj</span>
                 <input type="submit"
                        style="position: absolute; left: -9999px; width: 1px; height: 1px;"
                        tabindex="-1" />

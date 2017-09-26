@@ -12,6 +12,7 @@ namespace Eteczka.DB.DAO
     {
         private IKatRodzajeDokumentowExcelMapper _Mapper;
         private IConnection _Connection;
+        private IKatRodzajeDokumentowMapper _KatRodzajeDokumentowMapper;
         private KatDokumentyRodzajDAO _Sut;
 
         [SetUp]
@@ -20,21 +21,9 @@ namespace Eteczka.DB.DAO
             ConnectionDetails connectionDetails = new ConnectionDetails("postgres", "admin", "localhost", "5432", "postgres");
             DbConnectionFactory connectionFactory = new DbConnectionFactory(connectionDetails);
             _Mapper = Substitute.For<IKatRodzajeDokumentowExcelMapper>();
+            _KatRodzajeDokumentowMapper = Substitute.For<IKatRodzajeDokumentowMapper>();
             _Connection = Substitute.For<IConnection>();
-            _Sut = new KatDokumentyRodzajDAO(connectionFactory, _Mapper, _Connection);
-        }
-
-        [Test]
-        public void GetUserByNameTest(string name)
-        {
-            List<KatDokumentyRodzaj> result = _Sut.PobierzWszystkich("someSessionId");
-
-            Assert.AreEqual(2, result.Count);
-        }
-
-
-        public void GetAllUsers()
-        {
+            _Sut = new KatDokumentyRodzajDAO(connectionFactory, _Mapper, _Connection, _KatRodzajeDokumentowMapper);
         }
 
     }
