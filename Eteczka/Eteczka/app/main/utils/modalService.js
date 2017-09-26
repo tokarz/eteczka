@@ -11,10 +11,6 @@ angular.module('et.utils').factory('modalService', ['$mdDialog', function ($mdDi
             //    ModalController.apply(this, arguments);
             //}
 
-            if (customModalOptions.controller) {
-                Object.assign(customModalOptions, ModalController);
-            }
-
             var dialogParams = {
                 templateUrl: customModalOptions.body ? customModalOptions.body : defaultUrl,
                 controller: customModalOptions.controller ? customModalOptions.controller : 'ModalController',

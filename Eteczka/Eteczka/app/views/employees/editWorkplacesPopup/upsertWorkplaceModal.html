@@ -25,7 +25,8 @@
                         class="modal-table-input"
                         name="region"
                         ng-model="modalResult.Rejon"
-                        ng-options="option.Nazwa for option in workplaceParams.regions" 
+                        ng-options="option.Nazwa for option in workplaceParams.regions"
+                        ng-init="modalResult.Rejon.Nazwa"
                         required
                 />
             </div>
@@ -40,7 +41,7 @@
                         name="department"
                         ng-model="modalResult.Wydzial"
                         ng-options="option.Nazwa for option in workplaceParams.departments"
-                        ng-init="modalResult.Wydzial"
+                        ng-init="modalResult.Wydzial.Nazwa"
                         ng-change="loadSubDepartmentList(workplaceParams, modalResult.Wydzial)" 
                         required
                 />
@@ -59,8 +60,8 @@
                         ng-model="modalResult.Podwydzial"
                         ng-disabled="!modalResult.Wydzial || workplaceParams.subDepartments.length === 0"
                         ng-options="option.Nazwa for option in workplaceParams.subDepartments"
-                        ng-init="modalResult.Podwydzial" 
-                        required
+                        ng-init="modalResult.Podwydzial.Nazwa" 
+                        ng-required="modalResult.Wydzial && workplaceParams.subDepartments.length !== 0"
                 />
             </div>
             <div class="modal-table-row">
@@ -70,6 +71,7 @@
                         name="account5"
                         ng-model="modalResult.Konto5"
                         ng-options="option.Kontoskr for option in workplaceParams.accounts5"
+                        ng-init="modalResult.Konto5.Nazwa" 
                         required
                 />
             </div>
@@ -86,7 +88,7 @@
         <md-dialog-actions layout="row">
             <div class="modal-footer">
                 <button type="button" class="btn btn-info" ng-click="cancel()">Anuluj</button>
-                <button type="submit" class="btn btn-primary" ng-click="answer(modalResult, , upsertworkspace.$error)">Zatwierdz</button>
+                <button type="submit" class="btn btn-primary" ng-click="answer(modalResult, upsertworkspace.$error)">Zatwierdz</button>
             </div>
         </md-dialog-actions>
     </form>

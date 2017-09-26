@@ -1,8 +1,8 @@
-<md-dialog aria-label="Edycja nowego pracownika">
+<md-dialog aria-label="Edycja pracownika">
     <form ng-cloak name="upsertEmployee" novalidate>
         <md-toolbar>
             <div class="modal-header md-toolbar-tools">
-                <h2>Dodawanie nowego pracownika</h2>
+                <h2>Formularz danych pracownika</h2>
                 <span flex></span>
                 <!--<md-button class="md-icon-button" ng-click="cancel()">
                     <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
@@ -18,7 +18,9 @@
                        ng-model="modalResult.PESEL"
                        ng-pattern="/^\d{11}$/"
                        ng-change="modalResult.DataUrodzenia = isPeselValid(modalResult.PESEL) ? getBirthdate(modalResult.PESEL) : modalResult.DataUrodzenia"
-                       ng-model-options="{updateOn: 'blur'}" />
+                       ng-model-options="{updateOn: 'blur'}" 
+                       ng-required="!modalResult.PeselInny"
+                />
             </div>
             <div ng-show="upsertEmployee.$submitted || upsertEmployee.pesel.$touched">
                 <span class="modal-table-error" ng-show="upsertEmployee.pesel.$error.pattern">W polu PESEL musi znajdowac sie 11 cyfr!</span>
