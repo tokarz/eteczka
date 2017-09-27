@@ -17,6 +17,9 @@ angular.module('et.services').factory('filesViewService', ['httpService', 'sessi
                 sessionId: sessionService.getSessionId(),
                 firma: firma
             });
+        },
+        getFileTypes: function () {
+            return httpService.get('KatDokumentyRodzaj/PobierzWszystkieRodzajeDokumentow', {});
         }
     }
 }]);

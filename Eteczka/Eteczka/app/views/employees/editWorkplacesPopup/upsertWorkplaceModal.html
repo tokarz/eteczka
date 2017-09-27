@@ -65,7 +65,7 @@
                 />
             </div>
             <div class="modal-table-row">
-                <label class="modal-table-label" for="account5">Konto 5 (skrot)</label>
+                <!--<label class="modal-table-label" for="account5">Konto 5 (skrot)</label>
                 <select ng-if="!workplaceParams.loadingSubDepartments"
                         class="modal-table-input"
                         name="account5"
@@ -73,15 +73,49 @@
                         ng-options="option.Kontoskr for option in workplaceParams.accounts5"
                         ng-init="modalResult.Konto5.Nazwa" 
                         required
-                />
+                />-->
+                <label class="modal-table-label" for="account5">Konto 5 (skrot)</label>
+                <md-autocomplete class="modal-table-input"
+                                 name="account5"
+                                 md-selected-item="modalResult.Konto5"
+                                 md-search-text="searchText"
+                                 md-items="item in querySearch(searchText)"
+                                 md-item-text="item.Kontoskr"
+                                 md-min-length="0"
+                                 required>
+                    <md-item-template>
+                        <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.Kontoskr}}</span>
+                    </md-item-template>
+                    <md-not-found>
+                        Nie znaleziono konta zaczynajacego sie od "{{searchText}}".
+                    </md-not-found>
+                </md-autocomplete>
             </div>
             <div class="modal-table-row">
                 <label class="modal-table-label" for="startDate">Data poczatkowa</label>
-                <input class="modal-table-input" name="startDate" type="text" ng-model="modalResult.DataPoczatkowa" required />
+                <input class="modal-table-input"
+                       name="startDate"
+                       type="text"
+                       ng-model="modalResult.DataPoczatkowa"
+                       ng-pattern="/^\s*(\d{4})-(\d{2})-(\d{2})\s*$/"
+                       ng-model-options="{updateOn: 'blur'}"
+                       required />
+            </div>
+            <div ng-show="upsertworkspace.$submitted || upsertworkspace.startDate.$touched">
+                <span class="modal-table-error" ng-show="upsertworkspace.startDate.$error.pattern">Data musi miec format: RRRR-MM-DD</span>
             </div>
             <div class="modal-table-row">
                 <label class="modal-table-label" for="endDate">Data koncowa</label>
-                <input class="modal-table-input" name="endDate" type="text" ng-model="modalResult.DataKoniec" required />
+                <input class="modal-table-input"
+                       name="endDate"
+                       type="text"
+                       ng-model="modalResult.DataKoniec"
+                       ng-pattern="/^\s*(\d{4})-(\d{2})-(\d{2})\s*$/"
+                       ng-model-options="{updateOn: 'blur'}"
+                       required />
+            </div>
+            <div ng-show="upsertworkspace.$submitted || upsertworkspace.endDate.$touched">
+                <span class="modal-table-error" ng-show="upsertworkspace.endDate.$error.pattern">Data musi miec format: RRRR-MM-DD</span>
             </div>
         </md-dialog-content>
 
