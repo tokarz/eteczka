@@ -3,6 +3,7 @@ angular.module('et.controllers').controller('gitMenuTableController', ['$scope',
     $scope.newrows = [];
     $scope.stagedrows = [];
     $scope.loading = false;
+    $scope.filetopreview = null;
 
     $scope.$watch('company', function (value) {
         if (value) {
@@ -16,16 +17,20 @@ angular.module('et.controllers').controller('gitMenuTableController', ['$scope',
     });
 
     $scope.selectStagedFile = function (file) {
-        if ($scope.selectedStagedFile == file) {
-            $scope.selectedStagedFile = {};
+        if ($scope.selectedstagedfile == file) {
+            $scope.selectedstagedfile = null;
+            $scope.selectedfile = null;
+            $scope.filetopreview = null;
         } else {
-            $scope.selectedStagedFile = file;
+            $scope.selectedstagedfile = file;
+            $scope.filetopreview = file;
+            $scope.selectedfile = null;
         }
     }
     $scope.getStagedRowStyle = function (file) {
         var result = 'table-row';
 
-        if (file === $scope.selectedStagedFile) {
+        if (file === $scope.selectedstagedfile) {
             result += ' active-row';
         }
 
@@ -33,9 +38,13 @@ angular.module('et.controllers').controller('gitMenuTableController', ['$scope',
     }
     $scope.selectFile = function (file) {
         if ($scope.selectedfile == file) {
-            $scope.selectedfile = {};
+            $scope.selectedfile = null;
+            $scope.filetopreview = null;
+            $scope.selectedstagedfile = null;
         } else {
             $scope.selectedfile = file;
+            $scope.filetopreview = file;
+            $scope.selectedstagedfile = null;
         }
     }
 
@@ -50,18 +59,22 @@ angular.module('et.controllers').controller('gitMenuTableController', ['$scope',
     }
 
     $scope.stageFile = function (row) {
-        if (row && $scope.selectedfile !== {}) {
+        if (row && $scope.selectedfile !== null) {
             $scope.newrows.splice($scope.newrows.indexOf(row), 1);
             $scope.stagedrows.push(row);
-            $scope.selectedStagedFile = row;
+            $scope.selectedfile = null;
+            $scope.selectedstagedfile = row;
+            $scope.filetopreview = row;
         }
     }
 
     $scope.unstageFile = function (row) {
-        if (row && $scope.selectedStagedFile !== {}) {
+        if (row && $scope.selectedstagedfile !== null) {
             $scope.stagedrows.splice($scope.stagedrows.indexOf(row), 1);
             $scope.newrows.push(row);
+            $scope.selectedstagedfile = null;
             $scope.selectedfile = row;
+            $scope.filetopreview = row;
         }
     }
 

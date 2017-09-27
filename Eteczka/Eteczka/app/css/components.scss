@@ -73,7 +73,7 @@
 }
 
 .git-table-row .fa-arrow-circle-down,
-.git-table-row fa-plus-circle {
+.table-row fa-arrow-circle-up {
     position: absolute;
     right: 30px;
 }
@@ -248,6 +248,10 @@
     color: white;
 }
 
+#git-metrics-side-panel .fa {
+    margin-right: 5px;
+}
+
 #git-metrics-details {
     width: 60vw;
     float: right;
@@ -267,11 +271,10 @@
     margin: 5px 0;
     cursor: pointer;
     color: $blue;
-    opacity: 0.8;
 }
 
 .git-metric-li:hover {
-    opacity: 1;
+    font-weight: bold;
 }
 
 .git-metric-part {
@@ -301,8 +304,16 @@
     left: 0;
     right: 0;
     text-align: center;
-    background: #074C75;
+    background: $darkblue;
     color: white;
+}
+
+#emptyfileheader {
+    text-align: center;
+    color: $darkblue;
+    position: absolute;
+    left: 50%;
+    top: 50%;
 }
 
 @media screen and (max-width:1360px) and (min-width: 961px) {

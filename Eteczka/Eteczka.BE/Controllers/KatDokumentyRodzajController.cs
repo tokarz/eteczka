@@ -12,7 +12,7 @@ namespace Eteczka.BE.Controllers
     {
         private KatDokumentyRodzajService _KatDokumentyRodzajService;
 
-        public KatDokumentyRodzajController (KatDokumentyRodzajService KatDokumentyRodzajService)
+        public KatDokumentyRodzajController(KatDokumentyRodzajService KatDokumentyRodzajService)
         {
             this._KatDokumentyRodzajService = KatDokumentyRodzajService;
         }
@@ -20,21 +20,20 @@ namespace Eteczka.BE.Controllers
         public ActionResult PobierzWszystkieRodzajeDokumentow(string sessionId)
         {
             List<KatDokumentyRodzaj> pobraneDokumenty = new List<KatDokumentyRodzaj>();
-            
+
             if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
             {
                 pobraneDokumenty = _KatDokumentyRodzajService.PobierzRodzDok();
-
             }
 
             return Json(new
             {
                 PobraneDokumenty = pobraneDokumenty
-                
+
             }, JsonRequestBehavior.AllowGet);
 
         }
-           
+
 
     }
 }

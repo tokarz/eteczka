@@ -12,7 +12,7 @@ namespace Eteczka.BE.Model
         public bool CzySesjaJestOtwarta(string idSesji)
         {
             bool result = false;
-            if (OTWARTE_SESJE.ContainsKey(idSesji))
+            if (idSesji != null && OTWARTE_SESJE.ContainsKey(idSesji))
             {
                 SessionDetails daneSesji = OTWARTE_SESJE[idSesji];
                 result = daneSesji.SesjaAktywna && (DateTime.Now.Subtract(daneSesji.OstatniaAktywnoscSesji) <= TimeSpan.FromMinutes(10));

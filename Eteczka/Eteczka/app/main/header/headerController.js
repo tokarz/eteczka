@@ -2,9 +2,6 @@
 angular.module('et.controllers').controller('headerController', ['$rootScope', '$scope', '$state', '$mdDialog', 'sessionService', function ($rootScope, $scope, $state, $mdDialog, sessionService) {
     $scope.selectedcompany = null;
 
-
-
-
     $scope.isSmallOptionActive = function (op) {
         var result = '';
 
@@ -145,7 +142,7 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
     $rootScope.$on('USER_LOGGED_IN_EV', function (ev, user) {
         $scope.userLoggedIn = true;
         if (user) {
-            $scope.loginStatus = 'ZALOGOWANO, ' + user.userdetails.Nazwisko + ' ' + user.userdetails.Imie;
+            $scope.loginStatus = user.userdetails.Nazwisko + ' ' + user.userdetails.Imie;
 
             $scope.firmparams = {
                 selectedfirm: user.companies[0],

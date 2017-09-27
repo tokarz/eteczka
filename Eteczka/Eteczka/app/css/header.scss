@@ -2,7 +2,7 @@
 
 #header {
     position: sticky;
-    height: 150px;
+    height: 120px;
     width: 100%;
     background-color: $darkblue;
     z-index: 20;
@@ -31,7 +31,7 @@
     color: white;
     /* box-shadow: 0 0 2px 0 black; */
     display: inline-block;
-    margin: 35px 0;
+    margin: 12px 0;
     /* opacity: 0.8; */
     -moz-transition: width 0.2s linear, height 0.2s linear, opacity 0.2s ease-in;
     -o-transition: width 0.2s linear, height 0.2s linear, opacity 0.2s ease-in;
@@ -51,14 +51,14 @@
 }
 
 .header-logo {
-    height: 80px;
-    margin: 20px 45px;
+    height: 60px;
+    margin: 4px 45px;
     float: left;
 }
 
 .user-icon {
     position: absolute;
-    top: 50px;
+    top: 30px;
     right: 50px;
     font-size: 40px !important;
     color: white;
@@ -99,7 +99,7 @@
     color: white;*/
     display: inline-block;
     max-width: 300px;
-    margin: 50px 125px 0;
+    margin: 8px 85px 0;
     color: white;
 }
 
@@ -156,7 +156,7 @@
     background-color: white;
     position: fixed;
     z-index: 99;
-    top: 110px;
+    top: 90px;
     right: 35px;
     color: $darkblue;
     padding: 10px;

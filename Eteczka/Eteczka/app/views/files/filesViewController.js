@@ -4,6 +4,8 @@ angular.module('et.controllers').controller('filesViewController', ['$scope', 'c
         company: '',
     };
 
+    $scope.selectedStagedFile = null;
+
     $scope.fileTypes = []
 
     var loadFileTypes = function () {

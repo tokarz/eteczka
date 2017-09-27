@@ -27,15 +27,6 @@ app.config(function ($stateProvider) {
         template: '<login-view></login-view>'
     };
 
-    var chooseFirmState = {
-        url: '/choosefirm',
-        name: 'choosefirm',
-        template: '<choosefirm-view></choosefirm-view>',
-        params: {
-            'choices': []
-        }
-    }
-
     var adminState = {
         url: '/admin',
         name: 'admin',
@@ -89,8 +80,13 @@ app.config(function ($stateProvider) {
         template: '<settings></settings>'
     }
 
+    var raportsState = {
+        url: '/raports',
+        name: 'raports',
+        template: '<raports></raports>'
+    }
+
     $stateProvider.state(loginState);
-    $stateProvider.state(chooseFirmState);
     $stateProvider.state(optionsState);
     $stateProvider.state(filesState);
     $stateProvider.state(filecatalogState);
@@ -100,6 +96,7 @@ app.config(function ($stateProvider) {
     $stateProvider.state(processingState);
     $stateProvider.state(settingsState);
     $stateProvider.state(adminState);
+    $stateProvider.state(raportsState);
 });
 
 // IE chached $http.get Aufrufe (z.B. in statusbarController)

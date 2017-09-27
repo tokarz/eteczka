@@ -4,7 +4,8 @@ angular.module('et.directives').directive('gitMenuTable', function () {
         restrict: 'E',
         scope: {
             company: '=',
-            selectedfile: '='
+            filetopreview: '=',
+            selectedstagedfile: '='
         },
         controller: 'gitMenuTableController',
         templateUrl: 'app/main/components/git-menu-table/gitMenuTable.html'

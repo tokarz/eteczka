@@ -247,7 +247,7 @@
 
 #header {
   position: sticky;
-  height: 150px;
+  height: 120px;
   width: 100%;
   background-color: #074C75;
   z-index: 20;
@@ -276,7 +276,7 @@
   color: white;
   /* box-shadow: 0 0 2px 0 black; */
   display: inline-block;
-  margin: 35px 0;
+  margin: 12px 0;
   /* opacity: 0.8; */
   -moz-transition: width 0.2s linear, height 0.2s linear, opacity 0.2s ease-in;
   -o-transition: width 0.2s linear, height 0.2s linear, opacity 0.2s ease-in;
@@ -296,14 +296,14 @@
 }
 
 .header-logo {
-  height: 80px;
-  margin: 20px 45px;
+  height: 60px;
+  margin: 4px 45px;
   float: left;
 }
 
 .user-icon {
   position: absolute;
-  top: 50px;
+  top: 30px;
   right: 50px;
   font-size: 40px !important;
   color: white;
@@ -340,7 +340,7 @@
     color: white;*/
   display: inline-block;
   max-width: 300px;
-  margin: 50px 125px 0;
+  margin: 8px 85px 0;
   color: white;
 }
 
@@ -394,7 +394,7 @@
   background-color: white;
   position: fixed;
   z-index: 99;
-  top: 110px;
+  top: 90px;
   right: 35px;
   color: #074C75;
   padding: 10px;
@@ -605,7 +605,7 @@
 }
 
 #content {
-  height: calc(100% - 150px);
+  height: calc(100% - 120px);
   float: left;
   width: 100%;
   overflow-y: auto;
@@ -695,7 +695,7 @@
 }
 
 .git-table-row .fa-arrow-circle-down,
-.git-table-row fa-plus-circle {
+.table-row fa-arrow-circle-up {
   position: absolute;
   right: 30px;
 }
@@ -867,6 +867,10 @@
   color: white;
 }
 
+#git-metrics-side-panel .fa {
+  margin-right: 5px;
+}
+
 #git-metrics-details {
   width: 60vw;
   float: right;
@@ -886,11 +890,10 @@
   margin: 5px 0;
   cursor: pointer;
   color: #134557;
-  opacity: 0.8;
 }
 
 .git-metric-li:hover {
-  opacity: 1;
+  font-weight: bold;
 }
 
 .git-metric-part {
@@ -922,6 +925,14 @@
   text-align: center;
   background: #074C75;
   color: white;
+}
+
+#emptyfileheader {
+  text-align: center;
+  color: #074C75;
+  position: absolute;
+  left: 50%;
+  top: 50%;
 }
 
 html {
