@@ -560,6 +560,8 @@ COMMENT ON COLUMN public."KatPracownicy".confidential IS 'Poufnosc';
 
 -- DROP TABLE public."Pliki";
 
+CREATE SEQUENCE Pliki_id_seq;
+
 CREATE TABLE public."Pliki"
 (
   firma character(20) NOT NULL, -- np. TFW
@@ -607,6 +609,7 @@ COMMENT ON COLUMN public."Pliki".opisdodatkowy IS 'Wlasny, dowolny opis wprowadz
 COMMENT ON COLUMN public."Pliki".dokwlasny IS 'Dokument nasz lub obcy';
 COMMENT ON COLUMN public."Pliki".systembazowy IS 'zawsze EAD';
 COMMENT ON COLUMN public."Pliki".teczkadzial IS 'A, B, lub C wedlug KatDokumentyRodzaj';
+
 
 
 
