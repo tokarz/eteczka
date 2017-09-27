@@ -24,7 +24,7 @@
 
 .component-content-wrapper {
     height: 80vh;
-    width: 70vw;
+    width: 71vw;
     float: right;
     box-shadow: 0 0 2px #666161;
     padding: 5px;
@@ -58,6 +58,26 @@
     font-weight: bold;
 }
 
+.git-table-row {
+    color: $darkblue;
+    background: white;
+    cursor: pointer;
+}
+
+.git-table-row:hover {
+    background: $lightgray;
+}
+
+.git-table-row:hover .fa-arrow-circle-down {
+    color: $lightgreen;
+}
+
+.git-table-row .fa-arrow-circle-down,
+.git-table-row fa-plus-circle {
+    position: absolute;
+    right: 30px;
+}
+
 .top-toolbar {
     position: absolute;
     top: 0;
@@ -70,12 +90,13 @@
     background-color: $tableHeader;
     color: white;
     padding: 0;
-    margin: 0;
+    margin: 0 0 5px;
 }
 
 .git-panel {
     background-color: whitesmoke;
     color: $blue;
+    box-shadow: 0 0 2px black;
 }
 
 .toolbar-option {

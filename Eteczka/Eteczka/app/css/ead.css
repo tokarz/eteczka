@@ -410,6 +410,7 @@
 
 .element-invisible {
   opacity: 0;
+  pointer-events: none;
 }
 
 .element-visible {
@@ -645,7 +646,7 @@
 
 .component-content-wrapper {
   height: 80vh;
-  width: 70vw;
+  width: 71vw;
   float: right;
   box-shadow: 0 0 2px #666161;
   padding: 5px;
@@ -679,6 +680,26 @@
   font-weight: bold;
 }
 
+.git-table-row {
+  color: #074C75;
+  background: white;
+  cursor: pointer;
+}
+
+.git-table-row:hover {
+  background: #E3E3E3;
+}
+
+.git-table-row:hover .fa-arrow-circle-down {
+  color: forestgreen;
+}
+
+.git-table-row .fa-arrow-circle-down,
+.git-table-row fa-plus-circle {
+  position: absolute;
+  right: 30px;
+}
+
 .top-toolbar {
   position: absolute;
   top: 0;
@@ -691,12 +712,13 @@
   background-color: #31B1DE;
   color: white;
   padding: 0;
-  margin: 0;
+  margin: 0 0 5px;
 }
 
 .git-panel {
   background-color: whitesmoke;
   color: #134557;
+  box-shadow: 0 0 2px black;
 }
 
 .toolbar-option {

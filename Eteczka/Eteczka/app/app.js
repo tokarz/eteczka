@@ -54,6 +54,12 @@ app.config(function ($stateProvider) {
         template: '<files-view></files-view>'
     };
 
+    var filecatalogState = {
+        url: '/filecatalog',
+        name: 'filecatalog',
+        template: '<file-cat></file-cat>'
+    }
+
     var employeesState = {
         url: '/employees',
         name: 'employees',
@@ -87,6 +93,7 @@ app.config(function ($stateProvider) {
     $stateProvider.state(chooseFirmState);
     $stateProvider.state(optionsState);
     $stateProvider.state(filesState);
+    $stateProvider.state(filecatalogState);
     $stateProvider.state(employeesState);
     $stateProvider.state(employeesFilesState);
     $stateProvider.state(addUsersState);

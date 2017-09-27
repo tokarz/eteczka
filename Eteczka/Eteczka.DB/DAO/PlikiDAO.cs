@@ -63,7 +63,22 @@ namespace Eteczka.DB.DAO
             return result;
         }
 
+        public List<Pliki> PobierzPlikPoNumerzeEad(string numeread)
+        {
+            string sqlQuery = "SELECT * from \"Pliki\" WHERE numeread = '" + numeread + "';";
 
+            List<Pliki> fetchedResult = new List<Pliki>();
+
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+            DataTable result = connectionState.ExecuteQuery(sqlQuery);
+            foreach (DataRow row in result.Rows)
+            {
+                Pliki fetchedDok = _PlikiMapper.MapujZSql(row);
+                fetchedResult.Add(fetchedDok);
+            }
+
+            return fetchedResult;
+        }
 
         public Pliki PobierzPlikPoNazwie(string nazwa)
         {

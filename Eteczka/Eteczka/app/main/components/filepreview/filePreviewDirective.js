@@ -30,7 +30,7 @@ angular.module('et.directives').directive('filePreview', function () {
                     fileName: elm[$scope.fileproperty]
                 }).then(function (result) {
                     $('#pdfPreviewer').removeClass('processing');
-                    $('#pdfPreviewer').attr('data', 'data:application/pdf;base64,' + result.data);
+                    $('#pdfPreviewer').attr('data', 'data:application/pdf;base64,' + result.data );
                 });
             }
         }

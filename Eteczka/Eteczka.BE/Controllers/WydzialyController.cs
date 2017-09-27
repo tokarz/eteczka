@@ -25,7 +25,6 @@ namespace Eteczka.BE.Controllers
                 SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
                 PobraneWydzialy = _wydzialyService.PobierzWydzialyDlaFirmy(sesja);
             }
-         
 
             return Json(new
             {

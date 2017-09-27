@@ -40,7 +40,7 @@ angular.module('et.controllers').controller('gitMenuTableController', ['$scope',
     }
 
     $scope.getRowStyle = function (file) {
-        var result = 'table-row';
+        var result = 'git-table-row';
 
         if (file === $scope.selectedfile) {
             result += ' active-row';
@@ -53,6 +53,7 @@ angular.module('et.controllers').controller('gitMenuTableController', ['$scope',
         if (row && $scope.selectedfile !== {}) {
             $scope.newrows.splice($scope.newrows.indexOf(row), 1);
             $scope.stagedrows.push(row);
+            $scope.selectedStagedFile = row;
         }
     }
 
@@ -60,6 +61,7 @@ angular.module('et.controllers').controller('gitMenuTableController', ['$scope',
         if (row && $scope.selectedStagedFile !== {}) {
             $scope.stagedrows.splice($scope.stagedrows.indexOf(row), 1);
             $scope.newrows.push(row);
+            $scope.selectedfile = row;
         }
     }
 

@@ -34,9 +34,9 @@ namespace Eteczka.BE.Services
             return pobrane;
         }
 
-        public List<Pliki> PobierzDlaUzytkownika(string userId, string sortOdred = "asc", string sortColumn = "Id")
+        public List<Pliki> PobierzDlaUzytkownika(string numeread, string sortOdred = "asc", string sortColumn = "Id")
         {
-            List<Pliki> result = new List<Pliki>();
+            List<Pliki> result = _Dao.PobierzPlikPoNumerzeEad(numeread);
 
             return result;
         }

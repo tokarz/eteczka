@@ -1,28 +1,9 @@
 ﻿'use strict';
 angular.module('et.controllers').controller('headerController', ['$rootScope', '$scope', '$state', '$mdDialog', 'sessionService', function ($rootScope, $scope, $state, $mdDialog, sessionService) {
     $scope.selectedcompany = null;
-    $scope.smallOptions = [
-        {
-            className: 'fa fa-address-book-o small-option-one',
-            label: 'Katalog pracownikow',
-            active: true,
-            action: function () {
-                $scope.activeSmallOption = $scope.smallOptions[0];
-                $scope.navigateTo('employees');
-            }
-        },
-        {
-            className: 'fa  fa-file-text-o small-option-two',
-            label: 'Teczki akt osobowych',
-            active: false,
-            action: function () {
-                $scope.activeSmallOption = $scope.smallOptions[1];
-                $scope.navigateTo('employeesfiles');
-            }
-        }
-    ];
 
-    $scope.activeSmallOption = $scope.smallOptions[0];
+
+
 
     $scope.isSmallOptionActive = function (op) {
         var result = '';
@@ -55,11 +36,62 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
         }
     ];
     $scope.menuEmployeesVisible = false;
+    $scope.menuGitVisible = false;
     $scope.menusVisible = false;
+
     $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
         $scope.activeOption = toState.name;
         $scope.menusVisible = toState.name !== 'options' && toState.name !== 'login' && toState.name !== 'processing' && toState.name !== 'admin';
         $scope.menuEmployeesVisible = (toState.name === 'employees' || toState.name === 'employeesfiles');
+        if ($scope.menuEmployeesVisible) {
+            $scope.smallOptions = [
+        {
+            className: 'fa fa-address-book-o small-option-one',
+            label: 'Katalog pracownikow',
+            active: true,
+            action: function () {
+                $scope.activeSmallOption = $scope.smallOptions[0];
+                $scope.navigateTo('employees');
+            }
+        },
+        {
+            className: 'fa  fa-file-text-o small-option-two',
+            label: 'Teczki akt osobowych',
+            active: false,
+            action: function () {
+                $scope.activeSmallOption = $scope.smallOptions[1];
+                $scope.navigateTo('employeesfiles');
+            }
+        }
+            ];
+
+            $scope.activeSmallOption = $scope.smallOptions[0];
+        }
+        $scope.menuGitVisible = (toState.name === 'files' || toState.name === 'filecatalog');
+        if ($scope.menuGitVisible) {
+            $scope.smallOptions = [
+        {
+            className: 'fa fa-plus-square small-option-one',
+            label: 'Wprowadzanie plikow',
+            active: true,
+            action: function () {
+                $scope.activeSmallOption = $scope.smallOptions[0];
+                $scope.navigateTo('files');
+            }
+        },
+        {
+            className: 'fa  fa-folder small-option-two',
+            label: 'Katalog dokumentow',
+            active: false,
+            action: function () {
+                $scope.activeSmallOption = $scope.smallOptions[1];
+                $scope.navigateTo('filecatalog');
+            }
+        }
+            ];
+
+            $scope.activeSmallOption = $scope.smallOptions[0];
+        }
     });
 
     $scope.isActive = function (tab) {

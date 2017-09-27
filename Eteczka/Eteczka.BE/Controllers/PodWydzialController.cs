@@ -28,7 +28,7 @@ namespace Eteczka.BE.Controllers
                 SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
                 pobranePodWydzialy = _PodWydzialService.PobranaListaPodWydzialow(sesja, wydzial);
             }
-            //List<KatPodWydzialy> pobranePodWydzialy = _PodWydzialService.PobranaListaPodWydzialow(firma, wydzial);
+            
             return Json(new
             {
                 PodWydzialy = pobranePodWydzialy

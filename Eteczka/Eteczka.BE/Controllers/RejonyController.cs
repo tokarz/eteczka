@@ -5,7 +5,6 @@ using Eteczka.BE.Services;
 using System;
 using Eteczka.BE.Model;
 
-
 namespace Eteczka.BE.Controllers
 {
     public class RejonyController : Controller
@@ -17,26 +16,29 @@ namespace Eteczka.BE.Controllers
             this._rejonyService = rejonyService;
         }
 
-        public ActionResult PobierzWszystkieRejony()
+        public ActionResult PobierzWszystkieRejony(string sessionId)
         {
-            List<KatRejony> PobraneRejony = _rejonyService.PobierzRejony();
+            List<KatRejony> pobraneRejony = new List<KatRejony>();
+            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            {
+                pobraneRejony = _rejonyService.PobierzRejony();
+            }
 
             return Json(new
             {
-                Rejony = PobraneRejony
+                Rejony = pobraneRejony
             }, JsonRequestBehavior.AllowGet);
 
         }
         public ActionResult PobierzRejonyDlaWybranejFirmy(string sessionId)
         {
-
             List<KatRejony> PobraneRejony = new List<KatRejony>();
             if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
             {
                 SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
                 PobraneRejony = _rejonyService.PobierzRejonyDlaFirmy(sesja);
             }
-            
+
             return Json(new
             {
                 Rejony = PobraneRejony

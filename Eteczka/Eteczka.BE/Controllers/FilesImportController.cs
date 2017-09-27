@@ -2,6 +2,7 @@
 using Eteczka.BE.Services;
 using Eteczka.BE.DTO;
 using Eteczka.BE.Model;
+using System.Collections.Generic;
 
 namespace Eteczka.BE.Controllers
 {
@@ -14,9 +15,13 @@ namespace Eteczka.BE.Controllers
             _ImportService = importService;
         }
 
-        public ActionResult ImportujStrukturePlikow(bool nadpisz)
+        public ActionResult ImportujStrukturePlikow(string sessionId, bool nadpisz)
         {
-            ImportResult result = _ImportService.ImportFiles(nadpisz);
+            ImportResult result = CreateDefaultImportResult();
+            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            {
+                result = _ImportService.ImportFiles(nadpisz);
+            }
 
             return Json(new
             {
@@ -26,7 +31,11 @@ namespace Eteczka.BE.Controllers
 
         public ActionResult ImportujLokalizacjeArchiwow(string sessionId, bool nadpisz)
         {
-            ImportResult result = _ImportService.ImportKatLokalPapier(nadpisz);
+            ImportResult result = CreateDefaultImportResult();
+            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            {
+                result = _ImportService.ImportKatLokalPapier(nadpisz);
+            }
 
             return Json(new
             {
@@ -37,8 +46,11 @@ namespace Eteczka.BE.Controllers
 
         public ActionResult ImportujFirmy(string sessionId, bool nadpisz)
         {
-            ImportResult result = _ImportService.ImportFirms(nadpisz);
-
+            ImportResult result = CreateDefaultImportResult();
+            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            {
+                result = _ImportService.ImportFirms(nadpisz);
+            }
 
             return Json(new
             {
@@ -48,8 +60,11 @@ namespace Eteczka.BE.Controllers
 
         public ActionResult ImportujRejony(string sessionId, bool nadpisz)
         {
-            ImportResult result = _ImportService.ImportAreas(nadpisz);
-
+            ImportResult result = CreateDefaultImportResult();
+            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            {
+                result = _ImportService.ImportAreas(nadpisz);
+            }
 
             return Json(new
             {
@@ -59,26 +74,39 @@ namespace Eteczka.BE.Controllers
 
         public ActionResult ImportujMiejscaPracy(string sessionId)
         {
-            ImportResult result = _ImportService.ImportWorkplaces(sessionId);
+            ImportResult result = CreateDefaultImportResult();
+            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            {
+                result = _ImportService.ImportWorkplaces(sessionId);
+            }
 
             return Json(new
-       {
-           success = result.ImportSukces
-       }, JsonRequestBehavior.AllowGet);
+            {
+                success = result.ImportSukces
+            }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult ImportujPodwydzialy(string sessionId)
         {
-            ImportResult result = _ImportService.ImportSubDepartments(sessionId);
+            ImportResult result = CreateDefaultImportResult();
+            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            {
+                result = _ImportService.ImportSubDepartments(sessionId);
+            }
 
             return Json(new
-       {
-           success = result.ImportSukces
-       }, JsonRequestBehavior.AllowGet);
+                {
+                    success = result.ImportSukces
+                }, JsonRequestBehavior.AllowGet);
         }
+
         public ActionResult ImportujWydzialy(string sessionId)
         {
-            ImportResult result = _ImportService.ImportDepartments(sessionId);
+            ImportResult result = CreateDefaultImportResult();
+            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            {
+                result = _ImportService.ImportDepartments(sessionId);
+            }
 
             return Json(new
        {
@@ -87,7 +115,11 @@ namespace Eteczka.BE.Controllers
         }
         public ActionResult ImportujKonta5(string sessionId)
         {
-            ImportResult result = _ImportService.ImportAccounts5(sessionId);
+            ImportResult result = CreateDefaultImportResult();
+            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            {
+                result = _ImportService.ImportAccounts5(sessionId);
+            }
 
             return Json(new
             {
@@ -98,7 +130,7 @@ namespace Eteczka.BE.Controllers
         public ActionResult CzyFolderIstnieje(string sesja, string folder)
         {
             bool success = false;
-            if(Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sesja))
+            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sesja))
             {
                 success = _ImportService.DoesFolderExist(folder); ;
             }
@@ -111,7 +143,12 @@ namespace Eteczka.BE.Controllers
 
         public ActionResult CreateSourceFolder(string sessionId, string firma)
         {
-            bool success = _ImportService.CreateSourceFolder(firma); ;
+            bool success = false;
+
+            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            {
+                success = _ImportService.CreateSourceFolder(firma); ;
+            }
 
             return Json(new
             {
@@ -121,7 +158,11 @@ namespace Eteczka.BE.Controllers
 
         public ActionResult SprawdzUpdate(string sessionId, string type)
         {
-            ImportResult result = _ImportService.CheckImportStatus(type);
+            ImportResult result = CreateDefaultImportResult();
+            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            {
+                result = _ImportService.CheckImportStatus(type);
+            }
 
             return Json(new
             {
@@ -131,15 +172,34 @@ namespace Eteczka.BE.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult WczytajDokDoPostgres()
+        public ActionResult WczytajDokDoPostgres(string sessionId)
         {
-            ImportResult result = _ImportService.WczytajDokZExcela(true);
+            ImportResult result = CreateDefaultImportResult();
+
+            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            {
+                result = _ImportService.WczytajDokZExcela();
+            }
             return Json(new
             {
 
             }, JsonRequestBehavior.AllowGet);
         }
 
+        private ImportResult CreateDefaultImportResult()
+        {
+            ImportResult result = new ImportResult()
+            {
+                ImportSukces = false,
+                ZaimportowanePliki = new List<string>(),
+                NierozpoznanePliki = new List<string>(),
+                CountImportDb = 0,
+                CountImportJson = 0,
+                IloscZaimportowanychPlikow = 0
+            };
+
+            return result;
+        }
 
 
     }

@@ -51,13 +51,11 @@ namespace Eteczka.BE.Controllers
                 ContentType = "application/json"
             };
             return resultSerialized;
-
-
         }
 
         public ActionResult PobierzWszystkichZatrudnionych(string sessionId)
         {
-            List<Pracownik> pracownicy = new List<Pracownik>(); 
+            List<Pracownik> pracownicy = new List<Pracownik>();
             if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
             {
                 SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
@@ -73,14 +71,12 @@ namespace Eteczka.BE.Controllers
 
         public ActionResult PobierzPozostalych(string sessionId)
         {
-
             List<Pracownik> pracownicy = new List<Pracownik>();
             if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
             {
                 SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
                 pracownicy = _PracownicyService.PobierzPozostalych(sesja);
             }
-            
 
             return Json(new
             {
@@ -93,7 +89,10 @@ namespace Eteczka.BE.Controllers
         {
             bool success = false;
 
-            success = this._ImportService.ImportujPracownikow(sessionId).ImportSukces;
+            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            {
+                success = this._ImportService.ImportujPracownikow(sessionId).ImportSukces;
+            }
 
             return Json(new
             {
@@ -101,48 +100,53 @@ namespace Eteczka.BE.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult PobierzPracownikaDlaId(string numeread)
+        public ActionResult PobierzPracownikaDlaId(string sessionId, string numeread)
         {
-            Pracownik pracownik = _PracownicyService.PobierzPoId(numeread);
+            Pracownik pracownik = new Pracownik();
+
+            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            {
+                pracownik = _PracownicyService.PobierzPoId(numeread);
+            }
 
             return Json(new
             {
                 pracownik = pracownik
             }, JsonRequestBehavior.AllowGet);
-
         }
 
-        public ActionResult WyszukajPracownikow(string search)
+        public ActionResult WyszukajPracownikow(string sessionId, string search)
         {
-            List<Pracownik> Pracownicy = _PracownicyService.ZnajdzPracownikow(search);
+            List<Pracownik> pracownicy = new List<Pracownik>();
+
+            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            {
+                pracownicy = _PracownicyService.ZnajdzPracownikow(search);
+            }
+
             return Json(new
             {
-                Pracownicy = Pracownicy
+                Pracownicy = pracownicy
             }, JsonRequestBehavior.AllowGet);
-
-
         }
 
-        public ActionResult WyszukajPracownikowPoTekscie(string search, string sessionId)
+        public ActionResult WyszukajPracownikowPoTekscie(string sessionId, string search)
         {
-
             List<Pracownik> Pracownicy = new List<Pracownik>();
-             if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
-             {
-                 SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
-                 Pracownicy = _PracownicyService.ZnajdzPracownikowPoTekscie(search, sesja);
-             }
+            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            {
+                SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                Pracownicy = _PracownicyService.ZnajdzPracownikowPoTekscie(search, sesja);
+            }
 
-           
             return Json(new
             {
                 pracownicy = Pracownicy
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult WyszukajZatrPracownikowPoTekscie(string search, string sessionId)
+        public ActionResult WyszukajZatrPracownikowPoTekscie(string sessionId, string search)
         {
-
             List<Pracownik> Pracownicy = new List<Pracownik>();
             if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
             {
@@ -155,15 +159,15 @@ namespace Eteczka.BE.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult WyszukajPozostPracownikowPoTekscie(string search, string sessionId)
+        public ActionResult WyszukajPozostPracownikowPoTekscie(string sessionId, string search)
         {
-           List<Pracownik> Pracownicy = new List<Pracownik>();
+            List<Pracownik> Pracownicy = new List<Pracownik>();
             if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
             {
                 SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
                 Pracownicy = _PracownicyService.ZnajdzPozostPracownikowPoTekscie(search, sesja);
             }
-            //List<Pracownik> Pracownicy = _PracownicyService.ZnajdzPozostPracownikowPoTekscie(search);
+
             return Json(new
             {
                 pracownicy = Pracownicy

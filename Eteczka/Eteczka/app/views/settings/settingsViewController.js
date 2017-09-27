@@ -1,13 +1,13 @@
 ﻿'use strict';
-angular.module('et.controllers').controller('settingsViewController', ['$scope', 'settingsService', 'companiesService', 'sessionService', function ($scope, settingsService, companiesService, sessionService) {
+angular.module('et.controllers').controller('settingsViewController', ['$scope', 'settingsService', 'companiesService', 'sessionService', 'modalService', function ($scope, settingsService, companiesService, sessionService, modalService) {
     $scope.folders = [];
 
     $scope.importFiles = function () {
         settingsService.importFiles(true).then(function () {
-            alert('successfull');
+            modalService.alert('Import Plikow', 'Sukces');
         },
         function () {
-            alert('failed!');
+            modalService.alert('Import Plikow!', 'Blad! Sprawdz Logi Systemowe!');
         });
     }
 
@@ -33,7 +33,7 @@ angular.module('et.controllers').controller('settingsViewController', ['$scope',
             $scope.checkUpdateStatus('archives');
         },
         function () {
-            alert('failed!');
+            modalService.alert('Import Lokalizacji Archiwow', 'Blad! Sprawdz Logi Systemowe!');
         });
     }
 
@@ -43,17 +43,17 @@ angular.module('et.controllers').controller('settingsViewController', ['$scope',
 
         },
         function () {
-            alert('failed!');
+            modalService.alert('Import Pracownikow', 'Blad! Sprawdz Logi Systemowe!');
         });
     }
 
     $scope.importFirms = function () {
         settingsService.importFirms().then(function () {
             $scope.checkUpdateStatus('firms');
-
+            $scope.importAllCompanies();
         },
         function () {
-            alert('failed!');
+            modalService.alert('Import Firm', 'Blad! Sprawdz Logi Systemowe!');
         });
     }
 
@@ -63,7 +63,7 @@ angular.module('et.controllers').controller('settingsViewController', ['$scope',
 
         },
         function () {
-            alert('failed!');
+            modalService.alert('Import Rejonow', 'Blad! Sprawdz Logi Systemowe!');
         });
     }
 
@@ -73,7 +73,7 @@ angular.module('et.controllers').controller('settingsViewController', ['$scope',
 
         },
         function () {
-            alert('failed!');
+            modalService.alert('Import Miejsc Pracy', 'Blad! Sprawdz Logi Systemowe!');
         });
     }
 
@@ -83,7 +83,7 @@ angular.module('et.controllers').controller('settingsViewController', ['$scope',
 
         },
         function () {
-            alert('failed!');
+            modalService.alert('Import Podwydzialow', 'Blad! Sprawdz Logi Systemowe!');
         });
     }
     $scope.importDepartments = function () {
@@ -92,7 +92,7 @@ angular.module('et.controllers').controller('settingsViewController', ['$scope',
 
         },
         function () {
-            alert('failed!');
+            modalService.alert('Import Wydzialow', 'Blad! Sprawdz Logi Systemowe!');
         });
     }
     $scope.importAccount5 = function () {
@@ -100,7 +100,7 @@ angular.module('et.controllers').controller('settingsViewController', ['$scope',
             $scope.checkUpdateStatus('account5');
         },
         function () {
-            alert('failed!');
+            modalService.alert('Import Kont5', 'Blad! Sprawdz Logi Systemowe!');
         });
     }
 

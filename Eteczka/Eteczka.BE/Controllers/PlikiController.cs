@@ -16,9 +16,14 @@ namespace Eteczka.BE.Controllers
             _PlikiService = plikiService;
         }
 
-        public ActionResult PobierzWszystkie()
+        public ActionResult PobierzWszystkie(string sessionId)
         {
-            List<Pliki> pliki = _PlikiService.PobierzWszystkie();
+            List<Pliki> pliki = new List<Pliki>();
+
+            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            {
+                pliki = _PlikiService.PobierzWszystkie();
+            }
 
             return Json(new
             {
@@ -46,7 +51,7 @@ namespace Eteczka.BE.Controllers
 
             if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
             {
-
+                pliki = _PlikiService.PobierzDlaUzytkownika(numeread);
             }
 
             return Json(new
@@ -58,6 +63,7 @@ namespace Eteczka.BE.Controllers
         public ActionResult PobierzStanZeskanowanychPlikow(string sessionId)
         {
             StanPlikow stanPlikow = null;
+
             if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
             {
                 stanPlikow = _PlikiService.PobierzStanPlikow(sessionId);
@@ -71,7 +77,12 @@ namespace Eteczka.BE.Controllers
 
         public ActionResult PobierzGitStatusDlaFirmy(string sessionId, string firma)
         {
-            List<Pliki> pliki = _PlikiService.PobierzPlikiDlaFirmy(firma);
+            List<Pliki> pliki = new List<Pliki>();
+
+            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            {
+                pliki = _PlikiService.PobierzPlikiDlaFirmy(firma);
+            }
 
             return Json(new
             {

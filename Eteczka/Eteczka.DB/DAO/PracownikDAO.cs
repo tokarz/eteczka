@@ -44,8 +44,6 @@ namespace Eteczka.DB.DAO
             return result;
         }
 
-
-
         public List<Pracownik> PobierzPozostalychPracownikow(string firma, string orderby = "nazwisko", bool asc = true)
         {
             string orderDirection = asc ? " ASC " : " DESC ";
@@ -90,7 +88,7 @@ namespace Eteczka.DB.DAO
         {
             string orderDirection = asc ? " ASC " : " DESC ";
 
-            string sqlQuery = "SELECT * from \"KatPracownicy\" where numeread in (select numeread from \"MiejscePracy\" where firma = '"+ firma +"') ORDER BY " + orderby + orderDirection + this.AddLimitOffsetStatement(limit, offset);
+            string sqlQuery = "SELECT * from \"KatPracownicy\" where numeread in (select numeread from \"MiejscePracy\" where firma = '" + firma + "') ORDER BY " + orderby + orderDirection + this.AddLimitOffsetStatement(limit, offset);
             List<Pracownik> fetchedUsers = new List<Pracownik>();
 
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
@@ -107,33 +105,26 @@ namespace Eteczka.DB.DAO
 
         public Pracownik PobierzPracownikaPoId(string numeread)
         {
-
-            Pracownik PobranyPracownik = null;
+            Pracownik pobranyPracownik = new Pracownik();
             string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE LOWER (numeread) = '" + (numeread.ToLower().Trim()) + "' ";
             try
             {
                 IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
                 DataTable result = connectionState.ExecuteQuery(sqlQuery);
 
-
                 if (result.Rows.Count == 1)
                 {
-
-                    PobranyPracownik = _PracownikMapper.MapujZSql(result.Rows[0]);
-
+                    pobranyPracownik = _PracownikMapper.MapujZSql(result.Rows[0]);
                 }
             }
 
             catch (Exception ex)
             {
-                //logi
+                LOGGER.Error("PobierzPracownikaPoId [" + numeread + "]", ex);
             }
 
-
-            return PobranyPracownik;
-
+            return pobranyPracownik;
         }
-
 
         public List<Pracownik> WyszukiwaczPracownikow(string search)
         {
@@ -154,20 +145,20 @@ namespace Eteczka.DB.DAO
             }
             catch (Exception ex)
             {
-                // logi
+                LOGGER.Error("WyszukiwaczPracownikow [" + search + "]", ex);
             }
 
             return WyszukaniPracownicy;
         }
 
-        public List<Pracownik> WyszukiwaczPracownikowPoTekscie(string search, string firma="AFM", int limit = 100, string orderby = "nazwisko", bool asc = true)
+        public List<Pracownik> WyszukiwaczPracownikowPoTekscie(string search, string firma, int limit = 100, string orderby = "nazwisko", bool asc = true)
         {
             List<Pracownik> WyszukaniPracownicyPoTekscie = new List<Pracownik>();
             string orderDirection = asc ? " ASC " : " DESC ";
 
 
             //string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE  LOWER (nazwisko) || ' ' || LOWER (imie) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (pesel) LIKE '%" + (search.ToLower().Trim()) + "%' ORDER BY " + orderby + orderDirection + "LIMIT " + limit;
-           
+
             string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE  numeread in (select numeread from \"MiejscePracy\" where  firma in ('" + firma + "') and LOWER (nazwisko) || ' ' || LOWER (imie) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (pesel) LIKE '%" + (search.ToLower().Trim()) + "%' ORDER BY " + orderby + orderDirection + "LIMIT " + limit;
             try
             {
@@ -182,7 +173,7 @@ namespace Eteczka.DB.DAO
             }
             catch (Exception ex)
             {
-                //logi
+                LOGGER.Error("WyszukiwaczPracownikowPoTekscie [" + search + "]", ex);
             }
 
             return WyszukaniPracownicyPoTekscie;
@@ -222,7 +213,7 @@ namespace Eteczka.DB.DAO
             List<Pracownik> WyszukaniPracownicyPoTekscie = new List<Pracownik>();
             string orderDirection = asc ? " ASC " : " DESC ";
 
-            
+
             string sqlQuery = "SELECT * FROM \"KatPracownicy\" where numeread in (select numeread from \"MiejscePracy\" where firma IN ('" + firma + "') and '" + DateTime.Now.ToString() + "' between \"MiejscePracy\".datapocz and \"MiejscePracy\".datakoniec) AND  LOWER (nazwisko) || ' ' || LOWER (imie) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (pesel) LIKE '%" + (search.ToLower().Trim()) + "%' ORDER BY " + orderby + orderDirection + "LIMIT " + limit;
             try
             {
@@ -237,7 +228,7 @@ namespace Eteczka.DB.DAO
             }
             catch (Exception ex)
             {
-                //logi
+                LOGGER.Error("WyszukiwaczZatrPracownikowPoTekscie [" + search + "]", ex);
             }
 
             return WyszukaniPracownicyPoTekscie;
@@ -264,7 +255,7 @@ namespace Eteczka.DB.DAO
             }
             catch (Exception ex)
             {
-                //logi
+                LOGGER.Error("WyszukiwaczPozostZatrPracownikowPoTekscie [" + search + "]", ex);
             }
 
             return WyszukaniPracownicyPoTekscie;

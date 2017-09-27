@@ -15,7 +15,7 @@ namespace Eteczka.BE.Services
         ImportResult ImportDepartments(string sessionId);
         ImportResult ImportAccounts5(string sessionId);
         bool CreateSourceFolder(string folder);
-        ImportResult WczytajDokZExcela(bool nadpisz);
+        ImportResult WczytajDokZExcela(bool nadpisz=true);
         bool DoesFolderExist(string folder);
     }
 }

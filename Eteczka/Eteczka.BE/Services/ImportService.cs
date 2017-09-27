@@ -25,7 +25,7 @@ namespace Eteczka.BE.Services
         private IJsonToPodwydzialMapper _JsonToPodwydzialMapper;
         private IJsonToWydzialMapper _JsonToWydzialMapper;
         private IJsonToKonto5Mapper _JsonToKonto5Mapper;
-        
+
 
         private PlikiUtils _PlikiUtils;
         private PlikiDAO _Dao;
@@ -774,14 +774,14 @@ namespace Eteczka.BE.Services
             return result;
         }
 
-        public ImportResult WczytajDokZExcela(bool nadpisz)
+        public ImportResult WczytajDokZExcela(bool nadpisz = true)
         {
             ImportResult result = new ImportResult();
             string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
-            
+
 
             string sciezkaDoPliku = Path.Combine(eadRoot, "excel\\Rodzaje_dokumentow_Eteczka.xlsx");
-            
+
 
 
             result.ImportSukces = _KatDokumentyRodzajDAO.ZapiszRodzajeDokDoBazy(sciezkaDoPliku);

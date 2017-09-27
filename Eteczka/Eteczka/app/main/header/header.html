@@ -9,6 +9,14 @@
                 </span>
             </span>
         </span>
+        <span class="employees-small-options" ng-if="menuGitVisible">
+            <span ng-repeat="smallOption in smallOptions" class="small-option">
+                <span style="height:100%;width:100%" ng-click="smallOption.action()" ng-class="isSmallOptionActive(smallOption)">
+                    <span ng-class="smallOption.className"></span>
+                    <span class="small-option-label">{{smallOption.label}}</span>
+                </span>
+            </span>
+        </span>
     </div>
     <div class="menu-buttons-wrapper" ng-if="menusVisible">
 

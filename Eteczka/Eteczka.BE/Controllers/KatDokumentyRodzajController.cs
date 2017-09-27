@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Eteczka.Model.Entities;
 using System.Web.Mvc;
 using Eteczka.BE.Services;
+using Eteczka.BE.Model;
 
 
 
@@ -20,14 +17,19 @@ namespace Eteczka.BE.Controllers
             this._KatDokumentyRodzajService = KatDokumentyRodzajService;
         }
 
-        public ActionResult PobierzWszystkieRodzajeDokumentow()
+        public ActionResult PobierzWszystkieRodzajeDokumentow(string sessionId)
         {
+            List<KatDokumentyRodzaj> pobraneDokumenty = new List<KatDokumentyRodzaj>();
+            
+            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            {
+                pobraneDokumenty = _KatDokumentyRodzajService.PobierzRodzDok();
 
-            List<KatDokumentyRodzaj> PobraneDokumenty = _KatDokumentyRodzajService.PobierzRodzDok();
+            }
 
             return Json(new
             {
-                PobraneDokumenty = PobraneDokumenty
+                PobraneDokumenty = pobraneDokumenty
                 
             }, JsonRequestBehavior.AllowGet);
 

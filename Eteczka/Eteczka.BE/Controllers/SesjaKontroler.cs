@@ -16,13 +16,16 @@ namespace Eteczka.BE.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult OdnowSesje(string sessionid)
+        public ActionResult OdnowSesje(string sessionId)
         {
-            Sesja.UtworzLubAktualizujSesje(sessionid);
+            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            {
+                Sesja.UtworzLubAktualizujSesje(sessionId);
+            }
 
             return Json(new
             {
-                session = sessionid
+                session = sessionId
             }, JsonRequestBehavior.AllowGet);
         }
 

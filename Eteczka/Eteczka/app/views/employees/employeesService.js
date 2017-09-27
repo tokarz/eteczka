@@ -18,30 +18,32 @@ angular.module('et.services').factory('employeesService', ['httpService', 'sessi
         },
         getFilesForEmployee: function (pesel) {
             return httpService.get('Pliki/PobierzDlaPeselu', {
+                sessionId: sessionService.getSessionId(),
                 pesel: pesel
             });
         },
         getEmployeesForFile: function (file) {
             return httpService.get('Pracownicy/PobierzDlaPliku', {
+                sessionId: sessionService.getSessionId(),
                 file: file
             });
         },
         searchByText: function (text) {
             return httpService.get('Pracownicy/WyszukajPracownikowPoTekscie', {
-                search: text,
-                sessionId: sessionService.getSessionId()
+                sessionId: sessionService.getSessionId(),
+                search: text
             });
         },
         searchHiredByText: function (text) {
             return httpService.get('Pracownicy/WyszukajZatrPracownikowPoTekscie', {
-                search: text,
-                sessionId: sessionService.getSessionId()
+                sessionId: sessionService.getSessionId(),
+                search: text
             });
         },
         searchRemainingByText: function (text) {
             return httpService.get('Pracownicy/WyszukajPozostPracownikowPoTekscie', {
-                search: text,
-                sessionId: sessionService.getSessionId()
+                sessionId: sessionService.getSessionId(),
+                search: text
             });
         }
     };

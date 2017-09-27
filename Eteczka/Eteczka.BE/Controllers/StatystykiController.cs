@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using Eteczka.BE.DTO;
 using Eteczka.BE.Services;
 using Eteczka.BE.Enums;
+using Eteczka.BE.Model;
 
 namespace Eteczka.BE.Controllers
 {
@@ -15,9 +16,14 @@ namespace Eteczka.BE.Controllers
             this._Service = service;
         }
 
-        public ActionResult PobierzDaneWykresowe()
+        public ActionResult PobierzDaneWykresowe(string sessionId)
         {
-            List<DaneWykresowe> result = _Service.PobierzDaneWykresowe(TypWykresu.PIE);
+            List<DaneWykresowe> result = new List<DaneWykresowe>();
+
+            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            {
+                result = _Service.PobierzDaneWykresowe(TypWykresu.PIE);
+            }
 
             return Json(new
             {
