@@ -195,6 +195,20 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
                 console.error('account not found')
             }
         }
+
+        $scope.querySearch = function (query) {
+            var allAccounts5 = $scope.workplaceParams.accounts5
+            return query ? allAccounts5.filter(createFilterFor(query)) : allAccounts5;
+        }
+
+        var createFilterFor = function (query) {
+            var lowercaseQuery = angular.lowercase(query);
+
+            return function filterFn(account) {
+                return (account.Kontoskr.toLowerCase().indexOf(lowercaseQuery) === 0);
+            };
+
+        }
     }
 
     var openModal = function (modalOptions, executor) {

@@ -1,5 +1,97 @@
-﻿<form name="upsertFileDescription">
-    <div class="modal-table-row">
-        <textarea name="fileDescription" rows="12" cols="78" ng-model="modalResult.fileDescription" autofocus="autofocus" />
-    </div>
-</form>
+﻿<md-dialog aria-label="Opis dokumentu">
+    <form ng-cloak name="upsertFileDescription" novalidate>
+        <md-toolbar>
+            <div class="modal-header md-toolbar-tools">
+                <h2>Opis dokumentu</h2>
+                <span flex></span>
+                <!--<md-button class="md-icon-button" ng-click="cancel()">
+                <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+            </md-button>-->
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content style="padding:15px">
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="docSymbol">Symbol dokumentu</label>
+                <md-autocomplete class="modal-table-input"
+                                 name="docSymbol"
+                                 md-selected-item="modalResult.fileType"
+                                 md-search-text="searchText"
+                                 md-items="item in querySearch(searchText)"
+                                 md-item-text="item.Symbol"
+                                 md-min-length="0"
+                                 required
+                                 ng-model="modalResult.fileType">
+                    <md-item-template>
+                        <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.Symbol}}</span>
+                    </md-item-template>
+                    <md-not-found>
+                        Nie znaleziono symbolu dokumentu zaczynajacego sie od "{{searchText}}".
+                    </md-not-found>
+                </md-autocomplete>
+            </div>
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="docName">Nazwa dokumentu</label>
+                <input class="modal-table-input" name="docName" type="text" ng-model="modalResult.Nazwa" required disabled/>
+            </div>
+            <div>
+                <label class="modal-table-label" for="isDocOwner">Dokument Wlasny</label>
+                <select class="modal-table-input"
+                        name="isDocOwner"
+                        ng-options="option for option in ['TAK', 'NIE']"
+                        ng-model="modalResult.Dokwlasny"
+                />
+            </div>
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="docPart">Dzial Teczki</label>
+                <input class="modal-table-input" name="docPart" type="text" ng-model="modalResult.TeczkaDzial" required disabled />
+            </div>
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="creationDate">Data wytworzenia dokumentu papierowego</label>
+                <input class="modal-table-input"
+                       name="creationDate"
+                       type="text"
+                       ng-model="modalResult.DataWytworzenia"
+                       ng-pattern="/^\s*(\d{4})-(\d{2})-(\d{2})\s*$/"
+                       ng-model-options="{updateOn: 'blur'}"
+                       required />
+            </div>
+            <div ng-show="upsertFileDescription.$submitted || upsertFileDescription.creationDate.$touched">
+                <span class="modal-table-error" ng-show="upsertFileDescription.creationDate.$error.pattern">Data musi miec format: RRRR-MM-DD</span>
+            </div>
+            <div ng-if="modalResult.fileType && isTypeWithDates(modalResult.fileType.Symbol)" class="modal-table-row">
+                <label class="modal-table-label" for="validFromDate">Data początku obowiązywania</label>
+                <input class="modal-table-input"
+                       name="validFromDate"
+                       type="text"
+                       ng-model="modalResult.DataPocz"
+                       ng-pattern="/^\s*(\d{4})-(\d{2})-(\d{2})\s*$/"
+                       ng-model-options="{updateOn: 'blur'}"
+                       required />
+            </div>
+            <div ng-show="upsertFileDescription.$submitted || upsertFileDescription.validFromDate.$touched">
+                <span class="modal-table-error" ng-show="upsertFileDescription.validFromDate.$error.pattern">Data musi miec format: RRRR-MM-DD</span>
+            </div>
+            <div ng-if="modalResult.fileType && isTypeWithDates(modalResult.fileType.Symbol)" class="modal-table-row">
+                <label class="modal-table-label" for="validUntilDate">Data końca obowiązywania</label>
+                <input class="modal-table-input"
+                       name="validUntilDate"
+                       type="text"
+                       ng-model="modalResult.DataKoniec"
+                       ng-pattern="/^\s*(\d{4})-(\d{2})-(\d{2})\s*$/"
+                       ng-model-options="{updateOn: 'blur'}"
+                       required />
+            </div>
+            <div ng-show="upsertFileDescription.$submitted || upsertFileDescription.validUntilDate.$touched">
+                <span class="modal-table-error" ng-show="upsertFileDescription.validUntilDate.$error.pattern">Data musi miec format: RRRR-MM-DD</span>
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" ng-click="cancel()">Anuluj</button>
+                <button type="submit" class="btn btn-primary" ng-click="answer(modalResult, upsertworkspace.$error)">Zatwierdz</button>
+            </div>
+        </md-dialog-actions>
+    </form>
+</md-dialog>
