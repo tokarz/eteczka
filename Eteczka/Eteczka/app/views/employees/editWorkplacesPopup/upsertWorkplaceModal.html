@@ -42,7 +42,7 @@
                         ng-model="modalResult.Wydzial"
                         ng-options="option.Nazwa for option in workplaceParams.departments"
                         ng-init="modalResult.Wydzial.Nazwa"
-                        ng-change="loadSubDepartmentList(workplaceParams, modalResult.Wydzial)" 
+                        ng-change="loadSubDepartmentList(modalResult.Wydzial)" 
                         required
                 />
             </div>
