@@ -16,7 +16,7 @@ angular.module('et.controllers').controller('filesViewController', ['$scope', 'c
         })
     }
 
-    loadFileTypes()
+    loadFileTypes();
 
     companiesService.getActiveCompany().then(function (result) {
         $scope.parameters.company = result.firma;
@@ -29,7 +29,7 @@ angular.module('et.controllers').controller('filesViewController', ['$scope', 'c
         }
         console.log(fileTypes)
 
-        $scope.yesNoOptions = [{ name: 'TAK', value: true }, {name: 'NIE', value: false}]
+        $scope.yesNoOptions = [{ name: 'TAK', value: true }, { name: 'NIE', value: false }]
         $scope.modalResult.Dokwlasny = $scope.modalResult.Dokwlasny || $scope.yesNoOptions[0]
         $scope.pracownikPesel = '';
 
@@ -48,20 +48,26 @@ angular.module('et.controllers').controller('filesViewController', ['$scope', 'c
             }
         };
 
-        $scope.findUserByPesel = function (pracownikPesel) {
-            filesViewService.findEmployee(pracownikPesel).then(function (pracownik) {
-                if (Array.isArray(pracownik)) {
-                    $scope.modalResult.Pracownik = pracownik[0]
-                }
-                else {
-                    $scope.modalResult.Pracownik = {}
-                }
-            });
+        $scope.isDisabled = function () {
+            return !$scope.modalResult.fileType || !$scope.isTypeWithDates($scope.modalResult.fileType.Symbol);
+        }
+
+        $scope.findUserByPesel = function () {
+            if ($scope.pracownikPesel.length === 11) {
+                filesViewService.findEmployee($scope.pracownikPesel).then(function (pracownik) {
+                    if (Array.isArray(pracownik.Pracownicy)) {
+                        $scope.modalResult.Pracownik = pracownik.Pracownicy[0]
+                    }
+                    else {
+                        $scope.modalResult.Pracownik = {}
+                    }
+                });
+            }
         }
 
         $scope.isTypeWithDates = function (fileSymbol) {
             var type = fileTypes.find(function (file) {
-                return file.Symbol ===  fileSymbol
+                return file.Symbol === fileSymbol
             }).Typedycji
 
             if (type.trim() === 'b') {
