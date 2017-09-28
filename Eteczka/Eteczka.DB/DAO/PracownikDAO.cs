@@ -36,10 +36,8 @@ namespace Eteczka.DB.DAO
                 queries.Append(query);
             }
 
-
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
             bool result = connectionState.ExecuteNonQuery(queries.ToString());
-
 
             return result;
         }
@@ -159,7 +157,7 @@ namespace Eteczka.DB.DAO
 
             //string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE  LOWER (nazwisko) || ' ' || LOWER (imie) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (pesel) LIKE '%" + (search.ToLower().Trim()) + "%' ORDER BY " + orderby + orderDirection + "LIMIT " + limit;
 
-            string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE  numeread in (select numeread from \"MiejscePracy\" where  firma in ('" + firma + "') and LOWER (nazwisko) || ' ' || LOWER (imie) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (pesel) LIKE '%" + (search.ToLower().Trim()) + "%' ORDER BY " + orderby + orderDirection + "LIMIT " + limit;
+            string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE  numeread in (select numeread from \"MiejscePracy\" where  firma = " + firma + " and LOWER (nazwisko) || ' ' || LOWER (imie) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (pesel) LIKE '%" + (search.ToLower().Trim()) + "%' ORDER BY " + orderby + orderDirection + "LIMIT " + limit;
             try
             {
                 IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);

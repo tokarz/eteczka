@@ -104,6 +104,15 @@ angular.module('et.controllers').controller('settingsViewController', ['$scope',
         });
     }
 
+    $scope.importDocumentTypes = function() {
+        settingsService.importDocumentTypes().then(function () {
+            $scope.checkUpdateStatus('dokRodzaj');
+        },
+        function () {
+            modalService.alert('Import Kont5', 'Blad! Sprawdz Logi Systemowe!');
+        });
+    }
+
 
     $scope.updateStatus = {
         users: {
@@ -142,6 +151,11 @@ angular.module('et.controllers').controller('settingsViewController', ['$scope',
             countDb: 0
         },
         account5: {
+            success: false,
+            countJson: 0,
+            countDb: 0
+        },
+        documentType: {
             success: false,
             countJson: 0,
             countDb: 0
@@ -197,6 +211,7 @@ angular.module('et.controllers').controller('settingsViewController', ['$scope',
     $scope.checkUpdateStatus('subdepartment');
     $scope.checkUpdateStatus('department');
     $scope.checkUpdateStatus('account5');
+    $scope.checkUpdateStatus('dokRodzaj');
     $scope.importAllCompanies();
     $scope.fetchAllSessions();
 

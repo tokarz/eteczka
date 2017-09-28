@@ -60,9 +60,7 @@ namespace Eteczka.DB.DAO
 
         public List <KatWydzialy> PobierzDlaFirmy(string firma)
         {
-
             List<KatWydzialy> PobraneWydzialyDlaFirmy = new List<KatWydzialy>();
-
             
             string sqlQuery = "SELECT *  FROM \"KatWydzial\" WHERE LOWER(\"KatWydzial\".firma) in ('" + firma.ToLower().Trim() + "') ORDER BY firma;";
 

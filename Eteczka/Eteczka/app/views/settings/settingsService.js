@@ -49,6 +49,11 @@ angular.module('et.services').factory('settingsService', ['httpService', 'sessio
                 sessionId: sessionService.getSessionId()
             });
         },
+        importDocumentTypes: function() {
+            return httpService.get('FilesImport/WczytajDokDoPostgres', {
+                sessionId: sessionService.getSessionId()
+            });
+        },
         createSourceFolder: function (name) {
             return httpService.get('FilesImport/CreateSourceFolder', {
                 sessionId: sessionService.getSessionId(),

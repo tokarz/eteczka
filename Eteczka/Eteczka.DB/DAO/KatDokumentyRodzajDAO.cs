@@ -60,5 +60,19 @@ namespace Eteczka.DB.DAO
 
             return result;
         }
+
+        public int PoliczRodzajeWBazie()
+        {
+            int result = 0;
+            string sqlQuery = "SELECT COUNT(*) FROM \"KatDokumentyRodzaj\"; ";
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+            DataTable count = connectionState.ExecuteQuery(sqlQuery);
+            if (count != null && count.Rows != null && count.Rows.Count > 0)
+            {
+                result = int.Parse(count.Rows[0][0].ToString());
+            }
+
+            return result;
+        }
     }
 }

@@ -25,7 +25,7 @@ namespace Eteczka.BE.Services
         private IJsonToPodwydzialMapper _JsonToPodwydzialMapper;
         private IJsonToWydzialMapper _JsonToWydzialMapper;
         private IJsonToKonto5Mapper _JsonToKonto5Mapper;
-
+        private IKatRodzajeDokumentowExcelMapper _KatRodzajeDokumentowExcelMapper;
 
         private PlikiUtils _PlikiUtils;
         private PlikiDAO _Dao;
@@ -49,6 +49,7 @@ namespace Eteczka.BE.Services
             IJsonToPodwydzialMapper jsonToPodwydzialMapper,
             IJsonToWydzialMapper jsonToWydzialMapper,
             IJsonToKonto5Mapper jsonToKonto5Mapper,
+            IKatRodzajeDokumentowExcelMapper katRodzajeDokumentowExcelMapper,
             PlikiUtils plikiUtils,
             PlikiDAO dao,
             PracownikDAO pracownikDao,
@@ -69,6 +70,7 @@ namespace Eteczka.BE.Services
             this._JsonToPodwydzialMapper = jsonToPodwydzialMapper;
             this._JsonToWydzialMapper = jsonToWydzialMapper;
             this._JsonToKonto5Mapper = jsonToKonto5Mapper;
+            this._KatRodzajeDokumentowExcelMapper = katRodzajeDokumentowExcelMapper;
             this._PlikiUtils = plikiUtils;
             this._Dao = dao;
             this._PracownikDao = pracownikDao;
@@ -764,6 +766,21 @@ namespace Eteczka.BE.Services
 
                         break;
                     }
+                case "dokRodzaj":
+                    {
+                        string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
+                        List<Pracownik> pracownicy = new List<Pracownik>();
+
+                        string sciezkaDoKatalogu = Path.Combine(eadRoot, "excel");
+                        string plik = Path.Combine(sciezkaDoKatalogu, "Rodzaje_dokumentow_Eteczka.xlsx");
+
+                        List<KatDokumentyRodzaj> rodzajeDokumentow = _KatRodzajeDokumentowExcelMapper.PobierzRodzajeDokZExcela(plik);
+
+                        result.CountImportJson = rodzajeDokumentow.Count;
+                        result.CountImportDb = _KatDokumentyRodzajDAO.PoliczRodzajeWBazie();
+
+                        break;
+                    }
                 default:
                     {
                         break;
@@ -779,13 +796,9 @@ namespace Eteczka.BE.Services
             ImportResult result = new ImportResult();
             string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
 
-
             string sciezkaDoPliku = Path.Combine(eadRoot, "excel\\Rodzaje_dokumentow_Eteczka.xlsx");
 
-
-
             result.ImportSukces = _KatDokumentyRodzajDAO.ZapiszRodzajeDokDoBazy(sciezkaDoPliku);
-
 
             return result;
         }
