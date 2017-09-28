@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('et.controllers').controller('filesViewController', ['$scope', 'companiesService', 'filesViewService', 'modalService', function ($scope, companiesService, filesViewService, modalService) {
+angular.module('et.controllers').controller('filesViewController', ['$scope', 'companiesService', 'filesViewService', 'modalService', 'sessionService', function ($scope, companiesService, filesViewService, modalService, sessionService) {
     $scope.parameters = {
         company: '',
     };
@@ -7,6 +7,7 @@ angular.module('et.controllers').controller('filesViewController', ['$scope', 'c
     $scope.selectedStagedFile = null;
 
     $scope.fileTypes = []
+    $scope.fileDescription = {}
 
     var loadFileTypes = function () {
         filesViewService.getFileTypes().then(function (fileTypes) {
@@ -26,6 +27,11 @@ angular.module('et.controllers').controller('filesViewController', ['$scope', 'c
         if (description) {
             $scope.modalResult = description;
         }
+        console.log(fileTypes)
+
+        $scope.yesNoOptions = [{ name: 'TAK', value: true }, {name: 'NIE', value: false}]
+        $scope.modalResult.Dokwlasny = $scope.modalResult.Dokwlasny || $scope.yesNoOptions[0]
+        $scope.pracownikPesel = '';
 
         $scope.hide = function () {
             $mdDialog.hide();
@@ -42,15 +48,23 @@ angular.module('et.controllers').controller('filesViewController', ['$scope', 'c
             }
         };
 
+        $scope.findUserByPesel = function (pracownikPesel) {
+            filesViewService.findEmployee(pracownikPesel).then(function (pracownik) {
+                if (Array.isArray(pracownik)) {
+                    $scope.modalResult.Pracownik = pracownik[0]
+                }
+                else {
+                    $scope.modalResult.Pracownik = {}
+                }
+            });
+        }
+
         $scope.isTypeWithDates = function (fileSymbol) {
-            console.log(fileTypes)
             var type = fileTypes.find(function (file) {
-                console.log(file.Symbol, fileSymbol)
                 return file.Symbol ===  fileSymbol
             }).Typedycji
-            console.log(type)
 
-            if (type.trim() === '2') {
+            if (type.trim() === 'b') {
                 return true
             }
             else {
@@ -88,7 +102,7 @@ angular.module('et.controllers').controller('filesViewController', ['$scope', 'c
             body: 'app/views/files/addFile/fileDescriptionPopup/upsertFileDescription.html',
             controller: $scope.upsertFileDescriptionCtrl,
             locals: {
-                description: $scope.modalResult,
+                description: $scope.fileDescription,
                 fileTypes: $scope.fileTypes
             }
         };
@@ -97,6 +111,7 @@ angular.module('et.controllers').controller('filesViewController', ['$scope', 'c
             modalOptions,
             function (value) {
                 console.log('tu bedzie wywolanie funkcji opisu plikow', value);
+                $scope.fileDescription = value
             }
         )
     }

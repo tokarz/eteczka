@@ -22,6 +22,12 @@ angular.module('et.services').factory('filesViewService', ['httpService', 'sessi
             return httpService.get('KatDokumentyRodzaj/PobierzWszystkieRodzajeDokumentow', {
                 sessionId: sessionService.getSessionId()
             });
+        },
+        findEmployee: function (searchKey) {
+            return httpService.get('Pracownicy/WyszukajPracownikow', {
+                sessionId: sessionService.getSessionId(),
+                search: searchKey
+            });
         }
     }
 }]);

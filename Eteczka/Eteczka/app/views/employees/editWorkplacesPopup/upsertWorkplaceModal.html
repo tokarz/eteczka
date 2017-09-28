@@ -74,15 +74,16 @@
                         ng-init="modalResult.Konto5.Nazwa" 
                         required
                 />-->
-                <label class="modal-table-label" for="account5">Konto 5 (skrot)</label>
+                <label class="modal-table-label" for="account5Abbr">Konto 5 (skrot)</label>
                 <md-autocomplete class="modal-table-input"
-                                 name="account5"
+                                 name="account5Abbr"
                                  md-selected-item="modalResult.Konto5"
                                  md-search-text="searchText"
                                  md-items="item in querySearch(searchText)"
                                  md-item-text="item.Kontoskr"
                                  md-min-length="0"
-                                 required>
+                                 required
+                 >
                     <md-item-template>
                         <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.Kontoskr}}</span>
                     </md-item-template>
@@ -90,6 +91,10 @@
                         Nie znaleziono konta zaczynajacego sie od "{{searchText}}".
                     </md-not-found>
                 </md-autocomplete>
+            </div>
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="account5Name">Konto 5</label>
+                <input class="modal-table-input" name="account5Name" type="text" ng-model="modalResult.Konto5.Konto5" disabled />
             </div>
             <div class="modal-table-row">
                 <label class="modal-table-label" for="startDate">Data poczatkowa</label>
