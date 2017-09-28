@@ -170,7 +170,7 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
         $scope.loadSubDepartmentList = function (department) {
             $scope.workplaceParams.loadingSubDepartments = true;
             $scope.workplaceParams.subDepartments = []
-            console.log($scope.sessionId, department)
+            console.log('laduje podwydziay', $scope.sessionId, department)
             return menuContentService.getSubDepartmets($scope.sessionId, department.Wydzial)
                 .then(function (result) {
                     console.log('podwydzialy', result)
@@ -243,7 +243,7 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
             body: 'app/views/employees/editEmployeesPopup/upsertUserModal.html',
             controller: $scope.upsertEmployeeCtrl,
             locals: {
-                user: Object.assig({}, $scope.user)
+                user: Object.assign({}, $scope.user)
             }
         };
 
