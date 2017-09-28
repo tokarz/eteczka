@@ -155,7 +155,7 @@ angular.module('et.controllers').controller('settingsViewController', ['$scope',
             countJson: 0,
             countDb: 0
         },
-        documentType: {
+        dokRodzaj: {
             success: false,
             countJson: 0,
             countDb: 0

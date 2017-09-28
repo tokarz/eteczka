@@ -361,6 +361,7 @@
     <Content Include="Content\img\cube.svg" />
     <Content Include="Content\img\load-indicator50.gif" />
     <Content Include="Content\img\logo9.png" />
+    <Content Include="Content\img\logo_eAD_Old.png" />
     <Content Include="Content\img\logo_eAD.png" />
     <Content Include="Content\img\logo_TopFarms_transparent.png" />
     <Content Include="Content\Site.css" />
