@@ -40,6 +40,7 @@ ALTER TABLE "DbInfo"
 
 
   CREATE SEQUENCE MiejscePracy_id_seq;
+  GRANT USAGE ON SEQUENCE MiejscePracy_id_seq TO ead;
 
  -- Table: public."KatFirmy"
 
@@ -561,6 +562,7 @@ COMMENT ON COLUMN public."KatPracownicy".confidential IS 'Poufnosc';
 -- DROP TABLE public."Pliki";
 
 CREATE SEQUENCE Pliki_id_seq;
+GRANT USAGE ON SEQUENCE Pliki_id_seq TO ead;
 
 CREATE TABLE public."Pliki"
 (
@@ -652,6 +654,7 @@ COMMENT ON COLUMN public."SerwerSmtp".smtpport IS 'Numer portu';
 -- DROP TABLE public."Koszyk";
 
 CREATE SEQUENCE Koszyk_id_seq;
+GRANT USAGE ON SEQUENCE Koszyk_id_seq TO ead;
 
 CREATE TABLE public."Koszyk"
 (

@@ -8,6 +8,9 @@ using System.Data;
 using Eteczka.DB.Connection;
 using System.Collections.Generic;
 using Eteczka.DB.Mappers;
+using Eteczka.Model.DTO;
+using System.IO;
+using System.Globalization;
 
 
 namespace Eteczka.DB.DAO
@@ -40,6 +43,71 @@ namespace Eteczka.DB.DAO
             }
 
             return fetchedResult;
+        }
+
+        public bool KomitujPlik(KomitPliku plik, string firma, string idOper)
+        {
+            bool result = false;
+            bool filewasMoved = false;
+            string nazwaPliku = firma.Trim() + "_" + DateTime.Now.Millisecond + "_" + plik.Nazwa.Trim();
+
+            string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
+            string katalogZrodlowy = Path.Combine(eadRoot, "waitingroom", firma.Trim());
+            string plikZrodlowy = Path.Combine(katalogZrodlowy, plik.Nazwa.Trim());
+
+            string katalogDocelowy = Path.Combine(eadRoot, "pliki", firma.Trim());
+            if (!Directory.Exists(katalogDocelowy))
+            {
+                Directory.CreateDirectory(katalogDocelowy);
+            }
+            try
+            {
+                File.Move(plikZrodlowy, Path.Combine(katalogDocelowy, nazwaPliku));
+                if (File.Exists(Path.Combine(katalogDocelowy, nazwaPliku)))
+                {
+                    filewasMoved = true;
+                    object[] args = new object[]  {
+                            firma.Trim(),
+                            plik.Pracownik.Numeread.Trim(),
+                            plik.Typ.Symbol.Trim(),
+                            plik.DataWytworzenia.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture),
+                            DateTime.Now.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture),
+                            plik.DataPocz.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture),
+                            plik.DataKoniec.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture),
+                            nazwaPliku,
+                            nazwaPliku,
+                            plikZrodlowy,
+                            plik.Typ.Symbol.Trim(),
+                            "",
+                            plik.Dokwlasny,
+                            "EAD",
+                            false,
+                            idOper.Trim(), 
+                            idOper.Trim(),
+                            DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture),
+                            DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture),
+                            plik.Typ.Teczkadzial.Trim()
+
+                        };
+                    string values = string.Format("'{0}', '{1}', '{2}', '{3}','{4}', '{5}','{6}', '{7}','{8}', '{9}','{10}', '{11}','{12}', '{13}','{14}', '{15}','{16}', '{17}', '{18}', '{19}'", args);
+                    string insertStatement = "INSERT INTO \"Pliki\" (firma, numeread, symbol, dataskanu, datadokumentu, datapocz, datakoniec, nazwascan, nazwaead, pelnasciezkaead, typpliku, opisdodatkowy, dokwlasny, systembazowy, usuniety, idoper, idakcept, datamodify, dataakcept, teczkadzial) VALUES (" + values + ");";
+
+                    IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+                    result = connectionState.ExecuteNonQuery(insertStatement);
+                    if (result != true)
+                    {
+                        File.Move(Path.Combine(katalogDocelowy, nazwaPliku), plikZrodlowy);
+                    }
+                }
+
+            }
+            catch (Exception)
+            {
+
+            }
+
+
+            return result;
         }
 
         public bool ImportujPliki(Dictionary<string, Pliki> plikiZMetadanymi)

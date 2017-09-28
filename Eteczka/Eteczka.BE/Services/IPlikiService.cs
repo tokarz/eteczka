@@ -13,6 +13,6 @@ namespace Eteczka.BE.Services
         List<Pliki> PobierzPlikiDlaFirmy(string firma);
         MetaDanePliku PobierzMetadane(string plik);
         StanPlikow PobierzStanPlikow(string sessionId);
-
+        bool ZakomitujPlikDoBazy(KomitPliku plik, string firma, string idOper);
     }
 }

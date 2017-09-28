@@ -75,6 +75,25 @@ namespace Eteczka.BE.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        public ActionResult KomitujPlik(string sessionId, KomitPliku plik)
+        {
+            bool success = false;
+
+            StanSesji sesja = Sesja.PobierzStanSesji();
+
+            if (sesja.CzySesjaJestOtwarta(sessionId))
+            {
+                SessionDetails detaleSesji = sesja.PobierzSesje(sessionId);
+                success = _PlikiService.ZakomitujPlikDoBazy(plik, detaleSesji.AktywnaFirma, detaleSesji.AktywnyUser.Identyfikator);
+            }
+
+            return Json(new
+            {
+                success = success
+            }, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult PobierzGitStatusDlaFirmy(string sessionId, string firma)
         {
             List<Pliki> pliki = new List<Pliki>();

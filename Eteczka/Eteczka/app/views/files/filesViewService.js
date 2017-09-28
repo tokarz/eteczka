@@ -28,6 +28,12 @@ angular.module('et.services').factory('filesViewService', ['httpService', 'sessi
                 sessionId: sessionService.getSessionId(),
                 search: searchKey
             });
+        },
+        commitFile: function (plik) {
+            return httpService.post('Pliki/KomitujPlik', {
+                sessionId: sessionService.getSessionId(),
+                plik: plik
+            });
         }
     }
 }]);

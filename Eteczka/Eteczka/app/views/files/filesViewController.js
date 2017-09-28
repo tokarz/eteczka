@@ -5,7 +5,7 @@ angular.module('et.controllers').controller('filesViewController', ['$scope', 'c
     };
 
     $scope.selectedStagedFile = null;
-
+    $scope.createdMetaData = null;
     $scope.fileTypes = []
     $scope.fileDescription = {}
 
@@ -23,14 +23,15 @@ angular.module('et.controllers').controller('filesViewController', ['$scope', 'c
     });
 
 
-    $scope.upsertFileDescriptionCtrl = function ($scope, $mdDialog, description, fileTypes) {
+    $scope.upsertFileDescriptionCtrl = function ($scope, $mdDialog, description, fileTypes, name) {
         if (description) {
             $scope.modalResult = description;
         }
-        console.log(fileTypes)
 
         $scope.yesNoOptions = [{ name: 'TAK', value: true }, { name: 'NIE', value: false }]
-        $scope.modalResult.Dokwlasny = $scope.modalResult.Dokwlasny || $scope.yesNoOptions[0]
+        $scope.modalResult.Dokwlasny = $scope.modalResult.Dokwlasny || $scope.yesNoOptions[0];
+        $scope.modalResult.Nazwa = name;
+
         $scope.pracownikPesel = '';
 
         $scope.hide = function () {
@@ -49,7 +50,7 @@ angular.module('et.controllers').controller('filesViewController', ['$scope', 'c
         };
 
         $scope.isDisabled = function () {
-            return !$scope.modalResult.fileType || !$scope.isTypeWithDates($scope.modalResult.fileType.Symbol);
+            return !$scope.modalResult.Typ || !$scope.isTypeWithDates($scope.modalResult.Typ.Symbol);
         }
 
         $scope.findUserByPesel = function () {
@@ -103,21 +104,34 @@ angular.module('et.controllers').controller('filesViewController', ['$scope', 'c
             });
     }
 
+    $scope.commitFile = function () {
+        if ($scope.createdMetaData !== null) {
+            filesViewService.commitFile($scope.createdMetaData).then(function (res) {
+                if (res.success) {
+                    alert("Dodano!");
+                } else {
+                    alert("Blad!");
+                }
+            });
+        }
+    }
+
+
     $scope.triggerUpsertFileDescriptionDialog = function () {
         var modalOptions = {
             body: 'app/views/files/addFile/fileDescriptionPopup/upsertFileDescription.html',
             controller: $scope.upsertFileDescriptionCtrl,
             locals: {
                 description: $scope.fileDescription,
-                fileTypes: $scope.fileTypes
+                fileTypes: $scope.fileTypes,
+                name: $scope.selectedStagedFile.NazwaEad
             }
         };
 
         openModal(
             modalOptions,
             function (value) {
-                console.log('tu bedzie wywolanie funkcji opisu plikow', value);
-                $scope.fileDescription = value
+                $scope.createdMetaData = value;
             }
         )
     }

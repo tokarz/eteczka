@@ -48,6 +48,20 @@ namespace Eteczka.BE.Services
             return result;
         }
 
+        public bool ZakomitujPlikDoBazy(KomitPliku plik, string firma, string idOper)
+        {
+            bool result = false;
+
+            result = _Dao.KomitujPlik(plik, firma, idOper);
+
+            //Transakcja:
+            //1) Zrob insert
+            //2)Skopiuj plik
+            //3) Weryfikuj
+
+            return result;
+        }
+
         public List<Pliki> PobierzPlikiDlaFirmy(string firma)
         {
             List<Pliki> result = new List<Pliki>();

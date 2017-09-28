@@ -14,13 +14,13 @@
                 <label class="modal-table-label" for="docSymbol">Symbol dokumentu</label>
                 <md-autocomplete class="modal-table-input"
                                  name="docSymbol"
-                                 md-selected-item="modalResult.fileType"
+                                 md-selected-item="modalResult.Typ"
                                  md-search-text="searchText"
                                  md-items="item in querySearch(searchText)"
                                  md-item-text="item.Symbol"
                                  md-min-length="0"
                                  required
-                                 ng-model="modalResult.fileType">
+                                 ng-model="modalResult.Typ">
                     <md-item-template>
                         <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.Symbol}}</span>
                     </md-item-template>
@@ -31,18 +31,18 @@
             </div>
             <div class="modal-table-row">
                 <label class="modal-table-label" for="docName">Nazwa dokumentu</label>
-                <input class="modal-table-input" name="docName" type="text" ng-model="modalResult.fileType.Nazwa" required disabled />
+                <input class="modal-table-input" name="docName" type="text" ng-model="modalResult.Typ.Nazwa" required disabled />
             </div>
             <div class="modal-table-row">
                 <label class="modal-table-label" for="isDocOwner">Dokument Wlasny</label>
                 <select class="modal-table-input"
                         name="isDocOwner"
-                        ng-options="option.name for option in yesNoOptions"
+                        ng-options="option.value as option.name for option in yesNoOptions"
                         ng-model="modalResult.Dokwlasny" />
             </div>
             <div class="modal-table-row">
                 <label class="modal-table-label" for="docPart">Dzial Teczki</label>
-                <input class="modal-table-input" name="docPart" type="text" ng-model="modalResult.fileType.Jrwa" required disabled />
+                <input class="modal-table-input" name="docPart" type="text" ng-model="modalResult.Typ.Jrwa" required disabled />
             </div>
             <div class="modal-table-row">
                 <label class="modal-table-label" for="creationDate">Data dokumentu</label>

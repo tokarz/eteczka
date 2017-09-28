@@ -4,6 +4,7 @@ using System.Configuration;
 using Eteczka.BE.Utils;
 using System.IO;
 using Eteczka.BE.Model;
+using System.Web.Script.Serialization;
 
 namespace Eteczka.BE.Controllers
 {
@@ -27,16 +28,28 @@ namespace Eteczka.BE.Controllers
 
                 string eadRoot = Environment.GetEnvironmentVariable(eadRootName);
 
-                string filepath = System.IO.Path.Combine(eadRoot, pliki, firma,  fileName);
+                string filepath = System.IO.Path.Combine(eadRoot, pliki, firma, fileName);
 
                 base64PDF = _PlikiUtils.PobierzZaszyfrowanaZawartoscPliku(filepath);
             }
 
-
-            return Json(new
+            var result = Json(new
             {
                 data = base64PDF
             }, JsonRequestBehavior.AllowGet);
+
+            var serializer = new JavaScriptSerializer();
+
+            // For simplicity just use Int32's max value.
+            // You could always read the value from the config section mentioned above.
+            serializer.MaxJsonLength = Int32.MaxValue;
+
+            var resultSerialized = new ContentResult
+            {
+                Content = serializer.Serialize(result),
+                ContentType = "application/json"
+            };
+            return resultSerialized;
         }
 
         public ActionResult GetResource(string sessionId, string fileName)
@@ -52,10 +65,23 @@ namespace Eteczka.BE.Controllers
                 base64PDF = _PlikiUtils.PobierzZaszyfrowanaZawartoscPliku(filepath);
             }
 
-            return Json(new
+            var result = Json(new
             {
                 data = base64PDF
             }, JsonRequestBehavior.AllowGet);
+
+            var serializer = new JavaScriptSerializer();
+
+            // For simplicity just use Int32's max value.
+            // You could always read the value from the config section mentioned above.
+            serializer.MaxJsonLength = Int32.MaxValue;
+
+            var resultSerialized = new ContentResult
+            {
+                Content = serializer.Serialize(result),
+                ContentType = "application/json"
+            };
+            return resultSerialized;
         }
 
 
