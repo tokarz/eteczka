@@ -761,10 +761,11 @@
 }
 
 .toolbar-content {
-  margin-top: 30px;
-  overflow: hidden;
-  height: calc(100% - 30px);
-  background: white;
+    margin-top: 30px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: calc(100% - 30px);
+    background: white;
 }
 
 .table-search {
@@ -798,12 +799,12 @@
 
 .user-details,
 .user-history {
-  position: relative;
-  width: 100%;
-  float: left;
-  height: 50%;
-  /*color: $darkblue;*/
-  color: #074C75;
+    position: relative;
+    width: 100%;
+    float: left;
+    height: 50%;
+    /*color: $darkblue;*/
+    color: #074C75;
 }
 
 .active-row {
