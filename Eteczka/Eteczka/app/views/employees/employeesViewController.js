@@ -73,7 +73,7 @@ angular.module('et.controllers').controller('employeesViewController', ['$scope'
         if (value && value.trim() !== '' && value.trim().length > 1) {
             $scope.startProcessing();
 
-            if ($scope.parameters.activeTab === 0) {
+            if ($scope.parameters.activeTab.Id === 0) {
                 employeesService.searchHiredByText(value).then(function (result) {
                     $scope.parameters.loading = false;
                     $scope.parameters.employees = result.pracownicy;
@@ -81,7 +81,7 @@ angular.module('et.controllers').controller('employeesViewController', ['$scope'
                     $scope.parameters.loading = false;
                     console.error(err);
                 });
-            } else if ($scope.parameters.activeTab === 1) {
+            } else if ($scope.parameters.activeTab.Id === 1) {
                 employeesService.searchByText(value).then(function (result) {
                     $scope.parameters.loading = false;
                     $scope.parameters.employees = result.pracownicy;

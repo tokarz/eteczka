@@ -16,6 +16,37 @@ namespace Eteczka.Model.Entities
         public DateTime DataDokumentu { get; set; }
         public DateTime DataPocz { get; set; }
         public DateTime DataKoniec { get; set; }
+        public string DataSkanuStr
+        {
+            get
+            {
+                return this.DataSkanu.ToString("yyyy-MM-dd");
+            }
+        }
+        public string DataKoniecStr
+        {
+            get
+            {
+                return this.DataSkanu.ToString("yyyy-MM-dd");
+            }
+
+        }
+        public string DataDokumentuStr
+        {
+            get
+            {
+                return this.DataSkanu.ToString("yyyy-MM-dd");
+            }
+        }
+        public string DataPoczStr
+        {
+            get
+            {
+                return this.DataSkanu.ToString("yyyy-MM-dd");
+            }
+        }
+
+
         public string NazwaScan { get; set; }
         public string NazwaEad { get; set; }
         public string PelnasciezkaEad { get; set; }

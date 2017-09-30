@@ -10,7 +10,7 @@ angular.module('et.controllers').controller('mainController', ['$window', '$root
 
     $scope.startupContext = {
         title: 'EAd',
-        version: '0.2a'
+        version: '1.0'
     };
 
     $scope.currentState = {
@@ -29,4 +29,10 @@ angular.module('et.controllers').controller('mainController', ['$window', '$root
             $rootScope.isLoggedIn = false;
         });
     };
+
+    $rootScope.$on('$stateChangeStart',
+      function (event, toState, toParams, fromState, fromParams) {
+
+
+      })
 }]);

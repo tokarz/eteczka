@@ -84,7 +84,7 @@ namespace Eteczka.DB.DAO
             return fetchedUsers;
         }
 
-        public List<Pracownik> PobierzPracownikow(string firma, string limit = "100", string offset = "0", string orderby = "nazwisko,imie", bool asc = true)
+        public List<Pracownik> PobierzPracownikow(string firma, string limit = "*", string offset = "0", string orderby = "nazwisko,imie", bool asc = true)
         {
             string orderDirection = asc ? " ASC " : " DESC ";
 
@@ -210,14 +210,14 @@ namespace Eteczka.DB.DAO
             return result;
         }
 
-        public List<Pracownik> WyszukiwaczZatrPracownikowPoTekscie(string search, string firma, int limit = 100, string orderby = "nazwisko", bool asc = true)
+        public List<Pracownik> WyszukiwaczZatrPracownikowPoTekscie(string search, string firma, int limit = 500, string orderby = "nazwisko", bool asc = true)
         {
             List<Pracownik> WyszukaniPracownicyPoTekscie = new List<Pracownik>();
             string orderDirection = asc ? " ASC " : " DESC ";
 
 
             //string sqlQuery = "SELECT * FROM \"KatPracownicy\" where numeread in (select numeread from \"MiejscePracy\" where firma IN ('" + firma + "') and '" + DateTime.Now.ToString() + "' between \"MiejscePracy\".datapocz and \"MiejscePracy\".datakoniec) AND  LOWER (nazwisko) || ' ' || LOWER (imie) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (pesel) LIKE '%" + (search.ToLower().Trim()) + "%' ORDER BY " + orderby + orderDirection + "LIMIT " + limit;
-            string sqlQuery = "SELECT * FROM \"KatPracownicy\" where LOWER(nazwisko) || ' ' || LOWER(imie) || ' ' || pesel LIKE '%" + (search.ToLower().Trim()) + "%' and not usuniety and confidential < 8 and numeread in (select numeread from \"MiejscePracy\" where firma IN ('" + firma.Trim() + "') and '" + DateTime.Now.ToString().Substring(0,10) + "'  between \"MiejscePracy\".datapocz and \"MiejscePracy\".datakoniec)) ORDER BY nazwisko,imie; ";
+            string sqlQuery = "SELECT * FROM \"KatPracownicy\" where LOWER(nazwisko) || ' ' || LOWER(imie) || ' ' || pesel LIKE '%" + (search.ToLower().Trim()) + "%' and not usuniety and confidential < 8 and numeread in (select numeread from \"MiejscePracy\" where firma IN ('" + firma.Trim() + "') and '" + DateTime.Now.ToString().Substring(0,10) + "'  between \"MiejscePracy\".datapocz and \"MiejscePracy\".datakoniec) ORDER BY nazwisko,imie; ";
 
             try
             {
@@ -239,7 +239,7 @@ namespace Eteczka.DB.DAO
 
         }
 
-        public List<Pracownik> WyszukiwaczPozostZatrPracownikowPoTekscie(string search, string firma, int limit = 100, string orderby = "nazwisko", bool asc = true)
+        public List<Pracownik> WyszukiwaczPozostZatrPracownikowPoTekscie(string search, string firma, int limit = 500, string orderby = "nazwisko", bool asc = true)
         {
             List<Pracownik> WyszukaniPracownicyPoTekscie = new List<Pracownik>();
             string orderDirection = asc ? " ASC " : " DESC ";

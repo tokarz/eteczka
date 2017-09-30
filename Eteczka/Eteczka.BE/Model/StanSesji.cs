@@ -15,7 +15,8 @@ namespace Eteczka.BE.Model
             if (idSesji != null && OTWARTE_SESJE.ContainsKey(idSesji))
             {
                 SessionDetails daneSesji = OTWARTE_SESJE[idSesji];
-                result = daneSesji.SesjaAktywna && (DateTime.Now.Subtract(daneSesji.OstatniaAktywnoscSesji) <= TimeSpan.FromMinutes(10));
+                bool timeoutSesjiMinal = (DateTime.Now.Subtract(daneSesji.OstatniaAktywnoscSesji) <= TimeSpan.FromMinutes(10));
+                result = daneSesji.SesjaAktywna;
             }
 
             return result;
