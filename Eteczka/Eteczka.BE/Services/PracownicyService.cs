@@ -51,9 +51,9 @@ namespace Eteczka.BE.Services
             return pracownik;
         }
 
-        public List<Pracownik> ZnajdzPracownikow(string search)
+        public List<Pracownik> ZnajdzPracownikow(string search, SessionDetails sesja)
         {
-            List<Pracownik> pracownicy = _PracownikDao.WyszukiwaczPracownikow(search);
+            List<Pracownik> pracownicy = _PracownikDao.WyszukiwaczPracownikow(search, sesja.AktywnaFirma);
 
             return pracownicy;
 

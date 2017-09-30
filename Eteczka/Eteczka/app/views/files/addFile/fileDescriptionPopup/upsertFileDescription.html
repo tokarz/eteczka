@@ -35,14 +35,14 @@
             </div>
             <div class="modal-table-row">
                 <label class="modal-table-label" for="isDocOwner">Dokument Wlasny</label>
-                <select class="modal-table-input"
+                <select class="modal-table-input modal-select-input"
                         name="isDocOwner"
                         ng-options="option.value as option.name for option in yesNoOptions"
                         ng-model="modalResult.Dokwlasny" />
             </div>
             <div class="modal-table-row">
                 <label class="modal-table-label" for="docPart">Dzial Teczki</label>
-                <input class="modal-table-input" name="docPart" type="text" ng-model="modalResult.Typ.Jrwa" required disabled />
+                <input class="modal-table-input" name="docPart" type="text" ng-model="modalResult.Typ.Teczkadzial" required />
             </div>
             <div class="modal-table-row">
                 <label class="modal-table-label" for="creationDate">Data dokumentu</label>
@@ -62,7 +62,7 @@
                 <input class="modal-table-input"
                        name="employee"
                        type="text"
-                       placeholder="PESEL (pesel obcy)"
+                       placeholder="PESEL"
                        ng-model="pracownikPesel"
                        ng-change="findUserByPesel()"
                        ng-model-options="{updateOn: 'blur'}"
@@ -70,7 +70,7 @@
             </div>
             <div class="modal-table-row">
                 <label class="modal-table-label" for="employeeName">Pracownik</label>
-                <input class="modal-table-input" name="employeeName" type="text" ng-model="modalResult.Pracownik.Nazwisko" required disabled />
+                <input class="modal-table-input" name="employeeName"  value="{{modalResult.Pracownik.Nazwisko.trim()}} {{modalResult.Pracownik.Imie.trim()}}" type="text" required disabled/>
             </div>
             <div ng-show="upsertFileDescription.$submitted">
                 <span class="modal-table-error" ng-show="upsertFileDescription.employeeName.$error.required">Nie znaleziono pracownika o podanym peselu</span>

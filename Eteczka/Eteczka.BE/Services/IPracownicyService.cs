@@ -14,7 +14,7 @@ namespace Eteczka.BE.Services
         List<Pracownik> PobierzWszystkichZatrudnionych(SessionDetails sesja);
         List<Pracownik> PobierzPozostalych(SessionDetails sesja);
         Pracownik PobierzPoId(string numeread);
-        List<Pracownik> ZnajdzPracownikow(string search);
+        List<Pracownik> ZnajdzPracownikow(string search, SessionDetails sesja);
         List<Pracownik> ZnajdzPracownikowPoTekscie(string search, SessionDetails sesja);
         List<Pracownik> ZnajdzZatrPracownikowPoTekscie(string search, SessionDetails sesja);
         List<Pracownik> ZnajdzPozostPracownikowPoTekscie(string search, SessionDetails sesja);

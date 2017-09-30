@@ -18,11 +18,11 @@
             <div class="modal-table-row">
                 <label class="modal-table-label" for="region">Rejon</label>
                 <select ng-if="workplaceParams.loadingRegions"
-                        class="modal-table-input"
+                        class="modal-table-input modal-select-input"
                         name="region"
                         ng-options="option for option in ['processing...']" />
                 <select ng-if="!workplaceParams.loadingRegions"
-                        class="modal-table-input"
+                        class="modal-table-input modal-select-input"
                         name="region"
                         ng-model="modalResult.Rejon"
                         ng-options="option.Nazwa for option in workplaceParams.regions"
@@ -37,7 +37,7 @@
                         name="department"
                         ng-options="option for option in ['processing...']" />
                 <select ng-if="!workplaceParams.loadingDepartments"
-                        class="modal-table-input"
+                        class="modal-table-input modal-select-input"
                         name="department"
                         ng-model="modalResult.Wydzial"
                         ng-options="option.Nazwa for option in workplaceParams.departments"
@@ -49,13 +49,13 @@
             <div class="modal-table-row">
                 <label class="modal-table-label" for="subDepartment">Podwydzial</label>
                 <select ng-if="workplaceParams.loadingSubDepartments"
-                        class="modal-table-input"
+                        class="modal-table-input modal-select-input"
                         name="subDepartment"
                         ng-model="modalResult.Podwydzial"
                         ng-disabled="!modalResult.Wydzial"
                         ng-options="option for option in ['processing...']" />
                 <select ng-if="!workplaceParams.loadingSubDepartments"
-                        class="modal-table-input"
+                        class="modal-table-input modal-select-input"
                         name="subDepartment"
                         ng-model="modalResult.Podwydzial"
                         ng-disabled="!modalResult.Wydzial || workplaceParams.subDepartments.length === 0"
