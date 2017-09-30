@@ -126,11 +126,17 @@ namespace Eteczka.DB.DAO
             return pobranyPracownik;
         }
 
-        public List<Pracownik> WyszukiwaczPracownikow(string search)
+        public List<Pracownik> WyszukiwaczPracownikow(string search, string firma)
         {
             List<Pracownik> WyszukaniPracownicy = new List<Pracownik>();
 
-            string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE  LOWER (imie) = '" + (search.ToLower().Trim()) + "' OR LOWER (nazwisko) = '" + (search.ToLower().Trim()) + "' OR LOWER (pesel) = '" + (search.ToLower().Trim()) + "' ";
+            string sqlQuery =
+                "SELECT * " +
+                "FROM \"KatPracownicy\" " +
+                "WHERE  pesel = '" + (search.ToLower().Trim()) + "'  AND " +
+                "       not usuniety AND " +
+                "       confidential < 10 AND " +
+                "       numeread in (SELECT numeread FROM \"MiejscePracy\" WHERE firma IN ('" + firma.Trim() + "'));";
 
             try
             {

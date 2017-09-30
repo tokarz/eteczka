@@ -121,7 +121,8 @@ namespace Eteczka.BE.Controllers
 
             if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
             {
-                pracownicy = _PracownicyService.ZnajdzPracownikow(search);
+                SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                pracownicy = _PracownicyService.ZnajdzPracownikow(search, sesja);
             }
 
             return Json(new

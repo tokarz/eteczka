@@ -29,7 +29,7 @@ angular.module('et.controllers').controller('filesViewController', ['$scope', 'c
         }
 
         $scope.yesNoOptions = [{ name: 'TAK', value: true }, { name: 'NIE', value: false }]
-        $scope.modalResult.Dokwlasny = $scope.modalResult.Dokwlasny || $scope.yesNoOptions[0];
+        $scope.modalResult.Dokwlasny = $scope.modalResult.Dokwlasny || $scope.yesNoOptions[0].value;
         $scope.modalResult.Nazwa = name;
 
         $scope.pracownikPesel = '';
