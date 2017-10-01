@@ -166,7 +166,11 @@ namespace Eteczka.DB.DAO
             //string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE  LOWER (nazwisko) || ' ' || LOWER (imie) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (pesel) LIKE '%" + (search.ToLower().Trim()) + "%' ORDER BY " + orderby + orderDirection + "LIMIT " + limit;
 
             //string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE  numeread in (select numeread from \"MiejscePracy\" where  firma = " + firma + " and LOWER (nazwisko) || ' ' || LOWER (imie) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (pesel) LIKE '%" + (search.ToLower().Trim()) + "%' ORDER BY " + orderby + orderDirection + "LIMIT " + limit;
-            string sqlQuery = "SELECT * FROM \"KatPracownicy\" where LOWER (nazwisko) || ' ' || LOWER (imie) || ' ' || pesel LIKE '%" + (search.ToLower().Trim()) + "%'  and not usuniety and confidential < 8 and numeread in (select numeread from \"MiejscePracy\" where firma IN ('" + firma.Trim() + "')) ORDER BY nazwisko,imie;";
+            string sqlQuery = 
+                "SELECT * FROM \"KatPracownicy\" " +
+                "where LOWER (nazwisko) || ' ' || LOWER (imie) || ' ' || pesel LIKE" +
+                "'%'" + (search.ToLower().Trim()) + "'%'  and not usuniety and confidential < 8 " +
+                " and numeread in (select numeread from \"MiejscePracy\" where firma IN ('" + firma.Trim() + "')) ORDER BY nazwisko,imie;";
 
             try
             {
@@ -250,8 +254,8 @@ namespace Eteczka.DB.DAO
             List<Pracownik> WyszukaniPracownicyPoTekscie = new List<Pracownik>();
             string orderDirection = asc ? " ASC " : " DESC ";
 
-            //string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE  LOWER (imie) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (nazwisko) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (pesel) LIKE '%" + (search.ToLower().Trim()) + "%' ORDER BY " + orderby + orderDirection + "LIMIT " + limit;
-            string sqlQuery = "SELECT * FROM \"KatPracownicy\" where numeread not in  (select numeread from \"MiejscePracy\" where firma IN ('" + firma.Trim() + "') and '" + DateTime.Now.ToString().Substring(0,10) + "' between \"MiejscePracy\".datapocz and \"MiejscePracy\".datakoniec) AND  LOWER (nazwisko) || ' ' || LOWER (imie) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (pesel) LIKE '%" + (search.ToLower().Trim()) + "%' ORDER BY " + orderby + orderDirection + "LIMIT " + limit;
+            string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE  LOWER (imie) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (nazwisko) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (pesel) LIKE '%" + (search.ToLower().Trim()) + "%' ORDER BY " + orderby + orderDirection + "LIMIT " + limit;
+            //string sqlQuery = "SELECT * FROM \"KatPracownicy\" where numeread not in  (select numeread from \"MiejscePracy\" where firma IN ('" + firma.Trim() + "') and '" + DateTime.Now.ToString().Substring(0,10) + "' between \"MiejscePracy\".datapocz and \"MiejscePracy\".datakoniec) AND  LOWER (nazwisko) || ' ' || LOWER (imie) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (pesel) LIKE '%" + (search.ToLower().Trim()) + "%' ORDER BY " + orderby + orderDirection + "LIMIT " + limit;
 
             try
             {

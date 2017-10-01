@@ -44,10 +44,37 @@ namespace Eteczka.DB.DAO
             return result;
         }
 
-        public List<MiejscePracyDlaPracownika> PobierzMiejscaPracyDlaPracownika(string numerEad)
+        public List<MiejscePracyDlaPracownika> PobierzMiejscaPracyDlaPracownika(string numerEad, string firma)
         {
             List<MiejscePracyDlaPracownika> result = new List<MiejscePracyDlaPracownika>();
-            string sqlQuery = "SELECT datapocz, datakoniec, \"MiejscePracy\".firma, \"KatRejony\".nazwa as rejon, \"KatWydzial\".nazwa as wydzial, \"KatPodWydzial\".nazwa as podwydzial, konto5 from \"MiejscePracy\" left outer join \"KatRejony\" on \"MiejscePracy\".rejon = \"KatRejony\".rejon and \"MiejscePracy\".firma = \"KatRejony\".firma left outer join \"KatWydzial\" on \"MiejscePracy\".wydzial = \"KatWydzial\".wydzial and \"MiejscePracy\".firma = \"KatWydzial\".firma left outer join \"KatPodWydzial\" on \"MiejscePracy\".podwydzial = \"KatPodWydzial\".podwydzial and \"MiejscePracy\".firma = \"KatPodWydzial\".firma and \"MiejscePracy\".wydzial = \"KatPodWydzial\".wydzial where numeread = '" + numerEad + "';";
+            //            string sqlQuery = "SELECT datapocz, datakoniec, \"MiejscePracy\".firma, \"KatRejony\".nazwa as rejon, \"KatWydzial\".nazwa as wydzial, \"KatPodWydzial\".nazwa as podwydzial, konto5 from \"MiejscePracy\" left outer join \"KatRejony\" on \"MiejscePracy\".rejon = \"KatRejony\".rejon and \"MiejscePracy\".firma = \"KatRejony\".firma left outer join \"KatWydzial\" on \"MiejscePracy\".wydzial = \"KatWydzial\".wydzial and \"MiejscePracy\".firma = \"KatWydzial\".firma left outer join \"KatPodWydzial\" on \"MiejscePracy\".podwydzial = \"KatPodWydzial\".podwydzial and \"MiejscePracy\".firma = \"KatPodWydzial\".firma and \"MiejscePracy\".wydzial = \"KatPodWydzial\".wydzial where numeread = '" + numerEad + "';";
+            string sqlQuery =
+                "SELECT " +
+                    "datapocz," +
+                    "datakoniec, " +
+                    "\"MiejscePracy\".firma, " +
+                    "\"MiejscePracy\".rejon, " +
+                    "\"MiejscePracy\".wydzial, " +
+                    "\"MiejscePracy\".podwydzial, " +
+                    "\"KatRejony\".nazwa as rejonnazwa, " +
+                    "\"KatWydzial\".nazwa as wydzialnazwa, " +
+                    "\"KatPodWydzial\".nazwa as podwydzialnazwa, " +
+                    "konto5 " +
+                "FROM \"MiejscePracy\" " +
+                "LEFT OUTER JOIN \"KatRejony\" " +
+                    "ON \"MiejscePracy\".firma = \"KatRejony\".firma AND \"MiejscePracy\".rejon = \"KatRejony\".rejon " +
+                "LEFT OUTER JOIN \"KatWydzial\" " +
+                    "ON \"MiejscePracy\".firma = \"KatWydzial\".firma AND " +
+                        "\"MiejscePracy\".wydzial = \"KatWydzial\".wydzial " +
+                "LEFT OUTER JOIN \"KatPodWydzial\" " +
+                    "ON \"MiejscePracy\".firma = \"KatPodWydzial\".firma AND " +
+                        "\"MiejscePracy\".wydzial = \"KatPodWydzial\".wydzial AND " +
+                        "\"MiejscePracy\".podwydzial = \"KatPodWydzial\".podwydzial " +
+                "WHERE  NOT \"MiejscePracy\".usuniety AND " +
+                        "numeread = '" + numerEad.Trim() + "' AND " +
+                        "\"MiejscePracy\".firma IN ( '" + firma.Trim() + "' );";
+
+
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
             DataTable fetchedResult = connectionState.ExecuteQuery(sqlQuery);
             foreach (DataRow row in fetchedResult.Rows)
