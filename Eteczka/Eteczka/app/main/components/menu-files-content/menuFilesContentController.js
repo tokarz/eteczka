@@ -37,7 +37,7 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$sco
 
     $scope.$watch('rows', function (value) {
         if (value) {
-            $scope.userFiles = value.pliki;
+            $scope.userFiles = value;
         }
     });
 }]);

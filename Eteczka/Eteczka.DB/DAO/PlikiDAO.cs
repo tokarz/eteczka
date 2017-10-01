@@ -162,9 +162,22 @@ namespace Eteczka.DB.DAO
             return fetchedDok;
         }
 
-        public List<Pliki> WyszukajPlikiZFiltrow (string firma, string rejon, string wydzial, string podwydzial, string konto5, string pesel)
+        public List<Pliki> WyszukajPlikiZFiltrow(string firma, string rejon, string wydzial, string podwydzial, string konto5, string typ, string pesel)
         {
-            return null;
+            //TODO: Tutaj kwerenda Paszczaka z filtrami!!
+            string sqlQuery = "SELECT * from \"Pliki\";";
+
+            List<Pliki> fetchedResult = new List<Pliki>();
+
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+            DataTable result = connectionState.ExecuteQuery(sqlQuery);
+            foreach (DataRow row in result.Rows)
+            {
+                Pliki fetchedDok = _PlikiMapper.MapujZSql(row);
+                fetchedResult.Add(fetchedDok);
+            }
+
+            return fetchedResult;
         }
     }
 }

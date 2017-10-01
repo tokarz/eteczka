@@ -9,11 +9,11 @@ namespace Eteczka.Model.DTO
 {
     public class FiltryPlikow
     {
-        public string Rejon { get; set;}
-        public string Wydzial { get; set; }
-        public string Podwydzial { get; set; }
-        public string Konto5 { get; set; }
         public string Pracownik { get; set; }
-
+        public KatRejony Rejon { get; set; }
+        public KatWydzialy Wydzial { get; set; }
+        public KatPodWydzialy Podwydzial { get; set; }
+        public KatKonto5 Konto5 { get; set; }
+        public KatDokumentyRodzaj Typ { get; set; }
     }
 }

@@ -22,13 +22,13 @@ namespace Eteczka.BE.Controllers
             string base64PDF = "";
             if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
             {
-                string firma = Sesja.PobierzStanSesji().PobierzSesje(sessionId).AktywnaFirma;
+                string firma = Sesja.PobierzStanSesji().PobierzSesje(sessionId).AktywnaFirma.Trim();
                 string eadRootName = ConfigurationManager.AppSettings["rootdir"];
                 string pliki = ConfigurationManager.AppSettings["filesdir"];
 
                 string eadRoot = Environment.GetEnvironmentVariable(eadRootName);
 
-                string filepath = System.IO.Path.Combine(eadRoot, pliki, firma, fileName);
+                string filepath = System.IO.Path.Combine(eadRoot, pliki, firma, fileName.Trim());
 
                 base64PDF = _PlikiUtils.PobierzZaszyfrowanaZawartoscPliku(filepath);
             }

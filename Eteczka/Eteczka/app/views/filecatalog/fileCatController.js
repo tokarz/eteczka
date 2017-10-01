@@ -1,6 +1,5 @@
 ﻿'use strict';
-angular.module('et.controllers').controller('fileCatController', ['$scope', 'fileCatService', function ($scope, fileCatService) {
-
+angular.module('et.controllers').controller('fileCatController', ['$scope', '$q', 'fileCatService', function ($scope, $q, fileCatService) {
     $scope.areasFilters = [];
     $scope.assignArea = function () {
     }
@@ -34,48 +33,73 @@ angular.module('et.controllers').controller('fileCatController', ['$scope', 'fil
     }
 
     $scope.init = function () {
+        var deferred = $q.defer();
         fileCatService.getDocumentTypes().then(function (res) {
             $scope.documentTypeFilters = res.PobraneDokumenty;
             $scope.selectedType = $scope.documentTypeFilters[0];
-        });
 
-        fileCatService.getRegions().then(function (res) {
-            $scope.areasFilters = res.Rejony;
-            $scope.selectedArea = $scope.areasFilters[0];
-        });
+            fileCatService.getRegions().then(function (res) {
+                $scope.areasFilters = res.Rejony;
+                $scope.selectedArea = $scope.areasFilters[0];
 
-        fileCatService.getDepartments().then(function (res) {
-            $scope.departmentFilters = res.Wydzialy;
-            $scope.selectedDepartment = $scope.departmentFilters[0];
-            if ($scope.selectedDepartment && $scope.selectedDepartment.Wydzial) {
-                fileCatService.getSubDepartments($scope.selectedDepartment.Wydzial.trim()).then(function (res) {
-                    $scope.subDepartmentsFilters = res.PodWydzialy;
-                    $scope.selectedSubDepartment = $scope.subDepartmentsFilters[0];
+                fileCatService.getDepartments().then(function (res) {
+                    $scope.departmentFilters = res.Wydzialy;
+                    $scope.selectedDepartment = $scope.departmentFilters[0];
+                    if ($scope.selectedDepartment && $scope.selectedDepartment.Wydzial) {
+                        fileCatService.getSubDepartments($scope.selectedDepartment.Wydzial.trim()).then(function (res) {
+                            $scope.subDepartmentsFilters = res.PodWydzialy;
+                            $scope.selectedSubDepartment = $scope.subDepartmentsFilters[0];
+
+                            fileCatService.getSubDepartments().then(function (res) {
+                                $scope.subDepartmentsFilters = res.PodWydzialy;
+                                $scope.selectedSubDepartment = $scope.subDepartmentsFilters[0];
+
+                                fileCatService.getAccounts5().then(function (res) {
+                                    $scope.account5Filters = res.pobraneKonta5;
+                                    $scope.selectedAccount5 = $scope.account5Filters[0];
+
+                                    $scope.selectedUser = '';
+
+                                    deferred.resolve(true);
+                                });
+                            });
+                        });
+                    } else {
+                        fileCatService.getSubDepartments().then(function (res) {
+                            $scope.subDepartmentsFilters = res.PodWydzialy;
+                            $scope.selectedSubDepartment = $scope.subDepartmentsFilters[0];
+
+                            fileCatService.getAccounts5().then(function (res) {
+                                $scope.account5Filters = res.pobraneKonta5;
+                                $scope.selectedAccount5 = $scope.account5Filters[0];
+
+                                $scope.selectedUser = '';
+
+                                deferred.resolve(true);
+                            });
+                        });
+                    }
                 });
-            }
+            });
         });
 
-        fileCatService.getSubDepartments().then(function (res) {
-            $scope.subDepartmentsFilters = res.PodWydzialy;
-            $scope.selectedSubDepartment = $scope.subDepartmentsFilters[0];
-        });
-
-        fileCatService.getAccounts5().then(function (res) {
-            $scope.account5Filters = res.pobraneKonta5;
-            $scope.selectedAccount5 = $scope.account5Filters[0];
-        });
-
-        $scope.selectedUser = '';
+        return deferred.promise;
     }
 
     $scope.clearAllFilters = function () {
-        $scope.init();
+        $scope.init().then(function () {
+            $scope.reloadTableContents();
+        });
     }
 
     $scope.reloadTableContents = function () {
-        alert('reload!');
+        fileCatService.getValuesForFilters($scope.selectedArea, $scope.selectedDepartment, $scope.selectedSubDepartment, $scope.selectedAccount5, $scope.selectedType, $scope.selectedUser).then(function (result) {
+            $scope.rows = result.pliki;
+        });
     }
 
+    $scope.init().then(function () {
+        $scope.reloadTableContents();
+    });
 
-    $scope.init();
 }]);

@@ -26,6 +26,19 @@ angular.module('et.services').factory('fileCatService', ['httpService', 'session
             return httpService.get('KatDokumentyRodzaj/PobierzWszystkieRodzajeDokumentow', {
                 sessionId: sessionService.getSessionId()
             });
+        },
+        getValuesForFilters: function (rejon, wydzial, podwydzial, konto5, typ, user) {
+            return httpService.post('Pliki/PobierzPlikiWgFiltrow', {
+                sessionId: sessionService.getSessionId(),
+                filtry: {
+                    Rejon: rejon,
+                    Wydzial: wydzial,
+                    Podwydzial: podwydzial,
+                    Konto5: konto5,
+                    Typ: typ,
+                    Pracownik: user
+                }
+            });
         }
     }
 

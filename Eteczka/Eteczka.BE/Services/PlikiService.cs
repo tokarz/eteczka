@@ -146,11 +146,23 @@ namespace Eteczka.BE.Services
             return result;
         }
 
-        public List<Pliki> SzukajPlikiZFiltrow (SessionDetails sesja, FiltryPlikow filtry)
+        public List<Pliki> SzukajPlikiZFiltrow(SessionDetails sesja, FiltryPlikow filtry)
         {
-            List<Pliki> WyszukanePliki = _Dao.WyszukajPlikiZFiltrow(sesja.AktywnaFirma, filtry.Rejon, filtry.Wydzial, filtry.Podwydzial, filtry.Konto5, filtry.Pracownik);
-            return null;
+            List<Pliki> wyszukanePliki = new List<Pliki>();
+            if (filtry != null)
+            {
+
+                string rejon = (filtry.Rejon != null) ? filtry.Rejon.Firma : "";
+                string wydzial = (filtry.Wydzial != null) ? filtry.Wydzial.Nazwa : "";
+                string podwydzial = (filtry.Podwydzial != null) ? filtry.Podwydzial.Nazwa : "";
+                string konto5 = (filtry.Konto5 != null) ? filtry.Konto5.Konto5 : "";
+                string typ = (filtry.Typ != null) ? filtry.Typ.Nazwa : "";
+
+                wyszukanePliki = _Dao.WyszukajPlikiZFiltrow(sesja.AktywnaFirma, rejon, wydzial, podwydzial, konto5, typ, filtry.Pracownik);
+            }
+            return wyszukanePliki;
         }
+
 
 
     }

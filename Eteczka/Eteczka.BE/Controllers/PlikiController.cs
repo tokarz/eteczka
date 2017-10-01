@@ -109,18 +109,22 @@ namespace Eteczka.BE.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult PobierzPlikiWgFiltrow (string sessionId, FiltryPlikow Filtry)
+        [HttpPost]
+        public ActionResult PobierzPlikiWgFiltrow(string sessionId, FiltryPlikow filtry)
         {
-            List<Pliki> Pliki = new List<Pliki>();
+            List<Pliki> pliki = new List<Pliki>();
 
             if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
             {
                 SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
 
-                Pliki = _PlikiService.SzukajPlikiZFiltrow(sesja, Filtry);
+                pliki = _PlikiService.SzukajPlikiZFiltrow(sesja, filtry);
             }
 
-            return null;
+            return Json(new
+            {
+                pliki = pliki
+            }, JsonRequestBehavior.AllowGet);
         }
 
     }
