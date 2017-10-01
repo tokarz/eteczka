@@ -146,6 +146,12 @@ namespace Eteczka.BE.Services
             return result;
         }
 
+        public List<Pliki> SzukajPlikiZFiltrow (SessionDetails sesja, FiltryPlikow filtry)
+        {
+            List<Pliki> WyszukanePliki = _Dao.WyszukajPlikiZFiltrow(sesja.AktywnaFirma, filtry.Rejon, filtry.Wydzial, filtry.Podwydzial, filtry.Konto5, filtry.Pracownik);
+            return null;
+        }
+
 
     }
 }

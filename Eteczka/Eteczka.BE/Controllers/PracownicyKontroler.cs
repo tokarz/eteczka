@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using Eteczka.Model.Entities;
-using Eteczka.BE.Services;
 using System.Web.Script.Serialization;
 using System;
 using Eteczka.BE.Model;
 using NLog;
+using Eteczka.BE.Services;
 
 namespace Eteczka.BE.Controllers
 {
