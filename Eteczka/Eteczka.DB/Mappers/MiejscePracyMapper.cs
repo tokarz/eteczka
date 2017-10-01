@@ -44,7 +44,7 @@ namespace Eteczka.DB.Mappers
                 Rejon = row[3].ToString(),
                 Wydzial = row[4].ToString(),
                 Podwydzial = row[5].ToString(),
-                Konto5 = row[6].ToString()
+                Konto5 = row[9].ToString()
             };
 
             return result;

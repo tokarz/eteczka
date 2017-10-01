@@ -8,6 +8,7 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
                 result.MiejscaPracy.forEach(function (workplace) {
                     var region = getRegionById(workplace.Rejon)
                     var department = getDepartmentById(workplace.Wydzial)
+                    var account5 = getAccount5ByNumber(workplace.Konto5)
 
                     if (typeof workplace.Podwydzial !== 'string' || workplace.Podwydzial.trim() === '') {
                         workplace.Podwydzial = {}
@@ -20,6 +21,7 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
 
                     workplace.Rejon = region
                     workplace.Wydzial = department
+                    workplace.Konto5 = account5
 
                     $scope.workplaces.push(workplace)
                 });
@@ -103,6 +105,22 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
 
                 return {}
             });
+    }
+
+    var getAccount5ByNumber = function (account5Number) {
+        if (typeof account5Number !== 'string' || account5Number.trim() === '') {
+            return {}
+        }
+
+        var account5 = $scope.workplaceParams.accounts5.find(function (item) {
+            return item.Konto5.trim() === account5Number.trim()
+        })
+
+        if (typeof account5 === 'undefined') {
+            return {}
+        }
+
+        return account5
     }
 
     var loadActiveCompany = function () {
