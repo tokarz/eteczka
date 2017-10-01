@@ -161,5 +161,10 @@ namespace Eteczka.DB.DAO
 
             return fetchedDok;
         }
+
+        public List<Pliki> WyszukajPlikiZFiltrow (string firma, string rejon, string wydzial, string podwydzial, string konto5, string pesel)
+        {
+            return null;
+        }
     }
 }

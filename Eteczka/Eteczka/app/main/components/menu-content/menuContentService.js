@@ -7,24 +7,24 @@ angular.module('et.services').factory('menuContentService', ['httpService', 'ses
                 numeread: pracownik.Numeread
             });
         },
-        getActiveCompany: function (sessionId) {
-            return httpService.get('Firmy/PobierzAktywnaFirme', { sessionId: sessionId })
+        getActiveCompany: function () {
+            return httpService.get('Firmy/PobierzAktywnaFirme', { sessionId: sessionService.getSessionId() })
         },
-        getRegionsForFirm: function (sessionId) {
-            return httpService.get('Rejony/PobierzRejonyDlaWybranejFirmy', { sessionId: sessionId })
+        getRegionsForFirm: function () {
+            return httpService.get('Rejony/PobierzRejonyDlaWybranejFirmy', { sessionId: sessionService.getSessionId() })
         },
-        getDepartmentsForFirm: function (sessionId) {
-            return httpService.get('Wydzialy/PobierzWydzialy', { sessionId: sessionId })
+        getDepartmentsForFirm: function () {
+            return httpService.get('Wydzialy/PobierzWydzialy', { sessionId: sessionService.getSessionId() })
         },
-        getSubDepartmets: function (sessionId, department) {
+        getSubDepartmets: function (department) {
             return httpService.get('PodWydzial/PobierzWszystkiePodwydzialy', {
-                sessionId: sessionId,
+                sessionId: sessionService.getSessionId(),
                 wydzial: department
             });
         },
-        getAccounts5: function (sessionId) {
+        getAccounts5: function () {
             return httpService.get('Konto5/PobierzKonta5', {
-                sessionId: sessionId
+                sessionId: sessionService.getSessionId()
             });
         }
         

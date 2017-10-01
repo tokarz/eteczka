@@ -5,6 +5,7 @@ using NSubstitute;
 using NUnit.Framework;
 using System.Data;
 using Eteczka.DB.Utils;
+using System.Collections.Generic;
 
 namespace Eteczka.DB.DAO
 {
@@ -36,12 +37,14 @@ namespace Eteczka.DB.DAO
         {
             KatLoginy someResult = new KatLoginy();
             string sqlQuery = "SELECT * from \"KatLoginy\" WHERE identyfikator = 'someUser' and haslolong = 'HASHED_PASSWORD';";
+
             DataTable queryResult = Substitute.For<DataTable>();
 
             _ConnectionFactory.CreateConnectionToDB(null).ReturnsForAnyArgs(_ConnectionState);
             _Crypto.CalculateMD5Hash("somePassword").Returns("HASHED_PASSWORD");
             _ConnectionState.ExecuteQuery(sqlQuery).Returns(queryResult);
             _Mapper.Map(queryResult).Returns(someResult);
+
             KatLoginy result = _Sut.WczytajPracownikaPoNazwieIHasle("someUser", "somePassword");
 
             Assert.IsNotNull(result);
@@ -51,6 +54,23 @@ namespace Eteczka.DB.DAO
             _Mapper.Received().Map(queryResult);
         }
 
+        [Test]
+        public void WczytajDetaleDlaUzytkownika()
+        {
+            List<KatLoginyDetale> oczekiwanaLista = new List<KatLoginyDetale>();
+            DataTable queryResult = Substitute.For<DataTable>();
+
+            string sqlQuery = "SELECT * from \"KatLoginyDetale\" WHERE identyfikator = 'jakiesId';";
+            _ConnectionFactory.CreateConnectionToDB(_Connection).Returns(_ConnectionState);
+            _ConnectionState.ExecuteQuery(sqlQuery).Returns(queryResult);
+
+            List<KatLoginyDetale>  result = _Sut.WczytajDetaleDlaUzytkownika("jakiesId");
+            Assert.IsNotNull(result);
+            Assert.AreSame(oczekiwanaLista, result);
+
+
+
+        }
 
     }
 }

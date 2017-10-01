@@ -14,5 +14,6 @@ namespace Eteczka.BE.Services
         MetaDanePliku PobierzMetadane(string plik);
         StanPlikow PobierzStanPlikow(string sessionId);
         bool ZakomitujPlikDoBazy(KomitPliku plik, string firma, string idOper);
+        List<Pliki> SzukajPlikiZFiltrow(SessionDetails sesja, FiltryPlikow filtry);
     }
 }
