@@ -19,12 +19,13 @@ namespace Eteczka.BE.Controllers
         public ActionResult MiejscePracyDlaPracownika(string sessionId, string numeread)
         {
             List<MiejscePracyDlaPracownika> miejscaPracy = new List<MiejscePracyDlaPracownika>();
+            SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
 
-            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            if (sesja != null)
             {
                 if (numeread != null)
                 {
-                    miejscaPracy = _MiejscePracyService.PobierzMiejscaPracyDlaPracownika(numeread);
+                    miejscaPracy = _MiejscePracyService.PobierzMiejscaPracyDlaPracownika(numeread, sesja.AktywnaFirma);
                 }
             }
             return Json(new

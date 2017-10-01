@@ -6,6 +6,6 @@ namespace Eteczka.BE.Services
 {
     public interface IMiejscePracyService
     {
-        List<MiejscePracyDlaPracownika> PobierzMiejscaPracyDlaPracownika(string numerEad);
+        List<MiejscePracyDlaPracownika> PobierzMiejscaPracyDlaPracownika(string numerEad, string firma);
     }
 }

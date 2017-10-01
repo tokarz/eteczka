@@ -20,9 +20,9 @@ namespace Eteczka.BE.Services
             this._MiejscePracyDao = miejscePracyDao;
         }
 
-        public List<MiejscePracyDlaPracownika> PobierzMiejscaPracyDlaPracownika(string numerEad)
+        public List<MiejscePracyDlaPracownika> PobierzMiejscaPracyDlaPracownika(string numerEad, string firma)
         {
-            List<MiejscePracyDlaPracownika> pobraneMiejscaPracy = _MiejscePracyDao.PobierzMiejscaPracyDlaPracownika(numerEad);
+            List<MiejscePracyDlaPracownika> pobraneMiejscaPracy = _MiejscePracyDao.PobierzMiejscaPracyDlaPracownika(numerEad, firma);
 
             return pobraneMiejscaPracy;
         }

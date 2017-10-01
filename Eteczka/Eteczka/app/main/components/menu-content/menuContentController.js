@@ -170,7 +170,6 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
         $scope.loadSubDepartmentList = function (department) {
             $scope.workplaceParams.loadingSubDepartments = true;
             $scope.workplaceParams.subDepartments = []
-            console.log('laduje podwydziay', $scope.sessionId, department)
             return menuContentService.getSubDepartmets($scope.sessionId, department.Wydzial)
                 .then(function (result) {
                     console.log('podwydzialy', result)
