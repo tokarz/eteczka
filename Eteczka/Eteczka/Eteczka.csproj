@@ -328,6 +328,8 @@
     <Content Include="app\views\employees\employeesViewController.js" />
     <Content Include="app\views\employees\employeesViewDirective.js" />
     <Content Include="app\views\filecatalog\filecatalogDirective.js" />
+    <Content Include="app\views\filecatalog\fileCatController.js" />
+    <Content Include="app\views\filecatalog\fileCatService.js" />
     <Content Include="app\views\filecatalog\fileCatView.html" />
     <Content Include="app\views\files\addFile\addFile.html" />
     <Content Include="app\views\files\addFile\addFileController.js" />

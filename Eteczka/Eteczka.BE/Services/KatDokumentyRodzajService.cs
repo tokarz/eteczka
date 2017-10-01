@@ -18,8 +18,6 @@ namespace Eteczka.BE.Services
             this._KatDokumentyRodzajDAO = KatDokumentyRodzajDAO;
         }
 
-    
-    
        public List<KatDokumentyRodzaj> PobierzRodzDok()
         {
             List<KatDokumentyRodzaj> PobraneDok = _KatDokumentyRodzajDAO.PobierzWszystkieRodzDok();

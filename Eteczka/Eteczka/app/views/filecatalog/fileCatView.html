@@ -1,1 +1,50 @@
-﻿<div>FILECAT</div>
+﻿<div class="option-wrapper">
+    <div class="filters-panel">
+        <div class="filter-option">
+            <label>Filtry</label>
+            <select ng-options="filter.Nazwa for filter in areasFilters" ng-model="selectedArea" ng-change="assignArea()">
+                <option disabled>Wybierz...</option>
+            </select>
+        </div>
+        <div class="filter-option">
+            <label>Wydzialy</label>
+            <select ng-options="filter.Nazwa for filter in departmentFilters" ng-model="selectedDepartment" ng-change="assignDepartment()">
+                <option disabled>Wybierz...</option>
+            </select>
+        </div>
+        <div class="filter-option" ng-show="subDepartmentsFilters && subDepartmentsFilters.length > 0">
+            <label>Podwydzialy</label>
+            <select ng-options="filter.Nazwa for filter in subDepartmentsFilters" ng-model="selectedSubDepartment" ng-change="assignSubDepartment()">
+                <option disabled>Wybierz...</option>
+            </select>
+        </div>
+        <div class="filter-option">
+            <label>Konta5</label>
+            <select ng-options="filter.Nazwa for filter in account5Filters" ng-model="selectedAccount5" ng-change="assignAccount5()">
+                <option disabled>Wybierz...</option>
+            </select>
+        </div>
+        <div class="filter-option">
+            <label>Rodzaj Dokumentu</label>
+            <select ng-options="filter.Nazwa for filter in documentTypeFilters" ng-model="selectedType" ng-change="assignType()">
+                <option disabled>Wybierz...</option>
+            </select>
+        </div>
+        <div class="filter-option">
+            <label>Pracownik</label>
+            <input ng-model="selectedUser" type="search" ng-change="searchForUser" />
+        </div>
+        <div class="filter-buttons-option">
+            <button class="login-button" ng-click="reloadTableContents()">Filtruj</button>
+            <button class="login-button" ng-click="clearAllFilters()">Wyczysc</button>
+        </div>
+    </div>
+    <div class="files-table-wrapper">
+        <div class="user-details-list toolbar-content"></div>
+        <div class="option-wrapper" style="width:100%;">
+            <div class="component-content-wrapper" style="width:100%">
+                <menu-files-content rows="foundRows"></menu-files-content>
+            </div>
+        </div>
+    </div>
+</div>

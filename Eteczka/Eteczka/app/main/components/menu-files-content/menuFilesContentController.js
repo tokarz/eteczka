@@ -20,6 +20,10 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$sco
             result += ' active-row';
         }
 
+        if (file.checked) {
+            result += ' checked-row';
+        }
+
         return result;
     }
 
@@ -28,6 +32,12 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$sco
             filesViewService.getFilesForUser(user).then(function (result) {
                 $scope.userFiles = result.pliki;
             });
+        }
+    });
+
+    $scope.$watch('rows', function (value) {
+        if (value) {
+            $scope.userFiles = value.pliki;
         }
     });
 }]);

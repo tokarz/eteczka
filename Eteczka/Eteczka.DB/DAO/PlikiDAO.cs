@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Eteczka.Model.Entities;
 using System.Data;
 using Eteczka.DB.Connection;
-using System.Collections.Generic;
 using Eteczka.DB.Mappers;
 using Eteczka.Model.DTO;
 using System.IO;
@@ -48,7 +45,7 @@ namespace Eteczka.DB.DAO
         public bool KomitujPlik(KomitPliku plik, string firma, string idOper)
         {
             bool result = false;
-            bool filewasMoved = false;
+
             string nazwaPliku = firma.Trim() + "_" + DateTime.Now.Millisecond + "_" + plik.Nazwa.Trim();
 
             string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
@@ -65,7 +62,7 @@ namespace Eteczka.DB.DAO
                 File.Move(plikZrodlowy, Path.Combine(katalogDocelowy, nazwaPliku));
                 if (File.Exists(Path.Combine(katalogDocelowy, nazwaPliku)))
                 {
-                    filewasMoved = true;
+
                     object[] args = new object[]  {
                             firma.Trim(),
                             plik.Pracownik.Numeread.Trim(),
@@ -87,8 +84,9 @@ namespace Eteczka.DB.DAO
                             DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture),
                             DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture),
                             plik.Typ.Teczkadzial.Trim()
-
                         };
+
+
                     string values = string.Format("'{0}', '{1}', '{2}', '{3}','{4}', '{5}','{6}', '{7}','{8}', '{9}','{10}', '{11}','{12}', '{13}','{14}', '{15}','{16}', '{17}', '{18}', '{19}'", args);
                     string insertStatement = "INSERT INTO \"Pliki\" (firma, numeread, symbol, dataskanu, datadokumentu, datapocz, datakoniec, nazwascan, nazwaead, pelnasciezkaead, typpliku, opisdodatkowy, dokwlasny, systembazowy, usuniety, idoper, idakcept, datamodify, dataakcept, teczkadzial) VALUES (" + values + ");";
 
