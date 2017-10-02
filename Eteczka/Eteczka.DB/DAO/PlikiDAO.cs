@@ -48,14 +48,20 @@ namespace Eteczka.DB.DAO
 
             try
             {
-                object[] args = new object[]  {
+                if (plik != null)
+                {
+                    string dataWytworzenia = ParsujDate(plik.DataWytworzenia);
+                    string dataPocz = ParsujDate(plik.DataPocz);
+                    string dataKoniec = ParsujDate(plik.DataKoniec);
+
+                    object[] args = new object[]  {
                             firma.Trim(),
                             plik.Pracownik.Numeread.Trim(),
                             plik.Typ.Symbol.Trim(),
-                            plik.DataWytworzenia.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture),
+                            dataWytworzenia,
                             DateTime.Now.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture),
-                            plik.DataPocz.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture),
-                            plik.DataKoniec.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture),
+                            dataPocz,
+                            dataKoniec,
                             nazwaPliku,
                             nazwaPliku,
                             plikZrodlowy,
@@ -72,16 +78,33 @@ namespace Eteczka.DB.DAO
                         };
 
 
-                string values = string.Format("'{0}', '{1}', '{2}', '{3}','{4}', '{5}','{6}', '{7}','{8}', '{9}','{10}', '{11}','{12}', '{13}','{14}', '{15}','{16}', '{17}', '{18}', '{19}'", args);
-                string insertStatement = "INSERT INTO \"Pliki\" (firma, numeread, symbol, dataskanu, datadokumentu, datapocz, datakoniec, nazwascan, nazwaead, pelnasciezkaead, typpliku, opisdodatkowy, dokwlasny, systembazowy, usuniety, idoper, idakcept, datamodify, dataakcept, teczkadzial) VALUES (" + values + ");";
+                    string values = string.Format("'{0}', '{1}', '{2}', '{3}','{4}', '{5}','{6}', '{7}','{8}', '{9}','{10}', '{11}','{12}', '{13}','{14}', '{15}','{16}', '{17}', '{18}', '{19}'", args);
+                    string insertStatement = "INSERT INTO \"Pliki\" (firma, numeread, symbol, dataskanu, datadokumentu, datapocz, datakoniec, nazwascan, nazwaead, pelnasciezkaead, typpliku, opisdodatkowy, dokwlasny, systembazowy, usuniety, idoper, idakcept, datamodify, dataakcept, teczkadzial) VALUES (" + values + ");";
 
-                IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
-                result = connectionState.ExecuteNonQuery(insertStatement);
+                    IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+                    result = connectionState.ExecuteNonQuery(insertStatement);
+
+                }
 
             }
             catch (Exception)
             {
                 result = false;
+            }
+
+            return result;
+        }
+
+        private string ParsujDate(DateTime data, string format = "yyyy-MM-dd")
+        {
+            string result = "";
+            try
+            {
+                result = data.ToString(format, CultureInfo.InvariantCulture);
+            }
+            catch (Exception)
+            {
+                result = "0000-00-00";
             }
 
             return result;
@@ -149,7 +172,7 @@ namespace Eteczka.DB.DAO
             string sqlQuery =
                 "SELECT * FROM \"Pliki\" " +
                 "WHERE " +
-                    "symbol LIKE '" + typ.Trim() + "' "+
+                    "symbol LIKE '" + typ.Trim() + "' " +
                     "AND numeread IN " +
                     "(SELECT numeread FROM \"MiejscePracy\" " +
                     "WHERE NOT \"MiejscePracy\".usuniety " +
@@ -159,7 +182,7 @@ namespace Eteczka.DB.DAO
                     "AND podwydzial LIKE '" + podwydzial.Trim() + "' " +
                     "AND konto5 LIKE '" + konto5.Trim() + "' );";
 
-            List <Pliki> fetchedResult = new List<Pliki>();
+            List<Pliki> fetchedResult = new List<Pliki>();
 
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
             DataTable result = connectionState.ExecuteQuery(sqlQuery);
