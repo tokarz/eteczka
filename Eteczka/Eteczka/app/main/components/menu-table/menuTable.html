@@ -3,7 +3,7 @@
         <li ng-repeat="tab in tabs" ng-class="isTabActive(tab)" ng-click="setTabActive(tab)">{{tab.Name}}</li>
     </ul>
     <div class="toolbar-content" style="overflow-y:hidden">
-        <input class="table-search" type="search" ng-model="search" />
+        <input placeholder="Wpisz nazwisko lub PESEL" class="table-search" type="search" ng-model="search" />
         <table>
             <tbody>
                 <tr ng-if="loading" style="text-align:center">

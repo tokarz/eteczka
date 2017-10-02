@@ -15,7 +15,7 @@
                     </td>
                 </tr>
                 <tr ng-if="!loading" ng-repeat="row in newrows" ng-click="selectFile(row)" ng-class="getRowStyle(row)" style="border-bottom:1px solid darkgray;">
-                    <td><i class="fa fa-file-pdf-o" aria-hidden="true" style="margin-right:2px;font-weight:bold;color:darkred"></i>{{row.NazwaEad}}<i class="fa fa-arrow-circle-down" aria-hidden="true" ></i></td>
+                    <td><i class="fa fa-file-pdf-o" aria-hidden="true" style="margin-right:2px;font-weight:bold;color:darkred"></i>{{row.NazwaEad}}</td>
                 </tr>
             </tbody>
         </table>
@@ -23,12 +23,14 @@
     <div class="toolbar-panel git-panel">
         <span style="width:50%;float:left;text-align:left;margin-top: 5px" ng-if="selectedstagedfile !== null">
             <span ng-click="unstageFile(selectedstagedfile)" class="git-icon">
-                <span class="fa fa-arrow-up" style="color:darkred"></span><span>Zrodlowe</span>
+                <span class="fa fa-arrow-up" style="color:darkred"></span>
+                <span>Zrodlowe</span>
             </span>
         </span>
         <span style="width:50%;float:right;text-align:right;margin-top:5px" ng-if="selectedfile !== null">
             <span ng-click="stageFile(selectedfile)" class="git-icon">
-                <span class="fa fa-arrow-down" style="color:darkgreen"></span><span> Do Opracowania</span>
+                <span class="fa fa-arrow-down" style="color:darkgreen"></span>
+                <span> Do Opracowania</span>
             </span>
         </span>
     </div>
@@ -41,7 +43,7 @@
                     </td>
                 </tr>
                 <tr ng-if="!loading" ng-repeat="row in stagedrows" ng-click="selectStagedFile(row)" ng-class="getStagedRowStyle(row)">
-                    <td><i class="fa fa-check-circle" aria-hidden="true" style="margin-right:2px;font-weight:bold;color:darkgreen"></i>{{row.NazwaEad}}<i class="fa fa-arrow-circle-up" aria-hidden="true" style="color:darkred"></i></td>
+                    <td><i class="fa fa-check-circle" aria-hidden="true" style="margin-right:2px;font-weight:bold;color:darkgreen"></i>{{row.NazwaEad}}</td>
                 </tr>
             </tbody>
         </table>
