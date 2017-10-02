@@ -1,32 +1,32 @@
 ﻿<div class="option-wrapper">
     <div class="filters-panel">
         <div class="filter-option">
-            <label>Filtry</label>
+            <label>Rejon</label>
             <select ng-options="filter.Nazwa for filter in areasFilters" ng-model="selectedArea" ng-change="assignArea()">
                 <option disabled>Wybierz...</option>
             </select>
         </div>
         <div class="filter-option">
-            <label>Wydzialy</label>
+            <label>Wydzial</label>
             <select ng-options="filter.Nazwa for filter in departmentFilters" ng-model="selectedDepartment" ng-change="assignDepartment()">
                 <option disabled>Wybierz...</option>
             </select>
         </div>
         <div class="filter-option" ng-show="subDepartmentsFilters && subDepartmentsFilters.length > 0">
-            <label>Podwydzialy</label>
+            <label>Podwydzial</label>
             <select ng-options="filter.Nazwa for filter in subDepartmentsFilters" ng-model="selectedSubDepartment" ng-change="assignSubDepartment()">
                 <option disabled>Wybierz...</option>
             </select>
         </div>
         <div class="filter-option">
             <label>Konta5</label>
-            <select ng-options="filter.Nazwa for filter in account5Filters" ng-model="selectedAccount5" ng-change="assignAccount5()">
+            <select ng-options="filter.Konto5 for filter in account5Filters" ng-model="selectedAccount5" ng-change="assignAccount5()">
                 <option disabled>Wybierz...</option>
             </select>
         </div>
         <div class="filter-option">
             <label>Rodzaj Dokumentu</label>
-            <select ng-options="filter.Nazwa for filter in documentTypeFilters" ng-model="selectedType" ng-change="assignType()">
+            <select ng-options="filter.Symbol for filter in documentTypeFilters" ng-model="selectedType" ng-change="assignType()">
                 <option disabled>Wybierz...</option>
             </select>
         </div>
