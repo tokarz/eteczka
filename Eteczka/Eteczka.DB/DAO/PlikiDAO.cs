@@ -144,9 +144,22 @@ namespace Eteczka.DB.DAO
         public List<Pliki> WyszukajPlikiZFiltrow(string firma, string rejon, string wydzial, string podwydzial, string konto5, string typ, string pesel)
         {
             //TODO: Tutaj kwerenda Paszczaka z filtrami!!
-            string sqlQuery = "SELECT * from \"Pliki\";";
+            //string sqlQuery = "SELECT * from \"Pliki\";";
 
-            List<Pliki> fetchedResult = new List<Pliki>();
+            string sqlQuery =
+                "SELECT * FROM \"Pliki\" " +
+                "WHERE " +
+                    "symbol LIKE '" + typ.Trim() + "' "+
+                    "AND numeread IN " +
+                    "(SELECT numeread FROM \"MiejscePracy\" " +
+                    "WHERE NOT \"MiejscePracy\".usuniety " +
+                    "AND \"MiejscePracy\".firma IN ('" + firma.Trim() + "') " +
+                    "AND rejon LIKE '" + rejon.Trim() + "' " +
+                    "AND wydzial LIKE '" + wydzial.Trim() + "' " +
+                    "AND podwydzial LIKE '" + podwydzial.Trim() + "' " +
+                    "AND konto5 LIKE '" + konto5.Trim() + "' );";
+
+            List <Pliki> fetchedResult = new List<Pliki>();
 
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
             DataTable result = connectionState.ExecuteQuery(sqlQuery);
