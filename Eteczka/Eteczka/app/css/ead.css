@@ -992,9 +992,17 @@
 .filter-buttons-option button {
   display: inline-block;
   /* height: 10px; */
-  padding: 1em;
+  padding: 0.2em 1em;
   height: auto;
-  width: 100px;
+  width: 100%;
+  background: #074C75;
+  opacity: 0.8;
+  color: white;
+}
+
+.filter-buttons-option button:hover {
+  opacity: 1;
+  cursor: pointer;
 }
 
 .git-details-row {

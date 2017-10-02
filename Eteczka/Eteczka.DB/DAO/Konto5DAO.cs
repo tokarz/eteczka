@@ -61,7 +61,7 @@ namespace Eteczka.DB.DAO
 
             List<KatKonto5> PobraneKonta5 = new List<KatKonto5>();
 
-            string sqlQuery = "Select * FROM \"KatKonta5\" WHERE firma IN ('"+ firma + "') ORDER BY nazwa";
+            string sqlQuery = "Select * FROM \"KatKonta5\" WHERE firma IN ('"+ firma + "') ORDER BY konto5";
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
             DataTable result = connectionState.ExecuteQuery(sqlQuery);
             foreach (DataRow row in result.Rows)
