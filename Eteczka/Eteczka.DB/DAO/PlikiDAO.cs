@@ -42,28 +42,13 @@ namespace Eteczka.DB.DAO
             return fetchedResult;
         }
 
-        public bool KomitujPlik(KomitPliku plik, string firma, string idOper)
+        public bool KomitujPlikDoBazy(KomitPliku plik, string nazwaPliku, string katalogDocelowy, string plikZrodlowy, string firma, string idOper)
         {
             bool result = false;
 
-            string nazwaPliku = firma.Trim() + "_" + DateTime.Now.Millisecond + "_" + plik.Nazwa.Trim();
-
-            string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
-            string katalogZrodlowy = Path.Combine(eadRoot, "waitingroom", firma.Trim());
-            string plikZrodlowy = Path.Combine(katalogZrodlowy, plik.Nazwa.Trim());
-
-            string katalogDocelowy = Path.Combine(eadRoot, "pliki", firma.Trim());
-            if (!Directory.Exists(katalogDocelowy))
-            {
-                Directory.CreateDirectory(katalogDocelowy);
-            }
             try
             {
-                File.Move(plikZrodlowy, Path.Combine(katalogDocelowy, nazwaPliku));
-                if (File.Exists(Path.Combine(katalogDocelowy, nazwaPliku)))
-                {
-
-                    object[] args = new object[]  {
+                object[] args = new object[]  {
                             firma.Trim(),
                             plik.Pracownik.Numeread.Trim(),
                             plik.Typ.Symbol.Trim(),
@@ -87,23 +72,17 @@ namespace Eteczka.DB.DAO
                         };
 
 
-                    string values = string.Format("'{0}', '{1}', '{2}', '{3}','{4}', '{5}','{6}', '{7}','{8}', '{9}','{10}', '{11}','{12}', '{13}','{14}', '{15}','{16}', '{17}', '{18}', '{19}'", args);
-                    string insertStatement = "INSERT INTO \"Pliki\" (firma, numeread, symbol, dataskanu, datadokumentu, datapocz, datakoniec, nazwascan, nazwaead, pelnasciezkaead, typpliku, opisdodatkowy, dokwlasny, systembazowy, usuniety, idoper, idakcept, datamodify, dataakcept, teczkadzial) VALUES (" + values + ");";
+                string values = string.Format("'{0}', '{1}', '{2}', '{3}','{4}', '{5}','{6}', '{7}','{8}', '{9}','{10}', '{11}','{12}', '{13}','{14}', '{15}','{16}', '{17}', '{18}', '{19}'", args);
+                string insertStatement = "INSERT INTO \"Pliki\" (firma, numeread, symbol, dataskanu, datadokumentu, datapocz, datakoniec, nazwascan, nazwaead, pelnasciezkaead, typpliku, opisdodatkowy, dokwlasny, systembazowy, usuniety, idoper, idakcept, datamodify, dataakcept, teczkadzial) VALUES (" + values + ");";
 
-                    IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
-                    result = connectionState.ExecuteNonQuery(insertStatement);
-                    if (result != true)
-                    {
-                        File.Move(Path.Combine(katalogDocelowy, nazwaPliku), plikZrodlowy);
-                    }
-                }
+                IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+                result = connectionState.ExecuteNonQuery(insertStatement);
 
             }
             catch (Exception)
             {
-
+                result = false;
             }
-
 
             return result;
         }
@@ -179,5 +158,10 @@ namespace Eteczka.DB.DAO
 
             return fetchedResult;
         }
+
+
+
+
+
     }
 }

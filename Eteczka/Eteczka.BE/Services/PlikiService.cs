@@ -52,8 +52,35 @@ namespace Eteczka.BE.Services
         {
             bool result = false;
 
-            result = _Dao.KomitujPlik(plik, firma, idOper);
+            string nazwaPliku = firma.Trim() + "_" + DateTime.Now.Millisecond + "_" + plik.Nazwa.Trim();
 
+            string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
+            string katalogZrodlowy = Path.Combine(eadRoot, "waitingroom", firma.Trim());
+            string plikZrodlowy = Path.Combine(katalogZrodlowy, plik.Nazwa.Trim());
+
+            string katalogDocelowy = Path.Combine(eadRoot, "pliki", firma.Trim());
+
+            result = _Dao.KomitujPlikDoBazy(plik, nazwaPliku, katalogDocelowy, plikZrodlowy, firma, idOper);
+            if (result == true)
+            {
+                if (!Directory.Exists(katalogDocelowy))
+                {
+                    Directory.CreateDirectory(katalogDocelowy);
+                }
+                string plikDocelowy = Path.Combine(katalogDocelowy, nazwaPliku);
+                if (File.Exists(plikZrodlowy) && !File.Exists(plikDocelowy))
+                {
+                    File.Move(plikZrodlowy, plikDocelowy);
+                    if (File.Exists(plikDocelowy))
+                    {
+                        _PlikiUtils.ZaszyfrujIPrzeniesPlikPdf(plikDocelowy);
+                    }
+                    else
+                    {
+                        result = false;
+                    }
+                }
+            }
             //Transakcja:
             //1) Zrob insert
             //2)Skopiuj plik

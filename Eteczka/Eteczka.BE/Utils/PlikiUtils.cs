@@ -7,6 +7,9 @@ using System.IO;
 using Microsoft.Office.Interop.Excel;
 using System.Runtime.InteropServices;
 using System.Web;
+using PdfSharp.Pdf;
+using PdfSharp.Pdf.Security;
+using PdfSharp.Pdf.IO;
 
 
 namespace Eteczka.BE.Utils
@@ -364,7 +367,7 @@ namespace Eteczka.BE.Utils
                 }
                 finally
                 {
-                    ZamknijPlik(xlApp, xlWorkbook, xlWorksheet, xlRange); 
+                    ZamknijPlik(xlApp, xlWorkbook, xlWorksheet, xlRange);
                 }
 
             }
@@ -418,7 +421,16 @@ namespace Eteczka.BE.Utils
 
         public string PobierzZaszyfrowanaZawartoscPliku(string sciezka)
         {
-            byte[] filedata = File.ReadAllBytes(sciezka);
+            PdfDocument document = PdfReader.Open(sciezka, "adminadmin");
+            string result = "";
+            using (MemoryStream stream = new MemoryStream())
+            {
+                document.Save(stream, true);
+                byte[] filedata = stream.ToArray();
+                result = Convert.ToBase64String(filedata, 0, filedata.Length);
+            }
+
+
             //string contentType = MimeMapping.GetMimeMapping(sciezka);
 
             //var cd = new ContentDisposition
@@ -428,13 +440,52 @@ namespace Eteczka.BE.Utils
             //};
 
             //Response.AppendHeader("Content-Disposition", cd.ToString());
-            string result = Convert.ToBase64String(filedata, 0, filedata.Length);
+
 
             return result;
 
 
         }
-        
+
+        public bool ZaszyfrujIPrzeniesPlikPdf(string file)
+        {
+            bool result = false;
+            try
+            {
+                PdfDocument document = PdfReader.Open(file);
+
+                PdfSecuritySettings securitySettings = document.SecuritySettings;
+
+                // Setting one of the passwords automatically sets the security level to 
+                // PdfDocumentSecurityLevel.Encrypted128Bit.
+                securitySettings.UserPassword = "haslohaslo";
+                securitySettings.OwnerPassword = "adminadmin";
+
+                // Don't use 40 bit encryption unless needed for compatibility reasons
+                //securitySettings.DocumentSecurityLevel = PdfDocumentSecurityLevel.Encrypted40Bit;
+
+                // Restrict some rights.
+                securitySettings.PermitAccessibilityExtractContent = false;
+                securitySettings.PermitAnnotations = false;
+                securitySettings.PermitAssembleDocument = false;
+                securitySettings.PermitExtractContent = false;
+                securitySettings.PermitFormsFill = true;
+                securitySettings.PermitFullQualityPrint = false;
+                securitySettings.PermitModifyDocument = true;
+                securitySettings.PermitPrint = false;
+
+                // Save the document...
+                document.Save(file);
+                result = true;
+            }
+            catch (Exception)
+            {
+                result = false;
+            }
+
+            return result;
+        }
+
     }
 }
 
