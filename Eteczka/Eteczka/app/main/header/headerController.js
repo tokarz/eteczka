@@ -1,11 +1,11 @@
 ﻿'use strict';
-angular.module('et.controllers').controller('headerController', ['$rootScope', '$scope', '$state', '$mdDialog', 'sessionService', function ($rootScope, $scope, $state, $mdDialog, sessionService) {
+angular.module('et.controllers').controller('headerController', ['$rootScope', '$scope', '$state', '$mdDialog', '$timeout', 'sessionService', function ($rootScope, $scope, $state, $mdDialog, $timeout, sessionService) {
     $scope.selectedcompany = null;
 
     $scope.isSmallOptionActive = function (op) {
         var result = '';
 
-        if (op === $scope.activeSmallOption) {
+        if (op.id === $scope.activeSmallOption.id) {
             result = 'option-active';
         }
 
@@ -36,38 +36,45 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
     $scope.menuGitVisible = false;
     $scope.menusVisible = false;
 
+
     $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+
         $scope.activeOption = toState.name;
         $scope.menusVisible = toState.name !== 'options' && toState.name !== 'login' && toState.name !== 'processing' && toState.name !== 'admin';
         $scope.menuEmployeesVisible = (toState.name === 'employees' || toState.name === 'employeesfiles');
+
         if ($scope.menuEmployeesVisible) {
             $scope.smallOptions = [
         {
+            id: 0,
             className: 'fa fa-address-book-o small-option-one',
             label: 'Katalog pracownikow',
             active: true,
             action: function () {
-                $scope.activeSmallOption = $scope.smallOptions[0];
+
                 $scope.navigateTo('employees');
             }
         },
         {
+            id: 1,
             className: 'fa  fa-file-text-o small-option-two',
             label: 'Teczki akt osobowych',
             active: false,
             action: function () {
-                $scope.activeSmallOption = $scope.smallOptions[1];
+
                 $scope.navigateTo('employeesfiles');
             }
         }
             ];
 
-            $scope.activeSmallOption = $scope.smallOptions[0];
+            $scope.activeSmallOption = toState.name === 'employees' ? $scope.smallOptions[0] : $scope.smallOptions[1];
         }
+
         $scope.menuGitVisible = (toState.name === 'files' || toState.name === 'filecatalog');
         if ($scope.menuGitVisible) {
             $scope.smallOptions = [
         {
+            id: 0,
             className: 'fa fa-plus-square small-option-one',
             label: 'Wprowadzanie plikow',
             active: true,
@@ -77,6 +84,7 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
             }
         },
         {
+            id: 1,
             className: 'fa  fa-folder small-option-two',
             label: 'Katalog dokumentow',
             active: false,
@@ -87,7 +95,9 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
         }
             ];
 
-            $scope.activeSmallOption = $scope.smallOptions[0];
+
+            $scope.activeSmallOption = toState.name === 'files' ? $scope.smallOptions[0] : $scope.smallOptions[1];
+
         }
     });
 

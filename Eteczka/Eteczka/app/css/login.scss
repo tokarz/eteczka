@@ -8,15 +8,17 @@
     @include translate(-50%, -50%);
     text-align: center;
     padding: 50px;
-    box-shadow: 1px 0 2px black;
+    box-shadow: 1px 0 20px black;
     border-radius: 25px;
     background: white;
     -moz-animation: 2s fadein;
     -o-animation: 2s fadein;
     -webkit-animation: 2s fadein;
     animation: 2s fadein;
+    min-width: 400px;
+    min-height: 300px;
+    width: 30%;
 }
-
 
 .login-icon {
     color: $darkblue;
@@ -27,13 +29,21 @@
 }
 
 .login-button {
-    width: 200px;
-    height: 50px;
-    background: $darkblue;
+    height: 20px;
+    background: #074C75;
     color: white;
     padding: 0.3em 3em;
     border-radius: 5px;
     opacity: 0.8;
+    position: absolute;
+    bottom: 25px;
+    width: 110px;
+    left: 50%;
+    -moz-transform: translate(-50%, 0);
+    -ms-transform: translate(-50%, 0);
+    -o-transform: translate(-50%, 0);
+    -webkit-transform: translate(-50%, 0);
+    transform: translate(-50%, 0);
 }
 
 .login-button:hover {

@@ -15,7 +15,8 @@ angular.module('et.controllers').controller('loginViewController', ['$rootScope'
                 sessionService.createSession(result.sesja);
                 $scope.fetchedUser = {
                     companies: result.firms,
-                    userdetails: result.userdetails
+                    userdetails: result.userdetails,
+                    isadmin: result.isadmin
                 };
 
                 if (result.isadmin) {
@@ -94,7 +95,7 @@ angular.module('et.controllers').controller('loginViewController', ['$rootScope'
                         .textContent('wiadomosc przeslana do administatora')
                         .ok('OK')
                 ).then(function (err) {
-                    
+
                     // alert(err);
                 });
             })

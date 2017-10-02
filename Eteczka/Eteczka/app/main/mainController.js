@@ -21,6 +21,7 @@ angular.module('et.controllers').controller('mainController', ['$window', '$root
         $scope.isLoggedIn = true;
         $scope.selectedUser = user.userdetails;
         $scope.companies = user.companies;
+        $scope.isAdmin = user.isadmin;
         $scope.selectedFirm = $scope.companies[0];
     });
 
@@ -32,7 +33,16 @@ angular.module('et.controllers').controller('mainController', ['$window', '$root
 
     $rootScope.$on('$stateChangeStart',
       function (event, toState, toParams, fromState, fromParams) {
-
-
+          if (toState.name !== 'login' && toState.name !== 'processing') {
+              if ($scope.isAdmin === true) {
+                  if (toState.name !== 'admin') {
+                      event.preventDefault();
+                  }
+              } else if ($scope.isAdmin === false) {
+                  if (toState.name === 'admin') {
+                      event.preventDefault();
+                  }
+              }
+          }
       })
 }]);

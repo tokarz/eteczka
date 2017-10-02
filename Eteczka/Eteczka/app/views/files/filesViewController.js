@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('et.controllers').controller('filesViewController', ['$scope', 'companiesService', 'filesViewService', 'modalService', 'sessionService', function ($scope, companiesService, filesViewService, modalService, sessionService) {
+angular.module('et.controllers').controller('filesViewController', ['$scope', '$state', 'companiesService', 'filesViewService', 'modalService', 'sessionService', function ($scope, $state, companiesService, filesViewService, modalService, sessionService) {
     $scope.parameters = {
         company: '',
     };
@@ -108,9 +108,10 @@ angular.module('et.controllers').controller('filesViewController', ['$scope', 'c
         if ($scope.createdMetaData !== null) {
             filesViewService.commitFile($scope.createdMetaData).then(function (res) {
                 if (res.success) {
-                    alert("Dodano!");
+                    modalService.alert('Zatwierdzanie pliku', 'Plik Zostal Dodany');
+                    $state.reload();
                 } else {
-                    alert("Blad!");
+                    modalService.alert('Zatwierdzanie pliku', 'Blad! Plik Nie Zostal Dodany! Zweryfikuj dane i prawa dostepu lub skontaktuj sie z Administratorem');
                 }
             });
         }

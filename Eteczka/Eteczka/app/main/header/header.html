@@ -19,7 +19,6 @@
         </span>
     </div>
     <div class="menu-buttons-wrapper" ng-if="menusVisible">
-
         <ul class="menu-wrapper">
             <li class="top-menu-button" ng-click="navigateTo('employees')" ng-class="isActive('employees')">
                 <span class="menu-icon-group">
@@ -36,7 +35,9 @@
                 </span>
                 <span class="menu-button-text">Dokumenty</span>
             </li>
-            <li class="top-menu-button" ng-click="navigateTo('raports')" ng-class="isActive('raports')">
+            <!--<li class="top-menu-button" ng-click="navigateTo('raports')" ng-class="isActive('raports')">-->
+            <li class="top-menu-button not-yet-available" ng-class="isActive('raports')">
+
                 <span class="menu-icon-group">
                     <i class="menu-icon fa fa-bar-chart"></i>
                 </span>

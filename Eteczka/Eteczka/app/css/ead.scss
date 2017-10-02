@@ -90,5 +90,10 @@ li {
 
 .table-header {
     background: $tableHeader;
-    color:white;
+    color: white;
+}
+
+.not-yet-available {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
