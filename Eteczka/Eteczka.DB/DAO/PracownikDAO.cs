@@ -169,7 +169,7 @@ namespace Eteczka.DB.DAO
             string sqlQuery =
                 "SELECT * FROM \"KatPracownicy\" " +
                 "WHERE LOWER (nazwisko) || ' ' || LOWER (imie) || ' ' || pesel LIKE" +
-                "'%'" + (search.ToLower().Trim()) + "'%'  AND NOT usuniety AND confidential < 8 " +
+                "'%" + (search.ToLower().Trim()) + "%'  AND NOT usuniety AND confidential < 8 " +
                 " AND numeread IN (select numeread from \"MiejscePracy\" " +
                 "WHERE firma IN ('" + firma.Trim() + "')) ORDER BY nazwisko,imie;";
 
