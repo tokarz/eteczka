@@ -27,7 +27,7 @@ angular.module('et.utils').factory('peselService', [function () {
                 default: 1
             }
 
-            pesel.split('').forEach((peselDigit, index) => {
+            pesel.split('').forEach(function(peselDigit, index) {
                 if (index === 10) {
                     return
                 }

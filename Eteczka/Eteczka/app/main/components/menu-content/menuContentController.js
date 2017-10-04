@@ -14,7 +14,7 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
                         workplace.Podwydzial = {}
                     }
                     else {
-                        getSubdepartmentById(workplace.Wydzial, workplace.Podwydzial).then((subdepartment) => {
+                        getSubdepartmentById(workplace.Wydzial, workplace.Podwydzial).then(function (subdepartment) {
                             workplace.Podwydzial = subdepartment
                         });
                     }
@@ -53,11 +53,11 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
         if (typeof regionId !== 'string' || regionId.trim() === '') {
             return {}
         }
-        
+
         var region = $scope.workplaceParams.regions.find(function (item) {
             return item.Rejon.trim() === regionId.trim()
         })
-        
+
         if (typeof region === 'undefined') {
             return {}
         }
@@ -69,11 +69,11 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
         if (typeof departmentId !== 'string' || departmentId.trim() === '') {
             return {}
         }
-        
+
         var department = $scope.workplaceParams.departments.find(function (item) {
             return item.Wydzial.trim() === departmentId.trim()
         })
-        
+
         if (typeof department === 'undefined') {
             return {}
         }
@@ -82,23 +82,23 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
     }
 
     var getSubdepartmentById = function (departmentId, subDepartmentId) {
-        
+
         if (typeof subDepartmentId !== 'string' || subDepartmentId.trim() === '') {
             return {}
         }
-        
+
         return menuContentService.getSubDepartmets(departmentId)
             .then(function (subDepartments) {
                 var subDepartment = subDepartments.PodWydzialy.find(function (item) {
                     return item.Podwydzial.trim() === subDepartmentId.trim()
                 })
-                
+
                 if (typeof subDepartment === 'undefined') {
                     return {}
                 }
 
                 return subDepartment
-                
+
             })
             .catch(function (error) {
                 console.error(error)
@@ -437,7 +437,7 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
             body: 'app/views/employees/editWorkplacesPopup/upsertWorkplaceModal.html',
             controller: $scope.upsertWorkplaceCtrl,
             locals: {
-                workplace: { Firma: $scope.company.firma},
+                workplace: { Firma: $scope.company.firma },
                 workplaceParams: $scope.workplaceParams
             }
         }
