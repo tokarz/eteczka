@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('et.controllers').controller('mainController', ['$window', '$rootScope', '$scope', '$state', 'startupService', 'sessionService', function ($window, $rootScope, $scope, $state, startupService, sessionService) {
+angular.module('et.controllers').controller('mainController', ['$window', '$rootScope', '$scope', '$state', 'sessionService', function ($window, $rootScope, $scope, $state, sessionService) {
     $state.go('login');
     $scope.title = 'ETeczka';
     $scope.isLoaded = false;
