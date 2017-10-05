@@ -1,34 +1,5 @@
 ﻿'use strict';
 angular.module('et.controllers').controller('menuContentController', ['$scope', 'menuContentService', 'modalService', 'peselService', 'utilsService', function ($scope, menuContentService, modalService, peselService, utilsService) {
-    $scope.$watch('user', function (value) {
-        if (value && value !== {}) {
-            menuContentService.getUserWorkplaces(value).then(function (result) {
-                $scope.workplaces = []
-
-                result.MiejscaPracy.forEach(function (workplace) {
-                    var region = getRegionById(workplace.Rejon)
-                    var department = getDepartmentById(workplace.Wydzial)
-                    var account5 = getAccount5ByNumber(workplace.Konto5)
-
-                    if (typeof workplace.Podwydzial !== 'string' || workplace.Podwydzial.trim() === '') {
-                        workplace.Podwydzial = {}
-                    }
-                    else {
-                        getSubdepartmentById(workplace.Wydzial, workplace.Podwydzial).then(function (subdepartment) {
-                            workplace.Podwydzial = subdepartment
-                        });
-                    }
-
-                    workplace.Rejon = region
-                    workplace.Wydzial = department
-                    workplace.Konto5 = account5
-
-                    $scope.workplaces.push(workplace)
-                });
-            });
-        }
-    });
-
     $scope.company = null;
     $scope.selectedWorkplace = {};
     $scope.workplaceParams = {
@@ -42,95 +13,44 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
         accounts5: []
     };
 
-    var loadDataWithSesionId = function () {
-        loadActiveCompany()
-        loadRegionList()
-        loadDepartmentList()
-        loadAccounts5()
+    $scope.loadDataWithSesionId = function () {
+        $scope.loadActiveCompany();
+        $scope.loadRegionList();
+        $scope.loadDepartmentList();
+        $scope.loadAccounts5();
+    };
+
+    $scope.getRegionById = function (regionId) {
+        return utilsService.findUniqueValueInListForKey($scope.workplaceParams.regions, regionId, 'Rejon');
     }
 
-    var getRegionById = function (regionId) {
-        if (typeof regionId !== 'string' || regionId.trim() === '') {
-            return {}
-        }
-
-        var region = $scope.workplaceParams.regions.find(function (item) {
-            return item.Rejon.trim() === regionId.trim()
-        })
-
-        if (typeof region === 'undefined') {
-            return {}
-        }
-
-        return region
+    $scope.getDepartmentById = function (departmentId) {
+        return utilsService.findUniqueValueInListForKey($scope.workplaceParams.departments, departmentId, 'Wydzial');
     }
 
-    var getDepartmentById = function (departmentId) {
-        if (typeof departmentId !== 'string' || departmentId.trim() === '') {
-            return {}
-        }
-
-        var department = $scope.workplaceParams.departments.find(function (item) {
-            return item.Wydzial.trim() === departmentId.trim()
-        })
-
-        if (typeof department === 'undefined') {
-            return {}
-        }
-
-        return department
-    }
-
-    var getSubdepartmentById = function (departmentId, subDepartmentId) {
-
-        if (typeof subDepartmentId !== 'string' || subDepartmentId.trim() === '') {
-            return {}
-        }
-
+    $scope.getSubdepartmentById = function (departmentId, subDepartmentId) {
         return menuContentService.getSubDepartmets(departmentId)
             .then(function (subDepartments) {
-                var subDepartment = subDepartments.PodWydzialy.find(function (item) {
-                    return item.Podwydzial.trim() === subDepartmentId.trim()
-                })
-
-                if (typeof subDepartment === 'undefined') {
-                    return {}
-                }
-
-                return subDepartment
-
+                return utilsService.findUniqueValueInListForKey(subDepartments.PodWydzialy, subDepartmentId, 'Podwydzial');
             })
             .catch(function (error) {
                 console.error(error)
-
                 return {}
             });
     }
 
-    var getAccount5ByNumber = function (account5Number) {
-        if (typeof account5Number !== 'string' || account5Number.trim() === '') {
-            return {}
-        }
-
-        var account5 = $scope.workplaceParams.accounts5.find(function (item) {
-            return item.Konto5.trim() === account5Number.trim()
-        })
-
-        if (typeof account5 === 'undefined') {
-            return {}
-        }
-
-        return account5
+    $scope.getAccount5ByNumber = function (account5Number) {
+        return utilsService.findUniqueValueInListForKey($scope.workplaceParams.accounts5, account5Number, 'Konto5');
     }
 
-    var loadActiveCompany = function () {
+    $scope.loadActiveCompany = function () {
         return menuContentService.getActiveCompany()
             .then(function (activeCompany) {
                 $scope.company = activeCompany
-            })
+            });
     }
 
-    var loadRegionList = function () {
+    $scope.loadRegionList = function () {
         $scope.workplaceParams.loadingRegions = true;
         $scope.workplaceParams.regions = []
 
@@ -145,7 +65,7 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
             });
     }
 
-    var loadDepartmentList = function () {
+    $scope.loadDepartmentList = function () {
         $scope.workplaceParams.loadingDepartments = true;
         $scope.workplaceParams.departments = []
 
@@ -160,7 +80,7 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
             });
     }
 
-    var loadAccounts5 = function () {
+    $scope.loadAccounts5 = function () {
         $scope.workplaceParams.loadingAccouts5 = true;
         $scope.workplaceParams.accounts5 = [];
 
@@ -492,5 +412,34 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
         )
     }
 
-    loadDataWithSesionId();
+    $scope.$watch('user', function (value) {
+        if (value && value !== {}) {
+            menuContentService.getUserWorkplaces(value).then(function (result) {
+                $scope.workplaces = []
+
+                result.MiejscaPracy.forEach(function (workplace) {
+                    var region = $scope.getRegionById(workplace.Rejon)
+                    var department = $scope.getDepartmentById(workplace.Wydzial)
+                    var account5 = $scope.getAccount5ByNumber(workplace.Konto5)
+
+                    if (typeof workplace.Podwydzial !== 'string' || workplace.Podwydzial.trim() === '') {
+                        workplace.Podwydzial = {}
+                    }
+                    else {
+                        $scope.getSubdepartmentById(workplace.Wydzial, workplace.Podwydzial).then(function (subdepartment) {
+                            workplace.Podwydzial = subdepartment
+                        });
+                    }
+
+                    workplace.Rejon = region
+                    workplace.Wydzial = department
+                    workplace.Konto5 = account5
+
+                    $scope.workplaces.push(workplace)
+                });
+            });
+        }
+    });
+
+    utilsService.callStartupMethod($scope.loadDataWithSesionId);
 }]);

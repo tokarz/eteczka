@@ -215,6 +215,57 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="coverage.js" />
+    <Content Include="node_modules\lodash.find\index.js" />
+    <Content Include="Scripts\lodash.js" />
+    <Content Include="Scripts\prototypes.js" />
+    <Content Include="test\main\companies\companiesService_test.js" />
+    <Content Include="test\main\components\filepreview\filePreviewDirective_test.js" />
+    <Content Include="test\main\components\git-menu-table\gitMenuTableController_test.js" />
+    <Content Include="test\main\components\menu-content\menuContentController_test.js" />
+    <Content Include="test\main\components\menu-content\menuContentService_test.js" />
+    <Content Include="test\main\components\menu-files-content\menuFilesContentController_test.js" />
+    <Content Include="test\main\components\menu-table\menuTableController_test.js" />
+    <Content Include="test\main\header\headerController_test.js" />
+    <Content Include="test\main\header\menu\menuController_test.js" />
+    <Content Include="test\main\mainController_test.js" />
+    <Content Include="test\main\session\sessionService_test.js" />
+    <Content Include="test\main\settings\settingsController_test.js" />
+    <Content Include="test\main\startup\startupService_test.js" />
+    <Content Include="test\main\utils\fileService_test.js" />
+    <Content Include="test\main\utils\httpService_test.js" />
+    <Content Include="test\main\utils\modalController_test.js" />
+    <Content Include="test\main\utils\modalService_test.js" />
+    <Content Include="test\main\utils\peselService_test.js" />
+    <Content Include="test\main\utils\resizableDirective_test.js" />
+    <Content Include="test\main\utils\utils_test.js" />
+    <Content Include="test\scripts\angular-mocks.js" />
+    <Content Include="test\scripts\lib\jasmine-2.2.0\boot.js" />
+    <Content Include="test\scripts\lib\jasmine-2.2.0\console.js" />
+    <Content Include="test\scripts\lib\jasmine-2.2.0\jasmine-html.js" />
+    <Content Include="test\scripts\lib\jasmine-2.2.0\jasmine.css" />
+    <Content Include="test\scripts\lib\jasmine-2.2.0\jasmine.js" />
+    <Content Include="test\scripts\lib\jasmine-2.2.0\jasmine_favicon.png" />
+    <Content Include="test\scripts\lib\jasmine-jquery.js" />
+    <Content Include="test\scripts\moment.min.js" />
+    <Content Include="test\views\addUsers\addUsersViewController_test.js" />
+    <Content Include="test\views\admin\adminViewController_test.js" />
+    <Content Include="test\views\admin\adminViewService_test.js" />
+    <Content Include="test\views\employeesfiles\employeesFilesController_test.js" />
+    <Content Include="test\views\employees\employeesService_test.js" />
+    <Content Include="test\views\employees\employeesViewController_test.js" />
+    <Content Include="test\views\filecatalog\fileCatController_test.js" />
+    <Content Include="test\views\filecatalog\fileCatService_test.js" />
+    <Content Include="test\views\files\addFile\addFileController_test.js" />
+    <Content Include="test\views\files\addFile\addFileService_test.js" />
+    <Content Include="test\views\files\filesViewController_test.js" />
+    <Content Include="test\views\files\filesViewService_test.js" />
+    <Content Include="test\views\login\choosefirm\chooseFirmController_test.js" />
+    <Content Include="test\views\login\loginService_test.js" />
+    <Content Include="test\views\login\loginViewController_test.js" />
+    <Content Include="test\views\options\optionsViewController_test.js" />
+    <Content Include="test\views\settings\settingsService_test.js" />
+    <Content Include="test\views\settings\settingsViewController_test.js" />
     <Content Include="app\app.js" />
     <Content Include="app\css\admin.css">
       <DependentUpon>admin.scss</DependentUpon>
@@ -1302,6 +1353,10 @@
     <Content Include="node_modules\angular-material\modules\scss\angular-material.scss" />
     <Content Include="node_modules\angular-material\package.json" />
     <Content Include="node_modules\angular-material\README.md" />
+    <Content Include="package.json" />
+    <Content Include="node_modules\lodash.find\LICENSE" />
+    <Content Include="node_modules\lodash.find\package.json" />
+    <Content Include="node_modules\lodash.find\README.md" />
     <None Include="Properties\PublishProfiles\ETeczka.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\d3js\.gitattributes" />
@@ -1841,6 +1896,7 @@
     <Content Include="Scripts\app\app.viewmodel.js" />
     <Content Include="Scripts\app\common.js" />
     <Content Include="Scripts\app\home.viewmodel.js" />
+    <Content Include="wallaby.conf.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
