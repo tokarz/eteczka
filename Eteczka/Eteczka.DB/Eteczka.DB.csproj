@@ -140,6 +140,7 @@
     <Compile Include="Connection\IDbConnectionFactory.cs" />
     <Compile Include="DAO\ArchiwaDAO.cs" />
     <Compile Include="DAO\FirmyDAO.cs" />
+    <Compile Include="DAO\IPracownikDAO.cs" />
     <Compile Include="DAO\KatDokumentyRodzajDAO.cs" />
     <Compile Include="DAO\KatLoginDAO.cs" />
     <Compile Include="DAO\MiejscePracyDAO.cs" />

@@ -11,7 +11,7 @@ using NLog;
 
 namespace Eteczka.DB.DAO
 {
-    public class PracownikDAO
+    public class PracownikDAO : IPracownikDAO
     {
         Logger LOGGER = LogManager.GetLogger("PracownikDAO");
 

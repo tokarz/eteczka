@@ -82,11 +82,11 @@ namespace Eteczka
             container.RegisterType<IKatRodzajeDokumentowExcelMapper, KatRodzajeDokumentowExcelMapper>();
             container.RegisterType<IPodWydzialDtoMapper, PodWydzialDtoMapper>();
             container.RegisterType<IKatKonto5Mapper, KatKonto5Mapper>();
+            container.RegisterType<IPracownikDAO, PracownikDAO>();
 
 
             container.RegisterType<PlikiDAO, PlikiDAO>();
             container.RegisterType<UserDAO, UserDAO>();
-            container.RegisterType<PracownikDAO, PracownikDAO>();
             container.RegisterType<KatLoginDAO, KatLoginDAO>();
             container.RegisterType<FirmyDAO, FirmyDAO>();
             container.RegisterType<MiejscePracyDAO, MiejscePracyDAO>();

@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using NSubstitute;
 using Eteczka.DB.DAO;
+using Eteczka.Model.Entities;
+using Eteczka.BE.Model;
+
 
 namespace Eteczka.BE.Services
 {
@@ -13,22 +16,46 @@ namespace Eteczka.BE.Services
     public class PracownicyServiceTest
     {
 
-        //private PracownicyService _Sut;
-        //private UserDAO _UserDao;
-        //private PracownikDAO _PracownikDao;
+        private IPracownicyService _Sut;
+        private IPracownikDAO _PracownikDao;
 
         [SetUp]
         public void setUp()
         {
-            //_UserDao = Substitute.For<UserDAO>(null);
-            //_PracownikDao = Substitute.For<PracownikDAO>();
-            //_Sut = new PracownicyService(_UserDao, _PracownikDao);
+            //Tworzymy Mocka (zaslepke obiektu)
+            _PracownikDao = Substitute.For<IPracownikDAO>();
+
+            //Inicjujemy nasza testowana klase razem z Mockiem (Mackiem?)
+            _Sut = new PracownicyService(_PracownikDao);
         }
 
         [Test]
-        public void foo()
+        public void PobierzWszystkich()
         {
-            //_Sut.ImportujJson("someSessionId");
+            List<Pracownik> pracownicyOtrzymaniZBe = new List<Pracownik>() { new Pracownik() {
+                Imie = "Irena",
+                Nazwisko = "Ochodzka"
+            }};
+            SessionDetails jakasSesja = new SessionDetails()
+                {
+                    AktywnaFirma = "JakasAktywnaFirma ze Zgierza"
+                };
+
+            //Przed wywolaniem robimy "probe". Mowimy aktorom (Mockom) co maja zrobic, jesli zostana w taki (dokladnie taki!) sposob wywolani:
+
+            _PracownikDao.PobierzPracownikow("JakasAktywnaFirma ze Zgierza").Returns(pracownicyOtrzymaniZBe);
+
+            //Przedstawienie!
+
+            List<Pracownik> retultatTestu = _Sut.PobierzWszystkich(jakasSesja);
+
+            //A teraz do akcji wchodza krytycy:) Oceniaja i sprawdzaja sztuke i aktorow!:)
+
+            //Czy wynik sie zgadza?
+            Assert.AreSame(pracownicyOtrzymaniZBe, retultatTestu);
+
+            //Czy aktor odegral swoja role?
+            _PracownikDao.Received(1).PobierzPracownikow("JakasAktywnaFirma ze Zgierza");
         }
 
     }

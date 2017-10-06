@@ -16,9 +16,9 @@ namespace Eteczka.BE.Services
 {
     public class PracownicyService : IPracownicyService
     {
-        private PracownikDAO _PracownikDao;
+        private IPracownikDAO _PracownikDao;
 
-        public PracownicyService(PracownikDAO pracownikDao)
+        public PracownicyService(IPracownikDAO pracownikDao)
         {
             this._PracownikDao = pracownikDao;
         }
