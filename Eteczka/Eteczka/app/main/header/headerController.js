@@ -2,16 +2,6 @@
 angular.module('et.controllers').controller('headerController', ['$rootScope', '$scope', '$state', '$mdDialog', '$timeout', 'sessionService', function ($rootScope, $scope, $state, $mdDialog, $timeout, sessionService) {
     $scope.selectedcompany = null;
 
-    $scope.isSmallOptionActive = function (op) {
-        var result = '';
-
-        if (op.id === $scope.activeSmallOption.id) {
-            result = 'option-active';
-        }
-
-        return result;
-    }
-
     $scope.userOptions = [
         {
             name: 'Wyloguj',
@@ -36,12 +26,11 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
     $scope.menuGitVisible = false;
     $scope.menusVisible = false;
 
-
     $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
 
         $scope.activeOption = toState.name;
         $scope.menusVisible = toState.name !== 'options' && toState.name !== 'login' && toState.name !== 'processing' && toState.name !== 'admin';
-        $scope.menuEmployeesVisible = (toState.name === 'employees' || toState.name === 'employeesfiles');
+        $scope.menuEmployeesVisible = toState.name.startsWith('emp');
 
         if ($scope.menuEmployeesVisible) {
             $scope.smallOptions = [
@@ -51,8 +40,7 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
             label: 'Katalog pracownikow',
             active: true,
             action: function () {
-
-                $scope.navigateTo('employees');
+                $scope.navigateTo('emp-employees');
             }
         },
         {
@@ -62,15 +50,15 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
             active: false,
             action: function () {
 
-                $scope.navigateTo('employeesfiles');
+                $scope.navigateTo('emp-files');
             }
         }
             ];
 
-            $scope.activeSmallOption = toState.name === 'employees' ? $scope.smallOptions[0] : $scope.smallOptions[1];
+            $scope.activeSmallOption = toState.name === 'emp-employees' ? $scope.smallOptions[0] : $scope.smallOptions[1];
         }
 
-        $scope.menuGitVisible = (toState.name === 'files' || toState.name === 'filecatalog');
+        $scope.menuGitVisible = toState.name.startsWith('fi');
         if ($scope.menuGitVisible) {
             $scope.smallOptions = [
         {
@@ -80,33 +68,40 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
             active: true,
             action: function () {
                 $scope.activeSmallOption = $scope.smallOptions[0];
-                $scope.navigateTo('files');
+                $scope.navigateTo('fi-files');
             }
         },
         {
             id: 1,
-            className: 'fa  fa-folder small-option-two',
+            className: 'fa fa-folder small-option-two',
             label: 'Katalog dokumentow',
             active: false,
             action: function () {
                 $scope.activeSmallOption = $scope.smallOptions[1];
-                $scope.navigateTo('filecatalog');
+                $scope.navigateTo('fi-catalog');
             }
         }
             ];
 
-
-            $scope.activeSmallOption = toState.name === 'files' ? $scope.smallOptions[0] : $scope.smallOptions[1];
-
+            $scope.activeSmallOption = toState.name === 'fi-files' ? $scope.smallOptions[0] : $scope.smallOptions[1];
         }
     });
 
     $scope.isActive = function (tab) {
-        if (tab === $scope.activeOption) {
+        if ($scope.activeOption.startsWith(tab)) {
             return 'option-active';
         } else {
             return '';
         }
+    }
+
+    $scope.isSmallOptionActive = function (op) {
+        var result = '';
+        if ($scope.activeSmallOption.id === op.id) {
+            result = 'option-active';
+        }
+
+        return result;
     }
 
     $scope.userLoggedIn = false;

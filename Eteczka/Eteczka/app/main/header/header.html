@@ -20,7 +20,7 @@
     </div>
     <div class="menu-buttons-wrapper" ng-if="menusVisible">
         <ul class="menu-wrapper">
-            <li class="top-menu-button" ng-click="navigateTo('employees')" ng-class="isActive('employees')">
+            <li class="top-menu-button" ng-click="navigateTo('emp-employees')" ng-class="isActive('emp')">
                 <span class="menu-icon-group">
                     <i class="menu-icon fa fa-user-o"></i>
                     <i class="menu-icon fa fa-user-o"></i>
@@ -29,14 +29,14 @@
                 <span class="menu-button-text">Pracownicy</span>
 
             </li>
-            <li class="top-menu-button" ng-click="navigateTo('files')" ng-class="isActive('files')">
+            <li class="top-menu-button" ng-click="navigateTo('fi-files')" ng-class="isActive('fi')">
                 <span class="menu-icon-group">
                     <i class="menu-icon fa fa-folder-open-o"></i>
                 </span>
                 <span class="menu-button-text">Dokumenty</span>
             </li>
-            <!--<li class="top-menu-button" ng-click="navigateTo('raports')" ng-class="isActive('raports')">-->
-            <li class="top-menu-button not-yet-available" ng-class="isActive('raports')">
+            <li class="top-menu-button" ng-click="navigateTo('raports')" ng-class="isActive('raports')">
+                <!--<li class="top-menu-button not-yet-available" ng-class="isActive('raports')">-->
 
                 <span class="menu-icon-group">
                     <i class="menu-icon fa fa-bar-chart"></i>
@@ -44,12 +44,6 @@
                 <span class="menu-button-text">Raporty</span>
 
             </li>
-            <!--<li class="top-menu-button" ng-click="navigateTo('admin')" ng-class="isActive('admin')">
-                <span class="menu-icon-group">
-                    <i class="menu-icon fa fa-cogs"></i>
-                </span>
-                <span class="menu-button-text">Administracja</span>
-            </li>-->
         </ul>
     </div>
     <div style="width:500px;height:100%;float:right">

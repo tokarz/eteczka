@@ -41,25 +41,25 @@ app.config(function ($stateProvider) {
 
     var filesState = {
         url: '/files',
-        name: 'files',
+        name: 'fi-files',
         template: '<files-view></files-view>'
     };
 
     var filecatalogState = {
         url: '/filecatalog',
-        name: 'filecatalog',
+        name: 'fi-catalog',
         template: '<file-cat></file-cat>'
     }
 
     var employeesState = {
         url: '/employees',
-        name: 'employees',
+        name: 'emp-employees',
         template: '<employees-view></employees-view>'
     };
 
     var employeesFilesState = {
         url: '/employeesfiles',
-        name: 'employeesfiles',
+        name: 'emp-files',
         template: '<employees-files-view></employees-files-view>'
     };
 
@@ -97,6 +97,7 @@ app.config(function ($stateProvider) {
     $stateProvider.state(settingsState);
     $stateProvider.state(adminState);
     $stateProvider.state(raportsState);
+
 });
 
 // IE chached $http.get Aufrufe (z.B. in statusbarController)
