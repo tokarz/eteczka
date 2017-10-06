@@ -7,7 +7,6 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$sco
     $scope.selectFile = function (file) {
         if ($scope.selectedFile === file) {
             $scope.selectedFile = null;
-            $scope.userFiles = [];
         } else {
             $scope.selectedFile = file;
         }
