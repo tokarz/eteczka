@@ -13,10 +13,58 @@ namespace Eteczka.BE.Controllers
     public class KoszykController : Controller
     {
         private IKoszykService _KoszykService;
-         
+
         public KoszykController(IKoszykService koszykService)
         {
             this._KoszykService = koszykService;
+        }
+
+        public ActionResult UsunZKoszyka(string sessionId, List<string> plikiId)
+        {
+            bool success = false;
+
+            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            {
+                SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                success = _KoszykService.UsunZKoszyka(sesja.AktywnaFirma, sesja.AktywnyUser, plikiId);
+            }
+
+            return Json(new
+            {
+                success = success
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult WyczyscKoszyk(string sessionId)
+        {
+            bool success = false;
+
+            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            {
+                SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                success = _KoszykService.WyczyscKoszyk(sesja.AktywnaFirma, sesja.AktywnyUser);
+            }
+
+            return Json(new
+            {
+                success = success
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult DodajDoKoszyka(string sessionId, List<string> plikiId)
+        {
+            bool success = false;
+
+            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            {
+                SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                success = _KoszykService.DodajPlikiDoKoszyka(sesja.AktywnaFirma, sesja.AktywnyUser, plikiId);
+            }
+
+            return Json(new
+            {
+                success = success
+            }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult PobierzKoszykDlaUzytkownika(string sessionId)

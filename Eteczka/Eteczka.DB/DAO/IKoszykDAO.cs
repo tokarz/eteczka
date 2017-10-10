@@ -11,5 +11,8 @@ namespace Eteczka.DB.DAO
     {
         int Policz(string firma, KatLoginyDetale user);
         List<Pliki> PobierzZawartoscKoszyka(string firma, KatLoginyDetale user);
+        bool DodajPlikiDoKoszyka(string firma, KatLoginyDetale aktywnyUser, List<string> plikiId);
+        bool UsunZKoszyka(string firma, KatLoginyDetale aktywnyUser, List<string> plikiId);
+        bool WyczyscKoszyk(string firma, KatLoginyDetale aktywnyUser);
     }
 }

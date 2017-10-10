@@ -111,6 +111,14 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
         });
     });
 
+    $scope.$on('RECALCULATE_CART', function () {
+        shopCartService.getShoppingCartFilesCount().then(function (result) {
+            if (result) {
+                $scope.basket.count = result.ilosc;
+            }
+        });
+    });
+
     $scope.isActive = function (tab) {
         if ($scope.activeOption.startsWith(tab)) {
             return 'option-active';

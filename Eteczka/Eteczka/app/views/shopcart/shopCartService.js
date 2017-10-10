@@ -10,8 +10,23 @@ angular.module('et.services').factory('shopCartService', ['httpService', 'sessio
             return httpService.get('Koszyk/PobierzIloscPlikowUzytkownika', {
                 sessionId: sessionService.getSessionId()
             });
-        }
-
+        },
+        addFilesToCart: function (fileIds) {
+            return httpService.get('Koszyk/DodajDoKoszyka', {
+                sessionId: sessionService.getSessionId(),
+                plikiId: fileIds
+            });
+        },
+        deleteSelectedCartElements: function (fileIds) {
+            return httpService.get('Koszyk/UsunZKoszyka', {
+                sessionId: sessionService.getSessionId(),
+                plikiId: fileIds
+            });
+        },
+        deleteAllCartElements: function () {
+            return httpService.get('Koszyk/WyczyscKoszyk', {
+                sessionId: sessionService.getSessionId()
+            });
+        },
     }
-
 }]);

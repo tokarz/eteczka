@@ -26,5 +26,19 @@ namespace Eteczka.BE.Services
         {
             return _KoszykDao.PobierzZawartoscKoszyka(firma, aktywnyUser);
         }
+
+        public bool DodajPlikiDoKoszyka(string firma, KatLoginyDetale aktywnyUser, List<string> plikiId)
+        {
+            return _KoszykDao.DodajPlikiDoKoszyka(firma, aktywnyUser, plikiId);
+        }
+
+        public bool UsunZKoszyka(string firma, KatLoginyDetale aktywnyUser, List<string> plikiId)
+        {
+            return _KoszykDao.UsunZKoszyka(firma, aktywnyUser, plikiId);
+        }
+        public bool WyczyscKoszyk(string firma, KatLoginyDetale aktywnyUser)
+        {
+            return _KoszykDao.WyczyscKoszyk(firma, aktywnyUser);
+        }
     }
 }

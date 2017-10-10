@@ -11,5 +11,8 @@ namespace Eteczka.BE.Services
     {
         int PobierzIloscPlikowWKoszyku(string firma, KatLoginyDetale aktywnyUser);
         List<Pliki> PobierzPlikiWKoszyku(string firma, KatLoginyDetale aktywnyUser);
+        bool DodajPlikiDoKoszyka(string firma, KatLoginyDetale aktywnyUser, List<string> plikiId);
+        bool UsunZKoszyka(string firma, KatLoginyDetale aktywnyUser, List<string> plikiId);
+        bool WyczyscKoszyk(string firma, KatLoginyDetale aktywnyUser);
     }
 }

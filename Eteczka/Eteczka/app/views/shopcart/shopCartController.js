@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('et.controllers').controller('shopCartController', ['$scope', 'shopCartService', function ($scope, shopCartService) {
+angular.module('et.controllers').controller('shopCartController', ['$scope', '$state', 'shopCartService', 'modalService', function ($scope, $state, shopCartService, modalService) {
     $scope.rows = [];
 
     $scope.printSelectedOptions = function () {
@@ -21,11 +21,33 @@ angular.module('et.controllers').controller('shopCartController', ['$scope', 'sh
     }
 
     $scope.deleteSelectedFromCart = function () {
-        alert('print');
+        var elementsToDelete = [];
+
+        angular.forEach($scope.rows, function (file) {
+            if (file.checked) {
+                elementsToDelete.push(file.Id);
+            }
+        });
+
+        shopCartService.deleteSelectedCartElements(elementsToDelete).then(function (result) {
+            $state.reload();
+            if (result.success) {
+                modalService.alert('', 'Pliki usunieto!');
+            } else {
+                modalService.alert('', 'Pliki nie mogly zostac usuniete!');
+            }
+        });
     }
 
     $scope.deleteAllFromCart = function () {
-        alert('email');
+        shopCartService.deleteAllCartElements().then(function (result) {
+            $state.reload();
+            if (result.success) {
+                modalService.alert('', 'Pliki usunieto!');
+            } else {
+                modalService.alert('', 'Pliki nie mogly zostac usuniete!');
+            }
+        });
     }
 
     $scope.toolbar = [

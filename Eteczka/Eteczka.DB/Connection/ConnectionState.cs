@@ -77,7 +77,6 @@ namespace Eteczka.DB.Connection
                             tran.Rollback();
                         }
                     }
-
                 }
             }
 
