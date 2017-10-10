@@ -44,10 +44,11 @@ namespace Eteczka.DB.DAO
 
         public List<Pracownik> PobierzPozostalychPracownikow(string firma, string orderby = "nazwisko,imie", bool asc = true)
         {
+            string dateShortFormat = "yyyy-MM-dd";
             string orderDirection = asc ? " ASC " : " DESC ";
 
             //            string sqlQuery = "select * from \"KatPracownicy\" where numeread not in (select numeread from \"MiejscePracy\" where   firma in ('" + firma + "') and '02.09.2017 00:00:00' between \"MiejscePracy\".datapocz and \"MiejscePracy\".datakoniec) and numeread in (select numeread from \"MiejscePracy\") ORDER BY " + orderby + orderDirection;
-            string sqlQuery = "select * from \"KatPracownicy\" where numeread not in (select numeread from \"MiejscePracy\" where firma in ('" + firma.Trim() + "') and '" + DateTime.Now.ToString().Substring(0, 10) + "' between \"MiejscePracy\".datapocz and \"MiejscePracy\".datakoniec) and numeread in (select numeread from \"MiejscePracy\" where firma in ('" + firma.Trim() + "')) ORDER BY " + orderby + orderDirection;
+            string sqlQuery = "select * from \"KatPracownicy\" where numeread not in (select numeread from \"MiejscePracy\" where firma in ('" + firma.Trim() + "') and '" + DateTime.Now.ToString(dateShortFormat) + "' between \"MiejscePracy\".datapocz and \"MiejscePracy\".datakoniec) and numeread in (select numeread from \"MiejscePracy\" where firma in ('" + firma.Trim() + "')) ORDER BY " + orderby + orderDirection;
 
             List<Pracownik> fetchedUsers = new List<Pracownik>();
 
@@ -67,8 +68,9 @@ namespace Eteczka.DB.DAO
         {
             LOGGER.Info("POBIERANIE ZATRUDNIONYCH PRACOWNIKOW DLA " + firma);
             string orderDirection = asc ? " ASC " : " DESC ";
+            string dateShortFormat = "yyyy-MM-dd";
 
-            string sqlQuery = "select * from \"KatPracownicy\" where numeread in (select numeread from \"MiejscePracy\" where  firma in ('" + firma.Trim() + "') and '" + DateTime.Now.ToString().Substring(0, 10) + "' between \"MiejscePracy\".datapocz and \"MiejscePracy\".datakoniec) ORDER BY " + orderby + orderDirection;
+            string sqlQuery = "select * from \"KatPracownicy\" where numeread in (select numeread from \"MiejscePracy\" where  firma in ('" + firma.Trim() + "') and '" + DateTime.Now.ToString(dateShortFormat) + "' between \"MiejscePracy\".datapocz and \"MiejscePracy\".datakoniec) ORDER BY " + orderby + orderDirection;
             List<Pracownik> fetchedUsers = new List<Pracownik>();
 
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
@@ -225,6 +227,7 @@ namespace Eteczka.DB.DAO
         {
             List<Pracownik> WyszukaniPracownicyPoTekscie = new List<Pracownik>();
             string orderDirection = asc ? " ASC " : " DESC ";
+            string dateShortFormat = "yyyy-MM-dd";
 
 
             //string sqlQuery = "SELECT * FROM \"KatPracownicy\" where numeread in (select numeread from \"MiejscePracy\" where firma IN ('" + firma + "') and '" + DateTime.Now.ToString() + "' between \"MiejscePracy\".datapocz and \"MiejscePracy\".datakoniec) AND  LOWER (nazwisko) || ' ' || LOWER (imie) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (pesel) LIKE '%" + (search.ToLower().Trim()) + "%' ORDER BY " + orderby + orderDirection + "LIMIT " + limit;
@@ -239,7 +242,7 @@ namespace Eteczka.DB.DAO
                     "AND numeread IN " +
                         "(SELECT numeread FROM \"MiejscePracy\" " +
                         "WHERE firma IN ('" + firma.Trim() + "') " +
-                            "AND '" + DateTime.Now.ToString().Substring(0, 10) +
+                            "AND '" + DateTime.Now.ToString(dateShortFormat) +
                             "'  BETWEEN \"MiejscePracy\".datapocz AND \"MiejscePracy\".datakoniec) " +
                 "ORDER BY nazwisko,imie; ";
 
@@ -267,6 +270,7 @@ namespace Eteczka.DB.DAO
         {
             List<Pracownik> WyszukaniPracownicyPoTekscie = new List<Pracownik>();
             string orderDirection = asc ? " ASC " : " DESC ";
+            string dateShortFormat = "yyyy-MM-dd";
 
             //            string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE  LOWER (imie) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (nazwisko) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (pesel) LIKE '%" + (search.ToLower().Trim()) + "%' ORDER BY " + orderby + orderDirection + "LIMIT " + limit;
             //string sqlQuery = "SELECT * FROM \"KatPracownicy\" where numeread not in  (select numeread from \"MiejscePracy\" where firma IN ('" + firma.Trim() + "') and '" + DateTime.Now.ToString().Substring(0,10) + "' between \"MiejscePracy\".datapocz and \"MiejscePracy\".datakoniec) AND  LOWER (nazwisko) || ' ' || LOWER (imie) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (pesel) LIKE '%" + (search.ToLower().Trim()) + "%' ORDER BY " + orderby + orderDirection + "LIMIT " + limit;
@@ -282,7 +286,7 @@ namespace Eteczka.DB.DAO
                     "AND numeread NOT IN " +
                         "(SELECT numeread FROM \"MiejscePracy\" " +
                         "WHERE firma IN ('" + firma.Trim() + "') " +
-                            "AND '" + DateTime.Now.ToString().Substring(0, 10) +
+                            "AND '" + DateTime.Now.ToString(dateShortFormat) +
                             "'  BETWEEN \"MiejscePracy\".datapocz AND \"MiejscePracy\".datakoniec) " +
                     "AND numeread IN " +
                         "(SELECT numeread FROM \"MiejscePracy\" " +
