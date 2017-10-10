@@ -1,6 +1,9 @@
 ﻿'use strict';
-angular.module('et.controllers').controller('headerController', ['$rootScope', '$scope', '$state', '$mdDialog', '$timeout', 'sessionService', function ($rootScope, $scope, $state, $mdDialog, $timeout, sessionService) {
+angular.module('et.controllers').controller('headerController', ['$rootScope', '$scope', '$state', '$mdDialog', '$timeout', 'sessionService', 'shopCartService', function ($rootScope, $scope, $state, $mdDialog, $timeout, sessionService, shopCartService) {
     $scope.selectedcompany = null;
+    $scope.basket = {
+        count: 0
+    };
 
     $scope.userOptions = [
         {
@@ -34,28 +37,29 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
 
         if ($scope.menuEmployeesVisible) {
             $scope.smallOptions = [
-        {
-            id: 0,
-            className: 'fa fa-address-book-o small-option-one',
-            label: 'Katalog pracownikow',
-            active: true,
-            action: function () {
-                $scope.navigateTo('emp-employees');
-            }
-        },
-        {
-            id: 1,
-            className: 'fa  fa-file-text-o small-option-two',
-            label: 'Teczki akt osobowych',
-            active: false,
-            action: function () {
+                {
+                    id: 0,
+                    className: 'fa  fa-file-text-o small-option-two',
+                    label: 'Teczki akt osobowych',
+                    active: false,
+                    action: function () {
 
-                $scope.navigateTo('emp-files');
-            }
-        }
+                        $scope.navigateTo('emp-files');
+                    }
+                },
+                {
+                    id: 1,
+                    className: 'fa fa-address-book-o small-option-one',
+                    label: 'Katalog pracownikow',
+                    active: true,
+                    action: function () {
+                        $scope.navigateTo('emp-employees');
+                    }
+                }
+
             ];
 
-            $scope.activeSmallOption = toState.name === 'emp-employees' ? $scope.smallOptions[0] : $scope.smallOptions[1];
+            $scope.activeSmallOption = toState.name === 'emp-files' ? $scope.smallOptions[0] : $scope.smallOptions[1];
         }
 
         $scope.menuGitVisible = toState.name.startsWith('fi');
@@ -85,6 +89,26 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
 
             $scope.activeSmallOption = toState.name === 'fi-files' ? $scope.smallOptions[0] : $scope.smallOptions[1];
         }
+
+        $scope.shoppingCartVisible = toState.name === 'shopcart';
+        if ($scope.shoppingCartVisible) {
+            $scope.smallOptions = [
+                {
+                    id: 0,
+                    className: 'fa fa-shopping-basket small-option-one',
+                    label: 'Koszyk dokumentow',
+                    active: true
+                }
+            ];
+
+            $scope.activeSmallOption = $scope.smallOptions[0];
+        }
+
+        shopCartService.getShoppingCartFilesCount().then(function (result) {
+            if (result) {
+                $scope.basket.count = result.ilosc;
+            }
+        });
     });
 
     $scope.isActive = function (tab) {
@@ -153,6 +177,12 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
                 selectedfirm: user.companies[0],
                 firms: user.companies
             }
+
+            shopCartService.getShoppingCartFilesCount().then(function (result) {
+                if (result) {
+                    $scope.basket.count = result.ilosc;
+                }
+            });
         }
     });
 

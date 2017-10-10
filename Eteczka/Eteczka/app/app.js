@@ -86,6 +86,12 @@ app.config(function ($stateProvider) {
         template: '<raports></raports>'
     }
 
+    var shopcartState = {
+        url: '/shopcart',
+        name: 'shopcart',
+        template: '<shop-cart></shop-cart>'
+    }
+
     $stateProvider.state(loginState);
     $stateProvider.state(optionsState);
     $stateProvider.state(filesState);
@@ -97,6 +103,8 @@ app.config(function ($stateProvider) {
     $stateProvider.state(settingsState);
     $stateProvider.state(adminState);
     $stateProvider.state(raportsState);
+    $stateProvider.state(shopcartState);
+
 
 });
 

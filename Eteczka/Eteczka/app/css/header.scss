@@ -54,7 +54,7 @@
     height: 60px;
     margin: 4px 45px;
     float: left;
-    cursor:pointer;
+    cursor: pointer;
 }
 
 .user-icon {
@@ -277,4 +277,22 @@
         margin: auto;
         text-align: center;
     }
+}
+
+#shopping-cart {
+    position: absolute;
+    right: 59px;
+    top: 88px;
+    font-size: 20px;
+    color: white;
+    cursor: pointer;
+}
+
+#shopping-cart .items-counter {
+    font-size: 13px;
+    position: absolute;
+    right: 25px;
+    top: 9px;
+    font-weight: bold;
+    color: $tableHeader;
 }

@@ -34,14 +34,14 @@
             <label>Pracownik</label>
             <input ng-model="selectedUser" type="search" ng-change="searchForUser" />
         </div>
-        <div class="filter-buttons-option">
-            <button ng-click="reloadTableContents()">Filtruj</button>
-            <button ng-click="clearAllFilters()">Wyczysc</button>
-        </div>
+    </div>
+    <div class="filter-buttons-option">
+        <button ng-click="reloadTableContents()">Filtruj</button>
+        <button ng-click="clearAllFilters()">Wyczysc</button>
     </div>
     <div class="files-table-wrapper">
         <div class="user-details-list toolbar-content"></div>
-        <div class="option-wrapper" style="width:100%;">
+        <div style="width:98%;margin:auto">
             <div class="component-content-wrapper" style="width:100%;height:73vh">
                 <menu-files-content rows="rows"></menu-files-content>
             </div>

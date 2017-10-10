@@ -4,7 +4,9 @@ angular.module('et.directives').directive('menuFilesContent', function () {
         restrict: 'E',
         scope: {
             user: '=',
-            rows: '='
+            rows: '=',
+            toolbar: '=',
+            emptymessage: '@'
         },
         controller: 'menuFilesContentController',
         templateUrl: 'app/main/components/menu-files-content/menuFilesContentView.html'

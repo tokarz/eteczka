@@ -125,6 +125,7 @@
     <Compile Include="Controllers\FirmyKontroler.cs" />
     <Compile Include="Controllers\KatDokumentyRodzajController.cs" />
     <Compile Include="Controllers\Konto5Controller.cs" />
+    <Compile Include="Controllers\KoszykController.cs" />
     <Compile Include="Controllers\MiejscePracyController.cs" />
     <Compile Include="Controllers\PlikiController.cs" />
     <Compile Include="Controllers\PodWydzialController.cs" />
@@ -170,6 +171,8 @@
     <Compile Include="Services\IFirmyService.cs" />
     <Compile Include="Services\IKatDokumentyRodzajService.cs" />
     <Compile Include="Services\IKonto5Service.cs" />
+    <Compile Include="Services\KoszykService.cs" />
+    <Compile Include="Services\IKoszykService.cs" />
     <Compile Include="Services\IPodWydzialService.cs" />
     <Compile Include="Services\IWydzialyService.cs" />
     <Compile Include="Services\KatDokumentyRodzajService.cs" />

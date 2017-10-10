@@ -54,10 +54,7 @@ namespace Eteczka
             container.RegisterType<IWydzialyService, WydzialyService>();
             container.RegisterType<IPodWydzialService, PodWydzialService>();
             container.RegisterType<IKonto5Service, Konto5Service>();
-
-
-
-
+            container.RegisterType<IKoszykService, KoszykService>();
 
             container.RegisterType<IConnection, Connection>();
             container.RegisterType<IPlikiMapper, PlikiMapper>();
@@ -67,7 +64,6 @@ namespace Eteczka
             container.RegisterType<IUprawnieniaMapper, UprawnieniaMapper>();
             container.RegisterType<IKatPodWydzialMapper, KatPodWydzialMapper>();
             container.RegisterType<IKatRodzajeDokumentowMapper, KatRodzajeDokumentowMapper>();
-
 
             container.RegisterType<IJsonToKatFirmyMapper, JsonToKatFirmyMapper>();
             container.RegisterType<IJsonToKatLokalMapper, JsonToKatLokalMapper>();
@@ -82,8 +78,9 @@ namespace Eteczka
             container.RegisterType<IKatRodzajeDokumentowExcelMapper, KatRodzajeDokumentowExcelMapper>();
             container.RegisterType<IPodWydzialDtoMapper, PodWydzialDtoMapper>();
             container.RegisterType<IKatKonto5Mapper, KatKonto5Mapper>();
-            container.RegisterType<IPracownikDAO, PracownikDAO>();
 
+            container.RegisterType<IPracownikDAO, PracownikDAO>();
+            container.RegisterType<IKoszykDAO, KoszykDAO>();
 
             container.RegisterType<PlikiDAO, PlikiDAO>();
             container.RegisterType<UserDAO, UserDAO>();

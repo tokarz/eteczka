@@ -1,14 +1,14 @@
 ﻿<div class="menu-table-wrapper">
     <div class="toolbar-panel git-panel">
-        <span style="width:50%;float:left;text-align:left;margin-top: 5px">
-            <span class="git-icon">
-                <span class="fa fa-plus-square"></span><span>Dodaj Pliki</span>
+        <span style="display:inline-block;margin-top: 5px">
+            <span class="git-icon" style="text-align:center">
+                <span class="fa fa-plus-square" style="margin-right:5px"></span><span>Dodaj Pliki</span>
             </span>
         </span>
     </div>
     <div class="toolbar-content" style="height: 40vh;width:100%;margin:auto">
         <table style="width:100%;text-align:center">
-            <tbody style="background:whitesmoke">
+            <tbody>
                 <tr ng-if="loading" style="text-align:center">
                     <td style="display:block;width:90%;margin:auto">
                         <processing></processing>
@@ -27,10 +27,11 @@
                 <span>Zrodlowe</span>
             </span>
         </span>
+        
         <span style="width:50%;float:right;text-align:right;margin-top:5px" ng-if="selectedfile !== null">
             <span ng-click="stageFile(selectedfile)" class="git-icon">
                 <span class="fa fa-arrow-down" style="color:darkgreen"></span>
-                <span> Do Opracowania</span>
+                <span>{{selectedfile}} Do Opracowania</span>
             </span>
         </span>
     </div>
