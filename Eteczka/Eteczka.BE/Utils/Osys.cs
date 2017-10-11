@@ -359,7 +359,7 @@ namespace Eteczka.BE.Utils
             dataKontrol = dataKontrol.Replace("-", "").Trim();
             dataKontrol = dataKontrol.Replace("/", "").Trim();
             dataKontrol = dataKontrol.Replace(".", "").Trim();
-
+            dataKontrol = dataKontrol.Replace(":", "").Trim();
             switch (oddajDate)
             {
                 case 1:
@@ -374,31 +374,36 @@ namespace Eteczka.BE.Utils
             }
             return dataKontrol;
         }
-        public int generujHasloAdminBaza()
+        public string genHasloAdminBaza()
 
         {
             /*generuje hasło bazowe dla dnia dzisiejszego, 
               hasło wyliczane wg algorytmu : RRRRMMDD*DDMMRRRR/137000000
              */
 
-            int result = 0;
-            string dataKontrol = oddajDateTime(0);
-            string dataKontrolMiks = "";
-            int dataRaz = 0;
-            int dataDwa = 0;
+            string result = "";
+            long resultHaslo = 0;
+            string dataKontrol = oddajDateTime(1);
+            //string dataKontrolMiks = "";
+            //int dataRaz = 0;
+            //int dataDwa = 0;
 
-            dataRaz = Int32.Parse(dataKontrol);
-            dataKontrolMiks = dataKontrol.Substring(6, 2) + dataKontrol.Substring(4, 2) + dataKontrol.Substring(0, 4);
-            dataDwa = Int32.Parse(dataKontrolMiks);
+            long dataRaz = Int64.Parse(dataKontrol);
+            string dataKontrolMiks = dataKontrol.Substring(6, 2) + dataKontrol.Substring(4, 2) + dataKontrol.Substring(0, 4);
+            long dataDwa = Int64.Parse(dataKontrolMiks);
 
-            result = (dataRaz * dataDwa) / 137000000;
+            resultHaslo = (dataRaz * dataDwa) / 137000000;
+
+            string przerwij = "";
+
+            result = resultHaslo.ToString().Trim();
 
             return result;
         }
 
-        public int generujHasloAdmin()
+        public string genHasloAdmin()
         {
-            int result = 0;
+            string result = "";
             string dataKontrol = oddajDateTime(2);
             string hasloBaza = "";
             string hasloEnd = "";
@@ -408,7 +413,7 @@ namespace Eteczka.BE.Utils
             string time23 = "";
             string time24 = "";
 
-            hasloBaza = generujHasloAdminBaza().ToString();
+            hasloBaza = genHasloAdminBaza();
 
             time21 = dataKontrol.Substring(0, 1);
             time22 = dataKontrol.Substring(1, 1);
@@ -422,24 +427,24 @@ namespace Eteczka.BE.Utils
                 + hasloBaza.Substring(2, 1)
                 + time23
                 + hasloBaza.Substring(3, 1)
-                + hasloBaza.Substring(4, 30).Trim()
+                + hasloBaza.Substring(4).Trim()
                 + time22;
 
-            result = Int32.Parse(hasloEnd);
+            result = hasloEnd;
 
             // DateTime.Now.ToString()
 
             return result;
         }
-        public bool checkHasloAdmin(int checkHaslo)
+        public bool checkHasloAdmin(string checkHaslo)
         {
             bool result = false;
 
-            string checkHasloKtrl = checkHaslo.ToString().Trim();
+            string checkHasloKtrl = checkHaslo.Trim();
             int checkHasloDlugosc = checkHasloKtrl.Length;
 
             string timeKontrolNow = oddajDateTime(2);
-            string hasloBaza = generujHasloAdminBaza().ToString().Trim();
+            string hasloBaza = genHasloAdminBaza().ToString().Trim();
             string hasloCheck = "";
             string timeCheck = "";
 
@@ -453,21 +458,21 @@ namespace Eteczka.BE.Utils
             hasloCheck = checkHasloKtrl.Substring(0, 1)
                + checkHasloKtrl.Substring(2, 1)
                + checkHasloKtrl.Substring(4, 1)
-               + checkHasloKtrl.Substring(6, 30).Trim();
+               + checkHasloKtrl.Substring(6, checkHasloDlugosc - 7).Trim();
 
-            hasloCheck = hasloCheck.Substring(0, checkHasloDlugosc - 1);
+            //hasloCheck = hasloCheck.Substring(0, checkHasloDlugosc - 1);
 
-            timeCheck = checkHasloKtrl.Substring(1, 1)
-               + checkHasloKtrl.Substring(3, 1)
-               + checkHasloKtrl.Substring(5, 1)
-               + checkHasloKtrl.Substring(checkHasloDlugosc - 1, 1);
+            timeCheck = checkHasloKtrl.Substring(3, 1)
+               + checkHasloKtrl.Substring(checkHasloDlugosc - 1, 1)
+            + checkHasloKtrl.Substring(5, 1)
+            + checkHasloKtrl.Substring(1, 1);
 
             sekundyHaslo = Int32.Parse(timeCheck.Substring(0, 2)) * 3600
                 + Int32.Parse(timeCheck.Substring(2, 2)) * 60;
 
             if (hasloCheck == hasloBaza)
             {
-                if ((sekundyNow - sekundyHaslo < timeRange) && (sekundyNow - sekundyHaslo > 0))
+                if ((sekundyNow - sekundyHaslo < timeRange) && (sekundyNow - sekundyHaslo >= 0))
                 {
                     result = true;
                 }

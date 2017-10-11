@@ -70,7 +70,17 @@ namespace Eteczka.DB.DAO
             string orderDirection = asc ? " ASC " : " DESC ";
             string dateShortFormat = "yyyy-MM-dd";
 
-            string sqlQuery = "select * from \"KatPracownicy\" where numeread in (select numeread from \"MiejscePracy\" where  firma in ('" + firma.Trim() + "') and '" + DateTime.Now.ToString(dateShortFormat) + "' between \"MiejscePracy\".datapocz and \"MiejscePracy\".datakoniec) ORDER BY " + orderby + orderDirection;
+            //string sqlQuery = "select * from \"KatPracownicy\" where numeread in (select numeread from \"MiejscePracy\" where  firma in ('" + firma.Trim() + "') and '" + DateTime.Now.ToString(dateShortFormat) + "' between \"MiejscePracy\".datapocz and \"MiejscePracy\".datakoniec) ORDER BY " + orderby + orderDirection;
+            string sqlQuery = "SELECT * FROM \"KatPracownicy\" "
+                + "WHERE "
+                + " NOT usuniety AND confidential < 8 "
+                + "AND numeread IN "
+                + "(SELECT numeread FROM \"MiejscePracy\" where "
+                + "firma IN ('" + firma.Trim() + "') AND '"
+                + DateTime.Now.ToString().Substring(0, 10)
+                + "' BETWEEN \"MiejscePracy\".datapocz and \"MiejscePracy\".datakoniec) "
+                + "ORDER BY " + orderby + orderDirection;
+
             List<Pracownik> fetchedUsers = new List<Pracownik>();
 
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
@@ -132,13 +142,22 @@ namespace Eteczka.DB.DAO
         {
             List<Pracownik> WyszukaniPracownicy = new List<Pracownik>();
 
+            //string sqlQuery =
+            //    "SELECT * " +
+            //    "FROM \"KatPracownicy\" " +
+            //    "WHERE  pesel = '" + (search.ToLower().Trim()) + "'  AND " +
+            //    "       not usuniety AND " +
+            //    "       confidential < 10 AND " +
+            //    "       numeread in (SELECT numeread FROM \"MiejscePracy\" WHERE firma IN ('" + firma.Trim() + "'));";
+
             string sqlQuery =
-                "SELECT * " +
-                "FROM \"KatPracownicy\" " +
-                "WHERE  pesel = '" + (search.ToLower().Trim()) + "'  AND " +
-                "       not usuniety AND " +
-                "       confidential < 10 AND " +
-                "       numeread in (SELECT numeread FROM \"MiejscePracy\" WHERE firma IN ('" + firma.Trim() + "'));";
+                "SELECT * "
+                + "FROM \"KatPracownicy\" "
+                + "WHERE "
+                + "NOT usuniety AND confidential < 8 "
+                + "AND "
+                + "pesel = '" + (search.ToLower().Trim()) + "'  AND " +
+                "  numeread IN (SELECT numeread FROM \"MiejscePracy\" WHERE firma IN ('" + firma.Trim() + "'));";
 
             try
             {
@@ -169,11 +188,13 @@ namespace Eteczka.DB.DAO
 
             //string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE  numeread in (select numeread from \"MiejscePracy\" where  firma = " + firma + " and LOWER (nazwisko) || ' ' || LOWER (imie) LIKE '%" + (search.ToLower().Trim()) + "%' OR LOWER (pesel) LIKE '%" + (search.ToLower().Trim()) + "%' ORDER BY " + orderby + orderDirection + "LIMIT " + limit;
             string sqlQuery =
-                "SELECT * FROM \"KatPracownicy\" " +
-                "WHERE LOWER (nazwisko) || ' ' || LOWER (imie) || ' ' || pesel LIKE" +
-                "'%" + (search.ToLower().Trim()) + "%'  AND NOT usuniety AND confidential < 8 " +
-                " AND numeread IN (select numeread from \"MiejscePracy\" " +
-                "WHERE firma IN ('" + firma.Trim() + "')) ORDER BY nazwisko,imie;";
+                "SELECT * FROM \"KatPracownicy\" "
+                + "WHERE "
+                + "NOT usuniety AND confidential < 8 "
+                + "AND LOWER (nazwisko) || ' ' || LOWER (imie) || ' ' || pesel LIKE "
+                + "'%" + (search.ToLower().Trim()) + "%' "
+                + " AND numeread IN (select numeread from \"MiejscePracy\" "
+                + "WHERE firma IN ('" + firma.Trim() + "')) ORDER BY nazwisko,imie;";
 
             try
             {

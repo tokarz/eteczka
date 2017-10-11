@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using NSubstitute;
 
+
 namespace Eteczka.BE.Utils
 {
     [TestFixture]
@@ -111,7 +112,7 @@ namespace Eteczka.BE.Utils
         }
 
         [Test]
-        public void testZawartosciHasla() 
+        public void testZawartosciHasla()
         {
             //lista znaków specjalnych z metody hasloGeneruj()
             //do zastanowienia czy jej nie udostępnić gdzieś, żeby w razie zmiany nie trzeba było aktualizować testu
@@ -130,5 +131,37 @@ namespace Eteczka.BE.Utils
             //mimo iż do akceptacji hasła pisaneo ręcznie wystarczą 3 z nich
             Assert.True(containsLower && containsUpper && containsDigit && containsDigit);
         }
+        [Test]
+        public void testGenAdminHaslo()
+        {
+            //generowanie hasła administratora
+            //zwraca hasło zmiksowane z czasem generowania
+
+            string hasloAdmin = _Sut.genHasloAdmin();
+            //bool hasloCheck = _Sut.checkHasloAdmin(hasloAdmin);
+            //Assert.AreEqual("19418273568", hasloAdmin);
+
+            //bool containsLower = haslo.Any(char.IsLower);
+            //bool containsUpper = haslo.Any(char.IsUpper);
+            bool containsDigit = hasloAdmin.Any(char.IsDigit);
+
+            //Assert.True(containsLower && containsUpper && containsDigit && containsDigit);
+            Assert.True(containsDigit);
+        }
+        [Test]
+        public void testCheckAdminHaslo()
+        {
+            //generowanie hasła administratora
+            //i sprawdzanie czy minęła godzina
+
+
+            Assert.IsFalse(_Sut.checkHasloAdmin("14613445905"));
+
+            string hasloAdmin = _Sut.genHasloAdmin();
+
+            Assert.IsTrue(_Sut.checkHasloAdmin(hasloAdmin));
+
+        }
+
     }
 }

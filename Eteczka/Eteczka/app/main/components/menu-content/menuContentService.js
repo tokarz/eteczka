@@ -26,7 +26,11 @@ angular.module('et.services').factory('menuContentService', ['httpService', 'ses
             return httpService.get('Konto5/PobierzKonta5', {
                 sessionId: sessionService.getSessionId()
             });
-        }
-        
+        },
+        isProperAdminPassword: function (password) {
+            return httpService.get('Osys/checkHasloAdmin', {
+                checkHaslo: password
+            })
+        }  
     }
 }]);
