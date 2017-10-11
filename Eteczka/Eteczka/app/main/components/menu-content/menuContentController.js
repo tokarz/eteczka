@@ -323,12 +323,9 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
         return openModal(
             modalOptions,
             function (value) {
-                /* return menuContentService.getCurrentAdminPassword().then(function (result) {
-                    return result === value
-                })
-                */
-
-                return true
+                return menuContentService.isProperAdminPassword().then(function (result) {
+                    return result
+                });
             }
         )
     }
