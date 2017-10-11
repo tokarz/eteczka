@@ -54,16 +54,34 @@ namespace Eteczka.BE.Controllers
         public ActionResult DodajDoKoszyka(string sessionId, List<string> plikiId)
         {
             bool success = false;
+            string blad = "";
 
             if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
             {
                 SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
-                success = _KoszykService.DodajPlikiDoKoszyka(sesja.AktywnaFirma, sesja.AktywnyUser, plikiId);
+                if (plikiId != null)
+                {
+                    List<Pliki> juzDodanePliki = _KoszykService.PobierzPlikiWKoszyku(sesja.AktywnaFirma, sesja.AktywnyUser);
+                    foreach(Pliki plikWKoszyku in juzDodanePliki)
+                    {
+                        if(plikiId.Contains("" + plikWKoszyku.Id))
+                        {
+                            plikiId.Remove("" + plikWKoszyku.Id);
+                        }
+                    }
+
+                    success = _KoszykService.DodajPlikiDoKoszyka(sesja.AktywnaFirma, sesja.AktywnyUser, plikiId);
+                }
+                else
+                {
+                    blad = "Nie Wybrano Plikow";
+                }
             }
 
             return Json(new
             {
-                success = success
+                success = success,
+                blad = blad
             }, JsonRequestBehavior.AllowGet);
         }
 
