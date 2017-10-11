@@ -472,7 +472,7 @@ namespace Eteczka.BE.Utils
 
             if (hasloCheck == hasloBaza)
             {
-                if ((sekundyNow - sekundyHaslo < timeRange) && (sekundyNow - sekundyHaslo > 0))
+                if ((sekundyNow - sekundyHaslo < timeRange) && (sekundyNow - sekundyHaslo >= 0))
                 {
                     result = true;
                 }

@@ -154,9 +154,13 @@ namespace Eteczka.BE.Utils
             //generowanie hasła administratora
             //i sprawdzanie czy minęła godzina
 
-            bool result = _Sut.checkHasloAdmin("10613245905");
 
-            Assert.IsTrue(result);
+            Assert.IsFalse(_Sut.checkHasloAdmin("14613445905"));
+
+            string hasloAdmin = _Sut.genHasloAdmin();
+
+            Assert.IsTrue(_Sut.checkHasloAdmin(hasloAdmin));
+
         }
 
     }
