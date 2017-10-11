@@ -155,7 +155,7 @@ namespace Eteczka.BE.Utils
             //i sprawdzanie czy minęła godzina
 
 
-            Assert.IsFalse(_Sut.checkHasloAdmin("14613445905"));
+            Assert.IsFalse(_Sut.checkHasloAdmin("17613445909"));
 
             string hasloAdmin = _Sut.genHasloAdmin();
 
