@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using NSubstitute;
 
+
 namespace Eteczka.BE.Utils
 {
     [TestFixture]
@@ -111,7 +112,7 @@ namespace Eteczka.BE.Utils
         }
 
         [Test]
-        public void testZawartosciHasla() 
+        public void testZawartosciHasla()
         {
             //lista znaków specjalnych z metody hasloGeneruj()
             //do zastanowienia czy jej nie udostępnić gdzieś, żeby w razie zmiany nie trzeba było aktualizować testu
@@ -130,169 +131,33 @@ namespace Eteczka.BE.Utils
             //mimo iż do akceptacji hasła pisaneo ręcznie wystarczą 3 z nich
             Assert.True(containsLower && containsUpper && containsDigit && containsDigit);
         }
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NUnit.Framework;
-using NSubstitute;
-
-
-namespace Eteczka.BE.Utils
-    {
-        [TestFixture]
-        public class OsysTest
+        [Test]
+        public void testGenAdminHaslo()
         {
+            //generowanie hasła administratora
+            //zwraca hasło zmiksowane z czasem generowania
 
-            private Osys _Sut;
+            string hasloAdmin = _Sut.genHasloAdmin();
+            //bool hasloCheck = _Sut.checkHasloAdmin(hasloAdmin);
+            //Assert.AreEqual("19418273568", hasloAdmin);
 
-            [SetUp]
-            public void Init()
-            {
-                _Sut = new Osys();
-            }
+            //bool containsLower = haslo.Any(char.IsLower);
+            //bool containsUpper = haslo.Any(char.IsUpper);
+            bool containsDigit = hasloAdmin.Any(char.IsDigit);
 
-
-            [Test]
-            public void SprawdzIban()
-            {
-                Assert.IsFalse(_Sut.SprawdzIban("Konto"));
-                Assert.IsFalse(_Sut.SprawdzIban("KontoDluzszeNiz12ZnakowAleNieprawidloweWiecPowinnoZwrocicFalse"));
-                Assert.IsFalse(_Sut.SprawdzIban("15 1140 2004 0000 3602 3569 3944"));
-
-                Assert.IsTrue(_Sut.SprawdzIban("39 1140 2004 0000 3602 3569 3944"));
-                Assert.IsTrue(_Sut.SprawdzIban("70 1090 2154 0000 0005 6000 2210"));
-            }
-
-            [Test]
-            public void SprawdzIbanPoElementach()
-            {
-                Assert.IsFalse(_Sut.SprawdzIbanPoElementach("Konto"));
-                Assert.IsFalse(_Sut.SprawdzIbanPoElementach("KontoDluzszeNiz12ZnakowAleNieprawidloweWiecPowinnoZwrocicFalse"));
-                Assert.IsFalse(_Sut.SprawdzIbanPoElementach("15 1140 2004 0000 3602 3569 3944"));
-
-                Assert.IsTrue(_Sut.SprawdzIbanPoElementach("39 1140 2004 0000 3602 3569 3944"));
-                Assert.IsTrue(_Sut.SprawdzIbanPoElementach("70 1090 2154 0000 0005 6000 2210"));
-            }
-
-            [Test]
-            public void SprawdzPesel()
-            {
-                Assert.IsFalse(_Sut.SprawdzPesel("K", "85101717855"));
-                Assert.IsFalse(_Sut.SprawdzPesel("M", "85101714854"));
-                Assert.IsFalse(_Sut.SprawdzPesel("M", "85101714855"));
-
-                Assert.IsTrue(_Sut.SprawdzPesel("M", "85101717855"));
-
-                Assert.IsTrue(_Sut.SprawdzPesel("K", "12272707680"));
-                Assert.IsTrue(_Sut.SprawdzPesel("M", "09280108163"));
-                Assert.IsTrue(_Sut.SprawdzPesel("K", "04241609930"));
-            }
-
-            [Test]
-            public void PlecZPesela()
-            {
-                Assert.AreEqual("M", _Sut.PeselOddajPlec("85101717855"));
-                Assert.AreEqual("M", _Sut.PeselOddajPlec("85101714854"));
-                Assert.AreEqual("M", _Sut.PeselOddajPlec("85101714855"));
-
-                Assert.AreEqual("M", _Sut.PeselOddajPlec("85101717855"));
-
-                Assert.AreEqual("K", _Sut.PeselOddajPlec("12272707680"));
-                //Assert.AreEqual("M", _Sut.PeselOddajPlec("09280108163"));
-                //Assert.AreEqual("K", _Sut.PeselOddajPlec("04241609930"));
-                Assert.AreEqual("K", _Sut.PeselOddajPlec("85112510465"));
-            }
-
-            [Test]
-            public void DataZPesela()
-            {
-                Assert.AreEqual("19851017", _Sut.PeselOddajDate("85101717855"));
-                Assert.AreEqual("19851125", _Sut.PeselOddajDate("85112510465"));
-                //Assert.AreEqual("20120727", _Sut.PeselOddajDate("12272707680"));
-            }
-
-            [Test]
-            public void kalendarzKoniecMiesiaca()
-            {
-                Assert.AreEqual("1985-10-31", _Sut.kalendarzKoniecMiesiaca("1985", "10"));
-            }
-
-            [Test]
-            public void testHasel()
-            {
-                Dictionary<string, string> hasla = new Dictionary<string, string>();
-                bool result = false;
-                try
-                {
-                    for (int i = 0; i < 1000; i++)
-                    {
-                        string haslo = _Sut.hasloGeneruj();
-                        hasla.Add(haslo, "exists");
-                        Assert.AreEqual(12, haslo.Length);
-                    }
-                    result = true;
-                }
-                catch (Exception ex)
-                {
-                    result = false;
-                }
-
-                Assert.IsTrue(result);
-
-            }
-
-            [Test]
-            public void testZawartosciHasla()
-            {
-                //lista znaków specjalnych z metody hasloGeneruj()
-                //do zastanowienia czy jej nie udostępnić gdzieś, żeby w razie zmiany nie trzeba było aktualizować testu
-                char[] specialsChars = "$-+?&=!%{}/".ToCharArray();
-
-                string haslo = _Sut.hasloGeneruj();
-
-                Assert.AreEqual(12, haslo.Length);
-
-                bool containsLower = haslo.Any(char.IsLower);
-                bool containsUpper = haslo.Any(char.IsUpper);
-                bool containsDigit = haslo.Any(char.IsDigit);
-                bool containsSpecial = (haslo.IndexOfAny(specialsChars) >= 0);
-
-                //metoda powinna zwracać hasło zawierające wszystkie elementy, 
-                //mimo iż do akceptacji hasła pisaneo ręcznie wystarczą 3 z nich
-                Assert.True(containsLower && containsUpper && containsDigit && containsDigit);
-            }
-            [Test]
-            public void testGenAdminHaslo()
-            {
-                //generowanie hasła administratora
-                //zwraca hasło zmiksowane z czasem generowania
-
-                string hasloAdmin = _Sut.genHasloAdmin();
-                //bool hasloCheck = _Sut.checkHasloAdmin(hasloAdmin);
-                //Assert.AreEqual("19418273568", hasloAdmin);
-
-                //bool containsLower = haslo.Any(char.IsLower);
-                //bool containsUpper = haslo.Any(char.IsUpper);
-                bool containsDigit = hasloAdmin.Any(char.IsDigit);
-
-                //Assert.True(containsLower && containsUpper && containsDigit && containsDigit);
-                Assert.True(containsDigit);
-            }
-            [Test]
-            public void testCheckAdminHaslo()
-            {
-                //generowanie hasła administratora
-                //i sprawdzanie czy minęła godzina
-
-                bool result = _Sut.checkHasloAdmin("17418173569");
-
-                Assert.IsTrue(result);
-            }
-
+            //Assert.True(containsLower && containsUpper && containsDigit && containsDigit);
+            Assert.True(containsDigit);
         }
-    }
+        [Test]
+        public void testCheckAdminHaslo()
+        {
+            //generowanie hasła administratora
+            //i sprawdzanie czy minęła godzina
 
-}
+            bool result = _Sut.checkHasloAdmin("10613245905");
+
+            Assert.IsTrue(result);
+        }
+
+    }
 }
