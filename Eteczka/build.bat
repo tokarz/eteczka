@@ -14,3 +14,6 @@ set PUBLISH_PROFILE = "%SRC_DIR%\Properites\PublishProfiles\ETeczka.pubxml"
 
 
 @REM ---- Raport Pokrycia FE-----
+
+
+@REM Koniec
