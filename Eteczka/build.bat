@@ -1,4 +1,4 @@
-set SRC_DIR=%~dp0
+set SRC_DIR=%~dp0\Eteczka
 set SERVER_CONFIGURATION=Release
 set PUBLISH_PROFILE = "%SRC_DIR%\Properites\PublishProfiles\ETeczka.pubxml"
 @REM ------------------------------
