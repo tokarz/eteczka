@@ -443,38 +443,41 @@ namespace Eteczka.BE.Utils
             string checkHasloKtrl = checkHaslo.Trim();
             int checkHasloDlugosc = checkHasloKtrl.Length;
 
-            string timeKontrolNow = oddajDateTime(2);
-            string hasloBaza = genHasloAdminBaza().ToString().Trim();
-            string hasloCheck = "";
-            string timeCheck = "";
-
-            int timeRange = 3600;
-
-            int sekundyHaslo = 0;
-
-            int sekundyNow = Int32.Parse(timeKontrolNow.Substring(0, 2)) * 3600
-                + Int32.Parse(timeKontrolNow.Substring(2, 2)) * 60;
-
-            hasloCheck = checkHasloKtrl.Substring(0, 1)
-               + checkHasloKtrl.Substring(2, 1)
-               + checkHasloKtrl.Substring(4, 1)
-               + checkHasloKtrl.Substring(6, checkHasloDlugosc - 7).Trim();
-
-            //hasloCheck = hasloCheck.Substring(0, checkHasloDlugosc - 1);
-
-            timeCheck = checkHasloKtrl.Substring(3, 1)
-               + checkHasloKtrl.Substring(checkHasloDlugosc - 1, 1)
-            + checkHasloKtrl.Substring(5, 1)
-            + checkHasloKtrl.Substring(1, 1);
-
-            sekundyHaslo = Int32.Parse(timeCheck.Substring(0, 2)) * 3600
-                + Int32.Parse(timeCheck.Substring(2, 2)) * 60;
-
-            if (hasloCheck == hasloBaza)
+            if (checkHasloDlugosc > 7)
             {
-                if ((sekundyNow - sekundyHaslo < timeRange) && (sekundyNow - sekundyHaslo >= 0))
+                string timeKontrolNow = oddajDateTime(2);
+                string hasloBaza = genHasloAdminBaza().ToString().Trim();
+                string hasloCheck = "";
+                string timeCheck = "";
+
+                int timeRange = 3600;
+
+                int sekundyHaslo = 0;
+
+                int sekundyNow = Int32.Parse(timeKontrolNow.Substring(0, 2)) * 3600
+                    + Int32.Parse(timeKontrolNow.Substring(2, 2)) * 60;
+
+                hasloCheck = checkHasloKtrl.Substring(0, 1)
+                   + checkHasloKtrl.Substring(2, 1)
+                   + checkHasloKtrl.Substring(4, 1)
+                   + checkHasloKtrl.Substring(6, checkHasloDlugosc - 7).Trim();
+
+                //hasloCheck = hasloCheck.Substring(0, checkHasloDlugosc - 1);
+
+                timeCheck = checkHasloKtrl.Substring(3, 1)
+                   + checkHasloKtrl.Substring(checkHasloDlugosc - 1, 1)
+                + checkHasloKtrl.Substring(5, 1)
+                + checkHasloKtrl.Substring(1, 1);
+
+                sekundyHaslo = Int32.Parse(timeCheck.Substring(0, 2)) * 3600
+                    + Int32.Parse(timeCheck.Substring(2, 2)) * 60;
+
+                if (hasloCheck == hasloBaza)
                 {
-                    result = true;
+                    if ((sekundyNow - sekundyHaslo < timeRange) && (sekundyNow - sekundyHaslo >= 0))
+                    {
+                        result = true;
+                    }
                 }
             }
 
