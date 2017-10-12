@@ -345,8 +345,6 @@ namespace Eteczka.BE.Utils
             return result;
         }
 
-        CELOWY BLAD!
-
         public string oddajDateTime(int oddajDate)
         {
             /*oddaje datę bez separatorów, w zależności od parametru 
