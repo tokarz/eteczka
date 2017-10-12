@@ -443,7 +443,7 @@ namespace Eteczka.BE.Utils
             string checkHasloKtrl = checkHaslo.Trim();
             int checkHasloDlugosc = checkHasloKtrl.Length;
 
-            if (checkHasloDlugosc > 7)
+            if (checkHasloDlugosc > 8)
             {
                 string timeKontrolNow = oddajDateTime(2);
                 string hasloBaza = genHasloAdminBaza().ToString().Trim();

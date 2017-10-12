@@ -157,7 +157,7 @@ namespace Eteczka.BE.Utils
 
             Assert.IsFalse(_Sut.checkHasloAdmin("17613445909"));
 
-            Assert.IsFalse(_Sut.checkHasloAdmin("17613"));
+            Assert.IsFalse(_Sut.checkHasloAdmin("1761311"));
 
             string hasloAdmin = _Sut.genHasloAdmin();
 
