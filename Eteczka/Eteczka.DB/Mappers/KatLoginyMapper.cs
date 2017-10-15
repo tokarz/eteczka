@@ -49,6 +49,7 @@ namespace Eteczka.DB.Mappers
                 fetchedResult.Imie = row["imie"].ToString();
                 fetchedResult.Firma = row["firma"].ToString();
                 fetchedResult.Email = row["pocztaemail"].ToString();
+                fetchedResult.Confidential = Int32.Parse(row["confidential"].ToString());
 
                 Uprawnienia uprawnienia = _UprawnieniaMapper.Map(row);
 

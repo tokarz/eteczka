@@ -42,13 +42,23 @@ namespace Eteczka.DB.DAO
             return result;
         }
 
-        public List<Pracownik> PobierzPozostalychPracownikow(string firma, string orderby = "nazwisko,imie", bool asc = true)
+        public List<Pracownik> PobierzPozostalychPracownikow(string firma, int confidential, string orderby = "nazwisko,imie", bool asc = true)
         {
             string dateShortFormat = "yyyy-MM-dd";
             string orderDirection = asc ? " ASC " : " DESC ";
 
             //            string sqlQuery = "select * from \"KatPracownicy\" where numeread not in (select numeread from \"MiejscePracy\" where   firma in ('" + firma + "') and '02.09.2017 00:00:00' between \"MiejscePracy\".datapocz and \"MiejscePracy\".datakoniec) and numeread in (select numeread from \"MiejscePracy\") ORDER BY " + orderby + orderDirection;
-            string sqlQuery = "select * from \"KatPracownicy\" where numeread not in (select numeread from \"MiejscePracy\" where firma in ('" + firma.Trim() + "') and '" + DateTime.Now.ToString(dateShortFormat) + "' between \"MiejscePracy\".datapocz and \"MiejscePracy\".datakoniec) and numeread in (select numeread from \"MiejscePracy\" where firma in ('" + firma.Trim() + "')) ORDER BY " + orderby + orderDirection;
+            string sqlQuery = 
+                "SELECT * FROM \"KatPracownicy\" "
+                + " WHERE NOT usuniety AND confidential < " + confidential + " "
+                + "AND numeread NOT IN "
+                + "(select numeread FROM \"MiejscePracy\" WHERE firma IN " 
+                + "('" + firma.Trim() + "') AND '" 
+                + DateTime.Now.ToString(dateShortFormat) 
+                + "' BETWEEN \"MiejscePracy\".datapocz AND \"MiejscePracy\".datakoniec) "
+                + "AND numeread IN "
+                + "(SELECT numeread FROM \"MiejscePracy\" WHERE firma IN "
+                + "('" + firma.Trim() + "')) ORDER BY " + orderby + orderDirection;
 
             List<Pracownik> fetchedUsers = new List<Pracownik>();
 
@@ -64,7 +74,7 @@ namespace Eteczka.DB.DAO
             return fetchedUsers;
         }
 
-        public List<Pracownik> PobierzZatrudnionychPracownikow(string firma, string orderby = "nazwisko,imie", bool asc = true)
+        public List<Pracownik> PobierzZatrudnionychPracownikow(string firma, int confidential, string orderby = "nazwisko,imie", bool asc = true)
         {
             LOGGER.Info("POBIERANIE ZATRUDNIONYCH PRACOWNIKOW DLA " + firma);
             string orderDirection = asc ? " ASC " : " DESC ";
@@ -73,7 +83,7 @@ namespace Eteczka.DB.DAO
             //string sqlQuery = "select * from \"KatPracownicy\" where numeread in (select numeread from \"MiejscePracy\" where  firma in ('" + firma.Trim() + "') and '" + DateTime.Now.ToString(dateShortFormat) + "' between \"MiejscePracy\".datapocz and \"MiejscePracy\".datakoniec) ORDER BY " + orderby + orderDirection;
             string sqlQuery = "SELECT * FROM \"KatPracownicy\" "
                 + "WHERE "
-                + " NOT usuniety AND confidential < 8 "
+                + " NOT usuniety AND confidential < " + confidential + " "
                 + "AND numeread IN "
                 + "(SELECT numeread FROM \"MiejscePracy\" where "
                 + "firma IN ('" + firma.Trim() + "') AND '"
@@ -96,11 +106,17 @@ namespace Eteczka.DB.DAO
             return fetchedUsers;
         }
 
-        public List<Pracownik> PobierzPracownikow(string firma, string limit = "*", string offset = "0", string orderby = "nazwisko,imie", bool asc = true)
+        public List<Pracownik> PobierzPracownikow(string firma, int confidential, string limit = "*", string offset = "0", string orderby = "nazwisko,imie", bool asc = true)
         {
             string orderDirection = asc ? " ASC " : " DESC ";
 
-            string sqlQuery = "SELECT * from \"KatPracownicy\" where numeread in (select numeread from \"MiejscePracy\" where firma = '" + firma.Trim() + "') ORDER BY " + orderby + orderDirection + this.AddLimitOffsetStatement(limit, offset);
+            string sqlQuery =
+                "SELECT * from \"KatPracownicy\" "
+                + "WHERE "
+                + "NOT usuniety AND "
+                + "confidential < " + confidential + " "
+                +  "AND numeread IN "
+                + "(SELECT numeread from \"MiejscePracy\" WHERE firma = '" + firma.Trim() + "') ORDER BY " + orderby + orderDirection + this.AddLimitOffsetStatement(limit, offset);
             List<Pracownik> fetchedUsers = new List<Pracownik>();
 
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
@@ -138,7 +154,7 @@ namespace Eteczka.DB.DAO
             return pobranyPracownik;
         }
 
-        public List<Pracownik> WyszukiwaczPracownikow(string search, string firma)
+        public List<Pracownik> WyszukiwaczPracownikow(string search, string firma, int confidential)
         {
             List<Pracownik> WyszukaniPracownicy = new List<Pracownik>();
 
@@ -154,7 +170,8 @@ namespace Eteczka.DB.DAO
                 "SELECT * "
                 + "FROM \"KatPracownicy\" "
                 + "WHERE "
-                + "NOT usuniety AND confidential < 8 "
+                + "NOT usuniety AND "
+                + "confidential < " + confidential + " "
                 + "AND "
                 + "pesel = '" + (search.ToLower().Trim()) + "'  AND " +
                 "  numeread IN (SELECT numeread FROM \"MiejscePracy\" WHERE firma IN ('" + firma.Trim() + "'));";
@@ -178,7 +195,7 @@ namespace Eteczka.DB.DAO
             return WyszukaniPracownicy;
         }
 
-        public List<Pracownik> WyszukiwaczPracownikowPoTekscie(string search, string firma, int limit = 100, string orderby = "nazwisko", bool asc = true)
+        public List<Pracownik> WyszukiwaczPracownikowPoTekscie(string search, string firma, int confidential, int limit = 100, string orderby = "nazwisko", bool asc = true)
         {
             List<Pracownik> WyszukaniPracownicyPoTekscie = new List<Pracownik>();
             string orderDirection = asc ? " ASC " : " DESC ";
@@ -190,7 +207,7 @@ namespace Eteczka.DB.DAO
             string sqlQuery =
                 "SELECT * FROM \"KatPracownicy\" "
                 + "WHERE "
-                + "NOT usuniety AND confidential < 8 "
+                + "NOT usuniety AND confidential < " + confidential + " "
                 + "AND LOWER (nazwisko) || ' ' || LOWER (imie) || ' ' || pesel LIKE "
                 + "'%" + (search.ToLower().Trim()) + "%' "
                 + " AND numeread IN (select numeread from \"MiejscePracy\" "
@@ -244,7 +261,8 @@ namespace Eteczka.DB.DAO
             return result;
         }
 
-        public List<Pracownik> WyszukiwaczZatrPracownikowPoTekscie(string search, string firma, int limit = 500, string orderby = "nazwisko", bool asc = true)
+        //Przekazać confidential do pracownikDAO i IpracownikDAO
+        public List<Pracownik> WyszukiwaczZatrPracownikowPoTekscie(string search, string firma, int confidential, int limit = 500, string orderby = "nazwisko", bool asc = true)
         {
             List<Pracownik> WyszukaniPracownicyPoTekscie = new List<Pracownik>();
             string orderDirection = asc ? " ASC " : " DESC ";
@@ -259,7 +277,7 @@ namespace Eteczka.DB.DAO
                 "WHERE LOWER(nazwisko) || ' ' || LOWER(imie) || ' ' || pesel LIKE " +
                     "'%" + (search.ToLower().Trim()) + "%' " +
                     "AND NOT usuniety " +
-                    "AND confidential < 8 " +
+                    "AND confidential < " + confidential + " " +
                     "AND numeread IN " +
                         "(SELECT numeread FROM \"MiejscePracy\" " +
                         "WHERE firma IN ('" + firma.Trim() + "') " +
@@ -287,7 +305,7 @@ namespace Eteczka.DB.DAO
 
         }
 
-        public List<Pracownik> WyszukiwaczPozostZatrPracownikowPoTekscie(string search, string firma, int limit = 500, string orderby = "nazwisko", bool asc = true)
+        public List<Pracownik> WyszukiwaczPozostZatrPracownikowPoTekscie(string search, string firma, int confidential, int limit = 500, string orderby = "nazwisko", bool asc = true)
         {
             List<Pracownik> WyszukaniPracownicyPoTekscie = new List<Pracownik>();
             string orderDirection = asc ? " ASC " : " DESC ";
@@ -303,7 +321,7 @@ namespace Eteczka.DB.DAO
                 "WHERE LOWER(nazwisko) || ' ' || LOWER(imie) || ' ' || pesel LIKE " +
                     "'%" + (search.ToLower().Trim()) + "%' " +
                     "AND NOT usuniety " +
-                    "AND confidential < 8 " +
+                    "AND confidential < " + confidential + " " +
                     "AND numeread NOT IN " +
                         "(SELECT numeread FROM \"MiejscePracy\" " +
                         "WHERE firma IN ('" + firma.Trim() + "') " +
