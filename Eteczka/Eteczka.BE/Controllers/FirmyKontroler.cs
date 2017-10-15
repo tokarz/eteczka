@@ -37,6 +37,7 @@ namespace Eteczka.BE.Controllers
             {
 
                 success = Sesja.PobierzStanSesji().UstawAktywnaFirme(sessionID, company.Trim());
+                
             }
 
             return Json(new

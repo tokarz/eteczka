@@ -38,7 +38,11 @@ namespace Eteczka.BE.Model
                 if (OTWARTE_SESJE.ContainsKey(sessionID))
                 {
                     SessionDetails detaleSesji = OTWARTE_SESJE[sessionID];
-                    detaleSesji.AktywnaFirma = company;
+                    detaleSesji.AktywnyUser = detaleSesji.WszystkieDetale.Find((x) =>
+                    {
+                        return x.Firma != null && x.Firma.Trim() == company.Trim();
+                    });
+                    detaleSesji.AktywnaFirma = detaleSesji.AktywnyUser.Firma;
                     result = true;
                 }
             }

@@ -13,6 +13,7 @@ namespace Eteczka.BE.Model
         public string AktywnaFirma { get; set; }
         public List<string> Firmy { get; set; }
         public KatLoginyDetale AktywnyUser { get; set; }
+        public List<KatLoginyDetale> WszystkieDetale { get; set; }
         public bool IsAdmin {get; set;}
     }
 }

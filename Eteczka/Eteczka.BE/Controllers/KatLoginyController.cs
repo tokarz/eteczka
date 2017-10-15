@@ -32,6 +32,7 @@ namespace Eteczka.BE.Controllers
                     sesja = Sesja.UtworzSesje();
                     sesja.AktywnaFirma = userDetails[0].Firma;
                     sesja.AktywnyUser = userDetails[0];
+                    sesja.WszystkieDetale = userDetails;
                     firmy = userDetails.Select(detail =>
                     {
                         return detail.Firma;
