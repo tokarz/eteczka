@@ -42,7 +42,7 @@ namespace Eteczka.DB.DAO
             return fetchedResult;
         }
 
-        public bool KomitujPlikDoBazy(KomitPliku plik, string nazwaPliku, string katalogDocelowy, string plikZrodlowy, string firma, string idOper)
+        public bool KomitujPlikDoBazy(KomitPliku plik, string pierwotnaNazwaPliku, string nazwaPliku, string katalogDocelowy, string plikZrodlowy, string firma, string idOper)
         {
             bool result = false;
 
@@ -53,20 +53,21 @@ namespace Eteczka.DB.DAO
                     string dataWytworzenia = ParsujDate(plik.DataWytworzenia);
                     string dataPocz = ParsujDate(plik.DataPocz);
                     string dataKoniec = ParsujDate(plik.DataKoniec);
+                    string dataSkanu = ParsujDate(File.GetCreationTime(plikZrodlowy));
 
                     object[] args = new object[]  {
                             firma.Trim(),
                             plik.Pracownik.Numeread.Trim(),
                             plik.Typ.Symbol.Trim(),
+                            dataSkanu,
                             dataWytworzenia,
-                            DateTime.Now.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture),
                             dataPocz,
                             dataKoniec,
+                            pierwotnaNazwaPliku,
                             nazwaPliku,
-                            nazwaPliku,
-                            plikZrodlowy,
-                            plik.Typ.Symbol.Trim(),
-                            "",
+                            Path.Combine(katalogDocelowy, nazwaPliku),
+                            "pdf",
+                            plik.OpisDodatkowy,
                             plik.Dokwlasny,
                             "EAD",
                             false,
@@ -76,7 +77,6 @@ namespace Eteczka.DB.DAO
                             DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture),
                             plik.Typ.Teczkadzial.Trim()
                         };
-
 
                     string values = string.Format("'{0}', '{1}', '{2}', '{3}','{4}', '{5}','{6}', '{7}','{8}', '{9}','{10}', '{11}','{12}', '{13}','{14}', '{15}','{16}', '{17}', '{18}', '{19}'", args);
                     string insertStatement = "INSERT INTO \"Pliki\" (firma, numeread, symbol, dataskanu, datadokumentu, datapocz, datakoniec, nazwascan, nazwaead, pelnasciezkaead, typpliku, opisdodatkowy, dokwlasny, systembazowy, usuniety, idoper, idakcept, datamodify, dataakcept, teczkadzial) VALUES (" + values + ");";
@@ -104,7 +104,7 @@ namespace Eteczka.DB.DAO
             }
             catch (Exception)
             {
-                result = "0000-00-00";
+                result = "9999-12-31";
             }
 
             return result;

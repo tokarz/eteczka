@@ -16,5 +16,6 @@ namespace Eteczka.Model.DTO
         public DateTime DataWytworzenia { get; set; }
         public DateTime DataPocz { get; set; }
         public DateTime DataKoniec { get; set; }
+        public string OpisDodatkowy { get; set; }
     }
 }

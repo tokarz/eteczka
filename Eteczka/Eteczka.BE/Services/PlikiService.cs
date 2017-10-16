@@ -60,7 +60,7 @@ namespace Eteczka.BE.Services
 
             string katalogDocelowy = Path.Combine(eadRoot, "pliki", firma.Trim());
 
-            result = _Dao.KomitujPlikDoBazy(plik, nazwaPliku, katalogDocelowy, plikZrodlowy, firma, idOper);
+            result = _Dao.KomitujPlikDoBazy(plik, plik.Nazwa.Trim(), nazwaPliku, katalogDocelowy, plikZrodlowy, firma, idOper);
             if (result == true)
             {
                 if (!Directory.Exists(katalogDocelowy))
