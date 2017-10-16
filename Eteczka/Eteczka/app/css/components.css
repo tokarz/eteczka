@@ -98,6 +98,10 @@
   margin: 0 0 5px;
 }
 
+.toolbar-panel span {
+  cursor: pointer;
+}
+
 .git-panel {
   background-color: whitesmoke;
   color: #134557;
@@ -401,6 +405,14 @@
   height: 20%;
   color: #074C75;
   font-weight: bold;
+}
+
+#pdfPreviewWrapper {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  text-align: center;
+  background: #666161;
 }
 
 /*# sourceMappingURL=components.css.map */

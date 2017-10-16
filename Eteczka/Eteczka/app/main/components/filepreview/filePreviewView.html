@@ -1,7 +1,16 @@
-﻿<div style="width:100%;height:100%;">
+﻿<div id="pdfPreviewWrapper">
     <!--<object id="pdfPreviewer" data="" type="application/pdf" style="height:100%;width:100%">
         <param name="view" value="FitH" />
         <param name="toolbar" value="0" />
     </object>-->
-    <canvas id="pdffpreview"></canvas>
+    <div class="toolbar-panel git-panel" style="font-size:22px">
+        <span id="prev" class="fa fa-arrow-circle-left"></span>
+        <span id="next" class="fa fa-arrow-circle-right"></span>
+        <span id="zoomin" class="fa fa-search-plus"></span>
+        <span id="zoomout" class="fa fa-search-minus"></span>
+        <span id="fittowindow" class="fa fa-window-maximize"></span>
+        &nbsp; &nbsp;
+        <span>Strona: <span id="page_num"></span> / <span id="page_count"></span></span>
+    </div>
+    <canvas id="pdfPreview"></canvas>
 </div>

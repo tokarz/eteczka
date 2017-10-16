@@ -18,7 +18,7 @@ angular.module('et.directives').directive('filePreview', function () {
                         $scope.previewPdf(value, 'GetResource');
                     }
                 } else {
-                    $('#pdfPreviewer').attr('data', '');
+                    $scope.generatePdf('');
                 }
             });
 
@@ -30,11 +30,16 @@ angular.module('et.directives').directive('filePreview', function () {
                     fileName: elm[$scope.fileproperty]
                 }).then(function (result) {
                     $('#pdfPreviewer').removeClass('processing');
+                    $('#pdfPreviewer').empty();
+
                     $scope.generatePdf(result.Data.data);
                     //$('#pdfPreviewer').attr('data', 'data:application/pdf;base64,' + result.Data.data);
                 });
             }
 
+            $scope.closePdf = function () {
+
+            }
 
             $scope.generatePdf = function (base64) {
                 var pdfData = atob(base64);
@@ -46,37 +51,107 @@ angular.module('et.directives').directive('filePreview', function () {
                 // The workerSrc property shall be specified.
                 PDFJS.workerSrc = 'Scripts/pdfjs/workers/worker.js';
 
-                // Using DocumentInitParameters object to load binary data.
-                var loadingTask = PDFJS.getDocument({ data: pdfData });
-                loadingTask.promise.then(function (pdf) {
-                    console.log('PDF loaded');
-
-                    // Fetch the first page
-                    var pageNumber = 1;
-                    pdf.getPage(pageNumber).then(function (page) {
-
-                        var scale = 1.5;
+                var pdfDoc = null,
+                pageNum = 1,
+                pageRendering = false,
+                pageNumPending = null,
+                scale = 2.25,
+                canvas = document.getElementById('pdfPreview'),
+                ctx = canvas.getContext('2d');
+                function renderPage(num) {
+                    pageRendering = true;
+                    // Using promise to fetch the page
+                    pdfDoc.getPage(num).then(function (page) {
                         var viewport = page.getViewport(scale);
-
-                        // Prepare canvas using PDF page dimensions
-                        var canvas = document.getElementById('pdffpreview');
-                        var context = canvas.getContext('2d');
                         canvas.height = viewport.height;
                         canvas.width = viewport.width;
 
                         // Render PDF page into canvas context
                         var renderContext = {
-                            canvasContext: context,
+                            canvasContext: ctx,
                             viewport: viewport
                         };
                         var renderTask = page.render(renderContext);
-                        renderTask.then(function () {
-                            console.log('Page rendered');
+
+                        // Wait for rendering to finish
+                        renderTask.promise.then(function () {
+                            pageRendering = false;
+                            if (pageNumPending !== null) {
+                                // New page rendering is pending
+                                renderPage(pageNumPending);
+                                pageNumPending = null;
+                            }
                         });
                     });
-                }, function (reason) {
-                    // PDF loading error
-                    console.error(reason);
+
+                    // Update page counters
+                    document.getElementById('page_num').textContent = pageNum;
+                }
+
+                /**
+                 * If another page rendering in progress, waits until the rendering is
+                 * finised. Otherwise, executes rendering immediately.
+                 */
+                function queueRenderPage(num) {
+                    if (pageRendering) {
+                        pageNumPending = num;
+                    } else {
+                        renderPage(num);
+                    }
+                }
+
+                function onPrevPage() {
+                    if (pageNum <= 1) {
+                        return;
+                    }
+                    pageNum--;
+                    queueRenderPage(pageNum);
+                }
+                document.getElementById('prev').addEventListener('click', onPrevPage);
+
+
+                function onFitToWindow() {
+                    scale = 2.25;
+                    renderPage(pageNum);
+                }
+                document.getElementById('fittowindow').addEventListener('click', onFitToWindow);
+
+
+                function onZoomIn() {
+                    scale += 0.25;
+                    renderPage(pageNum);
+
+                }
+                document.getElementById('zoomin').addEventListener('click', onZoomIn);
+
+                function onZoomOut() {
+                    if (scale <= 1) {
+                        return;
+                    }
+                    scale -= 0.25;
+                    renderPage(pageNum);
+                }
+                document.getElementById('zoomout').addEventListener('click', onZoomOut);
+
+
+                function onNextPage() {
+                    if (pageNum >= pdfDoc.numPages) {
+                        return;
+                    }
+                    pageNum++;
+                    queueRenderPage(pageNum);
+                }
+                document.getElementById('next').addEventListener('click', onNextPage);
+
+                /**
+                 * Asynchronously downloads PDF.
+                 */
+                PDFJS.getDocument({ data: pdfData }).then(function (pdfDoc_) {
+                    pdfDoc = pdfDoc_;
+                    document.getElementById('page_count').textContent = pdfDoc.numPages;
+
+                    // Initial/first page rendering
+                    renderPage(pageNum);
                 });
             }
 
