@@ -222,6 +222,8 @@
     <Content Include="coverage.js" />
     <Content Include="node_modules\lodash.find\index.js" />
     <Content Include="Scripts\lodash.js" />
+    <Content Include="Scripts\pdfjs\pdf.js" />
+    <Content Include="Scripts\pdfjs\workers\worker.js" />
     <Content Include="Scripts\prototypes.js" />
     <Content Include="test\main\companies\companiesService_test.js" />
     <Content Include="test\main\components\filepreview\filePreviewDirective_test.js" />
