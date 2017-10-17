@@ -217,6 +217,7 @@
   <ItemGroup>
     <Content Include="app\views\shopcart\shopCartController.js" />
     <Content Include="app\views\shopcart\shopCartDirective.js" />
+    <Content Include="app\views\shopcart\shopCartModals\sendEmailModal.html" />
     <Content Include="app\views\shopcart\shopCartService.js" />
     <Content Include="app\views\shopcart\shopCartView.html" />
     <Content Include="coverage.js" />
