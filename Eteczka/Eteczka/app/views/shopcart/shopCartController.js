@@ -6,8 +6,56 @@ angular.module('et.controllers').controller('shopCartController', ['$scope', '$s
         alert('print');
     }
 
+    var openModal = function (modalOptions, executor) {
+        return modalService.showModal(modalOptions)
+            .then(function (result) {
+                return executor(result);
+            })
+            .catch(function (error) {
+                if (error !== 'cancel' && error !== 'backdrop click') {
+                    console.log("error found!", error);
+                }
+            });
+    }
+
+    $scope.sendEmailCtrl = function ($scope, $mdDialog, selectedFiles) {
+        $scope.hide = function () {
+            $mdDialog.hide();
+        };
+
+        $scope.cancel = function () {
+            $mdDialog.cancel();
+        };
+
+        $scope.answer = function (answer, errors) {
+            console.log(errors)
+            if (!errors || Object.keys(errors).length === 0) {
+                $mdDialog.hide(answer);
+            }
+        };
+
+        $scope.filesToAttach = selectedFiles
+    }
+
     $scope.openSendEmailDialog = function () {
-        alert('email');
+        var modalOptions = {
+            body: 'app/views/shopcart/shopCartModals/sendEmailModal.html',
+            controller: $scope.sendEmailCtrl,
+            locals: {
+                selectedFiles: $scope.rows.map(function (elm) {
+                    if (elm.checked) {
+                        return elm
+                    }
+                })
+            }
+        };
+
+        openModal(
+            modalOptions,
+            function (value) {
+                console.log('send email with values', value)
+            }
+        )
     }
 
     $scope.downloadFiles = function () {

@@ -51,6 +51,7 @@
                        type="text"
                        ng-model="modalResult.DataWytworzenia"
                        ng-pattern="/^\s*(\d{4})-(\d{2})-(\d{2})\s*$/"
+                       ng-change="fillValidFromDate()"
                        ng-model-options="{updateOn: 'blur'}"
                        required />
             </div>
@@ -83,8 +84,8 @@
                        ng-model="modalResult.DataPocz"
                        ng-pattern="/^\s*(\d{4})-(\d{2})-(\d{2})\s*$/"
                        ng-model-options="{updateOn: 'blur'}"
-                       ng-disabled="isDisabled()"
-                       ng-required="!isDisabled()" />
+                       required
+                 />
             </div>
             <div ng-show="upsertFileDescription.$submitted || upsertFileDescription.validFromDate.$touched">
                 <span class="modal-table-error" ng-show="upsertFileDescription.validFromDate.$error.pattern">Data musi miec format: RRRR-MM-DD</span>
