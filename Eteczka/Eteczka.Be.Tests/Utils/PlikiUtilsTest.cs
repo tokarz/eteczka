@@ -242,6 +242,19 @@ namespace Eteczka.BE.Utils
             //Assert.AreEqual("B", result.CalyPlik[70].CzescAkt);
         }
 
+        [Test]
+        public void SpakujPliki()
+        {
+            List<string> ListaPlikowZrodlo = new List<String>();
+            ListaPlikowZrodlo.Add("C:\\eteczka.main\\pliki\\AFM\\AFM_543_ccccccc — Notatnik.pdf");
+            //ListaPlikowZrodlo.Add("..\\..\\Eteczka\\Eteczka.Be.Tests\\test - data\\zip\\AFM_543_ccccccc — Notatnik.pdf");
+            //ListaPlikowZrodlo.Add("..\\..\\Eteczka\\Eteczka.Be.Tests\\test - data\\zip\\AFM_848_bbbbbbbbbbbbb — Notatnik.pdf");
+            //ListaPlikowZrodlo.Add("..\\..\\Eteczka\\Eteczka.Be.Tests\\test - data\\zip\\AFM_948_aaa — Notatnik.pdf");
+            ListaPlikowZrodlo.Add("C:\\eteczka.main\\pliki\\AFM\\AFM_848_bbbbbbbbbbbbb — Notatnik.pdf");
+            ListaPlikowZrodlo.Add("C:\\eteczka.main\\pliki\\AFM\\AFM_948_aaa — Notatnik.pdf");
+
+            Assert.IsTrue(_Sut.SpakujPliki(ListaPlikowZrodlo, "kotek"));
+        }
 
     }
 }

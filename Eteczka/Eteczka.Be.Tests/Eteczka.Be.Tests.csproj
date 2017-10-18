@@ -78,6 +78,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="test-data\zip\AFM_543_ccccccc — Notatnik.pdf" />
+    <None Include="test-data\zip\AFM_848_bbbbbbbbbbbbb — Notatnik.pdf" />
+    <None Include="test-data\zip\AFM_948_aaa — Notatnik.pdf" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Eteczka.BE\Eteczka.BE.csproj">
