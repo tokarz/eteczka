@@ -144,7 +144,7 @@ namespace Eteczka.DB.DAO
                 firma = "";
             }
 
-            string sqlQuery = "SELECT * from \"Pliki\" as pl left join \"KatPracownicy\" as pr on pl.numeread = '" + numeread.Trim() + "' where pl.firma = '" + firma.Trim() + "'";
+            string sqlQuery = "SELECT * from \"Pliki\" as pl left join \"KatPracownicy\" as pr on pl.numeread = pr.numeread where pl.firma = '" + firma.Trim() + "' and pr.numeread = '" + numeread + "';";
             sqlQuery += " order by " + sortColumn + " " + sortOrder + ";";
 
             List<Pliki> fetchedResult = new List<Pliki>();
@@ -202,15 +202,15 @@ namespace Eteczka.DB.DAO
             "SELECT \"Pliki\".*, \"KatPracownicy\".* FROM \"Pliki\" "
             + "LEFT OUTER JOIN \"KatPracownicy\" "
             + "ON \"Pliki\".numeread = \"KatPracownicy\".numeread "
-            + "WHERE " 
-            + "\"Pliki\".symbol LIKE '" + typ.Trim() + "' " 
+            + "WHERE "
+            + "\"Pliki\".symbol LIKE '" + typ.Trim() + "' "
             + "AND \"Pliki\".numeread IN "
-            + "(SELECT numeread FROM \"MiejscePracy\" " 
-            + "WHERE NOT \"MiejscePracy\".usuniety " 
-            + "AND \"MiejscePracy\".firma IN ('" + firma.Trim() + "') " 
-            + "AND rejon LIKE '" + rejon.Trim() + "' " 
-            + "AND wydzial LIKE '" + wydzial.Trim() + "' " 
-            + "AND podwydzial LIKE '" + podwydzial.Trim() + "' " 
+            + "(SELECT numeread FROM \"MiejscePracy\" "
+            + "WHERE NOT \"MiejscePracy\".usuniety "
+            + "AND \"MiejscePracy\".firma IN ('" + firma.Trim() + "') "
+            + "AND rejon LIKE '" + rejon.Trim() + "' "
+            + "AND wydzial LIKE '" + wydzial.Trim() + "' "
+            + "AND podwydzial LIKE '" + podwydzial.Trim() + "' "
             + "AND konto5 LIKE '" + konto5.Trim() + "' ) "
             + ";";
 
@@ -221,7 +221,10 @@ namespace Eteczka.DB.DAO
             foreach (DataRow row in result.Rows)
             {
                 Pliki fetchedDok = _PlikiMapper.MapujZSql(row);
-                fetchedResult.Add(fetchedDok);
+                if (fetchedDok != null)
+                {
+                    fetchedResult.Add(fetchedDok);
+                }
             }
 
             return fetchedResult;

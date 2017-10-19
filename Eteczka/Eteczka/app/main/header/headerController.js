@@ -1,10 +1,16 @@
 ﻿'use strict';
 angular.module('et.controllers').controller('headerController', ['$rootScope', '$scope', '$state', '$mdDialog', '$timeout', 'sessionService', 'shopCartService', function ($rootScope, $scope, $state, $mdDialog, $timeout, sessionService, shopCartService) {
     $scope.selectedcompany = null;
+    $scope.userLoggedIn = false;
+    $scope.loginStatus = '';
+    $scope.isAdmin = false;
+    $scope.menuEmployeesVisible = false;
+    $scope.menuGitVisible = false;
+    $scope.menusVisible = false;
+
     $scope.basket = {
         count: 0
     };
-
     $scope.userOptions = [
         {
             name: 'Wyloguj',
@@ -25,14 +31,13 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
             }
         }
     ];
-    $scope.menuEmployeesVisible = false;
-    $scope.menuGitVisible = false;
-    $scope.menusVisible = false;
+
 
     $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-
         $scope.activeOption = toState.name;
-        $scope.menusVisible = toState.name !== 'options' && toState.name !== 'login' && toState.name !== 'processing' && toState.name !== 'admin';
+        $scope.isAdmin = (toState.name === 'admin');
+        $scope.menusVisible = toState.name !== 'options' && toState.name !== 'login' && toState.name !== 'processing' && !$scope.isAdmin;
+
         $scope.menuEmployeesVisible = toState.name.startsWith('emp');
 
         if ($scope.menuEmployeesVisible) {
@@ -90,7 +95,7 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
             $scope.activeSmallOption = toState.name === 'fi-files' ? $scope.smallOptions[0] : $scope.smallOptions[1];
         }
 
-        $scope.shoppingCartVisible = toState.name === 'shopcart';
+        $scope.shoppingCartVisible = (toState.name === 'shopcart');
         if ($scope.shoppingCartVisible) {
             $scope.smallOptions = [
                 {
@@ -103,20 +108,23 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
 
             $scope.activeSmallOption = $scope.smallOptions[0];
         }
-
-        shopCartService.getShoppingCartFilesCount().then(function (result) {
-            if (result) {
-                $scope.basket.count = result.ilosc;
-            }
-        });
+        if (!$scope.isAdmin) {
+            shopCartService.getShoppingCartFilesCount().then(function (result) {
+                if (result) {
+                    $scope.basket.count = result.ilosc;
+                }
+            });
+        }
     });
 
     $scope.$on('RECALCULATE_CART', function () {
-        shopCartService.getShoppingCartFilesCount().then(function (result) {
-            if (result) {
-                $scope.basket.count = result.ilosc;
-            }
-        });
+        if (!$scope.isAdmin) {
+            shopCartService.getShoppingCartFilesCount().then(function (result) {
+                if (result) {
+                    $scope.basket.count = result.ilosc;
+                }
+            });
+        }
     });
 
     $scope.isActive = function (tab) {
@@ -136,8 +144,7 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
         return result;
     }
 
-    $scope.userLoggedIn = false;
-    $scope.loginStatus = '';
+   
 
     $scope.goHome = function () {
         if ($scope.userLoggedIn) {
@@ -179,18 +186,20 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
     $rootScope.$on('USER_LOGGED_IN_EV', function (ev, user) {
         $scope.userLoggedIn = true;
         if (user) {
+            $scope.isAdmin = user.isadmin;
             $scope.loginStatus = user.userdetails.Nazwisko + ' ' + user.userdetails.Imie;
 
             $scope.firmparams = {
                 selectedfirm: user.companies[0],
                 firms: user.companies
             }
-
-            shopCartService.getShoppingCartFilesCount().then(function (result) {
-                if (result) {
-                    $scope.basket.count = result.ilosc;
-                }
-            });
+            if ($scope.isAdmin) {
+                shopCartService.getShoppingCartFilesCount().then(function (result) {
+                    if (result) {
+                        $scope.basket.count = result.ilosc;
+                    }
+                });
+            }
         }
     });
 
