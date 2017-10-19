@@ -10,214 +10,207 @@ using Eteczka.Model.Entities;
 using Eteczka.BE.Model;
 
 
-namespace Eteczka.BE.Services
-{
-    [TestFixture]
-    public class PracownicyServiceTest
-    {
+//namespace Eteczka.BE.Services
+//{
+//    [TestFixture]
+//    public class PracownicyServiceTest
+//    {
 
-        private IPracownicyService _Sut;
-        private IPracownikDAO _PracownikDao;
+//        private IPracownicyService _Sut;
+//        private IPracownikDAO _PracownikDao;
 
-        [SetUp]
-        public void setUp()
-        {
-            //Tworzymy Mocka (zaslepke obiektu)
-            _PracownikDao = Substitute.For<IPracownikDAO>();
+//        [SetUp]
+//        public void setUp()
+//        {
+//            //Tworzymy Mocka (zaslepke obiektu)
+//            _PracownikDao = Substitute.For<IPracownikDAO>();
 
-            //Inicjujemy nasza testowana klase razem z Mockiem (Mackiem?)
-            _Sut = new PracownicyService(_PracownikDao);
-        }
+//            //Inicjujemy nasza testowana klase razem z Mockiem (Mackiem?)
+//            _Sut = new PracownicyService(_PracownikDao);
+//        }
 
-        [Test]
-        public void PobierzWszystkich()
-        {
-            List<Pracownik> pracownicyOtrzymaniZBe = new List<Pracownik>() { new Pracownik() {
-                Imie = "Irena",
-                Nazwisko = "Ochodzka"
-            }};
-            SessionDetails jakasSesja = new SessionDetails()
-                {
-                    AktywnaFirma = "JakasAktywnaFirma ze Zgierza",
-                    AktywnyUser = new KatLoginyDetale() { Confidential = 43 }
-                };
+//        [Test]
+//        public void PobierzWszystkich()
+//        {
+//            List<Pracownik> pracownicyOtrzymaniZBe = new List<Pracownik>() { new Pracownik() {
+//                Imie = "Irena",
+//                Nazwisko = "Ochodzka"
+//            }};
+//            SessionDetails jakasSesja = new SessionDetails()
+//                {
+//                    AktywnaFirma = "JakasAktywnaFirma ze Zgierza"
+//                };
 
-            //Przed wywolaniem robimy "probe". Mowimy aktorom (Mockom) co maja zrobic, jesli zostana w taki (dokladnie taki!) sposob wywolani:
+//            //Przed wywolaniem robimy "probe". Mowimy aktorom (Mockom) co maja zrobic, jesli zostana w taki (dokladnie taki!) sposob wywolani:
 
-            _PracownikDao.PobierzPracownikow("JakasAktywnaFirma ze Zgierza", 43).Returns(pracownicyOtrzymaniZBe);
+//            _PracownikDao.PobierzPracownikow("JakasAktywnaFirma ze Zgierza").Returns(pracownicyOtrzymaniZBe);
 
-            //Przedstawienie!
+//            //Przedstawienie!
 
-            List<Pracownik> retultatTestu = _Sut.PobierzWszystkich(jakasSesja);
+//            List<Pracownik> retultatTestu = _Sut.PobierzWszystkich(jakasSesja);
 
-            //A teraz do akcji wchodza krytycy:) Oceniaja i sprawdzaja sztuke i aktorow!:)
+//            //A teraz do akcji wchodza krytycy:) Oceniaja i sprawdzaja sztuke i aktorow!:)
 
-            //Czy wynik sie zgadza?
-            Assert.AreSame(pracownicyOtrzymaniZBe, retultatTestu);
+//            //Czy wynik sie zgadza?
+//            Assert.AreSame(pracownicyOtrzymaniZBe, retultatTestu);
 
-            //Czy aktor odegral swoja role?
-            _PracownikDao.Received(1).PobierzPracownikow("JakasAktywnaFirma ze Zgierza", 43);
-        }
+//            //Czy aktor odegral swoja role?
+//            _PracownikDao.Received(1).PobierzPracownikow("JakasAktywnaFirma ze Zgierza");
+//        }
 
-        [Test]
+//        [Test]
 
-        public void PobierzWszystkichZatrudnionych()
-        {
-            List<Pracownik> ZatrudnieniZBe = new List<Pracownik>();
+//        public void PobierzWszystkichZatrudnionych()
+//        {
+//            List<Pracownik> ZatrudnieniZBe = new List<Pracownik>();
 
-            Pracownik Ochodzka = new Pracownik()
-            {
-                Imie = "Irena",
-                Nazwisko = "Ochódzka"
-            };
+//            Pracownik Ochodzka = new Pracownik()
+//            {
+//                Imie = "Irena",
+//                Nazwisko = "Ochódzka"
+//            };
 
-            ZatrudnieniZBe.Add(Ochodzka);
+//            ZatrudnieniZBe.Add(Ochodzka);
 
-            SessionDetails JakasSesja = new SessionDetails()
-            {
-                AktywnaFirma = "TFW",
-                AktywnyUser = new KatLoginyDetale() { Confidential = 133 }
-            };
+//            SessionDetails JakasSesja = new SessionDetails()
+//            {
+//                AktywnaFirma = "TFW"
+//            };
 
-            _PracownikDao.PobierzZatrudnionychPracownikow("TFW", 133).Returns(ZatrudnieniZBe);
+//            _PracownikDao.PobierzZatrudnionychPracownikow("TFW").Returns(ZatrudnieniZBe);
 
-            List<Pracownik> RezultatTestu = _Sut.PobierzWszystkichZatrudnionych(JakasSesja);
-            Assert.AreSame(ZatrudnieniZBe, RezultatTestu);
-            _PracownikDao.Received(1).PobierzZatrudnionychPracownikow("TFW", 133);
-        }
+//            List<Pracownik> RezultatTestu = _Sut.PobierzWszystkichZatrudnionych(JakasSesja);
+//            Assert.AreSame(ZatrudnieniZBe, RezultatTestu);
+//            _PracownikDao.Received(1).PobierzZatrudnionychPracownikow("TFW");
+//        }
 
-        [Test]
+//        [Test]
 
-        public void PobierzPoId()
-        {
+//        public void PobierzPoId()
+//        {
 
-            Pracownik testowy = new Pracownik()
-            {
-                Numeread = "123456"
-            };
+//            Pracownik testowy = new Pracownik()
+//            {
+//                Numeread = "123456"
+//            };
 
 
-            _PracownikDao.PobierzPracownikaPoId("123456").Returns(testowy);
-            Pracownik pobrany = _Sut.PobierzPoId("123456");
-            Assert.AreSame(testowy, pobrany);
+//            _PracownikDao.PobierzPracownikaPoId("123456").Returns(testowy);
+//            Pracownik pobrany = _Sut.PobierzPoId("123456");
+//            Assert.AreSame(testowy, pobrany);
 
 
-            _PracownikDao.Received(1).PobierzPracownikaPoId("123456");
+//            _PracownikDao.Received(1).PobierzPracownikaPoId("123456");
 
-        }
+//        }
 
-        [Test]
+//        [Test]
 
-        public void ZnajdzPracownikow()
-        {
-            List<Pracownik> Testowi = new List<Pracownik>();
-            Pracownik testowy1 = new Pracownik()
-            {
-                Nazwisko = "Kargul"
-            };
+//        public void ZnajdzPracownikow()
+//        {
+//            List<Pracownik> Testowi = new List<Pracownik>();
+//            Pracownik testowy1 = new Pracownik()
+//            {
+//                Nazwisko = "Kargul"
+//            };
 
-            Testowi.Add(testowy1);
+//            Testowi.Add(testowy1);
 
-            SessionDetails sesja = new SessionDetails()
-            {
-                AktywnaFirma = "TFG",
-                AktywnyUser = new KatLoginyDetale() { Confidential = 789 }
-            };
+//            SessionDetails sesja = new SessionDetails()
+//            {
+//                AktywnaFirma = "TFG"
+//            };
 
-            _PracownikDao.WyszukiwaczPracownikow("Kargul", "TFG", 789).Returns(Testowi);
+//            _PracownikDao.WyszukiwaczPracownikow("Kargul", "TFG").Returns(Testowi);
 
-            List<Pracownik> Pobrani = _Sut.ZnajdzPracownikow("Kargul", sesja);
-            Assert.AreSame(Testowi, Pobrani);
+//            List<Pracownik> Pobrani = _Sut.ZnajdzPracownikow("Kargul", sesja);
+//            Assert.AreSame(Testowi, Pobrani);
 
 
-            _PracownikDao.Received(1).WyszukiwaczPracownikow("Kargul", "TFG", 789);
+//            _PracownikDao.Received(1).WyszukiwaczPracownikow("Kargul", "TFG");
 
-        }
-        [Test]
-        public void PobierzPozostalych()
-        {
-            List<Pracownik> PracownicyZDb = new List<Pracownik>();
-            Pracownik Ochodzka = new Pracownik()
-            {
-                Imie = "Irena",
-                Nazwisko = "Ochodzka"
-            };
-            PracownicyZDb.Add(Ochodzka);
+//        }
+//        [Test]
+//        public void PobierzPozostalych()
+//        {
+//            List<Pracownik> PracownicyZDb = new List<Pracownik>();
+//            Pracownik Ochodzka = new Pracownik()
+//            {
+//                Imie = "Irena",
+//                Nazwisko = "Ochodzka"
+//            };
+//            PracownicyZDb.Add(Ochodzka);
 
-            SessionDetails sesja = new SessionDetails()
-            {
-                AktywnaFirma = "TFG",
-                AktywnyUser = new KatLoginyDetale() { Confidential = 11 }
-            };
-            _PracownikDao.PobierzPozostalychPracownikow("TFG", 11).Returns(PracownicyZDb);
+//            SessionDetails sesja = new SessionDetails()
+//            {
+//                AktywnaFirma = "TFG"
+//            };
+//            _PracownikDao.PobierzPozostalychPracownikow("TFG").Returns(PracownicyZDb);
 
-            List<Pracownik> PracownicyResult = _Sut.PobierzPozostalych(sesja);
+//            List<Pracownik> PracownicyResult = _Sut.PobierzPozostalych(sesja);
 
-            Assert.AreSame(PracownicyZDb, PracownicyResult);
+//            Assert.AreSame(PracownicyZDb, PracownicyResult);
 
-            _PracownikDao.Received(1).PobierzPozostalychPracownikow("TFG", 11);
+//            _PracownikDao.Received(1).PobierzPozostalychPracownikow("TFG");
 
-        }
-        [Test]
-        public void ZnajdzPracownikowPoTekscie()
-        {
-            List<Pracownik> PracownicyZDb = new List<Pracownik>();
-            Pracownik pracownikZDb = new Pracownik()
-            {
-                Nazwisko = "Kryniulak"
-            };
-            PracownicyZDb.Add(pracownikZDb);
+//        }
+//        [Test]
+//        public void ZnajdzPracownikowPoTekscie()
+//        {
+//            List<Pracownik> PracownicyZDb = new List<Pracownik>();
+//            Pracownik pracownikZDb = new Pracownik()
+//            {
+//                Nazwisko = "Kryniulak"
+//            };
+//            PracownicyZDb.Add(pracownikZDb);
 
-            SessionDetails sesja = new SessionDetails()
-            {
-                AktywnaFirma = "AFM",
-                AktywnyUser = new KatLoginyDetale() { Confidential = 565 }
-            };
-            _PracownikDao.WyszukiwaczPracownikowPoTekscie("Kryn", "AFM", 565).Returns(PracownicyZDb);
-            List<Pracownik> result = _Sut.ZnajdzPracownikowPoTekscie("Kryn",sesja);
+//            SessionDetails sesja = new SessionDetails()
+//            {
+//                AktywnaFirma = "AFM"
+//            };
+//            _PracownikDao.WyszukiwaczPracownikowPoTekscie("Kryn", "AFM").Returns(PracownicyZDb);
+//            List<Pracownik> result = _Sut.ZnajdzPracownikowPoTekscie("Kryn",sesja);
 
-            Assert.AreSame(PracownicyZDb, result);
-            _PracownikDao.Received(1).WyszukiwaczPracownikowPoTekscie("Kryn", "AFM", 565);
-        }
-        [Test]
-        public void ZnajdzZatrPracownikowPoTekscie()
-        {
-            List<Pracownik> PracownicyZDb = new List<Pracownik>();
+//            Assert.AreSame(PracownicyZDb, result);
+//            _PracownikDao.Received(1).WyszukiwaczPracownikowPoTekscie("Kryn", "AFM");
+//        }
+//        [Test]
+//        public void ZnajdzZatrPracownikowPoTekscie()
+//        {
+//            List<Pracownik> PracownicyZDb = new List<Pracownik>();
 
-            Pracownik pracownikZDb = new Pracownik()
-            {
-                Nazwisko = "Kryniulak"
-            };
-            PracownicyZDb.Add(pracownikZDb);
-            SessionDetails sesja = new SessionDetails()
-            {
-                AktywnaFirma = "TFG",
-                AktywnyUser = new KatLoginyDetale() { Confidential = 123 }
-            };
+//            Pracownik pracownikZDb = new Pracownik()
+//            {
+//                Nazwisko = "Kryniulak"
+//            };
+//            PracownicyZDb.Add(pracownikZDb);
+//            SessionDetails sesja = new SessionDetails()
+//            {
+//                AktywnaFirma = "TFG"
+//            };
 
-            _PracownikDao.WyszukiwaczZatrPracownikowPoTekscie("Szukam", "TFG", 123).Returns(PracownicyZDb);
-            List<Pracownik> result = _Sut.ZnajdzZatrPracownikowPoTekscie("Szukam", sesja);
-            Assert.AreSame(PracownicyZDb, result);
+//            _PracownikDao.WyszukiwaczZatrPracownikowPoTekscie("Szukam", "TFG").Returns(PracownicyZDb);
+//            List<Pracownik> result = _Sut.ZnajdzZatrPracownikowPoTekscie("Szukam", sesja);
+//            Assert.AreSame(PracownicyZDb, result);
            
 
-            _PracownikDao.Received(1).WyszukiwaczZatrPracownikowPoTekscie("Szukam", "TFG", 123);
-        }
-        [Test]
-        public void ZnajdzPozostPracownikowPoTekscie()
-        {
-            List<Pracownik> PracownicyZDb = new List<Pracownik>();
-            SessionDetails sesja = new SessionDetails()
-            {
-                AktywnaFirma = "AFM",
-                AktywnyUser = new KatLoginyDetale() { Confidential = 321}
-            };
-            _PracownikDao.WyszukiwaczPozostZatrPracownikowPoTekscie("Szukam", "AFM", 321).Returns(PracownicyZDb);
-            List<Pracownik> result = _Sut.ZnajdzPozostPracownikowPoTekscie("Szukam", sesja);
-            Assert.AreSame(PracownicyZDb, result);
+//            _PracownikDao.Received(1).WyszukiwaczZatrPracownikowPoTekscie("Szukam", "TFG");
+//        }
+//        [Test]
+//        public void ZnajdzPozostPracownikowPoTekscie()
+//        {
+//            List<Pracownik> PracownicyZDb = new List<Pracownik>();
+//            SessionDetails sesja = new SessionDetails()
+//            {
+//                AktywnaFirma = "AFM"
+//            };
+//            _PracownikDao.WyszukiwaczPozostZatrPracownikowPoTekscie("Szukam", "AFM").Returns(PracownicyZDb);
+//            List<Pracownik> result = _Sut.ZnajdzPozostPracownikowPoTekscie("Szukam", sesja);
+//            Assert.AreSame(PracownicyZDb, result);
             
-            _PracownikDao.Received(1).WyszukiwaczPozostZatrPracownikowPoTekscie("Szukam", "AFM", 321);
-        }
+//            _PracownikDao.Received(1).WyszukiwaczPozostZatrPracownikowPoTekscie("Szukam", "AFM");
+//        }
 
 
-    }
-}
+//    }
+//}

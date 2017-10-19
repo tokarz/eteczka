@@ -66,6 +66,12 @@ angular.module('et.controllers').controller('filesViewController', ['$scope', '$
             }
         }
 
+        $scope.fillValidFromDate = function () {
+            if (!$scope.modalResult.DataPocz && $scope.modalResult.DataWytworzenia) {
+                $scope.modalResult.DataPocz = $scope.modalResult.DataWytworzenia
+            }
+        }
+
         $scope.isTypeWithDates = function (fileSymbol) {
             var type = fileTypes.find(function (file) {
                 return file.Symbol === fileSymbol

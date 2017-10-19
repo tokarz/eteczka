@@ -10,6 +10,7 @@ using System.Web;
 using PdfSharp.Pdf;
 using PdfSharp.Pdf.Security;
 using PdfSharp.Pdf.IO;
+using Ionic.Zip;
 
 
 namespace Eteczka.BE.Utils
@@ -483,6 +484,77 @@ namespace Eteczka.BE.Utils
                 result = false;
             }
 
+            return result;
+        }
+
+        public bool SpakujPliki(List<string> PlikiDoSpakowania, string haslo)
+        {
+            bool result = false;
+            string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
+            string dataFormat = "yyyyMMddHHmmssfff";
+
+
+            string tempZrodloKatalog = Path.Combine(eadRoot, DateTime.Now.ToString(dataFormat));
+            Directory.CreateDirectory(tempZrodloKatalog);
+            
+            string tempZipKatalog = Path.Combine(eadRoot, DateTime.Now.ToString(dataFormat));
+            Directory.CreateDirectory(tempZipKatalog);
+
+            try
+            {
+                PdfDocument document = new PdfDocument();
+
+                foreach (string plikZaszyfrowany in PlikiDoSpakowania)
+                {
+                    string nazwaPliku = plikZaszyfrowany.Substring(plikZaszyfrowany.LastIndexOf("\\"));
+                    document = PdfReader.Open(plikZaszyfrowany, "adminadmin");
+                    document.Save(tempZrodloKatalog + "\\" + nazwaPliku);
+                }
+
+                List<string> ListaPlikow = Directory.GetFiles(tempZrodloKatalog).ToList();
+                using (ZipFile zip = new ZipFile())
+                {
+                    string password = haslo;
+                    if (!string.IsNullOrEmpty(password))
+                    {
+                        foreach (string plik in ListaPlikow)
+                        {
+
+                            zip.AddFile(plik, "");
+                        }
+
+                        //Szyfrujemy i hasłujemy zipa
+                        string tempZipSaveSciezka = tempZipKatalog + "\\" + DateTime.Now.ToString(dataFormat) +".zip";
+                       
+                        zip.Save(tempZipSaveSciezka);
+                     
+                        zip.Password = password;
+                        zip.Encryption = EncryptionAlgorithm.WinZipAes256;
+
+                        zip.AddFile(tempZipSaveSciezka, "");
+                        zip.RemoveSelectedEntries("*.pdf");
+
+                        
+                        string archiwumZipFolder = Path.Combine(eadRoot, "ArchiwumZip\\");
+                        if (!Directory.Exists(archiwumZipFolder))
+                        {
+                        
+                            Directory.CreateDirectory(archiwumZipFolder);
+                        }
+                        zip.Save(eadRoot + "ArchiwumZip\\" + DateTime.Now.ToString(dataFormat)+  ".zip");
+
+
+                        Directory.Delete(tempZipKatalog, true);
+                        Directory.Delete(tempZrodloKatalog, true);
+
+                        result = true;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                result = false;
+            }
             return result;
         }
 

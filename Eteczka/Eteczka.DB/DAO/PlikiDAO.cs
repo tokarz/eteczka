@@ -185,20 +185,34 @@ namespace Eteczka.DB.DAO
             //TODO: Tutaj kwerenda Paszczaka z filtrami!!
             //string sqlQuery = "SELECT * from \"Pliki\";";
 
-            string sqlQuery =
-                "SELECT * FROM \"Pliki\" as pl left join \"KatPracownicy\" as pr on pl.numeread = pr.numeread" +
-                "WHERE " +
-                    "symbol LIKE '" + typ.Trim() + "' " +
-                    "AND numeread IN " +
-                    "(SELECT numeread FROM \"MiejscePracy\" " +
-                    "WHERE NOT \"MiejscePracy\".usuniety " +
-                    "AND \"MiejscePracy\".firma IN ('" + firma.Trim() + "') " +
-                    "AND rejon LIKE '" + rejon.Trim() + "' " +
-                    "AND wydzial LIKE '" + wydzial.Trim() + "' " +
-                    "AND podwydzial LIKE '" + podwydzial.Trim() + "' " +
-                    "AND konto5 LIKE '" + konto5.Trim() + "' );";
+            //string sqlQuery =
+            //"SELECT * FROM \"Pliki\" " +
+            // "WHERE " +
+            // "symbol LIKE '" + typ.Trim() + "' " +
+            // "AND numeread IN " +
+            // "(SELECT numeread FROM \"MiejscePracy\" " +
+            // "WHERE NOT \"MiejscePracy\".usuniety " +
+            // "AND \"MiejscePracy\".firma IN ('" + firma.Trim() + "') " +
+            // "AND rejon LIKE '" + rejon.Trim() + "' " +
+            //"AND wydzial LIKE '" + wydzial.Trim() + "' " +
+            // "AND podwydzial LIKE '" + podwydzial.Trim() + "' " +
+            // "AND konto5 LIKE '" + konto5.Trim() + "' );";
 
-            sqlQuery += " order by " + sortColumn + " " + sortOrder + ";";
+            string sqlQuery =
+            "SELECT \"Pliki\".*, \"KatPracownicy\".* FROM \"Pliki\" "
+            + "LEFT OUTER JOIN \"KatPracownicy\" "
+            + "ON \"Pliki\".numeread = \"KatPracownicy\".numeread "
+            + "WHERE " 
+            + "\"Pliki\".symbol LIKE '" + typ.Trim() + "' " 
+            + "AND \"Pliki\".numeread IN "
+            + "(SELECT numeread FROM \"MiejscePracy\" " 
+            + "WHERE NOT \"MiejscePracy\".usuniety " 
+            + "AND \"MiejscePracy\".firma IN ('" + firma.Trim() + "') " 
+            + "AND rejon LIKE '" + rejon.Trim() + "' " 
+            + "AND wydzial LIKE '" + wydzial.Trim() + "' " 
+            + "AND podwydzial LIKE '" + podwydzial.Trim() + "' " 
+            + "AND konto5 LIKE '" + konto5.Trim() + "' ) "
+            + ";";
 
             List<Pliki> fetchedResult = new List<Pliki>();
 

@@ -87,7 +87,7 @@ namespace Eteczka.DB.DAO
                 + "AND numeread IN "
                 + "(SELECT numeread FROM \"MiejscePracy\" where "
                 + "firma IN ('" + firma.Trim() + "') AND '"
-                + DateTime.Now.ToString().Substring(0, 10)
+                + DateTime.Now.ToString(dateShortFormat)
                 + "' BETWEEN \"MiejscePracy\".datapocz and \"MiejscePracy\".datakoniec) "
                 + "ORDER BY " + orderby + orderDirection;
 
