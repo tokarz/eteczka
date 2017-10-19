@@ -51,7 +51,8 @@ namespace Eteczka.BE.Controllers
 
             if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
             {
-                pliki = _PlikiService.PobierzDlaUzytkownika(numeread);
+                SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                pliki = _PlikiService.PobierzDlaUzytkownika(numeread, sesja.AktywnaFirma);
             }
 
             return Json(new

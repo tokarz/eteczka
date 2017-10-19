@@ -26,7 +26,7 @@ namespace Eteczka.BE.Services
             this._PlikiUtils = plikiUtils;
         }
 
-        public List<Pliki> PobierzWszystkie(string sortOrder = "asc", string sortColumn = "Id")
+        public List<Pliki> PobierzWszystkie(string sortOrder = "asc", string sortColumn = "datapocz")
         {
 
             List<Pliki> pobrane = _Dao.PobierzWszystkiePliki(sortOrder, sortColumn);
@@ -34,14 +34,14 @@ namespace Eteczka.BE.Services
             return pobrane;
         }
 
-        public List<Pliki> PobierzDlaUzytkownika(string numeread, string sortOdred = "asc", string sortColumn = "Id")
+        public List<Pliki> PobierzDlaUzytkownika(string numeread, string firma, string sortOrder = "asc", string sortColumn = "datapocz")
         {
-            List<Pliki> result = _Dao.PobierzPlikPoNumerzeEad(numeread);
+            List<Pliki> result = _Dao.PobierzPlikPoNumerzeEad(numeread, firma, sortOrder, sortColumn);
 
             return result;
         }
 
-        public List<Pliki> PobierzZawierajaceTekst(string searchText, string sortOrder = "asc", string sortColumn = "Id")
+        public List<Pliki> PobierzZawierajaceTekst(string searchText, string sortOrder = "asc", string sortColumn = "datapocz")
         {
             List<Pliki> result = new List<Pliki>();
 
@@ -89,7 +89,7 @@ namespace Eteczka.BE.Services
             return result;
         }
 
-        public List<Pliki> PobierzPlikiDlaFirmy(string firma)
+        public List<Pliki> PobierzPlikiDlaFirmy(string firma, string sortOrder = "asc", string sortColumn = "datapocz")
         {
             List<Pliki> result = new List<Pliki>();
             string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
@@ -173,7 +173,7 @@ namespace Eteczka.BE.Services
             return result;
         }
 
-        public List<Pliki> SzukajPlikiZFiltrow(SessionDetails sesja, FiltryPlikow filtry)
+        public List<Pliki> SzukajPlikiZFiltrow(SessionDetails sesja, FiltryPlikow filtry, string sortOrder, string sortColumn)
         {
             List<Pliki> wyszukanePliki = new List<Pliki>();
             if (filtry != null)
@@ -185,7 +185,7 @@ namespace Eteczka.BE.Services
                 string konto5 = (filtry.Konto5 != null) ? ("%" + filtry.Konto5.Konto5 + "%") : "%%";
                 string typ = (filtry.Typ != null) ? ("%" + filtry.Typ.Symbol + "%") : "%%";
 
-                wyszukanePliki = _Dao.WyszukajPlikiZFiltrow(sesja.AktywnaFirma, rejon, wydzial, podwydzial, konto5, typ, filtry.Pracownik);
+                wyszukanePliki = _Dao.WyszukajPlikiZFiltrow(sesja.AktywnaFirma, rejon, wydzial, podwydzial, konto5, typ, filtry.Pracownik, sortOrder, sortColumn);
             }
             return wyszukanePliki;
         }

@@ -60,16 +60,19 @@ namespace Eteczka.DB.DAO
             List<KatLoginyDetale> oczekiwanaLista = new List<KatLoginyDetale>();
             DataTable queryResult = Substitute.For<DataTable>();
 
+
             string sqlQuery = "SELECT * from \"KatLoginyDetale\" WHERE identyfikator = 'jakiesId';";
             _ConnectionFactory.CreateConnectionToDB(_Connection).Returns(_ConnectionState);
             _ConnectionState.ExecuteQuery(sqlQuery).Returns(queryResult);
+            _Mapper.MapDetails(queryResult).Returns(oczekiwanaLista);
 
-            List<KatLoginyDetale>  result = _Sut.WczytajDetaleDlaUzytkownika("jakiesId");
+            List<KatLoginyDetale> result = _Sut.WczytajDetaleDlaUzytkownika("jakiesId");
             Assert.IsNotNull(result);
             Assert.AreSame(oczekiwanaLista, result);
 
-
-
+            _ConnectionFactory.Received(1).CreateConnectionToDB(_Connection);
+            _ConnectionState.Received(1).ExecuteQuery(sqlQuery);
+            _Mapper.Received(1).MapDetails(queryResult);
         }
 
     }

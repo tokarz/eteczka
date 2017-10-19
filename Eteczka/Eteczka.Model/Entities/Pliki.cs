@@ -11,6 +11,11 @@ namespace Eteczka.Model.Entities
         public long Id { get; set; }
         public string Firma { get; set; }
         public string NumerEad { get; set; }
+        public string Imie { get; set; }
+        public string DrugieImie { get; set; }
+        public string Nazwisko { get; set; }
+        public string Pesel { get; set; }
+        public DateTime DataUrodzenia { get; set; }
         public string Symbol { get; set; } // rodzaj dokumentu
         public DateTime DataSkanu { get; set; }
         public DateTime DataDokumentu { get; set; }

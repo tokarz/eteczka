@@ -38,12 +38,13 @@ namespace Eteczka.BE.Services
             }};
             SessionDetails jakasSesja = new SessionDetails()
                 {
-                    AktywnaFirma = "JakasAktywnaFirma ze Zgierza"
+                    AktywnaFirma = "JakasAktywnaFirma ze Zgierza",
+                    AktywnyUser = new KatLoginyDetale() { Confidential = 43 }
                 };
 
             //Przed wywolaniem robimy "probe". Mowimy aktorom (Mockom) co maja zrobic, jesli zostana w taki (dokladnie taki!) sposob wywolani:
 
-            _PracownikDao.PobierzPracownikow("JakasAktywnaFirma ze Zgierza").Returns(pracownicyOtrzymaniZBe);
+            _PracownikDao.PobierzPracownikow("JakasAktywnaFirma ze Zgierza", 43).Returns(pracownicyOtrzymaniZBe);
 
             //Przedstawienie!
 
@@ -55,7 +56,7 @@ namespace Eteczka.BE.Services
             Assert.AreSame(pracownicyOtrzymaniZBe, retultatTestu);
 
             //Czy aktor odegral swoja role?
-            _PracownikDao.Received(1).PobierzPracownikow("JakasAktywnaFirma ze Zgierza");
+            _PracownikDao.Received(1).PobierzPracownikow("JakasAktywnaFirma ze Zgierza", 43);
         }
 
         [Test]
@@ -74,14 +75,15 @@ namespace Eteczka.BE.Services
 
             SessionDetails JakasSesja = new SessionDetails()
             {
-                AktywnaFirma = "TFW"
+                AktywnaFirma = "TFW",
+                AktywnyUser = new KatLoginyDetale() { Confidential = 133 }
             };
 
-            _PracownikDao.PobierzZatrudnionychPracownikow("TFW").Returns(ZatrudnieniZBe);
+            _PracownikDao.PobierzZatrudnionychPracownikow("TFW", 133).Returns(ZatrudnieniZBe);
 
             List<Pracownik> RezultatTestu = _Sut.PobierzWszystkichZatrudnionych(JakasSesja);
             Assert.AreSame(ZatrudnieniZBe, RezultatTestu);
-            _PracownikDao.Received(1).PobierzZatrudnionychPracownikow("TFW");
+            _PracownikDao.Received(1).PobierzZatrudnionychPracownikow("TFW", 133);
         }
 
         [Test]
@@ -118,16 +120,17 @@ namespace Eteczka.BE.Services
 
             SessionDetails sesja = new SessionDetails()
             {
-                AktywnaFirma = "TFG"
+                AktywnaFirma = "TFG",
+                AktywnyUser = new KatLoginyDetale() { Confidential = 789 }
             };
 
-            _PracownikDao.WyszukiwaczPracownikow("Kargul", "TFG").Returns(Testowi);
+            _PracownikDao.WyszukiwaczPracownikow("Kargul", "TFG", 789).Returns(Testowi);
 
             List<Pracownik> Pobrani = _Sut.ZnajdzPracownikow("Kargul", sesja);
             Assert.AreSame(Testowi, Pobrani);
 
 
-            _PracownikDao.Received(1).WyszukiwaczPracownikow("Kargul", "TFG");
+            _PracownikDao.Received(1).WyszukiwaczPracownikow("Kargul", "TFG", 789);
 
         }
         [Test]
@@ -143,15 +146,16 @@ namespace Eteczka.BE.Services
 
             SessionDetails sesja = new SessionDetails()
             {
-                AktywnaFirma = "TFG"
+                AktywnaFirma = "TFG",
+                AktywnyUser = new KatLoginyDetale() { Confidential = 11 }
             };
-            _PracownikDao.PobierzPozostalychPracownikow("TFG").Returns(PracownicyZDb);
+            _PracownikDao.PobierzPozostalychPracownikow("TFG", 11).Returns(PracownicyZDb);
 
             List<Pracownik> PracownicyResult = _Sut.PobierzPozostalych(sesja);
 
             Assert.AreSame(PracownicyZDb, PracownicyResult);
 
-            _PracownikDao.Received(1).PobierzPozostalychPracownikow("TFG");
+            _PracownikDao.Received(1).PobierzPozostalychPracownikow("TFG", 11);
 
         }
         [Test]
@@ -166,13 +170,14 @@ namespace Eteczka.BE.Services
 
             SessionDetails sesja = new SessionDetails()
             {
-                AktywnaFirma = "AFM"
+                AktywnaFirma = "AFM",
+                AktywnyUser = new KatLoginyDetale() { Confidential = 565 }
             };
-            _PracownikDao.WyszukiwaczPracownikowPoTekscie("Kryn", "AFM").Returns(PracownicyZDb);
+            _PracownikDao.WyszukiwaczPracownikowPoTekscie("Kryn", "AFM", 565).Returns(PracownicyZDb);
             List<Pracownik> result = _Sut.ZnajdzPracownikowPoTekscie("Kryn",sesja);
 
             Assert.AreSame(PracownicyZDb, result);
-            _PracownikDao.Received(1).WyszukiwaczPracownikowPoTekscie("Kryn", "AFM");
+            _PracownikDao.Received(1).WyszukiwaczPracownikowPoTekscie("Kryn", "AFM", 565);
         }
         [Test]
         public void ZnajdzZatrPracownikowPoTekscie()
@@ -186,15 +191,16 @@ namespace Eteczka.BE.Services
             PracownicyZDb.Add(pracownikZDb);
             SessionDetails sesja = new SessionDetails()
             {
-                AktywnaFirma = "TFG"
+                AktywnaFirma = "TFG",
+                AktywnyUser = new KatLoginyDetale() { Confidential = 123 }
             };
 
-            _PracownikDao.WyszukiwaczZatrPracownikowPoTekscie("Szukam", "TFG").Returns(PracownicyZDb);
+            _PracownikDao.WyszukiwaczZatrPracownikowPoTekscie("Szukam", "TFG", 123).Returns(PracownicyZDb);
             List<Pracownik> result = _Sut.ZnajdzZatrPracownikowPoTekscie("Szukam", sesja);
             Assert.AreSame(PracownicyZDb, result);
            
 
-            _PracownikDao.Received(1).WyszukiwaczZatrPracownikowPoTekscie("Szukam", "TFG");
+            _PracownikDao.Received(1).WyszukiwaczZatrPracownikowPoTekscie("Szukam", "TFG", 123);
         }
         [Test]
         public void ZnajdzPozostPracownikowPoTekscie()
@@ -202,13 +208,14 @@ namespace Eteczka.BE.Services
             List<Pracownik> PracownicyZDb = new List<Pracownik>();
             SessionDetails sesja = new SessionDetails()
             {
-                AktywnaFirma = "AFM"
+                AktywnaFirma = "AFM",
+                AktywnyUser = new KatLoginyDetale() { Confidential = 321}
             };
-            _PracownikDao.WyszukiwaczPozostZatrPracownikowPoTekscie("Szukam", "AFM").Returns(PracownicyZDb);
+            _PracownikDao.WyszukiwaczPozostZatrPracownikowPoTekscie("Szukam", "AFM", 321).Returns(PracownicyZDb);
             List<Pracownik> result = _Sut.ZnajdzPozostPracownikowPoTekscie("Szukam", sesja);
             Assert.AreSame(PracownicyZDb, result);
             
-            _PracownikDao.Received(1).WyszukiwaczPozostZatrPracownikowPoTekscie("Szukam", "AFM");
+            _PracownikDao.Received(1).WyszukiwaczPozostZatrPracownikowPoTekscie("Szukam", "AFM", 321);
         }
 
 

@@ -131,9 +131,21 @@ namespace Eteczka.DB.DAO
             return result;
         }
 
-        public List<Pliki> PobierzPlikPoNumerzeEad(string numeread)
+        public List<Pliki> PobierzPlikPoNumerzeEad(string numeread, string firma, string sortOrder, string sortColumn)
         {
-            string sqlQuery = "SELECT * from \"Pliki\" WHERE numeread = '" + numeread + "';";
+            //string sqlQuery = "SELECT * from \"Pliki\" WHERE numeread = '" + numeread + "';";
+            if (numeread == null)
+            {
+                numeread = "";
+            }
+
+            if (firma == null)
+            {
+                firma = "";
+            }
+
+            string sqlQuery = "SELECT * from \"Pliki\" as pl left join \"KatPracownicy\" as pr on pl.numeread = '" + numeread.Trim() + "' where pl.firma = '" + firma.Trim() + "'";
+            sqlQuery += " order by " + sortColumn + " " + sortOrder + ";";
 
             List<Pliki> fetchedResult = new List<Pliki>();
 
@@ -150,27 +162,31 @@ namespace Eteczka.DB.DAO
 
         public Pliki PobierzPlikPoNazwie(string nazwa)
         {
+            //Zla Kwerenda, NIEUZYWANE
             string sqlQuery = "SELECT * from \"Pliki\" WHERE nazwapliku = '" + nazwa + "';";
 
-            Pliki fetchedDok = new Pliki();
+            Pliki fetchedDok = new Pliki()
+            {
+                Imie = "BLAD!"
+            };
 
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
             DataTable result = connectionState.ExecuteQuery(sqlQuery);
             if (result.Rows.Count == 1)
             {
-                fetchedDok = _PlikiMapper.MapujZSql(result.Rows[0]);
+                //fetchedDok = _PlikiMapper.MapujZSql(result.Rows[0]);
             }
 
             return fetchedDok;
         }
 
-        public List<Pliki> WyszukajPlikiZFiltrow(string firma, string rejon, string wydzial, string podwydzial, string konto5, string typ, string pesel)
+        public List<Pliki> WyszukajPlikiZFiltrow(string firma, string rejon, string wydzial, string podwydzial, string konto5, string typ, string pesel, string sortOrder, string sortColumn)
         {
             //TODO: Tutaj kwerenda Paszczaka z filtrami!!
             //string sqlQuery = "SELECT * from \"Pliki\";";
 
             string sqlQuery =
-                "SELECT * FROM \"Pliki\" " +
+                "SELECT * FROM \"Pliki\" as pl left join \"KatPracownicy\" as pr on pl.numeread = pr.numeread" +
                 "WHERE " +
                     "symbol LIKE '" + typ.Trim() + "' " +
                     "AND numeread IN " +
@@ -181,6 +197,8 @@ namespace Eteczka.DB.DAO
                     "AND wydzial LIKE '" + wydzial.Trim() + "' " +
                     "AND podwydzial LIKE '" + podwydzial.Trim() + "' " +
                     "AND konto5 LIKE '" + konto5.Trim() + "' );";
+
+            sqlQuery += " order by " + sortColumn + " " + sortOrder + ";";
 
             List<Pliki> fetchedResult = new List<Pliki>();
 
