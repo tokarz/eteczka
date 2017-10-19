@@ -487,18 +487,28 @@ namespace Eteczka.BE.Utils
             return result;
         }
 
-        public bool SpakujPliki(List<string> PlikiDoSpakowania, string haslo)
+        public string SpakujPliki(List<string> PlikiDoSpakowania, string haslo)
         {
-            bool result = false;
+            
             string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
             string dataFormat = "yyyyMMddHHmmssfff";
 
 
-            string tempZrodloKatalog = Path.Combine(eadRoot, DateTime.Now.ToString(dataFormat));
+            string tempZrodloKatalog = Path.Combine(eadRoot, DateTime.Now.ToString(dataFormat) + "tempsource");
             Directory.CreateDirectory(tempZrodloKatalog);
             
-            string tempZipKatalog = Path.Combine(eadRoot, DateTime.Now.ToString(dataFormat));
+            string tempZipKatalog = Path.Combine(eadRoot, DateTime.Now.ToString(dataFormat) + "tempzip");
             Directory.CreateDirectory(tempZipKatalog);
+
+            string tempZipSaveSciezka = tempZipKatalog + "\\" + DateTime.Now.ToString(dataFormat) + ".zip";
+            string archiwumZipFolder = Path.Combine(eadRoot, "ArchiwumZip\\");
+
+            if (!Directory.Exists(archiwumZipFolder))
+            {
+
+                Directory.CreateDirectory(archiwumZipFolder);
+            }
+            string sciezkaDoZipa = (eadRoot + "\\ArchiwumZip\\" + DateTime.Now.ToString(dataFormat) + ".zip");
 
             try
             {
@@ -506,9 +516,13 @@ namespace Eteczka.BE.Utils
 
                 foreach (string plikZaszyfrowany in PlikiDoSpakowania)
                 {
+
+                    if (File.Exists(plikZaszyfrowany))
+                    { 
                     string nazwaPliku = plikZaszyfrowany.Substring(plikZaszyfrowany.LastIndexOf("\\"));
                     document = PdfReader.Open(plikZaszyfrowany, "adminadmin");
                     document.Save(tempZrodloKatalog + "\\" + nazwaPliku);
+                    }
                 }
 
                 List<string> ListaPlikow = Directory.GetFiles(tempZrodloKatalog).ToList();
@@ -524,9 +538,10 @@ namespace Eteczka.BE.Utils
                         }
 
                         //Szyfrujemy i hasłujemy zipa
-                        string tempZipSaveSciezka = tempZipKatalog + "\\" + DateTime.Now.ToString(dataFormat) +".zip";
-                       
+                        
+
                         zip.Save(tempZipSaveSciezka);
+                    }
                      
                         zip.Password = password;
                         zip.Encryption = EncryptionAlgorithm.WinZipAes256;
@@ -534,28 +549,21 @@ namespace Eteczka.BE.Utils
                         zip.AddFile(tempZipSaveSciezka, "");
                         zip.RemoveSelectedEntries("*.pdf");
 
+                      
                         
-                        string archiwumZipFolder = Path.Combine(eadRoot, "ArchiwumZip\\");
-                        if (!Directory.Exists(archiwumZipFolder))
-                        {
-                        
-                            Directory.CreateDirectory(archiwumZipFolder);
-                        }
-                        zip.Save(eadRoot + "ArchiwumZip\\" + DateTime.Now.ToString(dataFormat)+  ".zip");
+                        zip.Save(sciezkaDoZipa);
 
 
                         Directory.Delete(tempZipKatalog, true);
                         Directory.Delete(tempZrodloKatalog, true);
-
-                        result = true;
-                    }
+   
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                result = false;
+               // logi
             }
-            return result;
+            return sciezkaDoZipa;
         }
 
     }

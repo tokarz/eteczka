@@ -242,18 +242,21 @@ namespace Eteczka.BE.Utils
             //Assert.AreEqual("B", result.CalyPlik[70].CzescAkt);
         }
 
-        //[Test]
-        //public void SpakujPliki()
-        //{
-        //    List<string> ListaPlikowZrodlo = new List<String>();
-            
-        //    //ListaPlikowZrodlo.Add("..\\..\\Eteczka\\Eteczka.Be.Tests\\test - data\\zip\\AFM_543_ccccccc — Notatnik.pdf");
-        //    //ListaPlikowZrodlo.Add("..\\..\\Eteczka\\Eteczka.Be.Tests\\test - data\\zip\\AFM_848_bbbbbbbbbbbbb — Notatnik.pdf");
-        //    //ListaPlikowZrodlo.Add("..\\..\\Eteczka\\Eteczka.Be.Tests\\test - data\\zip\\AFM_948_aaa — Notatnik.pdf");
-           
+       /* [Test]
+        public void SpakujPliki()
+        {
+            List<string> ListaPlikowZrodlo = new List<String>();
 
-        //    Assert.IsTrue(_Sut.SpakujPliki(ListaPlikowZrodlo, "kotek"));
-        //}
+            ListaPlikowZrodlo.Add("C:\\Users\\Michał\\Desktop\\eteczka\\eteczka\\Eteczka\\Eteczka.Be.Tests\\test-data\\zip\\AFM_543_ccccccc — Notatnik.pdf");
+            ListaPlikowZrodlo.Add("C:\\Users\\Michał\\Desktop\\eteczka\\eteczka\\Eteczka\\Eteczka.Be.Tests\\test-data\\zip\\AFM_848_bbbbbbbbbbbbb — Notatnik.pdf");
+            ListaPlikowZrodlo.Add("C:\\Users\\Michał\\Desktop\\eteczka\\eteczka\\Eteczka\\Eteczka.Be.Tests\\test-data\\zip\\AFM_948_aaa — Notatnik.pdf");
+
+
+            string result = _Sut.SpakujPliki(ListaPlikowZrodlo, "kotek");
+            Assert.NotNull(result);
+            Assert.IsNotEmpty(result);
+
+        }*/
 
     }
 }
