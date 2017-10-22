@@ -11,7 +11,7 @@
         </md-toolbar>
         <md-dialog-content style="padding:15px">
             <div class="modal-table-row">
-                <label class="modal-table-label" for="docSymbol">Symbol dokumentu</label>
+                <label class="modal-table-label" for="docSymbol">Symbol dokumentu *</label>
                 <md-autocomplete class="modal-table-input"
                                  name="docSymbol"
                                  md-selected-item="modalResult.Typ"
@@ -31,7 +31,7 @@
             </div>
             <div class="modal-table-row">
                 <label class="modal-table-label" for="docName">Nazwa dokumentu</label>
-                <input class="modal-table-input" name="docName" type="text" ng-model="modalResult.Typ.Nazwa" required disabled />
+                <input class="modal-table-input" name="docName" type="text" ng-model="modalResult.Typ.Nazwa" disabled />
             </div>
             <div class="modal-table-row">
                 <label class="modal-table-label" for="isDocOwner">Dokument Wlasny</label>
@@ -41,14 +41,15 @@
                         ng-model="modalResult.Dokwlasny" />
             </div>
             <div class="modal-table-row">
-                <label class="modal-table-label" for="docPart">Dzial Teczki</label>
+                <label class="modal-table-label" for="docPart">Dzial Teczki *</label>
                 <input class="modal-table-input" name="docPart" type="text" ng-model="modalResult.Typ.Teczkadzial" required />
             </div>
             <div class="modal-table-row">
-                <label class="modal-table-label" for="creationDate">Data dokumentu</label>
+                <label class="modal-table-label" for="creationDate">Data dokumentu *</label>
                 <input class="modal-table-input"
                        name="creationDate"
                        type="text"
+                       placeholder="RRRR-MM-DD"
                        ng-model="modalResult.DataWytworzenia"
                        ng-pattern="/^\s*(\d{4})-(\d{2})-(\d{2})\s*$/"
                        ng-change="fillValidFromDate()"
@@ -59,7 +60,7 @@
                 <span class="modal-table-error" ng-show="upsertFileDescription.creationDate.$error.pattern">Data musi miec format: RRRR-MM-DD</span>
             </div>
             <div class="modal-table-row">
-                <label class="modal-table-label" for="employee">PESEL Pracownika</label>
+                <label class="modal-table-label" for="employee">PESEL Pracownika *</label>
                 <input class="modal-table-input"
                        name="employee"
                        type="text"
@@ -77,10 +78,11 @@
                 <span class="modal-table-error" ng-show="upsertFileDescription.employeeName.$error.required">Nie znaleziono pracownika o podanym peselu</span>
             </div>
             <div class="modal-table-row">
-                <label class="modal-table-label" for="validFromDate">Data początku obowiązywania</label>
+                <label class="modal-table-label" for="validFromDate">Data początku obowiązywania *</label>
                 <input class="modal-table-input"
                        name="validFromDate"
                        type="text"
+                       placeholder="RRRR-MM-DD"
                        ng-model="modalResult.DataPocz"
                        ng-pattern="/^\s*(\d{4})-(\d{2})-(\d{2})\s*$/"
                        ng-model-options="{updateOn: 'blur'}"
@@ -96,6 +98,7 @@
                 <input class="modal-table-input"
                        name="validUntilDate"
                        type="text"
+                       placeholder="RRRR-MM-DD"
                        ng-model="modalResult.DataKoniec"
                        ng-pattern="/^\s*(\d{4})-(\d{2})-(\d{2})\s*$/"
                        ng-model-options="{updateOn: 'blur'}"

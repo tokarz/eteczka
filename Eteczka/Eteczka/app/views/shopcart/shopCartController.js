@@ -53,9 +53,37 @@ angular.module('et.controllers').controller('shopCartController', ['$scope', '$s
         openModal(
             modalOptions,
             function (value) {
-                console.log('send email with values', value)
+                triggerZipPasswordModal()
+                    .then(function (zipPassword) {
+                        var result = Object.assign({}, value, zipPassword)
+                        // add be function to send email
+                    });
             }
         )
+    }
+
+    var triggerZipPasswordModal = function () {
+        var modalOptions = {
+            body: 'app/views/shopcart/shopCartModals/zipPasswordModal.html',
+            controller: function ($scope, $mdDialog) {
+                $scope.hide = function () {
+                    $mdDialog.hide();
+                };
+
+                $scope.cancel = function () {
+                    $mdDialog.cancel();
+                };
+
+                $scope.answer = function (answer, errors) {
+                    console.log(errors)
+                    if (!errors || Object.keys(errors).length === 0) {
+                        $mdDialog.hide(answer);
+                    }
+                };
+            }
+        }
+
+        return openModal(modalOptions, function (value) { return value })
     }
 
     $scope.downloadFiles = function () {

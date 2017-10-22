@@ -16,7 +16,7 @@
                 <input class="modal-table-input" name="firm" type="text" ng-model="modalResult.Firma" ng-disabled="true" />
             </div>
             <div class="modal-table-row">
-                <label class="modal-table-label" for="region">Rejon</label>
+                <label class="modal-table-label" for="region">Rejon *</label>
                 <select ng-if="workplaceParams.loadingRegions"
                         class="modal-table-input modal-select-input"
                         name="region"
@@ -31,7 +31,7 @@
                 />
             </div>
             <div class="modal-table-row">
-                <label class="modal-table-label" for="department">Wydzial</label>
+                <label class="modal-table-label" for="department">Wydzial *</label>
                 <select ng-if="workplaceParams.loadingDepartments"
                         class="modal-table-input"
                         name="department"
@@ -74,7 +74,7 @@
                         ng-init="modalResult.Konto5.Nazwa" 
                         required
                 />-->
-                <label class="modal-table-label" for="account5Abbr">Konto 5 (skrot)</label>
+                <label class="modal-table-label" for="account5Abbr">Konto 5 (skrot) *</label>
                 <md-autocomplete class="modal-table-input"
                                  name="account5Abbr"
                                  md-selected-item="modalResult.Konto5"
@@ -97,10 +97,11 @@
                 <input class="modal-table-input" name="account5Name" type="text" ng-model="modalResult.Konto5.Konto5" disabled />
             </div>
             <div class="modal-table-row">
-                <label class="modal-table-label" for="startDate">Data poczatkowa</label>
+                <label class="modal-table-label" for="startDate">Data poczatkowa *</label>
                 <input class="modal-table-input"
                        name="startDate"
                        type="text"
+                       placeholder="RRRR-MM-DD"
                        ng-model="modalResult.DataPoczatkowa"
                        ng-pattern="/^\s*(\d{4})-(\d{2})-(\d{2})\s*$/"
                        ng-model-options="{updateOn: 'blur'}"
@@ -110,10 +111,11 @@
                 <span class="modal-table-error" ng-show="upsertworkspace.startDate.$error.pattern">Data musi miec format: RRRR-MM-DD</span>
             </div>
             <div class="modal-table-row">
-                <label class="modal-table-label" for="endDate">Data koncowa</label>
+                <label class="modal-table-label" for="endDate">Data koncowa *</label>
                 <input class="modal-table-input"
                        name="endDate"
                        type="text"
+                       placeholder="RRRR-MM-DD"
                        ng-model="modalResult.DataKoniec"
                        ng-pattern="/^\s*(\d{4})-(\d{2})-(\d{2})\s*$/"
                        ng-model-options="{updateOn: 'blur'}"
