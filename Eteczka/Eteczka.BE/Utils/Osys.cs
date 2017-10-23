@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Numerics;
 using System.Linq;
-
+using System.Net.Mail;
 
 namespace Eteczka.BE.Utils
 {
@@ -482,6 +482,21 @@ namespace Eteczka.BE.Utils
             }
 
             return result;
+        }
+        public bool ProstyWalidatorMaila(string email)
+        {
+            try
+            {
+                MailAddress m = new MailAddress(email);
+
+              
+                return true;
+            }
+            catch (Exception ex)
+            {
+                
+                return false;
+            }
         }
     }
 }

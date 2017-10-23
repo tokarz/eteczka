@@ -190,6 +190,14 @@ namespace Eteczka.BE.Services
             return wyszukanePliki;
         }
 
+        public bool WyslijPlikiMailem(SessionDetails sesja, string adresaci, List<string> Zalaczniki, string hasloDoZip, string temat, string wiadomosc)
+        {
+            
+            bool result = _PlikiUtils.WyslijPlikiMailem(sesja.AktywnaFirma, adresaci, Zalaczniki, hasloDoZip, temat, wiadomosc);
+
+            return result;
+        }
+
 
 
     }

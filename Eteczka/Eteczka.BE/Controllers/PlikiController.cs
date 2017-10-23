@@ -128,5 +128,22 @@ namespace Eteczka.BE.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-    }
+        public ActionResult WyslijMailemPliki(string sessionId, string adresaci, List<string> Zalaczniki, string hasloDoZip, string temat, string wiadomosc)
+        {
+
+            bool success = false;
+            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            {
+                SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+
+                success = _PlikiService.WyslijPlikiMailem(sesja, adresaci, Zalaczniki, hasloDoZip, temat, wiadomosc);
+            }
+            return Json(new
+            {
+                success = success
+            }, JsonRequestBehavior.AllowGet);
+
+        }
+
+}
 }

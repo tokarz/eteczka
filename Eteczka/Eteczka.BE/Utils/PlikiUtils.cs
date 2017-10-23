@@ -11,7 +11,7 @@ using PdfSharp.Pdf;
 using PdfSharp.Pdf.Security;
 using PdfSharp.Pdf.IO;
 using Ionic.Zip;
-
+using System.Net.Mail;
 
 namespace Eteczka.BE.Utils
 {
@@ -487,12 +487,11 @@ namespace Eteczka.BE.Utils
             return result;
         }
 
-        public string SpakujPliki(List<string> PlikiDoSpakowania, string haslo)
+        public string SpakujPliki(string firma, List<string> PlikiDoSpakowania, string haslo)
         {
             
             string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
             string dataFormat = "yyyyMMddHHmmssfff";
-
 
             string tempZrodloKatalog = Path.Combine(eadRoot, DateTime.Now.ToString(dataFormat) + "tempsource");
             Directory.CreateDirectory(tempZrodloKatalog);
@@ -501,14 +500,13 @@ namespace Eteczka.BE.Utils
             Directory.CreateDirectory(tempZipKatalog);
 
             string tempZipSaveSciezka = tempZipKatalog + "\\" + DateTime.Now.ToString(dataFormat) + ".zip";
-            string archiwumZipFolder = Path.Combine(eadRoot, "ArchiwumZip\\");
+            string archiwumZipFolder = Path.Combine(eadRoot, "ArchiwumZip\\", firma);
 
             if (!Directory.Exists(archiwumZipFolder))
             {
-
                 Directory.CreateDirectory(archiwumZipFolder);
             }
-            string sciezkaDoZipa = (eadRoot + "\\ArchiwumZip\\" + DateTime.Now.ToString(dataFormat) + ".zip");
+            string sciezkaDoZipa = (eadRoot + "\\ArchiwumZip\\" + firma + "\\"+ DateTime.Now.ToString(dataFormat) + ".zip");
 
             try
             {
@@ -516,7 +514,6 @@ namespace Eteczka.BE.Utils
 
                 foreach (string plikZaszyfrowany in PlikiDoSpakowania)
                 {
-
                     if (File.Exists(plikZaszyfrowany))
                     { 
                     string nazwaPliku = plikZaszyfrowany.Substring(plikZaszyfrowany.LastIndexOf("\\"));
@@ -537,26 +534,18 @@ namespace Eteczka.BE.Utils
                             zip.AddFile(plik, "");
                         }
 
-                        //Szyfrujemy i hasłujemy zipa
-                        
-
                         zip.Save(tempZipSaveSciezka);
                     }
-                     
                         zip.Password = password;
                         zip.Encryption = EncryptionAlgorithm.WinZipAes256;
 
                         zip.AddFile(tempZipSaveSciezka, "");
                         zip.RemoveSelectedEntries("*.pdf");
 
-                      
-                        
                         zip.Save(sciezkaDoZipa);
-
 
                         Directory.Delete(tempZipKatalog, true);
                         Directory.Delete(tempZrodloKatalog, true);
-   
                 }
             }
             catch (Exception ex)
@@ -564,6 +553,60 @@ namespace Eteczka.BE.Utils
                // logi
             }
             return sciezkaDoZipa;
+        }
+
+
+        public bool WyslijPlikiMailem(string firma, string adresaci, List<string> Zalaczniki, string hasloDoZip, string temat = "Zestaw plików", string wiadomosc = "W załączeniu zestaw plików.")
+        {
+            bool result = false;
+
+            //Do 1.1 dane serwera wpisałem na sztywno, docelowo chyba będą pobierane poprzez DAO z tabeli Smtp.
+            string ServerSmtp = "poczta.o2.pl";
+            int Port = 587;
+            string EmailNadawcy = "eaddevteam@o2.pl";
+            string CredentialsLogin = "eaddevteam@o2.pl";
+            string Haslo = "Fushta!123";
+
+            try
+            {
+                MailMessage mail = new MailMessage();
+                SmtpClient SmtpServer = new SmtpClient(ServerSmtp);
+                mail.From = new MailAddress(EmailNadawcy);
+
+
+                string[] listaAdresatowMaila = adresaci.Replace(" ", "").Split(',');
+                foreach (string adresEmail in listaAdresatowMaila)
+                {
+                    if (new Osys().ProstyWalidatorMaila(adresEmail))
+                    {
+                        mail.To.Add(adresEmail);
+                    }
+                }
+
+                mail.Subject = temat;
+                mail.Body = wiadomosc;
+
+                System.Net.Mail.Attachment attachment;
+                string zalacznik = new PlikiUtils().SpakujPliki(firma, Zalaczniki, hasloDoZip);
+                attachment = new System.Net.Mail.Attachment(zalacznik);
+                if (File.Exists(zalacznik))
+                {
+                    mail.Attachments.Add(attachment);
+                }
+                SmtpServer.Port = Port;
+                SmtpServer.Credentials = new System.Net.NetworkCredential(CredentialsLogin, Haslo);
+                SmtpServer.EnableSsl = true;
+
+                SmtpServer.Send(mail);
+                result = true;
+
+            }
+            catch (Exception ex)
+            {
+                result = false;
+                // logi
+            }
+            return result;
         }
 
     }

@@ -15,5 +15,6 @@ namespace Eteczka.BE.Services
         StanPlikow PobierzStanPlikow(string sessionId);
         bool ZakomitujPlikDoBazy(KomitPliku plik, string firma, string idOper);
         List<Pliki> SzukajPlikiZFiltrow(SessionDetails sesja, FiltryPlikow filtry, string sortOrder = "asc", string sortColumn = "datapocz");
+        bool WyslijPlikiMailem(SessionDetails sesja, string adresaci, List<string> Zalaczniki, string hasloDoZip, string temat, string wiadomosc);
     }
 }
