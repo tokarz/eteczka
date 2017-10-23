@@ -6,8 +6,9 @@
             <span class="toolbar-option option-three fa fa-trash-o" ng-click="triggerDeleteEmployeePopup()"></span>
 
             <span class="toolbar-option option-four fa fa-print" ng-click="triggerPrintPreview()"></span>
-            <span class="toolbar-option option-five fa fa-envelope-open-o" ng-click="triggerSendEmailDialog()"></span>
-            <span class="toolbar-option option-six fa fa-download" ng-click="triggerDownloadFiles()"></span>
+            <span class="toolbar-option option-five fa fa-envelope-open-o" ng-click="openSendEmailDialog()"></span>
+            <span class="not-yet-available toolbar-option option-six fa fa-download" ng-click="triggerDownloadFiles()"></span>
+            <span class="toolbar-option option-select-all fa fa-check-square" ng-click="toggleSelectAll()"></span>
             <span class="toolbar-option option-seven fa fa-shopping-basket" ng-click="triggeraddtocart()"></span>
         </div>
         <div ng-if="toolbar" class="toolbar-panel">
@@ -18,23 +19,21 @@
                 <table style="width:100%;text-align:center">
                     <thead class="table-header">
                         <tr>
+                            <th>Pracownik</th>
                             <th>Rodzaj Dokumentu</th>
-                            <th>Imie</th>
-                            <th>Nazwisko</th>
                             <th>Data Dok</th>
                             <th>Data Pocz</th>
                             <th>Data Kon</th>
                             <th>[ ]</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody style="text-align:left">
                         <tr ng-if="!userFiles || userFiles.length < 1">
                             <td colspan="5">{{emptymessage}}</td>
                         </tr>
                         <tr ng-if="userFiles && userFiles.length > 0" ng-repeat="file in userFiles" ng-click="selectFile(file)" ng-class="getRowStyle(file)">
-                            <td>{{file.TypPliku}}</td>
-                            <td>{{file.Imie}}</td>
-                            <td>{{file.Nazwisko}}</td>
+                            <td>{{file.Nazwisko}} {{file.Imie}}</td>
+                            <td>{{file.Symbol}}</td>
                             <td>{{file.DataDokumentuStr}}</td>
                             <td>{{file.DataPoczStr}}</td>
                             <td>{{file.DataKoniecStr}}</td>

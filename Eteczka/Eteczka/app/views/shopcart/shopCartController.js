@@ -86,9 +86,9 @@ angular.module('et.controllers').controller('shopCartController', ['$scope', '$s
         return openModal(modalOptions, function (value) { return value })
     }
 
-    $scope.downloadFiles = function () {
-        alert('print');
-    }
+    //$scope.downloadFiles = function () {
+    //    alert('print');
+    //}
 
     $scope.toggleSelectAll = function () {
         angular.forEach($scope.rows, function (elm) {
@@ -115,16 +115,16 @@ angular.module('et.controllers').controller('shopCartController', ['$scope', '$s
         });
     }
 
-    $scope.deleteAllFromCart = function () {
-        shopCartService.deleteAllCartElements().then(function (result) {
-            $state.reload();
-            if (result.success) {
-                modalService.alert('', 'Pliki usunieto!');
-            } else {
-                modalService.alert('', 'Pliki nie mogly zostac usuniete!');
-            }
-        });
-    }
+    //$scope.deleteAllFromCart = function () {
+    //    shopCartService.deleteAllCartElements().then(function (result) {
+    //        $state.reload();
+    //        if (result.success) {
+    //            modalService.alert('', 'Pliki usunieto!');
+    //        } else {
+    //            modalService.alert('', 'Pliki nie mogly zostac usuniete!');
+    //        }
+    //    });
+    //}
 
     $scope.toolbar = [
         {
@@ -137,19 +137,19 @@ angular.module('et.controllers').controller('shopCartController', ['$scope', '$s
         },
         {
             action: $scope.downloadFiles,
-            itemClass: 'toolbar-option option-two fa fa-download',
+            itemClass: 'not-yet-available toolbar-option option-two fa fa-download',
         },
         {
             action: $scope.toggleSelectAll,
             itemClass: 'toolbar-option option-select-all fa fa-check-square',
         },
-        {
-            action: $scope.deleteAllFromCart,
-            itemClass: 'toolbar-option option-three fa fa-trash-o',
-        },
+        //{
+        //    action: $scope.deleteAllFromCart,
+        //    itemClass: 'toolbar-option option-three fa fa-trash-o',
+        //},
         {
             action: $scope.deleteSelectedFromCart,
-            itemClass: 'toolbar-option option-three fa fa-minus-square-o',
+            itemClass: 'toolbar-option option-three fa fa-trash-o',
         }
     ];
 

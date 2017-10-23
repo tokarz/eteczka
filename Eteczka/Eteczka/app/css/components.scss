@@ -93,7 +93,7 @@
 }
 
 .toolbar-panel span {
-    cursor:pointer;
+    cursor: pointer;
 }
 
 .git-panel {
@@ -322,10 +322,12 @@
     padding: 5px;
 }
 
+.git-comment-area textarea,
 .git-comment-area input {
     float: right;
     width: 50vw;
-    text-align: right;
+    text-align: left;
+    resize: none;
 }
 
 .md-title {

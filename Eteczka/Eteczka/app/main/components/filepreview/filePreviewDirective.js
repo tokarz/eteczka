@@ -8,7 +8,7 @@ angular.module('et.directives').directive('filePreview', function () {
             fileproperty: '@'
         },
         templateUrl: 'app/main/components/filepreview/filePreviewView.html',
-        controller: function ($scope, httpService, sessionService) {
+        controller: function ($scope, httpService, sessionService, modalService) {
 
             $scope.$watch('file', function (value) {
                 if (value) {
@@ -22,6 +22,10 @@ angular.module('et.directives').directive('filePreview', function () {
                 }
             });
 
+            $scope.closePdf = function () {
+                $('#pdfPreviewer').empty();
+            }
+
             $scope.previewPdf = function (elm, ctrl) {
                 $('#pdfPreviewer').attr('src', 'FILE_FETCH?src=' + elm[$scope.fileproperty] + '.fetchfile');
                 $('#pdfPreviewer').addClass('processing');
@@ -30,16 +34,20 @@ angular.module('et.directives').directive('filePreview', function () {
                     fileName: elm[$scope.fileproperty]
                 }).then(function (result) {
                     $('#pdfPreviewer').removeClass('processing');
-                    $('#pdfPreviewer').empty();
+                    $scope.closePdf();
 
-                    $scope.generatePdf(result.Data.data);
+                    if (result.Data.data === 'ERROR') {
+                        $scope.generatePdf('');
+                        modalService.alert('', 'Blad! Nieobslugiwany format pdf (plik uszkodzony lub wersja starsza niz Adobe 6.0');
+                    } else {
+                        $scope.generatePdf(result.Data.data);
+                    }
+
                     //$('#pdfPreviewer').attr('data', 'data:application/pdf;base64,' + result.Data.data);
                 });
             }
 
-            $scope.closePdf = function () {
-
-            }
+            
 
             $scope.generatePdf = function (base64) {
                 var pdfData = atob(base64);
@@ -55,34 +63,36 @@ angular.module('et.directives').directive('filePreview', function () {
                 pageNum = 1,
                 pageRendering = false,
                 pageNumPending = null,
-                scale = 2.25,
+                scale = 1.5,
                 canvas = document.getElementById('pdfPreview'),
                 ctx = canvas.getContext('2d');
                 function renderPage(num) {
                     pageRendering = true;
                     // Using promise to fetch the page
-                    pdfDoc.getPage(num).then(function (page) {
-                        var viewport = page.getViewport(scale);
-                        canvas.height = viewport.height;
-                        canvas.width = viewport.width;
+                    if (pdfDoc) {
+                        pdfDoc.getPage(num).then(function (page) {
+                            var viewport = page.getViewport(scale);
+                            canvas.height = viewport.height;
+                            canvas.width = viewport.width;
 
-                        // Render PDF page into canvas context
-                        var renderContext = {
-                            canvasContext: ctx,
-                            viewport: viewport
-                        };
-                        var renderTask = page.render(renderContext);
+                            // Render PDF page into canvas context
+                            var renderContext = {
+                                canvasContext: ctx,
+                                viewport: viewport
+                            };
+                            var renderTask = page.render(renderContext);
 
-                        // Wait for rendering to finish
-                        renderTask.promise.then(function () {
-                            pageRendering = false;
-                            if (pageNumPending !== null) {
-                                // New page rendering is pending
-                                renderPage(pageNumPending);
-                                pageNumPending = null;
-                            }
+                            // Wait for rendering to finish
+                            renderTask.promise.then(function () {
+                                pageRendering = false;
+                                if (pageNumPending !== null) {
+                                    // New page rendering is pending
+                                    renderPage(pageNumPending);
+                                    pageNumPending = null;
+                                }
+                            });
                         });
-                    });
+                    }
 
                     // Update page counters
                     document.getElementById('page_num').textContent = pageNum;
@@ -146,13 +156,17 @@ angular.module('et.directives').directive('filePreview', function () {
                 /**
                  * Asynchronously downloads PDF.
                  */
-                PDFJS.getDocument({ data: pdfData }).then(function (pdfDoc_) {
-                    pdfDoc = pdfDoc_;
-                    document.getElementById('page_count').textContent = pdfDoc.numPages;
+                if (pdfData) {
+                    PDFJS.getDocument({ data: pdfData }).then(function (pdfDoc_) {
+                        pdfDoc = pdfDoc_;
+                        document.getElementById('page_count').textContent = pdfDoc.numPages;
 
-                    // Initial/first page rendering
-                    renderPage(pageNum);
-                });
+                        // Initial/first page rendering
+                        renderPage(pageNum);
+                    });
+                } else {
+                    $scope.closePdf();
+                }
             }
 
         }

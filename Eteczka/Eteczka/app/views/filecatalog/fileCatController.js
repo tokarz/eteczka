@@ -36,27 +36,27 @@ angular.module('et.controllers').controller('fileCatController', ['$scope', '$q'
         var deferred = $q.defer();
         fileCatService.getDocumentTypes().then(function (res) {
             $scope.documentTypeFilters = res.PobraneDokumenty;
-            $scope.selectedType = $scope.documentTypeFilters[0];
+            //$scope.selectedType = $scope.documentTypeFilters[0];
 
             fileCatService.getRegions().then(function (res) {
                 $scope.areasFilters = res.Rejony;
-                $scope.selectedArea = $scope.areasFilters[0];
+                //$scope.selectedArea = $scope.areasFilters[0];
 
                 fileCatService.getDepartments().then(function (res) {
                     $scope.departmentFilters = res.Wydzialy;
-                    $scope.selectedDepartment = $scope.departmentFilters[0];
+                    //$scope.selectedDepartment = $scope.departmentFilters[0];
                     if ($scope.selectedDepartment && $scope.selectedDepartment.Wydzial) {
                         fileCatService.getSubDepartments($scope.selectedDepartment.Wydzial.trim()).then(function (res) {
                             $scope.subDepartmentsFilters = res.PodWydzialy;
-                            $scope.selectedSubDepartment = $scope.subDepartmentsFilters[0];
+                            //$scope.selectedSubDepartment = $scope.subDepartmentsFilters[0];
 
                             fileCatService.getSubDepartments().then(function (res) {
                                 $scope.subDepartmentsFilters = res.PodWydzialy;
-                                $scope.selectedSubDepartment = $scope.subDepartmentsFilters[0];
+                                //$scope.selectedSubDepartment = $scope.subDepartmentsFilters[0];
 
                                 fileCatService.getAccounts5().then(function (res) {
                                     $scope.account5Filters = res.pobraneKonta5;
-                                    $scope.selectedAccount5 = $scope.account5Filters[0];
+                                    //$scope.selectedAccount5 = $scope.account5Filters[0];
 
                                     $scope.selectedUser = '';
 
@@ -67,11 +67,11 @@ angular.module('et.controllers').controller('fileCatController', ['$scope', '$q'
                     } else {
                         fileCatService.getSubDepartments().then(function (res) {
                             $scope.subDepartmentsFilters = res.PodWydzialy;
-                            $scope.selectedSubDepartment = $scope.subDepartmentsFilters[0];
+                            //$scope.selectedSubDepartment = $scope.subDepartmentsFilters[0];
 
                             fileCatService.getAccounts5().then(function (res) {
                                 $scope.account5Filters = res.pobraneKonta5;
-                                $scope.selectedAccount5 = $scope.account5Filters[0];
+                                //$scope.selectedAccount5 = $scope.account5Filters[0];
 
                                 $scope.selectedUser = '';
 
@@ -88,7 +88,7 @@ angular.module('et.controllers').controller('fileCatController', ['$scope', '$q'
 
     $scope.clearAllFilters = function () {
         $scope.init().then(function () {
-            $scope.reloadTableContents();
+            $scope.rows = [];
         });
     }
 
@@ -99,7 +99,8 @@ angular.module('et.controllers').controller('fileCatController', ['$scope', '$q'
     }
 
     $scope.init().then(function () {
-        $scope.reloadTableContents();
+        $scope.rows = [];
+        //$scope.reloadTableContents();
     });
 
 }]);

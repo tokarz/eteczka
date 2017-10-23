@@ -422,15 +422,22 @@ namespace Eteczka.BE.Utils
 
         public string PobierzZaszyfrowanaZawartoscPliku(string sciezka)
         {
-            PdfDocument document = PdfReader.Open(sciezka, "adminadmin");
             string result = "";
-            using (MemoryStream stream = new MemoryStream())
+            try
             {
-                document.Save(stream, true);
-                byte[] filedata = stream.ToArray();
-                result = Convert.ToBase64String(filedata, 0, filedata.Length);
-            }
+                PdfDocument document = PdfReader.Open(sciezka, "adminadmin");
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    document.Save(stream, true);
+                    byte[] filedata = stream.ToArray();
+                    result = Convert.ToBase64String(filedata, 0, filedata.Length);
+                }
 
+            }
+            catch (Exception ex)
+            {
+                result = "ERROR";
+            }
 
             //string contentType = MimeMapping.GetMimeMapping(sciezka);
 
@@ -489,13 +496,13 @@ namespace Eteczka.BE.Utils
 
         public string SpakujPliki(string firma, List<string> PlikiDoSpakowania, string haslo)
         {
-            
+
             string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
             string dataFormat = "yyyyMMddHHmmssfff";
 
             string tempZrodloKatalog = Path.Combine(eadRoot, DateTime.Now.ToString(dataFormat) + "tempsource");
             Directory.CreateDirectory(tempZrodloKatalog);
-            
+
             string tempZipKatalog = Path.Combine(eadRoot, DateTime.Now.ToString(dataFormat) + "tempzip");
             Directory.CreateDirectory(tempZipKatalog);
 
@@ -506,7 +513,7 @@ namespace Eteczka.BE.Utils
             {
                 Directory.CreateDirectory(archiwumZipFolder);
             }
-            string sciezkaDoZipa = (eadRoot + "\\ArchiwumZip\\" + firma + "\\"+ DateTime.Now.ToString(dataFormat) + ".zip");
+            string sciezkaDoZipa = (eadRoot + "\\ArchiwumZip\\" + firma + "\\" + DateTime.Now.ToString(dataFormat) + ".zip");
 
             try
             {
@@ -515,10 +522,10 @@ namespace Eteczka.BE.Utils
                 foreach (string plikZaszyfrowany in PlikiDoSpakowania)
                 {
                     if (File.Exists(plikZaszyfrowany))
-                    { 
-                    string nazwaPliku = plikZaszyfrowany.Substring(plikZaszyfrowany.LastIndexOf("\\"));
-                    document = PdfReader.Open(plikZaszyfrowany, "adminadmin");
-                    document.Save(tempZrodloKatalog + "\\" + nazwaPliku);
+                    {
+                        string nazwaPliku = plikZaszyfrowany.Substring(plikZaszyfrowany.LastIndexOf("\\"));
+                        document = PdfReader.Open(plikZaszyfrowany, "adminadmin");
+                        document.Save(tempZrodloKatalog + "\\" + nazwaPliku);
                     }
                 }
 
@@ -536,21 +543,21 @@ namespace Eteczka.BE.Utils
 
                         zip.Save(tempZipSaveSciezka);
                     }
-                        zip.Password = password;
-                        zip.Encryption = EncryptionAlgorithm.WinZipAes256;
+                    zip.Password = password;
+                    zip.Encryption = EncryptionAlgorithm.WinZipAes256;
 
-                        zip.AddFile(tempZipSaveSciezka, "");
-                        zip.RemoveSelectedEntries("*.pdf");
+                    zip.AddFile(tempZipSaveSciezka, "");
+                    zip.RemoveSelectedEntries("*.pdf");
 
-                        zip.Save(sciezkaDoZipa);
+                    zip.Save(sciezkaDoZipa);
 
-                        Directory.Delete(tempZipKatalog, true);
-                        Directory.Delete(tempZrodloKatalog, true);
+                    Directory.Delete(tempZipKatalog, true);
+                    Directory.Delete(tempZrodloKatalog, true);
                 }
             }
             catch (Exception ex)
             {
-               // logi
+                // logi
             }
             return sciezkaDoZipa;
         }

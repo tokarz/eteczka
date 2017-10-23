@@ -100,7 +100,14 @@ namespace Eteczka.DB.DAO
             string result = "";
             try
             {
-                result = data.ToString(format, CultureInfo.InvariantCulture);
+                if (data == DateTime.MinValue)
+                {
+                    result = "9999-12-31";
+                }
+                else
+                {
+                    result = data.ToString(format, CultureInfo.InvariantCulture);
+                }
             }
             catch (Exception)
             {

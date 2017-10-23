@@ -21,6 +21,7 @@ namespace Eteczka.Model.Entities
         public DateTime DataDokumentu { get; set; }
         public DateTime DataPocz { get; set; }
         public DateTime DataKoniec { get; set; }
+
         public string DataSkanuStr
         {
             get
@@ -32,7 +33,7 @@ namespace Eteczka.Model.Entities
         {
             get
             {
-                return this.DataSkanu.ToString("yyyy-MM-dd");
+                return this.DataKoniec.ToString("yyyy-MM-dd");
             }
 
         }
@@ -40,14 +41,14 @@ namespace Eteczka.Model.Entities
         {
             get
             {
-                return this.DataSkanu.ToString("yyyy-MM-dd");
+                return this.DataDokumentu.ToString("yyyy-MM-dd");
             }
         }
         public string DataPoczStr
         {
             get
             {
-                return this.DataSkanu.ToString("yyyy-MM-dd");
+                return this.DataPocz.ToString("yyyy-MM-dd");
             }
         }
 
