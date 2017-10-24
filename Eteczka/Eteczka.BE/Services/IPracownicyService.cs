@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Eteczka.Model.Entities;
 using Eteczka.BE.Model;
+using Eteczka.Model.DTO;
 
 namespace Eteczka.BE.Services
 {
@@ -18,5 +19,8 @@ namespace Eteczka.BE.Services
         List<Pracownik> ZnajdzPracownikowPoTekscie(string search, SessionDetails sesja);
         List<Pracownik> ZnajdzZatrPracownikowPoTekscie(string search, SessionDetails sesja);
         List<Pracownik> ZnajdzPozostPracownikowPoTekscie(string search, SessionDetails sesja);
+        InsertResult DodajPracownika(Pracownik pracownik, SessionDetails sesja);
+        InsertResult EdytujPracownika(Pracownik pracownik, SessionDetails sesja);
+
     }
 }

@@ -17,13 +17,15 @@ namespace Eteczka.Model.Entities
 
         public string ImieMatki { get; set; }
         public string ImieOjca { get; set; }
-        public string PeselInny{ get; set; }
+        public string PeselInny { get; set; }
         public string IdOper { get; set; }
         public string IdAkcept { get; set; }
-        public DateTime DataModify{ get; set; }
-        public DateTime DataAkcept{ get; set; }
-        public string DataUrodzenia{ get; set; }
-        public string Imie2{ get; set; }
+        public DateTime DataModify { get; set; }
+        public DateTime DataAkcept { get; set; }
+        public string DataModifyStr { get { return this.DataModify.ToString("yyyy-mm-dd"); } }
+        public string DataAkceptStr { get { return this.DataAkcept.ToString("yyyy-mm-dd"); } }
+        public string DataUrodzenia { get; set; }
+        public string Imie2 { get; set; }
         public string SystemBazowy { get; set; }
         public bool Usuniety { get; set; }
         public string Kodkierownik { get; set; }

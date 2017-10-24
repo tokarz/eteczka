@@ -11,6 +11,7 @@ using System.IO;
 using Newtonsoft.Json.Linq;
 using Eteczka.BE.Mappers;
 using Eteczka.BE.Model;
+using Eteczka.Model.DTO;
 
 namespace Eteczka.BE.Services
 {
@@ -76,6 +77,43 @@ namespace Eteczka.BE.Services
             List<Pracownik> pracownicy = _PracownikDao.WyszukiwaczPozostZatrPracownikowPoTekscie(search, sesja.AktywnaFirma, sesja.AktywnyUser.Confidential);
 
             return pracownicy;
+        }
+
+        public InsertResult DodajPracownika(Pracownik pracownik, SessionDetails sesja)
+        {
+            InsertResult result = new InsertResult();
+            pracownik.Numeread = pracownik.Nazwisko.Substring(0, 3) + pracownik.Imie.Substring(0, 3) + pracownik.PESEL;
+            Pracownik pracownikWBazie = _PracownikDao.PobierzPracownikaPoId(pracownik.Numeread);
+            if(pracownikWBazie != null)
+            {
+                result.Result = false;
+                result.Message = "Pracownik o tym identyfikatorze juz widnieje w bazie! Sprawdz Pesel, Imie i Nazwisko";
+            }
+            else
+            {
+                result.Result = _PracownikDao.DodajPracownika(pracownik, sesja.AktywnyUser.Identyfikator, sesja.AktywnyUser.Identyfikator);
+            }
+
+
+            return result;
+        }
+
+        public InsertResult EdytujPracownika(Pracownik pracownik, SessionDetails sesja)
+        {
+            InsertResult result = new InsertResult();
+            Pracownik pracownikWBazie = _PracownikDao.PobierzPracownikaPoId(pracownik.Numeread);
+            if (pracownikWBazie == null)
+            {
+                result.Result = false;
+                result.Message = "Pracownik o tym identyfikatorze nie widnieje w bazie! Sprawdz Pesel, Imie i Nazwisko";
+            }
+            else
+            {
+                result.Result = _PracownikDao.EdytujPracownika(pracownik, sesja.AktywnyUser.Identyfikator, sesja.AktywnyUser.Identyfikator);
+            }
+
+
+            return result;
         }
     }
 }

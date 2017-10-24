@@ -2,21 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using Microsoft.Office.Interop.Excel;
 using System.Runtime.InteropServices;
-using System.Web;
 using PdfSharp.Pdf;
 using PdfSharp.Pdf.Security;
 using PdfSharp.Pdf.IO;
 using Ionic.Zip;
 using System.Net.Mail;
+using NLog;
+using Eteczka.BE.Model;
 
 namespace Eteczka.BE.Utils
 {
     public class PlikiUtils
     {
+        Logger LOGGER = LogManager.GetLogger("PlikiUtils");
         //Przykladowe dzialanie metody:
         //Uruchomiona z argumentem c:/katalog/plik.txt
         //Powinna zwrocic plik.txt
@@ -287,6 +288,7 @@ namespace Eteczka.BE.Utils
             List<String> result = new List<string>();
             if (File.Exists(sciezka))
             {
+                LOGGER.Debug("Wczytanie Typow pliki: " + sciezka);
                 Application xlApp = new Application();
                 Workbook xlWorkbook = xlApp.Workbooks.Open(Path.GetFullPath(sciezka));
                 Worksheet xlWorksheet = xlWorkbook.Sheets[arkusz];
@@ -330,6 +332,7 @@ namespace Eteczka.BE.Utils
 
             if (File.Exists(sciezka))
             {
+                LOGGER.Debug("Wczytanie Typow pliki: " + sciezka);
                 Application xlApp = null;
                 Workbook xlWorkbook = null;
                 Worksheet xlWorksheet = null;
@@ -420,8 +423,10 @@ namespace Eteczka.BE.Utils
             return result;
         }
 
-        public string PobierzZaszyfrowanaZawartoscPliku(string sciezka)
+        public string PobierzZaszyfrowanaZawartoscPliku(string sciezka, string sessionId)
         {
+            LOGGER.Info("Plik [" + sciezka + "] Wczytany przez [" + Sesja.PobierzStanSesji().PobierzSesje(sessionId).AktywnyUser + "] o [" + DateTime.Now + "]");
+
             string result = "";
             try
             {
@@ -439,20 +444,7 @@ namespace Eteczka.BE.Utils
                 result = "ERROR";
             }
 
-            //string contentType = MimeMapping.GetMimeMapping(sciezka);
-
-            //var cd = new ContentDisposition
-            //{
-            //    FileName = fileName,
-            //    Inline = true,
-            //};
-
-            //Response.AppendHeader("Content-Disposition", cd.ToString());
-
-
             return result;
-
-
         }
 
         public bool ZaszyfrujIPrzeniesPlikPdf(string file)

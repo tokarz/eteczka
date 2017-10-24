@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('et.controllers').controller('menuContentController', ['$scope', 'menuContentService', 'modalService', 'peselService', 'utilsService', function ($scope, menuContentService, modalService, peselService, utilsService) {
+angular.module('et.controllers').controller('menuContentController', ['$scope', '$state', 'menuContentService', 'modalService', 'peselService', 'utilsService', 'employeesService', function ($scope, $state, menuContentService, modalService, peselService, utilsService, employeesService) {
     $scope.company = null;
     $scope.selectedWorkplace = {};
     $scope.workplaceParams = {
@@ -238,8 +238,17 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
             }
         };
 
-        openModal(modalOptions, function (value) {
-            console.log('tu bedzie wywolanie funkcji dodawania pracownika', value)
+        openModal(modalOptions, function (user) {
+            employeesService.addEmployee(user).then(function (res) {
+                $state.reload();
+                if (res.data.Result) {
+                    modalService.alert('', 'Dodano Pracownika!');
+                } else {
+                    modalService.alert('Blad', 'Blad Dodawania Pracownika [' + res.data.Message + ']');
+                }
+            }, function (err) {
+                modalService.alert('Blad', err);
+            });
         });
     }
 
@@ -254,8 +263,17 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
 
         openModal(
             modalOptions,
-            function (value) {
-                console.log('tu bedzie wywolanie funkcji edytowania pracownika', value);
+            function (user) {
+                employeesService.editEmployee(user).then(function (res) {
+                    $state.reload();
+                    if (res.data.Result) {
+                        modalService.alert('', 'Zapisano zmiany dla pracownika!');
+                    } else {
+                        modalService.alert('Blad', 'Blad Edycji Pracownika [' + res.data.Message + ']');
+                    }
+                }, function (err) {
+                    modalService.alert('Blad', err);
+                });
             }
         )
     }

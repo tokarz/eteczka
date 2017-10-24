@@ -6,6 +6,7 @@ using System;
 using Eteczka.BE.Model;
 using NLog;
 using Eteczka.BE.Services;
+using Eteczka.Model.DTO;
 
 namespace Eteczka.BE.Controllers
 {
@@ -51,6 +52,40 @@ namespace Eteczka.BE.Controllers
                 ContentType = "application/json"
             };
             return resultSerialized;
+        }
+
+        [HttpPut]
+        [ActionName("Dodaj")]
+        public ActionResult DodajPracownika(string sessionId, Pracownik pracownik)
+        {
+            InsertResult success = new InsertResult();
+            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            {
+                SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                success = _PracownicyService.DodajPracownika(pracownik, sesja);
+            }
+
+            return Json(new
+            {
+                data = success
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        [ActionName("Edytuj")]
+        public ActionResult EdytujPracownika(string sessionId, Pracownik pracownik)
+        {
+            InsertResult success = new InsertResult();
+            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            {
+                SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                success = _PracownicyService.EdytujPracownika(pracownik, sesja);
+            }
+
+            return Json(new
+            {
+                data = success
+            }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult PobierzWszystkichZatrudnionych(string sessionId)

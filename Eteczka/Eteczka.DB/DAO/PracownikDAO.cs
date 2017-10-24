@@ -48,13 +48,13 @@ namespace Eteczka.DB.DAO
             string orderDirection = asc ? " ASC " : " DESC ";
 
             //            string sqlQuery = "select * from \"KatPracownicy\" where numeread not in (select numeread from \"MiejscePracy\" where   firma in ('" + firma + "') and '02.09.2017 00:00:00' between \"MiejscePracy\".datapocz and \"MiejscePracy\".datakoniec) and numeread in (select numeread from \"MiejscePracy\") ORDER BY " + orderby + orderDirection;
-            string sqlQuery = 
+            string sqlQuery =
                 "SELECT * FROM \"KatPracownicy\" "
                 + " WHERE NOT usuniety AND confidential < " + confidential + " "
                 + "AND numeread NOT IN "
-                + "(select numeread FROM \"MiejscePracy\" WHERE firma IN " 
-                + "('" + firma.Trim() + "') AND '" 
-                + DateTime.Now.ToString(dateShortFormat) 
+                + "(select numeread FROM \"MiejscePracy\" WHERE firma IN "
+                + "('" + firma.Trim() + "') AND '"
+                + DateTime.Now.ToString(dateShortFormat)
                 + "' BETWEEN \"MiejscePracy\".datapocz AND \"MiejscePracy\".datakoniec) "
                 + "AND numeread IN "
                 + "(SELECT numeread FROM \"MiejscePracy\" WHERE firma IN "
@@ -115,7 +115,7 @@ namespace Eteczka.DB.DAO
                 + "WHERE "
                 + "NOT usuniety AND "
                 + "confidential < " + confidential + " "
-                +  "AND numeread IN "
+                + "AND numeread IN "
                 + "(SELECT numeread from \"MiejscePracy\" WHERE firma = '" + firma.Trim() + "') ORDER BY " + orderby + orderDirection + this.AddLimitOffsetStatement(limit, offset);
             List<Pracownik> fetchedUsers = new List<Pracownik>();
 
@@ -133,7 +133,7 @@ namespace Eteczka.DB.DAO
 
         public Pracownik PobierzPracownikaPoId(string numeread)
         {
-            Pracownik pobranyPracownik = new Pracownik();
+            Pracownik pobranyPracownik = null;
             string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE LOWER (numeread) = '" + (numeread.ToLower().Trim()) + "' ";
             try
             {
@@ -351,6 +351,92 @@ namespace Eteczka.DB.DAO
 
             return WyszukaniPracownicyPoTekscie;
 
+        }
+
+        public bool DodajPracownika(Pracownik pracownik, string idoper, string idakcept)
+        {
+            bool success = false;
+            try
+            {
+                object[] objects = new object[] {
+                    pracownik.Imie,
+                    pracownik.Nazwisko,
+                    pracownik.PESEL,
+                    pracownik.Numeread,
+                    pracownik.Kraj,
+                    pracownik.NazwiskoRodowe,
+                    pracownik.ImieMatki,
+                    pracownik.ImieOjca,
+                    pracownik.PeselInny,
+                    idoper, 
+                    idakcept,
+                    pracownik.DataModify,
+                    pracownik.DataAkcept,
+                    pracownik.DataUrodzenia,
+                    pracownik.Imie2,
+                    "EAD",
+                    false,
+                    "",
+                    0
+
+                };
+                string values = string.Format("'{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}', '{10}', '{11}', '{12}', '{13}', '{14}', '{15}', {16}, '{17}', {18}", objects);
+                string sqlQuery = "INSERT INTO \"KatPracownicy\"(imie, nazwisko, pesel, numeread, kraj, nazwiskorodowe, imiematki, imieojca, peselinny, idoper, idakcept, datamodify, dataakcept, dataurodzenia, imie2, systembazowy, usuniety, kodkierownik, confidential) VALUES (" + values + ");";
+
+
+                IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+                success = connectionState.ExecuteNonQuery(sqlQuery);
+
+            }
+            catch (Exception ex)
+            {
+                LOGGER.Error("Nieudane dodanie pracownika " + pracownik.ToString());
+            }
+
+            return success;
+        }
+        public bool EdytujPracownika(Pracownik pracownik, string idoper, string idakcept)
+        {
+            bool success = false;
+            try
+            {
+                object[] objects = new object[] {
+                    pracownik.Imie,
+                    pracownik.Nazwisko,
+                    pracownik.PESEL,
+                    pracownik.Kraj,
+                    pracownik.NazwiskoRodowe,
+                    pracownik.ImieMatki,
+                    pracownik.ImieOjca,
+                    pracownik.PeselInny,
+                    idoper, 
+                    idakcept,
+                    pracownik.DataModify,
+                    pracownik.DataAkcept,
+                    pracownik.DataUrodzenia,
+                    pracownik.Imie2,
+                    pracownik.SystemBazowy,
+                    pracownik.Usuniety,
+                    pracownik.Kodkierownik,
+                    pracownik.Confidential
+                };
+
+                string updateQuery = string.Format("UPDATE \"KatPracownicy\" SET " +
+                    "imie='{0}', nazwisko='{1}', pesel='{2}', kraj='{3}', nazwiskorodowe='{4}', " +
+                   "imiematki='{5}', imieojca='{6}', peselinny='{7}', idoper='{8}', idakcept='{9}', datamodify='{10}'," +
+                   "dataakcept='{11}', dataurodzenia='{12}', imie2='{13}', systembazowy='{14}', usuniety={15}, " +
+                   "kodkierownik='{16}', confidential={17} WHERE numeread = '" + pracownik.Numeread + "';", objects);
+
+                IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+                success = connectionState.ExecuteNonQuery(updateQuery);
+
+            }
+            catch (Exception ex)
+            {
+                LOGGER.Error("Nieudane dodanie pracownika " + pracownik.ToString());
+            }
+
+            return success;
         }
     }
 }

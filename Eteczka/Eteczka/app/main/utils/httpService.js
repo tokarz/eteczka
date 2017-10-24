@@ -23,6 +23,17 @@ angular.module('et.services').factory('httpService', ['$http', '$q', function ($
 
             return deferred.promise;
         },
+        put: function (url, params) {
+            var deferred = $q.defer();
+            $http.put(url, params).then(function (result) {
+                deferred.resolve(result.data);
+            }, function (err) {
+                console.error(err);
+                deferred.reject(err);
+            });
+
+            return deferred.promise;
+        },
         makeFilePostQuery: function (url, fd, params) {
             var deferred = $q.defer();
             $http.post(url, fd, {

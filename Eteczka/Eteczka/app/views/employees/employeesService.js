@@ -45,6 +45,19 @@ angular.module('et.services').factory('employeesService', ['httpService', 'sessi
                 sessionId: sessionService.getSessionId(),
                 search: text
             });
+        },
+        addEmployee: function (pracownik) {
+            return httpService.put('Pracownicy/Dodaj', {
+                sessionId: sessionService.getSessionId(),
+                pracownik: pracownik
+            });
+        },
+        editEmployee: function (pracownik) {
+            return httpService.post('Pracownicy/Edytuj', {
+                sessionId: sessionService.getSessionId(),
+                pracownik: pracownik
+            });
         }
+
     };
 }]);

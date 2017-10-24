@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DTO\FiltryPlikow.cs" />
+    <Compile Include="DTO\InsertResult.cs" />
     <Compile Include="DTO\KomitPliku.cs" />
     <Compile Include="DTO\MetaDanePliku.cs" />
     <Compile Include="DTO\MiejscePracyDlaPracownika.cs" />

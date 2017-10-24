@@ -30,7 +30,7 @@ namespace Eteczka.BE.Controllers
 
                 string filepath = System.IO.Path.Combine(eadRoot, pliki, firma, fileName.Trim());
 
-                base64PDF = _PlikiUtils.PobierzZaszyfrowanaZawartoscPliku(filepath);
+                base64PDF = _PlikiUtils.PobierzZaszyfrowanaZawartoscPliku(filepath, sessionId);
             }
 
             var result = Json(new
@@ -62,7 +62,7 @@ namespace Eteczka.BE.Controllers
                 string eadRoot = Environment.GetEnvironmentVariable(eadRootName);
                 string filepath = Path.Combine(eadRoot, "waitingroom", firma, fileName);
 
-                base64PDF = _PlikiUtils.PobierzZaszyfrowanaZawartoscPliku(filepath);
+                base64PDF = _PlikiUtils.PobierzZaszyfrowanaZawartoscPliku(filepath, sessionId);
             }
 
             var result = Json(new
