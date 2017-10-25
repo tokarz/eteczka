@@ -13,9 +13,9 @@ angular.module('et.directives').directive('filePreview', function () {
             $scope.$watch('file', function (value) {
                 if (value) {
                     if ($scope.secure === 'true') {
-                        $scope.previewPdf(value, 'GetRestrictedResource', 'pdfPreviewer');
+                        $scope.previewPdf(value, 'GetRestrictedResource', 'pdfPreview');
                     } else {
-                        $scope.previewPdf(value, 'GetResource', 'pdfPreviewer');
+                        $scope.previewPdf(value, 'GetResource', 'pdfPreview');
                     }
                 } else {
                     $scope.generatePdf('');
@@ -35,7 +35,7 @@ angular.module('et.directives').directive('filePreview', function () {
                     fileName: elm[$scope.fileproperty]
                 }).then(function (result) {
                     $(hashId).removeClass('processing');
-                    $scope.closePdf('#pdfPreviewer');
+                    $scope.closePdf('#pdfPreview');
 
                     if (result.Data.data === 'ERROR') {
                         $scope.generatePdf(id, '');
@@ -127,7 +127,7 @@ angular.module('et.directives').directive('filePreview', function () {
                 document.getElementById('fittowindow').addEventListener('click', onFitToWindow);
 
                 function printCanvas() {
-                    
+
                     var windowContent = '<!DOCTYPE html>';
                     windowContent += '<html>'
                     windowContent += '<head><title>Drukuj plik</title></head>';
@@ -187,7 +187,7 @@ angular.module('et.directives').directive('filePreview', function () {
                         renderPage(pageNum);
                     });
                 } else {
-                    $scope.closePdf('#pdfPreviewer');
+                    $scope.closePdf('#pdfPreview');
                 }
             }
 
