@@ -1,4 +1,4 @@
-﻿<div id="pdfPreviewWrapper">
+﻿<div id="pdfPreviewWrapper" ng-if="isPreviewVisible">
     <!--<object id="pdfPreviewer" data="" type="application/pdf" style="height:100%;width:100%">
         <param name="view" value="FitH" />
         <param name="toolbar" value="0" />
@@ -8,7 +8,7 @@
         <span id="next" class="fa fa-arrow-circle-right"></span>
         <span id="zoomin" class="fa fa-search-plus"></span>
         <span id="zoomout" class="fa fa-search-minus"></span>
-        <span id="fittowindow" class="fa fa-window-maximize"></span>
+        <!--<span id="fittowindow" class="fa fa-window-maximize"></span>-->
         <span id="print" class="fa fa-print"></span>
         &nbsp; &nbsp;
         <span>Strona: <span id="page_num"></span> / <span id="page_count"></span></span>

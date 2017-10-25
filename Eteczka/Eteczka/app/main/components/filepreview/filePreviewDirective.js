@@ -9,16 +9,21 @@ angular.module('et.directives').directive('filePreview', function () {
         },
         templateUrl: 'app/main/components/filepreview/filePreviewView.html',
         controller: function ($scope, httpService, sessionService, modalService) {
-
-            $scope.$watch('file', function (value) {
+            $scope.isPreviewVisible = false;
+            $scope.$watch('file', function (value, oldValue) {
+                $scope.isPreviewVisible = false;
+                $scope.closePdf('#pdfPreview');
                 if (value) {
+                    $scope.isPreviewVisible = true;
+                    $scope.closePdf('#pdfPreview');
                     if ($scope.secure === 'true') {
                         $scope.previewPdf(value, 'GetRestrictedResource', 'pdfPreview');
                     } else {
                         $scope.previewPdf(value, 'GetResource', 'pdfPreview');
                     }
                 } else {
-                    $scope.generatePdf('');
+                    $scope.isPreviewVisible = false;
+                    $scope.closePdf('#pdfPreview');
                 }
             });
 
@@ -57,7 +62,9 @@ angular.module('et.directives').directive('filePreview', function () {
 
                 // The workerSrc property shall be specified.
                 PDFJS.workerSrc = 'Scripts/pdfjs/workers/worker.js';
-
+                if (pdfDoc) {
+                    pdfDoc.destroy();
+                }
                 var pdfDoc = null,
                 pageNum = 1,
                 pageRendering = false,
@@ -125,37 +132,19 @@ angular.module('et.directives').directive('filePreview', function () {
                 document.getElementById('prev').addEventListener('click', onPrevPage);
 
 
-                function onFitToWindow() {
-                    scale = 2.25;
-                    renderPage(pageNum);
-                }
-                document.getElementById('fittowindow').addEventListener('click', onFitToWindow);
+                //function onFitToWindow() {
+                //    scale = 2.25;
+                //    renderPage(pageNum);
+                //}
+                //document.getElementById('fittowindow').addEventListener('click', onFitToWindow);
 
-                function printCanvas(data) {
-                    httpService.get('app/main/components/filepreview/print/print.html').then(function (html) {
-                        var contents = html;
-                        contents = contents.replace('{{resource}}', 'atob("' + data + '")');
 
-                        var windowContent = contents;
 
-                        var printWin = window.open('', '', 'width=800,height=700');
 
-                        printWin.document.open();
-                        printWin.document.write(windowContent);
-
-                        printWin.addEventListener("PDF_READY", function (e) {
-                            printWin.focus();
-                            printWin.print();
-                            printWin.close();
-                        }, true);
-                        printWin.document.close();
-                    });
-                }
-
-                function onPrint() {
-                    printCanvas(base64);
-                }
-                document.getElementById('print').addEventListener('click', onPrint);
+                $("#print").unbind('click');
+                $("#print").bind('click', function () {
+                    $scope.onPrint(base64);
+                });
 
                 function onZoomIn() {
                     scale += 0.25;
@@ -197,6 +186,26 @@ angular.module('et.directives').directive('filePreview', function () {
                 } else {
                     $scope.closePdf('#pdfPreview');
                 }
+            }
+
+            $scope.printCanvas = function (data) {
+                httpService.get('app/main/components/filepreview/print/print.html').then(function (html) {
+                    var contents = html;
+                    contents = contents.replace('{{resource}}', 'atob("' + data + '")');
+
+                    var windowContent = contents;
+
+                    var printWin = window.open('', '', 'width=800,height=700');
+
+                    printWin.document.open();
+                    printWin.document.write(windowContent);
+
+                    printWin.document.close();
+                });
+            }
+
+            $scope.onPrint = function (base64) {
+                $scope.printCanvas(base64);
             }
 
         }

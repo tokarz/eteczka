@@ -128,7 +128,10 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
         if (user) {
             filesViewService.getFilesForUser(user).then(function (result) {
                 $scope.userFiles = result.pliki;
+                $scope.selectedFile = null;
             });
+        } else {
+            $scope.selectedFile = null;
         }
     });
 
