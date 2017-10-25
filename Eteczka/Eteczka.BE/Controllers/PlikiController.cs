@@ -77,6 +77,26 @@ namespace Eteczka.BE.Controllers
         }
 
         [HttpPost]
+        public ActionResult UsunPliki(string sessionId, List<Pliki> pliki)
+        {
+            bool success = false;
+
+            StanSesji sesja = Sesja.PobierzStanSesji();
+
+            if (sesja.CzySesjaJestOtwarta(sessionId))
+            {
+                SessionDetails detaleSesji = sesja.PobierzSesje(sessionId);
+                //Usun pliki
+                //success = _PlikiService.(plik, detaleSesji.AktywnaFirma, detaleSesji.AktywnyUser.Identyfikator);
+            }
+
+            return Json(new
+            {
+                success = success
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
         public ActionResult KomitujPlik(string sessionId, KomitPliku plik)
         {
             bool success = false;
@@ -145,5 +165,5 @@ namespace Eteczka.BE.Controllers
 
         }
 
-}
+    }
 }

@@ -34,6 +34,12 @@ angular.module('et.services').factory('filesViewService', ['httpService', 'sessi
                 sessionId: sessionService.getSessionId(),
                 plik: plik
             });
+        },
+        deleteFiles: function (files) {
+            return httpService.post('Pliki/UsunPliki', {
+                sessionId: sessionService.getSessionId(),
+                files: files
+            });
         }
     }
 }]);

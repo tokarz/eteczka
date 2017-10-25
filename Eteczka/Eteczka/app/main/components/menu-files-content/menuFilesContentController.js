@@ -113,6 +113,17 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
         });
     }
 
+    $scope.triggerDeleteEmployeePopup = function () {
+        var filesToDelete = [];
+        angular.forEach($scope.userFiles, function (elm) {
+            if (elm.checked) {
+                filesToDelete.push(elm);
+            }
+        });
+
+
+    }
+
     $scope.$watch('user', function (user) {
         if (user) {
             filesViewService.getFilesForUser(user).then(function (result) {

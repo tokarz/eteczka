@@ -13,43 +13,42 @@ angular.module('et.directives').directive('filePreview', function () {
             $scope.$watch('file', function (value) {
                 if (value) {
                     if ($scope.secure === 'true') {
-                        $scope.previewPdf(value, 'GetRestrictedResource');
+                        $scope.previewPdf(value, 'GetRestrictedResource', 'pdfPreviewer');
                     } else {
-                        $scope.previewPdf(value, 'GetResource');
+                        $scope.previewPdf(value, 'GetResource', 'pdfPreviewer');
                     }
                 } else {
                     $scope.generatePdf('');
                 }
             });
 
-            $scope.closePdf = function () {
-                $('#pdfPreviewer').empty();
+            $scope.closePdf = function (id) {
+                $(id).empty();
             }
 
-            $scope.previewPdf = function (elm, ctrl) {
-                $('#pdfPreviewer').attr('src', 'FILE_FETCH?src=' + elm[$scope.fileproperty] + '.fetchfile');
-                $('#pdfPreviewer').addClass('processing');
+            $scope.previewPdf = function (elm, ctrl, id) {
+                var hashId = '#' + id;
+                $(hashId).attr('src', 'FILE_FETCH?src=' + elm[$scope.fileproperty] + '.fetchfile');
+                $(hashId).addClass('processing');
                 httpService.get('Resources/' + ctrl, {
                     sessionId: sessionService.getSessionId(),
                     fileName: elm[$scope.fileproperty]
                 }).then(function (result) {
-                    $('#pdfPreviewer').removeClass('processing');
-                    $scope.closePdf();
+                    $(hashId).removeClass('processing');
+                    $scope.closePdf('#pdfPreviewer');
 
                     if (result.Data.data === 'ERROR') {
-                        $scope.generatePdf('');
+                        $scope.generatePdf(id, '');
                         modalService.alert('', 'Blad! Nieobslugiwany format pdf (plik uszkodzony lub wersja starsza niz Adobe 6.0');
                     } else {
-                        $scope.generatePdf(result.Data.data);
+                        $scope.generatePdf(id, result.Data.data);
                     }
 
                     //$('#pdfPreviewer').attr('data', 'data:application/pdf;base64,' + result.Data.data);
                 });
             }
 
-            
-
-            $scope.generatePdf = function (base64) {
+            $scope.generatePdf = function (id, base64) {
                 var pdfData = atob(base64);
                 // Disable workers to avoid yet another cross-origin issue (workers need
                 // the URL of the script to be loaded, and dynamically loading a cross-origin
@@ -64,8 +63,9 @@ angular.module('et.directives').directive('filePreview', function () {
                 pageRendering = false,
                 pageNumPending = null,
                 scale = 1.5,
-                canvas = document.getElementById('pdfPreview'),
+                canvas = document.getElementById(id),
                 ctx = canvas.getContext('2d');
+
                 function renderPage(num) {
                     pageRendering = true;
                     // Using promise to fetch the page
@@ -126,6 +126,28 @@ angular.module('et.directives').directive('filePreview', function () {
                 }
                 document.getElementById('fittowindow').addEventListener('click', onFitToWindow);
 
+                function printCanvas() {
+                    
+                    var windowContent = '<!DOCTYPE html>';
+                    windowContent += '<html>'
+                    windowContent += '<head><title>Drukuj plik</title></head>';
+                    windowContent += '<body>'
+                    windowContent += '<canvas id = "printCanvas" src="' + dataUrl + '">';
+                    windowContent += '</body>';
+                    windowContent += '</html>';
+                    var printWin = window.open('', '', 'width=800,height=700');
+                    printWin.document.open();
+                    printWin.document.write(windowContent);
+                    printWin.document.close();
+                    printWin.focus();
+                    printWin.print();
+                    printWin.close();
+                }
+
+                function onPrint() {
+                    printCanvas();
+                }
+                document.getElementById('print').addEventListener('click', onPrint);
 
                 function onZoomIn() {
                     scale += 0.25;
@@ -165,7 +187,7 @@ angular.module('et.directives').directive('filePreview', function () {
                         renderPage(pageNum);
                     });
                 } else {
-                    $scope.closePdf();
+                    $scope.closePdf('#pdfPreviewer');
                 }
             }
 
