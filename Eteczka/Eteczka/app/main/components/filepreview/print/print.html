@@ -1,0 +1,14 @@
+﻿<html>
+<head>
+    <title>Drukowanie Pdfa</title>
+</head>
+<body>
+    <div id="holder"></div>
+
+    <script src="Scripts/pdfjs/pdf.js"></script>
+    <script src="app/main/components/filepreview/print/pdfsnippet.js"></script>
+    <script type="text/javascript">
+        renderPDF(document.getElementById('holder'), {{resource}});
+    </script>
+</body>
+</html>

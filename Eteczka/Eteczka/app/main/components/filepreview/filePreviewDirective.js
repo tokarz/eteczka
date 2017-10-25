@@ -66,6 +66,11 @@ angular.module('et.directives').directive('filePreview', function () {
                 canvas = document.getElementById(id),
                 ctx = canvas.getContext('2d');
 
+                function renderPages(pdfDoc) {
+                    for (var num = 1; num <= pdfDoc.numPages; num++)
+                        pdfDoc.getPage(num).then(renderPage);
+                }
+
                 function renderPage(num) {
                     pageRendering = true;
                     // Using promise to fetch the page
@@ -126,26 +131,29 @@ angular.module('et.directives').directive('filePreview', function () {
                 }
                 document.getElementById('fittowindow').addEventListener('click', onFitToWindow);
 
-                function printCanvas() {
+                function printCanvas(data) {
+                    httpService.get('app/main/components/filepreview/print/print.html').then(function (html) {
+                        var contents = html;
+                        contents = contents.replace('{{resource}}', 'atob("' + data + '")');
 
-                    var windowContent = '<!DOCTYPE html>';
-                    windowContent += '<html>'
-                    windowContent += '<head><title>Drukuj plik</title></head>';
-                    windowContent += '<body>'
-                    windowContent += '<canvas id = "printCanvas" src="' + dataUrl + '">';
-                    windowContent += '</body>';
-                    windowContent += '</html>';
-                    var printWin = window.open('', '', 'width=800,height=700');
-                    printWin.document.open();
-                    printWin.document.write(windowContent);
-                    printWin.document.close();
-                    printWin.focus();
-                    printWin.print();
-                    printWin.close();
+                        var windowContent = contents;
+
+                        var printWin = window.open('', '', 'width=800,height=700');
+
+                        printWin.document.open();
+                        printWin.document.write(windowContent);
+
+                        printWin.addEventListener("PDF_READY", function (e) {
+                            printWin.focus();
+                            printWin.print();
+                            printWin.close();
+                        }, true);
+                        printWin.document.close();
+                    });
                 }
 
                 function onPrint() {
-                    printCanvas();
+                    printCanvas(base64);
                 }
                 document.getElementById('print').addEventListener('click', onPrint);
 
