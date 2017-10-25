@@ -42,7 +42,7 @@ angular.module('et.controllers').controller('shopCartController', ['$scope', '$s
             body: 'app/views/shopcart/shopCartModals/sendEmailModal.html',
             controller: $scope.sendEmailCtrl,
             locals: {
-                selectedFiles: $scope.rows.map(function (elm) {
+                selectedFiles: $scope.rows.filter(function (elm) {
                     if (elm.checked) {
                         return elm
                     }
