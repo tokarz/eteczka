@@ -32,7 +32,7 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
             }
         };
 
-        $scope.filesToAttach = selectedFiles
+        $scope.filesToAttach = selectedFiles;
     }
 
     $scope.openSendEmailDialog = function () {
@@ -40,7 +40,7 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
             body: 'app/views/shopcart/shopCartModals/sendEmailModal.html',
             controller: $scope.sendEmailCtrl,
             locals: {
-                selectedFiles: $scope.userFiles.map(function (elm) {
+                selectedFiles: $scope.userFiles.filter(function (elm) {
                     if (elm.checked) {
                         return elm;
                     }

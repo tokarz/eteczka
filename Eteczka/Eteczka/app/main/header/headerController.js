@@ -37,7 +37,7 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
         $scope.activeOption = toState.name;
         $scope.isAdmin = (toState.name === 'admin');
         $scope.menusVisible = toState.name !== 'options' && toState.name !== 'login' && toState.name !== 'processing' && !$scope.isAdmin;
-
+        $scope.smallOptions = [];
         $scope.menuEmployeesVisible = toState.name.startsWith('emp');
 
         if ($scope.menuEmployeesVisible) {
@@ -144,7 +144,7 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
         return result;
     }
 
-   
+
 
     $scope.goHome = function () {
         if ($scope.userLoggedIn) {
