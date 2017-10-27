@@ -215,6 +215,14 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\css\modal.css">
+      <DependentUpon>modal.scss</DependentUpon>
+    </Content>
+    <Content Include="app\css\modal.min.css">
+      <DependentUpon>modal.css</DependentUpon>
+    </Content>
+    <Content Include="app\main\components\filepreview\print\pdfsnippet.js" />
+    <Content Include="app\main\components\filepreview\print\print.html" />
     <Content Include="app\views\shopcart\shopCartController.js" />
     <Content Include="app\views\shopcart\shopCartDirective.js" />
     <Content Include="app\views\shopcart\shopCartModals\sendEmailModal.html" />
@@ -311,7 +319,10 @@
     <Content Include="app\css\mixins.min.css">
       <DependentUpon>mixins.css</DependentUpon>
     </Content>
-    <Content Include="app\css\modal.css" />
+    <Content Include="app\css\modal.css.map">
+      <DependentUpon>modal.css</DependentUpon>
+    </Content>
+    <None Include="app\css\modal.scss" />
     <Content Include="app\css\navigation.css">
       <DependentUpon>navigation.scss</DependentUpon>
     </Content>
@@ -1365,6 +1376,15 @@
     <Content Include="node_modules\lodash.find\LICENSE" />
     <Content Include="node_modules\lodash.find\package.json" />
     <Content Include="node_modules\lodash.find\README.md" />
+    <Content Include="node_modules\angular-material\layouts\angular-material.layouts.css.map">
+      <DependentUpon>angular-material.layouts.css</DependentUpon>
+    </Content>
+    <Content Include="node_modules\angular-material\angular-material.css.map">
+      <DependentUpon>angular-material.css</DependentUpon>
+    </Content>
+    <Content Include="node_modules\angular-material\layouts\angular-material.layout-attributes.css.map">
+      <DependentUpon>angular-material.layout-attributes.css</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\ETeczka.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\d3js\.gitattributes" />

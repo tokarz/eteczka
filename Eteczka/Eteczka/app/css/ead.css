@@ -1,5 +1,4 @@
-﻿@import url(modal.css);
-@keyframes fadein {
+﻿@keyframes fadein {
   0% {
     opacity: 0;
   }
@@ -643,6 +642,310 @@
   padding: 0;
 }
 
+.btn {
+  display: inline-block;
+  width: 130px;
+  height: 28px;
+  padding: 0.3em 2em 1.5em;
+  margin-bottom: 0;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  border-radius: 0px;
+}
+
+.btn-primary {
+  color: white;
+  background-color: #074C75;
+  border-color: dimgray;
+}
+
+.btn-primary:focus,
+.btn-primary.focus {
+  color: white;
+  background-color: #286090;
+}
+
+.btn-primary:hover {
+  color: white;
+  background-color: #286090;
+  box-shadow: 0 5px 15px black;
+}
+
+.btn-primary:active,
+.btn-primary.active,
+.open > .dropdown-toggle.btn-primary {
+  color: white;
+  background-color: #286090;
+}
+
+.btn-primary:active:hover,
+.btn-primary.active:hover,
+.open > .dropdown-toggle.btn-primary:hover,
+.btn-primary:active:focus,
+.btn-primary.active:focus,
+.open > .dropdown-toggle.btn-primary:focus,
+.btn-primary:active.focus,
+.btn-primary.active.focus,
+.open > .dropdown-toggle.btn-primary.focus {
+  color: white;
+  background-color: #204d74;
+}
+
+.btn-primary.disabled:hover,
+.btn-primary[disabled]:hover,
+fieldset[disabled] .btn-primary:hover,
+.btn-primary.disabled:focus,
+.btn-primary[disabled]:focus,
+fieldset[disabled] .btn-primary:focus,
+.btn-primary.disabled.focus,
+.btn-primary[disabled].focus,
+fieldset[disabled] .btn-primary.focus {
+  background-color: #337ab7;
+}
+
+.btn-primary .badge {
+  color: #337ab7;
+  background-color: #fff;
+}
+
+.btn-info {
+  color: #fff;
+  background-color: #5bc0de;
+  border-color: deepskyblue;
+  float: left !important;
+}
+
+.btn-info:focus,
+.btn-info.focus {
+  color: #fff;
+  background-color: #31b0d5;
+}
+
+.btn-info:hover {
+  color: #fff;
+  background-color: #31b0d5;
+  box-shadow: 0 5px 15px black;
+}
+
+.btn-info:active,
+.btn-info.active,
+.open > .dropdown-toggle.btn-info {
+  color: #fff;
+  background-color: #31b0d5;
+}
+
+.btn-info:active:hover,
+.btn-info.active:hover,
+.open > .dropdown-toggle.btn-info:hover,
+.btn-info:active:focus,
+.btn-info.active:focus,
+.open > .dropdown-toggle.btn-info:focus,
+.btn-info:active.focus,
+.btn-info.active.focus,
+.open > .dropdown-toggle.btn-info.focus {
+  color: #fff;
+  background-color: #269abc;
+}
+
+.btn-info:active,
+.btn-info.active,
+.open > .dropdown-toggle.btn-info {
+  background-image: none;
+}
+
+.btn-info.disabled:hover,
+.btn-info[disabled]:hover,
+fieldset[disabled] .btn-info:hover,
+.btn-info.disabled:focus,
+.btn-info[disabled]:focus,
+fieldset[disabled] .btn-info:focus,
+.btn-info.disabled.focus,
+.btn-info[disabled].focus,
+fieldset[disabled] .btn-info.focus {
+  background-color: #5bc0de;
+}
+
+.btn-info .badge {
+  color: #5bc0de;
+  background-color: #fff;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1050;
+  display: none;
+  overflow: hidden;
+  -webkit-overflow-scrolling: touch;
+  outline: 0;
+  box-shadow: 0 0 20px black;
+  border-radius: 25px;
+  animation: 2s fade;
+}
+
+.modal.fade .modal-dialog {
+  -webkit-transition: -webkit-transform 0.3s ease-out;
+  -o-transition: -o-transform 0.3s ease-out;
+  transition: transform 0.3s ease-out;
+  -webkit-transform: translate(0, -25%);
+  -ms-transform: translate(0, -25%);
+  -o-transform: translate(0, -25%);
+  transform: translate(0, -25%);
+}
+
+.modal.in .modal-dialog {
+  -webkit-transform: translate(0, 0);
+  -ms-transform: translate(0, 0);
+  -o-transform: translate(0, 0);
+  transform: translate(0, 0);
+  background-color: white;
+  box-shadow: 0 0 20px black;
+  border-radius: 25px;
+  animation: 1s fade;
+}
+
+.modal-open .modal {
+  overflow-x: hidden;
+  overflow-y: hidden;
+  /*scrollbar*/
+}
+
+.modal-content {
+  position: relative;
+  background-color: #fff;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  outline: 0;
+  box-shadow: 0 0 20px black;
+  border-radius: 25px;
+  animation: 2s fadein;
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1040;
+  background-color: #000;
+}
+
+.modal-backdrop.fade {
+  filter: alpha(opacity=0);
+  opacity: 0;
+}
+
+.modal-backdrop.in {
+  filter: alpha(opacity=50);
+  opacity: .5;
+}
+
+.modal-header {
+  padding: 15px;
+  border-bottom: 1px solid #e5e5e5;
+  background-color: #074C75;
+}
+
+.modal-title {
+  margin: 0;
+  line-height: 1.42857143;
+  color: white;
+  text-align: center;
+}
+
+.modal-body {
+  position: relative;
+  padding: 15px;
+}
+
+.modal-footer {
+  bottom: 0px;
+  position: relative;
+  width: 100%;
+  padding: 15px;
+  text-align: right;
+  border-top: 1px solid #e5e5e5;
+}
+
+.modal-footer .btn + .btn {
+  margin-bottom: 0;
+  margin-right: 35px;
+}
+
+@media (min-width: 768px) {
+  .modal-dialog {
+    width: 600px;
+    margin: 30px auto;
+  }
+  .modal-content {
+    -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  }
+}
+
+.modal-table-title {
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.modal-table-row {
+  min-width: 600px;
+  margin-bottom: 9px;
+}
+
+.modal-table-label {
+  width: 30%;
+  display: inline-block;
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+  padding-bottom: 3px;
+  padding-top: 3px;
+  margin-bottom: 5px;
+}
+
+.modal-table-input {
+  width: 55%;
+  display: inline-block;
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+  padding-bottom: 3px;
+  padding-top: 3px;
+  margin-bottom: 5px;
+}
+
+.modal-select-input {
+  width: 60%;
+}
+
+form.ng-submitted input.ng-invalid, form.ng-submitted select.ng-invalid {
+  border-color: transparent;
+  border: 1px solid red;
+}
+
+.modal-table-error {
+  display: inline-block;
+  width: 100%;
+  color: darkred;
+  float: left;
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+  padding-bottom: 3px;
+  padding-top: 3px;
+  margin-bottom: 15px;
+}
+
 @keyframes fadein {
   0% {
     opacity: 0;
@@ -1060,6 +1363,10 @@
   overflow: auto;
   text-align: center;
   background: #666161;
+}
+
+.email-component {
+  color: #074C75;
 }
 
 html {
