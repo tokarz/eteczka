@@ -164,6 +164,19 @@ namespace Eteczka.BE.Utils
             Assert.IsTrue(_Sut.checkHasloAdmin(hasloAdmin));
 
         }
+        [Test]
+        public void ProstyWalidatorMaila()
+        {
+            Assert.IsTrue(_Sut.ProstyWalidatorMaila("jakismail@aaa.bbb"));
+            Assert.IsFalse(_Sut.ProstyWalidatorMaila("aaa"));
+            Assert.IsFalse(_Sut.ProstyWalidatorMaila("@aaa.bb"));
+            Assert.IsFalse(_Sut.ProstyWalidatorMaila("aaa@"));
+            Assert.IsFalse(_Sut.ProstyWalidatorMaila("@aaa"));
+            Assert.IsFalse(_Sut.ProstyWalidatorMaila("aa@a@bbb.cc"));
+            Assert.IsFalse(_Sut.ProstyWalidatorMaila("@.aaa."));
+            Assert.IsFalse(_Sut.ProstyWalidatorMaila(""));
+
+        }
 
     }
 }
