@@ -36,7 +36,7 @@ angular.module('et.controllers').controller('shopCartController', ['$scope', '$s
 
         $scope.filesToAttach = selectedFiles
     }
-
+    //Komentarz do usuniecia
     $scope.openSendEmailDialog = function () {
         var modalOptions = {
             body: 'app/views/shopcart/shopCartModals/sendEmailModal.html',
