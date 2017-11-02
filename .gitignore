@@ -50,3 +50,5 @@ Wymagania/planowanie/admin1.png
 Wymagania/planowanie/uprawnienia.png
 Eteczka/Eteczka/Scripts/_references.js
 Eteczka/Eteczka.v12.suo
+Eteczka/tests/*
+Eteczka/coverage/*

@@ -8,7 +8,7 @@ namespace Eteczka.BE.Mappers
     {
         public KatLokalPapier Map(JToken parsedJson)
         {
-            KatLokalPapier aktualneArchiwumDoWczytania =  new KatLokalPapier();
+            KatLokalPapier aktualneArchiwumDoWczytania = new KatLokalPapier();
             aktualneArchiwumDoWczytania.Firma = parsedJson["firma"].ToString();
             aktualneArchiwumDoWczytania.Nazwa = parsedJson["nazwa"].ToString();
             aktualneArchiwumDoWczytania.Ulica = parsedJson["ulica"].ToString();
@@ -20,6 +20,21 @@ namespace Eteczka.BE.Mappers
             aktualneArchiwumDoWczytania.LokalPapier = parsedJson["lokalpapier"].ToString();
             aktualneArchiwumDoWczytania.Datamodify = DateTime.Parse(parsedJson["datamodify"].ToString());
             aktualneArchiwumDoWczytania.Dataakcept = DateTime.Parse(parsedJson["dataakcept"].ToString());
+
+            aktualneArchiwumDoWczytania.Idoper = parsedJson["idoper"].ToString();
+            aktualneArchiwumDoWczytania.Idakcept = parsedJson["idakcept"].ToString();
+            aktualneArchiwumDoWczytania.System = parsedJson["systembazowy"].ToString();
+
+            string usuniety = parsedJson["usuniety"].ToString();
+            if (usuniety == "0")
+            {
+                aktualneArchiwumDoWczytania.Usuniety = false;
+            }
+            else
+            {
+                aktualneArchiwumDoWczytania.Usuniety = true;
+            }
+
 
             return aktualneArchiwumDoWczytania;
         }

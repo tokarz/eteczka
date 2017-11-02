@@ -17,9 +17,11 @@ namespace Eteczka.Model.Entities
         public string Miasto { get; set; }
         public string Kodpocztowy { get; set; }
         public string Poczta { get; set; }
-        public long Idoper { get; set; }
-        public long Idakcept { get; set; }
+        public string Idoper { get; set; }
+        public string Idakcept { get; set; }
         public DateTime Datamodify { get; set; }
         public DateTime Dataakcept { get; set; }
+        public string System { get; set; }
+        public bool Usuniety { get; set; }
     }
 }

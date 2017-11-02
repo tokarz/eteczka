@@ -21,6 +21,8 @@ namespace Eteczka.BE.Mappers
             wczytaneKonto5.Kontoskr = token["kontoskr"].ToString();
             wczytaneKonto5.Datamodify = DateTime.Parse(token["datamodify"].ToString());
             wczytaneKonto5.Dataakcept = DateTime.Parse(token["dataakcept"].ToString());
+            wczytaneKonto5.Systembazowy = token["systembazowy"].ToString();
+            wczytaneKonto5.Usuniety = 
 
             return wczytaneKonto5;
         }

@@ -19,9 +19,20 @@ namespace Eteczka.BE.Mappers
             aktualnyRejon.Firma = parsedJson["firma"].ToString();
             aktualnyRejon.Idoper = parsedJson["idoper"].ToString(); ;
             aktualnyRejon.Idakcept = parsedJson["idakcept"].ToString(); ;
-            aktualnyRejon.Datamodify = DateTime.Now;
-            aktualnyRejon.Dataakcept = DateTime.Now;
+            aktualnyRejon.Datamodify = DateTime.Parse(parsedJson["datamodify"].ToString());
+            aktualnyRejon.Dataakcept = DateTime.Parse(parsedJson["dataakcept"].ToString());
             aktualnyRejon.Mnemonik = parsedJson["mnemonik"].ToString();
+            aktualnyRejon.Systembazowy = parsedJson["systembazowy"].ToString();
+
+            string usuniety = parsedJson["usuniety"].ToString();
+            if (usuniety == "0")
+            {
+                aktualnyRejon.Usuniety = false;
+            }
+            else
+            {
+                aktualnyRejon.Usuniety = true;
+            }
 
             return aktualnyRejon;
         }
