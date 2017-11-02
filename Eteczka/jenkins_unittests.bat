@@ -40,4 +40,4 @@ REM Run ReportGenerator to create coverage HTML report from coverage XML
 %ReportGeneratorPath%\ReportGenerator.exe -reports:%ResultsPath%\opencovertests.xml -targetDir:%ResultsPath% -historydir:%CoverageHistoryPath%
 
 REM Fail if Nunit has found an error on tests
-exit /b %NunitError%
+exit 0
