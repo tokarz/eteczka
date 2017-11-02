@@ -243,21 +243,27 @@ namespace Eteczka.BE.Tests.Utils
             //Assert.AreEqual("B", result.CalyPlik[70].CzescAkt);
         }
 
-         /*[Test]
-         public void SpakujPliki()
-         {
-             List<string> ListaPlikowZrodlo = new List<String>();
+        [Test]
+        public void SpakujPliki()
+        {
+            List<string> ListaPlikowZrodlo = new List<String>();
 
-             ListaPlikowZrodlo.Add("C:\\eteczka.main\\pliki\\AFM\\AFM_543_ccccccc — Notatnik.pdf");
-             ListaPlikowZrodlo.Add("C:\\eteczka.main\\pliki\\AFM\\AFM_848_bbbbbbbbbbbbb — Notatnik.pdf");
-             ListaPlikowZrodlo.Add("C:\\eteczka.main\\pliki\\AFM\\AFM_948_aaa — Notatnik.pdf");
+            string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
+            ListaPlikowZrodlo.Add(eadRoot + "pliki\\AFM\\AFM_543_ccccccc — Notatnik.pdf");
+            ListaPlikowZrodlo.Add(eadRoot + "pliki\\AFM\\AFM_848_bbbbbbbbbbbbb — Notatnik.pdf");
+            ListaPlikowZrodlo.Add(eadRoot + "pliki\\AFM\\AFM_948_aaa — Notatnik.pdf");
+            
+
+            string result = _Sut.SpakujPliki("TFG", ListaPlikowZrodlo, "kotek");
+      
+            
+            Assert.IsTrue(result.Contains("eteczka.main\\\\ArchiwumZip\\TFG"));
+            Assert.IsTrue(result.Contains(".zip"));
+            
 
 
-             string result = _Sut.SpakujPliki("TFG",ListaPlikowZrodlo, "kotek");
-             Assert.NotNull(result);
-             Assert.IsNotEmpty(result);
 
-         }*/
+        }
 
     }
 }
