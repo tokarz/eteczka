@@ -22,7 +22,16 @@ namespace Eteczka.BE.Mappers
             wczytaneKonto5.Datamodify = DateTime.Parse(token["datamodify"].ToString());
             wczytaneKonto5.Dataakcept = DateTime.Parse(token["dataakcept"].ToString());
             wczytaneKonto5.Systembazowy = token["systembazowy"].ToString();
-            wczytaneKonto5.Usuniety = 
+
+            string usuniety = token["usuniety"].ToString();
+            if (usuniety == "0")
+            {
+                wczytaneKonto5.Usuniety = false;
+            }
+            else
+            {
+                wczytaneKonto5.Usuniety = true;
+            }
 
             return wczytaneKonto5;
         }
