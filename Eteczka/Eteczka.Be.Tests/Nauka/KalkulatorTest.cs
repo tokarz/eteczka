@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using System;
 
-namespace Eteczka.Be.Tests.Nauka
+namespace Eteczka.BE.Tests.Nauka
 {
     [TestFixture]
     public class Kalkulator_Test

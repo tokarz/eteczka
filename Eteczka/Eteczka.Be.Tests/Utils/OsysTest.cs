@@ -5,9 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using NSubstitute;
+using Eteczka.BE.Utils;
 
 
-namespace Eteczka.BE.Utils
+namespace Eteczka.BE.Tests.Utils
 {
     [TestFixture]
     public class OsysTest

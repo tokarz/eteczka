@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Eteczka.Be.Tests.Nauka
+namespace Eteczka.BE.Tests.Nauka
 {
     [TestFixture]
     public class Komputer_Test
