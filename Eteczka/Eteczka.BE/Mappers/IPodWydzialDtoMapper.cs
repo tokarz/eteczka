@@ -10,6 +10,6 @@ namespace Eteczka.BE.Mappers
 {
     public interface IPodWydzialDtoMapper
     {
-        PodWydzialDTO mapuj(KatPodWydzialy zrodlo);
+        PodWydzialDTO Mapuj(KatPodWydzialy zrodlo);
     }
 }

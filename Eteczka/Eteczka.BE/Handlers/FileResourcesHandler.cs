@@ -6,22 +6,17 @@ namespace Eteczka.BE.Handlers
 {
     public class FileResourcesHandler : IHttpHandler, IReadOnlySessionState
     {
+        private PlikiUtils _PlikiUtils;
+
+        public FileResourcesHandler(PlikiUtils plikiUtils)
+        {
+            this._PlikiUtils = plikiUtils;
+        }
+
         public void ProcessRequest(HttpContext context)
         {
-            ////if(context.Session["User"]==null)
-            //// context.Response.Redirect("~/login.aspx");
-
-            //var filExtension = GettingExtension(context.Request.RawUrl);
-            //context.Response.ClearContent();
-            //context.Response.ClearHeaders();
-            //context.Response.ContentType = "application/pdf";
-            //context.Response.AddHeader("Content-Disposition", "attachment");
-            //context.Response.WriteFile(context.Request.RawUrl);
-            //context.Response.Flush();
-
-
             string fileId = context.Request.Path;
-            string pathToFollow = context.Server.MapPath("~/Content/Restricted/" + new PlikiUtils().WezNazwePlikuZeSciezki(fileId));
+            string pathToFollow = context.Server.MapPath("~/Content/Restricted/" + this._PlikiUtils.WezNazwePlikuZeSciezki(fileId));
 
             context.Response.ContentType = "application/octet-stream";
             context.Response.Clear();

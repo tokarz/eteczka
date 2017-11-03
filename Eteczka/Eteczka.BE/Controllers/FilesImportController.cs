@@ -15,20 +15,6 @@ namespace Eteczka.BE.Controllers
             _ImportService = importService;
         }
 
-        public ActionResult ImportujStrukturePlikow(string sessionId, bool nadpisz)
-        {
-            ImportResult result = CreateDefaultImportResult();
-            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
-            {
-                result = _ImportService.ImportFiles(nadpisz);
-            }
-
-            return Json(new
-            {
-                success = result.ImportSukces
-            }, JsonRequestBehavior.AllowGet);
-        }
-
         public ActionResult ImportujLokalizacjeArchiwow(string sessionId, bool nadpisz)
         {
             ImportResult result = CreateDefaultImportResult();

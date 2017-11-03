@@ -20,6 +20,17 @@ namespace Eteczka.BE.Mappers
             wczytanyWydzial.Idakcept = token["idakcept"].ToString();
             wczytanyWydzial.Dataakcept = DateTime.Parse(token["dataakcept"].ToString());
             wczytanyWydzial.Firma = token["firma"].ToString();
+            wczytanyWydzial.Systembazowy = token["systembazowy"].ToString();
+            string usuniety = token["usuniety"].ToString();
+
+            if (usuniety == "0")
+            {
+                wczytanyWydzial.Usuniety = false;
+            }
+            else
+            {
+                wczytanyWydzial.Usuniety = true;
+            }
 
             return wczytanyWydzial;
         }

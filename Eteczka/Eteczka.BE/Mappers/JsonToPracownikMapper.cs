@@ -29,6 +29,17 @@ namespace Eteczka.BE.Mappers
             wczytanyPracownik.DataAkcept = DateTime.Parse(pracownik["dataakcept"].ToString());
             wczytanyPracownik.DataUrodzenia = pracownik["dataurodzenia"].ToString();
             wczytanyPracownik.Imie2 = pracownik["imie2"].ToString();
+            wczytanyPracownik.SystemBazowy = pracownik["systembazowy"].ToString();
+            string usuniety = pracownik["usuniety"].ToString();
+
+            if (usuniety == "0")
+            {
+                wczytanyPracownik.Usuniety = false;
+            }
+            else
+            {
+                wczytanyPracownik.Usuniety = true;
+            }
 
             return wczytanyPracownik;
         }

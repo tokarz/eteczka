@@ -157,8 +157,6 @@
     <Compile Include="Mappers\JsonToPracownikMapper.cs" />
     <Compile Include="Mappers\IJsonToPracownikMapper.cs" />
     <Compile Include="Mappers\JsonToKatRejonyMapper.cs" />
-    <Compile Include="Mappers\JsonToPlikiMapper.cs" />
-    <Compile Include="Mappers\IJsonToPlikiMapper.cs" />
     <Compile Include="Mappers\IJsonToKatLokalMapper.cs" />
     <Compile Include="Mappers\IJsonToKatFirmyMapper.cs" />
     <Compile Include="Mappers\JsonToKatFirmyMapper.cs" />

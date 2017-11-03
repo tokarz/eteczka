@@ -68,7 +68,6 @@ namespace Eteczka
             container.RegisterType<IJsonToKatFirmyMapper, JsonToKatFirmyMapper>();
             container.RegisterType<IJsonToKatLokalMapper, JsonToKatLokalMapper>();
             container.RegisterType<IJsonToKatRejonyMapper, JsonToKatRejonyMapper>();
-            container.RegisterType<IJsonToPlikiMapper, JsonToPlikiMapper>();
             container.RegisterType<IJsonToPracownikMapper, JsonToPracownikMapper>();
             container.RegisterType<IJsonToPracownikMapper, JsonToPracownikMapper>();
             container.RegisterType<IJsonToMiejscePracyMapper, JsonToMiejscePracyMapper>();

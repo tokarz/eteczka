@@ -21,6 +21,16 @@ namespace Eteczka.BE.Mappers
             wczytanyPodwydzial.Idakcept = token["idakcept"].ToString();
             wczytanyPodwydzial.Dataakcept = DateTime.Parse(token["dataakcept"].ToString());
             wczytanyPodwydzial.Firma = token["firma"].ToString();
+            wczytanyPodwydzial.SystemBazowy = token["systembazowy"].ToString();
+            string usuniety = token["usuniety"].ToString();
+            if (usuniety == "0")
+            {
+                wczytanyPodwydzial.Usuniety = false;
+            }
+            else
+            {
+                wczytanyPodwydzial.Usuniety = true;
+            }
 
             return wczytanyPodwydzial;
         }

@@ -45,8 +45,6 @@ namespace Eteczka.BE.Tests.Mappers
             Assert.AreEqual(DateTime.Parse("2017.08.26 15:35:22"), konto5.Dataakcept);
             Assert.AreEqual("VFP", konto5.Systembazowy);
             Assert.AreEqual(false, konto5.Usuniety);
-
-
         }
     }
 }

@@ -1,9 +1,6 @@
 ﻿'use strict';
 angular.module('et.services').factory('settingsService', ['httpService', 'sessionService', function (httpService, sessionService) {
     return {
-        importFiles: function () {
-            return httpService.get('FilesImport/ImportujStrukturePlikow', { nadpisz: true });
-        },
         importUsers: function () {
             return httpService.get('Pracownicy/ImportujJson',
                 {
@@ -49,7 +46,7 @@ angular.module('et.services').factory('settingsService', ['httpService', 'sessio
                 sessionId: sessionService.getSessionId()
             });
         },
-        importDocumentTypes: function() {
+        importDocumentTypes: function () {
             return httpService.get('FilesImport/WczytajDokDoPostgres', {
                 sessionId: sessionService.getSessionId()
             });

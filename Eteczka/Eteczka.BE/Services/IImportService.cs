@@ -4,7 +4,6 @@ namespace Eteczka.BE.Services
 {
     public interface IImportService
     {
-        ImportResult ImportFiles(bool nadpisz);
         ImportResult ImportKatLokalPapier(bool nadpisz);
         ImportResult ImportFirms(bool nadpisz);
         ImportResult ImportAreas(bool nadpisz);
@@ -15,7 +14,7 @@ namespace Eteczka.BE.Services
         ImportResult ImportDepartments(string sessionId);
         ImportResult ImportAccounts5(string sessionId);
         bool CreateSourceFolder(string folder);
-        ImportResult WczytajDokZExcela(bool nadpisz=true);
+        ImportResult WczytajDokZExcela(bool nadpisz = true);
         bool DoesFolderExist(string folder);
     }
 }

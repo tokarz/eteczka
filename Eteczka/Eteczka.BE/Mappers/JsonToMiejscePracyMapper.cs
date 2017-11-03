@@ -35,7 +35,17 @@ namespace Eteczka.BE.Mappers
             miejscePracy.DataAkcept = DateTime.Parse(parsedJson["dataakcept"].ToString());
             miejscePracy.NumerEad = parsedJson["numeread"].ToString();
             miejscePracy.Id = long.Parse(parsedJson["id"].ToString());
-            miejscePracy.Usuniety = false;
+            miejscePracy.SystemBazowy = parsedJson["systembazowy"].ToString();
+
+            string usuniety = parsedJson["usuniety"].ToString();
+            if (usuniety == "0")
+            {
+                miejscePracy.Usuniety = false;
+            }
+            else
+            {
+                miejscePracy.Usuniety = true;
+            }
 
             return miejscePracy;
         }

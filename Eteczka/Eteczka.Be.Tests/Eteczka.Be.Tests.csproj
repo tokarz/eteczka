@@ -74,7 +74,6 @@
     <Compile Include="Mappers\JsonToKatRejonyMapperTest.cs" />
     <Compile Include="Mappers\JsonToKonto5MapperTest.cs" />
     <Compile Include="Mappers\JsonToMiejscePracyMapperTest.cs" />
-    <Compile Include="Mappers\JsonToPlikiMapperTest.cs" />
     <Compile Include="Mappers\JsonToPodwydzialMapperTest.cs" />
     <Compile Include="Mappers\JsonToPracownikMapperTest.cs" />
     <Compile Include="Mappers\JsonToWydzialMapperTest.cs" />

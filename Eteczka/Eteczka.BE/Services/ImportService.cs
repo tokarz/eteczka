@@ -18,7 +18,6 @@ namespace Eteczka.BE.Services
     {
         private IJsonToKatLokalMapper _JsonToKatLokalMapper;
         private IJsonToKatFirmyMapper _JsonToKatFirmyMapper;
-        private IJsonToPlikiMapper _JsonToPlikiMapper;
         private IJsonToKatRejonyMapper _JsonToKatRejonyMapper;
         private IJsonToPracownikMapper _JsonToPracownikMapper;
         private IJsonToMiejscePracyMapper _JsonToMiejscePracyMapper;
@@ -42,7 +41,6 @@ namespace Eteczka.BE.Services
         public ImportService(
             IJsonToKatLokalMapper mapper,
             IJsonToKatFirmyMapper firmyMapper,
-            IJsonToPlikiMapper plikiMapper,
             IJsonToKatRejonyMapper rejonyMapper,
             IJsonToPracownikMapper pracownikMapper,
             IJsonToMiejscePracyMapper jsonToMiejscePracyMapper,
@@ -63,7 +61,6 @@ namespace Eteczka.BE.Services
         {
             this._JsonToKatLokalMapper = mapper;
             this._JsonToKatFirmyMapper = firmyMapper;
-            this._JsonToPlikiMapper = plikiMapper;
             this._JsonToKatRejonyMapper = rejonyMapper;
             this._JsonToPracownikMapper = pracownikMapper;
             this._JsonToMiejscePracyMapper = jsonToMiejscePracyMapper;
@@ -86,7 +83,6 @@ namespace Eteczka.BE.Services
 
         public bool DoesFolderExist(string folder)
         {
-            bool result = false;
             string eadRoot = System.Environment.GetEnvironmentVariable("EAD_DIR");
             string sciezkaDoWaitingRoom = Path.Combine(eadRoot, "waitingroom");
             string finalFolderLocation = Path.Combine(sciezkaDoWaitingRoom, folder.Trim());
@@ -115,63 +111,6 @@ namespace Eteczka.BE.Services
                     result = false;
                 }
             }
-
-            return result;
-        }
-
-        public ImportResult ImportFiles(bool nadpisz)
-        {
-            ImportResult result = new ImportResult();
-            Dictionary<string, Pliki> wczytanePliki = new Dictionary<string, Pliki>();
-            List<string> znalezionePdf = new List<string>();
-            List<string> znalezioneMetaDane = new List<string>();
-
-            string eadRoot = System.Environment.GetEnvironmentVariable("EAD_DIR");
-
-            string sciezkaDoPlikow = Path.Combine(eadRoot, "pliki");
-
-            string[] pliki = Directory.GetFiles(sciezkaDoPlikow);
-            foreach (string plik in pliki)
-            {
-                if (plik.EndsWith(".json"))
-                {
-                    znalezioneMetaDane.Add(plik);
-                }
-                else
-                {
-                    znalezionePdf.Add(plik);
-                }
-            }
-
-            foreach (string metaDanePliku in znalezioneMetaDane)
-            {
-                string metaDaneBezRozszerzenia = metaDanePliku.Substring(0, metaDanePliku.Length - 5);
-                foreach (string dokument in znalezionePdf)
-                {
-                    string dokumentBezRozszerzenia = dokument.Substring(0, dokument.Length - 4);
-                    if (metaDaneBezRozszerzenia.Equals(dokumentBezRozszerzenia))
-                    {
-                        StringBuilder jsonMetadataFile = new StringBuilder();
-
-                        using (StreamReader reader = new StreamReader(metaDanePliku))
-                        {
-                            string line;
-                            while ((line = reader.ReadLine()) != null)
-                            {
-                                jsonMetadataFile.Append(line);
-                            }
-
-                            var rootJson = JObject.Parse(jsonMetadataFile.ToString());
-                            var parsedJson = rootJson["file"];
-
-                            Pliki wczytanyPlik = _JsonToPlikiMapper.Map(parsedJson);
-                            wczytanePliki.Add(dokument, wczytanyPlik);
-                        }
-                    }
-                }
-            }
-
-            result.ImportSukces = _Dao.ImportujPliki(wczytanePliki);
 
             return result;
         }

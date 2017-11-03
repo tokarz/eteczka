@@ -2,15 +2,6 @@
 angular.module('et.controllers').controller('settingsViewController', ['$scope', 'settingsService', 'companiesService', 'sessionService', 'modalService', function ($scope, settingsService, companiesService, sessionService, modalService) {
     $scope.folders = [];
 
-    $scope.importFiles = function () {
-        settingsService.importFiles(true).then(function () {
-            modalService.alert('Import Plikow', 'Sukces');
-        },
-        function () {
-            modalService.alert('Import Plikow!', 'Blad! Sprawdz Logi Systemowe!');
-        });
-    }
-
     $scope.existingFolders = {};
 
     $scope.importAllCompanies = function () {

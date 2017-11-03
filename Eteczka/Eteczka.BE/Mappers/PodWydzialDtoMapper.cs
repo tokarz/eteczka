@@ -10,7 +10,7 @@ namespace Eteczka.BE.Mappers
 {
     public class PodWydzialDtoMapper : IPodWydzialDtoMapper
     {
-        public PodWydzialDTO mapuj(KatPodWydzialy zrodlo)
+        public PodWydzialDTO Mapuj(KatPodWydzialy zrodlo)
         {
             PodWydzialDTO podwydzial = new PodWydzialDTO();
 
@@ -23,6 +23,7 @@ namespace Eteczka.BE.Mappers
             podwydzial.Firma = zrodlo.Firma;
             podwydzial.SystemBazowy = zrodlo.SystemBazowy;
             podwydzial.Usuniety = zrodlo.Usuniety;
+            podwydzial.Wydzial = zrodlo.Wydzial;
 
             return podwydzial;
         }
