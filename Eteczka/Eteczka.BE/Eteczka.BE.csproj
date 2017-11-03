@@ -203,11 +203,15 @@
     <Compile Include="Utils\ExcelKatDok.cs" />
     <Compile Include="Utils\ExcelKatDokPola.cs" />
     <Compile Include="Utils\IDirectoryWrapper.cs" />
+    <Compile Include="Utils\IPdfUtils.cs" />
     <Compile Include="Utils\Osys.cs" />
+    <Compile Include="Utils\PdfUtils.cs" />
     <Compile Include="Utils\PlikiUtils.cs" />
     <Compile Include="Utils\DokladnyPracownikUtils.cs" />
     <Compile Include="Utils\PracownikUtils.cs" />
     <Compile Include="Utils\WyszukiwaczPlikow.cs" />
+    <Compile Include="Utils\IZipUtils.cs" />
+    <Compile Include="Utils\ZipUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

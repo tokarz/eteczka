@@ -18,7 +18,16 @@ namespace Eteczka.BE.Utils
     public class PlikiUtils
     {
         private IDirectoryWrapper _Wrapper;
+        private IPdfUtils _PdfUtils;
+        private IZipUtils _ZipUtils;
         Logger LOGGER = LogManager.GetLogger("PlikiUtils");
+
+        public PlikiUtils(IDirectoryWrapper wrapper, IPdfUtils pdfUtils, IZipUtils zipUtils)
+        {
+            this._Wrapper = wrapper;
+            this._PdfUtils = pdfUtils;
+            this._ZipUtils = zipUtils;
+        }
         //Przykladowe dzialanie metody:
         //Uruchomiona z argumentem c:/katalog/plik.txt
         //Powinna zwrocic plik.txt
@@ -229,57 +238,22 @@ namespace Eteczka.BE.Utils
             return SciezkiZPlikami;
         }
 
-        public string WczytajPlik(string sciezka, string rozszerzenie = "")
-        {
-            StringBuilder plik = new StringBuilder();
 
-            if (string.IsNullOrEmpty(rozszerzenie) || sciezka.EndsWith(rozszerzenie))
-            {
-                // PROBUJEMY OTWORZYC PLIK I LAPIEMY EWENTUALNE WYJATKI
-                try
-                {   // OTWIERAMY STRUMIEN DO PLIKU
-                    using (StreamReader sr = new StreamReader(sciezka))
-                    {
-                        // WCZYTUJEMY 1 LINIJKE Z PLIKU DO NAPOTKANIA KONCA LINII 
-                        string linijka = sr.ReadToEnd();
-                        plik.Append(linijka);
-                    }
-                }
-                catch (Exception e)
-                {
-                    // OBSLUGA WYJATKU
-                    Console.WriteLine("BLAD ODCZYTU PLIKU!");
-                    Console.WriteLine(e.Message);
-                }
-            }
-
-
-            return plik.ToString();
-        }
 
         public List<string> WczytajPlikiZFolderu(string sciezkaDoKatalogu, string rozszerzenie)
         {
             List<string> osoby = new List<string>();
 
-            List<string> pliki = Directory.GetFiles(sciezkaDoKatalogu).ToList<string>();
+            List<string> pliki = this._Wrapper.PobierzPlikiZKatalogu(sciezkaDoKatalogu);
             foreach (string plik in pliki)
             {
-                string zawartoscPliku = WczytajPlik(plik, rozszerzenie);
-
-                /*Pomimo użycia parametru "rozszerzenie"  metoda wczytuje wszystkie pliki, 
-                a nie tylko "txt". Działa prawidłowo dopiero po dodaniu poniższego warunku. */
-
+                string zawartoscPliku = this._Wrapper.WczytajPlik(plik, rozszerzenie);
 
                 if (plik.EndsWith(rozszerzenie))
-
-                    /*Dzieje się tak samo nawet wtedy, gdy z metody WczytajPlik 
-                                usunę warunek IsNullOrEmpty. Czy nie powinno być tak, 
-                                że ścieżki inne niż z końcówką "txt" są pomijane? Chyba się zamotałem :))*/
-
-
+                {
                     osoby.Add(zawartoscPliku);
+                }
             }
-
 
             return osoby;
         }
@@ -291,6 +265,7 @@ namespace Eteczka.BE.Utils
             {
                 LOGGER.Debug("Wczytanie Typow pliki: " + sciezka);
                 Application xlApp = new Application();
+                // Path.GetFullPath(sciezka) trzeba wywolac we wrapperze
                 Workbook xlWorkbook = xlApp.Workbooks.Open(Path.GetFullPath(sciezka));
                 Worksheet xlWorksheet = xlWorkbook.Sheets[arkusz];
                 Range xlRange = xlWorksheet.UsedRange;
@@ -487,11 +462,9 @@ namespace Eteczka.BE.Utils
             return result;
         }
 
-        public string SpakujPliki(string firma, List<string> PlikiDoSpakowania, string haslo)
+        public string SpakujPliki(string firma, List<string> plikiDoSpakowania, string haslo)
         {
-
-            
-            string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
+            string eadRoot = _Wrapper.GetEnvironmentVariable("EAD_DIR");
             string dataFormat = "yyyyMMddHHmmssfff";
 
             string tempZrodloKatalog = Path.Combine(eadRoot, DateTime.Now.ToString(dataFormat) + "tempsource");
@@ -515,53 +488,24 @@ namespace Eteczka.BE.Utils
 
             try
             {
-                PdfDocument document = new PdfDocument();
+                _PdfUtils.SavePdf(plikiDoSpakowania, tempZrodloKatalog);
 
-                foreach (string plikZaszyfrowany in PlikiDoSpakowania)
-                {
-                    if (_Wrapper.CzyPlikIstnieje(plikZaszyfrowany))
-                    //if (File.Exists(plikZaszyfrowany))
-                    {
-                        string nazwaPliku = plikZaszyfrowany.Substring(plikZaszyfrowany.LastIndexOf("\\"));
-                        document = PdfReader.Open(plikZaszyfrowany, "adminadmin");
-                        document.Save(tempZrodloKatalog + "\\" + nazwaPliku);
-                    }
-                }
-
-                List<string> ListaPlikow = _Wrapper.PobierzPlikiZKatalogu(tempZrodloKatalog);
+                List<string> listaPlikow = _Wrapper.PobierzPlikiZKatalogu(tempZrodloKatalog);
                 //List<string> ListaPlikow = Directory.GetFiles(tempZrodloKatalog).ToList();
-                using (ZipFile zip = new ZipFile())
-                {
-                    string password = haslo;
-                    if (!string.IsNullOrEmpty(password))
-                    {
-                        foreach (string plik in ListaPlikow)
-                        {
 
-                            zip.AddFile(plik, "");
-                        }
+                _ZipUtils.SpakujPlikiZHaslem(listaPlikow, haslo, tempZipSaveSciezka, sciezkaDoZipa);
 
-                        zip.Save(tempZipSaveSciezka);
-                    }
-                    zip.Password = password;
-                    zip.Encryption = EncryptionAlgorithm.WinZipAes256;
+                _Wrapper.UsunKatalog(tempZipKatalog, true);
+                //Directory.Delete(tempZipKatalog, true);
 
-                    zip.AddFile(tempZipSaveSciezka, "");
-                    zip.RemoveSelectedEntries("*.pdf");
-
-                    zip.Save(sciezkaDoZipa);
-
-                    _Wrapper.UsunKatalog(tempZipKatalog, true);
-                    //Directory.Delete(tempZipKatalog, true);
-
-                    _Wrapper.UsunKatalog(tempZrodloKatalog, true);
-                    //Directory.Delete(tempZrodloKatalog, true);
-                }
+                _Wrapper.UsunKatalog(tempZrodloKatalog, true);
+                //Directory.Delete(tempZrodloKatalog, true);
             }
             catch (Exception ex)
             {
                 // logi
             }
+
             return sciezkaDoZipa;
         }
 
@@ -597,7 +541,7 @@ namespace Eteczka.BE.Utils
                 mail.Body = wiadomosc;
 
                 System.Net.Mail.Attachment attachment;
-                string zalacznik = new PlikiUtils().SpakujPliki(firma, Zalaczniki, hasloDoZip);
+                string zalacznik = SpakujPliki(firma, Zalaczniki, hasloDoZip);
                 attachment = new System.Net.Mail.Attachment(zalacznik);
                 if (File.Exists(zalacznik))
                 {

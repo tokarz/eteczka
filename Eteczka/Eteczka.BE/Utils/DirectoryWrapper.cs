@@ -35,6 +35,38 @@ namespace Eteczka.BE.Utils
             return File.Exists(sciezka);
         }
 
+        public string WczytajPlik(string sciezka, string rozszerzenie = "")
+        {
+            StringBuilder plik = new StringBuilder();
+
+            if (string.IsNullOrEmpty(rozszerzenie) || sciezka.EndsWith(rozszerzenie))
+            {
+                // PROBUJEMY OTWORZYC PLIK I LAPIEMY EWENTUALNE WYJATKI
+                try
+                {   // OTWIERAMY STRUMIEN DO PLIKU
+                    using (StreamReader sr = new StreamReader(sciezka))
+                    {
+                        // WCZYTUJEMY 1 LINIJKE Z PLIKU DO NAPOTKANIA KONCA LINII 
+                        string linijka = sr.ReadToEnd();
+                        plik.Append(linijka);
+                    }
+                }
+                catch (Exception e)
+                {
+                    // OBSLUGA WYJATKU
+                    Console.WriteLine("BLAD ODCZYTU PLIKU!");
+                    Console.WriteLine(e.Message);
+                }
+            }
+
+
+            return plik.ToString();
+        }
+
+        public string GetEnvironmentVariable(string name)
+        {
+            return Environment.GetEnvironmentVariable(name);
+        }
 
     }
 }

@@ -13,7 +13,7 @@ namespace Eteczka.BE.Utils
         bool UsunKatalog(string sciezka, bool CzyUsunacZawartosc);
         bool CzyKatalogIstnieje(string sciezka);
         bool CzyPlikIstnieje(string sciezka);
-
-
+        string WczytajPlik(string sciezka, string rozszerzenie = "");
+        string GetEnvironmentVariable(string name);
     }
 }
