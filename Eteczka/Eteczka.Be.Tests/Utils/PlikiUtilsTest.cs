@@ -14,11 +14,14 @@ namespace Eteczka.BE.Tests.Utils
     {
 
         private PlikiUtils _Sut;
+        
 
         [SetUp]
         public void Init()
         {
             _Sut = new PlikiUtils();
+            
+            
         }
 
 
@@ -252,11 +255,12 @@ namespace Eteczka.BE.Tests.Utils
         //    ListaPlikowZrodlo.Add(eadRoot + "pliki\\AFM\\AFM_543_ccccccc — Notatnik.pdf");
         //    ListaPlikowZrodlo.Add(eadRoot + "pliki\\AFM\\AFM_848_bbbbbbbbbbbbb — Notatnik.pdf");
         //    ListaPlikowZrodlo.Add(eadRoot + "pliki\\AFM\\AFM_948_aaa — Notatnik.pdf");
+
             
 
         //    string result = _Sut.SpakujPliki("TFG", ListaPlikowZrodlo, "kotek");
-      
-            
+
+
         //    Assert.IsTrue(result.Contains("eteczka.main\\\\ArchiwumZip\\TFG"));
         //    Assert.IsTrue(result.Contains(".zip"));
         //}
