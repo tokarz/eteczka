@@ -17,6 +17,7 @@ namespace Eteczka.BE.Utils
 {
     public class PlikiUtils
     {
+        private IDirectoryWrapper _Wrapper;
         Logger LOGGER = LogManager.GetLogger("PlikiUtils");
         //Przykladowe dzialanie metody:
         //Uruchomiona z argumentem c:/katalog/plik.txt
@@ -489,21 +490,26 @@ namespace Eteczka.BE.Utils
         public string SpakujPliki(string firma, List<string> PlikiDoSpakowania, string haslo)
         {
 
+            
             string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
             string dataFormat = "yyyyMMddHHmmssfff";
 
             string tempZrodloKatalog = Path.Combine(eadRoot, DateTime.Now.ToString(dataFormat) + "tempsource");
-            Directory.CreateDirectory(tempZrodloKatalog);
+            _Wrapper.UtworzKatalog(tempZrodloKatalog);
+            //Directory.CreateDirectory(tempZrodloKatalog);
 
             string tempZipKatalog = Path.Combine(eadRoot, DateTime.Now.ToString(dataFormat) + "tempzip");
-            Directory.CreateDirectory(tempZipKatalog);
+            _Wrapper.UtworzKatalog(tempZipKatalog);
+            //Directory.CreateDirectory(tempZipKatalog);
 
             string tempZipSaveSciezka = tempZipKatalog + "\\" + DateTime.Now.ToString(dataFormat) + ".zip";
             string archiwumZipFolder = Path.Combine(eadRoot, "ArchiwumZip\\", firma);
 
-            if (!Directory.Exists(archiwumZipFolder))
+            if (!_Wrapper.CzyKatalogIstnieje(archiwumZipFolder))
+            //if (!Directory.Exists)
             {
-                Directory.CreateDirectory(archiwumZipFolder);
+                _Wrapper.UtworzKatalog(archiwumZipFolder);
+                //Directory.CreateDirectory(archiwumZipFolder);
             }
             string sciezkaDoZipa = (eadRoot + "\\ArchiwumZip\\" + firma + "\\" + DateTime.Now.ToString(dataFormat) + ".zip");
 
@@ -513,7 +519,8 @@ namespace Eteczka.BE.Utils
 
                 foreach (string plikZaszyfrowany in PlikiDoSpakowania)
                 {
-                    if (File.Exists(plikZaszyfrowany))
+                    if (_Wrapper.CzyPlikIstnieje(plikZaszyfrowany))
+                    //if (File.Exists(plikZaszyfrowany))
                     {
                         string nazwaPliku = plikZaszyfrowany.Substring(plikZaszyfrowany.LastIndexOf("\\"));
                         document = PdfReader.Open(plikZaszyfrowany, "adminadmin");
@@ -521,7 +528,8 @@ namespace Eteczka.BE.Utils
                     }
                 }
 
-                List<string> ListaPlikow = Directory.GetFiles(tempZrodloKatalog).ToList();
+                List<string> ListaPlikow = _Wrapper.PobierzPlikiZKatalogu(tempZrodloKatalog);
+                //List<string> ListaPlikow = Directory.GetFiles(tempZrodloKatalog).ToList();
                 using (ZipFile zip = new ZipFile())
                 {
                     string password = haslo;
@@ -543,8 +551,11 @@ namespace Eteczka.BE.Utils
 
                     zip.Save(sciezkaDoZipa);
 
-                    Directory.Delete(tempZipKatalog, true);
-                    Directory.Delete(tempZrodloKatalog, true);
+                    _Wrapper.UsunKatalog(tempZipKatalog, true);
+                    //Directory.Delete(tempZipKatalog, true);
+
+                    _Wrapper.UsunKatalog(tempZrodloKatalog, true);
+                    //Directory.Delete(tempZrodloKatalog, true);
                 }
             }
             catch (Exception ex)
