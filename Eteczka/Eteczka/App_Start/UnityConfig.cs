@@ -97,6 +97,8 @@ namespace Eteczka
             container.RegisterType<PlikiUtils, PlikiUtils>();
             container.RegisterType<KatPodwydzialDAO, KatPodwydzialDAO>();
             container.RegisterType<IDirectoryWrapper, DirectoryWrapper>();
+            container.RegisterType<IPdfUtils, PdfUtils>();
+            container.RegisterType<IZipUtils, ZipUtils>();
 
         }
 
