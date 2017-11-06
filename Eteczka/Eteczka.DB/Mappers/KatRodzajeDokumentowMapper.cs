@@ -31,6 +31,8 @@ namespace Eteczka.DB.Mappers
             {
                 fetchedDokument.Confidential = confidential;
             }
+            fetchedDokument.SymbolEad = row["symbolead"].ToString();
+            fetchedDokument.Audyt = bool.Parse(row["audyt"].ToString());
 
             return fetchedDokument;
 

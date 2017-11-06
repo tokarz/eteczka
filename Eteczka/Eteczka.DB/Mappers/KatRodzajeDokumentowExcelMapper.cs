@@ -33,7 +33,7 @@ namespace Eteczka.DB.Mappers
                     xlRange = xlWorksheet.UsedRange;
 
 
-                    for (int y = 1; y <= xlRange.Rows.Count; y++)
+                    for (int y = 2; y <= xlRange.Rows.Count; y++)
                     {
                         KatDokumentyRodzaj pobranyDokument = new KatDokumentyRodzaj();
                         pobranyDokument.Symbol = (xlRange.Cells[y, 1].Value);
@@ -41,6 +41,8 @@ namespace Eteczka.DB.Mappers
                         pobranyDokument.Teczkadzial = (xlRange.Cells[y, 3].Value);
                         pobranyDokument.Typedycji = (xlRange.Cells[y, 4].Value);
                         pobranyDokument.SystemBazowy = (xlRange.Cells[y, 5].Value);
+                        pobranyDokument.SymbolEad = (xlRange.Cells[y, 6].Value);
+                        //pobranyDokument.Audyt = (xlRange.Cells[y, 7].Value);
 
                         PobraneRodzajeDok.Add(pobranyDokument);
                     }

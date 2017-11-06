@@ -183,7 +183,7 @@ namespace Eteczka.BE.Services
                 string wydzial = (filtry.Wydzial != null) ? ("%" + filtry.Wydzial.Wydzial + "%") : "%%";
                 string podwydzial = (filtry.Podwydzial != null) ? ("%" + filtry.Podwydzial.Podwydzial + "%") : "%%";
                 string konto5 = (filtry.Konto5 != null) ? ("%" + filtry.Konto5.Konto5 + "%") : "%%";
-                string typ = (filtry.Typ != null) ? ("%" + filtry.Typ.Symbol + "%") : "%%";
+                string typ = (filtry.RodzajDokumentu != null) ? ("%" + filtry.RodzajDokumentu.Symbol + "%") : "%%";
 
                 wyszukanePliki = _Dao.WyszukajPlikiZFiltrow(sesja.AktywnaFirma, rejon, wydzial, podwydzial, konto5, typ, filtry.Pracownik, sortOrder, sortColumn);
             }

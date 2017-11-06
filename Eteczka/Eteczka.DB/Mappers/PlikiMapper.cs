@@ -40,7 +40,9 @@ namespace Eteczka.DB.Mappers
                     Nazwisko = row["nazwisko"].ToString(),
                     Pesel = row["pesel"].ToString(),
                     DrugieImie = row["imie2"].ToString(),
-                    DataUrodzenia = DateTime.Parse(row["dataurodzenia"].ToString())
+                    DataUrodzenia = DateTime.Parse(row["dataurodzenia"].ToString()),
+                    SymbolEad = row["symbolead"].ToString()
+
                 };
             }
             catch (Exception ex)

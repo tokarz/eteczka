@@ -21,6 +21,8 @@ namespace Eteczka.Model.Entities
         public DateTime DataDokumentu { get; set; }
         public DateTime DataPocz { get; set; }
         public DateTime DataKoniec { get; set; }
+        public string SymbolEad { get; set; }
+        
 
         public string DataSkanuStr
         {

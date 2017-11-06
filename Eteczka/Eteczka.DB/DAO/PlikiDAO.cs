@@ -58,7 +58,7 @@ namespace Eteczka.DB.DAO
                     object[] args = new object[]  {
                             firma.Trim(),
                             plik.Pracownik.Numeread.Trim(),
-                            plik.Typ.Symbol.Trim(),
+                            plik.RodzajDokumentu.Symbol.Trim(),
                             dataSkanu,
                             dataWytworzenia,
                             dataPocz,
@@ -75,11 +75,12 @@ namespace Eteczka.DB.DAO
                             idOper.Trim(),
                             DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture),
                             DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture),
-                            plik.Typ.Teczkadzial.Trim()
+                            plik.RodzajDokumentu.Teczkadzial.Trim(),
+                            plik.RodzajDokumentu.SymbolEad.Trim()
                         };
 
-                    string values = string.Format("'{0}', '{1}', '{2}', '{3}','{4}', '{5}','{6}', '{7}','{8}', '{9}','{10}', '{11}','{12}', '{13}','{14}', '{15}','{16}', '{17}', '{18}', '{19}'", args);
-                    string insertStatement = "INSERT INTO \"Pliki\" (firma, numeread, symbol, dataskanu, datadokumentu, datapocz, datakoniec, nazwascan, nazwaead, pelnasciezkaead, typpliku, opisdodatkowy, dokwlasny, systembazowy, usuniety, idoper, idakcept, datamodify, dataakcept, teczkadzial) VALUES (" + values + ");";
+                    string values = string.Format("'{0}', '{1}', '{2}', '{3}','{4}', '{5}','{6}', '{7}','{8}', '{9}','{10}', '{11}','{12}', '{13}','{14}', '{15}','{16}', '{17}', '{18}', '{19}','{20}'", args);
+                    string insertStatement = "INSERT INTO \"Pliki\" (firma, numeread, symbol, dataskanu, datadokumentu, datapocz, datakoniec, nazwascan, nazwaead, pelnasciezkaead, typpliku, opisdodatkowy, dokwlasny, systembazowy, usuniety, idoper, idakcept, datamodify, dataakcept, teczkadzial, symbolead) VALUES (" + values + ");";
 
                     IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
                     result = connectionState.ExecuteNonQuery(insertStatement);
@@ -119,14 +120,15 @@ namespace Eteczka.DB.DAO
 
         public bool ImportujPliki(Dictionary<string, Pliki> plikiZMetadanymi)
         {
+            //Ta metoda chyba nie jest nigdzie używana?
             bool result = false;
             StringBuilder sqls = new StringBuilder();
 
             foreach (string key in plikiZMetadanymi.Keys)
             {
                 Pliki biezacyPlik = plikiZMetadanymi[key];
-                string valuesLine = "('" + biezacyPlik.Firma + "', '" + biezacyPlik.NumerEad + "', '" + biezacyPlik.Symbol + "', '" + biezacyPlik.DataSkanu + "', '" + biezacyPlik.DataDokumentu + "', '" + biezacyPlik.DataPocz + "', '" + biezacyPlik.DataKoniec + "', '" + biezacyPlik.NazwaScan + "', '" + biezacyPlik.NazwaEad + "', '" + biezacyPlik.PelnasciezkaEad + "', '" + biezacyPlik.TypPliku + "', '" + biezacyPlik.OpisDodatkowy + "', '" + biezacyPlik.DokumentWlasny + "', '" + biezacyPlik.Systembazowy + "', '" + biezacyPlik.Usuniety + "', '" + biezacyPlik.IdOper + "', '" + biezacyPlik.IdAkcept + "', '" + biezacyPlik.DataModyfikacji + "', '" + biezacyPlik.DataAkcept + "');";
-                string singleImport = "INSERT INTO \"Pliki\" (firma, numeread, symbol, dataskanu, datadokumentu, datapocz, datakoniec, nazwascan, nazwaead, pelnasciezkaead, typpliku, opisdodatkowy, dokwlasny, systembazowy, usuniety, idoper, idakcept, datamodify, dataakcept) VALUES ";
+                string valuesLine = "('" + biezacyPlik.Firma + "', '" + biezacyPlik.NumerEad + "', '" + biezacyPlik.Symbol + "', '" + biezacyPlik.DataSkanu + "', '" + biezacyPlik.DataDokumentu + "', '" + biezacyPlik.DataPocz + "', '" + biezacyPlik.DataKoniec + "', '" + biezacyPlik.NazwaScan + "', '" + biezacyPlik.NazwaEad + "', '" + biezacyPlik.PelnasciezkaEad + "', '" + biezacyPlik.TypPliku + "', '" + biezacyPlik.OpisDodatkowy + "', '" + biezacyPlik.DokumentWlasny + "', '" + biezacyPlik.Systembazowy + "', '" + biezacyPlik.Usuniety + "', '" + biezacyPlik.IdOper + "', '" + biezacyPlik.IdAkcept + "', '" + biezacyPlik.DataModyfikacji + "', '" + biezacyPlik.DataAkcept + "', '" + biezacyPlik.SymbolEad + "');";
+                string singleImport = "INSERT INTO \"Pliki\" (firma, numeread, symbol, dataskanu, datadokumentu, datapocz, datakoniec, nazwascan, nazwaead, pelnasciezkaead, typpliku, opisdodatkowy, dokwlasny, systembazowy, usuniety, idoper, idakcept, datamodify, dataakcept, symbolead) VALUES ";
 
                 string fullSqlInsert = singleImport + valuesLine;
                 sqls.Append(fullSqlInsert);
@@ -205,13 +207,14 @@ namespace Eteczka.DB.DAO
             // "AND podwydzial LIKE '" + podwydzial.Trim() + "' " +
             // "AND konto5 LIKE '" + konto5.Trim() + "' );";
 
+            //Paszczakus - kwerenduj :)) Dostajesz po staremu symbol, a mamy szukać w tabeli pliki po symbolead.
             string sqlQuery =
             "SELECT \"Pliki\".*, \"KatPracownicy\".* FROM \"Pliki\" "
             + "LEFT OUTER JOIN \"KatPracownicy\" "
             + "ON \"Pliki\".numeread = \"KatPracownicy\".numeread "
             + "WHERE "
             + "\"Pliki\".firma IN ('" + firma.Trim() + "') "
-            + "AND \"Pliki\".symbol LIKE '" + typ.Trim() + "' "
+            + "AND \"Pliki\".symbol LIKE '" + typ.Trim() + "' " 
             + "AND \"Pliki\".numeread IN "
             + "(SELECT numeread FROM \"MiejscePracy\" "
             + "WHERE NOT \"MiejscePracy\".usuniety "
