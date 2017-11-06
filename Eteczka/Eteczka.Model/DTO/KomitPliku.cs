@@ -10,7 +10,7 @@ namespace Eteczka.Model.DTO
     public class KomitPliku
     {
         public string Nazwa { get; set; }
-        public KatDokumentyRodzaj RodzajDokumentu { get; set; }
+        public KatDokumentyRodzaj Typ { get; set; }
         public Pracownik Pracownik { get; set; }
         public bool Dokwlasny { get; set; }
         public DateTime DataWytworzenia { get; set; }

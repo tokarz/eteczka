@@ -58,7 +58,7 @@ namespace Eteczka.DB.DAO
                     object[] args = new object[]  {
                             firma.Trim(),
                             plik.Pracownik.Numeread.Trim(),
-                            plik.RodzajDokumentu.Symbol.Trim(),
+                            plik.Typ.Symbol.Trim(),
                             dataSkanu,
                             dataWytworzenia,
                             dataPocz,
@@ -75,8 +75,8 @@ namespace Eteczka.DB.DAO
                             idOper.Trim(),
                             DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture),
                             DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture),
-                            plik.RodzajDokumentu.Teczkadzial.Trim(),
-                            plik.RodzajDokumentu.SymbolEad.Trim()
+                            plik.Typ.Teczkadzial.Trim(),
+                            plik.Typ.SymbolEad.Trim()
                         };
 
                     string values = string.Format("'{0}', '{1}', '{2}', '{3}','{4}', '{5}','{6}', '{7}','{8}', '{9}','{10}', '{11}','{12}', '{13}','{14}', '{15}','{16}', '{17}', '{18}', '{19}','{20}'", args);
@@ -207,14 +207,14 @@ namespace Eteczka.DB.DAO
             // "AND podwydzial LIKE '" + podwydzial.Trim() + "' " +
             // "AND konto5 LIKE '" + konto5.Trim() + "' );";
 
-            //Paszczakus - kwerenduj :)) Dostajesz po staremu symbol, a mamy szukać w tabeli pliki po symbolead.
+            
             string sqlQuery =
             "SELECT \"Pliki\".*, \"KatPracownicy\".* FROM \"Pliki\" "
             + "LEFT OUTER JOIN \"KatPracownicy\" "
             + "ON \"Pliki\".numeread = \"KatPracownicy\".numeread "
             + "WHERE "
             + "\"Pliki\".firma IN ('" + firma.Trim() + "') "
-            + "AND \"Pliki\".symbol LIKE '" + typ.Trim() + "' " 
+            + "AND \"Pliki\".symbolead LIKE '" + typ.Trim() + "' " 
             + "AND \"Pliki\".numeread IN "
             + "(SELECT numeread FROM \"MiejscePracy\" "
             + "WHERE NOT \"MiejscePracy\".usuniety "
