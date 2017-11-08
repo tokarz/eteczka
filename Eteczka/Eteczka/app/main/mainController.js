@@ -43,6 +43,8 @@ angular.module('et.controllers').controller('mainController', ['$window', '$root
                       event.preventDefault();
                   }
               }
+          } else if (toState.name === 'processing') {
+              event.preventDefault();
           }
       })
 }]);
