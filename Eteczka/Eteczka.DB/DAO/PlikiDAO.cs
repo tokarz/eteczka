@@ -153,8 +153,15 @@ namespace Eteczka.DB.DAO
                 firma = "";
             }
 
-            string sqlQuery = "SELECT * from \"Pliki\" as pl left join \"KatPracownicy\" as pr on pl.numeread = pr.numeread where pl.firma = '" + firma.Trim() + "' and pr.numeread = '" + numeread + "';";
-            sqlQuery += " order by " + sortColumn + " " + sortOrder + ";";
+            //string sqlQuery = "SELECT * from \"Pliki\" as pl left join \"KatPracownicy\" as pr on pl.numeread = pr.numeread where pl.firma = '" + firma.Trim() + "' and pr.numeread = '" + numeread + "';";
+            string sqlQuery = "SELECT * FROM \"Pliki\" "
+                + "LEFT OUTER JOIN \"KatPracownicy\" "
+                + " ON \"Pliki\".numeread = \"KatPracownicy\".numeread " 
+                + "WHERE \"Pliki\".firma = '" + firma.Trim() + "' "
+                + "AND \"KatPracownicy\".numeread = '" + numeread + "' "
+                + "ORDER BY " + sortColumn + " " + sortOrder + ";";
+            
+            //sqlQuery += " order by " + sortColumn + " " + sortOrder + ";";
 
             List<Pliki> fetchedResult = new List<Pliki>();
 
