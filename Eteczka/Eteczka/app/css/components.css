@@ -344,7 +344,7 @@
   color: white;
 }
 
-#emptyfileheader {
+.emptyfileheader {
   text-align: center;
   color: #074C75;
   position: absolute;
