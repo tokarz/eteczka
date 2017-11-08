@@ -386,7 +386,9 @@ CREATE TABLE public."KatDokumentyRodzaj"
   systembazowy character(3) NOT NULL,
   usuniety boolean,
   confidential numeric(2,0), -- Poufnosc
-  CONSTRAINT "KatDokumentyRodzaj_pkey" PRIMARY KEY (symbol)
+  symbolead character(20) NOT NULL, -- Symbol w eAD
+  audyt boolean DEFAULT false, -- Czy podlega audytowi
+  CONSTRAINT "KatDokumentyRodzaj_pkey" PRIMARY KEY (symbolead)
 )
 WITH (
   OIDS=FALSE
@@ -404,6 +406,8 @@ COMMENT ON COLUMN public."KatDokumentyRodzaj".jrwa IS 'Pelna klasyfikacja JRWA';
 COMMENT ON COLUMN public."KatDokumentyRodzaj".teczkadzial IS 'Czesc akt - dozwolone wartoscici : A,B,C';
 COMMENT ON COLUMN public."KatDokumentyRodzaj".typedycji IS 'Okresla pola ktore maja byc wymagane w edycji, np data dokumentu, data waznoci itp.';
 COMMENT ON COLUMN public."KatDokumentyRodzaj".confidential IS 'Poufnosc';
+COMMENT ON COLUMN public."KatDokumentyRodzaj".symbolead IS 'Symbol w eAD';
+COMMENT ON COLUMN public."KatDokumentyRodzaj".audyt IS 'Czy podlega audytowi';
 
 
 
@@ -564,6 +568,7 @@ COMMENT ON COLUMN public."KatPracownicy".confidential IS 'Poufnosc';
 CREATE SEQUENCE Pliki_id_seq;
 GRANT USAGE ON SEQUENCE Pliki_id_seq TO ead;
 
+
 CREATE TABLE public."Pliki"
 (
   firma character(20) NOT NULL, -- np. TFW
@@ -587,6 +592,7 @@ CREATE TABLE public."Pliki"
   dataakcept timestamp without time zone NOT NULL,
   id integer NOT NULL DEFAULT nextval('pliki_id_seq'::regclass),
   teczkadzial character(1), -- A, B, lub C wedlug KatDokumentyRodzaj
+  symbolead character(20), -- Symbol eAD
   CONSTRAINT "Pliki_pkey" PRIMARY KEY (id)
 )
 WITH (
@@ -611,6 +617,7 @@ COMMENT ON COLUMN public."Pliki".opisdodatkowy IS 'Wlasny, dowolny opis wprowadz
 COMMENT ON COLUMN public."Pliki".dokwlasny IS 'Dokument nasz lub obcy';
 COMMENT ON COLUMN public."Pliki".systembazowy IS 'zawsze EAD';
 COMMENT ON COLUMN public."Pliki".teczkadzial IS 'A, B, lub C wedlug KatDokumentyRodzaj';
+COMMENT ON COLUMN public."Pliki".symbolead IS 'Symbol eAD';
 
 
 
