@@ -96,20 +96,16 @@ namespace Eteczka.BE.Services
 
         public void PobierzPoId()
         {
-
             Pracownik testowy = new Pracownik()
             {
                 Numeread = "123456"
             };
-
-
+            
             _PracownikDao.PobierzPracownikaPoId("123456").Returns(testowy);
             Pracownik pobrany = _Sut.PobierzPoId("123456");
             Assert.AreSame(testowy, pobrany);
 
-
             _PracownikDao.Received(1).PobierzPracownikaPoId("123456");
-
         }
 
         [Test]
@@ -133,13 +129,12 @@ namespace Eteczka.BE.Services
                  }
             };
 
-            _PracownikDao.WyszukiwaczPracownikow("Kargul", "TFG",10).Returns(Testowi);
+            _PracownikDao.WyszukiwaczPracownikow("Kargul", "TFG", 10).Returns(Testowi);
 
             List<Pracownik> Pobrani = _Sut.ZnajdzPracownikow("Kargul", sesja);
             Assert.AreSame(Testowi, Pobrani);
 
-
-            _PracownikDao.Received(1).WyszukiwaczPracownikow("Kargul", "TFG",10);
+            _PracownikDao.Received(1).WyszukiwaczPracownikow("Kargul", "TFG", 10);
 
         }
         [Test]
@@ -161,13 +156,13 @@ namespace Eteczka.BE.Services
                      Confidential = 10
                  }
             };
-            _PracownikDao.PobierzPozostalychPracownikow("TFG",10).Returns(PracownicyZDb);
+            _PracownikDao.PobierzPozostalychPracownikow("TFG", 10).Returns(PracownicyZDb);
 
             List<Pracownik> PracownicyResult = _Sut.PobierzPozostalych(sesja);
 
             Assert.AreSame(PracownicyZDb, PracownicyResult);
 
-            _PracownikDao.Received(1).PobierzPozostalychPracownikow("TFG",10);
+            _PracownikDao.Received(1).PobierzPozostalychPracownikow("TFG", 10);
 
         }
         [Test]
@@ -188,7 +183,7 @@ namespace Eteczka.BE.Services
                     Confidential = 10
                 }
             };
-            _PracownikDao.WyszukiwaczPracownikowPoTekscie("Kryn", "AFM",10).Returns(PracownicyZDb);
+            _PracownikDao.WyszukiwaczPracownikowPoTekscie("Kryn", "AFM", 10).Returns(PracownicyZDb);
             List<Pracownik> result = _Sut.ZnajdzPracownikowPoTekscie("Kryn", sesja);
 
             Assert.AreSame(PracownicyZDb, result);
@@ -213,13 +208,13 @@ namespace Eteczka.BE.Services
                 }
             };
 
-            _PracownikDao.WyszukiwaczZatrPracownikowPoTekscie("Szukam", "TFG",10).Returns(PracownicyZDb);
+            _PracownikDao.WyszukiwaczZatrPracownikowPoTekscie("Szukam", "TFG", 10).Returns(PracownicyZDb);
             List<Pracownik> result = _Sut.ZnajdzZatrPracownikowPoTekscie("Szukam", sesja);
             Assert.AreSame(PracownicyZDb, result);
 
-
             _PracownikDao.Received(1).WyszukiwaczZatrPracownikowPoTekscie("Szukam", "TFG",10);
         }
+
         [Test]
         public void ZnajdzPozostPracownikowPoTekscie()
         {
@@ -242,35 +237,136 @@ namespace Eteczka.BE.Services
 
             _PracownikDao.Received(1).WyszukiwaczPozostZatrPracownikowPoTekscie("Szukam", "AFM",10);
         }
-        //[Test]
-        //public void DodajPracownika()
-        //{
-        //    InsertResult result = new InsertResult();
 
+        [Test]
+        public void DodajPracownika()
+        {
+            InsertResult result = new InsertResult();
+            
+            Pracownik pracownikZBazy = null;
+            Pracownik pracownikDoDodania = new Pracownik()
+            {
+                Nazwisko = "Testowy2",
+                Imie = "Adam",
+                PESEL = "88292929929"
+            };
+           
+            SessionDetails sesja = new SessionDetails()
+            {
+                AktywnyUser = new KatLoginyDetale()
+                {
+                    Identyfikator = "test"
+                }
+            };
 
+            _PracownikDao.PobierzPracownikaPoId("TesAda88292929929").Returns(pracownikZBazy);
+            _PracownikDao.DodajPracownika(pracownikDoDodania, "test", "test").Returns(true);
+            result = _Sut.DodajPracownika(pracownikDoDodania, sesja);
 
+            Assert.AreEqual(true, result.Result);
+            _PracownikDao.Received(1).PobierzPracownikaPoId("TesAda88292929929");
+            _PracownikDao.Received(1).DodajPracownika(pracownikDoDodania, "test", "test");
 
-        //    Pracownik pracownikDoDodania = new Pracownik()
-        //    {
-        //        Nazwisko = "Testowy2",
-        //        Imie = "Adam",
-        //        PESEL = "88292929929"
+        }
+        [Test]
+        public void DodajPracownika2()
+        {
+            InsertResult result = new InsertResult();
 
-        //    };
-        //    SessionDetails sesja = new SessionDetails()
-        //    {
-        //        AktywnyUser = new KatLoginyDetale()
-        //        {
-        //            Identyfikator = "test"
-        //        }
-        //    };
+            Pracownik pracownikDoDodania = new Pracownik()
+            {
+                Nazwisko = "Testowy2",
+                Imie = "Adam",
+                PESEL = "88292929929"
+            };
+            Pracownik pracownikZBazy = new Pracownik()
+            {
+                Nazwisko = "Testowy2",
+                Imie = "Adam",
+                PESEL = "88292929929"
+            };
+            SessionDetails sesja = new SessionDetails()
+            {
+                AktywnyUser = new KatLoginyDetale()
+                {
+                    Identyfikator = "test"
+                }
+            };
 
-        //    _PracownikDao.PobierzPracownikaPoId("TesAda88292929929").Returns(pracownikDoDodania);
-        //    _PracownikDao.DodajPracownika(pracownikDoDodania, "test", "test").Returns(true);
-        //    result = _Sut.DodajPracownika(pracownikDoDodania, sesja);
+            _PracownikDao.PobierzPracownikaPoId("TesAda88292929929").Returns(pracownikZBazy);
+            _PracownikDao.DodajPracownika(pracownikDoDodania, "test", "test").Returns(true);
+            result = _Sut.DodajPracownika(pracownikDoDodania, sesja);
 
-        //    Assert.AreEqual(false, result.Result);
+            Assert.AreEqual(false, result.Result);
+            _PracownikDao.Received(1).PobierzPracownikaPoId("TesAda88292929929");
+            _PracownikDao.DidNotReceive().DodajPracownika(pracownikDoDodania, "test", "test");
 
-        //}
+        }
+        [Test]
+        public void EdytujPracownika()
+        {
+            InsertResult result = new InsertResult();
+            Pracownik pracownikZBazy = new Pracownik()
+            {
+                Nazwisko = "Testowy2",
+                Imie = "Adam",
+                PESEL = "88292929929",
+                Numeread = "TesAda88292929929"
+            };
+            Pracownik pracownikZParametru = new Pracownik()
+            {
+                Nazwisko = "Testowy2",
+                Imie = "Adam",
+                PESEL = "88292929929",
+                Numeread = "TesAda88292929929"
+            };
+
+            SessionDetails sesja = new SessionDetails()
+            {
+                AktywnyUser = new KatLoginyDetale()
+                {
+                    Identyfikator = "test"
+                }
+            };
+            _PracownikDao.PobierzPracownikaPoId("TesAda88292929929").Returns(pracownikZBazy);
+            _PracownikDao.EdytujPracownika(pracownikZParametru, "test", "test").Returns(false);
+            _Sut.EdytujPracownika(pracownikZParametru, sesja);
+            Assert.AreEqual(false, result.Result);
+            
+            _PracownikDao.Received(1).PobierzPracownikaPoId("TesAda88292929929");
+            _PracownikDao.Received(1).EdytujPracownika(pracownikZParametru, "test", "test");
+
+        }
+        [Test]
+        public void EdytujPracownika2()
+        {
+            InsertResult result = new InsertResult();
+            Pracownik pracownikZBazy = null;
+            Pracownik pracownikZParametru = new Pracownik()
+            {
+                Nazwisko = "Testowy2",
+                Imie = "Adam",
+                PESEL = "88292929929",
+                Numeread = "TesAda88292929929"
+            };
+            
+            SessionDetails sesja = new SessionDetails()
+            {
+                AktywnyUser = new KatLoginyDetale()
+                {
+                    Identyfikator = "test"
+                }
+            };
+            _PracownikDao.EdytujPracownika(pracownikZParametru, "test", "test").Returns(false);
+            _PracownikDao.PobierzPracownikaPoId("TesAda88292929929").Returns(pracownikZBazy);
+            _Sut.EdytujPracownika(pracownikZParametru, sesja);
+            
+
+            Assert.AreEqual(false, result.Result);
+           
+            
+            _PracownikDao.Received(1).PobierzPracownikaPoId("TesAda88292929929");
+            _PracownikDao.DidNotReceive().EdytujPracownika(pracownikZParametru, "test", "test");
+        }
     }
 }
