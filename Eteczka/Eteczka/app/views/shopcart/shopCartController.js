@@ -1,7 +1,7 @@
 ﻿'use strict';
 angular.module('et.controllers').controller('shopCartController', ['$scope', '$state', 'shopCartService', 'modalService', function ($scope, $state, shopCartService, modalService) {
     $scope.rows = [];
-
+    $scope.emptyBasketMsg = 'Koszyk jest pusty!';
     $scope.printSelectedOptions = function () {
         alert('print');
     }
@@ -92,7 +92,9 @@ angular.module('et.controllers').controller('shopCartController', ['$scope', '$s
 
     $scope.toggleSelectAll = function () {
         angular.forEach($scope.rows, function (elm) {
-            elm.checked = !elm.checked;
+            if (elm) {
+                elm.checked = !elm.checked;
+            }
         });
     }
 
@@ -100,14 +102,14 @@ angular.module('et.controllers').controller('shopCartController', ['$scope', '$s
         var elementsToDelete = [];
 
         angular.forEach($scope.rows, function (file) {
-            if (file.checked) {
+            if (file && file.checked) {
                 elementsToDelete.push(file.Id);
             }
         });
 
         shopCartService.deleteSelectedCartElements(elementsToDelete).then(function (result) {
             $state.reload();
-            if (result.success) {
+            if (result && result.success) {
                 modalService.alert('', 'Pliki usunieto!');
             } else {
                 modalService.alert('', 'Pliki nie mogly zostac usuniete!');
@@ -154,7 +156,9 @@ angular.module('et.controllers').controller('shopCartController', ['$scope', '$s
     ];
 
     shopCartService.getShoppingCartForUser().then(function (result) {
-        $scope.rows = result.pliki;
+        if (result) {
+            $scope.rows = result.pliki;
+        }
     });
 
 }]);

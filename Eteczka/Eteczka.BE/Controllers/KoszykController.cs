@@ -1,11 +1,7 @@
 ﻿using Eteczka.BE.Model;
 using Eteczka.BE.Services;
 using Eteczka.Model.Entities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace Eteczka.BE.Controllers
@@ -25,8 +21,11 @@ namespace Eteczka.BE.Controllers
 
             if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
             {
-                SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
-                success = _KoszykService.UsunZKoszyka(sesja.AktywnaFirma, sesja.AktywnyUser, plikiId);
+                if (plikiId != null && plikiId.Count > 0)
+                {
+                    SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    success = _KoszykService.UsunZKoszyka(sesja.AktywnaFirma, sesja.AktywnyUser, plikiId);
+                }
             }
 
             return Json(new
@@ -62,9 +61,9 @@ namespace Eteczka.BE.Controllers
                 if (plikiId != null)
                 {
                     List<Pliki> juzDodanePliki = _KoszykService.PobierzPlikiWKoszyku(sesja.AktywnaFirma, sesja.AktywnyUser);
-                    foreach(Pliki plikWKoszyku in juzDodanePliki)
+                    foreach (Pliki plikWKoszyku in juzDodanePliki)
                     {
-                        if(plikiId.Contains("" + plikWKoszyku.Id))
+                        if (plikiId.Contains("" + plikWKoszyku.Id))
                         {
                             plikiId.Remove("" + plikWKoszyku.Id);
                         }

@@ -2,8 +2,11 @@
     <div class="files-table-wrapper">
         <div class="user-details-list toolbar-content"></div>
         <div style="width:98%;margin:auto">
-            <div class="component-content-wrapper" style="width:100%">
-                <menu-files-content toolbar="toolbar" rows="rows" emptymessage="Koszyk jest pusty"></menu-files-content>
+            <div ng-if="!rows || rows.length < 1">
+                <h1 class="emptyfileheader">{{emptyBasketMsg}}</h1>
+            </div>
+            <div class="component-content-wrapper" style="width:100%" ng-if="rows && rows.length > 0">
+                <menu-files-content toolbar="toolbar" rows="rows" emptymessage="{{emptyBasketMsg}}"></menu-files-content>
             </div>
         </div>
     </div>

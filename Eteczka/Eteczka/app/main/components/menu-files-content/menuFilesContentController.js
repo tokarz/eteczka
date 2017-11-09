@@ -1,7 +1,7 @@
 ﻿'use strict';
 angular.module('et.controllers').controller('menuFilesContentController', ['$rootScope', '$scope', 'filesViewService', 'shopCartService', 'modalService', function ($rootScope, $scope, filesViewService, shopCartService, modalService) {
     $scope.selectedFile = null;
-
+    $scope.emptyTableMessage = 'Nie zaznaczono elementu do wyswietlenia';
     $scope.userFiles = [];
 
     var openModal = function (modalOptions, executor) {
