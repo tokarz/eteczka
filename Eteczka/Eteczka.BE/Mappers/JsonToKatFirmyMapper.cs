@@ -34,7 +34,7 @@ namespace Eteczka.BE.Mappers
             aktualnaFirma.Idakcept = parsedJson["idakcept"].ToString(); ;
             aktualnaFirma.Dataakcept = DateTime.Parse(parsedJson["dataakcept"].ToString());
             aktualnaFirma.Systembazowy = parsedJson["systembazowy"].ToString();
-            aktualnaFirma.Waitingroom = parsedJson["waitingroom"].ToString();
+            //aktualnaFirma.Waitingroom = parsedJson["waitingroom"].ToString();
 
             string usuniety = parsedJson["usuniety"].ToString();
             if (usuniety == "0")

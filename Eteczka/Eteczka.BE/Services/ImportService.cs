@@ -83,10 +83,17 @@ namespace Eteczka.BE.Services
 
         public bool DoesFolderExist(string folder)
         {
+            bool result = false;
             string eadRoot = System.Environment.GetEnvironmentVariable("EAD_DIR");
             string sciezkaDoWaitingRoom = Path.Combine(eadRoot, "waitingroom");
-            string finalFolderLocation = Path.Combine(sciezkaDoWaitingRoom, folder.Trim());
-            return Directory.Exists(finalFolderLocation);
+            if (!String.IsNullOrEmpty(folder))
+            {
+                string finalFolderLocation = Path.Combine(sciezkaDoWaitingRoom, folder.Trim());
+                result = Directory.Exists(finalFolderLocation);
+            }
+            return result;
+
+
         }
 
         public bool CreateSourceFolder(string folder)

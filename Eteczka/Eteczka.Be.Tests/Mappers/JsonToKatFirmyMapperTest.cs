@@ -34,8 +34,7 @@ namespace Eteczka.BE.Tests.Mappers
 			        ""datamodify"" : ""2017.08.26 14:35:14"",
 			        ""dataakcept"" : ""2017.08.27 15:35:14"",
 			        ""systembazowy"" : ""VFP"",
-			        ""usuniety"" : ""0"",
-                    ""waitingroom"" : ""zakrystia""
+			        ""usuniety"" : ""0""
 		            }";
         [SetUp]
         public void SetUp()
@@ -73,7 +72,7 @@ namespace Eteczka.BE.Tests.Mappers
             Assert.AreEqual(DateTime.Parse("2017.08.27 15:35:14"), firmy.Dataakcept);
             Assert.AreEqual("VFP", firmy.Systembazowy);
             Assert.AreEqual(false, firmy.Usuniety);
-            Assert.AreEqual("zakrystia", firmy.Waitingroom);
+            //Assert.AreEqual("zakrystia", firmy.Waitingroom);
         }
     }
 }
