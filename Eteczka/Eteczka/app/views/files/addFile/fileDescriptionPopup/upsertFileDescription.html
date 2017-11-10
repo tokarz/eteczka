@@ -42,7 +42,11 @@
             </div>
             <div class="modal-table-row">
                 <label class="modal-table-label" for="docPart">Dzial Teczki *</label>
-                <input class="modal-table-input" name="docPart" type="text" ng-model="modalResult.Typ.Teczkadzial" required />
+                <select class="modal-table-input modal-select-input"
+                        name="docPart"
+                        ng-options="option as option for option in docPartOptions"
+                        ng-model="modalResult.Typ.Teczkadzial" 
+                        required/>
             </div>
             <div class="modal-table-row">
                 <label class="modal-table-label" for="creationDate">Data dokumentu *</label>
@@ -61,14 +65,6 @@
             </div>
             <div class="modal-table-row">
                 <label class="modal-table-label" for="employee">Nazwisko Pracownika *</label>
-                <!--<input class="modal-table-input"
-                       name="employee"
-                       type="text"
-                       placeholder="PESEL"
-                       ng-model="pracownikPesel"
-                       ng-change="findUserByPesel()"
-                       ng-model-options="{updateOn: 'blur'}"
-                       required />-->
                 <md-autocomplete class="modal-table-input"
                                  name="employee"
                                  md-selected-item="modalResult.Pracownik"
@@ -88,7 +84,7 @@
             </div>
             <div class="modal-table-row">
                 <label class="modal-table-label" for="employeeName">Pracownik</label>
-                <input class="modal-table-input" name="employeeName"  value="{{modalResult.Pracownik.Nazwisko.trim()}} {{modalResult.Pracownik.Imie.trim()}}, {{modalResult.Pracownik.DataUrodzenia.trim()}}" type="text" required disabled/>
+                <input class="modal-table-input" name="employeeName" value="{{modalResult.Pracownik.Nazwisko.trim()}} {{modalResult.Pracownik.Imie.trim()}} {{modalResult.Pracownik.DataUrodzenia.trim()}}" type="text" required disabled />
             </div>
             <div ng-show="upsertFileDescription.$submitted">
                 <span class="modal-table-error" ng-show="upsertFileDescription.employeeName.$error.required">Nie znaleziono pracownika o podanym peselu</span>
@@ -102,8 +98,7 @@
                        ng-model="modalResult.DataPocz"
                        ng-pattern="/^\s*(\d{4})-(\d{2})-(\d{2})\s*$/"
                        ng-model-options="{updateOn: 'blur'}"
-                       required
-                 />
+                       required />
             </div>
             <div ng-show="upsertFileDescription.$submitted || upsertFileDescription.validFromDate.$touched">
                 <span class="modal-table-error" ng-show="upsertFileDescription.validFromDate.$error.pattern">Data musi miec format: RRRR-MM-DD</span>

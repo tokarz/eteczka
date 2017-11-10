@@ -35,6 +35,7 @@ angular.module('et.controllers').controller('filesViewController', ['$scope', '$
         }
 
         $scope.yesNoOptions = [{ name: 'TAK', value: true }, { name: 'NIE', value: false }]
+        $scope.docPartOptions = ['A', 'B', 'C']
         $scope.modalResult.Dokwlasny = $scope.modalResult.Dokwlasny || $scope.yesNoOptions[0].value;
         $scope.modalResult.Nazwa = name;
 
