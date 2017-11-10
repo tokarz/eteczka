@@ -15,17 +15,17 @@
                 <md-autocomplete class="modal-table-input"
                                  name="docSymbol"
                                  md-selected-item="modalResult.Typ"
-                                 md-search-text="searchText"
-                                 md-items="item in querySearch(searchText)"
+                                 md-search-text="searchDocSymbol"
+                                 md-items="item in fileTypeSearch(searchDocSymbol)"
                                  md-item-text="item.Symbol"
                                  md-min-length="0"
                                  required
                                  ng-model="modalResult.Typ">
                     <md-item-template>
-                        <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.Symbol}}</span>
+                        <span md-highlight-text="searchDocSymbol" md-highlight-flags="^i">{{item.Symbol}}</span>
                     </md-item-template>
                     <md-not-found>
-                        Nie znaleziono symbolu dokumentu zaczynajacego sie od "{{searchText}}".
+                        Nie znaleziono symbolu dokumentu "{{searchDocSymbol}}".
                     </md-not-found>
                 </md-autocomplete>
             </div>
@@ -60,19 +60,35 @@
                 <span class="modal-table-error" ng-show="upsertFileDescription.creationDate.$error.pattern">Data musi miec format: RRRR-MM-DD</span>
             </div>
             <div class="modal-table-row">
-                <label class="modal-table-label" for="employee">PESEL Pracownika *</label>
-                <input class="modal-table-input"
+                <label class="modal-table-label" for="employee">Nazwisko Pracownika *</label>
+                <!--<input class="modal-table-input"
                        name="employee"
                        type="text"
                        placeholder="PESEL"
                        ng-model="pracownikPesel"
                        ng-change="findUserByPesel()"
                        ng-model-options="{updateOn: 'blur'}"
-                       required />
+                       required />-->
+                <md-autocomplete class="modal-table-input"
+                                 name="employee"
+                                 md-selected-item="modalResult.Pracownik"
+                                 md-search-text="searchEmployee"
+                                 md-items="item in employeeSearch(searchEmployee)"
+                                 md-item-text="item.Nazwisko"
+                                 md-min-length="0"
+                                 required
+                                 ng-model="modalResult.Pracownik">
+                    <md-item-template>
+                        <span md-highlight-text="searchEmployee" md-highlight-flags="^i">{{item.Nazwisko}} {{item.Imie}} {{item.DataUrodzenia}}</span>
+                    </md-item-template>
+                    <md-not-found>
+                        Nie znaleziono pracownika o nazwisku "{{searchEmployee}}".
+                    </md-not-found>
+                </md-autocomplete>
             </div>
             <div class="modal-table-row">
                 <label class="modal-table-label" for="employeeName">Pracownik</label>
-                <input class="modal-table-input" name="employeeName"  value="{{modalResult.Pracownik.Nazwisko.trim()}} {{modalResult.Pracownik.Imie.trim()}}" type="text" required disabled/>
+                <input class="modal-table-input" name="employeeName"  value="{{modalResult.Pracownik.Nazwisko.trim()}} {{modalResult.Pracownik.Imie.trim()}}, {{modalResult.Pracownik.DataUrodzenia.trim()}}" type="text" required disabled/>
             </div>
             <div ng-show="upsertFileDescription.$submitted">
                 <span class="modal-table-error" ng-show="upsertFileDescription.employeeName.$error.required">Nie znaleziono pracownika o podanym peselu</span>

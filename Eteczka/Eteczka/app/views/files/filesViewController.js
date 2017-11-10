@@ -7,23 +7,29 @@ angular.module('et.controllers').controller('filesViewController', ['$scope', '$
     $scope.selectedStagedFile = null;
     $scope.createdMetaData = null;
     $scope.fileTypes = []
+    $scope.employees = []
     $scope.fileDescription = {}
 
     var loadFileTypes = function () {
         filesViewService.getFileTypes().then(function (fileTypes) {
-            console.log(fileTypes)
             $scope.fileTypes = fileTypes.PobraneDokumenty
+        })
+    }
+    var loadEmployees = function () {
+        filesViewService.getAllEmployees().then(function (employees) {
+            $scope.employees = employees.Data.data
         })
     }
 
     loadFileTypes();
+    loadEmployees()
 
     companiesService.getActiveCompany().then(function (result) {
         $scope.parameters.company = result.firma;
     });
 
 
-    $scope.upsertFileDescriptionCtrl = function ($scope, $mdDialog, description, fileTypes, name) {
+    $scope.upsertFileDescriptionCtrl = function ($scope, $mdDialog, description, fileTypes, employees, name) {
         if (description) {
             $scope.modalResult = description;
         }
@@ -53,19 +59,6 @@ angular.module('et.controllers').controller('filesViewController', ['$scope', '$
             return !$scope.modalResult.Typ || !$scope.isTypeWithDates($scope.modalResult.Typ.Symbol);
         }
 
-        $scope.findUserByPesel = function () {
-            if ($scope.pracownikPesel.length === 11) {
-                filesViewService.findEmployee($scope.pracownikPesel).then(function (pracownik) {
-                    if (Array.isArray(pracownik.Pracownicy)) {
-                        $scope.modalResult.Pracownik = pracownik.Pracownicy[0]
-                    }
-                    else {
-                        $scope.modalResult.Pracownik = {}
-                    }
-                });
-            }
-        }
-
         $scope.fillValidFromDate = function () {
             if (!$scope.modalResult.DataPocz && $scope.modalResult.DataWytworzenia) {
                 $scope.modalResult.DataPocz = $scope.modalResult.DataWytworzenia
@@ -85,15 +78,23 @@ angular.module('et.controllers').controller('filesViewController', ['$scope', '$
             }
         }
 
-        $scope.querySearch = function (query) {
-            return query ? fileTypes.filter(createFilterFor(query)) : fileTypes;
+        var querySearch = function (arrayTosearchIn, key, query) {
+            return query ? arrayTosearchIn.filter(createFilterFor(key, query)) : arrayTosearchIn;
         }
 
-        var createFilterFor = function (query) {
+        $scope.fileTypeSearch = function (query) {
+            return querySearch(fileTypes, "Symbol", query)
+        }
+
+        $scope.employeeSearch = function (query) {
+            return querySearch(employees, "Nazwisko", query)
+        }
+
+        var createFilterFor = function (key, query) {
             var lowercaseQuery = angular.lowercase(query);
 
-            return function filterFn(fileType) {
-                return (fileType.Symbol.toLowerCase().indexOf(lowercaseQuery) === 0);
+            return function filterFn(object) {
+                return (object[key].toLowerCase().indexOf(lowercaseQuery) === 0);
             };
         }
     }
@@ -131,6 +132,7 @@ angular.module('et.controllers').controller('filesViewController', ['$scope', '$
             locals: {
                 description: $scope.fileDescription,
                 fileTypes: $scope.fileTypes,
+                employees: $scope.employees,
                 name: $scope.selectedStagedFile.NazwaEad
             }
         };
