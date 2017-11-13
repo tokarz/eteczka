@@ -11,7 +11,7 @@ using Eteczka.DB.Mappers;
 
 namespace Eteczka.DB.DAO
 {
-    public class RejonyDAO
+    public class RejonyDAO : IRejonyDAO
     {
         private IDbConnectionFactory _ConnectionFactory;
         private IRejonMapper _RejonMapper;

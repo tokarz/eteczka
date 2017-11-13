@@ -12,9 +12,9 @@ namespace Eteczka.BE.Services
 {
     public class RejonyService : IRejonyService
     {
-        private RejonyDAO _RejonDao;
+        private IRejonyDAO _RejonDao;
 
-        public RejonyService(RejonyDAO rejonDao)
+        public RejonyService(IRejonyDAO rejonDao)
         {
             this._RejonDao = rejonDao;
         }

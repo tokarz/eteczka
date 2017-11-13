@@ -140,6 +140,8 @@
     <Compile Include="Connection\IDbConnectionFactory.cs" />
     <Compile Include="DAO\ArchiwaDAO.cs" />
     <Compile Include="DAO\FirmyDAO.cs" />
+    <Compile Include="DAO\IFirmyDAO.cs" />
+    <Compile Include="DAO\IRejonyDAO.cs" />
     <Compile Include="DAO\KoszykDAO.cs" />
     <Compile Include="DAO\IKoszykDAO.cs" />
     <Compile Include="DAO\IPracownikDAO.cs" />

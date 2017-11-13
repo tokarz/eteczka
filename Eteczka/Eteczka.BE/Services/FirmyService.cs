@@ -11,8 +11,8 @@ namespace Eteczka.BE.Services
 {
     public class FirmyService : IFirmyService
     {
-        private FirmyDAO _Dao;
-        public FirmyService(FirmyDAO firmaDAO)
+        private IFirmyDAO _Dao;
+        public FirmyService(IFirmyDAO firmaDAO)
         {
             this._Dao = firmaDAO;
         }
