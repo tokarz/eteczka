@@ -9,13 +9,26 @@ namespace Eteczka.BE.Model
         private static Dictionary<string, SessionDetails> OTWARTE_SESJE = new Dictionary<string, SessionDetails>();
         private static Dictionary<string, SessionDetails> ZAMKNIETE_SESJE = new Dictionary<string, SessionDetails>();
 
+        public bool CzySesjaAdministratora(string idSesji)
+        {
+            bool result = false;
+            if (idSesji != null && OTWARTE_SESJE.ContainsKey(idSesji))
+            {
+                SessionDetails daneSesji = OTWARTE_SESJE[idSesji];
+                //bool timeoutSesjiMinal = (DateTime.Now.Subtract(daneSesji.OstatniaAktywnoscSesji) <= TimeSpan.FromMinutes(10));
+                result = daneSesji.IsAdmin;
+            }
+
+            return result;
+        }
+
         public bool CzySesjaJestOtwarta(string idSesji)
         {
             bool result = false;
             if (idSesji != null && OTWARTE_SESJE.ContainsKey(idSesji))
             {
                 SessionDetails daneSesji = OTWARTE_SESJE[idSesji];
-                bool timeoutSesjiMinal = (DateTime.Now.Subtract(daneSesji.OstatniaAktywnoscSesji) <= TimeSpan.FromMinutes(10));
+                //bool timeoutSesjiMinal = (DateTime.Now.Subtract(daneSesji.OstatniaAktywnoscSesji) <= TimeSpan.FromMinutes(10));
                 result = daneSesji.SesjaAktywna;
             }
 

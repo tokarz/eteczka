@@ -4,6 +4,7 @@ using Eteczka.BE.Services;
 using Eteczka.Model.Entities;
 using System.Collections.Generic;
 using Eteczka.BE.Model;
+using Eteczka.Model.DTO;
 
 namespace Eteczka.BE.Controllers
 {
@@ -14,6 +15,34 @@ namespace Eteczka.BE.Controllers
         public KatLoginyController(IKatLoginyService katLoginyService)
         {
             this._KatLoginyService = katLoginyService;
+        }
+
+        [HttpPost]
+        public ActionResult DodajFirmeDlaUzytkownika(string sessionId, KatLoginy user, string firma)
+        {
+
+
+            return Json(new
+            {
+                success = true
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult UsunFirmeUzytkownika(string sessionId, KatLoginy user, string firma)
+        {
+            bool result = false;
+            StanSesji stanSesji = Sesja.PobierzStanSesji();
+            if (stanSesji.CzySesjaJestOtwarta(sessionId) && stanSesji.CzySesjaAdministratora(sessionId))
+            {
+
+                result = this._KatLoginyService.UsunFirmeUzytkownika(user, firma);
+            }
+
+            return Json(new
+            {
+                success = result
+            }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult PobierzPracownika(string nazwa, string haslo)
@@ -51,5 +80,38 @@ namespace Eteczka.BE.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult PobierzWszystkichPracownikow(string sessionId)
+        {
+            List<PracownicyZFirmamiDTO> users = new List<PracownicyZFirmamiDTO>();
+
+            StanSesji stanSesji = Sesja.PobierzStanSesji();
+            if (stanSesji.CzySesjaJestOtwarta(sessionId) && stanSesji.CzySesjaAdministratora(sessionId))
+            {
+                List<KatLoginyDetale> detale = _KatLoginyService.GetAllUsersDetails();
+                foreach (KatLoginyDetale detal in detale)
+                {
+                    PracownicyZFirmamiDTO prac = users.Find(x => x.Identyfikator == detal.Identyfikator);
+                    if (prac == null)
+                    {
+                        prac = new PracownicyZFirmamiDTO()
+                        {
+                            Identyfikator = detal.Identyfikator,
+                            Firmy = new List<string>() { detal.Firma },
+                            Confidential = detal.Confidential
+                        };
+                        users.Add(prac);
+                    }
+                    else
+                    {
+                        prac.Firmy.Add(detal.Firma);
+                    }
+                }
+            }
+
+            return Json(new
+            {
+                users = users
+            }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

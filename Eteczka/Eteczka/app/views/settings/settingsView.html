@@ -45,39 +45,75 @@
             </div>
         </div>
     </div>
-    <!--<div class="admin-option admin-option-two">
+    <div class="admin-option admin-option-two">
         <div class="admin-option-header">
             <h3><i class="fa fa-database"></i>Baza Danych</h3>
         </div>
-    </div>-->
-</div>
-<div id="settings-main-wrapper">
-    <div class="admin-option admin-option-full">
+        <div class="admin-option-content">
+            Dane polaczenia:
+        </div>
+    </div>
+    <div class="admin-option admin-option-two">
         <div class="admin-option-header">
-            <h3><i class="fa fa-users"></i>Sesje</h3>
+            <h3><i class="fa fa-database"></i>Uzytkownicy</h3>
         </div>
         <div class="admin-option-content">
-            <table style="width:100%;box-shadow: 0 0 2px black">
-                <thead class="table-header">
+            <table style="width:95%;margin:auto">
+                <thead>
                     <tr>
-                        <th>Sesja</th>
-                        <th>Uzytkownik</th>
-                        <th>Ostatnia Aktywnosc</th>
-                        <th>Czas Zalogowania</th>
-                        <th>Zakoncz</th>
+                        <th>Nazwa</th>
+                        <th>Firmy</th>
+                        <th>Zmien Haslo</th>
+                        <th>Confidential</th>
+                        <th>Usun Pracownika</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="session in openSessions" class="details-table-row" ng-if="openSessions.length < 1"></tr>
-                    <tr ng-repeat="session in openSessions" class="details-table-row" ng-if="openSessions.length >= 1">
-                        <td>{{session.IdSesji}}</td>
-                        <td>{{session.AktywnyUser.Identyfikator}}</td>
-                        <td>{{session.OstatniaAktywnoscSesji}}</td>
-                        <td>{{session.PoczatekSesji}}</td>
-                        <td><i class="fa fa-user-times close-session-icon"  ng-click="killSession(session)"></i></td>
+                    <tr ng-repeat="user in users">
+                        <td>{{user.Identyfikator}}</td>
+                        <td>
+                            <ul>
+                                <li ng-repeat="firma in user.Firmy">{{firma}} <span style="color:red;cursor:pointer" class="fa fa-trash-o" ng-click="removeCompanyFromUser(user, firma)"></span></li>
+                            </ul>
+                        </td>
+                        <td><span style="color:gold;cursor:pointer" class="fa fa-key" title="Zmien haslo" ng-click="changePassword(user)"></span></td>
+                        <td>{{user.Confidential}}</td>
+                        <td><span style="color:red;cursor:pointer" class="fa fa-trash-o" title="Zmien haslo" ng-click="markAsDeleted(user)"></span></td>
                     </tr>
                 </tbody>
             </table>
         </div>
+        <div class="admin-option-footer">
+            <span class="toolbar-option option-one fa fa-plus-circle" ng-click="triggerAddUser()"></span>
+        </div>
     </div>
-</div>
+    <div id="settings-main-wrapper">
+        <div class="admin-option admin-option-full">
+            <div class="admin-option-header">
+                <h3><i class="fa fa-users"></i>Sesje</h3>
+            </div>
+            <div class="admin-option-content">
+                <table style="width:100%;box-shadow: 0 0 2px black">
+                    <thead class="table-header">
+                        <tr>
+                            <th>Sesja</th>
+                            <th>Uzytkownik</th>
+                            <th>Ostatnia Aktywnosc</th>
+                            <th>Czas Zalogowania</th>
+                            <th>Zakoncz</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="session in openSessions" class="details-table-row" ng-if="openSessions.length < 1"></tr>
+                        <tr ng-repeat="session in openSessions" class="details-table-row" ng-if="openSessions.length >= 1">
+                            <td>{{session.IdSesji}}</td>
+                            <td>{{session.AktywnyUser.Identyfikator}}</td>
+                            <td>{{session.OstatniaAktywnoscSesji}}</td>
+                            <td>{{session.PoczatekSesji}}</td>
+                            <td><i class="fa fa-user-times close-session-icon" ng-click="killSession(session)"></i></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>

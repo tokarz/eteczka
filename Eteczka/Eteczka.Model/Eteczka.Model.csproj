@@ -48,6 +48,7 @@
     <Compile Include="DTO\KomitPliku.cs" />
     <Compile Include="DTO\MetaDanePliku.cs" />
     <Compile Include="DTO\MiejscePracyDlaPracownika.cs" />
+    <Compile Include="DTO\PracownicyZFirmamiDTO.cs" />
     <Compile Include="DTO\StanPlikow.cs" />
     <Compile Include="Entities\KatDokumentyRodzaj.cs" />
     <Compile Include="Entities\KatFirmy.cs" />

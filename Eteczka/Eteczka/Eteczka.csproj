@@ -223,6 +223,7 @@
     </Content>
     <Content Include="app\main\components\filepreview\print\pdfsnippet.js" />
     <Content Include="app\main\components\filepreview\print\print.html" />
+    <Content Include="app\main\users\usersService.js" />
     <Content Include="app\views\shopcart\shopCartController.js" />
     <Content Include="app\views\shopcart\shopCartDirective.js" />
     <Content Include="app\views\shopcart\shopCartModals\sendEmailModal.html" />

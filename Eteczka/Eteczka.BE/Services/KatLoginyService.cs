@@ -16,6 +16,11 @@ namespace Eteczka.BE.Services
             this._Dao = dao;
         }
 
+        public bool UsunFirmeUzytkownika(KatLoginy user, string firma)
+        {
+            return this._Dao.UsunFirmeUzytkownika(user, firma);
+        }
+
         public KatLoginy GetUserByNameAndPassword(string username, string password)
         {
             KatLoginy queryResult = _Dao.WczytajPracownikaPoNazwieIHasle(username, password);
@@ -26,6 +31,13 @@ namespace Eteczka.BE.Services
         public List<KatLoginyDetale> GetUserDetails(string identyfikator)
         {
             List<KatLoginyDetale> queryResult = _Dao.WczytajDetaleDlaUzytkownika(identyfikator);
+
+            return queryResult;
+        }
+
+        public List<KatLoginyDetale> GetAllUsersDetails()
+        {
+            List<KatLoginyDetale> queryResult = _Dao.WczytajWszystkieDetale();
 
             return queryResult;
         }

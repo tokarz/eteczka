@@ -7,12 +7,15 @@ using Eteczka.Model.Entities;
 using Microsoft.Office.Interop.Excel;
 using System.IO;
 using System.Runtime.InteropServices;
+using NLog;
 
 
 namespace Eteczka.DB.Mappers
 {
     public class KatRodzajeDokumentowExcelMapper : IKatRodzajeDokumentowExcelMapper
     {
+        Logger LOGGER = LogManager.GetLogger("KatRodzajeDokumentowExcelMapper");
+
         public List<KatDokumentyRodzaj> PobierzRodzajeDokZExcela (string plik)
         {
 
@@ -50,7 +53,7 @@ namespace Eteczka.DB.Mappers
 
                 catch (Exception ex)
                 {
-                    //
+                    LOGGER.Error("Blad wczytywania rodzajow dokumentow", ex.Message);
                 }
                 finally
                 {

@@ -1,14 +1,40 @@
 ﻿'use strict';
-angular.module('et.controllers').controller('settingsViewController', ['$scope', 'settingsService', 'companiesService', 'sessionService', 'modalService', function ($scope, settingsService, companiesService, sessionService, modalService) {
+angular.module('et.controllers').controller('settingsViewController', ['$scope', '$state', 'settingsService', 'companiesService', 'sessionService', 'modalService', 'usersService', function ($scope, $state, settingsService, companiesService, sessionService, modalService, usersService) {
     $scope.folders = [];
-
+    $scope.users = [];
     $scope.existingFolders = {};
+
+    $scope.importAllUsers = function () {
+        settingsService.getAllUserAccounts().then(function (result) {
+            $scope.users = result.users;
+        }, function (err) {
+            modalService.alert('Import Pracownikow', 'Blad! Sprawdz Logi Systemowe!');
+            console.error(err);
+        });
+    }
 
     $scope.importAllCompanies = function () {
         companiesService.getAll().then(function (result) {
             $scope.folders = result.Firmy;
             $scope.checkButtonsState($scope.folders);
         });
+    }
+
+    $scope.removeCompanyFromUser = function (user, firma) {
+        usersService.removeCompanyFromUser(user, firma).then(function (res) {
+            $state.reload();
+        }, function (err) {
+            modalService.alert('Usuwanie firmy dla pracownika', 'Blad! Sprawdz Logi Systemowe!');
+            console.error(err);
+        });
+    }
+
+    $scope.changePassword = function (user) {
+
+    }
+
+    $scope.markAsDeleted = function (user) {
+
     }
 
     $scope.checkButtonsState = function (folders) {
@@ -23,8 +49,9 @@ angular.module('et.controllers').controller('settingsViewController', ['$scope',
         settingsService.importArchives().then(function () {
             $scope.checkUpdateStatus('archives');
         },
-        function () {
+        function (err) {
             modalService.alert('Import Lokalizacji Archiwow', 'Blad! Sprawdz Logi Systemowe!');
+            console.error(err);
         });
     }
 
@@ -95,7 +122,7 @@ angular.module('et.controllers').controller('settingsViewController', ['$scope',
         });
     }
 
-    $scope.importDocumentTypes = function() {
+    $scope.importDocumentTypes = function () {
         settingsService.importDocumentTypes().then(function () {
             $scope.checkUpdateStatus('dokRodzaj');
         },
@@ -204,6 +231,7 @@ angular.module('et.controllers').controller('settingsViewController', ['$scope',
     $scope.checkUpdateStatus('account5');
     $scope.checkUpdateStatus('dokRodzaj');
     $scope.importAllCompanies();
+    $scope.importAllUsers();
     $scope.fetchAllSessions();
 
     $scope.createSourceFolder = function (name) {

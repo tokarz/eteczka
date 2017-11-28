@@ -26,6 +26,15 @@ namespace Eteczka.DB.DAO
             this._Crypto = crypto;
         }
 
+        public bool UsunFirmeUzytkownika(KatLoginy user, string firma)
+        {
+            string sqlQuery = "UPDATE \"KatLoginyDetale\" SET usuniety=true WHERE identyfikator='" + user.Identyfikator.Trim() + "' and firma='" + firma + "';";
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+            bool result = connectionState.ExecuteNonQuery(sqlQuery);
+
+            return result;
+        }
+
         public KatLoginy WczytajPracownikaPoNazwieIHasle(string username, string password)
         {
             //SQL Injection Threat!
@@ -49,6 +58,23 @@ namespace Eteczka.DB.DAO
             DataTable queryResult = connectionState.ExecuteQuery(sqlQuery);
             List<KatLoginyDetale> fetchedResult = this._KatLoginyMapper.MapDetails(queryResult);
 
+
+            return fetchedResult;
+        }
+
+        public List<KatLoginyDetale> WczytajWszystkieDetale(bool czyAdminTez = false)
+        {
+            string wherePart = ";";
+            if (!czyAdminTez)
+            {
+                wherePart = " WHERE identyfikator != 'Administrator';";
+            }
+            string sqlQuery = "SELECT * from \"KatLoginyDetale\"" + wherePart;
+
+
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+            DataTable queryResult = connectionState.ExecuteQuery(sqlQuery);
+            List<KatLoginyDetale> fetchedResult = this._KatLoginyMapper.MapDetails(queryResult);
 
             return fetchedResult;
         }

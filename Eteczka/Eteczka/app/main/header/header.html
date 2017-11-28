@@ -49,7 +49,7 @@
     </div>
     <div style="width:500px;height:100%;float:right" ng-if="userLoggedIn">
         <div class="menu-pane-wrapper">
-            <user-menu loginstatus="loginStatus" useroptions="userOptions" firmparams="firmparams"></user-menu>
+            <user-menu loginstatus="loginStatus" useroptions="userOptions" firmparams="firmparams" isadmin="isAdmin"></user-menu>
         </div>
         <div id="shopping-cart" ng-click="navigateTo('shopcart')" ng-if="!isAdmin">
             <span class="items-counter">{{basket.count}}</span>

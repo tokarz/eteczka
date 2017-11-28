@@ -90,6 +90,18 @@
   box-shadow: 0 0 4px black;
 }
 
+.admin-option-footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: whitesmoke;
+  color: #074C75;
+  padding: 5px;
+  text-align: center;
+  box-shadow: 0 0 4px black;
+}
+
 .close-session-icon {
   color: darkred;
   cursor: pointer;

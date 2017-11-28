@@ -1,6 +1,7 @@
 ﻿'use strict';
 angular.module('et.controllers').controller('menuContentController', ['$scope', '$state', 'menuContentService', 'modalService', 'peselService', 'utilsService', 'employeesService', function ($scope, $state, menuContentService, modalService, peselService, utilsService, employeesService) {
     $scope.company = null;
+   
     $scope.selectedWorkplace = {};
     $scope.workplaceParams = {
         loadingRegions: false,

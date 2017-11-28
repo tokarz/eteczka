@@ -73,6 +73,11 @@ angular.module('et.services').factory('settingsService', ['httpService', 'sessio
             return httpService.get('Sesja/PobierzOtwarteSesje', {
                 sessionId: sessionService.getSessionId()
             });
+        },
+        getAllUserAccounts: function () {
+            return httpService.get('KatLoginy/PobierzWszystkichPracownikow', {
+                sessionId: sessionService.getSessionId()
+            });
         }
     };
 }]);

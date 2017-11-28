@@ -5,7 +5,8 @@ angular.module('et.utils').directive('userMenu', function () {
         scope: {
             loginstatus: '=',
             useroptions: '=',
-            firmparams: '='
+            firmparams: '=',
+            isadmin: '='
         },
         templateUrl: 'app/main/header/menu/userMenu.html',
         controller: 'menuController',

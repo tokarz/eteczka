@@ -10,7 +10,7 @@
 .settings-wrapper {
     width: 100%;
     padding: 25px 0;
-    text-align:center;
+    text-align: center;
 }
 
 
@@ -59,6 +59,18 @@
     position: absolute;
     left: 0;
     top: 0;
+    right: 0;
+    background: whitesmoke;
+    color: $darkblue;
+    padding: 5px;
+    text-align: center;
+    box-shadow: 0 0 4px black;
+}
+
+.admin-option-footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
     right: 0;
     background: whitesmoke;
     color: $darkblue;
