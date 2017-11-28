@@ -23,10 +23,9 @@ angular.module('et.services').factory('filesViewService', ['httpService', 'sessi
                 sessionId: sessionService.getSessionId()
             });
         },
-        findEmployee: function (searchKey) {
-            return httpService.get('Pracownicy/WyszukajPracownikow', {
-                sessionId: sessionService.getSessionId(),
-                search: searchKey
+        getAllEmployees: function () {
+            return httpService.get('Pracownicy/PobierzWszystkich', {
+                sessionId: sessionService.getSessionId()
             });
         },
         commitFile: function (plik) {

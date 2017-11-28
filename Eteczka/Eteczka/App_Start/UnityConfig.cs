@@ -80,6 +80,8 @@ namespace Eteczka
 
             container.RegisterType<IPracownikDAO, PracownikDAO>();
             container.RegisterType<IKoszykDAO, KoszykDAO>();
+            container.RegisterType<IFirmyDAO, FirmyDAO>();
+            container.RegisterType<IRejonyDAO, RejonyDAO>();
 
             container.RegisterType<PlikiDAO, PlikiDAO>();
             container.RegisterType<UserDAO, UserDAO>();

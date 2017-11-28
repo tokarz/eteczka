@@ -10,7 +10,7 @@ using Eteczka.DB.Mappers;
 
 namespace Eteczka.DB.DAO
 {
-    public class FirmyDAO
+    public class FirmyDAO : IFirmyDAO
     {
         private IDbConnectionFactory _ConnectionFactory;
         private IFirmyMapper _FirmyMapper;

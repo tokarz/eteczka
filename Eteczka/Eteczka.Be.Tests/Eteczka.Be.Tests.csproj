@@ -82,9 +82,11 @@
     <Compile Include="Nauka\Komputer.cs" />
     <Compile Include="Nauka\ZderzaczHadronow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\FirmyServiceTest.cs" />
     <Compile Include="Services\KoszykServiceTest.cs" />
     <Compile Include="Services\PracownicyServiceTest.cs" />
     <Compile Include="Services\PlikiServiceTest.cs" />
+    <Compile Include="Services\RejonyServiceTest.cs" />
     <Compile Include="Utils\PlikiUtilsTest.cs" />
     <Compile Include="Utils\OsysTest.cs" />
     <Compile Include="Utils\PracownikUtilsTest.cs" />
