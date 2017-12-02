@@ -1,0 +1,85 @@
+Pytania do admina (arka)
+ 1) czy kazdy adres email jest przyjazny
+ 2) Pula adresow do wyboru lub domen (maila wybieramy z listy rozwijanej)
+ 3) Opcje uzytkownika - opcja about (ewentuale help) i napisz do admina (burqin juz zrobil modal)
+ 4) Automatyczny logoout, czas logoutu w options (ustawia admin)
+
+Ogolne zafania i bugi
+
+ 1) Blad StanSesji::101 NullPointer przy logowaniu
+ 2) logowanie NLog kazdej operacji na pliku
+ 3) Help z tooltipem dla wybranych opcji
+ 4) Przemyslec pozycje koszyka - AP.Burqin - jaki masz inny pomysl?
+ 5) Przy zmianie stanu - zapamietanie kontekstu (na kim ostatnio stalem? w jakiej opcji - inteligentna zmiana stanu)
+
+A)Panel Admina:
+
+
+ 1) kolor buttonow importu - pliki .json na czerwono, te z json.cmpl na zielono
+ 2) tworzenie katalogow - odswiezenie koloru przycisku "utworz katalog"
+ 3) baza danych . pokazac aktualne polaczenie i wersje bazy. Stworz kopie bezpieczenstwa, aktualizuj baze do wersji, serwer bazy, stan polaczenia z baza
+ 4) baza danych - ustaw haslo do bazy danych (dla ead i eadadmin)
+ 5) ustawienie hasla administratora, reset do domyslnego (podaj stare gdy zmieniasz nowe)
+ 6) serwer smtp - ustawienie serwera, portu i pop3, portow
+ 7) dodawanie ochodzkiej - (2 tabele, przenszenie strzalka jak w SAP - ew. drag & drop), confidential i uprawnienia w 2 kroku dodawania, user powiadomiony o tym ze upr. sa na poczatku defaultowe
+ 8) aktywne sesje - test + czasy w czytelnej formie
+ 9) Do przemyslenia - opcja ustawien (profili) uzytkownika
+
+B)Panel normalny
+
+
+B.A) Katalog pracownikow :
+
+ 1) dodawanie i edycja, usuwanie pracownikow (BE + haslo short)
+ 2) tabela options z flagami (m.in debug, wdrozenie, jestfox, itd)
+ 3) miejsce pracy - dodaj, usun, edytuj (poza foxem)
+ 4) modale - wyjustowanie tekstu naglowka (do przetestowania)
+ 5) modale - przesuwalne
+ 6) responsywne tabele i layout
+ 7) Przy fladze jest fox operacje CRUD niedostepne (uzyj foxa!)
+ 8) przy odswiezaniu zapamietaj pozycje zaznaczona ($state refresh z parametrem)
+
+
+B.B) Teczki akt osobowych
+ 1) przy hover - nie zmieniaj szerokosci tabeli
+ 2) blad zmiany skali pdf'a
+ 3) naglowek kontrolny pdf powinien zostac
+ 4) przy drukowaniu ikonka drukarki
+ 5) drukowanie sekwencyjne zaznaczonych plikow, widok/podglad laczony lub dzielony (zeby bylo wiadomo co widac). Rozwiazac problem czy oplaca sie pytac co plik o nowe dane drukowania
+ 6) opcja pobierania (inne ikony i ich dostepnosc zalezna od options lub/i profili)
+ 7) Maile - wysylanie hasla do pliku w osobnym mailu - modal z pytaniem - czy od razu wyslac haslo na adres xxx@xxx,pl
+ 8) Dodatkowa opcja - dodaj plik dla pracownika (przemyslec jak)
+
+B.C) Wprowadzanie plikow
+
+ 1) Opcja dodaj pliki zalezna od options (dla klientow bez foxa, ewentualnie bez takich wymagan bezp.)
+ 2) style pdf o dluzszej nazwie (teraz plik wydaje sie byc na srodku jak nazwa jest za dluga)
+ 3) przemyslec drag & drop miedzy "nowym" a "do dodania"
+ 4) metryczka dokumentu znika, koniec modala oznacza dodanie pliku, musi wiec pasc pytanie "are ju siur"?
+ 5) idea zakladek przy opracowaniu wielu plikow (zaznaczam 3 pliki, w modalu mam 3 zakladki, 1 dla kazdego pliku)
+ 6) Przycisk opisz musi zmienic pozycje, bo panel mu znika. Mozemy stworzyc podpowiedzi co user ma zroibic. Button zatwierdz znika
+ 7) Opisz - modal : zmiana kolejnosci + pole opis
+
+B.D) Katalog dokumentow
+ 1) Filtr imie nazwisko
+ 2) Stale dlugosci pol filtrow. Ewentualnie przemyslec ich calkowita strukture.
+ 3) Liczba podwydzialow w nawiasie przy wydziale
+ 4) Brak znikania filtrow. jesli filtr nie ma sensu, jest wyszarzony
+ 5) Filtry po datach od do lub ostatnie
+ 6) filtry kolumnowe dla wszystkich tabel
+ 7) zaawansowane filtry, zdefiniowac ogolna postac filtru (nazwa, operand, wartosc)
+
+
+B.E) Raporty
+
+ 1) burqin - d3.js ewentualnie inne js svg. Typowy dashboard!
+ 2) eksporty - Michal juz zaczal, pytanie - jakie jeszcze eksporty chcemy!
+ 3) ew. Nowy typ konta - gosc lub manager - widzi tylko podsumowania i raporty
+
+
+B.F) Struktura firmy
+ 1) Stworzyc widoki wedlug wzorca Michala, priorytet - przyszly rok!
+
+
+
+

@@ -38,6 +38,7 @@ XX.XX.2018 - YY.YY.2018 Import danych spolki A
        -  (K) Uprawnienia, oprogramowanie flag z uprawnieniami i Confidential
        -  (D) Wczytywanie kwerend dynamicznie (z pliku lub bazy)
        -  (K) Zapewnienie zgodnosci z przepisami o danych osobowych (Michal wie o co kaman)
+       -  (D) Idea indywidualnych profili uz.(jako support, fajne ale nie tanie!)
 
 
 1.4
