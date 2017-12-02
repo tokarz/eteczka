@@ -243,4 +243,73 @@ angular.module('et.controllers').controller('settingsViewController', ['$scope',
             });
         }
     }
+
+    $scope.addUserCtrl = function ($scope, $mdDialog, companies) {
+        $scope.companies = companies
+        $scope.hide = function () {
+            $mdDialog.hide();
+        };
+
+        $scope.passwordsDoNotMatch = function () {
+            return $scope.modalResult.Password !== $scope.modalResult.PasswordRepeat;
+        }
+
+        $scope.cancel = function () {
+            $mdDialog.cancel();
+        };
+
+        $scope.answer = function (answer, errors) {
+            console.log(errors)
+            if (!errors || Object.keys(errors).length === 0) {
+                $mdDialog.hide(answer);
+            }
+        };
+    }
+
+    var openModal = function (modalOptions, executor) {
+        return modalService.showModal(modalOptions)
+            .then(function (result) {
+                return executor(result);
+            })
+            .catch(function (error) {
+                if (error !== 'cancel' && error !== 'backdrop click') {
+                    console.log("error found!", error);
+                }
+            });
+    }
+
+    $scope.triggerAddUser = function () {
+        console.log($scope.folders)
+        var modalOptions = {
+            body: 'app/views/settings/addUserModal.html',
+            controller: $scope.addUserCtrl,
+            locals: { companies: $scope.folders }
+        };
+
+        openModal(modalOptions, function (user) {
+
+            var userDto = {
+                Identyfikator: user.Nazwa,
+                //Hasloshort: '',
+                //Haslolong: user.Password,
+                //Datamodify: '',
+                //IsAdmin: '',
+                //Usuniety: '',
+                //Nazwisko: '',
+                //Imie: '',
+                //Firmy: user.Firmy,
+                //Email: '',
+                //Uprawnienia: '',
+                //Confidential: user.Confidential,
+                //KodKierownik: ''
+            };
+
+
+            usersService.addUser(userDto).then(function () {
+
+            });
+
+
+        });
+    }
 }]);

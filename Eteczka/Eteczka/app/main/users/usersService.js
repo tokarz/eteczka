@@ -14,6 +14,12 @@ angular.module('et.services').factory('usersService', ['httpService', 'sessionSe
                 user: user,
                 firma: company
             });
+        },
+        addUser: function (user) {
+            return httpService.post('KatLoginy/DodajPrac', {
+                sessionId: sessionService.getSessionId(),
+                user: user
+            });
         }
     }
 }]);

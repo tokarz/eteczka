@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Eteczka.DB.DAO;
 using Eteczka.DB.Mappers;
 using Eteczka.DB.Connection;
@@ -11,6 +10,7 @@ using System.Text;
 using Eteczka.BE.Utils;
 using Eteczka.BE.Mappers;
 using Eteczka.Model.Entities;
+using System;
 
 namespace Eteczka.BE.Services
 {
@@ -246,6 +246,11 @@ namespace Eteczka.BE.Services
         {
             ImportResult result = new ImportResult();
             string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
+            if (eadRoot == null)
+            {
+                throw new Exception("EAD_DIR_NOT_SET!");
+            }
+
             List<Pracownik> pracownicy = new List<Pracownik>();
 
             string sciezkaDoKatalogu = Path.Combine(eadRoot, "zet");
@@ -437,6 +442,10 @@ namespace Eteczka.BE.Services
                         string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
                         List<Pracownik> pracownicy = new List<Pracownik>();
 
+                        if (eadRoot == null)
+                        {
+                            throw new Exception("EAD_DIR_NOT_SET!");
+                        }
                         string sciezkaDoKatalogu = Path.Combine(eadRoot, "zet");
                         string sciezkaDoPlikow = Path.Combine(sciezkaDoKatalogu, "KatPracownicy");
 

@@ -18,6 +18,24 @@ namespace Eteczka.BE.Controllers
         }
 
         [HttpPost]
+        [ActionName("DodajPrac")]
+        public ActionResult DodajUzytkownika(string sessionId, AddKatLoginyDto user)
+        {
+
+            bool result = false;
+            StanSesji stanSesji = Sesja.PobierzStanSesji();
+            if (stanSesji.CzySesjaJestOtwarta(sessionId) && stanSesji.CzySesjaAdministratora(sessionId))
+            {
+
+            }
+
+            return Json(new
+            {
+                success = true
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
         public ActionResult DodajFirmeDlaUzytkownika(string sessionId, KatLoginy user, string firma)
         {
 
@@ -28,7 +46,7 @@ namespace Eteczka.BE.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        [HttpPost]
+        [HttpDelete]
         public ActionResult UsunFirmeUzytkownika(string sessionId, KatLoginy user, string firma)
         {
             bool result = false;
@@ -88,6 +106,7 @@ namespace Eteczka.BE.Controllers
             if (stanSesji.CzySesjaJestOtwarta(sessionId) && stanSesji.CzySesjaAdministratora(sessionId))
             {
                 List<KatLoginyDetale> detale = _KatLoginyService.GetAllUsersDetails();
+
                 foreach (KatLoginyDetale detal in detale)
                 {
                     PracownicyZFirmamiDTO prac = users.Find(x => x.Identyfikator == detal.Identyfikator);

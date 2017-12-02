@@ -59,7 +59,14 @@
         </div>
         <div class="admin-option-content">
             <table style="width:95%;margin:auto">
-                <thead>
+                    <colgroup>
+                        <col width="35%" />
+                        <col width="35%"/>
+                        <col width="10%"/>
+                        <col width="10%" />
+                        <col width="10%" />
+                    </colgroup>
+                <thead class="table-header" style="border-collapse:collapse">
                     <tr>
                         <th>Nazwa</th>
                         <th>Firmy</th>
@@ -80,6 +87,7 @@
                         <td>{{user.Confidential}}</td>
                         <td><span style="color:red;cursor:pointer" class="fa fa-trash-o" title="Zmien haslo" ng-click="markAsDeleted(user)"></span></td>
                     </tr>
+
                 </tbody>
             </table>
         </div>
