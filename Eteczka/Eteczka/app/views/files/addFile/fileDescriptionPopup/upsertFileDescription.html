@@ -11,6 +11,32 @@
         </md-toolbar>
         <md-dialog-content style="padding:15px">
             <div class="modal-table-row">
+                <label class="modal-table-label" for="employee">Nazwisko Pracownika *</label>
+                <md-autocomplete class="modal-table-input"
+                                 name="employee"
+                                 md-selected-item="modalResult.Pracownik"
+                                 md-search-text="searchEmployee"
+                                 md-items="item in employeeSearch(searchEmployee)"
+                                 md-item-text="item.Nazwisko"
+                                 md-min-length="0"
+                                 required
+                                 ng-model="modalResult.Pracownik">
+                    <md-item-template>
+                        <span md-highlight-text="searchEmployee" md-highlight-flags="^i">{{item.Nazwisko}} {{item.Imie}} {{item.DataUrodzenia}}</span>
+                    </md-item-template>
+                    <md-not-found>
+                        Nie znaleziono pracownika o nazwisku "{{searchEmployee}}".
+                    </md-not-found>
+                </md-autocomplete>
+            </div>
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="employeeName">Pracownik</label>
+                <input class="modal-table-input" name="employeeName" value="{{modalResult.Pracownik.Nazwisko.trim()}} {{modalResult.Pracownik.Imie.trim()}} {{modalResult.Pracownik.DataUrodzenia.trim()}}" type="text" required disabled />
+            </div>
+            <div ng-show="upsertFileDescription.$submitted">
+                <span class="modal-table-error" ng-show="upsertFileDescription.employeeName.$error.required">Nie znaleziono pracownika o podanym peselu</span>
+            </div>
+            <div class="modal-table-row">
                 <label class="modal-table-label" for="docSymbol">Symbol dokumentu *</label>
                 <md-autocomplete class="modal-table-input"
                                  name="docSymbol"
@@ -45,8 +71,8 @@
                 <select class="modal-table-input modal-select-input"
                         name="docPart"
                         ng-options="option as option for option in docPartOptions"
-                        ng-model="modalResult.Typ.Teczkadzial" 
-                        required/>
+                        ng-model="modalResult.Typ.Teczkadzial"
+                        required />
             </div>
             <div class="modal-table-row">
                 <label class="modal-table-label" for="creationDate">Data dokumentu *</label>
@@ -62,32 +88,6 @@
             </div>
             <div ng-show="upsertFileDescription.$submitted || upsertFileDescription.creationDate.$touched">
                 <span class="modal-table-error" ng-show="upsertFileDescription.creationDate.$error.pattern">Data musi miec format: RRRR-MM-DD</span>
-            </div>
-            <div class="modal-table-row">
-                <label class="modal-table-label" for="employee">Nazwisko Pracownika *</label>
-                <md-autocomplete class="modal-table-input"
-                                 name="employee"
-                                 md-selected-item="modalResult.Pracownik"
-                                 md-search-text="searchEmployee"
-                                 md-items="item in employeeSearch(searchEmployee)"
-                                 md-item-text="item.Nazwisko"
-                                 md-min-length="0"
-                                 required
-                                 ng-model="modalResult.Pracownik">
-                    <md-item-template>
-                        <span md-highlight-text="searchEmployee" md-highlight-flags="^i">{{item.Nazwisko}} {{item.Imie}} {{item.DataUrodzenia}}</span>
-                    </md-item-template>
-                    <md-not-found>
-                        Nie znaleziono pracownika o nazwisku "{{searchEmployee}}".
-                    </md-not-found>
-                </md-autocomplete>
-            </div>
-            <div class="modal-table-row">
-                <label class="modal-table-label" for="employeeName">Pracownik</label>
-                <input class="modal-table-input" name="employeeName" value="{{modalResult.Pracownik.Nazwisko.trim()}} {{modalResult.Pracownik.Imie.trim()}} {{modalResult.Pracownik.DataUrodzenia.trim()}}" type="text" required disabled />
-            </div>
-            <div ng-show="upsertFileDescription.$submitted">
-                <span class="modal-table-error" ng-show="upsertFileDescription.employeeName.$error.required">Nie znaleziono pracownika o podanym peselu</span>
             </div>
             <div class="modal-table-row">
                 <label class="modal-table-label" for="validFromDate">Data początku obowiązywania *</label>
@@ -118,6 +118,10 @@
             </div>
             <div ng-show="upsertFileDescription.$submitted || upsertFileDescription.validUntilDate.$touched">
                 <span class="modal-table-error" ng-show="upsertFileDescription.validUntilDate.$error.pattern">Data musi miec format: RRRR-MM-DD</span>
+            </div>
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="additionalComment">Opis Dodatkowy</label>
+                <textarea rows="4" cols="50" class="modal-table-input" name="additionalComment" ng-model="modalResult.OpisDodatkowy" />
             </div>
         </md-dialog-content>
         <md-dialog-actions layout="row">
