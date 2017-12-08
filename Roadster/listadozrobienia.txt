@@ -1,84 +1,88 @@
+P - podstawa
+S - Support
+X- Nie dla Top Farms
+
 Pytania do admina (arka)
- 1) czy kazdy adres email jest przyjazny
- 2) Pula adresow do wyboru lub domen (maila wybieramy z listy rozwijanej)
- 3) Opcje uzytkownika - opcja about (ewentuale help) i napisz do admina (burqin juz zrobil modal)
- 4) Automatyczny logoout, czas logoutu w options (ustawia admin)
+ 1) czy kazdy adres email jest przyjazny (S, 1.4)
+ 2) Pula adresow do wyboru lub domen (maila wybieramy z listy rozwijanej)  (S, 1.5)
+ 3) Opcje uzytkownika - opcja about (ewentuale help) i napisz do admina (burqin juz zrobil modal)  (S, 1.5)
+ 4) Automatyczny logoout, czas logoutu w options (ustawia admin) (P, 1.3)
 
 Ogolne zafania i bugi
 
- 1) Blad StanSesji::101 NullPointer przy logowaniu
- 2) logowanie NLog kazdej operacji na pliku
- 3) Help z tooltipem dla wybranych opcji
- 4) Przemyslec pozycje koszyka - AP.Burqin - jaki masz inny pomysl?
- 5) Przy zmianie stanu - zapamietanie kontekstu (na kim ostatnio stalem? w jakiej opcji - inteligentna zmiana stanu)
+ 1) Blad StanSesji::101 NullPointer przy logowaniu   (P, 1.2.5)
+ 2) logowanie NLog kazdej operacji na pliku          (P, 1.3)
+ 3) Help z tooltipem dla wybranych opcji         (S, 1.5)
+ 4) Przemyslec pozycje koszyka - AP.Burqin - jaki masz inny pomysl? (S, 1.5)
+ 5) Przy zmianie stanu - zapamietanie kontekstu (na kim ostatnio stalem? w jakiej opcji - inteligentna zmiana stanu)  (S, 1.5)
 
 A)Panel Admina:
 
 
- 1) kolor buttonow importu - pliki .json na czerwono, te z json.cmpl na zielono
- 2) tworzenie katalogow - odswiezenie koloru przycisku "utworz katalog"
- 3) baza danych . pokazac aktualne polaczenie i wersje bazy. Stworz kopie bezpieczenstwa, aktualizuj baze do wersji, serwer bazy, stan polaczenia z baza
- 4) baza danych - ustaw haslo do bazy danych (dla ead i eadadmin)
- 5) ustawienie hasla administratora, reset do domyslnego (podaj stare gdy zmieniasz nowe)
- 6) serwer smtp - ustawienie serwera, portu i pop3, portow
- 7) dodawanie ochodzkiej - (2 tabele, przenszenie strzalka jak w SAP - ew. drag & drop), confidential i uprawnienia w 2 kroku dodawania, user powiadomiony o tym ze upr. sa na poczatku defaultowe
- 8) aktywne sesje - test + czasy w czytelnej formie
- 9) Do przemyslenia - opcja ustawien (profili) uzytkownika
+ 1) kolor buttonow importu - pliki .json na czerwono, te z json.cmpl na zielono   (P, 1.3)
+ 2) tworzenie katalogow - odswiezenie koloru przycisku "utworz katalog"  (P, 1.3)
+ 3) baza danych . pokazac aktualne polaczenie i wersje bazy. Stworz kopie bezpieczenstwa, aktualizuj baze do wersji, serwer bazy, stan polaczenia z baza  (P, 1.3)
+ 4) baza danych - ustaw haslo do bazy danych (dla ead i eadadmin) (P, 1.3)
+ 5) ustawienie hasla administratora, reset do domyslnego (podaj stare gdy zmieniasz nowe)  (P, 1.3)
+ 6) serwer smtp - ustawienie serwera, portu i pop3, portow    (P, 1.3)
+ 7) dodawanie ochodzkiej - (2 tabele, przenszenie strzalka jak w SAP - ew. drag & drop), confidential i uprawnienia w 2 kroku dodawania, user powiadomiony o tym ze upr. sa na poczatku defaultowe   (P1.3)
+ 8) aktywne sesje - test + czasy w czytelnej formie   (S, 1.5)
+ 9) Do przemyslenia - opcja ustawien (profili) uzytkownika  (S, 1.5)
 
 B)Panel normalny
 
 
 B.A) Katalog pracownikow :
 
- 1) dodawanie i edycja, usuwanie pracownikow (BE + haslo short)
- 2) tabela options z flagami (m.in debug, wdrozenie, jestfox, itd)
- 3) miejsce pracy - dodaj, usun, edytuj (poza foxem)
- 4) modale - wyjustowanie tekstu naglowka (do przetestowania)
- 5) modale - przesuwalne
- 6) responsywne tabele i layout
- 7) Przy fladze jest fox operacje CRUD niedostepne (uzyj foxa!)
- 8) przy odswiezaniu zapamietaj pozycje zaznaczona ($state refresh z parametrem)
+ 1) dodawanie i edycja, usuwanie pracownikow (BE + haslo short) (X, 1.4)
+ 2) tabela options z flagami (m.in debug, wdrozenie, jestfox, itd) (P, 1.3)
+ 3) miejsce pracy - dodaj, usun, edytuj (poza foxem) (X, 1.5)
+ 4) modale - wyjustowanie tekstu naglowka (do przetestowania) (Odrzucamy)
+ 5) modale - przesuwalne (P, 1.3)
+ 6) responsywne tabele i layout (P, 1.4)
+ 7) Przy fladze jest fox operacje CRUD niedostepne (uzyj foxa!) (X, 1.3)
+ 8) przy odswiezaniu zapamietaj pozycje zaznaczona ($state refresh z parametrem) (S, 1.5)
 
 
 B.B) Teczki akt osobowych
- 1) przy hover - nie zmieniaj szerokosci tabeli
- 2) blad zmiany skali pdf'a
- 3) naglowek kontrolny pdf powinien zostac
- 4) przy drukowaniu ikonka drukarki
- 5) drukowanie sekwencyjne zaznaczonych plikow, widok/podglad laczony lub dzielony (zeby bylo wiadomo co widac). Rozwiazac problem czy oplaca sie pytac co plik o nowe dane drukowania
- 6) opcja pobierania (inne ikony i ich dostepnosc zalezna od options lub/i profili)
- 7) Maile - wysylanie hasla do pliku w osobnym mailu - modal z pytaniem - czy od razu wyslac haslo na adres xxx@xxx,pl
- 8) Dodatkowa opcja - dodaj plik dla pracownika (przemyslec jak)
+ 1) przy hover - nie zmieniaj szerokosci tabeli  (P, 1.3)
+ 2) blad zmiany skali pdf'a  (P, 1.3)
+ 3) naglowek kontrolny pdf powinien zostac (P, 1.4)
+ 4) przy drukowaniu ikonka drukarki (P, 1.4)
+ 5) drukowanie sekwencyjne zaznaczonych plikow, widok/podglad laczony lub dzielony (zeby bylo wiadomo co widac). Rozwiazac problem czy oplaca sie pytac co plik o nowe dane drukowania (S, 1.5)
+ 6) opcja pobierania (inne ikony i ich dostepnosc zalezna od options lub/i profili)   (X)
+ 7) Maile - wysylanie hasla do pliku w osobnym mailu - modal z pytaniem - czy od razu wyslac haslo na adres xxx@xxx,pl  (P, 1.4)
+ 8) Dodatkowa opcja - dodaj plik dla pracownika (przemyslec jak) (S, 1.5)
 
 B.C) Wprowadzanie plikow
 
- 1) Opcja dodaj pliki zalezna od options (dla klientow bez foxa, ewentualnie bez takich wymagan bezp.)
- 2) style pdf o dluzszej nazwie (teraz plik wydaje sie byc na srodku jak nazwa jest za dluga)
- 3) przemyslec drag & drop miedzy "nowym" a "do dodania"
- 4) metryczka dokumentu znika, koniec modala oznacza dodanie pliku, musi wiec pasc pytanie "are ju siur"?
- 5) idea zakladek przy opracowaniu wielu plikow (zaznaczam 3 pliki, w modalu mam 3 zakladki, 1 dla kazdego pliku)
- 6) Przycisk opisz musi zmienic pozycje, bo panel mu znika. Mozemy stworzyc podpowiedzi co user ma zroibic. Button zatwierdz znika
- 7) Opisz - modal : zmiana kolejnosci + pole opis
+ 1) Opcja dodaj pliki zalezna od options (dla klientow bez foxa, ewentualnie bez takich wymagan bezp.) (X, 1.5)
+ 2) style pdf o dluzszej nazwie (teraz plik wydaje sie byc na srodku jak nazwa jest za dluga) (P, 1.3)
+ 3) przemyslec drag & drop miedzy "nowym" a "do dodania"  (S, 1.5)
+ 4) metryczka dokumentu znika, koniec modala oznacza dodanie pliku, musi wiec pasc pytanie "are ju siur"?  (P, 1.3)
+ 5) idea zakladek przy opracowaniu wielu plikow (zaznaczam 3 pliki, w modalu mam 3 zakladki, 1 dla kazdego pliku) (S, 1.5)
+ 6) Przycisk opisz musi zmienic pozycje, bo panel mu znika. Mozemy stworzyc podpowiedzi co user ma zroibic. Button zatwierdz znika (P, 1.3)
+ 7) Opisz - modal : zmiana kolejnosci + pole opis    (P, 1.3)
 
 B.D) Katalog dokumentow
- 1) Filtr imie nazwisko
- 2) Stale dlugosci pol filtrow. Ewentualnie przemyslec ich calkowita strukture.
- 3) Liczba podwydzialow w nawiasie przy wydziale
- 4) Brak znikania filtrow. jesli filtr nie ma sensu, jest wyszarzony
- 5) Filtry po datach od do lub ostatnie
- 6) filtry kolumnowe dla wszystkich tabel
- 7) zaawansowane filtry, zdefiniowac ogolna postac filtru (nazwa, operand, wartosc)
+ 1) Filtr imie nazwisko (P, 1.4)
+ 2) Stale dlugosci pol filtrow. Ewentualnie przemyslec ich calkowita strukture.  (P, 1.4)
+ 3) Liczba podwydzialow w nawiasie przy wydziale (S, 1.5)
+ 4) Brak znikania filtrow. jesli filtr nie ma sensu, jest wyszarzony (P, 1.3)
+ 5) Filtry po datach od do lub ostatnie (P, 1.3)
+ 6) filtry kolumnowe dla wszystkich tabel (S, 1.5)
+ 7) zaawansowane filtry, zdefiniowac ogolna postac filtru (nazwa, operand, wartosc) (S1, 5)
 
 
 B.E) Raporty
 
- 1) burqin - d3.js ewentualnie inne js svg. Typowy dashboard!
- 2) eksporty - Michal juz zaczal, pytanie - jakie jeszcze eksporty chcemy!
- 3) ew. Nowy typ konta - gosc lub manager - widzi tylko podsumowania i raporty
+ 1) burqin - d3.js ewentualnie inne js svg. Typowy dashboard! (S, 1.5)
+ 2) eksporty - Michal juz zaczal, pytanie - jakie jeszcze eksporty chcemy! (S, 1.5)
+ 3) ew. Nowy typ konta - gosc lub manager - widzi tylko podsumowania i raporty   (S, 1.5)
 
 
 B.F) Struktura firmy
- 1) Stworzyc widoki wedlug wzorca Michala, priorytet - przyszly rok!
+ 1) Stworzyc widoki wedlug wzorca Michala, priorytet - przyszly rok!  (X, 1.4)
 
 
 
