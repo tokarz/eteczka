@@ -55,6 +55,7 @@ namespace Eteczka
             container.RegisterType<IPodWydzialService, PodWydzialService>();
             container.RegisterType<IKonto5Service, Konto5Service>();
             container.RegisterType<IKoszykService, KoszykService>();
+            container.RegisterType<IRaportyPdfService, RaportyPdfService>();
 
             container.RegisterType<IConnection, Connection>();
             container.RegisterType<IPlikiMapper, PlikiMapper>();

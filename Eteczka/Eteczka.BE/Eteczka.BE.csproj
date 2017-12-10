@@ -62,6 +62,15 @@
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MigraDoc.DocumentObjectModel, Version=1.32.4334.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp-MigraDoc-GDI.1.32.4334.0\lib\net20\MigraDoc.DocumentObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="MigraDoc.Rendering, Version=1.32.4334.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp-MigraDoc-GDI.1.32.4334.0\lib\net20\MigraDoc.Rendering.dll</HintPath>
+    </Reference>
+    <Reference Include="MigraDoc.RtfRendering, Version=1.32.4334.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp-MigraDoc-GDI.1.32.4334.0\lib\net20\MigraDoc.RtfRendering.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -71,12 +80,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="PdfSharp, Version=1.32.3057.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
-      <HintPath>..\packages\PDFsharp.1.32.3057.0\lib\net20\PdfSharp.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\PDFsharp-MigraDoc-GDI.1.32.4334.0\lib\net20\PdfSharp.dll</HintPath>
     </Reference>
     <Reference Include="PdfSharp.Charting, Version=1.32.3057.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
-      <HintPath>..\packages\PDFsharp.1.32.3057.0\lib\net20\PdfSharp.Charting.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\PDFsharp-MigraDoc-GDI.1.32.4334.0\lib\net20\PdfSharp.Charting.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -133,6 +140,7 @@
     <Compile Include="Controllers\PlikiController.cs" />
     <Compile Include="Controllers\PodWydzialController.cs" />
     <Compile Include="Controllers\PracownicyKontroler.cs" />
+    <Compile Include="Controllers\RaportyController.cs" />
     <Compile Include="Controllers\RejonyController.cs" />
     <Compile Include="Controllers\ResourcesController.cs" />
     <Compile Include="Controllers\StatystykiController.cs" />
@@ -172,6 +180,7 @@
     <Compile Include="Services\IFirmyService.cs" />
     <Compile Include="Services\IKatDokumentyRodzajService.cs" />
     <Compile Include="Services\IKonto5Service.cs" />
+    <Compile Include="Services\IRaportyPdfService.cs" />
     <Compile Include="Services\KoszykService.cs" />
     <Compile Include="Services\IKoszykService.cs" />
     <Compile Include="Services\IPodWydzialService.cs" />
@@ -184,6 +193,7 @@
     <Compile Include="Services\IImportService.cs" />
     <Compile Include="Services\IRejonyService.cs" />
     <Compile Include="Services\PodWydzialService.cs" />
+    <Compile Include="Services\RaportyPdfService.cs" />
     <Compile Include="Services\RejonyService.cs" />
     <Compile Include="Services\StatystykiService.cs" />
     <Compile Include="Services\IStatystykiService.cs" />
