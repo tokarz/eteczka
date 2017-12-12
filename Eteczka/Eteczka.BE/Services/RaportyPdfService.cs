@@ -16,10 +16,12 @@ namespace Eteczka.BE.Services
     {
         private PlikiDAO _PlikiDAO;
         private IDirectoryWrapper _Wrapper;
-        public RaportyPdfService(PlikiDAO plikiDAO, IDirectoryWrapper wrapper)
+        private PracownikDAO _PracownikDAO;
+        public RaportyPdfService(PlikiDAO plikiDAO, IDirectoryWrapper wrapper, PracownikDAO pracownikDAO)
         {
             this._PlikiDAO = plikiDAO;
             this._Wrapper = wrapper;
+            this._PracownikDAO = pracownikDAO;
         }
 
         public bool SkorowidzTeczkiPracownika(SessionDetails sesja, string numeread)
@@ -27,7 +29,9 @@ namespace Eteczka.BE.Services
             bool result = true;
 
             List<Pliki> Dokumenty = _PlikiDAO.PobierzPlikPoNumerzeEad(numeread, sesja.AktywnaFirma, "asc", "Symbol");
-
+            Pracownik pracownik = _PracownikDAO.PobierzPracownikaPoId(numeread);
+            
+        
             Document doc = new Document();
 
                 Section sec = doc.AddSection();
@@ -37,7 +41,7 @@ namespace Eteczka.BE.Services
                 Paragraph paragraph = sec.AddParagraph();
 
                 //stopka:
-                paragraph = sec.Footers.Primary.AddParagraph("Teczka pracownika: " + Dokumenty[0].Imie + " " + Dokumenty[0].Nazwisko + ", ur. " + Dokumenty[0].DataUrodzenia.ToShortDateString() + "r. Miejsce pracy: " + Dokumenty[0].Firma + ". Wygenerowano: " + sesja.AktywnyUser + ", " + DateTime.Now.ToShortDateString() + ", " + DateTime.Now.ToLongTimeString() + ". Program: eAD");
+                paragraph = sec.Footers.Primary.AddParagraph("Teczka pracownika: " + pracownik.Imie + " " + pracownik.Nazwisko + ", ur. " + pracownik.DataUrodzenia + " r. Miejsce pracy: " + sesja.AktywnaFirma + ". Wygenerowano: " + sesja.AktywnyUser + ", " + DateTime.Now.ToShortDateString() + ", " + DateTime.Now.ToLongTimeString() + ". Program: eAD");
                 paragraph.Format.Font.Size = 7;
 
                 //Tytuł dokumentu:
@@ -50,11 +54,12 @@ namespace Eteczka.BE.Services
                 paragraph = sec.AddParagraph();
                 paragraph = sec.AddParagraph();
 
-                paragraph = sec.AddParagraph("Pracownik: " + Dokumenty[0].Imie + " " + Dokumenty[0].Nazwisko + ", data urodzenia: " + Dokumenty[0].DataUrodzenia.ToShortDateString() + "r.");
-                paragraph = sec.AddParagraph("Miejsce pracy: " + Dokumenty[0].Firma);
+                paragraph = sec.AddParagraph("Pracownik: " + pracownik.Imie + " " + pracownik.Nazwisko + ", data urodzenia: " + pracownik.DataUrodzenia + " r.");
+                paragraph = sec.AddParagraph("Miejsce pracy: " + sesja.AktywnaFirma);
                 paragraph = sec.AddParagraph();
 
-
+            if (Dokumenty.Count !=0)
+            {
                 //Tworzymy i definiujemy tabelę:
                 Table table = new Table();
                 table.Borders.Width = 0.5;
@@ -106,6 +111,14 @@ namespace Eteczka.BE.Services
                     cell.AddParagraph(dokument.OpisDodatkowy);
                 }
                 doc.LastSection.Add(table);
+            }
+            else
+            {
+                paragraph = sec.AddParagraph("Teczka pracownika nie zawiera dokumentów.");
+                paragraph.Format.Font.Bold = true;
+            }
+            
+                
           
             try
             {
