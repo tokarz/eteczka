@@ -43,6 +43,7 @@ namespace Eteczka
             container.RegisterType<IDbConnectionFactory, DbConnectionFactory>();
             container.RegisterType<IPlikiService, PlikiService>();
             container.RegisterType<IImportService, ImportService>();
+            container.RegisterType<IImportStateService, ImportStateService>();
             container.RegisterType<IPracownicyService, PracownicyService>();
             container.RegisterType<IStatystykiService, StatystykiService>();
             container.RegisterType<IMiejscePracyService, MiejscePracyService>();
@@ -55,7 +56,7 @@ namespace Eteczka
             container.RegisterType<IPodWydzialService, PodWydzialService>();
             container.RegisterType<IKonto5Service, Konto5Service>();
             container.RegisterType<IKoszykService, KoszykService>();
-            container.RegisterType<IRaportyPdfService, RaportyPdfService>();
+            container.RegisterType<IKatDokumentyRodzajService, KatDokumentyRodzajService>();
 
             container.RegisterType<IConnection, Connection>();
             container.RegisterType<IPlikiMapper, PlikiMapper>();
@@ -75,6 +76,8 @@ namespace Eteczka
             container.RegisterType<IJsonToPodwydzialMapper, JsonToPodwydzialMapper>();
             container.RegisterType<IJsonToWydzialMapper, JsonToWydzialMapper>();
             container.RegisterType<IJsonToKonto5Mapper, JsonToKonto5Mapper>();
+            container.RegisterType<IJsonToKatDokumentyRodzajMapper, JsonToKatDokumentyRodzajMapper>();
+
             container.RegisterType<IKatRodzajeDokumentowExcelMapper, KatRodzajeDokumentowExcelMapper>();
             container.RegisterType<IPodWydzialDtoMapper, PodWydzialDtoMapper>();
             container.RegisterType<IKatKonto5Mapper, KatKonto5Mapper>();

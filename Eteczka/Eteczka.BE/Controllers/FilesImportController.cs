@@ -9,10 +9,12 @@ namespace Eteczka.BE.Controllers
     public class FilesImportController : Controller
     {
         private IImportService _ImportService;
+        private IImportStateService _ImportStateService;
 
-        public FilesImportController(IImportService importService)
+        public FilesImportController(IImportService importService, IImportStateService importStateService)
         {
             _ImportService = importService;
+            _ImportStateService = importStateService;
         }
 
         public ActionResult ImportujLokalizacjeArchiwow(string sessionId, bool nadpisz)
@@ -147,7 +149,7 @@ namespace Eteczka.BE.Controllers
             ImportResult result = CreateDefaultImportResult();
             if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
             {
-                result = _ImportService.CheckImportStatus(type);
+                result = _ImportStateService.CheckImportStatus(type);
             }
 
             return Json(new
@@ -164,7 +166,8 @@ namespace Eteczka.BE.Controllers
 
             if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
             {
-                result = _ImportService.WczytajDokZExcela();
+                //result = _ImportService.WczytajDokZExcela();
+                result = _ImportService.ImportKatDokumentyRodzaj(sessionId);
             }
             return Json(new
             {

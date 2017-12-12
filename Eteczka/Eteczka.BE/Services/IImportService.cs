@@ -8,11 +8,11 @@ namespace Eteczka.BE.Services
         ImportResult ImportFirms(bool nadpisz);
         ImportResult ImportAreas(bool nadpisz);
         ImportResult ImportujPracownikow(string sessionId);
-        ImportResult CheckImportStatus(string type);
         ImportResult ImportWorkplaces(string sessionId);
         ImportResult ImportSubDepartments(string sessionId);
         ImportResult ImportDepartments(string sessionId);
         ImportResult ImportAccounts5(string sessionId);
+        ImportResult ImportKatDokumentyRodzaj(string sessionId);
         bool CreateSourceFolder(string folder);
         ImportResult WczytajDokZExcela(bool nadpisz = true);
         bool DoesFolderExist(string folder);

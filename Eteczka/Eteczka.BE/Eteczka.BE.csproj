@@ -152,11 +152,13 @@
     <Compile Include="DTO\PodWydzialDTO.cs" />
     <Compile Include="Enums\TypWykresu.cs" />
     <Compile Include="Exceptions\WyjatekSesjaIstnieje.cs" />
+    <Compile Include="Mappers\IJsonToKatDokumentyRodzajMapper.cs" />
     <Compile Include="Mappers\IJsonToKatRejonyMapper.cs" />
     <Compile Include="Mappers\IJsonToMiejscePracyMapper.cs" />
     <Compile Include="Mappers\IJsonToKonto5Mapper.cs" />
     <Compile Include="Mappers\IJsonToWydzialMapper.cs" />
     <Compile Include="Mappers\IPodWydzialDtoMapper.cs" />
+    <Compile Include="Mappers\JsonToKatDokumentyRodzajMapper.cs" />
     <Compile Include="Mappers\JsonToKonto5Mapper.cs" />
     <Compile Include="Mappers\JsonToWydzialMapper.cs" />
     <Compile Include="Mappers\JsonToPodwydzialMapper.cs" />
@@ -178,6 +180,8 @@
     <Compile Include="Services\FirmyService.cs" />
     <Compile Include="Services\IEmailService.cs" />
     <Compile Include="Services\IFirmyService.cs" />
+    <Compile Include="Services\ImportStateService.cs" />
+    <Compile Include="Services\IImportStateService.cs" />
     <Compile Include="Services\IKatDokumentyRodzajService.cs" />
     <Compile Include="Services\IKonto5Service.cs" />
     <Compile Include="Services\IRaportyPdfService.cs" />

@@ -24,6 +24,7 @@ namespace Eteczka.BE.Services
         private IJsonToPodwydzialMapper _JsonToPodwydzialMapper;
         private IJsonToWydzialMapper _JsonToWydzialMapper;
         private IJsonToKonto5Mapper _JsonToKonto5Mapper;
+        private IJsonToKatDokumentyRodzajMapper _JsonToKatDokumentyRodzajMapper;
         private IKatRodzajeDokumentowExcelMapper _KatRodzajeDokumentowExcelMapper;
 
         private PlikiUtils _PlikiUtils;
@@ -47,6 +48,7 @@ namespace Eteczka.BE.Services
             IJsonToPodwydzialMapper jsonToPodwydzialMapper,
             IJsonToWydzialMapper jsonToWydzialMapper,
             IJsonToKonto5Mapper jsonToKonto5Mapper,
+            IJsonToKatDokumentyRodzajMapper jsonToKatDokumentyRodzajMapper,
             IKatRodzajeDokumentowExcelMapper katRodzajeDokumentowExcelMapper,
             PlikiUtils plikiUtils,
             PlikiDAO dao,
@@ -67,6 +69,7 @@ namespace Eteczka.BE.Services
             this._JsonToPodwydzialMapper = jsonToPodwydzialMapper;
             this._JsonToWydzialMapper = jsonToWydzialMapper;
             this._JsonToKonto5Mapper = jsonToKonto5Mapper;
+            this._JsonToKatDokumentyRodzajMapper = jsonToKatDokumentyRodzajMapper;
             this._KatRodzajeDokumentowExcelMapper = katRodzajeDokumentowExcelMapper;
             this._PlikiUtils = plikiUtils;
             this._Dao = dao;
@@ -92,8 +95,6 @@ namespace Eteczka.BE.Services
                 result = Directory.Exists(finalFolderLocation);
             }
             return result;
-
-
         }
 
         public bool CreateSourceFolder(string folder)
@@ -389,6 +390,7 @@ namespace Eteczka.BE.Services
             }
             return result;
         }
+
         public ImportResult ImportAccounts5(string sessionId)
         {
             ImportResult result = new ImportResult();
@@ -425,326 +427,42 @@ namespace Eteczka.BE.Services
             return result;
         }
 
-
-        public ImportResult CheckImportStatus(string type)
+        public ImportResult ImportKatDokumentyRodzaj(string sessionId)
         {
-            ImportResult result = new ImportResult()
+            ImportResult result = new ImportResult();
+            string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
+            List<KatDokumentyRodzaj> rodzajeDokumentow = new List<KatDokumentyRodzaj>();
+
+            string sciezkaDoKatalogu = Path.Combine(eadRoot, "zet");
+            string sciezkaDoPlikow = Path.Combine(sciezkaDoKatalogu, "KatDokumentyRodzaj");
+
+            string[] pliki = Directory.GetFiles(sciezkaDoPlikow);
+            StringBuilder wczytaneKonta = new StringBuilder();
+            foreach (string plik in pliki)
             {
-                CountImportDb = 0,
-                CountImportJson = 0,
-                ImportSukces = false
-            };
-
-            switch (type)
-            {
-                case "users":
+                using (StreamReader reader = new StreamReader(plik))
+                {
+                    string line;
+                    while ((line = reader.ReadLine()) != null)
                     {
-                        string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
-                        List<Pracownik> pracownicy = new List<Pracownik>();
-
-                        if (eadRoot == null)
-                        {
-                            throw new Exception("EAD_DIR_NOT_SET!");
-                        }
-                        string sciezkaDoKatalogu = Path.Combine(eadRoot, "zet");
-                        string sciezkaDoPlikow = Path.Combine(sciezkaDoKatalogu, "KatPracownicy");
-
-                        string[] pliki = Directory.GetFiles(sciezkaDoPlikow);
-                        StringBuilder wczytaniPracownicy = new StringBuilder();
-                        int counter = 0;
-                        foreach (string plik in pliki)
-                        {
-                            using (StreamReader reader = new StreamReader(plik))
-                            {
-                                string line;
-                                while ((line = reader.ReadLine()) != null)
-                                {
-                                    wczytaniPracownicy.Append(line);
-                                }
-                            };
-
-                            var parsedJson = JObject.Parse(wczytaniPracownicy.ToString());
-                            var root = parsedJson["KatPracownicy"];
-                            foreach (var pracownik in root)
-                            {
-                                counter += 1;
-                            }
-                        }
-
-                        result.CountImportJson = counter;
-                        result.CountImportDb = _PracownikDao.PoliczPracownikowWBazie();
-
-                        break;
+                        wczytaneKonta.Append(line);
                     }
-                case "firms":
-                    {
-                        string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
-                        List<Pracownik> pracownicy = new List<Pracownik>();
+                };
 
-                        string sciezkaDoKatalogu = Path.Combine(eadRoot, "zet");
-                        string sciezkaDoPlikow = Path.Combine(sciezkaDoKatalogu, "KatFirmy");
+                var parsedJson = JObject.Parse(wczytaneKonta.ToString());
+                var root = parsedJson["KatDokumentyRodzaj"];
+                foreach (var rodzajDok in root)
+                {
+                    KatDokumentyRodzaj wczytanyRodzaj = _JsonToKatDokumentyRodzajMapper.Map(rodzajDok);
 
-                        string[] pliki = Directory.GetFiles(sciezkaDoPlikow);
-                        StringBuilder wczytaniPracownicy = new StringBuilder();
-                        int counter = 0;
-                        foreach (string plik in pliki)
-                        {
-                            using (StreamReader reader = new StreamReader(plik))
-                            {
-                                string line;
-                                while ((line = reader.ReadLine()) != null)
-                                {
-                                    wczytaniPracownicy.Append(line);
-                                }
-                            };
+                    rodzajeDokumentow.Add(wczytanyRodzaj);
+                }
 
-                            var parsedJson = JObject.Parse(wczytaniPracownicy.ToString());
-                            var root = parsedJson["KatFirmy"];
-                            foreach (var pracownik in root)
-                            {
-                                counter += 1;
-                            }
-                        }
-
-                        result.CountImportJson = counter;
-                        result.CountImportDb = _FirmyDao.PoliczFirmyWBazie();
-
-                        break;
-                    }
-                case "areas":
-                    {
-                        string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
-                        List<Pracownik> pracownicy = new List<Pracownik>();
-
-                        string sciezkaDoKatalogu = Path.Combine(eadRoot, "zet");
-                        string sciezkaDoPlikow = Path.Combine(sciezkaDoKatalogu, "KatRejony");
-
-                        string[] pliki = Directory.GetFiles(sciezkaDoPlikow);
-                        StringBuilder wczytaniPracownicy = new StringBuilder();
-                        int counter = 0;
-                        foreach (string plik in pliki)
-                        {
-                            using (StreamReader reader = new StreamReader(plik))
-                            {
-                                string line;
-                                while ((line = reader.ReadLine()) != null)
-                                {
-                                    wczytaniPracownicy.Append(line);
-                                }
-                            };
-
-                            var parsedJson = JObject.Parse(wczytaniPracownicy.ToString());
-                            var root = parsedJson["KatRejony"];
-                            foreach (var pracownik in root)
-                            {
-                                counter += 1;
-                            }
-                        }
-
-                        result.CountImportJson = counter;
-                        result.CountImportDb = _RejonyDao.PoliczRejonyWBazie();
-
-                        break;
-                    }
-                case "archives":
-                    {
-                        string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
-                        List<Pracownik> pracownicy = new List<Pracownik>();
-
-                        string sciezkaDoKatalogu = Path.Combine(eadRoot, "zet");
-                        string sciezkaDoPlikow = Path.Combine(sciezkaDoKatalogu, "KatLokalPapier");
-
-                        string[] pliki = Directory.GetFiles(sciezkaDoPlikow);
-                        StringBuilder wczytaniPracownicy = new StringBuilder();
-                        int counter = 0;
-                        foreach (string plik in pliki)
-                        {
-                            using (StreamReader reader = new StreamReader(plik))
-                            {
-                                string line;
-                                while ((line = reader.ReadLine()) != null)
-                                {
-                                    wczytaniPracownicy.Append(line);
-                                }
-                            };
-
-                            var parsedJson = JObject.Parse(wczytaniPracownicy.ToString());
-                            var root = parsedJson["KatLokalPapier"];
-                            foreach (var pracownik in root)
-                            {
-                                counter += 1;
-                            }
-                        }
-
-                        result.CountImportJson = counter;
-                        result.CountImportDb = _ArchiwaDAO.PoliczArchiwaWBazie();
-
-                        break;
-                    }
-                case "workplaces":
-                    {
-                        string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
-                        List<Pracownik> pracownicy = new List<Pracownik>();
-
-                        string sciezkaDoKatalogu = Path.Combine(eadRoot, "zet");
-                        string sciezkaDoPlikow = Path.Combine(sciezkaDoKatalogu, "MiejscePracy");
-
-                        string[] pliki = Directory.GetFiles(sciezkaDoPlikow);
-                        StringBuilder wczytaniPracownicy = new StringBuilder();
-                        int counter = 0;
-                        foreach (string plik in pliki)
-                        {
-                            using (StreamReader reader = new StreamReader(plik))
-                            {
-                                string line;
-                                while ((line = reader.ReadLine()) != null)
-                                {
-                                    wczytaniPracownicy.Append(line);
-                                }
-                            };
-
-                            var parsedJson = JObject.Parse(wczytaniPracownicy.ToString());
-                            var root = parsedJson["MiejscePracy"];
-                            foreach (var pracownik in root)
-                            {
-                                counter += 1;
-                            }
-                        }
-
-                        result.CountImportJson = counter;
-                        result.CountImportDb = _MiejscePracyDao.PoliczMiejscaPracyWBazie();
-
-                        break;
-                    }
-                case "subdepartment":
-                    {
-                        string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
-                        List<Pracownik> pracownicy = new List<Pracownik>();
-
-                        string sciezkaDoKatalogu = Path.Combine(eadRoot, "zet");
-                        string sciezkaDoPlikow = Path.Combine(sciezkaDoKatalogu, "KatPodWydzial");
-
-                        string[] pliki = Directory.GetFiles(sciezkaDoPlikow);
-                        StringBuilder wczytaniPracownicy = new StringBuilder();
-                        int counter = 0;
-                        foreach (string plik in pliki)
-                        {
-                            using (StreamReader reader = new StreamReader(plik))
-                            {
-                                string line;
-                                while ((line = reader.ReadLine()) != null)
-                                {
-                                    wczytaniPracownicy.Append(line);
-                                }
-                            };
-
-                            var parsedJson = JObject.Parse(wczytaniPracownicy.ToString());
-                            var root = parsedJson["KatPodWydzial"];
-                            foreach (var pracownik in root)
-                            {
-                                counter += 1;
-                            }
-                        }
-
-                        result.CountImportJson = counter;
-                        result.CountImportDb = _KatPodwydzialDAO.PoliczPodwydzialyWBazie();
-
-                        break;
-                    }
-                case "department":
-                    {
-                        string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
-                        List<Pracownik> pracownicy = new List<Pracownik>();
-
-                        string sciezkaDoKatalogu = Path.Combine(eadRoot, "zet");
-                        string sciezkaDoPlikow = Path.Combine(sciezkaDoKatalogu, "KatWydzial");
-
-                        string[] pliki = Directory.GetFiles(sciezkaDoPlikow);
-                        StringBuilder wczytaniPracownicy = new StringBuilder();
-                        int counter = 0;
-                        foreach (string plik in pliki)
-                        {
-                            using (StreamReader reader = new StreamReader(plik))
-                            {
-                                string line;
-                                while ((line = reader.ReadLine()) != null)
-                                {
-                                    wczytaniPracownicy.Append(line);
-                                }
-                            };
-
-                            var parsedJson = JObject.Parse(wczytaniPracownicy.ToString());
-                            var root = parsedJson["KatWydzial"];
-                            foreach (var pracownik in root)
-                            {
-                                counter += 1;
-                            }
-                        }
-
-                        result.CountImportJson = counter;
-                        result.CountImportDb = _KatWydzialDAO.PoliczWydzialyWBazie();
-
-                        break;
-                    }
-                case "account5":
-                    {
-                        string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
-                        List<Pracownik> pracownicy = new List<Pracownik>();
-
-                        string sciezkaDoKatalogu = Path.Combine(eadRoot, "zet");
-                        string sciezkaDoPlikow = Path.Combine(sciezkaDoKatalogu, "KatKonta5");
-
-                        string[] pliki = Directory.GetFiles(sciezkaDoPlikow);
-                        StringBuilder wczytaniPracownicy = new StringBuilder();
-                        int counter = 0;
-                        foreach (string plik in pliki)
-                        {
-                            using (StreamReader reader = new StreamReader(plik))
-                            {
-                                string line;
-                                while ((line = reader.ReadLine()) != null)
-                                {
-                                    wczytaniPracownicy.Append(line);
-                                }
-                            };
-
-                            var parsedJson = JObject.Parse(wczytaniPracownicy.ToString());
-                            var root = parsedJson["KatKonta5"];
-                            foreach (var pracownik in root)
-                            {
-                                counter += 1;
-                            }
-                        }
-
-                        result.CountImportJson = counter;
-                        result.CountImportDb = _Konto5DAO.PoliczRejonyWBazie();
-
-                        break;
-                    }
-                case "dokRodzaj":
-                    {
-                        string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
-                        List<Pracownik> pracownicy = new List<Pracownik>();
-
-                        string sciezkaDoKatalogu = Path.Combine(eadRoot, "excel");
-                        string plik = Path.Combine(sciezkaDoKatalogu, "Rodzaje_dokumentow_Eteczka.xlsx");
-
-                        List<KatDokumentyRodzaj> rodzajeDokumentow = _KatRodzajeDokumentowExcelMapper.PobierzRodzajeDokZExcela(plik);
-
-                        result.CountImportJson = rodzajeDokumentow.Count;
-                        result.CountImportDb = _KatDokumentyRodzajDAO.PoliczRodzajeWBazie();
-
-                        break;
-                    }
-                default:
-                    {
-                        break;
-                    }
-
+                result.ImportSukces = _KatDokumentyRodzajDAO.ImportujRodzajeDokumentow(rodzajeDokumentow);
             }
-
             return result;
         }
+        
 
         public ImportResult WczytajDokZExcela(bool nadpisz = true)
         {
