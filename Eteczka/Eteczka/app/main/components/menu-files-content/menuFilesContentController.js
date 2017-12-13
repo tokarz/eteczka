@@ -35,6 +35,15 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
         $scope.filesToAttach = selectedFiles;
     }
 
+    $scope.generatePdf = function () {
+        filesViewService.generatePdf($scope.user).then(function () {
+            modalService.alert('Raport Pdf', 'Raport wygenerowano!');
+        }, function () {
+            modalService.alert('Raport Pdf (Blad!) ', 'Blad przy generowaniu raportu! Sprawdz logi systemowe');
+        });
+
+    }
+
     $scope.openSendEmailDialog = function () {
         var modalOptions = {
             body: 'app/views/shopcart/shopCartModals/sendEmailModal.html',

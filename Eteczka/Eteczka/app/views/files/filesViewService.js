@@ -39,6 +39,12 @@ angular.module('et.services').factory('filesViewService', ['httpService', 'sessi
                 sessionId: sessionService.getSessionId(),
                 files: files
             });
+        },
+        generatePdf: function (user) {
+            return httpService.get('Raporty/GenerujRaportPdfSkorowidzTeczki', {
+                sessionId: sessionService.getSessionId(),
+                numeread: user.Numeread
+            });
         }
     }
 }]);
