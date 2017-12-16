@@ -287,21 +287,31 @@ angular.module('et.controllers').controller('settingsViewController', ['$scope',
         };
 
         openModal(modalOptions, function (user) {
-
             var userDto = {
                 Identyfikator: user.Nazwa,
-                //Hasloshort: '',
-                //Haslolong: user.Password,
-                //Datamodify: '',
-                //IsAdmin: '',
-                //Usuniety: '',
-                //Nazwisko: '',
-                //Imie: '',
-                //Firmy: user.Firmy,
-                //Email: '',
-                //Uprawnienia: '',
-                //Confidential: user.Confidential,
-                //KodKierownik: ''
+                Hasloshort: '',
+                Haslolong: user.Password,
+                Datamodify: Date.now(),
+                IsAdmin: false,
+                Usuniety: '',
+                Nazwisko: '',
+                Imie: '',
+                Firmy: user.Firmy,
+                Email: '',
+                Uprawnienia: {
+                    RolaReadOnly: true,
+                    RolaAddPracownik: true,
+                    RolaModifyPracownik: true,
+                    RolaAddFile: true,
+                    RolaModifyFile: true,
+                    RolaSlowniki: true,
+                    RolaSendEmail: true,
+                    RolaRaport: true,
+                    RolaRaportExport: true,
+                    RolaDoubleAkcept: true
+                },
+                Confidential: user.Confidential,
+                KodKierownik: ''
             };
 
 

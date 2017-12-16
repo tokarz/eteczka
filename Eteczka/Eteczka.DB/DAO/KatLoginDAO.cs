@@ -49,6 +49,82 @@ namespace Eteczka.DB.DAO
             return fetchedResult;
         }
 
+        public bool DodajNowegoPracownika(KatLoginy pracownik, List<KatLoginyDetale> detale)
+        {
+            bool result = false;
+
+            if (pracownik.Haslolong != null)
+            {
+                pracownik.Haslolong = _Crypto.CalculateMD5Hash(pracownik.Haslolong);
+
+            }
+
+            if (pracownik.Hasloshort != null)
+            {
+                pracownik.Hasloshort = _Crypto.CalculateMD5Hash(pracownik.Hasloshort);
+            }
+
+
+            StringBuilder sqlBatch = new StringBuilder();
+            string katLoginyWartosci = string.Format("'{0}','{1}','{2}','{3}',{4},{5}", pracownik.Identyfikator, pracownik.Hasloshort, pracownik.Haslolong, pracownik.Datamodify, pracownik.IsAdmin, pracownik.Usuniety);
+            string dodajUzytkownika = "INSERT INTO \"KatLoginy\" (identyfikator, hasloshort, haslolong, datamodify, isadmin, usuniety) VALUES (" + katLoginyWartosci + ");";
+            sqlBatch.Append(dodajUzytkownika);
+            foreach (KatLoginyDetale detal in detale)
+            {
+                if (detal.Uprawnienia == null)
+                {
+                    detal.Uprawnienia = new Uprawnienia();
+                    detal.Uprawnienia.RolaAddFile = true;
+                    detal.Uprawnienia.RolaAddPracownik = true;
+                    detal.Uprawnienia.RolaDoubleAkcept = true;
+                    detal.Uprawnienia.RolaModifyFile = true;
+                    detal.Uprawnienia.RolaModifyPracownik = true;
+                    detal.Uprawnienia.RolaRaport = true;
+                    detal.Uprawnienia.RolaRaportExport = true;
+                    detal.Uprawnienia.RolaReadOnly = true;
+                    detal.Uprawnienia.RolaSendEmail = true;
+                    detal.Uprawnienia.RolaSlowniki = true;
+                }
+
+                string detaleWartosci = string.Format("'{0}','{1}','{2}','{3}','{4}',{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},'{15}',{16},{17},'{18}'",
+                    detal.Identyfikator,
+                    detal.Nazwisko,
+                    detal.Imie,
+                    detal.Firma,
+                    detal.Email,
+                    detal.Uprawnienia.RolaReadOnly,
+                    detal.Uprawnienia.RolaAddPracownik,
+                    detal.Uprawnienia.RolaModifyPracownik,
+                    detal.Uprawnienia.RolaAddFile,
+                    detal.Uprawnienia.RolaModifyFile,
+                    detal.Uprawnienia.RolaSlowniki,
+                    detal.Uprawnienia.RolaSendEmail,
+                    detal.Uprawnienia.RolaRaport,
+                    detal.Uprawnienia.RolaRaportExport,
+                    detal.Uprawnienia.RolaDoubleAkcept,
+                    detal.DataModify,
+                    detal.Usuniety,
+                    detal.Confidential,
+                    detal.KodKierownik);
+                string katLoginyDetal = "INSERT INTO \"KatLoginyDetale\" (identyfikator, nazwisko, imie, firma, pocztaemail, rolareadonly, rolaaddpracownik, rolamodifypracownik, rolaaddfile, rolamodifyfile, rolaslowniki, rolasendmail, rolaraport, rolaraportexport, roladoubleakcept, datamodify, usuniety, confidential, kodkierownik) VALUES (" + detaleWartosci + ");";
+
+                sqlBatch.Append(katLoginyDetal);
+            }
+
+            try
+            {
+                IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+                result = connectionState.ExecuteNonQuery(sqlBatch.ToString());
+
+            }
+            catch (Exception ex)
+            {
+                result = false;
+            }
+
+            return result;
+        }
+
         public List<KatLoginyDetale> WczytajDetaleDlaUzytkownika(string id)
         {
             string sqlQuery = "SELECT * from \"KatLoginyDetale\" WHERE identyfikator = '" + id + "';";
@@ -61,6 +137,8 @@ namespace Eteczka.DB.DAO
 
             return fetchedResult;
         }
+
+
 
         public List<KatLoginyDetale> WczytajWszystkieDetale(bool czyAdminTez = false)
         {

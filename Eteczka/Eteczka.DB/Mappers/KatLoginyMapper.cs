@@ -1,4 +1,5 @@
-﻿using Eteczka.Model.Entities;
+﻿using Eteczka.Model.DTO;
+using Eteczka.Model.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -56,6 +57,41 @@ namespace Eteczka.DB.Mappers
                 fetchedResult.Uprawnienia = uprawnienia;
 
                 result.Add(fetchedResult);
+            }
+
+            return result;
+        }
+
+        public KatLoginy MapujKatLoginy(AddKatLoginyDto user)
+        {
+            KatLoginy result = new KatLoginy();
+            result.Datamodify = user.DataModify;
+            result.Haslolong = user.Haslolong;
+            result.Hasloshort = user.Hasloshort;
+            result.Identyfikator = user.Identyfikator;
+            result.IsAdmin = user.IsAdmin;
+            result.Usuniety = user.Usuniety;
+
+            return result;
+        }
+        public List<KatLoginyDetale> MapujKatLoginyDetale(AddKatLoginyDto user)
+        {
+            List<KatLoginyDetale> result = new List<KatLoginyDetale>();
+            foreach (KatFirmy firma in user.Firmy)
+            {
+                KatLoginyDetale detal = new KatLoginyDetale();
+                detal.Confidential = user.Confidential;
+                detal.DataModify = user.DataModify;
+                detal.Email = user.Email;
+                detal.Firma = firma.Firma;
+                detal.Identyfikator = user.Identyfikator;
+                detal.Imie = user.Imie;
+                detal.KodKierownik = user.KodKierownik;
+                detal.Nazwisko = user.Nazwisko;
+                detal.Uprawnienia = user.Uprawnienia;
+                detal.Usuniety = user.Usuniety;
+
+                result.Add(detal);
             }
 
             return result;

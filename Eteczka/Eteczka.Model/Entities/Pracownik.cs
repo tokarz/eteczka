@@ -14,7 +14,7 @@ namespace Eteczka.Model.Entities
         public string Numeread { get; set; }
         public string Kraj { get; set; }
         public string NazwiskoRodowe { get; set; }
-
+        
         public string ImieMatki { get; set; }
         public string ImieOjca { get; set; }
         public string PeselInny { get; set; }

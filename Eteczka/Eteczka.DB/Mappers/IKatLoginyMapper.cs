@@ -1,10 +1,7 @@
-﻿using Eteczka.Model.Entities;
-using System;
+﻿using Eteczka.Model.DTO;
+using Eteczka.Model.Entities;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Eteczka.DB.Mappers
 {
@@ -12,5 +9,7 @@ namespace Eteczka.DB.Mappers
     {
         KatLoginy Map(DataTable result);
         List<KatLoginyDetale> MapDetails(DataTable result);
+        KatLoginy MapujKatLoginy(AddKatLoginyDto user);
+        List<KatLoginyDetale> MapujKatLoginyDetale(AddKatLoginyDto user);
     }
 }

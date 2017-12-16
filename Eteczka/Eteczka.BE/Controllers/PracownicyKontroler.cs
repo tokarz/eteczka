@@ -56,13 +56,13 @@ namespace Eteczka.BE.Controllers
 
         [HttpPut]
         [ActionName("Dodaj")]
-        public ActionResult DodajPracownika(string sessionId, Pracownik pracownik)
+        public ActionResult DodajPracownika(string sessionId, Pracownik user)
         {
             InsertResult success = new InsertResult();
             if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
             {
                 SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
-                success = _PracownicyService.DodajPracownika(pracownik, sesja);
+                success = _PracownicyService.DodajPracownika(user, sesja);
             }
 
             return Json(new

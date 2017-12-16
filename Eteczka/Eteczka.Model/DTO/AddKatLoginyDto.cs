@@ -12,11 +12,10 @@ namespace Eteczka.Model.DTO
         public string Identyfikator { get; set; }
         public string Hasloshort { get; set; }
         public string Haslolong { get; set; }
-        public DateTime Datamodify { get; set; }
         public bool IsAdmin { get; set; }
         public string Nazwisko { get; set; }
         public string Imie { get; set; }
-        public List<string> Firmy { get; set; }
+        public List<KatFirmy> Firmy { get; set; }
         public string Email { get; set; }
         public Uprawnienia Uprawnienia { get; set; }
         public DateTime DataModify { get; set; }

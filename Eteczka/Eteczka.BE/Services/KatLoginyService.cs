@@ -4,16 +4,20 @@ using Eteczka.DB.Connection;
 using System.Configuration;
 using System.Collections.Generic;
 using Eteczka.Model.Entities;
+using Eteczka.Model.DTO;
+using Eteczka.DB.Mappers;
 
 namespace Eteczka.BE.Services
 {
     public class KatLoginyService : IKatLoginyService
     {
         private KatLoginDAO _Dao;
+        private IKatLoginyMapper _Mapper;
 
-        public KatLoginyService(KatLoginDAO dao)
+        public KatLoginyService(KatLoginDAO dao, IKatLoginyMapper mapper)
         {
             this._Dao = dao;
+            this._Mapper = mapper;
         }
 
         public bool UsunFirmeUzytkownika(KatLoginy user, string firma)
@@ -40,6 +44,16 @@ namespace Eteczka.BE.Services
             List<KatLoginyDetale> queryResult = _Dao.WczytajWszystkieDetale();
 
             return queryResult;
+        }
+
+        public bool DodajNowegoUzytkownika(AddKatLoginyDto user)
+        {
+            KatLoginy nowyUser = _Mapper.MapujKatLoginy(user);
+            List<KatLoginyDetale> detale = _Mapper.MapujKatLoginyDetale(user);
+
+            bool result = _Dao.DodajNowegoPracownika(nowyUser, detale);
+
+            return result;
         }
     }
 }

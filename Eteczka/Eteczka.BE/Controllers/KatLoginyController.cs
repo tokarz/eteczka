@@ -26,7 +26,7 @@ namespace Eteczka.BE.Controllers
             StanSesji stanSesji = Sesja.PobierzStanSesji();
             if (stanSesji.CzySesjaJestOtwarta(sessionId) && stanSesji.CzySesjaAdministratora(sessionId))
             {
-
+                result = _KatLoginyService.DodajNowegoUzytkownika(user);
             }
 
             return Json(new
