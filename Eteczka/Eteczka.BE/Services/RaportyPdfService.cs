@@ -41,7 +41,7 @@ namespace Eteczka.BE.Services
                 Paragraph paragraph = sec.AddParagraph();
 
                 //stopka:
-                paragraph = sec.Footers.Primary.AddParagraph("Teczka pracownika: " + pracownik.Imie + " " + pracownik.Nazwisko + ", ur. " + pracownik.DataUrodzenia + " r. Miejsce pracy: " + sesja.AktywnaFirma + ". Wygenerowano: " + sesja.AktywnyUser + ", " + DateTime.Now.ToShortDateString() + ", " + DateTime.Now.ToLongTimeString() + ". Program: eAD");
+                paragraph = sec.Footers.Primary.AddParagraph("Teczka pracownika " + sesja.AktywnaFirma.Trim() + ": " + pracownik.Imie + " " + pracownik.Nazwisko + ", ur. " + pracownik.DataUrodzenia   + ". Wygenerowano: " + sesja.AktywnyUser.Identyfikator.Trim()  + ", " + DateTime.Now.ToShortDateString() + ":" + DateTime.Now.ToLongTimeString() + ". Program: eAD");
                 paragraph.Format.Font.Size = 7;
 
                 //Tytuł dokumentu:
@@ -101,14 +101,22 @@ namespace Eteczka.BE.Services
                 foreach (Pliki dokument in Dokumenty)
                 {
                     row = table.AddRow();
+                    
                     cell = row.Cells[0];
                     cell.AddParagraph(" ");
+                    cell.Format.Alignment = ParagraphAlignment.Left;
                     cell = row.Cells[1];
                     cell.AddParagraph(dokument.Symbol);
+                    cell.Format.Alignment = ParagraphAlignment.Left;
                     cell = row.Cells[2];
                     cell.AddParagraph(dokument.DataSkanu.ToString("yyyy-MM-dd"));
+                    cell.Format.Alignment = ParagraphAlignment.Center;
                     cell = row.Cells[3];
                     cell.AddParagraph(dokument.OpisDodatkowy);
+                    cell.Format.Alignment = ParagraphAlignment.Left;
+
+
+
                 }
                 doc.LastSection.Add(table);
             }
