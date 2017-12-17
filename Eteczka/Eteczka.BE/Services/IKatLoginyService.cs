@@ -12,5 +12,8 @@ namespace Eteczka.BE.Services
         List<KatLoginyDetale> GetAllUsersDetails();
         bool UsunFirmeUzytkownika(KatLoginy user, string firma);
         bool DodajNowegoUzytkownika(AddKatLoginyDto user);
+        bool ZmienHaslo(AddKatLoginyDto user);
+        bool UsunUzytkownika(AddKatLoginyDto user);
+
     }
 }

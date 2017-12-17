@@ -8,6 +8,7 @@ using Eteczka.Model.Entities;
 using System.Data;
 using Eteczka.DB.Mappers;
 using Eteczka.DB.Utils;
+using Eteczka.Model.DTO;
 
 namespace Eteczka.DB.DAO
 {
@@ -115,6 +116,49 @@ namespace Eteczka.DB.DAO
             {
                 IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
                 result = connectionState.ExecuteNonQuery(sqlBatch.ToString());
+
+            }
+            catch (Exception ex)
+            {
+                result = false;
+            }
+
+            return result;
+        }
+
+        public bool ZmienHasloUzytkownika(AddKatLoginyDto userDoZmianyHasla)
+        {
+            bool result = false;
+
+            if (userDoZmianyHasla.Haslolong != null)
+            {
+                userDoZmianyHasla.Haslolong = _Crypto.CalculateMD5Hash(userDoZmianyHasla.Haslolong);
+
+                string updateString = "UPDATE \"KatLoginy\" SET haslolong='" + userDoZmianyHasla.Haslolong + "' WHERE identyfikator = '" + userDoZmianyHasla.Identyfikator + "';";
+
+                try
+                {
+                    IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+                    result = connectionState.ExecuteNonQuery(updateString.ToString());
+
+                }
+                catch (Exception ex)
+                {
+                    result = false;
+                }
+            }
+
+            return result;
+        }
+        public bool UsunUzytkownika(AddKatLoginyDto user)
+        {
+            bool result = false;
+            string updateString = "UPDATE \"KatLoginy\" SET usuniety = true WHERE identyfikator = '" + user.Identyfikator + "';";
+
+            try
+            {
+                IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+                result = connectionState.ExecuteNonQuery(updateString.ToString());
 
             }
             catch (Exception ex)

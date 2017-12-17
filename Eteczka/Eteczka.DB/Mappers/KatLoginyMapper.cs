@@ -65,7 +65,7 @@ namespace Eteczka.DB.Mappers
         public KatLoginy MapujKatLoginy(AddKatLoginyDto user)
         {
             KatLoginy result = new KatLoginy();
-            result.Datamodify = user.DataModify;
+            result.Datamodify = DateTime.Now;
             result.Haslolong = user.Haslolong;
             result.Hasloshort = user.Hasloshort;
             result.Identyfikator = user.Identyfikator;
@@ -81,7 +81,7 @@ namespace Eteczka.DB.Mappers
             {
                 KatLoginyDetale detal = new KatLoginyDetale();
                 detal.Confidential = user.Confidential;
-                detal.DataModify = user.DataModify;
+                detal.DataModify = DateTime.Now;
                 detal.Email = user.Email;
                 detal.Firma = firma.Firma;
                 detal.Identyfikator = user.Identyfikator;

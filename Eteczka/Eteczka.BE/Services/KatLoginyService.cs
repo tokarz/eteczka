@@ -55,5 +55,18 @@ namespace Eteczka.BE.Services
 
             return result;
         }
+
+        public bool ZmienHaslo(AddKatLoginyDto user)
+        {
+            bool result = _Dao.ZmienHasloUzytkownika(user);
+
+            return result;
+        }
+        public bool UsunUzytkownika(AddKatLoginyDto user)
+        {
+            bool result = _Dao.UsunUzytkownika(user);
+
+            return result;
+        }
     }
 }

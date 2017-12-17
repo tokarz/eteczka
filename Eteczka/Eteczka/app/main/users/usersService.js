@@ -20,6 +20,18 @@ angular.module('et.services').factory('usersService', ['httpService', 'sessionSe
                 sessionId: sessionService.getSessionId(),
                 user: user
             });
+        },
+        changePassword: function (user) {
+            return httpService.post('KatLoginy/ZmienHaslo', {
+                sessionId: sessionService.getSessionId(),
+                user: user
+            });
+        },
+        markAsDeleted: function (user) {
+            return httpService.post('KatLoginy/UsunPrac', {
+                sessionId: sessionService.getSessionId(),
+                user: user
+            });
         }
     }
 }]);

@@ -36,6 +36,42 @@ namespace Eteczka.BE.Controllers
         }
 
         [HttpPost]
+        [ActionName("ZmienHaslo")]
+        public ActionResult ZmienHaslo(string sessionId, AddKatLoginyDto user)
+        {
+
+            bool result = false;
+            StanSesji stanSesji = Sesja.PobierzStanSesji();
+            if (stanSesji.CzySesjaJestOtwarta(sessionId) && stanSesji.CzySesjaAdministratora(sessionId))
+            {
+                result = _KatLoginyService.ZmienHaslo(user);
+            }
+
+            return Json(new
+            {
+                success = true
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        [ActionName("UsunPrac")]
+        public ActionResult UsunPrac(string sessionId, AddKatLoginyDto user)
+        {
+
+            bool result = false;
+            StanSesji stanSesji = Sesja.PobierzStanSesji();
+            if (stanSesji.CzySesjaJestOtwarta(sessionId) && stanSesji.CzySesjaAdministratora(sessionId))
+            {
+                result = _KatLoginyService.UsunUzytkownika(user);
+            }
+
+            return Json(new
+            {
+                success = true
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
         public ActionResult DodajFirmeDlaUzytkownika(string sessionId, KatLoginy user, string firma)
         {
 

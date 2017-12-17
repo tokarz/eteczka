@@ -29,13 +29,7 @@ angular.module('et.controllers').controller('settingsViewController', ['$scope',
         });
     }
 
-    $scope.changePassword = function (user) {
-
-    }
-
-    $scope.markAsDeleted = function (user) {
-
-    }
+    
 
     $scope.checkButtonsState = function (folders) {
         angular.forEach(folders, function (folder) {
@@ -314,12 +308,22 @@ angular.module('et.controllers').controller('settingsViewController', ['$scope',
                 KodKierownik: ''
             };
 
-
             usersService.addUser(userDto).then(function () {
-
+                $state.reload();
             });
 
+        });
+    }
 
+    $scope.changePassword = function (user) {
+        usersService.changePassword(userDto).then(function () {
+            $state.reload();
+        });
+    }
+
+    $scope.markAsDeleted = function (user) {
+        usersService.deleteUser(userDto).then(function () {
+            $state.reload();
         });
     }
 }]);
