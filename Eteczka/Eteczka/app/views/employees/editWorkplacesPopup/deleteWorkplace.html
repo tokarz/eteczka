@@ -1,4 +1,4 @@
-﻿<md-dialog aria-label="Edycja nowego pracownika">
+﻿<md-dialog aria-label="Edycja nowego pracownika" draggable class="open-to-left">
     <form ng-cloak name="deleteWorkspace">
         <md-toolbar>
             <div class="modal-header md-toolbar-tools">
@@ -9,7 +9,6 @@
                 </md-button>-->
             </div>
         </md-toolbar>
-
         <md-dialog-content style="padding:15px">
             <div class="modal-table-title">Ponizsze miejsce pracy zostanie usuniete z bazy danych</div>
             <div class="modal-table-row">
@@ -37,7 +36,6 @@
                 <input class="modal-table-input" name="account5" type="text" ng-model="modalResult.Konto5.Konto5" disabled />
             </div>
         </md-dialog-content>
-
         <md-dialog-actions layout="row">
             <div class="modal-footer">
                 <button type="button" class="btn btn-info" ng-click="cancel()">Anuluj</button>
@@ -46,5 +44,4 @@
         </md-dialog-actions>
     </form>
 </md-dialog>
-
 

@@ -958,6 +958,15 @@ form.ng-submitted input.ng-invalid, form.ng-submitted select.ng-invalid {
   margin-bottom: 15px;
 }
 
+md-dialog.open-to-left {
+  position: absolute;
+  left: 0;
+}
+
+md-toolbar {
+  cursor: move;
+}
+
 @keyframes fadein {
   0% {
     opacity: 0;
