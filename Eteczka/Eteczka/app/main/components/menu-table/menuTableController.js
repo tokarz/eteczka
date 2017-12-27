@@ -3,7 +3,7 @@ angular.module('et.controllers').controller('menuTableController', ['$scope', fu
     $scope.selectedrow = {};
 
     $scope.isTabActive = function (tab) {
-        var result = 'tab tab-default'
+        var result = 'tab tab-default';
         if (tab === $scope.activetab) {
             result = 'tab tab-active';
         }
