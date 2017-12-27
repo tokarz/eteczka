@@ -84,6 +84,8 @@
                        ng-pattern="/^\s*(\d{4})-(\d{2})-(\d{2})\s*$/"
                        ng-change="fillValidFromDate()"
                        ng-model-options="{updateOn: 'blur'}"
+                       datemask
+                       separator="-"
                        required />
             </div>
             <div ng-show="upsertFileDescription.$submitted || upsertFileDescription.creationDate.$touched">

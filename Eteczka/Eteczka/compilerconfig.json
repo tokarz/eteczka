@@ -2,5 +2,9 @@
   {
     "outputFile": "app/css/components.css",
     "inputFile": "app/css/components.scss"
+  },
+  {
+    "outputFile": "app/css/ead.css",
+    "inputFile": "app/css/ead.scss"
   }
 ]

@@ -21,6 +21,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile>true</UseGlobalApplicationHostFile>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -224,6 +225,7 @@
     <Content Include="app\main\components\filepreview\print\pdfsnippet.js" />
     <Content Include="app\main\components\filepreview\print\print.html" />
     <Content Include="app\main\users\usersService.js" />
+    <Content Include="app\main\utils\datemask.js" />
     <Content Include="app\main\utils\draggableDirective.js" />
     <Content Include="app\views\settings\addUserModal.html" />
     <Content Include="app\views\shopcart\shopCartController.js" />
@@ -1406,6 +1408,10 @@
     <Content Include="node_modules\angular-material\layouts\angular-material.layout-attributes.css.map">
       <DependentUpon>angular-material.layout-attributes.css</DependentUpon>
     </Content>
+    <None Include="compilerconfig.json" />
+    <None Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
     <None Include="Properties\PublishProfiles\ETeczka.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\d3js\.gitattributes" />
