@@ -75,6 +75,39 @@
                         required />
             </div>
             <div class="modal-table-row">
+                <label class="modal-table-label" for="datePicker">angular material</label>
+                <md-input-container name="datePicker">
+                    <md-datepicker class="modal-table-input"
+                                   ng-model="modalResult.myDate" 
+                                   name="dateField"
+                                   md-placeholder="RRRR-MM-DD"
+                                   ng-pattern="/^\s*(\d{4})-(\d{2})-(\d{2})\s*$/"
+                                   ng-change="fillValidFromDate()"
+                                   ng-model-options="{updateOn: 'blur'}"
+                                   separator="-"
+                                   required
+                                   >
+                    </md-datepicker>
+
+                    <div ng-messages="upsertFileDescription.dateField.$error">
+                        <div ng-message="valid">The entered value is not a date!</div>
+                        <div ng-message="required">This date is required!</div>
+                    </div>
+                </md-input-container>
+            </div>
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="testBootstrap">bootstrap</label>
+                <div class="input-group date modal-table-input" data-provide="testBootstrap" id="datetimepicker1">
+                    <input type="text" 
+                           class="form-control" 
+                           datemask
+                           separator="-">
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-table-row">
                 <label class="modal-table-label" for="creationDate">Data dokumentu *</label>
                 <input class="modal-table-input"
                        name="creationDate"

@@ -236,6 +236,7 @@
     <Content Include="app\views\shopcart\shopCartView.html" />
     <Content Include="coverage.js" />
     <Content Include="node_modules\lodash.find\index.js" />
+    <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.custom\AUTHORS.txt" />
     <Content Include="Scripts\jquery-ui-1.12.1.custom\external\jquery\jquery.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.custom\images\ui-icons_444444_256x240.png" />

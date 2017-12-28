@@ -98,6 +98,10 @@ angular.module('et.controllers').controller('filesViewController', ['$scope', '$
                 return (object[key].toLowerCase().indexOf(lowercaseQuery) === 0);
             };
         }
+
+        $('#datetimepicker1').datepicker({
+            format: 'mm/dd/yyyy'
+        });
     }
 
     var openModal = function (modalOptions, executor) {
