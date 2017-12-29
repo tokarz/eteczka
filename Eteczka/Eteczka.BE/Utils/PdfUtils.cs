@@ -1,7 +1,11 @@
-﻿using PdfSharp.Pdf;
+﻿using MigraDoc.DocumentObjectModel;
+using MigraDoc.Rendering;
+using PdfSharp.Pdf;
 using PdfSharp.Pdf.IO;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,5 +40,38 @@ namespace Eteczka.BE.Utils
 
             return result;
         }
+        public bool GenerujIZapiszRaportPdf(Document doc, string nazwaRaportu)
+        {
+            bool result = false;
+            
+            try
+            {
+            //Generujemy PDF:
+            PdfDocumentRenderer docRend = new PdfDocumentRenderer(true);
+            docRend.Document = doc;
+            docRend.RenderDocument();
+            //Zapis pliku
+            string eadRoot = _Wrapper.GetEnvironmentVariable("EAD_DIR");
+            string raportyPdfFolder = Path.Combine(eadRoot, "RaportyPdf\\");
+            if (!_Wrapper.CzyKatalogIstnieje(raportyPdfFolder))
+            {
+                _Wrapper.UtworzKatalog(raportyPdfFolder);
+            }
+            string nazwaPliku = raportyPdfFolder + DateTime.Now.ToString("yyyyMMddHHmmssfff") + "_" + nazwaRaportu +".pdf";
+            docRend.PdfDocument.Save(nazwaPliku);
+
+            //Uruchamianie podglądu pliku
+            ProcessStartInfo processInfo = new ProcessStartInfo();
+            processInfo.FileName = nazwaPliku;
+            Process.Start(processInfo);
+            result = true;
+            }
+            catch (Exception ex)
+            {
+                result = false;
+            }
+            return result;
+    
+}
     }
 }

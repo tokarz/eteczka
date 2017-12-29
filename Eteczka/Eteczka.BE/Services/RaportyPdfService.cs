@@ -17,17 +17,19 @@ namespace Eteczka.BE.Services
         private PlikiDAO _PlikiDAO;
         private IDirectoryWrapper _Wrapper;
         private PracownikDAO _PracownikDAO;
+        private IPdfUtils _PdfUtils;
 
-        public RaportyPdfService(PlikiDAO plikiDAO, IDirectoryWrapper wrapper, PracownikDAO pracownikDAO)
+        public RaportyPdfService(PlikiDAO plikiDAO, IDirectoryWrapper wrapper, PracownikDAO pracownikDAO, IPdfUtils pdfUtils)
         {
             this._PlikiDAO = plikiDAO;
             this._Wrapper = wrapper;
             this._PracownikDAO = pracownikDAO;
+            this._PdfUtils = pdfUtils;
         }
 
         public bool SkorowidzTeczkiPracownika(SessionDetails sesja, string numeread)
         {
-            bool result = true;
+            bool result = false;
 
             List<Pliki> Dokumenty = _PlikiDAO.PobierzPlikPoNumerzeEad(numeread, sesja.AktywnaFirma, "nrdokumentu asc", "teczkadzial asc, ");
             Pracownik pracownik = _PracownikDAO.PobierzPracownikaPoId(numeread);
@@ -151,36 +153,13 @@ namespace Eteczka.BE.Services
                 paragraph = sec.AddParagraph("Teczka pracownika nie zawiera dokumentów.");
                 paragraph.Format.Font.Bold = true;
             }
-            
-            try
-            {
-                result = true;
-                //Generujemy PDF:
-                PdfDocumentRenderer docRend = new PdfDocumentRenderer(true);
-                docRend.Document = doc;
-                docRend.RenderDocument();
-                //Zapis pliku
-                string eadRoot = _Wrapper.GetEnvironmentVariable("EAD_DIR");
-                string raportyPdfFolder = Path.Combine(eadRoot, "RaportyPdf\\");
-                if (!_Wrapper.CzyKatalogIstnieje(raportyPdfFolder))
-                {
-                    _Wrapper.UtworzKatalog(raportyPdfFolder);
-                }
-                string nazwaPliku = raportyPdfFolder + DateTime.Now.ToString("yyyyMMddHHmmssfff") + "_Skorowidz_teczki.pdf";
-                docRend.PdfDocument.Save(nazwaPliku);
 
-                //Uruchamianie podglądu pliku
-                ProcessStartInfo processInfo = new ProcessStartInfo();
-                processInfo.FileName = nazwaPliku;
-                Process.Start(processInfo);
+            //Generujemy i zapisujemy plik z raportem
+            result = _PdfUtils.GenerujIZapiszRaportPdf(doc, "Skorowidz teczki");
 
-            }
-            catch (Exception ex)
-            {
-                result = false;
-            }
             return result;
         }
+
 
         
 
