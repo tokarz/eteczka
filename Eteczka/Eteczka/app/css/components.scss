@@ -246,20 +246,22 @@
     color: black;
 }
 
-.file-list-wrapper {
-    height: 100%;
-    width: 60%;
-    float: left;
-}
+
 
 .main-files-content-wrapper {
     height: calc(100% - 60px);
     width: 100%;
 }
 
+.file-list-wrapper {
+    height: 100%;
+    width: 50%;
+    float: left;
+}
+
 .file-preview-wrapper {
     height: 100%;
-    width: 39%;
+    width: 50%;
     float: right;
     background: whitesmoke;
 }

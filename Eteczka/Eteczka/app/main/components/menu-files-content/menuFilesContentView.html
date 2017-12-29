@@ -25,7 +25,8 @@
                 <table style="width:100%;text-align:center">
                     <thead class="table-header">
                         <tr>
-                            <th>Pracownik</th>
+                            <th>ND</th>
+                            <th>Dział</th>
                             <th>Rodzaj Dokumentu</th>
                             <th>Data Dok</th>
                             <th>Data Pocz</th>
@@ -35,7 +36,8 @@
                     </thead>
                     <tbody style="text-align:left">
                         <tr ng-if="userFiles && userFiles.length > 0" ng-repeat="file in userFiles" ng-click="selectFile(file)" ng-class="getRowStyle(file)">
-                            <td>{{file.Nazwisko}} {{file.Imie}}</td>
+                            <td>{{file.NrDokumentu}}</td>
+                            <td>{{file.TeczkaDzial}}</td>
                             <td>{{file.Symbol}}</td>
                             <td>{{file.DataDokumentuStr}}</td>
                             <td>{{file.DataPoczStr}}</td>
