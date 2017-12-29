@@ -29,7 +29,7 @@ angular.module('et.controllers').controller('filesViewController', ['$scope', '$
     });
 
 
-    $scope.upsertFileDescriptionCtrl = function ($scope, $mdDialog, description, fileTypes, employees, name) {
+    $scope.upsertFileDescriptionCtrl = function ($scope, $mdDialog, modalService, description, fileTypes, employees, name) {
         if (description) {
             $scope.modalResult = description;
         }
@@ -107,9 +107,9 @@ angular.module('et.controllers').controller('filesViewController', ['$scope', '$
             .then(function (result) {
                 return executor(result);
             })
-            .catch(function (error) {
-                if (error !== 'cancel' && error !== 'backdrop click') {
-                    console.log("error found!", error);
+            .catch(function (ex) {
+                if (ex !== 'cancel' && ex !== 'backdrop click') {
+                    console.error(ex);
                 }
             });
     }
@@ -144,8 +144,11 @@ angular.module('et.controllers').controller('filesViewController', ['$scope', '$
             modalOptions,
             function (value) {
                 $scope.createdMetaData = value;
+                modalService.confirm('Zapisać plik?', 'Czy chcesz zapisać plik użytkownikowi ?').then(function () {
+                    $scope.commitFile();
+                });
             }
-        )
+        );
     }
 
 }]);

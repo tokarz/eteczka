@@ -4,13 +4,6 @@ angular.module('et.utils').factory('modalService', ['$mdDialog', function ($mdDi
 
     return {
         showModal: function (customModalOptions) {
-            //var mergedController = function ($scope, $mdDialog) {
-            //    arguments[2] = customModalOptions.locals;
-
-            //    customModalOptions.controller.apply(this, arguments);
-            //    ModalController.apply(this, arguments);
-            //}
-
             var dialogParams = {
                 templateUrl: customModalOptions.body ? customModalOptions.body : defaultUrl,
                 controller: customModalOptions.controller ? customModalOptions.controller : 'ModalController',
@@ -32,7 +25,19 @@ angular.module('et.utils').factory('modalService', ['$mdDialog', function ($mdDi
                         .textContent(content)
                         .ok(ok)
                 );
+        },
+        confirm: function (title, message) {
+            var confirm = $mdDialog.confirm()
+                .clickOutsideToClose(false)
+                .title(title)
+                .textContent(message)
+                .ariaLabel('Lucky day')
+                .ok('Tak')
+                .cancel('Nie');
+
+            return $mdDialog.show(confirm);
         }
+        
     };
 
 }]);
