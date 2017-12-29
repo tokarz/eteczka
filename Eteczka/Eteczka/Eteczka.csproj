@@ -227,6 +227,7 @@
     <Content Include="app\main\users\usersService.js" />
     <Content Include="app\main\utils\datemask.js" />
     <Content Include="app\main\utils\draggableDirective.js" />
+    <Content Include="app\views\employeesfiles\editEmployeeFileModal.html" />
     <Content Include="app\views\settings\addUserModal.html" />
     <Content Include="app\views\shopcart\shopCartController.js" />
     <Content Include="app\views\shopcart\shopCartDirective.js" />

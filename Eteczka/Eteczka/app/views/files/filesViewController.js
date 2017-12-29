@@ -79,29 +79,27 @@ angular.module('et.controllers').controller('filesViewController', ['$scope', '$
             }
         }
 
-        var querySearch = function (arrayTosearchIn, key, query) {
-            return query ? arrayTosearchIn.filter(createFilterFor(key, query)) : arrayTosearchIn;
+        var querySearch = function (arrayTosearchIn, keys, query) {
+            return query ? arrayTosearchIn.filter(createFilterFor(keys, query)) : arrayTosearchIn;
         }
 
         $scope.fileTypeSearch = function (query) {
-            return querySearch(fileTypes, "Symbol", query)
+            return querySearch(fileTypes, ["Symbol", "Nazwa"], query)
         }
 
         $scope.employeeSearch = function (query) {
-            return querySearch(employees, "Nazwisko", query)
+            return querySearch(employees, ["Nazwisko"], query)
         }
 
-        var createFilterFor = function (key, query) {
+        var createFilterFor = function (keys, query) {
             var lowercaseQuery = angular.lowercase(query);
 
             return function filterFn(object) {
-                return (object[key].toLowerCase().indexOf(lowercaseQuery) === 0);
+                return keys.some(function (key) {
+                    return (object[key].toLowerCase().indexOf(lowercaseQuery) === 0);
+                })
             };
         }
-
-        $('#datetimepicker1').datepicker({
-            format: 'mm/dd/yyyy'
-        });
     }
 
     var openModal = function (modalOptions, executor) {
