@@ -76,11 +76,13 @@ namespace Eteczka.DB.DAO
                             DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture),
                             DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture),
                             plik.Typ.Teczkadzial.Trim(),
-                            plik.Typ.SymbolEad.Trim()
+                            plik.Typ.SymbolEad.Trim(),
+                            plik.NrDokumentu
+                            
                         };
 
-                    string values = string.Format("'{0}', '{1}', '{2}', '{3}','{4}', '{5}','{6}', '{7}','{8}', '{9}','{10}', '{11}','{12}', '{13}','{14}', '{15}','{16}', '{17}', '{18}', '{19}','{20}'", args);
-                    string insertStatement = "INSERT INTO \"Pliki\" (firma, numeread, symbol, dataskanu, datadokumentu, datapocz, datakoniec, nazwascan, nazwaead, pelnasciezkaead, typpliku, opisdodatkowy, dokwlasny, systembazowy, usuniety, idoper, idakcept, datamodify, dataakcept, teczkadzial, symbolead) VALUES (" + values + ");";
+                    string values = string.Format("'{0}', '{1}', '{2}', '{3}','{4}', '{5}','{6}', '{7}','{8}', '{9}','{10}', '{11}','{12}', '{13}','{14}', '{15}','{16}', '{17}', '{18}', '{19}','{20}', '{21}'", args);
+                    string insertStatement = "INSERT INTO \"Pliki\" (firma, numeread, symbol, dataskanu, datadokumentu, datapocz, datakoniec, nazwascan, nazwaead, pelnasciezkaead, typpliku, opisdodatkowy, dokwlasny, systembazowy, usuniety, idoper, idakcept, datamodify, dataakcept, teczkadzial, symbolead, nrdokumentu) VALUES (" + values + ");";
 
                     IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
                     result = connectionState.ExecuteNonQuery(insertStatement);

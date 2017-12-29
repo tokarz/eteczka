@@ -17,6 +17,7 @@ namespace Eteczka.Model.DTO
         public DateTime DataPocz { get; set; }
         public DateTime DataKoniec { get; set; }
         public string OpisDodatkowy { get; set; }
+        public int NrDokumentu { get; set; }
          
     }
 }

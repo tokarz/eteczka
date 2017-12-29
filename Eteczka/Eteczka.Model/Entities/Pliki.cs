@@ -67,5 +67,8 @@ namespace Eteczka.Model.Entities
         public DateTime DataAkcept { get; set; }
         public string Systembazowy { get; set; }//EAD
         public bool Usuniety { get; set; }
+        public string TeczkaDzial { get; set; }
+        public int NrDokumentu { get; set; }
+       
     }
 }

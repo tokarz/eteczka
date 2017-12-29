@@ -41,7 +41,10 @@ namespace Eteczka.DB.Mappers
                     Pesel = row["pesel"].ToString(),
                     DrugieImie = row["imie2"].ToString(),
                     DataUrodzenia = DateTime.Parse(row["dataurodzenia"].ToString()),
-                    SymbolEad = row["symbolead"].ToString()
+                    SymbolEad = row["symbolead"].ToString(),
+                    TeczkaDzial = row["teczkadzial"].ToString(),
+                    NrDokumentu = int.Parse(row["nrdokumentu"].ToString()),
+                    
 
                 };
             }

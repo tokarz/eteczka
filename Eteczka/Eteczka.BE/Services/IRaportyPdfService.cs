@@ -10,5 +10,6 @@ namespace Eteczka.BE.Services
     public interface IRaportyPdfService
     {
         bool SkorowidzTeczkiPracownika(SessionDetails sesja, string numeread);
+        
     }
 }
