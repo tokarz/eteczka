@@ -1,4 +1,5 @@
 ﻿@import 'vars.scss';
+@import 'mixins.scss';
 
 
 .option-wrapper {
@@ -346,6 +347,7 @@
     position: absolute;
     left: 50%;
     top: 50%;
+    @include center-absolute;
 }
 
 .filter-option {
