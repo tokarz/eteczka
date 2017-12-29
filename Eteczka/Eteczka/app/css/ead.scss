@@ -22,6 +22,7 @@ body {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     height: 100%;
     width: 100%;
+    -webkit-transform: translate3d(0,0,0);
 }
 
 li {
@@ -96,4 +97,8 @@ li {
 .not-yet-available {
     opacity: 0.6;
     cursor: not-allowed;
+}
+
+.options-wrapper {
+    height:100%;
 }
