@@ -108,6 +108,51 @@ app.config(function ($stateProvider) {
 
 });
 
+app.config(function ($mdDateLocaleProvider) {
+
+    // Example of a French localization.
+    $mdDateLocaleProvider.months = ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'];
+    $mdDateLocaleProvider.shortMonths = ['Sty', 'Lut', 'Mar', 'Kwi', 'Maj', 'Cze', 'Lip', 'Sie', 'Wrz', 'Paź', 'Lis', 'Gru'];
+    $mdDateLocaleProvider.days = ['Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota', 'Niedziela'];
+    $mdDateLocaleProvider.shortDays = ['Pon', 'Wt', 'Śr', 'Czw', 'Pt', 'So', 'Nd'];
+
+    // Can change week display to start on Monday.
+    $mdDateLocaleProvider.firstDayOfWeek = 0;
+
+    // Optional.
+    // $mdDateLocaleProvider.dates = [1, 2, 3, 4, 5, 6, ...];
+
+    // Example uses moment.js to parse and format dates.
+    $mdDateLocaleProvider.parseDate = function (dateString) {
+        var m = moment(dateString, 'L', true);
+        return m.isValid() ? m.toDate() : new Date(NaN);
+    };
+
+    $mdDateLocaleProvider.formatDate = function (date) {
+        var m = moment(date);
+        return m.isValid() ? m.format('YYYY-MM-DD') : '';
+    };
+
+    /*$mdDateLocaleProvider.monthHeaderFormatter = function (date) {
+        return myShortMonths[date.getMonth()] + ' ' + date.getFullYear();
+    };*/
+
+    // In addition to date display, date components also need localized messages
+    // for aria-labels for screen-reader users.
+
+    /*$mdDateLocaleProvider.weekNumberFormatter = function (weekNumber) {
+        return 'Semaine ' + weekNumber;
+    };*/
+
+    // $mdDateLocaleProvider.msgCalendar = 'Calendrier';
+    // $mdDateLocaleProvider.msgOpenCalendar = 'Ouvrir le calendrier';
+
+    // You can also set when your calendar begins and ends.
+    //$mdDateLocaleProvider.firstRenderableDate = new Date(1776, 6, 4);
+    //$mdDateLocaleProvider.lastRenderableDate = new Date(2012, 11, 21);
+});
+
+
 // IE chached $http.get Aufrufe (z.B. in statusbarController)
 // deaktiviere chaching
 angular.module('et.services').config(['$httpProvider', function ($httpProvider) {
