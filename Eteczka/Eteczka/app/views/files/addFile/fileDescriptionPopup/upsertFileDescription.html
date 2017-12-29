@@ -48,7 +48,7 @@
                                  required
                                  ng-model="modalResult.Typ">
                     <md-item-template>
-                        <span md-highlight-text="searchDocSymbol" md-highlight-flags="^i">{{item.Symbol}}</span>
+                        <span md-highlight-text="searchDocSymbol" md-highlight-flags="^i">{{item.Symbol}} - {{item.Nazwa}}</span>
                     </md-item-template>
                     <md-not-found>
                         Nie znaleziono symbolu dokumentu "{{searchDocSymbol}}".
@@ -74,7 +74,8 @@
                         ng-model="modalResult.Typ.Teczkadzial"
                         required />
             </div>
-            <div class="modal-table-row">
+            <!--datepicker przesuniety do wersji 1.3-->
+            <!--<div class="modal-table-row">
                 <label class="modal-table-label" for="datePicker">angular material</label>
                 <div datemask separator="-">
                     <md-input-container name="datePicker">
@@ -96,7 +97,7 @@
                     </md-input-container>
 
                 </div>
-            </div>
+            </div>-->
 
             <div class="modal-table-row">
                 <label class="modal-table-label" for="creationDate">Data dokumentu *</label>
@@ -124,6 +125,8 @@
                        ng-model="modalResult.DataPocz"
                        ng-pattern="/^\s*(\d{4})-(\d{2})-(\d{2})\s*$/"
                        ng-model-options="{updateOn: 'blur'}"
+                       datemask
+                       separator="-"
                        required />
             </div>
             <div ng-show="upsertFileDescription.$submitted || upsertFileDescription.validFromDate.$touched">
@@ -139,6 +142,8 @@
                        ng-model="modalResult.DataKoniec"
                        ng-pattern="/^\s*(\d{4})-(\d{2})-(\d{2})\s*$/"
                        ng-model-options="{updateOn: 'blur'}"
+                       datemask
+                       separator="-"
                        ng-disabled="isDisabled()"
                        ng-required="!isDisabled()" />
             </div>
