@@ -10,6 +10,8 @@ namespace Eteczka.BE.Utils
     public interface IPdfUtils
     {
         bool SavePdf(List<string> PlikiDoSpakowania, string temp);
-        bool GenerujIZapiszRaportPdf(Document doc, string nazwaRaportu);
+        bool GenerujIZapiszRaportPdf(Document doc, string nazwaRaportu, string user);
+        bool CzyPlikJestWUzyciu(string nazwaPliku);
+        int ZliczPlikiWKatalogu(string katalog);
     }
 }

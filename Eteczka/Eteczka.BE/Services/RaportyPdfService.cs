@@ -155,7 +155,7 @@ namespace Eteczka.BE.Services
             }
 
             //Generujemy i zapisujemy plik z raportem
-            result = _PdfUtils.GenerujIZapiszRaportPdf(doc, "Skorowidz teczki");
+            result = _PdfUtils.GenerujIZapiszRaportPdf(doc, "Skorowidz teczki", sesja.AktywnyUser.Identyfikator.Trim());
 
             return result;
         }
