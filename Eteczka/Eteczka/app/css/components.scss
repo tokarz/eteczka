@@ -1,4 +1,5 @@
 ﻿@import 'vars.scss';
+@import 'mixins.scss';
 
 
 .option-wrapper {
@@ -139,7 +140,7 @@
 
 .option-select-all {
     position: absolute;
-    left: 57.5%;
+    left: 47.5%;
 }
 
 .option-three {
@@ -245,20 +246,22 @@
     color: black;
 }
 
-.file-list-wrapper {
-    height: 100%;
-    width: 60%;
-    float: left;
-}
+
 
 .main-files-content-wrapper {
     height: calc(100% - 60px);
     width: 100%;
 }
 
+.file-list-wrapper {
+    height: 100%;
+    width: 50%;
+    float: left;
+}
+
 .file-preview-wrapper {
     height: 100%;
-    width: 39%;
+    width: 50%;
     float: right;
     background: whitesmoke;
 }
@@ -346,6 +349,7 @@
     position: absolute;
     left: 50%;
     top: 50%;
+    @include center-absolute;
 }
 
 .filter-option {

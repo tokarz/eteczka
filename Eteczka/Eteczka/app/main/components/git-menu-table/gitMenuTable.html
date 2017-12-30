@@ -21,14 +21,14 @@
         </table>
     </div>
     <div class="toolbar-panel git-panel">
-        <span style="width:50%;float:left;text-align:left;margin-top: 5px" ng-if="selectedstagedfile !== null">
+        <span style="float:left;text-align:left;margin-top: 5px" ng-if="selectedstagedfile !== null">
             <span ng-click="unstageFile(selectedstagedfile)" class="git-icon">
                 <span class="fa fa-arrow-up" style="color:darkred"></span>
                 <span>Zrodlowe</span>
             </span>
         </span>
-        
-        <span style="width:50%;float:right;text-align:right;margin-top:5px" ng-if="selectedfile !== null">
+
+        <span style="float:right;text-align:right;margin-top:5px" ng-if="selectedfile !== null">
             <span ng-click="stageFile(selectedfile)" class="git-icon">
                 <span class="fa fa-arrow-down" style="color:darkgreen"></span>
                 <span>Do Opracowania</span>
