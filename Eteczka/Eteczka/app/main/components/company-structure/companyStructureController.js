@@ -3,6 +3,7 @@ angular.module('et.controllers').controller('companyStructureController', ['$sco
 
     $scope.addFiletypeCtrl = function ($scope, $mdDialog) {
         $scope.yesNoOptions = [{ name: 'TAK', value: true }, { name: 'NIE', value: false }]
+        $scope.editOptions = [{ name: 'TAK', value: 'b' }, { name: 'NIE', value: 'a' }]
         $scope.docPartOptions = ['A', 'B', 'C']
         $scope.modalResult.Dokwlasny = $scope.modalResult.Dokwlasny || $scope.yesNoOptions[0].value;
         
