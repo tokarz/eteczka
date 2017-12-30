@@ -124,7 +124,7 @@ app.config(function ($mdDateLocaleProvider) {
 
     // Example uses moment.js to parse and format dates.
     $mdDateLocaleProvider.parseDate = function (dateString) {
-        var m = moment(dateString, 'L', true);
+        var m = moment(dateString, 'YYYY-MM-DD', true);
         return m.isValid() ? m.toDate() : new Date(NaN);
     };
 

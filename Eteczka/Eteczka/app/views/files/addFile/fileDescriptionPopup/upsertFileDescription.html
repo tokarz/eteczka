@@ -73,82 +73,62 @@
                         ng-options="option as option for option in docPartOptions"
                         ng-model="modalResult.Typ.Teczkadzial"
                         required />
-            </div>
-
+            </div> 
             <div class="modal-table-row">
-                <label class="modal-table-label" for="datePicker">Angular - Burqin ToDo:)</label>
-                <div datemask separator="-">
-                    <md-input-container name="datePicker">
-                        <md-datepicker class="modal-table-input"
-                                       ng-model="modalResult.myDate"
-                                       name="dateField"
+                <label class="modal-table-label" for="creationDateContainer">Data dokumentu *</label>
+                <div datemask separator="-" class="modal-table-input">
+                    <md-input-container name="creationDateContainer">
+                        <md-datepicker ng-model="modalResult.DataWytworzenia"
+                                       name="creationDate"
                                        md-placeholder="RRRR-MM-DD"
                                        ng-pattern="/^\s*(\d{4})-(\d{2})-(\d{2})\s*$/"
                                        ng-change="fillValidFromDate()"
                                        ng-model-options="{updateOn: 'blur'}"
-                                       separator="-"
                                        required>
                         </md-datepicker>
-
-                        <div ng-messages="upsertFileDescription.dateField.$error">
-                            <div ng-message="valid">Wprowadzony format jest niepoprawny!</div>
+                        <div ng-messages="upsertFileDescription.creationDate.$error">
                             <div ng-message="required">To pole jest wymagane!</div>
+                            <div ng-message="upsertFileDescription.creationDate.$error.pattern">Data musi miec format: RRRR-MM-DD</div>
                         </div>
                     </md-input-container>
-
                 </div>
             </div>
-
             <div class="modal-table-row">
-                <label class="modal-table-label" for="creationDate">Data dokumentu *</label>
-                <input class="modal-table-input"
-                       name="creationDate"
-                       type="text"
-                       placeholder="RRRR-MM-DD"
-                       ng-model="modalResult.DataWytworzenia"
-                       ng-pattern="/^\s*(\d{4})-(\d{2})-(\d{2})\s*$/"
-                       ng-change="fillValidFromDate()"
-                       ng-model-options="{updateOn: 'blur'}"
-                       datemask
-                       separator="-"
-                       required />
-            </div>
-            <div ng-show="upsertFileDescription.$submitted || upsertFileDescription.creationDate.$touched">
-                <span class="modal-table-error" ng-show="upsertFileDescription.creationDate.$error.pattern">Data musi miec format: RRRR-MM-DD</span>
-            </div>
-            <div class="modal-table-row">
-                <label class="modal-table-label" for="validFromDate">Data początku obowiązywania *</label>
-                <input class="modal-table-input"
-                       name="validFromDate"
-                       type="text"
-                       placeholder="RRRR-MM-DD"
-                       ng-model="modalResult.DataPocz"
-                       ng-pattern="/^\s*(\d{4})-(\d{2})-(\d{2})\s*$/"
-                       ng-model-options="{updateOn: 'blur'}"
-                       datemask
-                       separator="-"
-                       required />
-            </div>
-            <div ng-show="upsertFileDescription.$submitted || upsertFileDescription.validFromDate.$touched">
-                <span class="modal-table-error" ng-show="upsertFileDescription.validFromDate.$error.pattern">Data musi miec format: RRRR-MM-DD</span>
+                <label class="modal-table-label" for="validFromDateContainer">Data początku obowiązywania *</label>
+                <div datemask separator="-" class="modal-table-input">
+                    <md-input-container name="validFromDateContainer">
+                        <md-datepicker ng-model="modalResult.DataPocz"
+                                       name="validFromDate"
+                                       md-placeholder="RRRR-MM-DD"
+                                       ng-pattern="/^\s*(\d{4})-(\d{2})-(\d{2})\s*$/"
+                                       ng-model-options="{updateOn: 'blur'}"
+                                       required>
+                        </md-datepicker>
+                        <div ng-messages="upsertFileDescription.validFromDate.$error">
+                            <div ng-message="required">To pole jest wymagane!</div>
+                            <div ng-message="upsertFileDescription.validFromDate.$error.pattern">Data musi miec format: RRRR-MM-DD</div>
+                        </div>
+                    </md-input-container>
+                </div>
             </div>
             <div class="modal-table-row">
-                <label class="modal-table-label" for="validUntilDate">Data końca obowiązywania</label>
-                <!--<md-datepicker ng-model="modalResult.DataKoniec" md-placeholder="RRRR-MM-DD"></md-datepicker>-->
-                <input class="modal-table-input"
-                       name="validUntilDate"
-                       type="text"
-                       placeholder="RRRR-MM-DD"
-                       ng-model="modalResult.DataKoniec"
-                       ng-pattern="/^\s*(\d{4})-(\d{2})-(\d{2})\s*$/"
-                       ng-model-options="{updateOn: 'blur'}"
-                       datemask
-                       separator="-"
-                       ng-disabled="isDisabled()"
-                       ng-required="!isDisabled()" />
-            </div>
-            <div ng-show="upsertFileDescription.$submitted || upsertFileDescription.validUntilDate.$touched">
-                <span class="modal-table-error" ng-show="upsertFileDescription.validUntilDate.$error.pattern">Data musi miec format: RRRR-MM-DD</span>
+                <label class="modal-table-label" for="validUntilDateContainer">Data końca obowiązywania</label>
+                <div datemask separator="-" class="modal-table-input">
+                    <md-input-container name="validUntilDateContainer">
+                        <md-datepicker ng-model="modalResult.DataKoniec"
+                                       name="validUntilDate"
+                                       md-placeholder="RRRR-MM-DD"
+                                       ng-pattern="/^\s*(\d{4})-(\d{2})-(\d{2})\s*$/"
+                                       ng-model-options="{updateOn: 'blur'}"
+                                       ng-disabled="isDisabled()"
+                                       ng-required="!isDisabled()">
+                        </md-datepicker>
+                        <div ng-messages="upsertFileDescription.validUntilDate.$error">
+                            <div ng-message="required">To pole jest wymagane!</div>
+                            <div ng-message="upsertFileDescription.validUntilDate.$error.pattern">Data musi miec format: RRRR-MM-DD</div>
+                        </div>
+                    </md-input-container>
+                </div>
             </div>
             <div class="modal-table-row">
                 <label class="modal-table-label" for="additionalComment">Opis Dodatkowy</label>
