@@ -66,26 +66,35 @@ angular.module('et.directives').directive('filePreview', function () {
                     pdfDoc.destroy();
                 }
                 var pdfDoc = null,
-                pageNum = 1,
-                pageRendering = false,
-                pageNumPending = null,
-                scale = 1.5,
-                canvas = document.getElementById(id),
-                ctx = canvas.getContext('2d');
+                    pageNum = 1,
+                    pageRendering = false,
+                    pageNumPending = null,
+                    scale = 1,
+                    rotate = 0,
+                    canvas = document.getElementById(id),
+                    ctx = canvas.getContext('2d');
 
                 function renderPages(pdfDoc) {
                     for (var num = 1; num <= pdfDoc.numPages; num++)
                         pdfDoc.getPage(num).then(renderPage);
                 }
 
-                function renderPage(num) {
+                function renderPage(num, rotateChange) {
                     pageRendering = true;
                     // Using promise to fetch the page
                     if (pdfDoc) {
+
                         pdfDoc.getPage(num).then(function (page) {
-                            var viewport = page.getViewport(scale);
+
+                            if (typeof rotateChange !== 'undefined') {
+                                rotate = (rotate + rotateChange) % 360;
+                            }
+
+
+                            var viewport = page.getViewport(scale, rotate);
                             canvas.height = viewport.height;
                             canvas.width = viewport.width;
+
 
                             // Render PDF page into canvas context
                             var renderContext = {
@@ -131,15 +140,11 @@ angular.module('et.directives').directive('filePreview', function () {
                 }
                 document.getElementById('prev').addEventListener('click', onPrevPage);
 
-
                 //function onFitToWindow() {
                 //    scale = 2.25;
                 //    renderPage(pageNum);
                 //}
                 //document.getElementById('fittowindow').addEventListener('click', onFitToWindow);
-
-
-
 
                 $("#print").unbind('click');
                 $("#print").bind('click', function () {
@@ -152,6 +157,20 @@ angular.module('et.directives').directive('filePreview', function () {
 
                 }
                 document.getElementById('zoomin').addEventListener('click', onZoomIn);
+
+                function rotateLeft() {
+                    var rotateLeft = -90;
+                    renderPage(pageNum, rotateLeft);
+
+                }
+                document.getElementById('rotateleft').addEventListener('click', rotateLeft);
+
+                function rotateRight() {
+                    var rotateRight = 90;
+                    renderPage(pageNum, rotateRight);
+
+                }
+                document.getElementById('rotateright').addEventListener('click', rotateRight);
 
                 function onZoomOut() {
                     if (scale <= 1) {
