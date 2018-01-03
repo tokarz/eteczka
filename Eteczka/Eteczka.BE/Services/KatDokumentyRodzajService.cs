@@ -5,7 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Eteczka.Model.Entities;
 using Eteczka.DB.DAO;
-
+using Eteczka.Model.DTO;
+using Eteczka.BE.Model;
 
 namespace Eteczka.BE.Services
 {
@@ -13,16 +14,32 @@ namespace Eteczka.BE.Services
     {
         private KatDokumentyRodzajDAO _KatDokumentyRodzajDAO;
 
-        public  KatDokumentyRodzajService (KatDokumentyRodzajDAO KatDokumentyRodzajDAO)
+        public KatDokumentyRodzajService(KatDokumentyRodzajDAO KatDokumentyRodzajDAO)
         {
             this._KatDokumentyRodzajDAO = KatDokumentyRodzajDAO;
         }
 
-       public List<KatDokumentyRodzaj> PobierzRodzDok()
+        public List<KatDokumentyRodzaj> PobierzRodzDok()
         {
             List<KatDokumentyRodzaj> PobraneDok = _KatDokumentyRodzajDAO.PobierzWszystkieRodzDok();
 
             return PobraneDok;
+        }
+        public InsertResult DodajRodzajDokumentuDoBazy(string symbol, string nazwaDokumentu, string typEdycji, string teczkaDzial, SessionDetails sesja)
+        {
+            InsertResult result = new InsertResult();
+            KatDokumentyRodzaj dokumentWBazie = _KatDokumentyRodzajDAO.ZnajdzRodzajDokumentuPoSymbolu(symbol);
+            if (dokumentWBazie == null)
+            {
+               result.Result = _KatDokumentyRodzajDAO.DodajRodzajDokumentu(symbol, nazwaDokumentu, typEdycji, teczkaDzial, sesja.AktywnyUser.Identyfikator, sesja.AktywnyUser.Identyfikator);
+               result.Message = "Rodzaj dokumentu został dopisany do bazy.";
+            }
+            else
+            {
+                result.Message = "Rodzaj dokumentu o takim symbolu istnieje! Podaj inny symbol.";
+            }
+
+            return result;
         }
     }
 }

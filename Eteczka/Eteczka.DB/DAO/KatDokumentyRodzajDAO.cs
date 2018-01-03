@@ -7,6 +7,7 @@ using Eteczka.Model.Entities;
 using Eteczka.DB.Connection;
 using System.Data;
 using Eteczka.DB.Mappers;
+using System.Globalization;
 
 namespace Eteczka.DB.DAO
 {
@@ -89,6 +90,37 @@ namespace Eteczka.DB.DAO
             bool result = connectionState.ExecuteNonQuery(queries.ToString());
 
             return result;
+        }
+        public bool DodajRodzajDokumentu (string symbol, string nazwaDokumentu, string typEdycji, string teczkaDzial,string idOper, string idAkcept)
+        {
+          
+            string values = "'" + symbol + "', '" + nazwaDokumentu + "', 'TRUE', '22', '" + teczkaDzial.ToUpper() + "', '" + typEdycji.ToLower() + "', '" + idOper + "', '"+ idAkcept + "', '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture) + "', '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture) + "', 'EAD', 'FALSE', '0', '" + symbol + "', 'FALSE'";
+            string query = "INSERT INTO \"KatDokumentyRodzaj\" (symbol, nazwa, dokwlasny, jrwa, teczkadzial, typedycji, idoper, idakcept, datamodify, dataakcept, systembazowy, usuniety, confidential,symbolead, audyt) VALUES (" + values + ");";
+
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+            bool result = connectionState.ExecuteNonQuery(query.ToString());
+            
+            return result;
+        }
+        public KatDokumentyRodzaj ZnajdzRodzajDokumentuPoSymbolu(string symbol)
+        {
+            KatDokumentyRodzaj znalezionyDokument = null;
+            string query = "SELECT * FROM \"KatDokumentyRodzaj\" WHERE LOWER (symbol) = '" + (symbol.ToLower().Trim()) + "' ";
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+            DataTable result = connectionState.ExecuteQuery(query.ToString());
+            try
+            {
+                if (result.Rows.Count>=1)
+                {
+                    znalezionyDokument = _KatRodzajeDokumentowMapper.MapujZSql(result.Rows[0]);
+                }
+            }
+            catch (Exception ex)
+            {
+                //logi
+            }
+            return znalezionyDokument;
+
         }
     }
 }

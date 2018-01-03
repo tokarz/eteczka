@@ -87,7 +87,7 @@ namespace Eteczka.BE.Services
             if(pracownikWBazie != null)
             {
                 result.Result = false;
-                result.Message = "Pracownik o tym identyfikatorze juz widnieje w bazie! Sprawdz Pesel, Imie i Nazwisko";
+                result.Message = "Pracownik o tym identyfikatorze już widnieje w bazie! Sprawdź Pesel, imię i nazwisko";
             }
             else
             {
@@ -105,7 +105,7 @@ namespace Eteczka.BE.Services
             if (pracownikWBazie == null)
             {
                 result.Result = false;
-                result.Message = "Pracownik o tym identyfikatorze nie widnieje w bazie! Sprawdz Pesel, Imie i Nazwisko";
+                result.Message = "Pracownik o tym identyfikatorze już widnieje w bazie! Sprawdź Pesel, imię i nazwisko";
             }
             else
             {
