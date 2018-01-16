@@ -61,14 +61,14 @@ namespace Eteczka.BE.Utils
 
                 string nazwaPliku = raportyPdfFolder  + nazwaRaportu + " - wygenerowano przez " + user + ".pdf";
 
-                if (!this.CzyPlikJestWUzyciu(nazwaPliku))
+                if (!_Wrapper.CzyPlikJestWUzyciu(nazwaPliku))
                 {
                     docRend.PdfDocument.Save(nazwaPliku);
                 }
 
                 else
                 {
-                    int licznik = this.ZliczPlikiWKatalogu(raportyPdfFolder);
+                    int licznik = _Wrapper.ZliczPlikiWKatalogu(raportyPdfFolder);
                     //nazwaPliku = raportyPdfFolder + nazwaRaportu + licznik + ".pdf";
                     nazwaPliku = raportyPdfFolder  + nazwaRaportu + " - wygenerowano przez " + user + "(" + licznik + ")" + ".pdf";
                     docRend.PdfDocument.Save(nazwaPliku);
@@ -87,26 +87,7 @@ namespace Eteczka.BE.Utils
             return result;
         }
 
-        public bool CzyPlikJestWUzyciu(string nazwaPliku)
-        {
-            bool zablokowany = false;
-            try
-            {
-                FileStream fs = File.Open(nazwaPliku, FileMode.OpenOrCreate,
-                    FileAccess.ReadWrite, FileShare.None);
-                fs.Close();
-            }
-            catch (IOException ex)
-            {
-                zablokowany = true;
-            }
-            return zablokowany;
-        }
-
-        public int ZliczPlikiWKatalogu(string katalog)
-        {
-            return Directory.GetFiles(katalog).ToList<string>().Count;
-        }
+        
 
 
     }

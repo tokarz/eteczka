@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="Ionic.Zip">
       <HintPath>..\packages\DotNetZipLib-DevKit-v1.9\Ionic.Zip.dll</HintPath>
     </Reference>
@@ -78,6 +81,18 @@
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\packages\NLog.4.4.12\lib\net45\NLog.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="NPOI, Version=2.3.0.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.3.0\lib\net40\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OOXML, Version=2.3.0.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.3.0\lib\net40\NPOI.OOXML.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXml4Net, Version=2.3.0.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.3.0\lib\net40\NPOI.OpenXml4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXmlFormats, Version=2.3.0.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.3.0\lib\net40\NPOI.OpenXmlFormats.dll</HintPath>
     </Reference>
     <Reference Include="PdfSharp, Version=1.32.3057.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
       <HintPath>..\packages\PDFsharp-MigraDoc-GDI.1.32.4334.0\lib\net20\PdfSharp.dll</HintPath>
@@ -184,6 +199,7 @@
     <Compile Include="Services\IImportStateService.cs" />
     <Compile Include="Services\IKatDokumentyRodzajService.cs" />
     <Compile Include="Services\IKonto5Service.cs" />
+    <Compile Include="Services\IRaportyExcellService.cs" />
     <Compile Include="Services\IRaportyPdfService.cs" />
     <Compile Include="Services\KoszykService.cs" />
     <Compile Include="Services\IKoszykService.cs" />
@@ -197,6 +213,7 @@
     <Compile Include="Services\IImportService.cs" />
     <Compile Include="Services\IRejonyService.cs" />
     <Compile Include="Services\PodWydzialService.cs" />
+    <Compile Include="Services\RaportyExcellService.cs" />
     <Compile Include="Services\RaportyPdfService.cs" />
     <Compile Include="Services\RejonyService.cs" />
     <Compile Include="Services\StatystykiService.cs" />
@@ -216,7 +233,9 @@
     <Compile Include="Utils\DirectoryWrapper.cs" />
     <Compile Include="Utils\ExcelKatDok.cs" />
     <Compile Include="Utils\ExcelKatDokPola.cs" />
+    <Compile Include="Utils\ExcellUtils.cs" />
     <Compile Include="Utils\IDirectoryWrapper.cs" />
+    <Compile Include="Utils\IExcellUtils.cs" />
     <Compile Include="Utils\IPdfUtils.cs" />
     <Compile Include="Utils\Osys.cs" />
     <Compile Include="Utils\PdfUtils.cs" />

@@ -41,5 +41,23 @@ namespace Eteczka.BE.Services
 
             return result;
         }
+
+        public InsertResult DezaktywujRodzajDokumentu(string symbol, SessionDetails sesja)
+        {
+            InsertResult result = new InsertResult();
+            KatDokumentyRodzaj dokumentWBazie = _KatDokumentyRodzajDAO.ZnajdzRodzajDokumentuPoSymbolu(symbol);
+            if (dokumentWBazie != null)
+            {
+                result.Result = _KatDokumentyRodzajDAO.DeaktywujRodzajuDokumentu(symbol, sesja.AktywnyUser.Identyfikator.Trim(), sesja.AktywnyUser.Identyfikator.Trim());
+                result.Message = "Rodzaj dokumentu został usunięty.";
+            }
+            else
+            {
+                result.Message = "Rodzaj dokumentu o takim symbolu nie istnieje! Podaj inny symbol.";
+            }
+
+            return result;
+
+        }
     }
 }

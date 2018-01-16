@@ -122,5 +122,13 @@ namespace Eteczka.DB.DAO
             return znalezionyDokument;
 
         }
+        public bool DeaktywujRodzajuDokumentu(string symbol, string idoper, string idakcept)
+        {
+            string query = "UPDATE \"KatDokumentyRodzaj\" SET usuniety = 'TRUE', idoper = '" + idoper + "', idakcept ='" + idakcept + "', datamodify = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture) + "', dataakcept = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture) + "'  WHERE LOWER (symbol) =  '" + (symbol.ToLower().Trim()) + "' ";
+
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+            bool result = connectionState.ExecuteNonQuery(query.ToString());
+            return result;
+        }
     }
 }

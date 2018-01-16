@@ -47,6 +47,20 @@ namespace Eteczka.BE.Controllers
                 success = sucess
             }, JsonRequestBehavior.AllowGet);
         }
+        public ActionResult WylaczRodzajDokumentu (string symbol, string sessionId)
+        {
+            InsertResult sucess = new InsertResult();
+            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            {
+                SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+
+                sucess = _KatDokumentyRodzajService.DezaktywujRodzajDokumentu(symbol, sesja);
+            }
+            return Json(new
+            {
+                success = sucess
+            }, JsonRequestBehavior.AllowGet);
+        }
 
 
     }

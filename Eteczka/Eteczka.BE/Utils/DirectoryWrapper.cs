@@ -68,5 +68,25 @@ namespace Eteczka.BE.Utils
             return Environment.GetEnvironmentVariable(name);
         }
 
+        public bool CzyPlikJestWUzyciu(string nazwaPliku)
+        {
+            bool zablokowany = false;
+            try
+            {
+                FileStream fs = File.Open(nazwaPliku, FileMode.OpenOrCreate,
+                    FileAccess.ReadWrite, FileShare.None);
+                fs.Close();
+            }
+            catch (IOException ex)
+            {
+                zablokowany = true;
+            }
+            return zablokowany;
+        }
+
+        public int ZliczPlikiWKatalogu(string katalog)
+        {
+            return Directory.GetFiles(katalog).ToList<string>().Count;
+        }
     }
 }

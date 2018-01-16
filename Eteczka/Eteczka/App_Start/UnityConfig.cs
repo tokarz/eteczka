@@ -58,6 +58,9 @@ namespace Eteczka
             container.RegisterType<IKoszykService, KoszykService>();
             container.RegisterType<IKatDokumentyRodzajService, KatDokumentyRodzajService>();
             container.RegisterType<IRaportyPdfService, RaportyPdfService>();
+            container.RegisterType<IRaportyExcellService, RaportyExcellService>();
+            container.RegisterType<IExcellUtils, ExcellUtils>();
+            
 
 
             container.RegisterType<IConnection, Connection>();
