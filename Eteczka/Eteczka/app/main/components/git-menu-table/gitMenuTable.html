@@ -1,52 +1,56 @@
 ﻿<div class="menu-table-wrapper">
-    <div class="toolbar-panel git-panel">
-        <span style="display:inline-block;margin-top: 5px">
-            <span class="git-icon" style="text-align:center">
-                <span class="fa fa-plus-square" style="margin-right:5px"></span><span>Dodaj Pliki</span>
-            </span>
-        </span>
-    </div>
-    <div class="toolbar-content" style="height: 40vh;width:100%;margin:auto">
-        <table style="width:100%;text-align:center">
-            <tbody>
-                <tr ng-if="loading" style="text-align:center">
-                    <td style="display:block;width:90%;margin:auto">
-                        <processing></processing>
-                    </td>
-                </tr>
-                <tr ng-if="!loading" ng-repeat="row in newrows" ng-click="selectFile(row)" ng-class="getRowStyle(row)" style="border-bottom:1px solid darkgray;">
-                    <td><i class="fa fa-file-pdf-o" aria-hidden="true" style="margin-right:2px;font-weight:bold;color:darkred"></i>{{row.NazwaEad}}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="toolbar-panel git-panel">
-        <span style="float:left;text-align:left;margin-top: 5px" ng-if="selectedstagedfile !== null">
-            <span ng-click="unstageFile(selectedstagedfile)" class="git-icon">
-                <span class="fa fa-arrow-up" style="color:darkred"></span>
-                <span>Zrodlowe</span>
-            </span>
-        </span>
+        <div class="toolbar-panel git-panel">
+                <span style="display:inline-block;margin-top: 5px">
+                        <span class="git-icon" style="text-align:center">
+                                <span class="fa fa-plus-square" style="margin-right:5px"></span><span>Dodaj Pliki</span>
+                        </span>
+                </span>
+        </div>
+        <div class="toolbar-content" style="height: 37vh;width:100%;margin:auto">
+                <table style="width:100%;text-align:center">
+                        <tbody>
+                                <tr ng-if="loading" style="text-align:center">
+                                        <td style="display:block;width:90%;margin:auto">
+                                                <processing></processing>
+                                        </td>
+                                </tr>
+                                <tr ng-if="!loading" ng-repeat="row in newrows" ng-click="selectFile(row)" ng-class="getRowStyle(row)" style="border-bottom:1px solid darkgray;">
+                                        <td><i class="fa fa-file-pdf-o" aria-hidden="true" style="margin-right:2px;font-weight:bold;color:darkred"></i>{{row.NazwaEad}}</td>
+                                </tr>
+                        </tbody>
+                </table>
+        </div>
+        <div class="toolbar-panel git-panel">
+                <span style="float:left;text-align:left;margin-top: 5px" ng-if="selectedstagedfile !== null">
+                        <span ng-click="unstageFile(selectedstagedfile)" class="git-icon">
+                                <span class="fa fa-arrow-up" style="color:darkred"></span>
+                                <span>Zrodlowe</span>
+                        </span>
+                </span>
 
-        <span style="float:right;text-align:right;margin-top:5px" ng-if="selectedfile !== null">
-            <span ng-click="stageFile(selectedfile)" class="git-icon">
-                <span class="fa fa-arrow-down" style="color:darkgreen"></span>
-                <span>Do Opracowania</span>
-            </span>
-        </span>
-    </div>
-    <div class="staged-files-wrapper" style="height: 32vh;width:100%;margin:auto;background:white">
-        <table style="width:100%">
-            <tbody>
-                <tr ng-if="loading">
-                    <td style="display:block;width:90%;margin:auto">
-                        <processing></processing>
-                    </td>
-                </tr>
-                <tr ng-if="!loading" ng-repeat="row in stagedrows" ng-click="selectStagedFile(row)" ng-class="getStagedRowStyle(row)">
-                    <td><i class="fa fa-check-circle" aria-hidden="true" style="margin-right:2px;font-weight:bold;color:darkgreen"></i>{{row.NazwaEad}}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+                <span style="float:right;text-align:right;margin-top:5px" ng-if="selectedfile !== null">
+                        <span ng-click="stageFile(selectedfile)" class="git-icon">
+                                <span class="fa fa-arrow-down" style="color:darkgreen"></span>
+                                <span>Do Opracowania</span>
+                        </span>
+                </span>
+        </div>
+        <div class="staged-files-wrapper" style="height: 31.5vh;width:100%;margin:auto;background:white">
+                <table style="width:100%;height:25vh">
+                        <tbody>
+                                <tr ng-if="loading">
+                                        <td style="display:block;width:90%;margin:auto">
+                                                <processing></processing>
+                                        </td>
+                                </tr>
+                                <tr ng-if="!loading" ng-repeat="row in stagedrows" ng-click="selectStagedFile(row)" ng-class="getStagedRowStyle(row)">
+                                        <td><i class="fa fa-check-circle" aria-hidden="true" style="margin-right:2px;font-weight:bold;color:darkgreen"></i>{{row.NazwaEad}}</td>
+                                </tr>
+                        </tbody>
+                </table>
+                <div ng-show="selectedstagedfile" class="staged-file-description-button" ng-click="triggerUpsertFileDescriptionDialog()">
+                        <div>OPISZ DOKUMENT</div>
+                </div>
+        </div>
+       
 </div>

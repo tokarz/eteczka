@@ -83,12 +83,22 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
         {
             id: 1,
             className: 'fa fa-folder small-option-two',
-            label: 'Katalog dokumentow',
+            label: 'Wyszukiwanie dokumentów',
             active: false,
             action: function () {
                 $scope.activeSmallOption = $scope.smallOptions[1];
                 $scope.navigateTo('fi-catalog');
             }
+        },
+        {
+                id: 2,
+                className: 'fa fa-book small-option-three',
+                label: 'Słownik rodzajów dokumentów',
+                active: false,
+                action: function () {
+                        $scope.activeSmallOption = $scope.smallOptions[2];
+                        alert('Burqin - show modal');
+                }
         }
             ];
 

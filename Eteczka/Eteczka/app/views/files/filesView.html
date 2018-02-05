@@ -4,49 +4,10 @@
         <h1 class="emptyfileheader">Zaznacz Plik do Edycji</h1>
     </div>
     <div class="component-content-wrapper" ng-show="selectedfile">
-        <div style="width:100%;height:70vh">
+        <div style="width:100%;height:78vh">
             <file-preview file="selectedfile" fileproperty="NazwaEad" secure="false"></file-preview>
         </div>
-        <div style="width:100%;height:8vh;background:whitesmoke">
-            <div id="git-metrics-side-panel">
-                <ul ng-show="selectedStagedFile !== null">
-                    <li class="git-metric-li" ng-click="triggerUpsertFileDescriptionDialog()"><span class="fa fa-pencil-square"></span>Opisz</li>
-                    <!--li class="git-metric-li" ng-click="commitFile()"><span class="fa fa-check-square"></span>Zatwierdz</li-->
-                    <!--<li class="git-metric-li" ng-click="showHistory()"><span class="fa fa-history"></span>Historia</li>-->
-                </ul>
-            </div>
-            <!--div id="git-metrics-details">
-                <div class="git-metric-part">
-                    <h3>Metryczka Dokumentu</h3>
-                </div>
-                <div class="git-comment-area">
-
-                    <div class="git-details-row">
-                        <label for="ft">Rodzaj Dokumentu</label>
-                        <input name="ft" disabled ng-model="createdMetaData.Typ.Symbol" />
-                    </div>
-
-                    <div class="git-details-row">
-                        <label for="dwy">Data Dokumentu</label>
-                        <input name="dwy" disabled ng-model="createdMetaData.DataWytworzenia" />
-                    </div>
-
-                    <div class="git-details-row">
-                        <label for="dp">Data Poczatkowa</label>
-                        <input name="dp" disabled ng-model="createdMetaData.DataPocz" />
-                    </div>
-
-                    <div class="git-details-row">
-                        <label for="dk">Data Koncowa</label>
-                        <input name="dk" disabled ng-model="createdMetaData.DataKoniec" />
-                    </div>
-                    <div class="git-details-row">
-                        <label for="op">Opis</label>
-                        <textarea name="op" disabled ng-model="createdMetaData.DataKoniec" />
-                    </div>
-                </div>
-            </div-->
-        </div>
+        
 
     </div>
 </div>
