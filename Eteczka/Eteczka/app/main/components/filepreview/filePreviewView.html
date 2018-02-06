@@ -1,22 +1,24 @@
 ﻿<div id="pdfPreviewWrapper" ng-if="isPreviewVisible">
-    <!--<object id="pdfPreviewer" data="" type="application/pdf" style="height:100%;width:100%">
-        <param name="view" value="FitH" />
-        <param name="toolbar" value="0" />
-    </object>-->
-    <div class="toolbar-panel git-panel" style="font-size:22px">
-        <span id="prev" class="fa fa-arrow-circle-left"></span>
-        <span id="next" class="fa fa-arrow-circle-right"></span>
-        <span id="zoomin" class="fa fa-search-plus"></span>
-        <span id="zoomout" class="fa fa-search-minus"></span>
-        <span id="rotateleft" class="fa fa-rotate-left"></span>
-        <span id="rotateright" class="fa fa-rotate-right"></span>
-        <!--<span id="fittowindow" class="fa fa-window-maximize"></span>-->
-        <span id="print" class="fa fa-print"></span>
-        &nbsp; &nbsp;
-        <span>Strona: <span id="page_num"></span> / <span id="page_count"></span></span>
-    </div>
-    <div class="preview-wrapper" style="height:80vh;overflow:auto">
-            <canvas id="pdfPreview"></canvas>
-    </div>
-    
+        <!--<object id="pdfPreviewer" data="" type="application/pdf" style="height:100%;width:100%">
+            <param name="view" value="FitH" />
+            <param name="toolbar" value="0" />
+        </object>-->
+        <div class="toolbar-panel git-panel" style="font-size:22px">
+                <span id="prev" class="fa fa-arrow-circle-left"></span>
+                <span id="next" class="fa fa-arrow-circle-right"></span>
+                <span id="zoomin" class="fa fa-search-plus"></span>
+                <span id="zoomout" class="fa fa-search-minus"></span>
+                <span id="rotateleft" class="fa fa-rotate-left"></span>
+                <span id="rotateright" class="fa fa-rotate-right"></span>
+                <!--<span id="fittowindow" class="fa fa-window-maximize"></span>-->
+                <span id="print" class="fa fa-print"></span>
+                &nbsp; &nbsp;
+                <span>Strona: <span id="page_num"></span> / <span id="page_count"></span></span>
+        </div>
+        <div class="preview-wrapper" style="height:80vh;overflow:auto">
+                <div id="pdfCanvasWrapper">
+                        <canvas id="pdfPreview"></canvas>
+                </div>
+        </div>
+
 </div>
