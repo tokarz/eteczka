@@ -20,6 +20,7 @@ namespace Eteczka.DB.Mappers
                     Firma = row["firma"].ToString(),
                     NumerEad = row["numeread"].ToString(),
                     Symbol = row["symbol"].ToString(),
+                    OpisRodzajuDokumentu = "TODO BE",
                     DataSkanu = DateTime.Parse(row["dataskanu"].ToString()),
                     DataDokumentu = DateTime.Parse(row["datadokumentu"].ToString()),
                     DataPocz = DateTime.Parse(row["datapocz"].ToString()),

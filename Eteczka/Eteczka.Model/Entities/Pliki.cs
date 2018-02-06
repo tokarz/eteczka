@@ -17,6 +17,7 @@ namespace Eteczka.Model.Entities
         public string Pesel { get; set; }
         public DateTime DataUrodzenia { get; set; }
         public string Symbol { get; set; } // rodzaj dokumentu
+        public string OpisRodzajuDokumentu { get; set; }                
         public DateTime DataSkanu { get; set; }
         public DateTime DataDokumentu { get; set; }
         public DateTime DataPocz { get; set; }

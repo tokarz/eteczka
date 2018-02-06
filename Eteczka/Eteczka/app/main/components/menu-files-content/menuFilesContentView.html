@@ -22,13 +22,13 @@
         </div>
         <div class="main-files-content-wrapper">
             <div class="file-list-wrapper">
-                <table style="width:100%;text-align:center">
+                <table style="width:100%;text-align:center" class="ead-table">
                     <thead class="table-header">
                         <tr>
                             <th>ND</th>
                             <th>Dział</th>
                             <th>Rodzaj Dokumentu</th>
-                            <th>Data Dok</th>
+                            <th>Data dodania do systemu</th>
                             <th>Data Pocz</th>
                             <th>Data Kon</th>
                             <th>[ ]</th>
@@ -38,8 +38,8 @@
                         <tr ng-if="userFiles && userFiles.length > 0" ng-repeat="file in userFiles" ng-click="selectFile(file)" ng-class="getRowStyle(file)">
                             <td>{{file.NrDokumentu}}</td>
                             <td>{{file.TeczkaDzial}}</td>
-                            <td>{{file.Symbol}}</td>
-                            <td>{{file.DataDokumentuStr}}</td>
+                            <td>{{file.Symbol}} <i class="fa fa-question-circle" style="cursor:pointer;float:right" title="{{file.OpisRodzajuDokumentu}}"></i></td>
+                            <td>{{file.DataDodania}}</td>
                             <td>{{file.DataPoczStr}}</td>
                             <td>{{file.DataKoniecStr}}</td>
                             <td>
