@@ -198,7 +198,14 @@ namespace Eteczka.BE.Services
             return result;
         }
 
-        
+        public bool EdytujDokumentWBazie(SessionDetails sesja, KomitPliku plik)
+        {
+            bool result = _Dao.EdytujPlikWBazie(plik, sesja.AktywnyUser.Identyfikator, sesja.AktywnyUser.Identyfikator);
+
+            return result;
+        }
+
+
 
 
 

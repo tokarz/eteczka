@@ -72,6 +72,7 @@
   <ItemGroup>
     <Compile Include="DAO\KatDokumentyRodzajDAOTest.cs" />
     <Compile Include="DAO\KatLoginDAOTest.cs" />
+    <Compile Include="DAO\PlikiTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

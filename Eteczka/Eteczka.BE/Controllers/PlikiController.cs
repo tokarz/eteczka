@@ -4,6 +4,7 @@ using Eteczka.BE.Services;
 using Eteczka.Model.DTO;
 using Eteczka.Model.Entities;
 using Eteczka.BE.Model;
+using System;
 
 namespace Eteczka.BE.Controllers
 {
@@ -163,6 +164,33 @@ namespace Eteczka.BE.Controllers
                 success = success
             }, JsonRequestBehavior.AllowGet);
 
+        }
+        public ActionResult EdytujDokumentZBazy(KomitPliku plik, string sessionId)
+        {
+
+            bool sucess = false;
+            ActionResult result = null;
+            try
+            {
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    sucess = _PlikiService.EdytujDokumentWBazie(sesja, plik);
+                }
+                result = Json(new
+                {
+                    sucess = sucess
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+                });
+            }
+            return result;
         }
 
     }
