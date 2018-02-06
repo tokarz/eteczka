@@ -1,5 +1,6 @@
 ﻿using Eteczka.BE.Model;
 using Eteczka.BE.Services;
+using System;
 using System.Web.Mvc;
 
 namespace Eteczka.BE.Controllers
@@ -32,15 +33,30 @@ namespace Eteczka.BE.Controllers
 
         {
             bool success = false;
-            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            ActionResult result = null;
+            try
             {
-                SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
-                success = _RaportyPdfService.SkorowidzTeczkiPracownikaPelny(sesja, numeread);
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    success = _RaportyPdfService.SkorowidzTeczkiPracownikaPelny(sesja, numeread);
+                }
+                result = Json(new
+                {
+                    success = success
+                }, JsonRequestBehavior.AllowGet);
             }
-            return Json(new
+            catch (Exception ex)
             {
-                success = success
-            }, JsonRequestBehavior.AllowGet);
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            return result;
+            
+            
         }
 
         public ActionResult GenerujRaportExcellSkorowidzPelny(string sessionId, string numeread)

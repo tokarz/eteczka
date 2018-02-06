@@ -58,17 +58,30 @@ namespace Eteczka.BE.Controllers
         [ActionName("Dodaj")]
         public ActionResult DodajPracownika(string sessionId, Pracownik user)
         {
-            InsertResult success = new InsertResult();
-            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
-            {
-                SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
-                success = _PracownicyService.DodajPracownika(user, sesja);
-            }
+            InsertResult wynikInserta = new InsertResult();
+            ActionResult result = null;
 
-            return Json(new
+            try
             {
-                data = success
-            }, JsonRequestBehavior.AllowGet);
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    wynikInserta = _PracownicyService.DodajPracownika(user, sesja);
+                }
+                result = Json(new
+                {
+                    success = wynikInserta,
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                result = Json(new
+                {
+                    success = false,
+                    wyjatek = true,
+                }, JsonRequestBehavior.AllowGet);
+            }
+            return result;
         }
 
         [HttpPost]
@@ -76,138 +89,269 @@ namespace Eteczka.BE.Controllers
         public ActionResult EdytujPracownika(string sessionId, Pracownik pracownik)
         {
             InsertResult success = new InsertResult();
-            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            ActionResult result = null;
+            try
             {
-                SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
-                success = _PracownicyService.EdytujPracownika(pracownik, sesja);
-            }
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    success = _PracownicyService.EdytujPracownika(pracownik, sesja);
+                }
 
-            return Json(new
+                result = Json(new
+                {
+                    sucess = success
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
             {
-                data = success
-            }, JsonRequestBehavior.AllowGet);
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            return result;
         }
 
         public ActionResult PobierzWszystkichZatrudnionych(string sessionId)
         {
             List<Pracownik> pracownicy = new List<Pracownik>();
-            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            ActionResult result = null;
+            try
             {
-                SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
-                pracownicy = _PracownicyService.PobierzWszystkichZatrudnionych(sesja);
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    pracownicy = _PracownicyService.PobierzWszystkichZatrudnionych(sesja);
+                }
+                result = Json(new
+                {
+                    sucess = pracownicy != null && pracownicy.Count > 0 ? true : false,
+                    data = pracownicy,
+                    count = pracownicy != null ? pracownicy.Count : 0
+                }, JsonRequestBehavior.AllowGet);
             }
-            return Json(new
+            catch (Exception ex)
             {
-                data = pracownicy,
-                count = pracownicy != null ? pracownicy.Count : 0
-            }, JsonRequestBehavior.AllowGet);
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            return result;
         }
 
 
         public ActionResult PobierzPozostalych(string sessionId)
         {
             List<Pracownik> pracownicy = new List<Pracownik>();
-            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            ActionResult result = null;
+            try
             {
-                SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
-                pracownicy = _PracownicyService.PobierzPozostalych(sesja);
-            }
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    pracownicy = _PracownicyService.PobierzPozostalych(sesja);
+                }
 
-            return Json(new
+                result = Json(new
+                {
+                    sucess = pracownicy != null && pracownicy.Count > 0 ? true : false,
+                    data = pracownicy,
+                    count = pracownicy != null ? pracownicy.Count : 0
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
             {
-                data = pracownicy,
-                count = pracownicy != null ? pracownicy.Count : 0
-            }, JsonRequestBehavior.AllowGet);
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            return result;
+           
         }
 
         public ActionResult ImportujJson(string sessionId)
         {
             bool success = false;
-
-            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            ActionResult result = null;
+            try
             {
-                success = this._ImportService.ImportujPracownikow(sessionId).ImportSukces;
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    success = this._ImportService.ImportujPracownikow(sessionId).ImportSukces;
+                }
+
+                result =  Json(new
+                {
+                    success = success
+                }, JsonRequestBehavior.AllowGet);
             }
-
-            return Json(new
+            catch (Exception ex)
             {
-                success = success
-            }, JsonRequestBehavior.AllowGet);
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            return result;
         }
 
         public ActionResult PobierzPracownikaDlaId(string sessionId, string numeread)
         {
             Pracownik pracownik = new Pracownik();
-
-            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            ActionResult result = null;
+            try
             {
-                pracownik = _PracownicyService.PobierzPoId(numeread);
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    pracownik = _PracownicyService.PobierzPoId(numeread);
+                }
+
+                result = Json(new
+                {
+                    sucess = pracownik != null ? true : false,
+                    pracownik = pracownik
+                }, JsonRequestBehavior.AllowGet);
             }
-
-            return Json(new
+            catch (Exception ex)
             {
-                pracownik = pracownik
-            }, JsonRequestBehavior.AllowGet);
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+             return result;
+
+            
         }
 
         public ActionResult WyszukajPracownikow(string sessionId, string search)
         {
             List<Pracownik> pracownicy = new List<Pracownik>();
-
-            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            ActionResult result = null;
+            try
             {
-                SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
-                pracownicy = _PracownicyService.ZnajdzPracownikow(search, sesja);
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    pracownicy = _PracownicyService.ZnajdzPracownikow(search, sesja);
+                }
+
+                result =  Json(new
+                {
+                    sucess = pracownicy != null && pracownicy.Count > 0 ? true : false,
+                    Pracownicy = pracownicy
+                }, JsonRequestBehavior.AllowGet);
             }
-
-            return Json(new
+            catch (Exception ex)
             {
-                Pracownicy = pracownicy
-            }, JsonRequestBehavior.AllowGet);
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            return result;
+           
         }
 
         public ActionResult WyszukajPracownikowPoTekscie(string sessionId, string search)
         {
             List<Pracownik> Pracownicy = new List<Pracownik>();
-            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            ActionResult result = null;
+            try
             {
-                SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
-                Pracownicy = _PracownicyService.ZnajdzPracownikowPoTekscie(search, sesja);
-            }
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    Pracownicy = _PracownicyService.ZnajdzPracownikowPoTekscie(search, sesja);
+                }
 
-            return Json(new
+               result =  Json(new
+                {
+                   sucess = Pracownicy != null && Pracownicy.Count > 0 ? true : false,
+                   pracownicy = Pracownicy
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch
             {
-                pracownicy = Pracownicy
-            }, JsonRequestBehavior.AllowGet);
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            return result;
+           
         }
 
         public ActionResult WyszukajZatrPracownikowPoTekscie(string sessionId, string search)
         {
             List<Pracownik> Pracownicy = new List<Pracownik>();
-            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            ActionResult result = null;
+
+            try
             {
-                SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
-                Pracownicy = _PracownicyService.ZnajdzZatrPracownikowPoTekscie(search, sesja);
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    Pracownicy = _PracownicyService.ZnajdzZatrPracownikowPoTekscie(search, sesja);
+                }
+                result = Json(new
+                {
+                    pracownicy = Pracownicy,
+                    sucess = Pracownicy != null && Pracownicy.Count > 0 ? true : false
+                }, JsonRequestBehavior.AllowGet);
+
             }
-            return Json(new
+            catch (Exception ex)
             {
-                pracownicy = Pracownicy
-            }, JsonRequestBehavior.AllowGet);
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            return result;
+
         }
 
         public ActionResult WyszukajPozostPracownikowPoTekscie(string sessionId, string search)
         {
             List<Pracownik> Pracownicy = new List<Pracownik>();
-            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
-            {
-                SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
-                Pracownicy = _PracownicyService.ZnajdzPozostPracownikowPoTekscie(search, sesja);
-            }
+            ActionResult result = null;
 
-            return Json(new
+            try
             {
-                pracownicy = Pracownicy
-            }, JsonRequestBehavior.AllowGet);
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    Pracownicy = _PracownicyService.ZnajdzPozostPracownikowPoTekscie(search, sesja);
+                }
+
+                result = Json(new
+                {
+                    sucess = Pracownicy != null && Pracownicy.Count > 0 ? true : false,
+                    pracownicy = Pracownicy
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+
+                }, JsonRequestBehavior.AllowGet);
+            }
+            return result; 
         }
     }
 }

@@ -71,14 +71,14 @@ namespace Eteczka.DB.DAO
                             plik.Dokwlasny,
                             "EAD",
                             false,
-                            idOper.Trim(), 
+                            idOper.Trim(),
                             idOper.Trim(),
                             DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture),
                             DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture),
                             plik.Typ.Teczkadzial.Trim(),
                             plik.Typ.SymbolEad.Trim(),
                             plik.NrDokumentu
-                            
+
                         };
 
                     string values = string.Format("'{0}', '{1}', '{2}', '{3}','{4}', '{5}','{6}', '{7}','{8}', '{9}','{10}', '{11}','{12}', '{13}','{14}', '{15}','{16}', '{17}', '{18}', '{19}','{20}', '{21}'", args);
@@ -86,7 +86,6 @@ namespace Eteczka.DB.DAO
 
                     IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
                     result = connectionState.ExecuteNonQuery(insertStatement);
-
                 }
 
             }
@@ -96,6 +95,48 @@ namespace Eteczka.DB.DAO
             }
 
             return result;
+        }
+
+        public bool EdytujPlikWBazie(KomitPliku plik, string idoper, string idakcept)
+        {
+            bool result = false;
+
+            try
+            {
+                if (plik != null)
+                {
+                    string dataWytworzenia = ParsujDate(plik.DataWytworzenia);
+                    string dataPocz = ParsujDate(plik.DataPocz);
+                    string dataKoniec = ParsujDate(plik.DataKoniec);
+
+                    object[] obs = new object[]
+                        {
+                        plik.Typ.Symbol.Trim(),
+                        plik.Dokwlasny,
+                        dataWytworzenia,
+                        dataPocz,
+                        dataKoniec,
+                        plik.OpisDodatkowy.Trim(),
+                        plik.NrDokumentu,
+                        DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture),
+                        DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture),
+                        idoper.Trim(),
+                        idakcept.Trim(),
+                        plik.Pracownik.Numeread.Trim()
+                        };
+
+                    string updateQuery = string.Format("UPDATE \"KatPracownicy\" SET " + "symbol='{0}', dokwlasny='{1}', datadokumentu='{2}', datapocz='{3}', datakoniec='{4}', opisdodatkowy='{5}', nrdokumentu='{6}', datamodify='{7}', dataakcept='{8}', idoper='{9}', idakcept='{10}' WHERE numeread = '{11}'", obs);
+
+                    IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+                    result = connectionState.ExecuteNonQuery(updateQuery);
+                }
+            }
+            catch (Exception ex)
+            {
+                result = false;
+            }
+            return result;
+
         }
 
         private string ParsujDate(DateTime data, string format = "yyyy-MM-dd")
@@ -158,11 +199,11 @@ namespace Eteczka.DB.DAO
             //string sqlQuery = "SELECT * from \"Pliki\" as pl left join \"KatPracownicy\" as pr on pl.numeread = pr.numeread where pl.firma = '" + firma.Trim() + "' and pr.numeread = '" + numeread + "';";
             string sqlQuery = "SELECT * FROM \"Pliki\" "
                 + "LEFT OUTER JOIN \"KatPracownicy\" "
-                + " ON \"Pliki\".numeread = \"KatPracownicy\".numeread " 
+                + " ON \"Pliki\".numeread = \"KatPracownicy\".numeread "
                 + "WHERE \"Pliki\".firma = '" + firma.Trim() + "' "
                 + "AND \"KatPracownicy\".numeread = '" + numeread + "' "
                 + "ORDER BY " + sortColumn + " " + sortOrder + ";";
-            
+
             //sqlQuery += " order by " + sortColumn + " " + sortOrder + ";";
 
             List<Pliki> fetchedResult = new List<Pliki>();
@@ -216,14 +257,14 @@ namespace Eteczka.DB.DAO
             // "AND podwydzial LIKE '" + podwydzial.Trim() + "' " +
             // "AND konto5 LIKE '" + konto5.Trim() + "' );";
 
-            
+
             string sqlQuery =
             "SELECT \"Pliki\".*, \"KatPracownicy\".* FROM \"Pliki\" "
             + "LEFT OUTER JOIN \"KatPracownicy\" "
             + "ON \"Pliki\".numeread = \"KatPracownicy\".numeread "
             + "WHERE "
             + "\"Pliki\".firma IN ('" + firma.Trim() + "') "
-            + "AND \"Pliki\".symbolead LIKE '" + typ.Trim() + "' " 
+            + "AND \"Pliki\".symbolead LIKE '" + typ.Trim() + "' "
             + "AND \"Pliki\".numeread IN "
             + "(SELECT numeread FROM \"MiejscePracy\" "
             + "WHERE NOT \"MiejscePracy\".usuniety "
