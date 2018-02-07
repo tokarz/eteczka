@@ -32,19 +32,19 @@ angular.module('et.controllers').controller('mainController', ['$window', '$root
     };
 
     $rootScope.$on('$stateChangeStart',
-      function (event, toState, toParams, fromState, fromParams) {
-          if (toState.name !== 'login' && toState.name !== 'processing') {
-              if ($scope.isAdmin === true) {
-                  if (toState.name !== 'admin') {
-                      event.preventDefault();
-                  }
-              } else if ($scope.isAdmin === false) {
-                  if (toState.name === 'admin') {
-                      event.preventDefault();
-                  }
-              }
-          } else if (toState.name === 'processing') {
-              event.preventDefault();
-          }
-      })
+            function (event, toState, toParams, fromState, fromParams) {
+                    if (toState.name !== 'login' && toState.name !== 'processing') {
+                            if ($scope.isAdmin === true) {
+                                    if (toState.name !== 'admin') {
+                                            event.preventDefault();
+                                    }
+                            } else if ($scope.isAdmin === false) {
+                                    if (toState.name === 'admin') {
+                                            event.preventDefault();
+                                    }
+                            }
+                    } else if (toState.name === 'processing') {
+                            event.preventDefault();
+                    }
+            });
 }]);
