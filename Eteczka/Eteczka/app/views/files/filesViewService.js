@@ -34,6 +34,12 @@ angular.module('et.services').factory('filesViewService', ['httpService', 'sessi
                 plik: plik
             });
         },
+        editCommittedFile: function (plik) {
+            return httpService.post('Pliki/EdytujDokumentZBazy', {
+                plik: plik,
+                sessionId: sessionService.getSessionId()
+            }); 
+        },
         deleteFiles: function (files) {
             return httpService.post('Pliki/UsunPliki', {
                 sessionId: sessionService.getSessionId(),

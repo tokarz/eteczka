@@ -120,8 +120,8 @@ namespace Eteczka.DB.DAO
                 //logi
             }
             return znalezionyDokument;
-
         }
+
         public bool DeaktywujRodzajuDokumentu(string symbol, string idoper, string idakcept)
         {
             string query = "UPDATE \"KatDokumentyRodzaj\" SET usuniety = 'TRUE', idoper = '" + idoper + "', idakcept ='" + idakcept + "', datamodify = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture) + "', dataakcept = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture) + "'  WHERE LOWER (symbol) =  '" + (symbol.ToLower().Trim()) + "' ";

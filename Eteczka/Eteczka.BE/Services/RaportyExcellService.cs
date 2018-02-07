@@ -176,7 +176,7 @@ namespace Eteczka.BE.Services
                         komorka.CellStyle = glownyStyl;
 
                         komorka = rzad.CreateCell(7);
-                        komorka.SetCellValue(dokument.DataModyfikacji.ToString("yyyy-MM-dd"));
+                        komorka.SetCellValue(dokument.DataDodania.ToString("yyyy-MM-dd"));
                         komorka.CellStyle = glownyStyl;
 
                         komorka = rzad.CreateCell(8);
@@ -213,7 +213,7 @@ namespace Eteczka.BE.Services
             }
             catch (Exception ex)
             {
-                return false;
+                result = false;
                 //logi
             }
                 return result;

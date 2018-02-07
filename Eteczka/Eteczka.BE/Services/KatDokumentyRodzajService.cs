@@ -36,6 +36,7 @@ namespace Eteczka.BE.Services
             }
             else
             {
+                result.Result = false;
                 result.Message = "Rodzaj dokumentu o takim symbolu istnieje! Podaj inny symbol.";
             }
 
@@ -53,11 +54,16 @@ namespace Eteczka.BE.Services
             }
             else
             {
+                result.Result = false;
                 result.Message = "Rodzaj dokumentu o takim symbolu nie istnieje! Podaj inny symbol.";
             }
 
             return result;
-
+        }
+        public KatDokumentyRodzaj SzukajRodzajuDokumentuPoSymbolu(string symbol)
+        {
+            KatDokumentyRodzaj dokument = _KatDokumentyRodzajDAO.ZnajdzRodzajDokumentuPoSymbolu(symbol);
+            return dokument;
         }
     }
 }

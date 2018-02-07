@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using Eteczka.BE.Services;
 using Eteczka.BE.Model;
 using Eteczka.Model.DTO;
+using System;
 
 namespace Eteczka.BE.Controllers
 {
@@ -19,49 +20,115 @@ namespace Eteczka.BE.Controllers
         public ActionResult PobierzWszystkieRodzajeDokumentow(string sessionId)
         {
             List<KatDokumentyRodzaj> pobraneDokumenty = new List<KatDokumentyRodzaj>();
-
-            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            ActionResult result = null;
+            try
             {
-                pobraneDokumenty = _KatDokumentyRodzajService.PobierzRodzDok();
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    pobraneDokumenty = _KatDokumentyRodzajService.PobierzRodzDok();
+                }
+
+                result = Json(new
+                {
+                    PobraneDokumenty = pobraneDokumenty
+
+                }, JsonRequestBehavior.AllowGet);
             }
-
-            return Json(new
+            catch (Exception ex)
             {
-                PobraneDokumenty = pobraneDokumenty
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            return result;
 
-            }, JsonRequestBehavior.AllowGet);
+
 
         }
 
         public ActionResult DopiszRodzajDokumentu(string symbol, string nazwaDokumentu, string typEdycji, string teczkaDzial, string sessionId)
         {
             InsertResult sucess = new InsertResult();
-            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            ActionResult result = null;
+            try
             {
-                SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
 
-                sucess = _KatDokumentyRodzajService.DodajRodzajDokumentuDoBazy(symbol, nazwaDokumentu,typEdycji, teczkaDzial, sesja);
+                    sucess = _KatDokumentyRodzajService.DodajRodzajDokumentuDoBazy(symbol, nazwaDokumentu, typEdycji, teczkaDzial, sesja);
+                }
+                result = Json(new
+                {
+                    success = sucess
+                }, JsonRequestBehavior.AllowGet);
             }
-            return Json(new
+            catch (Exception ex)
             {
-                success = sucess
-            }, JsonRequestBehavior.AllowGet);
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            return result;
+            
         }
-        public ActionResult WylaczRodzajDokumentu (string symbol, string sessionId)
+        public ActionResult WylaczRodzajDokumentu(string symbol, string sessionId)
         {
             InsertResult sucess = new InsertResult();
-            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            ActionResult result = null;
+            try
             {
-                SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
 
-                sucess = _KatDokumentyRodzajService.DezaktywujRodzajDokumentu(symbol, sesja);
+                    sucess = _KatDokumentyRodzajService.DezaktywujRodzajDokumentu(symbol, sesja);
+                }
+                result = Json(new
+                {
+                    success = sucess
+                }, JsonRequestBehavior.AllowGet);
             }
-            return Json(new
+            catch(Exception ex)
             {
-                success = sucess
-            }, JsonRequestBehavior.AllowGet);
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            return result;
         }
 
-
+        public ActionResult ZnajdzRodzajDokumentuPoSymbolu(string sessionId, string symbol)
+        {
+            KatDokumentyRodzaj dokument = new KatDokumentyRodzaj();
+            ActionResult result = null;
+            try
+            {
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    dokument = _KatDokumentyRodzajService.SzukajRodzajuDokumentuPoSymbolu(symbol);
+                }
+                result = Json(new
+                {
+                    dokument = dokument,
+                    sucess = dokument != null ? true : false
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            return result;
+        }
     }
 }

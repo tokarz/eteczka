@@ -139,7 +139,7 @@ namespace Eteczka.BE.Services
                     cell.Format.Alignment = ParagraphAlignment.Left;
 
                     cell = row.Cells[3];
-                    cell.AddParagraph(dokument.DataAkcept.ToString("yyyy-MM-dd"));
+                    cell.AddParagraph(dokument.DataDodania.ToString("yyyy-MM-dd"));
                     cell.Format.Alignment = ParagraphAlignment.Center;
 
                     cell = row.Cells[4];
@@ -155,8 +155,15 @@ namespace Eteczka.BE.Services
             }
 
             //Generujemy i zapisujemy plik z raportem
-            result = _PdfUtils.GenerujIZapiszRaportPdf(doc, "Skorowidz teczki", sesja.AktywnyUser.Identyfikator.Trim());
-
+            try
+            {
+                result = _PdfUtils.GenerujIZapiszRaportPdf(doc, "Skorowidz teczki", sesja.AktywnyUser.Identyfikator.Trim());
+            }
+            catch (Exception ex)
+            {
+                result = false;
+            }
+    
             return result;
         }
         public bool SkorowidzTeczkiPracownikaPelny( SessionDetails sesja, string numeread)
@@ -293,7 +300,7 @@ namespace Eteczka.BE.Services
                     cell.Format.Alignment = ParagraphAlignment.Left;
 
                     cell = row.Cells[4];
-                    cell.AddParagraph(dokument.DataAkcept.ToString("yyyy-MM-dd"));
+                    cell.AddParagraph(dokument.DataDodania.ToString("yyyy-MM-dd"));
                     cell.Format.Alignment = ParagraphAlignment.Center;
 
                     cell = row.Cells[5];
@@ -313,7 +320,14 @@ namespace Eteczka.BE.Services
             }
 
             //Generujemy i zapisujemy plik z raportem
+            try
+            {
             result = _PdfUtils.GenerujIZapiszRaportPdf(doc, "Pełny skorowidz teczki", sesja.AktywnyUser.Identyfikator.Trim());
+            }
+            catch (Exception ex)
+            {
+                result = false;
+            }
 
             return result;
         }
