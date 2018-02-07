@@ -222,8 +222,8 @@
     <Content Include="app\css\modal.min.css">
       <DependentUpon>modal.css</DependentUpon>
     </Content>
-    <Content Include="app\main\components\company-structure\addFileTypeModal.html" />
-    <Content Include="app\main\components\company-structure\companyStructureController.js" />
+    <Content Include="app\main\header\modal\addFileTypeModal.html" />
+    <Content Include="app\main\header\modal\companyStructureController.js" />
     <Content Include="app\main\components\filepreview\print\pdfsnippet.js" />
     <Content Include="app\main\components\filepreview\print\print.html" />
     <Content Include="app\main\users\usersService.js" />
@@ -1979,6 +1979,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="app\main\components\company-structure\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('et.controllers').controller('headerController', ['$rootScope', '$scope', '$state', '$mdDialog', '$timeout', 'sessionService', 'shopCartService', function ($rootScope, $scope, $state, $mdDialog, $timeout, sessionService, shopCartService) {
+angular.module('et.controllers').controller('headerController', ['$rootScope', '$scope', '$state', '$mdDialog', '$timeout', 'sessionService', 'shopCartService', 'modalService', function ($rootScope, $scope, $state, $mdDialog, $timeout, sessionService, shopCartService, modalService) {
     $scope.selectedcompany = null;
     $scope.userLoggedIn = false;
     $scope.loginStatus = '';
@@ -96,8 +96,42 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
                 label: 'Słownik rodzajów dokumentów',
                 active: false,
                 action: function () {
-                        $scope.activeSmallOption = $scope.smallOptions[2];
-                        alert('Burqin - show modal');
+                    $scope.activeSmallOption = $scope.smallOptions[2];
+
+                    var modalOptions = {
+                        body: 'app/main/header/modal/addFileTypeModal.html',
+                        controller: function ($scope, $mdDialog) {
+                            $scope.yesNoOptions = [{ name: 'TAK', value: true }, { name: 'NIE', value: false }]
+                            $scope.editOptions = [{ name: 'TAK', value: 'b' }, { name: 'NIE', value: 'a' }]
+                            $scope.docPartOptions = ['A', 'B', 'C']
+                            $scope.modalResult.Dokwlasny = $scope.modalResult.Dokwlasny || $scope.yesNoOptions[0].value;
+
+                            $scope.hide = function () {
+                                $mdDialog.hide();
+                            };
+
+                            $scope.cancel = function () {
+                                $mdDialog.cancel();
+                            };
+
+                            $scope.answer = function (answer, errors) {
+                                console.log(errors)
+                                if (!errors || Object.keys(errors).length === 0) {
+                                    $mdDialog.hide(answer);
+                                }
+                            };
+                        },
+                    };
+
+                    modalService.showModal(modalOptions)
+                        .then(function (result) {
+                            // TODO: add executor
+                        })
+                        .catch(function (ex) {
+                            if (ex !== 'cancel' && ex !== 'backdrop click') {
+                                console.error(ex);
+                            }
+                        });
                 }
         }
             ];
