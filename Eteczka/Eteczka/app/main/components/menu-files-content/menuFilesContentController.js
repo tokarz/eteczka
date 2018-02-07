@@ -4,6 +4,20 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
     $scope.emptyTableMessage = 'Nie zaznaczono elementu do wyswietlenia';
     $scope.userFiles = [];
 
+    $scope.loadFileTypes = function () {
+        filesViewService.getFileTypes().then(function (fileTypes) {
+            $scope.fileTypes = fileTypes.PobraneDokumenty
+        })
+    }
+    $scope.loadEmployees = function () {
+        filesViewService.getAllEmployees().then(function (employees) {
+            $scope.employees = employees.Data.data
+        })
+    }
+
+    $scope.loadFileTypes();
+    $scope.loadEmployees();
+
     var openModal = function (modalOptions, executor) {
         return modalService.showModal(modalOptions)
             .then(function (result) {
@@ -132,6 +146,109 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
 
 
     }
+
+    $scope.editFileDescriptionCtrl = function ($scope, $mdDialog, modalService, description, fileTypes, employees, name) {
+        if (description) {
+            $scope.modalResult = description;
+        }
+
+        $scope.yesNoOptions = [{ name: 'TAK', value: true }, { name: 'NIE', value: false }]
+        $scope.docPartOptions = ['A', 'B', 'C']
+        $scope.modalResult.Dokwlasny = $scope.modalResult.Dokwlasny || $scope.yesNoOptions[0].value;
+        $scope.modalResult.Nazwa = name;
+
+        $scope.pracownikPesel = '';
+
+        $scope.hide = function () {
+            $mdDialog.hide();
+        };
+
+        $scope.cancel = function () {
+            $mdDialog.cancel();
+        };
+
+        $scope.answer = function (answer, errors) {
+            console.log(errors)
+            if (!errors || Object.keys(errors).length === 0) {
+                $mdDialog.hide(answer);
+            }
+        };
+
+        $scope.isDisabled = function () {
+            return !$scope.modalResult.Typ || !$scope.isTypeWithDates($scope.modalResult.Typ.Symbol);
+        }
+
+        $scope.fillValidFromDate = function () {
+            if (!$scope.modalResult.DataPocz && $scope.modalResult.DataWytworzenia) {
+                $scope.modalResult.DataPocz = $scope.modalResult.DataWytworzenia
+            }
+        }
+
+        $scope.isTypeWithDates = function (fileSymbol) {
+            var type = fileTypes.find(function (file) {
+                return file.Symbol === fileSymbol
+            }).Typedycji
+
+            if (type.trim() === 'b') {
+                return true
+            }
+            else {
+                return false
+            }
+        }
+
+        var querySearch = function (arrayTosearchIn, keys, query) {
+            return query ? arrayTosearchIn.filter(createFilterFor(keys, query)) : arrayTosearchIn;
+        }
+
+        $scope.fileTypeSearch = function (query) {
+            return querySearch(fileTypes, ["Symbol", "Nazwa"], query)
+        }
+
+        $scope.employeeSearch = function (query) {
+            return querySearch(employees, ["Nazwisko"], query)
+        }
+
+        var createFilterFor = function (keys, query) {
+            var lowercaseQuery = angular.lowercase(query);
+
+            return function filterFn(object) {
+                return keys.some(function (key) {
+                    return (object[key].toLowerCase().indexOf(lowercaseQuery) === 0);
+                })
+            };
+        }
+    }
+
+    $scope.triggerEditFileDescriptionDialog = function () {
+        var modalOptions = {
+            body: 'app/views/files/addFile/fileDescriptionPopup/upsertFileDescription.html',
+            controller: $scope.editFileDescriptionCtrl,
+            locals: {
+                description: $scope.selectedFile,
+                fileTypes: $scope.fileTypes,
+                employees: $scope.employees,
+                activeEmployee: $rootScope.activeUser,
+                name: $scope.selectedFile ? $scope.selectedFile.Nazwa : ''
+            }
+        };
+
+        openModal(
+            modalOptions,
+            function (value) {
+                $scope.createdMetaData = value;
+                $rootScope.activeUser = value.Pracownik ? value.Pracownik : {};
+                modalService.confirm('Zapisać zmiany?', 'Czy chcesz zapisać zmiany w opisie pliku ?').then(function () {
+                    filesViewService.editCommittedFile().then(function (res) {
+                        if (res.success) {
+                            modalService.alert('Zatwierdzanie zmian w pliku', 'Plik zostal zmieniony');
+                            // $state.reload(); - przeladowac stan kiedy edytujemy?
+                        } else {
+                            modalService.alert('Zatwierdzanie zmian w pliku', 'Blad! Plik nie zostal zmieniony! Zweryfikuj dane i prawa dostepu lub skontaktuj sie z Administratorem');
+                        }
+                });
+            }
+        );
 
     $scope.$watch('user', function (user) {
         if (user) {
