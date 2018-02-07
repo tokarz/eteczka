@@ -17,7 +17,7 @@ namespace Eteczka.Model.Entities
         public string Pesel { get; set; }
         public DateTime DataUrodzenia { get; set; }
         public string Symbol { get; set; } // rodzaj dokumentu
-        public string OpisRodzajuDokumentu { get; set; }                
+        public string OpisRodzajuDokumentu { get; set; }  //pełna nazwa rodzaj dokumentu       
         public DateTime DataSkanu { get; set; }
         public DateTime DataDokumentu { get; set; }
         public DateTime DataPocz { get; set; }
@@ -64,6 +64,7 @@ namespace Eteczka.Model.Entities
         public bool DokumentWlasny { get; set; }
         public string IdOper { get; set; }
         public string IdAkcept { get; set; }
+        public DateTime DataDodania { get; set; }
         public DateTime DataModyfikacji { get; set; }
         public DateTime DataAkcept { get; set; }
         public string Systembazowy { get; set; }//EAD

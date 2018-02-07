@@ -14,5 +14,6 @@ namespace Eteczka.BE.Services
         List<KatDokumentyRodzaj> PobierzRodzDok();
         InsertResult DodajRodzajDokumentuDoBazy(string symbol, string nazwaDokumentu, string typEdycji, string teczkaDzial, SessionDetails sesja);
         InsertResult DezaktywujRodzajDokumentu(string symbol, SessionDetails sesja);
+        KatDokumentyRodzaj SzukajRodzajuDokumentuPoSymbolu(string symbol);
     }
 }

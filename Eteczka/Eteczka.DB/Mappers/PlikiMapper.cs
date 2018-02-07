@@ -45,8 +45,8 @@ namespace Eteczka.DB.Mappers
                     SymbolEad = row["symbolead"].ToString(),
                     TeczkaDzial = row["teczkadzial"].ToString(),
                     NrDokumentu = int.Parse(row["nrdokumentu"].ToString()),
-                    
-
+                    DataDodania = DateTime.Parse(row["datadodania"].ToString())
+            
                 };
             }
             catch (Exception ex)
