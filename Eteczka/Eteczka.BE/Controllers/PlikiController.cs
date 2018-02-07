@@ -4,6 +4,8 @@ using Eteczka.BE.Services;
 using Eteczka.Model.DTO;
 using Eteczka.Model.Entities;
 using Eteczka.BE.Model;
+using System.Configuration;
+using System.IO;
 using System;
 
 namespace Eteczka.BE.Controllers
@@ -42,7 +44,37 @@ namespace Eteczka.BE.Controllers
 
             return Json(new
             {
-                meta = meta
+                meta
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult DodajDoWaitingRoomu(string sessionId)
+        {
+            bool success = false;
+
+            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            {
+                var httpRequest = HttpContext.Request;
+                string firma = Sesja.PobierzStanSesji().PobierzSesje(sessionId).AktywnaFirma;
+                string eadRootName = ConfigurationManager.AppSettings["rootdir"];
+                string eadRoot = Environment.GetEnvironmentVariable(eadRootName);
+
+                if (httpRequest.Files.Count > 0)
+                {
+                    foreach (string file in httpRequest.Files)
+                    {
+                        var postedFile = httpRequest.Files[file];
+                        string filePath = Path.Combine(eadRoot, "waitingroom", firma, postedFile.FileName);
+                        postedFile.SaveAs(filePath);
+                    }
+                }
+
+            }
+
+            return Json(new
+            {
+                success
             }, JsonRequestBehavior.AllowGet);
         }
 

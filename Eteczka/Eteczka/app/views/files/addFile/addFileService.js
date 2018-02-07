@@ -12,6 +12,14 @@ angular.module('et.services').factory('addFileService', ['httpService', 'session
                 sessionId: sessionService.getSessionId(),
                 fileName: filename
             });
+        },
+        dodajPlikDoPoczekalni: function (files) {
+            var fd = new FormData();
+            fd.append("file", files[0]);
+
+            return httpService.makeFilePostQuery('Pliki/DodajDoWaitingRoomu', fd, {
+                'sessionID': sessionService.getSessionId()
+            });
         }
     }
 }]);
