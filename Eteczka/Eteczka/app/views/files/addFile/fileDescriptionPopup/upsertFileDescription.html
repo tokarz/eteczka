@@ -20,7 +20,8 @@
                                  md-item-text="item.Nazwisko"
                                  md-min-length="0"
                                  required
-                                 ng-model="modalResult.Pracownik">
+                                 ng-model="modalResult.Pracownik"
+                                 ng-init="activeEmployee? : ( modalResult.Pracownik = activeEmployee) : ''">
                     <md-item-template>
                         <span md-highlight-text="searchEmployee" md-highlight-flags="^i">{{item.Nazwisko}} {{item.Imie}} {{item.DataUrodzenia}}</span>
                     </md-item-template>
