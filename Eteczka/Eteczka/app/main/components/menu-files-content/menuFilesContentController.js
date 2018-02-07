@@ -246,9 +246,10 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
                         } else {
                             modalService.alert('Zatwierdzanie zmian w pliku', 'Blad! Plik nie zostal zmieniony! Zweryfikuj dane i prawa dostepu lub skontaktuj sie z Administratorem');
                         }
+                    });
                 });
-            }
-        );
+            });
+    }
 
     $scope.$watch('user', function (user) {
         if (user) {
