@@ -197,7 +197,8 @@ namespace Eteczka.BE.Controllers
             }, JsonRequestBehavior.AllowGet);
 
         }
-        public ActionResult EdytujDokumentZBazy(KomitPliku plik, string sessionId)
+        [HttpPost]
+        public ActionResult EdytujDokumentZBazy(string sessionId, string idPliku, KomitPliku plik)
         {
 
             bool sucess = false;
@@ -207,7 +208,7 @@ namespace Eteczka.BE.Controllers
                 if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
                 {
                     SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
-                    sucess = _PlikiService.EdytujDokumentWBazie(sesja, plik);
+                    sucess = _PlikiService.EdytujDokumentWBazie(sesja, plik, idPliku);
                 }
                 result = Json(new
                 {

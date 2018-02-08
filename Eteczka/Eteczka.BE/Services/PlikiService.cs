@@ -198,9 +198,9 @@ namespace Eteczka.BE.Services
             return result;
         }
 
-        public bool EdytujDokumentWBazie(SessionDetails sesja, KomitPliku plik)
+        public bool EdytujDokumentWBazie(SessionDetails sesja, KomitPliku plik, string idPliku)
         {
-            bool result = _Dao.EdytujPlikWBazie(plik, sesja.AktywnyUser.Identyfikator, sesja.AktywnyUser.Identyfikator);
+            bool result = _Dao.EdytujPlikWBazie(plik, sesja.AktywnyUser.Identyfikator, sesja.AktywnyUser.Identyfikator, idPliku);
 
             return result;
         }

@@ -98,7 +98,7 @@ namespace Eteczka.DB.DAO
             return result;
         }
 
-        public bool EdytujPlikWBazie(KomitPliku plik, string idoper, string idakcept)
+        public bool EdytujPlikWBazie(KomitPliku plik, string idoper, string idakcept, string id)
         {
             bool result = false;
 
@@ -123,10 +123,11 @@ namespace Eteczka.DB.DAO
                         DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture),
                         idoper.Trim(),
                         idakcept.Trim(),
-                        plik.Pracownik.Numeread.Trim()
+                        plik.Pracownik.Numeread.Trim(),
+                        id.Trim()
                         };
 
-                    string updateQuery = string.Format("UPDATE \"KatPracownicy\" SET " + "symbol='{0}', dokwlasny='{1}', datadokumentu='{2}', datapocz='{3}', datakoniec='{4}', opisdodatkowy='{5}', nrdokumentu='{6}', datamodify='{7}', dataakcept='{8}', idoper='{9}', idakcept='{10}' WHERE numeread = '{11}'", obs);
+                    string updateQuery = string.Format("UPDATE \"Pliki\" SET " + "symbol='{0}', dokwlasny='{1}', datadokumentu='{2}', datapocz='{3}', datakoniec='{4}', opisdodatkowy='{5}', nrdokumentu='{6}', datamodify='{7}', dataakcept='{8}', idoper='{9}', idakcept='{10}' WHERE id = '{12}'", obs);
 
                     IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
                     result = connectionState.ExecuteNonQuery(updateQuery);
