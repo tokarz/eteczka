@@ -541,7 +541,7 @@ namespace Eteczka.BE.Utils
                 mail.Body = wiadomosc;
 
                 System.Net.Mail.Attachment attachment;
-                string zalacznik = SpakujPliki(firma, Zalaczniki, hasloDoZip);
+                string zalacznik = SpakujPliki(firma.Trim(), Zalaczniki, hasloDoZip);
                 attachment = new System.Net.Mail.Attachment(zalacznik);
                 if (File.Exists(zalacznik))
                 {

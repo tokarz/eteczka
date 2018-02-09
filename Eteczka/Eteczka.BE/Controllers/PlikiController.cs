@@ -181,7 +181,7 @@ namespace Eteczka.BE.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult WyslijMailemPliki(string sessionId, string adresaci, List<string> Zalaczniki, string hasloDoZip, string temat, string wiadomosc)
+        public ActionResult WyslijMailemPliki(string sessionId, string adresaci,  string hasloDoZip, string temat, string wiadomosc, List<string> Zalaczniki)
         {
 
             bool success = false;

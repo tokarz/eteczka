@@ -27,18 +27,32 @@ namespace Eteczka.BE.Controllers
             LOGGER.Info("Pobieranie pracownikow dla [" + sessionId + "]");
 
             List<Pracownik> pracownicy = new List<Pracownik>();
-            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            ActionResult result = null;
+            try
             {
-                SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
-                pracownicy = _PracownicyService.PobierzWszystkich(sesja);
-                LOGGER.Info("Pobrano pracownikow [" + (pracownicy != null ? pracownicy.Count : 0) + "]");
-            }
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    pracownicy = _PracownicyService.PobierzWszystkich(sesja);
+                    LOGGER.Info("Pobrano pracownikow [" + (pracownicy != null ? pracownicy.Count : 0) + "]");
+                }
 
-            var result = Json(new
+                result = Json(new
+                {
+                    data = pracownicy,
+                    count = pracownicy != null ? pracownicy.Count : 0,
+                    sucess = pracownicy != null && pracownicy.Count > 0 ? true : false
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
             {
-                data = pracownicy,
-                count = pracownicy != null ? pracownicy.Count : 0
-            }, JsonRequestBehavior.AllowGet);
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            
 
             var serializer = new JavaScriptSerializer();
 

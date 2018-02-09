@@ -65,6 +65,15 @@ namespace Eteczka.Model.Entities
         public string IdOper { get; set; }
         public string IdAkcept { get; set; }
         public DateTime DataDodania { get; set; }
+
+        public string DataDodaniaStr
+        {
+            get
+            {
+                return this.DataDodania.ToString("yyyy-MM-dd");
+            }
+        }
+
         public DateTime DataModyfikacji { get; set; }
         public DateTime DataAkcept { get; set; }
         public string Systembazowy { get; set; }//EAD
