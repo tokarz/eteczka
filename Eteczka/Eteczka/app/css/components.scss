@@ -439,6 +439,11 @@
         color: $darkblue;
 }
 
+table.dataTable thead th,
+table.dataTable thead td {
+        padding: 2px 4px;
+}
+
 
 @media screen and (max-width:1360px) and (min-width: 961px) {
 }

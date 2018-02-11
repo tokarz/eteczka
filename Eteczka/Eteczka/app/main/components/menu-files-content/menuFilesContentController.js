@@ -3,6 +3,13 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
     $scope.selectedFile = null;
     $scope.emptyTableMessage = 'Nie zaznaczono elementu do wyswietlenia';
     $scope.userFiles = [];
+    $scope.selected = { row: - 1 };
+
+    $scope.$watch('selected.row', function (row) {
+        if (typeof row !== 'undefined' && row >= 0 && row < $scope.userFiles.length) {
+            $scope.selectedFile = $scope.userFiles[row];
+        }
+    });
 
     $scope.loadFileTypes = function () {
         filesViewService.getFileTypes().then(function (fileTypes) {

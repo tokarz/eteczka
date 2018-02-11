@@ -1207,6 +1207,10 @@ md-toolbar {
 .email-component {
   color: #074C75; }
 
+table.dataTable thead th,
+table.dataTable thead td {
+  padding: 2px 4px; }
+
 html {
   height: 100vh;
   width: 100%; }

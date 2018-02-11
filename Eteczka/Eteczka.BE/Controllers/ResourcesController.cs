@@ -28,7 +28,7 @@ namespace Eteczka.BE.Controllers
 
                 string eadRoot = Environment.GetEnvironmentVariable(eadRootName);
 
-                string filepath = System.IO.Path.Combine(eadRoot, pliki, firma, fileName.Trim());
+                string filepath = System.IO.Path.Combine(eadRoot, pliki, firma, fileName != null ? fileName.Trim() : "");
 
                 base64PDF = _PlikiUtils.PobierzZaszyfrowanaZawartoscPliku(filepath, sessionId);
             }

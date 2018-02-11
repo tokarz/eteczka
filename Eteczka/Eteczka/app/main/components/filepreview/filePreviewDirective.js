@@ -159,13 +159,12 @@ angular.module('et.directives').directive('filePreview', function () {
                     curDown = true;
                     startYPos = m.pageY;
                     startXPos = m.pageX;
-                    console.error('DOWN!');
+
                     m.preventDefault();
                 });
 
                 $('#' + id).mouseup(function () {
                     curDown = false;
-                    console.error('UP!');
                 });
 
 
@@ -178,12 +177,6 @@ angular.module('et.directives').directive('filePreview', function () {
                 }
                 document.getElementById('prev').addEventListener('click', onPrevPage);
 
-                //function onFitToWindow() {
-                //    scale = 2.25;
-                //    renderPage(pageNum);
-                //}
-                //document.getElementById('fittowindow').addEventListener('click', onFitToWindow);
-
                 $("#print").unbind('click');
                 $("#print").bind('click', function () {
                     $scope.onPrint(base64);
@@ -194,21 +187,21 @@ angular.module('et.directives').directive('filePreview', function () {
                     renderPage(pageNum);
 
                 }
-                document.getElementById('zoomin').addEventListener('click', onZoomIn);
+                document.getElementById('zoomin').addEventListener('click', _.debounce(onZoomIn, 100));
 
                 function rotateLeft() {
                     var rotateLeft = -90;
                     renderPage(pageNum, rotateLeft);
 
                 }
-                document.getElementById('rotateleft').addEventListener('click', rotateLeft);
+                document.getElementById('rotateleft').addEventListener('click', _.debounce(rotateLeft, 100));
 
                 function rotateRight() {
                     var rotateRight = 90;
                     renderPage(pageNum, rotateRight);
 
                 }
-                document.getElementById('rotateright').addEventListener('click', rotateRight);
+                document.getElementById('rotateright').addEventListener('click', _.debounce(rotateRight, 100));
 
                 function onZoomOut() {
                     if (scale <= 1) {
@@ -217,7 +210,7 @@ angular.module('et.directives').directive('filePreview', function () {
                     scale -= 0.25;
                     renderPage(pageNum);
                 }
-                document.getElementById('zoomout').addEventListener('click', onZoomOut);
+                document.getElementById('zoomout').addEventListener('click', _.debounce(onZoomOut, 100));
 
 
                 function onNextPage() {

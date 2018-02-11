@@ -15,7 +15,8 @@ angular.module('et.directives').directive('etDataTable', ['$timeout', function (
         scope: {
             haskeys: '@',
             scrolly: '@',
-            scrollx: '@'
+            scrollx: '@',
+            selectedrow: '='
         },
         link: function (scope, element) {
             //{keys:true, fixedHeader:true, paging: false, scrollY:'50vh', scrollCollapse: true, scrollX:false, info: false}
@@ -25,15 +26,14 @@ angular.module('et.directives').directive('etDataTable', ['$timeout', function (
                 var initParentSize = parentContainer.height();
                 var headerHeight = $('thead', element).height();
 
-                var initTbodyHeight = initParentSize - headerHeight - 20;
+                var initTbodyHeight = initParentSize - headerHeight - 15;
 
-                var table = $(element).DataTable({
+                scope.table = $(element).DataTable({
                     keys: getOrSetDefault(scope.haskeys, false),
                     fixedHeader: true,
                     paging: false,
                     scrollY: getOrSetDefault(scope.scrolly, initTbodyHeight),
                     info: false,
-                    scrollCollapse: true,
                     scrollX: getOrSetDefault(scope.scrollx, true),
                     searching: false,
                     language: {
@@ -47,28 +47,27 @@ angular.module('et.directives').directive('etDataTable', ['$timeout', function (
                     ]
                 });
 
-                table
-                    .on('key', function (e, datatable, key, cell, originalEvent) {
-                        alert(cell.Data());
-                        //events.prepend('<div>Key press: ' + key + ' for cell <i>' + cell.data() + '</i></div>');
-                    })
+                scope.table
                     .on('key-focus', function (e, datatable, cell) {
-                        //events.prepend('<div>Cell focus: <i>' + cell.data() + '</i></div>');
-                    })
-                    .on('key-blur', function (e, datatable, cell) {
-                        //events.prepend('<div>Cell blur: <i>' + cell.data() + '</i></div>');
+                        scope.selectedrow = cell.index().row;
                     });
 
                 $(window).resize(function () {
                     var initParentSize = parentContainer.height();
 
-                    var initTbodyHeight = initParentSize - headerHeight - 20;
+                    var initTbodyHeight = initParentSize - headerHeight - 15;
                     (_.debounce(function () {
                         $('div.dataTables_scrollBody').height(initTbodyHeight);
-                    }, 100))();
+                    }, 200))();
 
                 });
 
+            });
+
+            scope.$on('$destroy', function () {
+                if (scope.table) {
+                    scope.table.destroy();
+                }
             });
 
         }
