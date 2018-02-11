@@ -14,7 +14,7 @@
             <span class="toolbar-option option-five fa fa-envelope-open-o" ng-click="openSendEmailDialog()"></span>
             <span class="not-yet-available toolbar-option option-six fa fa-download" ng-click="triggerDownloadFiles()"></span>
             <span class="toolbar-option fa fa-file-pdf-o" ng-click="generatePdf()"></span>
-            <span class="toolbar-option option-select-all fa fa-check-square" ng-click="toggleSelectAll()"></span>
+
             <span class="toolbar-option option-seven fa fa-shopping-basket" ng-click="triggeraddtocart()"></span>
         </div>
         <div ng-if="toolbar" class="toolbar-panel">
@@ -22,24 +22,33 @@
         </div>
         <div class="main-files-content-wrapper">
             <div class="file-list-wrapper">
-                <table style="width:100%;text-align:center" class="ead-table">
-                    <thead class="table-header">
+                <table style="width:100%;text-align:center" et-data-table haskeys="true">
+                    <colgroup>
+                        <col style="width:10%" />
+                        <col style="width:10%" />
+                        <col style="width:15%" />
+                        <col style="width:20%" />
+                        <col style="width:20%" />
+                        <col style="width:20%" />
+                        <col style="width:5%" />
+                    </colgroup>
+                    <thead class="display table-header" cellspacing="0">
                         <tr>
-                            <th>ND</th>
                             <th>Dział</th>
+                            <th>ND</th>
                             <th>Rodzaj Dokumentu</th>
                             <th>Data dodania do systemu</th>
                             <th>Data Pocz</th>
                             <th>Data Kon</th>
-                            <th>[ ]</th>
+                            <th> <span class="fa fa-check-square" style="cursor: pointer" ng-click="toggleSelectAll()"></span></th>
                         </tr>
                     </thead>
                     <tbody style="text-align:left">
                         <tr ng-if="userFiles && userFiles.length > 0" ng-repeat="file in userFiles" ng-click="selectFile(file)" ng-class="getRowStyle(file)">
-                            <td>{{file.NrDokumentu}}</td>
                             <td>{{file.TeczkaDzial}}</td>
+                            <td>{{file.NrDokumentu}}</td>
                             <td>{{file.Symbol}} <i class="fa fa-question-circle" style="cursor:pointer;float:right" title="{{file.OpisRodzajuDokumentu}}"></i></td>
-                            <td>{{file.DataDodania}}</td>
+                            <td>{{file.DataDodaniaStr}}</td>
                             <td>{{file.DataPoczStr}}</td>
                             <td>{{file.DataKoniecStr}}</td>
                             <td>

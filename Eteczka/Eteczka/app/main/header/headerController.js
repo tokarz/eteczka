@@ -32,7 +32,6 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
         }
     ];
 
-
     $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
         $scope.activeOption = toState.name;
         $scope.isAdmin = (toState.name === 'admin');

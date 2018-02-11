@@ -20,8 +20,7 @@
                                  md-item-text="item.Nazwisko"
                                  md-min-length="0"
                                  required
-                                 ng-model="modalResult.Pracownik"
-                                 ng-init="activeEmployee? : ( modalResult.Pracownik = activeEmployee) : ''">
+                                 ng-model="modalResult.Pracownik">
                     <md-item-template>
                         <span md-highlight-text="searchEmployee" md-highlight-flags="^i">{{item.Nazwisko}} {{item.Imie}} {{item.DataUrodzenia}}</span>
                     </md-item-template>
@@ -74,7 +73,7 @@
                         ng-options="option as option for option in docPartOptions"
                         ng-model="modalResult.Typ.Teczkadzial"
                         required />
-            </div> 
+            </div>
             <div class="modal-table-row">
                 <label class="modal-table-label" for="creationDateContainer">Data dokumentu *</label>
                 <div datemask separator="-" class="modal-table-input">

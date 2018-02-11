@@ -54,7 +54,7 @@
 }
 
 .table-row:hover {
-        background: $darkgrey;
+        background: $lightgray;
 }
 
 .git-table-row {
@@ -224,12 +224,12 @@
 
 
 .active-row {
-        background: $lightblue;
+        background: $lightblue !important;
         color: white;
 }
 
 .checked-row {
-        background: $darkblue;
+        background: $darkblue !important;
         color: white;
 }
 
@@ -266,8 +266,9 @@
 
 
 .main-files-content-wrapper {
-        height: calc(100% - 60px);
+        height: 100%;
         width: 100%;
+        overflow: hidden;
 }
 
 .file-list-wrapper {

@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('et.controllers').controller('gitMenuTableController', ['$rootScope', '$scope', '$state', '$timeout', 'filesViewService', 'modalService', 'companiesService', 'addFileService', function ($rootScope, $scope, $state, $timeout, filesViewService, modalService, companiesService, addFileService) {
+angular.module('et.controllers').controller('gitMenuTableController', ['$rootScope', '$scope', '$state', '$timeout', 'filesViewService', 'modalService', 'companiesService', 'addFileService', 'cacheService', function ($rootScope, $scope, $state, $timeout, filesViewService, modalService, companiesService, addFileService, cacheService) {
     $scope.newrows = [];
     $scope.stagedrows = [];
     $scope.loading = false;
@@ -13,6 +13,17 @@ angular.module('et.controllers').controller('gitMenuTableController', ['$rootSco
             filesViewService.getGitStateForCompany(value).then(function (result) {
                 $scope.newrows = result.newfiles;
                 $scope.stagedrows = [];
+
+                $scope.stagedRowsFromCache = cacheService.getValue('stagedFiles');
+
+                if ($scope.stagedRowsFromCache) {
+                    $scope.stagedrows = $scope.stagedRowsFromCache;
+
+                    $scope.newrows = _.differenceWith($scope.newrows, $scope.stagedrows, function (first, second) {
+                        return first.NazwaEad === second.NazwaEad;
+                    });
+                }
+
                 $scope.loading = false;
             });
         }
@@ -85,6 +96,8 @@ angular.module('et.controllers').controller('gitMenuTableController', ['$rootSco
             $scope.selectedfile = null;
             $scope.selectedstagedfile = row;
             $scope.filetopreview = row;
+
+            cacheService.addToCache('stagedFiles', $scope.stagedrows);
         }
     }
 
@@ -95,6 +108,8 @@ angular.module('et.controllers').controller('gitMenuTableController', ['$rootSco
             $scope.selectedstagedfile = null;
             $scope.selectedfile = row;
             $scope.filetopreview = row;
+
+            cacheService.addToCache('stagedFiles', $scope.stagedrows);
         }
     }
 
@@ -129,6 +144,12 @@ angular.module('et.controllers').controller('gitMenuTableController', ['$rootSco
     $scope.upsertFileDescriptionCtrl = function ($scope, $mdDialog, modalService, description, fileTypes, employees, name) {
         if (description) {
             $scope.modalResult = description;
+        }
+
+        var cachedUser = cacheService.getValue('savedGitUser');
+        if (cachedUser) {
+
+            $scope.modalResult.Pracownik = cachedUser;
         }
 
         $scope.yesNoOptions = [{ name: 'TAK', value: true }, { name: 'NIE', value: false }]
@@ -204,6 +225,14 @@ angular.module('et.controllers').controller('gitMenuTableController', ['$rootSco
             filesViewService.commitFile($scope.createdMetaData).then(function (res) {
                 if (res.success) {
                     modalService.alert('Zatwierdzanie pliku', 'Plik Zostal Dodany');
+                    cacheService.addToCache('savedGitUser', $scope.createdMetaData.Pracownik);
+                    var stagedFiles = cacheService.getValue('stagedFiles');
+                    var updatedFiles = stagedFiles.filter(function (elm) {
+                        return elm.NazwaEad !== $scope.createdMetaData.Nazwa;
+                    });
+
+                    cacheService.addToCache('stagedFiles', updatedFiles);
+
                     $state.reload();
                 } else {
                     modalService.alert('Zatwierdzanie pliku', 'Blad! Plik Nie Zostal Dodany! Zweryfikuj dane i prawa dostepu lub skontaktuj sie z Administratorem');
@@ -248,5 +277,13 @@ angular.module('et.controllers').controller('gitMenuTableController', ['$rootSco
             }
         );
     }
+
+    $rootScope.$on('$stateChangeStart',
+        function (event, toState, toParams, fromState, fromParams) {
+            if (fromState.name !== '' && (fromState.name !== toState.name)) {
+                cacheService.removeFromCache('savedGitUser');
+                cacheService.removeFromCache('stagedFiles');
+            }
+        });
 
 }]);

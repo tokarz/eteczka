@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.min.css" />
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css" />
+    <link rel="stylesheet" href="Scripts/DataTables/datatables.min.css" />
 </head>
 <body ng-controller="mainController">
     <div id="rootWrapper" class="resizable">
@@ -49,6 +50,8 @@
     <!--Biblioteka animacji i grafiki wektorowej-->
     <script src="Scripts/d3js/d3.min.js"></script>
     <script src="Scripts/d3pie.min.js"></script>
+
+    <script src="Scripts/DataTables/datatables.min.js"></script>
 
     <!--Przeciagnij i upusc plik (do importu plikow)-->
     <script src="node_modules/angular-files-drop/dist/index.js"></script>
@@ -153,6 +156,13 @@
     <script src="app/main/utils/draggableDirective.js"></script>
     <script src="app/main/utils/datemask.js"></script>
     <script src="app/main/utils/table/eadTableDirective.js"></script>
+
+    <!--DataTables-->
+    <script src="app/main/utils/dataTableDirective.js"></script>
+
+    <!--Cache service-->
+    <script src="app/main/utils/cache/cacheService.js"></script>
+
 
 </body>
 </html>

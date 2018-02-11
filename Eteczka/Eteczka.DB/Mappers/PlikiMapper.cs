@@ -20,7 +20,7 @@ namespace Eteczka.DB.Mappers
                     Firma = row["firma"].ToString(),
                     NumerEad = row["numeread"].ToString(),
                     Symbol = row["symbol"].ToString(),
-                    OpisRodzajuDokumentu = "TODO BE",
+                    OpisRodzajuDokumentu = "?",
                     DataSkanu = DateTime.Parse(row["dataskanu"].ToString()),
                     DataDokumentu = DateTime.Parse(row["datadokumentu"].ToString()),
                     DataPocz = DateTime.Parse(row["datapocz"].ToString()),
@@ -46,7 +46,7 @@ namespace Eteczka.DB.Mappers
                     TeczkaDzial = row["teczkadzial"].ToString(),
                     NrDokumentu = int.Parse(row["nrdokumentu"].ToString()),
                     DataDodania = DateTime.Parse(row["datadodania"].ToString())
-            
+
                 };
             }
             catch (Exception ex)
