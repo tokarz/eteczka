@@ -200,11 +200,13 @@ namespace Eteczka.DB.DAO
 
             //string sqlQuery = "SELECT * from \"Pliki\" as pl left join \"KatPracownicy\" as pr on pl.numeread = pr.numeread where pl.firma = '" + firma.Trim() + "' and pr.numeread = '" + numeread + "';";
             string sqlQuery = "SELECT * FROM \"Pliki\" "
-                + "LEFT OUTER JOIN \"KatPracownicy\" "
-                + " ON \"Pliki\".numeread = \"KatPracownicy\".numeread "
-                + "WHERE \"Pliki\".firma = '" + firma.Trim() + "' "
-                + "AND \"KatPracownicy\".numeread = '" + numeread + "' "
-                + "ORDER BY " + sortColumn + " " + sortOrder + ";";
+                  + "LEFT OUTER JOIN\"KatDokumentyRodzaj\" "
+                  + "ON \"Pliki\".symbol = \"KatDokumentyRodzaj\".symbol "
+                  + "LEFT OUTER JOIN \"KatPracownicy\" "
+                  + " ON \"Pliki\".numeread = \"KatPracownicy\".numeread "
+                  + "WHERE \"Pliki\".firma = '" + firma.Trim() + "' "
+                  + "AND \"KatPracownicy\".numeread = '" + numeread + "' "
+                  + "ORDER BY " + sortColumn + " " + sortOrder + ";";
 
             //sqlQuery += " order by " + sortColumn + " " + sortOrder + ";";
 
@@ -261,9 +263,11 @@ namespace Eteczka.DB.DAO
 
 
             string sqlQuery =
-            "SELECT \"Pliki\".*, \"KatPracownicy\".* FROM \"Pliki\" "
+            "SELECT \"Pliki\".*, \"KatPracownicy\".*, \"KatDokumentyRodzaj\".* FROM \"Pliki\" "
             + "LEFT OUTER JOIN \"KatPracownicy\" "
             + "ON \"Pliki\".numeread = \"KatPracownicy\".numeread "
+              + "LEFT OUTER JOIN\"KatDokumentyRodzaj\" "
+            + "ON \"Pliki\".symbol = \"KatDokumentyRodzaj\".symbol "
             + "WHERE "
             + "\"Pliki\".firma IN ('" + firma.Trim() + "') "
             + "AND \"Pliki\".symbolead LIKE '" + typ.Trim() + "' "
