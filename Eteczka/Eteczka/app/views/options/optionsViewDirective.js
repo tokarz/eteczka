@@ -2,7 +2,9 @@
 angular.module('et.directives').directive('optionsView', function () {
     return {
         restrict: 'E',
-        scope: {},
+        scope: {
+            options: '='
+        },
         controller: 'optionsViewController',
         templateUrl: 'app/views/options/optionsView.html'
     }

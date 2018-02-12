@@ -8,7 +8,8 @@ angular.module('et.directives').directive('menuTable', function () {
             tabs: '=',
             activetab: '=',
             search: '=',
-            loading: '='
+            loading: '=',
+            placeholder: '@'
         },
         controller: 'menuTableController',
         templateUrl: 'app/main/components/menu-table/menuTable.html'

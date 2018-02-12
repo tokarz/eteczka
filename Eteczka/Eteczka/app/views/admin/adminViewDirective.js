@@ -2,7 +2,9 @@
 angular.module('et.directives').directive('adminView', function () {
     return {
         restrict: 'E',
-        scope: {},
+        scope: {
+           
+        },
         controller: 'adminViewController',
         templateUrl: 'app/views/admin/adminView.html'
     }

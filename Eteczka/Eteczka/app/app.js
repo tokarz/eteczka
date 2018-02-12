@@ -10,21 +10,27 @@ angular.module('et.utils', []);
 
 var app = angular.module('EtApp',
     ['ui.router',
-     'ui.bootstrap',
-     'et.controllers',
-     'et.services',
-     'et.directives',
-     'et.utils',
-     'angular-files-drop',
-     'ngMaterial'
+        'ui.bootstrap',
+        'et.controllers',
+        'et.services',
+        'et.directives',
+        'et.utils',
+        'angular-files-drop',
+        'ngMaterial'
     ]
-     );
+);
 
 app.config(function ($stateProvider) {
     var loginState = {
         url: '/login',
         name: 'login',
         template: '<login-view></login-view>'
+    };
+
+    var homeState = {
+        url: '/home',
+        name: 'home',
+        template: '<home-view></home-view>'
     };
 
     var adminState = {
@@ -74,10 +80,28 @@ app.config(function ($stateProvider) {
         template: '<processing></processing>'
     };
 
-    var settingsState = {
-        url: '/settings',
-        name: 'settings',
-        template: '<settings></settings>'
+    var settingsManageUsers = {
+        url: '/settingsusers',
+        name: 'settingsusers',
+        template: '<settings-users></settings-users>'
+    }
+
+    var settingsImportData = {
+        url: '/settingsimport',
+        name: 'settingsimport',
+        template: '<settings-import></settings-import>'
+    }
+
+    var settingsSessions = {
+        url: '/settingssessions',
+        name: 'settingssessions',
+        template: '<settings-sessions></settings-sessions>'
+    }
+
+    var settingsFiles = {
+        url: '/settingsfiles',
+        name: 'settingsfiles',
+        template: '<settings-files></settings-files>'
     }
 
     var raportsState = {
@@ -93,6 +117,7 @@ app.config(function ($stateProvider) {
     }
 
     $stateProvider.state(loginState);
+    $stateProvider.state(homeState);
     $stateProvider.state(optionsState);
     $stateProvider.state(filesState);
     $stateProvider.state(filecatalogState);
@@ -100,11 +125,14 @@ app.config(function ($stateProvider) {
     $stateProvider.state(employeesFilesState);
     $stateProvider.state(addUsersState);
     $stateProvider.state(processingState);
-    $stateProvider.state(settingsState);
     $stateProvider.state(adminState);
     $stateProvider.state(raportsState);
     $stateProvider.state(shopcartState);
 
+    $stateProvider.state(settingsManageUsers);
+    $stateProvider.state(settingsImportData);
+    $stateProvider.state(settingsSessions);
+    $stateProvider.state(settingsFiles);
 
 });
 

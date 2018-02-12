@@ -1,40 +1,11 @@
 ﻿<div class="options-wrapper">
     <nav class="navigation-pane">
         <ul class="menu-wrapper">
-            <li class="menu-button menu-button-one" ng-click="navigateTo('emp-files')">
+            <li ng-class="option.menuclass" ng-repeat="option in options" ng-click="option.clickaction()">
                 <span class="menu-icon-group">
-                    <i class="menu-icon fa fa-user-o"></i>
-                    <i class="menu-icon fa fa-user-o"></i>
-                    <i class="menu-icon fa fa-user-o"></i>
+                    <i ng-class="option.ngclass"></i>
                 </span>
-                <span class="menu-button-text">Pracownicy</span>
-
-            </li>
-            <li class="menu-button menu-button-two" ng-click="navigateTo('fi-files')">
-                <span class="menu-icon-group">
-                    <i class="menu-icon fa fa-folder-open-o"></i>
-                </span>
-                <span class="menu-button-text">Dokumenty</span>
-            </li>
-            <li class="menu-button menu-button-three" ng-click="navigateTo('raports')">
-                <!--<li class="menu-button menu-button-three not-yet-available">-->
-                <span class="menu-icon-group">
-                    <i class="menu-icon fa fa-bar-chart"></i>
-                </span>
-                <span class="menu-button-text">Raporty</span>
-
-            </li>
-            <!--<li class="menu-button menu-button-four" ng-click="navigateTo('structure')">
-                <span class="menu-icon-group">
-                    <i class="menu-icon fa fa-sitemap"></i>
-                </span>
-                <span class="menu-button-text">Struktura Firmy</span>
-            </li>-->
-            <li class="menu-button menu-button-four not-yet-available">
-                <span class="menu-icon-group not-yet-available">
-                    <i class="menu-icon fa fa-sitemap not-yet-available"></i>
-                </span>
-                <span class="menu-button-text not-yet-available">Struktura Firmy</span>
+                <span class="menu-button-text">{{option.label}}</span>
             </li>
         </ul>
     </nav>
