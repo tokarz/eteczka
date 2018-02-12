@@ -32,6 +32,13 @@ namespace Eteczka.BE.Services
             return queryResult;
         }
 
+        public List<KatLoginy> GetAllUsers()
+        {
+            List<KatLoginy> queryResult = _Dao.WczytajWszystkichUzytkownikow();
+
+            return queryResult;
+        }
+
         public List<KatLoginyDetale> GetUserDetails(string identyfikator)
         {
             List<KatLoginyDetale> queryResult = _Dao.WczytajDetaleDlaUzytkownika(identyfikator);
