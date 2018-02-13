@@ -51,7 +51,7 @@
     <script src="Scripts/d3js/d3.min.js"></script>
     <script src="Scripts/d3pie.min.js"></script>
 
-    <script src="Scripts/DataTables/datatables.min.js"></script>
+    <script src="Scripts/DataTables/datatables.js"></script>
 
     <!--Przeciagnij i upusc plik (do importu plikow)-->
     <script src="node_modules/angular-files-drop/dist/index.js"></script>
@@ -78,6 +78,10 @@
     <script src="app/views/login/loginService.js"></script>
     <script src="app/views/login/choosefirm//chooseFirmController.js"></script>
     <script src="app/views/login/choosefirm//chooseFirmDirective.js"></script>
+
+    <!--Widok startowy-->
+    <script src="app/views/home/homeViewController.js"></script>
+    <script src="app/views/home/homeViewDirective.js"></script>
 
     <!--Widok Admina-->
     <script src="app/views/admin/adminViewController.js"></script>
@@ -116,10 +120,21 @@
     <script src="app/views/filecatalog/fileCatService.js"></script>
 
     <!--Widok ustawien-->
-    <script src="app/views/settings/settingsDirective.js"></script>
-    <script src="app/views/settings/settingsService.js"></script>
-    <script src="app/views/settings/settingsViewController.js"></script>
     <script src="app/main/settings/settingsController.js"></script>
+    <!--Widok glowny (do usuniecia)-->
+    <script src="app/views/settings/settingsService.js"></script>
+    <!--Ustawienia plikow-->
+    <script src="app/views/settings/files/settingsFilesController.js"></script>
+    <script src="app/views/settings/files/settingsFilesDirective.js"></script>
+    <!--Ustawienia Importow-->
+    <script src="app/views/settings/import/settingsImportController.js"></script>
+    <script src="app/views/settings/import/settingsImportDirective.js"></script>
+    <!--Ustawienia Sesji-->
+    <script src="app/views/settings/sessions/settingsSessionsController.js"></script>
+    <script src="app/views/settings/sessions/settingsSessionsDirective.js"></script>
+    <!--Ustawienia Uzytkownikow-->
+    <script src="app/views/settings/users/settingsUsersController.js"></script>
+    <script src="app/views/settings/users/settingsUsersDirective.js"></script>
 
     <!--Widok Koszyka-->
     <script src="app/views/shopcart/shopCartController.js"></script>
@@ -130,9 +145,15 @@
     <script src="app/main/components/menu-table/menuTableController.js"></script>
     <script src="app/main/components/menu-table/menuTableDirective.js"></script>
 
+    <!--Tabela szczegolowa pracownika z dokumentami-->
     <script src="app/main/components/menu-content/menuContentController.js"></script>
     <script src="app/main/components/menu-content/menuContentDirective.js"></script>
     <script src="app/main/components/menu-content/menuContentService.js"></script>
+
+    <!--Tabela szczegolowa pracownika HR-->
+    <script src="app/main/components/menu-users-content/menuUsersContentController.js"></script>
+    <script src="app/main/components/menu-users-content/menuUsersContentDirective.js"></script>
+    <script src="app/main/components/menu-users-content/menuUsersContentService.js"></script>
 
     <script src="app/main/components/menu-files-content/menuFilesContentController.js"></script>
     <script src="app/main/components/menu-files-content/menuFilesContentDirective.js"></script>

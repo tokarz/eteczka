@@ -24,7 +24,7 @@ angular.module('et.controllers').controller('loginViewController', ['$rootScope'
                     $state.go('admin');
                 } else {
                     $rootScope.$broadcast('USER_LOGGED_IN_EV', $scope.fetchedUser);
-                    $state.go('options');
+                    $state.go('home');
                 }
             }
 

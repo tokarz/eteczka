@@ -24,19 +24,24 @@ namespace Eteczka.DB.Mappers
             KatLoginy fetchedResult = null;
             if (queryResult != null && queryResult.Rows.Count == 1)
             {
-                fetchedResult = new KatLoginy();
                 DataRow row = queryResult.Rows[0];
 
-                fetchedResult.Identyfikator = row["Identyfikator".ToLower()].ToString();
-                fetchedResult.Hasloshort = "(passed!)";
-                fetchedResult.Haslolong = "(passed!)";
-
-                fetchedResult.Datamodify = DateTime.Parse(row["Datamodify".ToLower()].ToString());
-                fetchedResult.IsAdmin = bool.Parse(row["IsAdmin".ToLower()].ToString());
-                fetchedResult.Usuniety = bool.Parse(row["Usuniety".ToLower()].ToString());
+                fetchedResult = MapSingleRow(row);
             }
 
             return fetchedResult;
+        }
+
+        public List<KatLoginy> MapList(DataTable queryResult)
+        {
+            List<KatLoginy> result = new List<KatLoginy>();
+            foreach (DataRow row in queryResult.Rows)
+            {
+                KatLoginy singleResult = MapSingleRow(row);
+                result.Add(singleResult);
+            }
+
+            return result;
         }
 
         public List<KatLoginyDetale> MapDetails(DataTable queryResult)
@@ -95,6 +100,20 @@ namespace Eteczka.DB.Mappers
             }
 
             return result;
+        }
+
+        private KatLoginy MapSingleRow(DataRow row)
+        {
+            KatLoginy fetchedResult = new KatLoginy();
+            fetchedResult.Identyfikator = row["Identyfikator".ToLower()].ToString();
+            fetchedResult.Hasloshort = "(passed!)";
+            fetchedResult.Haslolong = "(passed!)";
+
+            fetchedResult.Datamodify = DateTime.Parse(row["Datamodify".ToLower()].ToString());
+            fetchedResult.IsAdmin = bool.Parse(row["IsAdmin".ToLower()].ToString());
+            fetchedResult.Usuniety = bool.Parse(row["Usuniety".ToLower()].ToString());
+
+            return fetchedResult;
         }
     }
 }

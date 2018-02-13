@@ -36,6 +36,19 @@ namespace Eteczka.DB.DAO
             return result;
         }
 
+        public List<KatLoginy> WczytajWszystkichUzytkownikow()
+        {
+            string sqlQuery = "SELECT * from \"KatLoginy\";";
+
+
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+            DataTable queryResult = connectionState.ExecuteQuery(sqlQuery);
+            List<KatLoginy> fetchedResult = this._KatLoginyMapper.MapList(queryResult);
+
+
+            return fetchedResult;
+        }
+
         public KatLoginy WczytajPracownikaPoNazwieIHasle(string username, string password)
         {
             //SQL Injection Threat!

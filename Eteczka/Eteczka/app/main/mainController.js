@@ -35,11 +35,11 @@ angular.module('et.controllers').controller('mainController', ['$window', '$root
         function (event, toState, toParams, fromState, fromParams) {
             if (toState.name !== 'login' && toState.name !== 'processing') {
                 if ($scope.isAdmin === true) {
-                    if (toState.name !== 'admin') {
+                    if (!_.startsWith(toState.name, 'settings') && !_.isEqual(toState.name, 'admin')) {
                         event.preventDefault();
                     }
                 } else if ($scope.isAdmin === false) {
-                    if (toState.name === 'admin') {
+                    if (_.startsWith(toState.name, 'settings') || _.isEqual(toState.name, 'admin')) {
                         event.preventDefault();
                     }
                 }

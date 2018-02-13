@@ -18,13 +18,74 @@ namespace Eteczka.BE.Controllers
             this._KatLoginyService = katLoginyService;
         }
 
+
+        public ActionResult PobierzWszystkichUzytkownikow(string sessionId)
+        {
+            bool success = false;
+            List<KatLoginy> users = new List<KatLoginy>();
+            ActionResult result = null;
+            try
+            {
+                StanSesji stanSesji = Sesja.PobierzStanSesji();
+                if (stanSesji.CzySesjaJestOtwarta(sessionId) && stanSesji.CzySesjaAdministratora(sessionId))
+                {
+                    users = _KatLoginyService.GetAllUsers();
+                }
+
+                result = Json(new
+                {
+                    success,
+                    users
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            return result;
+        }
+
+        public ActionResult PobierzDetaleUzytkownikow(string sessionId, string id)
+        {
+            bool padlWyjatek = false;
+            bool success = false;
+            List<KatLoginyDetale> users = new List<KatLoginyDetale>();
+            ActionResult result = null;
+            try
+            {
+                StanSesji stanSesji = Sesja.PobierzStanSesji();
+                if (stanSesji.CzySesjaJestOtwarta(sessionId) && stanSesji.CzySesjaAdministratora(sessionId))
+                {
+                    //Pobieramy
+                }
+
+                result = Json(new
+                {
+                    success = success
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            return result;
+        }
+
         [HttpPost]
         [ActionName("DodajPrac")]
         public ActionResult DodajUzytkownika(string sessionId, AddKatLoginyDto user)
         {
 
             bool sucess = false;
-           ActionResult result = null;
+            ActionResult result = null;
             try
             {
                 StanSesji stanSesji = Sesja.PobierzStanSesji();
@@ -47,7 +108,7 @@ namespace Eteczka.BE.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
             return result;
-          
+
         }
 
         [HttpPost]
@@ -70,7 +131,7 @@ namespace Eteczka.BE.Controllers
                     success = sucess
                 }, JsonRequestBehavior.AllowGet);
             }
-            catch ( Exception ex)
+            catch (Exception ex)
             {
                 result = Json(new
                 {
@@ -79,7 +140,7 @@ namespace Eteczka.BE.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
             return result;
-           
+
         }
 
         [HttpPost]
@@ -87,7 +148,7 @@ namespace Eteczka.BE.Controllers
         public ActionResult UsunPrac(string sessionId, AddKatLoginyDto user)
         {
 
-            bool  sucess = false;
+            bool sucess = false;
             ActionResult result = null;
             try
             {
@@ -111,7 +172,7 @@ namespace Eteczka.BE.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
             return result;
-            
+
         }
 
         [HttpPost]
@@ -152,12 +213,12 @@ namespace Eteczka.BE.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
             return result;
-           
+
         }
 
         public ActionResult PobierzPracownika(string nazwa, string haslo)
         {
-            KatLoginy user = _KatLoginyService.GetUserByNameAndPassword(nazwa, haslo); 
+            KatLoginy user = _KatLoginyService.GetUserByNameAndPassword(nazwa, haslo);
             List<KatLoginyDetale> userDetails = new List<KatLoginyDetale>();
             List<string> firmy = new List<string>();
             SessionDetails sesja = null;
@@ -199,7 +260,7 @@ namespace Eteczka.BE.Controllers
                     wyjatek = true
                 }, JsonRequestBehavior.AllowGet);
             }
-            return result;    
+            return result;
         }
 
         public ActionResult PobierzWszystkichPracownikow(string sessionId)
@@ -247,8 +308,9 @@ namespace Eteczka.BE.Controllers
                     wyjatek = true
                 }, JsonRequestBehavior.AllowGet);
 
-            } return result;
-           
+            }
+            return result;
+
         }
     }
 }

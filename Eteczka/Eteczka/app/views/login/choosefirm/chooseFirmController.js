@@ -4,7 +4,7 @@ angular.module('et.controllers').controller('chooseFirmController', ['$rootScope
     $scope.firm = $scope.firmChoices[0];
     $scope.chooseFirm = function () {
         $rootScope.SELECTED_FIRM = $scope.firm;
-        $state.go('options');
+        $state.go('home');
     }
 
 

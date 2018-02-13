@@ -1,0 +1,60 @@
+﻿<div class="component-main-wrapper">
+    <div class="user-details">
+        <div class="top-toolbar toolbar-panel">
+            <span class="toolbar-option option-one fa fa-plus-circle" ng-click="triggerAddEmployeeDialog()"></span>
+            <span ng-show="user.Nazwisko" class="toolbar-option option-two fa fa-pencil-square" ng-click="triggerEditEmployeeDialog()"></span>
+            <span ng-show="user.Nazwisko" class="toolbar-option option-three fa fa-trash-o" ng-click="triggerDeleteEmployeePopup()"></span>
+        </div>
+        <div class="user-details-list toolbar-content">
+            <h3 style="margin:auto;text-align:center">Dane Pracownika</h3>
+            <div class="details-row">
+                <span class="details-label">Id</span>
+                <span class="details-value">{{user.Identyfikator}}</span>
+            </div>
+            <div class="details-row">
+                <span class="details-label">Nazwisko</span>
+                <span class="details-value">{{user.Nazwisko}}</span>
+            </div>
+            <div class="details-row">
+                <span class="details-label">Imie</span>
+                <span class="details-value">{{user.Imie}}</span>
+            </div>
+            <div class="details-row">
+                <span class="details-label">E-Mail</span>
+                <span class="details-value">{{user.Email}}</span>
+            </div>
+            <div class="details-row">
+                <span class="details-label">Data Urodzenia</span>
+                <span class="details-value">{{user.DataModify}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="user-history">
+        <div class="top-toolbar toolbar-panel">
+            <span ng-show="user.Nazwisko" class="toolbar-option option-one fa fa-plus-circle"></span>
+            <span ng-show="user.Firma" class="toolbar-option option-two fa fa-pencil-square"></span>
+            <span ng-show="user.Firma" class="toolbar-option option-three fa fa-trash-o"></span>
+        </div>
+        <div class="toolbar-content">
+            <h3 style="margin:auto;text-align:center">Uprawnienia</h3>
+            <table style="width:100%;text-align:center">
+                <thead class="table-header">
+                    <tr>
+                        <th>Firma</th>
+                        <th>Role</th>
+                        <th>Confidential</th>
+                        <th>[]</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{user.Firma}}</td>
+                        <td>{{user.UprawnieniaStr}}</td>
+                        <td>{{user.Confidential}}</td>
+                        <td><input type="checkbox" /></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

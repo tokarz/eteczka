@@ -34,8 +34,8 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
 
     $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
         $scope.activeOption = toState.name;
-        $scope.isAdmin = (toState.name === 'admin');
-        $scope.menusVisible = toState.name !== 'options' && toState.name !== 'login' && toState.name !== 'processing' && !$scope.isAdmin;
+        $scope.isAdmin = (toState.name === 'admin' || _.startsWith(toState.name, 'settings'));
+        $scope.menusVisible = toState.name !== 'home' && toState.name !== 'login' && toState.name !== 'processing' && !$scope.isAdmin;
         $scope.smallOptions = [];
         $scope.menuEmployeesVisible = toState.name.startsWith('emp');
 
@@ -43,7 +43,7 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
             $scope.smallOptions = [
                 {
                     id: 0,
-                    className: 'fa  fa-file-text-o small-option-two',
+                    className: 'fa fa-file-text-o small-option-two',
                     label: 'Teczki akt osobowych',
                     active: false,
                     action: function () {
@@ -69,74 +69,130 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
         $scope.menuGitVisible = toState.name.startsWith('fi');
         if ($scope.menuGitVisible) {
             $scope.smallOptions = [
-        {
-            id: 0,
-            className: 'fa fa-plus-square small-option-one',
-            label: 'Wprowadzanie plikow',
-            active: true,
-            action: function () {
-                $scope.activeSmallOption = $scope.smallOptions[0];
-                $scope.navigateTo('fi-files');
-            }
-        },
-        {
-            id: 1,
-            className: 'fa fa-folder small-option-two',
-            label: 'Wyszukiwanie dokumentów',
-            active: false,
-            action: function () {
-                $scope.activeSmallOption = $scope.smallOptions[1];
-                $scope.navigateTo('fi-catalog');
-            }
-        },
-        {
-                id: 2,
-                className: 'fa fa-book small-option-three',
-                label: 'Słownik rodzajów dokumentów',
-                active: false,
-                action: function () {
-                    $scope.activeSmallOption = $scope.smallOptions[2];
+                {
+                    id: 0,
+                    className: 'fa fa-plus-square small-option-one',
+                    label: 'Wprowadzanie plikow',
+                    active: true,
+                    action: function () {
+                        $scope.activeSmallOption = $scope.smallOptions[0];
+                        $scope.navigateTo('fi-files');
+                    }
+                },
+                {
+                    id: 1,
+                    className: 'fa fa-folder small-option-two',
+                    label: 'Wyszukiwanie dokumentów',
+                    active: false,
+                    action: function () {
+                        $scope.activeSmallOption = $scope.smallOptions[1];
+                        $scope.navigateTo('fi-catalog');
+                    }
+                },
+                {
+                    id: 2,
+                    className: 'fa fa-book small-option-three',
+                    label: 'Słownik rodzajów dokumentów',
+                    active: false,
+                    action: function () {
+                        $scope.activeSmallOption = $scope.smallOptions[2];
 
-                    var modalOptions = {
-                        body: 'app/main/header/modal/addFileTypeModal.html',
-                        controller: function ($scope, $mdDialog) {
-                            $scope.yesNoOptions = [{ name: 'TAK', value: true }, { name: 'NIE', value: false }]
-                            $scope.editOptions = [{ name: 'TAK', value: 'b' }, { name: 'NIE', value: 'a' }]
-                            $scope.docPartOptions = ['A', 'B', 'C']
-                            $scope.modalResult.Dokwlasny = $scope.modalResult.Dokwlasny || $scope.yesNoOptions[0].value;
+                        var modalOptions = {
+                            body: 'app/main/header/modal/addFileTypeModal.html',
+                            controller: function ($scope, $mdDialog) {
+                                $scope.yesNoOptions = [{ name: 'TAK', value: true }, { name: 'NIE', value: false }]
+                                $scope.editOptions = [{ name: 'TAK', value: 'b' }, { name: 'NIE', value: 'a' }]
+                                $scope.docPartOptions = ['A', 'B', 'C']
+                                $scope.modalResult.Dokwlasny = $scope.modalResult.Dokwlasny || $scope.yesNoOptions[0].value;
 
-                            $scope.hide = function () {
-                                $mdDialog.hide();
-                            };
+                                $scope.hide = function () {
+                                    $mdDialog.hide();
+                                };
 
-                            $scope.cancel = function () {
-                                $mdDialog.cancel();
-                            };
+                                $scope.cancel = function () {
+                                    $mdDialog.cancel();
+                                };
 
-                            $scope.answer = function (answer, errors) {
-                                console.log(errors)
-                                if (!errors || Object.keys(errors).length === 0) {
-                                    $mdDialog.hide(answer);
+                                $scope.answer = function (answer, errors) {
+                                    console.log(errors)
+                                    if (!errors || Object.keys(errors).length === 0) {
+                                        $mdDialog.hide(answer);
+                                    }
+                                };
+                            },
+                        };
+
+                        modalService.showModal(modalOptions)
+                            .then(function (result) {
+                                // TODO: add executor
+                            })
+                            .catch(function (ex) {
+                                if (ex !== 'cancel' && ex !== 'backdrop click') {
+                                    console.error(ex);
                                 }
-                            };
-                        },
-                    };
-
-                    modalService.showModal(modalOptions)
-                        .then(function (result) {
-                            // TODO: add executor
-                        })
-                        .catch(function (ex) {
-                            if (ex !== 'cancel' && ex !== 'backdrop click') {
-                                console.error(ex);
-                            }
-                        });
+                            });
+                    }
                 }
-        }
             ];
 
             $scope.activeSmallOption = toState.name === 'fi-files' ? $scope.smallOptions[0] : $scope.smallOptions[1];
         }
+
+        $scope.menuSettingsVisible = toState.name.startsWith('settings');
+        if ($scope.menuSettingsVisible) {
+            $scope.smallOptions = [
+                {
+                    id: 0,
+                    className: 'fa fa-users small-option-one',
+                    label: 'Zarządzanie użytkownikami',
+                    active: true,
+                    action: function () {
+                        $scope.navigateTo('settingsusers');
+                    },
+                    state: 'settingsusers'
+                },
+                {
+                    id: 1,
+                    className: 'fa fa-users small-option-one',
+                    label: 'Importy danych',
+                    active: false,
+                    action: function () {
+                        $scope.navigateTo('settingsimport');
+                    },
+                    state: 'settingsimport'
+                },
+                {
+                    id: 2,
+                    className: 'fa fa-users small-option-three',
+                    label: 'Sesje',
+                    active: false,
+                    action: function () {
+                        $scope.navigateTo('settingssessions');
+                    },
+                    state: 'settingssessions'
+                },
+                {
+                    id: 3,
+                    className: 'fa fa-users small-option-four',
+                    label: 'Foldery i pliki',
+                    active: false,
+                    action: function () {
+                        $scope.navigateTo('settingsfiles');
+                    },
+                    state: 'settingsfiles'
+                }
+            ];
+
+            $scope.activeSmallOption = _.find($scope.smallOptions, function (option) {
+                return option.state === toState.name;
+            })
+
+            //$scope.activeSmallOption = $scope.smallOptions.filter(function (option) {
+            //    return option.state === toState.name;
+            //});
+        }
+
+
 
         $scope.shoppingCartVisible = (toState.name === 'shopcart');
         if ($scope.shoppingCartVisible) {
@@ -187,11 +243,13 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
         return result;
     }
 
-
-
     $scope.goHome = function () {
         if ($scope.userLoggedIn) {
-            $state.go('options');
+            if ($scope.isAdmin) {
+                $state.go('admin');
+            } else {
+                $state.go('home');
+            }
         }
     }
 

@@ -1,39 +1,40 @@
 ﻿'use strict';
-angular.module('et.controllers').controller('adminViewController', ['$scope', '$state', function ($scope, $state) {
+angular.module('et.controllers').controller('homeViewController', ['$scope', '$state', function ($scope, $state) {
 
     $scope.options = [
         {
-            label: 'Uzytkownicy',
+            label: 'Pracownicy',
             ngclass: 'menu-icon fa fa-users',
             menuclass: 'menu-button menu-button-one',
             clickaction: function () {
-                $state.go('settingsusers');
+                $state.go('emp-files');
             }
         },
         {
-            label: 'Importy',
-            ngclass: 'menu-icon fa fa-upload',
+            label: 'Dokumenty',
+            ngclass: 'menu-icon fa fa-folder-open-o',
             menuclass: 'menu-button menu-button-two',
             clickaction: function () {
-                $state.go('settingsimport');
+                $state.go('fi-files');
             }
         },
         {
-            label: 'Sesje',
-            ngclass: 'menu-icon fa fa-clock-o',
+            label: 'Raporty',
+            ngclass: 'menu-icon fa fa-bar-chart not-yet-available',
             menuclass: 'menu-button menu-button-three',
             clickaction: function () {
-                $state.go('settingssessions');
+                //$state.go('raports');
             }
         },
         {
-            label: 'Foldery i pliki',
-            ngclass: 'menu-icon fa fa-files-o',
+            label: 'Struktura Firmy',
+            ngclass: 'menu-icon fa fa-sitemap not-yet-available',
             menuclass: 'menu-button menu-button-four',
             clickaction: function () {
-                $state.go('settingsfiles');
+
             }
         }
     ];
+
 
 }]);
