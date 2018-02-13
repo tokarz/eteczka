@@ -235,7 +235,7 @@ namespace Eteczka.BE.Controllers
                 if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
                 {
                     SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
-                    ZnalezionePliki = _PlikiService.SzukajOstatnioDodanePlikiPrac(numeread, liczbaPlikow);
+                    ZnalezionePliki = _PlikiService.SzukajOstatnioDodanePlikiPrac(sesja, numeread, liczbaPlikow);
                 }
                 result = Json(new
                 {
@@ -263,7 +263,7 @@ namespace Eteczka.BE.Controllers
                 if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
                 {
                     SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
-                    liczbaPlikow = _PlikiService.ZliczPlikiWTeczcePracownika(numeread);
+                    liczbaPlikow = _PlikiService.ZliczPlikiWTeczcePracownika(sesja, numeread);
                 }
                 result = Json(new
                 {

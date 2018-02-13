@@ -297,7 +297,7 @@ namespace Eteczka.DB.DAO
             return fetchedResult;
         }
 
-        public List<Pliki> ZnajdzOstatnioDodanePlikiPracownika(string numeread, int liczbaPlikow)
+        public List<Pliki> ZnajdzOstatnioDodanePlikiPracownika(string numeread, string firma, int liczbaPlikow)
         {
             List<Pliki> ZnalezionePliki = new List<Pliki>();
             string sqlQuery = "SELECT * FROM \"Pliki\" "
@@ -305,7 +305,7 @@ namespace Eteczka.DB.DAO
             + "ON \"Pliki\".numeread = \"KatPracownicy\".numeread "
             + "LEFT OUTER JOIN\"KatDokumentyRodzaj\" "
             + "ON \"Pliki\".symbol = \"KatDokumentyRodzaj\".symbol "
-            + "WHERE \"Pliki\".numeread = '" + numeread + "' ORDER BY id DESC LIMIT " + liczbaPlikow + "";
+            + "WHERE \"Pliki\".numeread = '" + numeread + "' AND firma='" + firma + "' ORDER BY id DESC LIMIT " + liczbaPlikow + "";
 
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
             DataTable result = connectionState.ExecuteQuery(sqlQuery);
@@ -320,10 +320,10 @@ namespace Eteczka.DB.DAO
             return ZnalezionePliki;
         }
 
-        public int PoliczPlikiPracownika(string numeread)
+        public int PoliczPlikiPracownikaWTeczce(string numeread, string firma)
         {
             int liczbaPlikow = 0;
-            string sqlQuery = "SELECT COUNT(*) FROM \"Pliki\" WHERE numeread='" + numeread + "'";
+            string sqlQuery = "SELECT COUNT(*) FROM \"Pliki\" WHERE numeread='" + numeread + "' AND firma='" + firma + "'";
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
             DataTable result = connectionState.ExecuteQuery(sqlQuery);
             

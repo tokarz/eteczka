@@ -17,7 +17,7 @@ namespace Eteczka.BE.Services
         List<Pliki> SzukajPlikiZFiltrow(SessionDetails sesja, FiltryPlikow filtry, string sortOrder = "asc", string sortColumn = "datapocz");
         bool WyslijPlikiMailem(SessionDetails sesja, string adresaci, List<string> Zalaczniki, string hasloDoZip, string temat, string wiadomosc);
         bool EdytujDokumentWBazie(SessionDetails sesja, KomitPliku plik, string idPliku);
-        List<Pliki> SzukajOstatnioDodanePlikiPrac(string numeread, int liczbaPlikow);
-        int ZliczPlikiWTeczcePracownika(string numeread);
+        List<Pliki> SzukajOstatnioDodanePlikiPrac(SessionDetails sesja, string numeread, int liczbaPlikow);
+        int ZliczPlikiWTeczcePracownika(SessionDetails sesja, string numeread);
     }
 }

@@ -205,15 +205,15 @@ namespace Eteczka.BE.Services
             return result;
         }
 
-        public List<Pliki> SzukajOstatnioDodanePlikiPrac(string numeread, int liczbaPlikow)
+        public List<Pliki> SzukajOstatnioDodanePlikiPrac(SessionDetails sesja, string numeread, int liczbaPlikow)
         {
-            List<Pliki> WyszukanePliki = _Dao.ZnajdzOstatnioDodanePlikiPracownika(numeread, liczbaPlikow);
+            List<Pliki> WyszukanePliki = _Dao.ZnajdzOstatnioDodanePlikiPracownika(numeread, sesja.AktywnaFirma, liczbaPlikow);
 
             return WyszukanePliki;
         }
-        public int ZliczPlikiWTeczcePracownika(string numeread)
+        public int ZliczPlikiWTeczcePracownika(SessionDetails sesja, string numeread)
         {
-            int result = _Dao.PoliczPlikiPracownika(numeread);
+            int result = _Dao.PoliczPlikiPracownikaWTeczce(numeread, sesja.AktywnaFirma);
 
             return result;
         }
