@@ -297,6 +297,44 @@ namespace Eteczka.DB.DAO
             return fetchedResult;
         }
 
+        public List<Pliki> ZnajdzOstatnioDodanePlikiPracownika(string numeread, int liczbaPlikow)
+        {
+            List<Pliki> ZnalezionePliki = new List<Pliki>();
+            string sqlQuery = "SELECT * FROM \"Pliki\" "
+            + "LEFT OUTER JOIN \"KatPracownicy\" "
+            + "ON \"Pliki\".numeread = \"KatPracownicy\".numeread "
+            + "LEFT OUTER JOIN\"KatDokumentyRodzaj\" "
+            + "ON \"Pliki\".symbol = \"KatDokumentyRodzaj\".symbol "
+            + "WHERE \"Pliki\".numeread = '" + numeread + "' ORDER BY id DESC LIMIT " + liczbaPlikow + "";
+
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+            DataTable result = connectionState.ExecuteQuery(sqlQuery);
+            foreach (DataRow row in result.Rows)
+            {
+                Pliki znalezionyDokument = _PlikiMapper.MapujZSql(row);
+                if (znalezionyDokument != null)
+                {
+                    ZnalezionePliki.Add(znalezionyDokument);
+                }
+            }
+            return ZnalezionePliki;
+        }
+
+        public int PoliczPlikiPracownika(string numeread)
+        {
+            int liczbaPlikow = 0;
+            string sqlQuery = "SELECT COUNT(*) FROM \"Pliki\" WHERE numeread='" + numeread + "'";
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+            DataTable result = connectionState.ExecuteQuery(sqlQuery);
+            
+                if (result != null && result.Rows != null && result.Rows.Count > 0)
+                {
+                    liczbaPlikow = int.Parse(result.Rows[0][0].ToString());
+                }
+            
+            return liczbaPlikow;
+        }
+
 
 
 

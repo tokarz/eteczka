@@ -226,5 +226,61 @@ namespace Eteczka.BE.Controllers
             return result;
         }
 
+        public ActionResult ZnajdzOstatnioDodanePlikiPracownika(string sessionId, string numeread, int liczbaPlikow)
+        {
+            ActionResult result = null;
+            List<Pliki> ZnalezionePliki = new List <Pliki>();
+            try
+            {
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    ZnalezionePliki = _PlikiService.SzukajOstatnioDodanePlikiPrac(numeread, liczbaPlikow);
+                }
+                result = Json(new
+                {
+                    sucess = ZnalezionePliki != null && ZnalezionePliki.Count > 0 ? true : false,
+                    pliki = ZnalezionePliki
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            return result;
+        }
+
+        public ActionResult PoliczDokumentyDlaPracownika (string sessionId, string numeread)
+        {
+            int liczbaPlikow = 0;
+            ActionResult result = null;
+            try
+            {
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    liczbaPlikow = _PlikiService.ZliczPlikiWTeczcePracownika(numeread);
+                }
+                result = Json(new
+                {
+                    liczbaPlikow = liczbaPlikow,
+                    sucess = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            return result;
+        }
+
     }
 }
