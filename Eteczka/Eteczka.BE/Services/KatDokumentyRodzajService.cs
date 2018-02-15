@@ -65,5 +65,17 @@ namespace Eteczka.BE.Services
             KatDokumentyRodzaj dokument = _KatDokumentyRodzajDAO.ZnajdzRodzajDokumentuPoSymbolu(symbol);
             return dokument;
         }
+
+        public InsertResult EdytujRodzajDokumentu(SessionDetails sesja, KatDokumentyRodzaj dokument)
+        {
+            InsertResult result = new InsertResult();
+            
+                result.Result = _KatDokumentyRodzajDAO.EdytujRodzajDokumentu(dokument, sesja.AktywnyUser.Identyfikator, sesja.AktywnyUser.Identyfikator);
+                result.Message = "Zapisano zmiany.";
+            
+            return result;
+        }
+        
+
     }
 }

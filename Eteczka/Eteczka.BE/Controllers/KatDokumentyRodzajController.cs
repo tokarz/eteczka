@@ -48,7 +48,7 @@ namespace Eteczka.BE.Controllers
 
         }
 
-        public ActionResult DopiszRodzajDokumentu(string symbol, string nazwaDokumentu, string typEdycji, string teczkaDzial, string sessionId)
+        public ActionResult DopiszRodzajDokumentu(string sessionId, string symbol, string nazwaDokumentu, string typEdycji, string teczkaDzial)
         {
             InsertResult sucess = new InsertResult();
             ActionResult result = null;
@@ -118,6 +118,35 @@ namespace Eteczka.BE.Controllers
                 {
                     dokument = dokument,
                     sucess = dokument != null ? true : false
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            return result;
+        }
+
+        [HttpPut]
+        public ActionResult EdytujRodzajDokumentu(string sessionId, KatDokumentyRodzaj dokument)
+        {
+            InsertResult sucess = new InsertResult();
+            ActionResult result = null;
+            try
+            {
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    sucess = _KatDokumentyRodzajService.EdytujRodzajDokumentu(sesja, dokument);
+                }
+                result = Json(new
+                {
+                    sucess = sucess
+
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

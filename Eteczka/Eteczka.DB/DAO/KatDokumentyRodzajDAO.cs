@@ -51,7 +51,7 @@ namespace Eteczka.DB.DAO
             StringBuilder queries = new StringBuilder();
             foreach (KatDokumentyRodzaj dokument in RodzajeDokumentow)
             {
-                string values = "'" + dokument.Symbol + "', '" + dokument.Nazwa + "', 'TRUE', '22', '" + dokument.Teczkadzial + "', '" + dokument.Typedycji + "', 'Administrator', 'Administrator', '2017-09-25 22:30:00', '2017-09-25 22:30:00', '" + dokument.SystemBazowy + "', 'FALSE', '0', '"+ dokument.SymbolEad + "', 'FALSE'";
+                string values = "'" + dokument.Symbol + "', '" + dokument.Nazwa + "', 'TRUE', '22', '" + dokument.Teczkadzial + "', '" + dokument.Typedycji + "', 'Administrator', 'Administrator', '2017-09-25 22:30:00', '2017-09-25 22:30:00', '" + dokument.SystemBazowy + "', 'FALSE', '0', '" + dokument.SymbolEad + "', 'FALSE'";
                 string query = "INSERT INTO \"KatDokumentyRodzaj\" (symbol, nazwa, dokwlasny, jrwa, teczkadzial, typedycji, idoper, idakcept, datamodify, dataakcept, systembazowy, usuniety, confidential,symbolead, audyt) VALUES (" + values + ");";
                 queries.Append(query);
             }
@@ -91,15 +91,15 @@ namespace Eteczka.DB.DAO
 
             return result;
         }
-        public bool DodajRodzajDokumentu (string symbol, string nazwaDokumentu, string typEdycji, string teczkaDzial,string idOper, string idAkcept)
+        public bool DodajRodzajDokumentu(string symbol, string nazwaDokumentu, string typEdycji, string teczkaDzial, string idOper, string idAkcept)
         {
-          
-            string values = "'" + symbol + "', '" + nazwaDokumentu + "', 'TRUE', '22', '" + teczkaDzial.ToUpper() + "', '" + typEdycji.ToLower() + "', '" + idOper + "', '"+ idAkcept + "', '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture) + "', '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture) + "', 'EAD', 'FALSE', '0', '" + symbol + "', 'FALSE'";
+
+            string values = "'" + symbol + "', '" + nazwaDokumentu + "', 'TRUE', '22', '" + teczkaDzial.ToUpper() + "', '" + typEdycji.ToLower() + "', '" + idOper + "', '" + idAkcept + "', '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture) + "', '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture) + "', 'EAD', 'FALSE', '0', '" + symbol + "_ead', 'FALSE'";
             string query = "INSERT INTO \"KatDokumentyRodzaj\" (symbol, nazwa, dokwlasny, jrwa, teczkadzial, typedycji, idoper, idakcept, datamodify, dataakcept, systembazowy, usuniety, confidential,symbolead, audyt) VALUES (" + values + ");";
 
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
             bool result = connectionState.ExecuteNonQuery(query.ToString());
-            
+
             return result;
         }
         public KatDokumentyRodzaj ZnajdzRodzajDokumentuPoSymbolu(string symbol)
@@ -110,7 +110,7 @@ namespace Eteczka.DB.DAO
             DataTable result = connectionState.ExecuteQuery(query.ToString());
             try
             {
-                if (result.Rows.Count>=1)
+                if (result.Rows.Count >= 1)
                 {
                     znalezionyDokument = _KatRodzajeDokumentowMapper.MapujZSql(result.Rows[0]);
                 }
@@ -128,6 +128,33 @@ namespace Eteczka.DB.DAO
 
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
             bool result = connectionState.ExecuteNonQuery(query.ToString());
+            return result;
+        }
+
+        public bool EdytujRodzajDokumentu(KatDokumentyRodzaj dokument, string idoper, string idakcept)
+        {
+            
+            object[] ob = new object[]
+                {
+                dokument.Symbol.Trim(),
+                dokument.Nazwa.Trim(),
+                dokument.Dokwlasny,
+                dokument.Teczkadzial.Trim(),
+                dokument.Typedycji.Trim(),
+                idoper.Trim(),
+                idakcept.Trim(),
+                DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture),
+                DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture),
+                dokument.Usuniety,
+                dokument.Confidential,
+                dokument.Audyt
+             };
+            
+            string sqlQuery = string.Format("UPDATE \"KatDokumentyRodzaj\" SET symbol = '{0}', nazwa = '{1}', dokwlasny = '{2}', teczkadzial = '{3}', typedycji = '{4}', idoper = '{5}', idakcept = '{6}', datamodify = '{7}', dataakcept = '{8}', usuniety = '{9}', confidential = '{10}', audyt = '{11}' WHERE symbolead = '" + dokument.SymbolEad  + "'", ob);
+
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+            bool result = connectionState.ExecuteNonQuery(sqlQuery.ToString());
+
             return result;
         }
     }

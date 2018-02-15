@@ -15,5 +15,6 @@ namespace Eteczka.BE.Services
         InsertResult DodajRodzajDokumentuDoBazy(string symbol, string nazwaDokumentu, string typEdycji, string teczkaDzial, SessionDetails sesja);
         InsertResult DezaktywujRodzajDokumentu(string symbol, SessionDetails sesja);
         KatDokumentyRodzaj SzukajRodzajuDokumentuPoSymbolu(string symbol);
+        InsertResult EdytujRodzajDokumentu(SessionDetails sesja, KatDokumentyRodzaj dokument);
     }
 }
