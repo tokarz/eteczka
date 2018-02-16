@@ -33,7 +33,7 @@ namespace Eteczka.BE.Services
 
         public bool SkorowidzTeczkiExcellPelny(SessionDetails sesja, string numeread)
         {
-            List<Pliki> Dokumenty = _PlikiDAO.PobierzPlikPoNumerzeEad(numeread, sesja.AktywnaFirma, "nrdokumentu asc", "teczkadzial asc, ");
+            List<Pliki> Dokumenty = _PlikiDAO.PobierzPlikPoNumerzeEad(numeread, sesja.AktywnaFirma, "nrdokumentu asc", "\"Pliki\".teczkadzial asc, ");
             Pracownik pracownik = _PracownikDAO.PobierzPracownikaPoId(numeread);
 
             bool result = false;

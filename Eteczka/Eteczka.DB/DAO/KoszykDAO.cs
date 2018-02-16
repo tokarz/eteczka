@@ -55,7 +55,7 @@ namespace Eteczka.DB.DAO
         {
             List<Pliki> pobranePliki = new List<Pliki>();
             //select * from "Pliki" where id = (select idpliki from "Koszyk" where firma = 'AFM' and identyfikator = 'M.Tokarz')
-            string sqlQuery = "select * from \"Pliki\" as pl left join \"KatPracownicy\" as pr on pl.numeread = pr.numeread WHERE id in (select idpliki from \"Koszyk\" where firma = '" + firma + "' and identyfikator = '" + user.Identyfikator + "')";
+            string sqlQuery = "select * from \"Pliki\" as pl left join \"KatPracownicy\" as pr on pl.numeread = pr.numeread left join \"KatDokumentyRodzaj\" on pl.symbol = \"KatDokumentyRodzaj\".symbol WHERE id in (select idpliki from \"Koszyk\" where firma = '" + firma + "' and identyfikator = '" + user.Identyfikator + "')";
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
             DataTable result = connectionState.ExecuteQuery(sqlQuery);
 
