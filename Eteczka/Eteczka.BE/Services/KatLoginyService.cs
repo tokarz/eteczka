@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using Eteczka.Model.Entities;
 using Eteczka.Model.DTO;
 using Eteczka.DB.Mappers;
+using System.Linq;
 
 namespace Eteczka.BE.Services
 {
@@ -32,11 +33,45 @@ namespace Eteczka.BE.Services
             return queryResult;
         }
 
-        public List<KatLoginy> GetAllUsers()
+        public List<DaneiDetaleUzytkownika> PobierzDaneUzytkownikow()
         {
-            List<KatLoginy> queryResult = _Dao.WczytajWszystkichUzytkownikow();
+            List<DaneiDetaleUzytkownika> wynik = new List<DaneiDetaleUzytkownika>();
+            List<KatLoginyDetale> daneZBazy = _Dao.WczytajWszystkieDetale();
 
-            return queryResult;
+            daneZBazy.ForEach(detal =>
+            {
+
+                DaneUzytkownika dane = new DaneUzytkownika
+                {
+                    Identyfikator = detal.Identyfikator,
+                    Imie = detal.Imie,
+                    Nazwisko = detal.Nazwisko,
+                    Email = detal.Email,
+                    Usuniety = detal.Usuniety
+                };
+
+                DaneiDetaleUzytkownika daneDoDodania = new DaneiDetaleUzytkownika()
+                {
+                    DaneUzytkownika = dane,
+                    Detale = new List<KatLoginyDetale>() { detal }
+                };
+
+                if (wynik.Contains(daneDoDodania))
+                {
+                    DaneiDetaleUzytkownika juzDodaneDetale = wynik.Find(el => el.DaneUzytkownika.Identyfikator == dane.Identyfikator);
+                    if (juzDodaneDetale != null)
+                    {
+                        juzDodaneDetale.Detale.Add(detal);
+                    }
+                }
+                else
+                {
+                    wynik.Add(daneDoDodania);
+                }
+
+            });
+
+            return wynik;
         }
 
         public List<KatLoginyDetale> GetUserDetails(string identyfikator)

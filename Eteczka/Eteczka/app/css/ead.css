@@ -952,6 +952,22 @@ md-toolbar {
   line-height: 30px;
   float: left; }
 
+.users-details-row .details-label {
+  width: 150px;
+  float: left;
+  padding: 5px; }
+
+.users-details-row .details-value {
+  width: 880px;
+  height: 30px;
+  float: right;
+  margin-right: 0;
+  color: #074C75;
+  box-shadow: 0 0 1px black;
+  background: whitesmoke;
+  text-align: justify;
+  padding-left: 5px; }
+
 .details-label {
   width: 300px;
   float: left;

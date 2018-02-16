@@ -1,29 +1,29 @@
 ﻿<div class="component-main-wrapper">
     <div class="user-details">
         <div class="top-toolbar toolbar-panel">
-            <span class="toolbar-option option-one fa fa-plus-circle" ng-click="triggerAddEmployeeDialog()"></span>
-            <span ng-show="user.Nazwisko" class="toolbar-option option-two fa fa-pencil-square" ng-click="triggerEditEmployeeDialog()"></span>
-            <span ng-show="user.Nazwisko" class="toolbar-option option-three fa fa-trash-o" ng-click="triggerDeleteEmployeePopup()"></span>
+            <span class="toolbar-option option-one fa fa-plus-circle" ng-click="triggerAddUserDialog()"></span>
+            <span ng-show="user.Nazwisko" class="toolbar-option option-two fa fa-pencil-square" ng-click="triggerEditUserDialog()"></span>
+            <span ng-show="user.Nazwisko" class="toolbar-option option-three fa fa-trash-o" ng-click="triggerDeleteUserPopup()"></span>
         </div>
         <div class="user-details-list toolbar-content">
             <h3 style="margin:auto;text-align:center">Dane Pracownika</h3>
-            <div class="details-row">
+            <div class="users-details-row">
                 <span class="details-label">Id</span>
                 <span class="details-value">{{user.Identyfikator}}</span>
             </div>
-            <div class="details-row">
+            <div class="users-details-row">
                 <span class="details-label">Nazwisko</span>
                 <span class="details-value">{{user.Nazwisko}}</span>
             </div>
-            <div class="details-row">
+            <div class="users-details-row">
                 <span class="details-label">Imie</span>
                 <span class="details-value">{{user.Imie}}</span>
             </div>
-            <div class="details-row">
+            <div class="users-details-row">
                 <span class="details-label">E-Mail</span>
                 <span class="details-value">{{user.Email}}</span>
             </div>
-            <div class="details-row">
+            <div class="users-details-row">
                 <span class="details-label">Data Urodzenia</span>
                 <span class="details-value">{{user.DataModify}}</span>
             </div>
@@ -47,10 +47,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>{{user.Firma}}</td>
-                        <td>{{user.UprawnieniaStr}}</td>
-                        <td>{{user.Confidential}}</td>
+                    <tr ng-repeat="userDetail in userDetails">
+                        <td>{{userDetail.Firma}}</td>
+                        <td>{{userDetail.UprawnieniaStr}}</td>
+                        <td>{{userDetail.Confidential}}</td>
                         <td><input type="checkbox" /></td>
                     </tr>
                 </tbody>

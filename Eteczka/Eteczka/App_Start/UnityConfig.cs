@@ -118,11 +118,16 @@ namespace Eteczka
             string user = ConfigurationManager.AppSettings["dbuser"];
             string password = ConfigurationManager.AppSettings["dbpassword"];
 
+            //TODO: logowanie admina - wstrzyknąć te dane!
+            string admin = ConfigurationManager.AppSettings["dbadminuser"];
+            string adminpassword = ConfigurationManager.AppSettings["dbpassword"];
+
             string host = ConfigurationManager.AppSettings["dbhost"];
             string port = ConfigurationManager.AppSettings["dbport"];
             string name = ConfigurationManager.AppSettings["dbname"];
 
             IConnectionDetails connectionDetails = new ConnectionDetails(user, password, host, port, name);
+            IConnectionDetails adminDetails = new ConnectionDetails(user, password, host, port, name);
 
             container.RegisterInstance<IConnectionDetails>(connectionDetails, new ContainerControlledLifetimeManager());
         }

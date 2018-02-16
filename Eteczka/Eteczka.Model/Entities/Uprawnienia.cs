@@ -18,5 +18,12 @@ namespace Eteczka.Model.Entities
         public bool RolaRaport { get; set; }
         public bool RolaRaportExport { get; set; }
         public bool RolaDoubleAkcept { get; set; }
+
+        public override string ToString()
+        {
+            //TODO: Przygotowac do mapowania we FE
+            return this.RolaReadOnly.ToString() + this.RolaAddPracownik.ToString();
+
+        }
     }
 }

@@ -14,6 +14,13 @@ namespace Eteczka.Model.Entities
         public string Firma { get; set; }
         public string Email { get; set; }
         public Uprawnienia Uprawnienia { get; set; }
+        public string UprawnieniaStr
+        {
+            get
+            {
+                return this.Uprawnienia.ToString();
+            }
+        }
         public DateTime DataModify { get; set; }
         public bool Usuniety { get; set; }
         public int Confidential { get; set; }

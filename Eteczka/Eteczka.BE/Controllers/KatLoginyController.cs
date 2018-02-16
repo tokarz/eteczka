@@ -18,24 +18,24 @@ namespace Eteczka.BE.Controllers
             this._KatLoginyService = katLoginyService;
         }
 
-
         public ActionResult PobierzWszystkichUzytkownikow(string sessionId)
         {
+            List<DaneiDetaleUzytkownika> usersWithCredentials = new List<DaneiDetaleUzytkownika>();
+
             bool success = false;
-            List<KatLoginy> users = new List<KatLoginy>();
             ActionResult result = null;
             try
             {
                 StanSesji stanSesji = Sesja.PobierzStanSesji();
                 if (stanSesji.CzySesjaJestOtwarta(sessionId) && stanSesji.CzySesjaAdministratora(sessionId))
                 {
-                    users = _KatLoginyService.GetAllUsers();
+                    usersWithCredentials = _KatLoginyService.PobierzDaneUzytkownikow();
                 }
 
                 result = Json(new
                 {
                     success,
-                    users
+                    usersWithCredentials
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

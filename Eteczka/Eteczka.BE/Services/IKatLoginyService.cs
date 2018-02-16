@@ -9,7 +9,7 @@ namespace Eteczka.BE.Services
     {
         KatLoginy GetUserByNameAndPassword(string name, string password);
         List<KatLoginyDetale> GetUserDetails(string identyfikator);
-        List<KatLoginy> GetAllUsers();
+        List<DaneiDetaleUzytkownika> PobierzDaneUzytkownikow();
         List<KatLoginyDetale> GetAllUsersDetails();
         bool UsunFirmeUzytkownika(KatLoginy user, string firma);
         bool DodajNowegoUzytkownika(AddKatLoginyDto user);
