@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('et.controllers').controller('headerController', ['$rootScope', '$scope', '$state', '$mdDialog', '$timeout', 'sessionService', 'shopCartService', 'modalService', function ($rootScope, $scope, $state, $mdDialog, $timeout, sessionService, shopCartService, modalService) {
+angular.module('et.controllers').controller('headerController', ['$rootScope', '$scope', '$state', '$mdDialog', '$timeout', 'sessionService', 'shopCartService', 'modalService', 'headerService', function ($rootScope, $scope, $state, $mdDialog, $timeout, sessionService, shopCartService, modalService, headerService) {
     $scope.selectedcompany = null;
     $scope.userLoggedIn = false;
     $scope.loginStatus = '';
@@ -100,6 +100,7 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
                         var modalOptions = {
                             body: 'app/main/header/modal/addFileTypeModal.html',
                             controller: function ($scope, $mdDialog) {
+                                $scope.modalResult = $scope.modalResult || {}
                                 $scope.yesNoOptions = [{ name: 'TAK', value: true }, { name: 'NIE', value: false }]
                                 $scope.editOptions = [{ name: 'TAK', value: 'b' }, { name: 'NIE', value: 'a' }]
                                 $scope.docPartOptions = ['A', 'B', 'C']
@@ -119,17 +120,23 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
                                         $mdDialog.hide(answer);
                                     }
                                 };
-                            },
+                            }
                         };
 
                         modalService.showModal(modalOptions)
                             .then(function (result) {
-                                // TODO: add executor
-                            })
-                            .catch(function (ex) {
-                                if (ex !== 'cancel' && ex !== 'backdrop click') {
-                                    console.error(ex);
-                                }
+                                headerService.addFileType(result).then(function (res) {
+                                    if (res.success) {
+                                        modalService.alert('Typ dokumentu zostal poprawnie dodany');
+                                    } else {
+                                        modalService.alert('Blad w dodawaniu typu dokumentu', 'Blad! Typ dokumentu nie zostal dodany! Zweryfikuj dane i prawa dostepu lub skontaktuj sie z Administratorem');
+                                    }
+                                })
+                                    .catch(function (ex) {
+                                        if (ex !== 'cancel' && ex !== 'backdrop click') {
+                                            console.error(ex);
+                                        }
+                                    });
                             });
                     }
                 }

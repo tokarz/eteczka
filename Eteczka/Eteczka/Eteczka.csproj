@@ -227,6 +227,7 @@
     <Content Include="app\main\components\menu-users-content\menuUsersContentDirective.js" />
     <Content Include="app\main\components\menu-users-content\menuUsersContentService.js" />
     <Content Include="app\main\components\menu-users-content\menuUsersContentView.html" />
+    <Content Include="app\main\header\headerService.js" />
     <Content Include="app\main\header\modal\addFileTypeModal.html" />
     <Content Include="app\main\header\modal\companyStructureController.js" />
     <Content Include="app\main\components\filepreview\print\pdfsnippet.js" />
