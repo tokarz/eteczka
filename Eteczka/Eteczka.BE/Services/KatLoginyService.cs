@@ -76,6 +76,16 @@ namespace Eteczka.BE.Services
             return queryResult;
         }
 
+        public bool AktualizujFirmeDlaUzytkownika(KatLoginyFirmy firma)
+        {
+            return _Dao.AktualizujFirmeDlaUzytkownika(firma);
+        }
+
+        public bool DodajFirmeDlaUzytkownika(KatLoginyFirmy firma)
+        {
+            return _Dao.DodajFirmeDlaUzytkownika(firma);
+        }
+
         public bool DodajNowegoUzytkownika(AddKatLoginyDto user)
         {
             KatLoginy nowyUser = _Mapper.MapujKatLoginy(user);

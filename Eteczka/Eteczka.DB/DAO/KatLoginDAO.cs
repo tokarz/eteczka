@@ -68,14 +68,12 @@ namespace Eteczka.DB.DAO
             if (pracownik.Haslolong != null)
             {
                 pracownik.Haslolong = _Crypto.CalculateMD5Hash(pracownik.Haslolong);
-
             }
 
             if (pracownik.Hasloshort != null)
             {
                 pracownik.Hasloshort = _Crypto.CalculateMD5Hash(pracownik.Hasloshort);
             }
-
 
             StringBuilder sqlBatch = new StringBuilder();
             string katLoginyWartosci = string.Format("'{0}','{1}','{2}','{3}',{4},{5}", pracownik.Identyfikator, pracownik.Hasloshort, pracownik.Haslolong, pracownik.Datamodify, pracownik.IsAdmin, pracownik.Usuniety);
@@ -159,7 +157,45 @@ namespace Eteczka.DB.DAO
             return fetchedResult;
         }
 
+        
 
+            public bool AktualizujFirmeDlaUzytkownika(KatLoginyFirmy firma)
+        {
+            bool result = false;
+            string updateFirmy = string.Format("identyfikator='{0}',firma='{1}',rolareadonly='{2}',rolaaddpracownik='{3}',rolamodifypracownik='{4}', rolaaddfile='{5}', rolamodifyfile='{6}',rolaslowniki='{7}',rolasendmail='{8}',rolaraport='{9}',rolaraportexport='{10}', roladoubleakcept='{11}', datamodify='{12}',usuniety='{13}',confidential='{14}', kodkierownik='{15}'", firma.Identyfikator.Trim(), firma.Firma.Trim(), firma.Uprawnienia.RolaReadOnly, firma.Uprawnienia.RolaAddPracownik, firma.Uprawnienia.RolaModifyPracownik, firma.Uprawnienia.RolaAddFile, firma.Uprawnienia.RolaModifyFile, firma.Uprawnienia.RolaSlowniki, firma.Uprawnienia.RolaSendEmail, firma.Uprawnienia.RolaRaport, firma.Uprawnienia.RolaRaportExport, firma.Uprawnienia.RolaDoubleAkcept, firma.DataModify, firma.Usuniety, firma.Confidential, firma.KodKierownik);
+            string dodajUzytkownika = "UPDATE public.\"KatLoginyFirmy\" SET " + updateFirmy + "  WHERE identyfikator='" + firma.Identyfikator + "' AND firma='" + firma.Firma + "';";
+
+            try
+            {
+                IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+                result = connectionState.ExecuteNonQuery(dodajUzytkownika);
+            }
+            catch (Exception ex)
+            {
+                result = false;
+            }
+
+            return result;
+        }
+
+        public bool DodajFirmeDlaUzytkownika(KatLoginyFirmy firma)
+        {
+            bool result = false;
+            string nowaFirma = string.Format("'{0}','{1}','{2}','{3}','{4}', '{5}', '{6}','{7}','{8}','{9}','{10}', '{11}', '{12}','{13}','{14}', '{15}'", firma.Identyfikator.Trim(), firma.Firma.Trim(), firma.Uprawnienia.RolaReadOnly, firma.Uprawnienia.RolaAddPracownik, firma.Uprawnienia.RolaModifyPracownik, firma.Uprawnienia.RolaAddFile, firma.Uprawnienia.RolaModifyFile, firma.Uprawnienia.RolaSlowniki, firma.Uprawnienia.RolaSendEmail, firma.Uprawnienia.RolaRaport, firma.Uprawnienia.RolaRaportExport, firma.Uprawnienia.RolaDoubleAkcept, firma.DataModify, firma.Usuniety, firma.Confidential, firma.KodKierownik);
+            string dodajUzytkownika = "INSERT INTO public.\"KatLoginyFirmy\" (identyfikator, firma, rolareadonly, rolaaddpracownik, rolamodifypracownik,rolaaddfile, rolamodifyfile, rolaslowniki, rolasendmail, rolaraport,rolaraportexport, roladoubleakcept, datamodify, usuniety, confidential, kodkierownik) VALUES (" + nowaFirma + ");";
+
+            try
+            {
+                IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+                result = connectionState.ExecuteNonQuery(dodajUzytkownika);
+            }
+            catch (Exception ex)
+            {
+                result = false;
+            }
+
+            return result;
+        }
 
         public List<KatLoginyFirmy> WczytajWszystkieFirmy()
         {

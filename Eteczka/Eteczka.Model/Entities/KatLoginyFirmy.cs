@@ -11,13 +11,6 @@ namespace Eteczka.Model.Entities
         public string Identyfikator { get; set; }
         public string Firma { get; set; }
         public Uprawnienia Uprawnienia { get; set; }
-        public string UprawnieniaStr
-        {
-            get
-            {
-                return this.Uprawnienia.ToString();
-            }
-        }
         public DateTime DataModify { get; set; }
         public int Confidential { get; set; }
         public string KodKierownik { get; set; }

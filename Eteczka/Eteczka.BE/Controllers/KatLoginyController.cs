@@ -80,6 +80,64 @@ namespace Eteczka.BE.Controllers
         }
 
         [HttpPost]
+        public ActionResult AktualizujFirmeDlaUzytkownika(string sessionId, KatLoginyFirmy firmaDoDodania)
+        {
+            bool sucess = false;
+            ActionResult result = null;
+            try
+            {
+                StanSesji stanSesji = Sesja.PobierzStanSesji();
+                if (true || stanSesji.CzySesjaJestOtwarta(sessionId) && stanSesji.CzySesjaAdministratora(sessionId))
+                {
+                    sucess = _KatLoginyService.AktualizujFirmeDlaUzytkownika(firmaDoDodania);
+                }
+
+                result = Json(new
+                {
+                    success = sucess
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            return result;
+        }
+
+        [HttpPost]
+        public ActionResult DodajFirmeDlaUzytkownika(string sessionId, KatLoginyFirmy firmaDoDodania)
+        {
+            bool sucess = false;
+            ActionResult result = null;
+            try
+            {
+                StanSesji stanSesji = Sesja.PobierzStanSesji();
+                if (true || stanSesji.CzySesjaJestOtwarta(sessionId) && stanSesji.CzySesjaAdministratora(sessionId))
+                {
+                    sucess = _KatLoginyService.DodajFirmeDlaUzytkownika(firmaDoDodania);
+                }
+
+                result = Json(new
+                {
+                    success = sucess
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            return result;
+        }
+
+        [HttpPost]
         [ActionName("DodajPrac")]
         public ActionResult DodajUzytkownika(string sessionId, AddKatLoginyDto user)
         {
@@ -173,17 +231,6 @@ namespace Eteczka.BE.Controllers
             }
             return result;
 
-        }
-
-        [HttpPost]
-        public ActionResult DodajFirmeDlaUzytkownika(string sessionId, KatLoginy user, string firma)
-        {
-
-
-            return Json(new
-            {
-                success = true
-            }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpDelete]

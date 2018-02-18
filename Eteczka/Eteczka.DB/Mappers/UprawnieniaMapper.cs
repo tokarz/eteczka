@@ -8,7 +8,7 @@ namespace Eteczka.DB.Mappers
         public Uprawnienia Map(DataRow row)
         {
             Uprawnienia result = new Uprawnienia();
-            result.RolaAddFile = bool.Parse(row["rolareadonly"].ToString());
+            result.RolaReadOnly = bool.Parse(row["rolareadonly"].ToString());
             result.RolaAddPracownik = bool.Parse(row["RolaAddPracownik".ToLower()].ToString());
             result.RolaModifyPracownik = bool.Parse(row["RolaModifyPracownik".ToLower()].ToString());
             result.RolaAddFile = bool.Parse(row["RolaAddFile".ToLower()].ToString());
