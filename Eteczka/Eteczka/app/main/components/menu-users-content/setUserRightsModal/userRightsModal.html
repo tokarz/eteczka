@@ -1,0 +1,68 @@
+﻿<md-dialog aria-label="Formularz dodawania/edycji użytkownika" draggable class="open-to-left">
+    <form ng-cloak name="userRightsForm" novalidate>
+        <md-toolbar>
+            <div class="modal-header md-toolbar-tools">
+                <h2>Formularz dodawania/edycji użytkownika</h2>
+                <span flex></span>
+            </div>
+        </md-toolbar>
+        <md-dialog-content style="padding:15px">
+            <div>
+                <label class="modal-table-label" for="company">Firma*</label>
+                <select name="company" class="modal-table-input modal-select-input"
+                        ng-model="modalResult.Firma"
+                        ng-options="option for option in userCompanies"></select>
+            </div>
+            <div>
+                <label class="modal-table-label" for="confidential">Confidential*</label>
+                <select name="confidential" class="modal-table-input modal-select-input"
+                        ng-model="modalResult.Confidential"
+                        ng-options="option for option in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]"
+                        ng-init="modalResult.Confidential = 0"></select>
+            </div>
+            <div>
+                <label class="modal-table-label">Role*</label>
+            </div>
+            <div>
+                <span>
+                    <i class="fa fa-pencil" title="Tylko odczyt"></i><input type="checkbox" ng-model="modalResult.Uprawnienia.RolaReadOnly" />
+                </span>
+                <span>
+                    <i class="fa fa-user-plus" title="Dodawanie Pracownika"></i><input type="checkbox" ng-model="modalResult.Uprawnienia.RolaAddPracownik" />
+                </span>
+                <span>
+                    <i class="fa fa-user" title="Edycja Pracownika"></i><input type="checkbox" ng-model="modalResult.Uprawnienia.RolaModifyPracownik" />
+                </span>
+                <span>
+                    <i class="fa fa-plus-circle" title="Dodawanie dokumentów"></i><input type="checkbox" ng-model="modalResult.Uprawnienia.RolaAddFile" />
+                </span>
+                <span>
+                    <i class="fa fa-file-pdf-o" title="Edycja dokumentów"></i><input type="checkbox" ng-model="modalResult.Uprawnienia.RolaModifyFile" />
+                </span>
+                <span>
+                    <i class="fa fa-database" title="Edycja słowników"></i><input type="checkbox" ng-model="modalResult.Uprawnienia.RolaSlowniki" />
+                </span>
+                <span>
+                    <i class="fa fa-envelope-o" title="Wysyłanie Poczty E-Mail"></i><input type="checkbox" ng-model="modalResult.Uprawnienia.RolaSendEmail" />
+                </span>
+                <span>
+                    <i class="fa fa-book" title="Generowanie raportów"></i><input type="checkbox" ng-model="modalResult.Uprawnienia.RolaRaport" />
+                </span>
+                <span>
+                    <i class="fa fa-download" title="Eksporty"></i><input type="checkbox" ng-model="modalResult.Uprawnienia.RolaRaportExport" />
+                </span>
+                <span>
+                    <i class="fa fa-check" title="Podwójny akcept"></i><input type="checkbox" ng-model="modalResult.Uprawnienia.RolaDoubleAkcept" />
+                </span>
+            </div>
+
+
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" ng-click="cancel()">Anuluj</button>
+                <button type="submit" class="btn btn-primary" ng-click="answer(modalResult, userRightsForm.$error)">Zatwierdz</button>
+            </div>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

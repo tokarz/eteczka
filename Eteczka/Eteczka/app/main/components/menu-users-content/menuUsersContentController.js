@@ -161,6 +161,45 @@ angular.module('et.controllers').controller('menuUsersContentController', ['$sco
             }
         };
 
+        $scope.isNotEqual = function (baseText, textToMatch) {
+            return (baseText !== textToMatch)
+        };
+    }
+
+    $scope.openSetUserRightsDialog = function () {
+        var modalOptions = {
+            body: 'app/main/components/menu-users-content/setUserRightsModal/userRightsModal.html',
+            controller: $scope.setUserRightsController,
+            locals: {
+                userCompanies: $scope.userCompanies
+            }
+        };
+
+        openModal(modalOptions, function (value) {
+            console.log(value)
+            // TODO
+            }
+        ).catch();
+    }
+
+    $scope.setUserRightsController = function ($scope, $mdDialog, modalService, userCompanies) {
+        $scope.modalResult = {};
+        $scope.userCompanies = userCompanies;
+
+        $scope.hide = function () {
+            $mdDialog.hide();
+        };
+
+        $scope.cancel = function () {
+            $mdDialog.cancel();
+        };
+
+        $scope.answer = function (answer, errors) {
+            console.log(errors)
+            if (!errors || Object.keys(errors).length === 0) {
+                $mdDialog.hide(answer);
+            }
+        };
     }
 
 }]);
