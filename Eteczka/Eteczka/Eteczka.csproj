@@ -222,6 +222,7 @@
     <Content Include="app\css\modal.min.css">
       <DependentUpon>modal.css</DependentUpon>
     </Content>
+    <Content Include="app\main\components\menu-users-content\addEditUserModal\userModal.html" />
     <Content Include="app\main\components\menu-users-content\menuUsersContentController.js" />
     <Content Include="app\main\components\menu-users-content\menuUsersContentDirective.js" />
     <Content Include="app\main\components\menu-users-content\menuUsersContentService.js" />
@@ -2200,7 +2201,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\main\components\company-structure\" />
-    <Folder Include="app\main\components\menu-users-content\addEditUserModal\" />
     <Folder Include="app\main\components\menu-users-content\setUserRightsModal\" />
     <Folder Include="App_Data\" />
   </ItemGroup>

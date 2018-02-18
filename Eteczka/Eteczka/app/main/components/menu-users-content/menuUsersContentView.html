@@ -1,9 +1,8 @@
 ﻿<div class="component-main-wrapper">
     <div class="user-details">
         <div class="top-toolbar toolbar-panel">
-            <span class="toolbar-option option-one fa fa-plus-circle" ng-click="triggerAddUserDialog()"></span>
-            <span ng-show="user.Nazwisko" class="toolbar-option option-two fa fa-pencil-square" ng-click="triggerEditUserDialog()"></span>
-            <span ng-show="selectedCompany" class="toolbar-option option-three fa fa-trash-o" ng-click="triggerDeleteUserPopup()"></span>
+            <span class="toolbar-option option-one fa fa-plus-circle" ng-click="openAddUserDialog()"></span>
+            <span class="toolbar-option option-three fa fa-trash-o" ng-click="triggerDeleteUser()"></span>
         </div>
         <div class="user-details-list toolbar-content">
             <h3 style="margin:auto;text-align:center">Dane Pracownika</h3>
@@ -41,8 +40,8 @@
     <div class="user-history">
         <div class="top-toolbar toolbar-panel">
             <span ng-show="user.Nazwisko" class="toolbar-option option-one fa fa-plus-circle"></span>
-            <span ng-show="user.Firma" class="toolbar-option option-two fa fa-pencil-square"></span>
-            <span ng-show="user.Firma" class="toolbar-option option-three fa fa-trash-o"></span>
+            <span ng-show="selectedCompany" class="toolbar-option option-two fa fa-pencil-square"></span>
+            <span ng-show="selectedCompany" class="toolbar-option option-three fa fa-trash-o"></span>
         </div>
         <div class="toolbar-content">
             <h3 style="margin:auto;text-align:center">Uprawnienia</h3>

@@ -406,6 +406,7 @@ namespace Eteczka.BE.Utils
             string result = "";
             try
             {
+                // #Blk8dr#Blk8dr#
                 PdfDocument document = PdfReader.Open(sciezka, "adminadmin");
                 using (MemoryStream stream = new MemoryStream())
                 {

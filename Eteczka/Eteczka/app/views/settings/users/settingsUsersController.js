@@ -13,7 +13,6 @@ angular.module('et.controllers').controller('settingsUsersController', ['$scope'
         loading: false
     };
 
-
     $scope.getAllHrUsers = function () {
         settingsService.getAllHrUsers().then(function (res) {
             $scope.allUsersData = res.usersWithCredentials;

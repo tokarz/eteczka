@@ -84,9 +84,15 @@ angular.module('et.services').factory('settingsService', ['httpService', 'sessio
                 sessionId: sessionService.getSessionId()
             });
         },
-        deleteCompanyForUser: function(company) {
+        deleteCompanyForUser: function (company) {
             return httpService.get('KatLoginy/PobierzWszystkichUzytkownikow', {
                 sessionId: sessionService.getSessionId()
+            });
+        },
+        addNewUser: function (user) {
+            return httpService.post('KatLoginy/DodajPrac', {
+                sessionId: sessionService.getSessionId(),
+                user: user
             });
         }
 

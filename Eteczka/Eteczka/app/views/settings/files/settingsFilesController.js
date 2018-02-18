@@ -1,6 +1,7 @@
 ﻿'use strict';
 angular.module('et.controllers').controller('settingsFilesController', ['$scope', 'settingsService', 'companiesService', function ($scope, settingsService, companiesService) {
     $scope.folders = [];
+    $scope.existingFolders = {};
 
     $scope.createSourceFolder = function (name) {
         if (!$scope.existingFolders[name]) {
@@ -27,6 +28,14 @@ angular.module('et.controllers').controller('settingsFilesController', ['$scope'
 
         return result;
     }
+
+    $scope.checkButtonsState = function (folders) {
+        angular.forEach(folders, function (folder) {
+            settingsService.doesFolderExist(folder.Firma).then(function (result) {
+                $scope.existingFolders[folder.Firma] = result.success;
+            });
+        });
+    };
 
     $scope.importAllCompanies();
 }]);

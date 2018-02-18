@@ -28,7 +28,6 @@ angular.module('et.controllers').controller('settingsViewController', ['$scope',
             console.error(err);
         });
     }
-
     
 
     $scope.checkButtonsState = function (folders) {

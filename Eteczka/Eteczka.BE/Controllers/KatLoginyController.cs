@@ -232,16 +232,24 @@ namespace Eteczka.BE.Controllers
                 {
                     userdetails = _KatLoginyService.GetUserDetails(user.Identyfikator.Trim());
                     userCompanies = _KatLoginyService.GetUserCompanies(user.Identyfikator.Trim());
-                    if (userCompanies != null && userCompanies.Count > 0)
+                    if (user.IsAdmin == true)
                     {
                         sesja = Sesja.UtworzSesje();
-                        sesja.AktywnaFirma = userCompanies[0];
-                        sesja.WszystkieFirmy = userCompanies;
-                        firms = userCompanies.Select(detail =>
+                        sesja.IsAdmin = true;
+                    }
+                    else
+                    {
+                        if (userCompanies != null && userCompanies.Count > 0)
                         {
-                            return detail.Firma;
-                        }).ToList();
-                        sesja.IsAdmin = user.IsAdmin;
+                            sesja = Sesja.UtworzSesje();
+                            sesja.AktywnaFirma = userCompanies[0];
+                            sesja.WszystkieFirmy = userCompanies;
+                            firms = userCompanies.Select(detail =>
+                            {
+                                return detail.Firma;
+                            }).ToList();
+                            sesja.IsAdmin = false;
+                        }
                     }
                 }
 
