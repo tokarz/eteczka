@@ -247,6 +247,9 @@
     <Content Include="app\views\settings\import\settingsImport.html" />
     <Content Include="app\views\settings\import\settingsImportController.js" />
     <Content Include="app\views\settings\import\settingsImportDirective.js" />
+    <Content Include="app\views\settings\sessions\admin\adminSessions.html" />
+    <Content Include="app\views\settings\sessions\admin\adminSessionsController.js" />
+    <Content Include="app\views\settings\sessions\admin\adminSessionsDirective.js" />
     <Content Include="app\views\settings\sessions\settingsSessions.html" />
     <Content Include="app\views\settings\sessions\settingsSessionsController.js" />
     <Content Include="app\views\settings\sessions\settingsSessionsDirective.js" />
@@ -2197,6 +2200,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\main\components\company-structure\" />
+    <Folder Include="app\main\components\menu-users-content\addEditUserModal\" />
+    <Folder Include="app\main\components\menu-users-content\setUserRightsModal\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>

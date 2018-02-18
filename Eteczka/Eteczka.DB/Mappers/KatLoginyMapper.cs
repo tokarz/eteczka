@@ -44,24 +44,49 @@ namespace Eteczka.DB.Mappers
             return result;
         }
 
+        public List<KatLoginyFirmy> MapFirmy(DataTable queryResult)
+        {
+            List<KatLoginyFirmy> result = new List<KatLoginyFirmy>();
+            foreach (DataRow row in queryResult.Rows)
+            {
+                Uprawnienia uprawnienia = _UprawnieniaMapper.Map(row);
+                KatLoginyFirmy fetchedResult = new KatLoginyFirmy()
+                {
+                    Identyfikator = row["identyfikator"].ToString(),
+                    Firma = row["firma"].ToString(),
+                    Confidential = Int32.Parse(row["confidential"].ToString()),
+                    Uprawnienia = uprawnienia,
+                    KodKierownik = row["kodkierownik"].ToString(),
+                    Usuniety = bool.Parse(row["usuniety"].ToString())
+                };
+
+                result.Add(fetchedResult);
+            }
+
+            return result;
+        }
+
         public List<KatLoginyDetale> MapDetails(DataTable queryResult)
         {
             List<KatLoginyDetale> result = new List<KatLoginyDetale>();
             foreach (DataRow row in queryResult.Rows)
             {
-                KatLoginyDetale fetchedResult = new KatLoginyDetale();
-                fetchedResult.Identyfikator = row["identyfikator"].ToString();
-                fetchedResult.Nazwisko = row["nazwisko"].ToString();
-                fetchedResult.Imie = row["imie"].ToString();
-                fetchedResult.Firma = row["firma"].ToString();
-                fetchedResult.Email = row["pocztaemail"].ToString();
-                fetchedResult.Confidential = Int32.Parse(row["confidential"].ToString());
-
-                Uprawnienia uprawnienia = _UprawnieniaMapper.Map(row);
-
-                fetchedResult.Uprawnienia = uprawnienia;
+                KatLoginyDetale fetchedResult = this.MapSingleDetail(row);
 
                 result.Add(fetchedResult);
+            }
+
+            return result;
+        }
+
+        public KatLoginyDetale MapSingleDetail(DataTable queryResult)
+        {
+            KatLoginyDetale result = null;
+            if (queryResult != null && queryResult.Rows.Count == 1)
+            {
+                DataRow row = queryResult.Rows[0];
+
+                result = this.MapSingleDetail(row);
             }
 
             return result;
@@ -79,27 +104,15 @@ namespace Eteczka.DB.Mappers
 
             return result;
         }
-        public List<KatLoginyDetale> MapujKatLoginyDetale(AddKatLoginyDto user)
+        public KatLoginyDetale MapujKatLoginyDetale(AddKatLoginyDto user)
         {
-            List<KatLoginyDetale> result = new List<KatLoginyDetale>();
-            foreach (KatFirmy firma in user.Firmy)
-            {
-                KatLoginyDetale detal = new KatLoginyDetale();
-                detal.Confidential = user.Confidential;
-                detal.DataModify = DateTime.Now;
-                detal.Email = user.Email;
-                detal.Firma = firma.Firma;
-                detal.Identyfikator = user.Identyfikator;
-                detal.Imie = user.Imie;
-                detal.KodKierownik = user.KodKierownik;
-                detal.Nazwisko = user.Nazwisko;
-                detal.Uprawnienia = user.Uprawnienia;
-                detal.Usuniety = user.Usuniety;
+            KatLoginyDetale detal = new KatLoginyDetale();
+            detal.Email = user.Email;
+            detal.Identyfikator = user.Identyfikator;
+            detal.Imie = user.Imie;
+            detal.Nazwisko = user.Nazwisko;
 
-                result.Add(detal);
-            }
-
-            return result;
+            return detal;
         }
 
         private KatLoginy MapSingleRow(DataRow row)
@@ -112,6 +125,17 @@ namespace Eteczka.DB.Mappers
             fetchedResult.Datamodify = DateTime.Parse(row["Datamodify".ToLower()].ToString());
             fetchedResult.IsAdmin = bool.Parse(row["IsAdmin".ToLower()].ToString());
             fetchedResult.Usuniety = bool.Parse(row["Usuniety".ToLower()].ToString());
+
+            return fetchedResult;
+        }
+
+        private KatLoginyDetale MapSingleDetail(DataRow row)
+        {
+            KatLoginyDetale fetchedResult = new KatLoginyDetale();
+            fetchedResult.Identyfikator = row["identyfikator"].ToString();
+            fetchedResult.Nazwisko = row["nazwisko"].ToString();
+            fetchedResult.Imie = row["imie"].ToString();
+            fetchedResult.Email = row["pocztaemail"].ToString();
 
             return fetchedResult;
         }

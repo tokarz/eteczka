@@ -33,12 +33,12 @@ namespace Eteczka.BE.Services
 
         public bool SkorowidzTeczkiExcellPelny(SessionDetails sesja, string numeread)
         {
-            List<Pliki> Dokumenty = _PlikiDAO.PobierzPlikPoNumerzeEad(numeread, sesja.AktywnaFirma, "nrdokumentu asc", "\"Pliki\".teczkadzial asc, ");
+            List<Pliki> Dokumenty = _PlikiDAO.PobierzPlikPoNumerzeEad(numeread, sesja.AktywnaFirma.Firma, "nrdokumentu asc", "\"Pliki\".teczkadzial asc, ");
             Pracownik pracownik = _PracownikDAO.PobierzPracownikaPoId(numeread);
 
             bool result = false;
 
-            string sciezka = _ExcellUtils.WygenerujSciezkeZapisuExcell("Pełny skorowidz teczki", sesja.AktywnyUser.Identyfikator.Trim());
+            string sciezka = _ExcellUtils.WygenerujSciezkeZapisuExcell("Pełny skorowidz teczki", sesja.AktywnaFirma.Identyfikator.Trim());
             try
             {
                 result = true;
@@ -69,7 +69,7 @@ namespace Eteczka.BE.Services
                     ICellStyle glownyStyl = workbook.CreateCellStyle();
                     glownyStyl.Alignment = HorizontalAlignment.Left;
                     IHeaderFooter stopka = arkusz.Footer;
-                    stopka.Left = (HSSFFooter.FontSize((short)9) + "Teczka pracownika " + sesja.AktywnaFirma.Trim() + ": " + pracownik.Imie + " " + pracownik.Nazwisko + ", ur. " + pracownik.DataUrodzenia + ". Wygenerowano: " + sesja.AktywnyUser.Identyfikator.Trim() + ", " + DateTime.Now.ToShortDateString() + ":" + DateTime.Now.ToLongTimeString() + ". Program: eAD");
+                    stopka.Left = (HSSFFooter.FontSize((short)9) + "Teczka pracownika " + sesja.AktywnaFirma.Firma.Trim() + ": " + pracownik.Imie + " " + pracownik.Nazwisko + ", ur. " + pracownik.DataUrodzenia + ". Wygenerowano: " + sesja.AktywnaFirma.Identyfikator.Trim() + ", " + DateTime.Now.ToShortDateString() + ":" + DateTime.Now.ToLongTimeString() + ". Program: eAD");
                    
                     IRow rzad = arkusz.CreateRow(0);
                     ICell komorka = rzad.CreateCell(0);

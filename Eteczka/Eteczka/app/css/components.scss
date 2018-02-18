@@ -194,6 +194,19 @@
         background: white;
 }
 
+.rightsColumn input {
+    cursor:pointer;
+}
+
+.rightsColumn span {
+    width: 8%;
+    display: inline-block;
+}
+
+.rightsColumn td {
+    cursor: pointer;
+}
+
 .table-search {
         width: 99%;
         margin: 5px auto;

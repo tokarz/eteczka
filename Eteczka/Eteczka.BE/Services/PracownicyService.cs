@@ -26,21 +26,21 @@ namespace Eteczka.BE.Services
 
         public List<Pracownik> PobierzWszystkich(SessionDetails sesja)
         {
-            List<Pracownik> pracownicy = _PracownikDao.PobierzPracownikow(sesja.AktywnaFirma, sesja.AktywnyUser.Confidential);
+            List<Pracownik> pracownicy = _PracownikDao.PobierzPracownikow(sesja.AktywnaFirma.Firma, sesja.AktywnaFirma.Confidential);
 
             return pracownicy;
         }
 
         public List<Pracownik> PobierzWszystkichZatrudnionych(SessionDetails sesja)
         {
-            List<Pracownik> pracownicy = _PracownikDao.PobierzZatrudnionychPracownikow(sesja.AktywnaFirma, sesja.AktywnyUser.Confidential);
+            List<Pracownik> pracownicy = _PracownikDao.PobierzZatrudnionychPracownikow(sesja.AktywnaFirma.Firma, sesja.AktywnaFirma.Confidential);
 
             return pracownicy;
         }
 
         public List<Pracownik> PobierzPozostalych(SessionDetails sesja)
         {
-            List<Pracownik> pracownicy = _PracownikDao.PobierzPozostalychPracownikow(sesja.AktywnaFirma, sesja.AktywnyUser.Confidential);
+            List<Pracownik> pracownicy = _PracownikDao.PobierzPozostalychPracownikow(sesja.AktywnaFirma.Firma, sesja.AktywnaFirma.Confidential);
 
             return pracownicy;
         }
@@ -54,27 +54,27 @@ namespace Eteczka.BE.Services
 
         public List<Pracownik> ZnajdzPracownikow(string search, SessionDetails sesja)
         {
-            List<Pracownik> pracownicy = _PracownikDao.WyszukiwaczPracownikow(search, sesja.AktywnaFirma, sesja.AktywnyUser.Confidential);
+            List<Pracownik> pracownicy = _PracownikDao.WyszukiwaczPracownikow(search, sesja.AktywnaFirma.Firma, sesja.AktywnaFirma.Confidential);
 
             return pracownicy;
 
         }
         public List<Pracownik> ZnajdzPracownikowPoTekscie(string search, SessionDetails sesja)
         {
-            List<Pracownik> pracownicy = _PracownikDao.WyszukiwaczPracownikowPoTekscie(search, sesja.AktywnaFirma, sesja.AktywnyUser.Confidential);
+            List<Pracownik> pracownicy = _PracownikDao.WyszukiwaczPracownikowPoTekscie(search, sesja.AktywnaFirma.Firma, sesja.AktywnaFirma.Confidential);
 
             return pracownicy;
         }
 
         public List<Pracownik> ZnajdzZatrPracownikowPoTekscie(string search, SessionDetails sesja)
         {
-            List<Pracownik> pracownicy = _PracownikDao.WyszukiwaczZatrPracownikowPoTekscie(search, sesja.AktywnaFirma, sesja.AktywnyUser.Confidential);
+            List<Pracownik> pracownicy = _PracownikDao.WyszukiwaczZatrPracownikowPoTekscie(search, sesja.AktywnaFirma.Firma, sesja.AktywnaFirma.Confidential);
             return pracownicy;
         }
 
         public List<Pracownik> ZnajdzPozostPracownikowPoTekscie(string search, SessionDetails sesja)
         {
-            List<Pracownik> pracownicy = _PracownikDao.WyszukiwaczPozostZatrPracownikowPoTekscie(search, sesja.AktywnaFirma, sesja.AktywnyUser.Confidential);
+            List<Pracownik> pracownicy = _PracownikDao.WyszukiwaczPozostZatrPracownikowPoTekscie(search, sesja.AktywnaFirma.Firma, sesja.AktywnaFirma.Confidential);
 
             return pracownicy;
         }
@@ -91,7 +91,7 @@ namespace Eteczka.BE.Services
             }
             else
             {
-                result.Result = _PracownikDao.DodajPracownika(pracownik, sesja.AktywnyUser.Identyfikator, sesja.AktywnyUser.Identyfikator);
+                result.Result = _PracownikDao.DodajPracownika(pracownik, sesja.AktywnaFirma.Identyfikator, sesja.AktywnaFirma.Identyfikator);
             }
 
 
@@ -109,7 +109,7 @@ namespace Eteczka.BE.Services
             }
             else
             {
-                result.Result = _PracownikDao.EdytujPracownika(pracownik, sesja.AktywnyUser.Identyfikator, sesja.AktywnyUser.Identyfikator);
+                result.Result = _PracownikDao.EdytujPracownika(pracownik, sesja.AktywnaFirma.Identyfikator, sesja.AktywnaFirma.Identyfikator);
             }
 
 

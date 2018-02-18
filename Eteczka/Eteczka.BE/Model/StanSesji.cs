@@ -51,11 +51,10 @@ namespace Eteczka.BE.Model
                 if (OTWARTE_SESJE.ContainsKey(sessionID))
                 {
                     SessionDetails detaleSesji = OTWARTE_SESJE[sessionID];
-                    detaleSesji.AktywnyUser = detaleSesji.WszystkieDetale.Find((x) =>
+                    detaleSesji.AktywnaFirma = detaleSesji.WszystkieFirmy.Find((x) =>
                     {
                         return x.Firma != null && x.Firma.Trim() == company.Trim();
                     });
-                    detaleSesji.AktywnaFirma = detaleSesji.AktywnyUser.Firma;
                     result = true;
                 }
             }

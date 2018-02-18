@@ -401,7 +401,7 @@ namespace Eteczka.BE.Utils
 
         public string PobierzZaszyfrowanaZawartoscPliku(string sciezka, string sessionId)
         {
-            LOGGER.Info("Plik [" + sciezka + "] Wczytany przez [" + Sesja.PobierzStanSesji().PobierzSesje(sessionId).AktywnyUser + "] o [" + DateTime.Now + "]");
+            LOGGER.Info("Plik [" + sciezka + "] Wczytany przez [" + Sesja.PobierzStanSesji().PobierzSesje(sessionId).AktywnaFirma.Identyfikator + "] o [" + DateTime.Now + "]");
 
             string result = "";
             try

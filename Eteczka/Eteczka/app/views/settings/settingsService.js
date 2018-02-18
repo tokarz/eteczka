@@ -83,6 +83,12 @@ angular.module('et.services').factory('settingsService', ['httpService', 'sessio
             return httpService.get('KatLoginy/PobierzWszystkichUzytkownikow', {
                 sessionId: sessionService.getSessionId()
             });
+        },
+        deleteCompanyForUser: function(company) {
+            return httpService.get('KatLoginy/PobierzWszystkichUzytkownikow', {
+                sessionId: sessionService.getSessionId()
+            });
         }
+
     };
 }]);

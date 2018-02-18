@@ -5,19 +5,19 @@ namespace Eteczka.Model.DTO
 {
     public class DaneiDetaleUzytkownika
     {
-        public DaneUzytkownika DaneUzytkownika { get; set; }
-        public List<KatLoginyDetale> Detale { get; set; }
+        public KatLoginyDetale Detale { get; set; }
+        public List<KatLoginyFirmy> Firmy { get; set; }
 
         public override bool Equals(object obj)
         {
-            var uzytkownika = obj as DaneiDetaleUzytkownika;
-            return uzytkownika != null &&
-                   EqualityComparer<DaneUzytkownika>.Default.Equals(DaneUzytkownika, uzytkownika.DaneUzytkownika);
+            var uzytkownik = obj as DaneiDetaleUzytkownika;
+            return uzytkownik != null &&
+                   EqualityComparer<KatLoginyDetale>.Default.Equals(Detale, uzytkownik.Detale);
         }
 
         public override int GetHashCode()
         {
-            return -1589580215 + EqualityComparer<DaneUzytkownika>.Default.GetHashCode(DaneUzytkownika);
+            return -1690766738 + EqualityComparer<KatLoginyDetale>.Default.GetHashCode(Detale);
         }
     }
 }

@@ -8,13 +8,16 @@ namespace Eteczka.BE.Services
     public interface IKatLoginyService
     {
         KatLoginy GetUserByNameAndPassword(string name, string password);
-        List<KatLoginyDetale> GetUserDetails(string identyfikator);
+        KatLoginyDetale GetUserDetails(string identyfikator);
+        List<KatLoginyFirmy> GetUserCompanies(string identyfikator);
+
         List<DaneiDetaleUzytkownika> PobierzDaneUzytkownikow();
         List<KatLoginyDetale> GetAllUsersDetails();
-        bool UsunFirmeUzytkownika(KatLoginy user, string firma);
+
+        bool UsunFirmeUzytkownika(KatLoginyFirmy firma);
         bool DodajNowegoUzytkownika(AddKatLoginyDto user);
         bool ZmienHaslo(AddKatLoginyDto user);
-        bool UsunUzytkownika(AddKatLoginyDto user);
+        bool UsunUzytkownika(string identyfikator);
 
     }
 }

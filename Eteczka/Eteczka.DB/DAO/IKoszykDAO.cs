@@ -9,10 +9,10 @@ namespace Eteczka.DB.DAO
 {
     public interface IKoszykDAO
     {
-        int Policz(string firma, KatLoginyDetale user);
-        List<Pliki> PobierzZawartoscKoszyka(string firma, KatLoginyDetale user);
-        bool DodajPlikiDoKoszyka(string firma, KatLoginyDetale aktywnyUser, List<string> plikiId);
-        bool UsunZKoszyka(string firma, KatLoginyDetale aktywnyUser, List<string> plikiId);
-        bool WyczyscKoszyk(string firma, KatLoginyDetale aktywnyUser);
+        int Policz(KatLoginyFirmy firma);
+        List<Pliki> PobierzZawartoscKoszyka(KatLoginyFirmy firma);
+        bool DodajPlikiDoKoszyka(KatLoginyFirmy firma, List<string> plikiId);
+        bool UsunZKoszyka(KatLoginyFirmy firma, List<string> plikiId);
+        bool WyczyscKoszyk(KatLoginyFirmy firma);
     }
 }

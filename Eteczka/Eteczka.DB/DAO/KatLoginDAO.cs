@@ -27,9 +27,9 @@ namespace Eteczka.DB.DAO
             this._Crypto = crypto;
         }
 
-        public bool UsunFirmeUzytkownika(KatLoginy user, string firma)
+        public bool UsunFirmeUzytkownika(KatLoginyFirmy firma)
         {
-            string sqlQuery = "UPDATE \"KatLoginyDetale\" SET usuniety=true WHERE identyfikator='" + user.Identyfikator.Trim() + "' and firma='" + firma + "';";
+            string sqlQuery = "UPDATE \"KatLoginyFirmy\" SET usuniety=true WHERE identyfikator='" + firma.Identyfikator.Trim() + "' and firma='" + firma.Firma + "';";
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
             bool result = connectionState.ExecuteNonQuery(sqlQuery);
 
@@ -40,11 +40,9 @@ namespace Eteczka.DB.DAO
         {
             string sqlQuery = "SELECT * from \"KatLoginy\";";
 
-
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
             DataTable queryResult = connectionState.ExecuteQuery(sqlQuery);
             List<KatLoginy> fetchedResult = this._KatLoginyMapper.MapList(queryResult);
-
 
             return fetchedResult;
         }
@@ -63,7 +61,7 @@ namespace Eteczka.DB.DAO
             return fetchedResult;
         }
 
-        public bool DodajNowegoPracownika(KatLoginy pracownik, List<KatLoginyDetale> detale)
+        public bool DodajNowegoPracownika(KatLoginy pracownik, KatLoginyDetale detal)
         {
             bool result = false;
 
@@ -83,47 +81,16 @@ namespace Eteczka.DB.DAO
             string katLoginyWartosci = string.Format("'{0}','{1}','{2}','{3}',{4},{5}", pracownik.Identyfikator, pracownik.Hasloshort, pracownik.Haslolong, pracownik.Datamodify, pracownik.IsAdmin, pracownik.Usuniety);
             string dodajUzytkownika = "INSERT INTO \"KatLoginy\" (identyfikator, hasloshort, haslolong, datamodify, isadmin, usuniety) VALUES (" + katLoginyWartosci + ");";
             sqlBatch.Append(dodajUzytkownika);
-            foreach (KatLoginyDetale detal in detale)
-            {
-                if (detal.Uprawnienia == null)
-                {
-                    detal.Uprawnienia = new Uprawnienia();
-                    detal.Uprawnienia.RolaAddFile = true;
-                    detal.Uprawnienia.RolaAddPracownik = true;
-                    detal.Uprawnienia.RolaDoubleAkcept = true;
-                    detal.Uprawnienia.RolaModifyFile = true;
-                    detal.Uprawnienia.RolaModifyPracownik = true;
-                    detal.Uprawnienia.RolaRaport = true;
-                    detal.Uprawnienia.RolaRaportExport = true;
-                    detal.Uprawnienia.RolaReadOnly = true;
-                    detal.Uprawnienia.RolaSendEmail = true;
-                    detal.Uprawnienia.RolaSlowniki = true;
-                }
 
-                string detaleWartosci = string.Format("'{0}','{1}','{2}','{3}','{4}',{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},'{15}',{16},{17},'{18}'",
-                    detal.Identyfikator,
-                    detal.Nazwisko,
-                    detal.Imie,
-                    detal.Firma,
-                    detal.Email,
-                    detal.Uprawnienia.RolaReadOnly,
-                    detal.Uprawnienia.RolaAddPracownik,
-                    detal.Uprawnienia.RolaModifyPracownik,
-                    detal.Uprawnienia.RolaAddFile,
-                    detal.Uprawnienia.RolaModifyFile,
-                    detal.Uprawnienia.RolaSlowniki,
-                    detal.Uprawnienia.RolaSendEmail,
-                    detal.Uprawnienia.RolaRaport,
-                    detal.Uprawnienia.RolaRaportExport,
-                    detal.Uprawnienia.RolaDoubleAkcept,
-                    detal.DataModify,
-                    detal.Usuniety,
-                    detal.Confidential,
-                    detal.KodKierownik);
-                string katLoginyDetal = "INSERT INTO \"KatLoginyDetale\" (identyfikator, nazwisko, imie, firma, pocztaemail, rolareadonly, rolaaddpracownik, rolamodifypracownik, rolaaddfile, rolamodifyfile, rolaslowniki, rolasendmail, rolaraport, rolaraportexport, roladoubleakcept, datamodify, usuniety, confidential, kodkierownik) VALUES (" + detaleWartosci + ");";
+            string detaleWartosci = string.Format("'{0}','{1}','{2}','{3}'",
+                detal.Identyfikator,
+                detal.Nazwisko,
+                detal.Imie,
+                detal.Email);
 
-                sqlBatch.Append(katLoginyDetal);
-            }
+            string katLoginyDetal = "INSERT INTO \"KatLoginyDetale\" (identyfikator, nazwisko, imie, pocztaemail) VALUES (" + detaleWartosci + ");";
+
+            sqlBatch.Append(katLoginyDetal);
 
             try
             {
@@ -163,16 +130,15 @@ namespace Eteczka.DB.DAO
 
             return result;
         }
-        public bool UsunUzytkownika(AddKatLoginyDto user)
+        public bool UsunUzytkownika(string id)
         {
             bool result = false;
-            string updateString = "UPDATE \"KatLoginy\" SET usuniety = true WHERE identyfikator = '" + user.Identyfikator + "';";
+            string updateString = "UPDATE \"KatLoginy\" SET usuniety = true WHERE identyfikator = '" + id + "';";
 
             try
             {
                 IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
                 result = connectionState.ExecuteNonQuery(updateString.ToString());
-
             }
             catch (Exception ex)
             {
@@ -182,15 +148,39 @@ namespace Eteczka.DB.DAO
             return result;
         }
 
-        public List<KatLoginyDetale> WczytajDetaleDlaUzytkownika(string id)
+        public KatLoginyDetale WczytajDetaleDlaUzytkownika(string id)
         {
             string sqlQuery = "SELECT * from \"KatLoginyDetale\" WHERE identyfikator = '" + id + "';";
+
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+            DataTable queryResult = connectionState.ExecuteQuery(sqlQuery);
+            KatLoginyDetale fetchedResult = this._KatLoginyMapper.MapSingleDetail(queryResult);
+
+            return fetchedResult;
+        }
+
+
+
+        public List<KatLoginyFirmy> WczytajWszystkieFirmy()
+        {
+            string sqlQuery = "SELECT * from \"KatLoginyFirmy\" WHERE usuniety = false;";
 
 
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
             DataTable queryResult = connectionState.ExecuteQuery(sqlQuery);
-            List<KatLoginyDetale> fetchedResult = this._KatLoginyMapper.MapDetails(queryResult);
+            List<KatLoginyFirmy> fetchedResult = this._KatLoginyMapper.MapFirmy(queryResult);
 
+            return fetchedResult;
+        }
+
+        public List<KatLoginyFirmy> WczytajFirmyDlaUzytkownika(string id)
+        {
+            string sqlQuery = "SELECT * from \"KatLoginyFirmy\" WHERE identyfikator = '" + id + "' and usuniety = false;";
+
+
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+            DataTable queryResult = connectionState.ExecuteQuery(sqlQuery);
+            List<KatLoginyFirmy> fetchedResult = this._KatLoginyMapper.MapFirmy(queryResult);
 
             return fetchedResult;
         }

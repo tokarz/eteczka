@@ -28,23 +28,25 @@ namespace Eteczka.Be.Tests.Services
         [Test]
         public void PobierzIloscPlikowWKoszyku()
         {
-            KatLoginyDetale aktywnyUser = new KatLoginyDetale()
+            KatLoginyFirmy aktywnyUser = new KatLoginyFirmy()
             {
+                Firma = "AFM",
                 Identyfikator = "Ochódzka"
             };
-            _KoszykDao.Policz("AFM", aktywnyUser).Returns(5);
+            _KoszykDao.Policz(aktywnyUser).Returns(5);
 
-            int result = _Sut.PobierzIloscPlikowWKoszyku("AFM", aktywnyUser);
+            int result = _Sut.PobierzIloscPlikowWKoszyku(aktywnyUser);
             Assert.AreEqual(5, result);
 
-            _KoszykDao.Received(1).Policz("AFM", aktywnyUser);
+            _KoszykDao.Received(1).Policz(aktywnyUser);
         }
 
         [Test]
         public void PobierzPlikiWKoszyku()
         {
-            KatLoginyDetale aktywnyUser = new KatLoginyDetale()
+            KatLoginyFirmy aktywnyUser = new KatLoginyFirmy()
             {
+                Firma = "AFM",
                 Identyfikator = "Ochódzka"
             };
             List<Pliki> PlikiZDb = new List<Pliki>();
@@ -53,19 +55,20 @@ namespace Eteczka.Be.Tests.Services
             Pliki plikDrugi = new Pliki();
             PlikiZDb.Add(plikDrugi);
 
-            _KoszykDao.PobierzZawartoscKoszyka("AFM", aktywnyUser).Returns(PlikiZDb);
-            List<Pliki> Result = _Sut.PobierzPlikiWKoszyku("AFM", aktywnyUser);
+            _KoszykDao.PobierzZawartoscKoszyka(aktywnyUser).Returns(PlikiZDb);
+            List<Pliki> Result = _Sut.PobierzPlikiWKoszyku(aktywnyUser);
 
             Assert.AreEqual(PlikiZDb, Result);
 
-            _KoszykDao.Received(1).PobierzZawartoscKoszyka("AFM", aktywnyUser);
+            _KoszykDao.Received(1).PobierzZawartoscKoszyka(aktywnyUser);
         }
 
         [Test]
         public void DodajPlikiDoKoszyka()
         {
-            KatLoginyDetale aktywnyUser = new KatLoginyDetale()
+            KatLoginyFirmy aktywnyUser = new KatLoginyFirmy()
             {
+                Firma = "AFM",
                 Identyfikator = "Ochódzka"
             };
 
@@ -75,15 +78,16 @@ namespace Eteczka.Be.Tests.Services
             string plikDrugi = "bbb\\aaa.pdf";
             PlikiId.Add(plikDrugi);
 
-            _KoszykDao.DodajPlikiDoKoszyka("AFM", aktywnyUser, PlikiId).Returns(true);
-             Assert.IsTrue(_Sut.DodajPlikiDoKoszyka("AFM", aktywnyUser, PlikiId));
-            _KoszykDao.Received(1).DodajPlikiDoKoszyka("AFM", aktywnyUser, PlikiId);
+            _KoszykDao.DodajPlikiDoKoszyka(aktywnyUser, PlikiId).Returns(true);
+             Assert.IsTrue(_Sut.DodajPlikiDoKoszyka(aktywnyUser, PlikiId));
+            _KoszykDao.Received(1).DodajPlikiDoKoszyka(aktywnyUser, PlikiId);
         }
         [Test]
         public void UsunZKoszyka()
         {
-            KatLoginyDetale aktywnyUser = new KatLoginyDetale()
+            KatLoginyFirmy aktywnyUser = new KatLoginyFirmy()
             {
+                Firma = "AFM",
                 Identyfikator = "Ochódzka"
             };
 
@@ -93,20 +97,21 @@ namespace Eteczka.Be.Tests.Services
             string plikDrugi = "bbb\\aaa.pdf";
             PlikiId.Add(plikDrugi);
 
-            _KoszykDao.UsunZKoszyka("AFM", aktywnyUser, PlikiId).Returns(true);
-            Assert.IsTrue(_Sut.UsunZKoszyka("AFM", aktywnyUser, PlikiId));
-            _KoszykDao.Received(1).UsunZKoszyka("AFM", aktywnyUser, PlikiId);
+            _KoszykDao.UsunZKoszyka(aktywnyUser, PlikiId).Returns(true);
+            Assert.IsTrue(_Sut.UsunZKoszyka(aktywnyUser, PlikiId));
+            _KoszykDao.Received(1).UsunZKoszyka(aktywnyUser, PlikiId);
         }
         [Test]
         public void WyczyscKoszyk()
         {
-            KatLoginyDetale aktywnyUser = new KatLoginyDetale()
+            KatLoginyFirmy aktywnyUser = new KatLoginyFirmy()
             {
+                Firma = "AFM",
                 Identyfikator = "Ochódzka"
             };
-            _KoszykDao.WyczyscKoszyk("AFM", aktywnyUser).Returns(true);
-            Assert.IsTrue(_Sut.WyczyscKoszyk("AFM", aktywnyUser));
-            _KoszykDao.Received(1).WyczyscKoszyk("AFM", aktywnyUser);
+            _KoszykDao.WyczyscKoszyk(aktywnyUser).Returns(true);
+            Assert.IsTrue(_Sut.WyczyscKoszyk(aktywnyUser));
+            _KoszykDao.Received(1).WyczyscKoszyk(aktywnyUser);
         }
 
 

@@ -51,7 +51,7 @@ namespace Eteczka.BE.Controllers
             string firma = "";
             if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
             {
-                firma = Sesja.PobierzStanSesji().PobierzSesje(sessionId).AktywnaFirma;
+                firma = Sesja.PobierzStanSesji().PobierzSesje(sessionId).AktywnaFirma.Firma.Trim();
             }
 
             return Json(new

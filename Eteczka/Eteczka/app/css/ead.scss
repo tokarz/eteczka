@@ -92,7 +92,7 @@ li {
 .table-header {
     background: $tableHeader;
     color: white;
-    height:30px;
+    height: 30px;
 }
 
 .not-yet-available {
@@ -101,5 +101,21 @@ li {
 }
 
 .options-wrapper {
-    height:90%;
+    height: 90%;
+}
+
+.striped-table {
+    border-bottom: 1px solid $lightgray;
+}
+
+.striped-table tbody tr:hover {
+    cursor: pointer;
+}
+
+.striped-table tbody tr:nth-child(even) {
+    background: white;
+}
+
+.striped-table tbody tr:nth-child(odd) {
+    background: $lightgray;
 }

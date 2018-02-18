@@ -155,7 +155,7 @@ namespace Eteczka.BE.Controllers
                 StanSesji stanSesji = Sesja.PobierzStanSesji();
                 if (stanSesji.CzySesjaJestOtwarta(sessionId) && stanSesji.CzySesjaAdministratora(sessionId))
                 {
-                    sucess = _KatLoginyService.UsunUzytkownika(user);
+                    sucess = _KatLoginyService.UsunUzytkownika(user.Identyfikator);
                 }
 
                 result = Json(new
@@ -187,7 +187,7 @@ namespace Eteczka.BE.Controllers
         }
 
         [HttpDelete]
-        public ActionResult UsunFirmeUzytkownika(string sessionId, KatLoginy user, string firma)
+        public ActionResult UsunFirmeUzytkownika(string sessionId, KatLoginyFirmy firma)
         {
             bool sucess = false;
             ActionResult result = null;
@@ -196,7 +196,7 @@ namespace Eteczka.BE.Controllers
                 StanSesji stanSesji = Sesja.PobierzStanSesji();
                 if (stanSesji.CzySesjaJestOtwarta(sessionId) && stanSesji.CzySesjaAdministratora(sessionId))
                 {
-                    sucess = this._KatLoginyService.UsunFirmeUzytkownika(user, firma);
+                    sucess = this._KatLoginyService.UsunFirmeUzytkownika(firma);
                 }
 
                 result = Json(new
@@ -219,23 +219,25 @@ namespace Eteczka.BE.Controllers
         public ActionResult PobierzPracownika(string nazwa, string haslo)
         {
             KatLoginy user = _KatLoginyService.GetUserByNameAndPassword(nazwa, haslo);
-            List<KatLoginyDetale> userDetails = new List<KatLoginyDetale>();
-            List<string> firmy = new List<string>();
-            SessionDetails sesja = null;
             bool success = user != null;
+
+            KatLoginyDetale userdetails = new KatLoginyDetale();
+            List<KatLoginyFirmy> userCompanies = new List<KatLoginyFirmy>();
+            List<string> firms = new List<string>();
+            SessionDetails sesja = null;
             ActionResult result = null;
             try
             {
                 if (success)
                 {
-                    userDetails = _KatLoginyService.GetUserDetails(user.Identyfikator);
-                    if (userDetails != null && userDetails.Count > 0)
+                    userdetails = _KatLoginyService.GetUserDetails(user.Identyfikator.Trim());
+                    userCompanies = _KatLoginyService.GetUserCompanies(user.Identyfikator.Trim());
+                    if (userCompanies != null && userCompanies.Count > 0)
                     {
                         sesja = Sesja.UtworzSesje();
-                        sesja.AktywnaFirma = userDetails[0].Firma;
-                        sesja.AktywnyUser = userDetails[0];
-                        sesja.WszystkieDetale = userDetails;
-                        firmy = userDetails.Select(detail =>
+                        sesja.AktywnaFirma = userCompanies[0];
+                        sesja.WszystkieFirmy = userCompanies;
+                        firms = userCompanies.Select(detail =>
                         {
                             return detail.Firma;
                         }).ToList();
@@ -245,10 +247,10 @@ namespace Eteczka.BE.Controllers
 
                 result = Json(new
                 {
-                    sesja = sesja,
-                    userdetails = userDetails.Count == 0 ? null : userDetails[0],
-                    firms = firmy,
-                    success = success,
+                    sesja,
+                    userdetails,
+                    firms,
+                    success,
                     isadmin = success ? user.IsAdmin : false
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -263,54 +265,5 @@ namespace Eteczka.BE.Controllers
             return result;
         }
 
-        public ActionResult PobierzWszystkichPracownikow(string sessionId)
-        {
-            List<PracownicyZFirmamiDTO> users = new List<PracownicyZFirmamiDTO>();
-            ActionResult result = null;
-            try
-            {
-                StanSesji stanSesji = Sesja.PobierzStanSesji();
-                if (stanSesji.CzySesjaJestOtwarta(sessionId) && stanSesji.CzySesjaAdministratora(sessionId))
-                {
-                    List<KatLoginyDetale> detale = _KatLoginyService.GetAllUsersDetails();
-
-                    foreach (KatLoginyDetale detal in detale)
-                    {
-                        PracownicyZFirmamiDTO prac = users.Find(x => x.Identyfikator == detal.Identyfikator);
-                        if (prac == null)
-                        {
-                            prac = new PracownicyZFirmamiDTO()
-                            {
-                                Identyfikator = detal.Identyfikator,
-                                Firmy = new List<string>() { detal.Firma },
-                                Confidential = detal.Confidential
-                            };
-                            users.Add(prac);
-                        }
-                        else
-                        {
-                            prac.Firmy.Add(detal.Firma);
-                        }
-                    }
-                }
-
-                result = Json(new
-                {
-                    sucess = users != null && users.Count > 0 ? true : false,
-                    users = users
-                }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                result = Json(new
-                {
-                    sucess = false,
-                    wyjatek = true
-                }, JsonRequestBehavior.AllowGet);
-
-            }
-            return result;
-
-        }
     }
 }

@@ -60,6 +60,7 @@
     <Compile Include="Entities\KatKonto5.cs" />
     <Compile Include="Entities\KatLoginy.cs" />
     <Compile Include="Entities\KatLoginyDetale.cs" />
+    <Compile Include="Entities\KatLoginyFirmy.cs" />
     <Compile Include="Entities\KatLokalPapier.cs" />
     <Compile Include="Entities\KatPodWydzialy.cs" />
     <Compile Include="Entities\KatRejony.cs" />

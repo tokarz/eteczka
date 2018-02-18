@@ -31,7 +31,7 @@ namespace Eteczka.BE.Services
         {
             bool result = false;
 
-            List<Pliki> Dokumenty = _PlikiDAO.PobierzPlikPoNumerzeEad(numeread, sesja.AktywnaFirma, "nrdokumentu asc", "\"Pliki\".teczkadzial asc, ");
+            List<Pliki> Dokumenty = _PlikiDAO.PobierzPlikPoNumerzeEad(numeread, sesja.AktywnaFirma.Firma, "nrdokumentu asc", "\"Pliki\".teczkadzial asc, ");
             Pracownik pracownik = _PracownikDAO.PobierzPracownikaPoId(numeread);
             
             
@@ -48,7 +48,7 @@ namespace Eteczka.BE.Services
                 Paragraph paragraph = sec.AddParagraph();
 
                 //stopka:
-                paragraph = sec.Footers.Primary.AddParagraph("Teczka pracownika " + sesja.AktywnaFirma.Trim() + ": " + pracownik.Imie + " " + pracownik.Nazwisko + ", ur. " + pracownik.DataUrodzenia   + ". Wygenerowano: " + sesja.AktywnyUser.Identyfikator.Trim()  + ", " + DateTime.Now.ToShortDateString() + ":" + DateTime.Now.ToLongTimeString() + ". Program: eAD");
+                paragraph = sec.Footers.Primary.AddParagraph("Teczka pracownika " + sesja.AktywnaFirma.Firma.Trim() + ": " + pracownik.Imie + " " + pracownik.Nazwisko + ", ur. " + pracownik.DataUrodzenia   + ". Wygenerowano: " + sesja.AktywnaFirma.Identyfikator.Trim()  + ", " + DateTime.Now.ToShortDateString() + ":" + DateTime.Now.ToLongTimeString() + ". Program: eAD");
                 paragraph.Format.Font.Size = 7;
 
                 //Tytuł dokumentu:
@@ -157,7 +157,7 @@ namespace Eteczka.BE.Services
             //Generujemy i zapisujemy plik z raportem
             try
             {
-                result = _PdfUtils.GenerujIZapiszRaportPdf(doc, "Skorowidz teczki", sesja.AktywnyUser.Identyfikator.Trim());
+                result = _PdfUtils.GenerujIZapiszRaportPdf(doc, "Skorowidz teczki", sesja.AktywnaFirma.Identyfikator.Trim());
             }
             catch (Exception ex)
             {
@@ -170,7 +170,7 @@ namespace Eteczka.BE.Services
         {
             bool result = false;
 
-            List<Pliki> Dokumenty = _PlikiDAO.PobierzPlikPoNumerzeEad(numeread, sesja.AktywnaFirma, "nrdokumentu asc", "\"Pliki\".teczkadzial asc, ");
+            List<Pliki> Dokumenty = _PlikiDAO.PobierzPlikPoNumerzeEad(numeread, sesja.AktywnaFirma.Firma, "nrdokumentu asc", "\"Pliki\".teczkadzial asc, ");
             Pracownik pracownik = _PracownikDAO.PobierzPracownikaPoId(numeread);
 
             //dodać null checka!
@@ -191,7 +191,7 @@ namespace Eteczka.BE.Services
             Paragraph paragraph = sec.AddParagraph();
 
             //stopka:
-            paragraph = sec.Footers.Primary.AddParagraph("Teczka pracownika " + sesja.AktywnaFirma.Trim() + ": " + pracownik.Imie + " " + pracownik.Nazwisko + ", ur. " + pracownik.DataUrodzenia + ". Wygenerowano: " + sesja.AktywnyUser.Identyfikator.Trim() + ", " + DateTime.Now.ToShortDateString() + ":" + DateTime.Now.ToLongTimeString() + ". Program: eAD");
+            paragraph = sec.Footers.Primary.AddParagraph("Teczka pracownika " + sesja.AktywnaFirma.Firma.Trim() + ": " + pracownik.Imie + " " + pracownik.Nazwisko + ", ur. " + pracownik.DataUrodzenia + ". Wygenerowano: " + sesja.AktywnaFirma.Identyfikator.Trim() + ", " + DateTime.Now.ToShortDateString() + ":" + DateTime.Now.ToLongTimeString() + ". Program: eAD");
             paragraph.Format.Font.Size = 7;
 
             //Tytuł dokumentu:
@@ -322,7 +322,7 @@ namespace Eteczka.BE.Services
             //Generujemy i zapisujemy plik z raportem
             try
             {
-            result = _PdfUtils.GenerujIZapiszRaportPdf(doc, "Pełny skorowidz teczki", sesja.AktywnyUser.Identyfikator.Trim());
+            result = _PdfUtils.GenerujIZapiszRaportPdf(doc, "Pełny skorowidz teczki", sesja.AktywnaFirma.Identyfikator.Trim());
             }
             catch (Exception ex)
             {

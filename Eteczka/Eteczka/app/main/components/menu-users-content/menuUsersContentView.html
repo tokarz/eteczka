@@ -3,30 +3,39 @@
         <div class="top-toolbar toolbar-panel">
             <span class="toolbar-option option-one fa fa-plus-circle" ng-click="triggerAddUserDialog()"></span>
             <span ng-show="user.Nazwisko" class="toolbar-option option-two fa fa-pencil-square" ng-click="triggerEditUserDialog()"></span>
-            <span ng-show="user.Nazwisko" class="toolbar-option option-three fa fa-trash-o" ng-click="triggerDeleteUserPopup()"></span>
+            <span ng-show="selectedCompany" class="toolbar-option option-three fa fa-trash-o" ng-click="triggerDeleteUserPopup()"></span>
         </div>
         <div class="user-details-list toolbar-content">
             <h3 style="margin:auto;text-align:center">Dane Pracownika</h3>
-            <div class="users-details-row">
-                <span class="details-label">Id</span>
-                <span class="details-value">{{user.Identyfikator}}</span>
-            </div>
-            <div class="users-details-row">
-                <span class="details-label">Nazwisko</span>
-                <span class="details-value">{{user.Nazwisko}}</span>
-            </div>
-            <div class="users-details-row">
-                <span class="details-label">Imie</span>
-                <span class="details-value">{{user.Imie}}</span>
-            </div>
-            <div class="users-details-row">
-                <span class="details-label">E-Mail</span>
-                <span class="details-value">{{user.Email}}</span>
-            </div>
-            <div class="users-details-row">
-                <span class="details-label">Data Urodzenia</span>
-                <span class="details-value">{{user.DataModify}}</span>
-            </div>
+
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="details-label">
+                            Id
+                        </td>
+                        <td class="details-value">
+                            {{user.Identyfikator}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="details-label">
+                            Nazwisko
+                        </td>
+                        <td class="details-value">
+                            {{user.Nazwisko}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="details-label">
+                            Imię
+                        </td>
+                        <td class="details-value">
+                            {{user.Imie}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
     <div class="user-history">
@@ -37,21 +46,67 @@
         </div>
         <div class="toolbar-content">
             <h3 style="margin:auto;text-align:center">Uprawnienia</h3>
-            <table style="width:100%;text-align:center">
+            <table class="striped-table" style="width:100%;text-align:center">
+                <colgroup>
+                    <col style="width:20%" />
+                    <col style="width:70%" />
+                    <col style="width:10%" />
+                </colgroup>
                 <thead class="table-header">
                     <tr>
                         <th>Firma</th>
                         <th>Role</th>
                         <th>Confidential</th>
-                        <th>[]</th>
+                        <th> <!--<span class="fa fa-check-square" style="cursor: pointer" ng-click="toggleSelectAll()"></span>--></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="userDetail in userDetails">
-                        <td>{{userDetail.Firma}}</td>
-                        <td>{{userDetail.UprawnieniaStr}}</td>
-                        <td>{{userDetail.Confidential}}</td>
-                        <td><input type="checkbox" /></td>
+                    <tr ng-repeat="userCompany in userCompanies" ng-click="toggleSelectCompany(userCompany)" ng-class="isCompanySelected(userCompany)">
+                        <td>{{userCompany.Firma}}</td>
+                        <td class="rightsColumn">
+                            <span>
+                                <i class="fa fa-pencil" title="Tylko odczyt"></i><input ng-click="toggleBox(userCompany.Uprawnienia.RolaReadOnly, userCompany)" type="checkbox" ng-model="userCompany.Uprawnienia.RolaReadOnly" />
+                            </span>
+                            <span>
+                                <i class="fa fa-user-plus" title="Dodawanie Pracownika"></i><input ng-click="toggleBox(userCompany.Uprawnienia.RolaAddPracownik, userCompany)" type="checkbox" ng-model="userCompany.Uprawnienia.RolaAddPracownik" />
+                            </span>
+                            <span>
+                                <i class="fa fa-user" title="Edycja Pracownika"></i><input ng-click="toggleBox(userCompany.Uprawnienia.RolaModifyPracownik, userCompany)" type="checkbox" ng-model="userCompany.Uprawnienia.RolaModifyPracownik" />
+                            </span>
+                            <span>
+                                <i class="fa fa-plus-circle" title="Dodawanie dokumentów"></i><input ng-click="toggleBox(userCompany.Uprawnienia.RolaAddFile, userCompany)" type="checkbox" ng-model="userCompany.Uprawnienia.RolaAddFile" />
+                            </span>
+                            <span>
+                                <i class="fa fa-file-pdf-o" title="Edycja dokumentów"></i><input ng-click="toggleBox(userCompany.Uprawnienia.RolaModifyFile, userCompany)" type="checkbox" ng-model="userCompany.Uprawnienia.RolaModifyFile" />
+                            </span>
+                            <span>
+                                <i class="fa fa-database" title="Edycja słowników"></i><input ng-click="toggleBox(userCompany.Uprawnienia.RolaSlowniki, userCompany)" type="checkbox" ng-model="userCompany.Uprawnienia.RolaSlowniki" />
+                            </span>
+                            <span>
+                                <i class="fa fa-envelope-o" title="Wysyłanie Poczty E-Mail"></i><input ng-click="toggleBox(userCompany.Uprawnienia.RolaSendEmail, userCompany)" type="checkbox" ng-model="userCompany.Uprawnienia.RolaSendEmail" />
+                            </span>
+                            <span>
+                                <i class="fa fa-book" title="Generowanie raportów"></i><input ng-click="toggleBox(userCompany.Uprawnienia.RolaRaport, userCompany)" type="checkbox" ng-model="userCompany.Uprawnienia.RolaRaport" />
+                            </span>
+                            <span>
+                                <i class="fa fa-download" title="Eksporty"></i><input ng-click="toggleBox(userCompany.Uprawnienia.RolaRaportExport, userCompany)" type="checkbox" ng-model="userCompany.Uprawnienia.RolaRaportExport" />
+                            </span>
+                            <span>
+                                <i class="fa fa-check" title="Podwójny akcept"></i><input ng-click="toggleBox(userCompany.Uprawnienia.RolaDoubleAkcept, userCompany)" type="checkbox" ng-model="userCompany.Uprawnienia.RolaDoubleAkcept" />
+                            </span>
+                            <span>
+                                <i class="fa fa-asterisk" title="Zaznacz wszystkie"></i><input type="checkbox" ng-click="toggleSelectAll(userCompany);$event.stopPropagation();" ng-model="userCompany.allSelected" />
+                            </span>
+                        </td>
+                        <td>
+                            <span class="confidentials-label">
+                                <select ng-model="userCompany.Confidential">
+                                    <option ng-repeat="confidential in confidentialValues">{{confidential}}</option>
+                                </select>
+                            </span>
+
+                        </td>
+                        <!--<td><input type="checkbox" /></td>-->
                     </tr>
                 </tbody>
             </table>

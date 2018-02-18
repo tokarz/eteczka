@@ -16,11 +16,11 @@ namespace Eteczka.BE.Services
 
         public Konto5Service(Konto5DAO konto5DAO)
         {
-            this. _konto5DAO = konto5DAO;
+            this._konto5DAO = konto5DAO;
         }
         public List<KatKonto5> PobierzKonta5(SessionDetails sesja)
         {
-            List<KatKonto5> pobraneKonta5 = _konto5DAO.pobierajKonto5DlaFirmy(sesja.AktywnaFirma);
+            List<KatKonto5> pobraneKonta5 = _konto5DAO.pobierajKonto5DlaFirmy(sesja.AktywnaFirma.Firma);
 
             return pobraneKonta5;
         }

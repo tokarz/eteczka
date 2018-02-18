@@ -31,7 +31,7 @@ namespace Eteczka.BE.Services
             KatDokumentyRodzaj dokumentWBazie = _KatDokumentyRodzajDAO.ZnajdzRodzajDokumentuPoSymbolu(symbol);
             if (dokumentWBazie == null)
             {
-               result.Result = _KatDokumentyRodzajDAO.DodajRodzajDokumentu(symbol, nazwaDokumentu, typEdycji, teczkaDzial, sesja.AktywnyUser.Identyfikator, sesja.AktywnyUser.Identyfikator);
+               result.Result = _KatDokumentyRodzajDAO.DodajRodzajDokumentu(symbol, nazwaDokumentu, typEdycji, teczkaDzial, sesja.AktywnaFirma.Identyfikator, sesja.AktywnaFirma.Identyfikator);
                result.Message = "Rodzaj dokumentu został dopisany do bazy.";
             }
             else
@@ -49,7 +49,7 @@ namespace Eteczka.BE.Services
             KatDokumentyRodzaj dokumentWBazie = _KatDokumentyRodzajDAO.ZnajdzRodzajDokumentuPoSymbolu(symbol);
             if (dokumentWBazie != null)
             {
-                result.Result = _KatDokumentyRodzajDAO.DeaktywujRodzajuDokumentu(symbol, sesja.AktywnyUser.Identyfikator.Trim(), sesja.AktywnyUser.Identyfikator.Trim());
+                result.Result = _KatDokumentyRodzajDAO.DeaktywujRodzajuDokumentu(symbol, sesja.AktywnaFirma.Identyfikator.Trim(), sesja.AktywnaFirma.Identyfikator.Trim());
                 result.Message = "Rodzaj dokumentu został usunięty.";
             }
             else
@@ -70,7 +70,7 @@ namespace Eteczka.BE.Services
         {
             InsertResult result = new InsertResult();
             
-                result.Result = _KatDokumentyRodzajDAO.EdytujRodzajDokumentu(dokument, sesja.AktywnyUser.Identyfikator, sesja.AktywnyUser.Identyfikator);
+                result.Result = _KatDokumentyRodzajDAO.EdytujRodzajDokumentu(dokument, sesja.AktywnaFirma.Identyfikator, sesja.AktywnaFirma.Identyfikator);
                 result.Message = "Zapisano zmiany.";
             
             return result;

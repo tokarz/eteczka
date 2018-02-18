@@ -14,5 +14,9 @@ angular.module('et.controllers').controller('settingsSessionsController', ['$sco
         });
     }
 
+    $scope.setPasswordDialog = function () {
+        alert('ToDo');
+    }
+
     $scope.fetchAllSessions();
 }]);

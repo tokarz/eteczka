@@ -288,13 +288,22 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
         $scope.userLoggedIn = true;
         if (user) {
             $scope.isAdmin = user.isadmin;
-            $scope.loginStatus = user.userdetails.Nazwisko + ' ' + user.userdetails.Imie;
 
-            $scope.firmparams = {
-                selectedfirm: user.companies[0],
-                firms: user.companies
-            }
             if ($scope.isAdmin) {
+                $scope.loginStatus = 'Administrator';
+
+                $scope.firmparams = {
+                    selectedfirm: '',
+                    firms: []
+                }
+            } else {
+                $scope.loginStatus = user.userdetails.Nazwisko + ' ' + user.userdetails.Imie;
+
+                $scope.firmparams = {
+                    selectedfirm: user.companies[0],
+                    firms: user.companies
+                }
+
                 shopCartService.getShoppingCartFilesCount().then(function (result) {
                     if (result) {
                         $scope.basket.count = result.ilosc;

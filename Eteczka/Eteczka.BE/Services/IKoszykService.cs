@@ -9,10 +9,10 @@ namespace Eteczka.BE.Services
 {
     public interface IKoszykService
     {
-        int PobierzIloscPlikowWKoszyku(string firma, KatLoginyDetale aktywnyUser);
-        List<Pliki> PobierzPlikiWKoszyku(string firma, KatLoginyDetale aktywnyUser);
-        bool DodajPlikiDoKoszyka(string firma, KatLoginyDetale aktywnyUser, List<string> plikiId);
-        bool UsunZKoszyka(string firma, KatLoginyDetale aktywnyUser, List<string> plikiId);
-        bool WyczyscKoszyk(string firma, KatLoginyDetale aktywnyUser);
+        int PobierzIloscPlikowWKoszyku(KatLoginyFirmy firma);
+        List<Pliki> PobierzPlikiWKoszyku(KatLoginyFirmy firma);
+        bool DodajPlikiDoKoszyka(KatLoginyFirmy firma, List<string> plikiId);
+        bool UsunZKoszyka(KatLoginyFirmy firma, List<string> plikiId);
+        bool WyczyscKoszyk(KatLoginyFirmy firma);
     }
 }

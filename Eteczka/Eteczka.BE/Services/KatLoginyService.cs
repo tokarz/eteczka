@@ -21,9 +21,9 @@ namespace Eteczka.BE.Services
             this._Mapper = mapper;
         }
 
-        public bool UsunFirmeUzytkownika(KatLoginy user, string firma)
+        public bool UsunFirmeUzytkownika(KatLoginyFirmy firma)
         {
-            return this._Dao.UsunFirmeUzytkownika(user, firma);
+            return this._Dao.UsunFirmeUzytkownika(firma);
         }
 
         public KatLoginy GetUserByNameAndPassword(string username, string password)
@@ -36,47 +36,35 @@ namespace Eteczka.BE.Services
         public List<DaneiDetaleUzytkownika> PobierzDaneUzytkownikow()
         {
             List<DaneiDetaleUzytkownika> wynik = new List<DaneiDetaleUzytkownika>();
-            List<KatLoginyDetale> daneZBazy = _Dao.WczytajWszystkieDetale();
+            List<KatLoginyDetale> detaleZBazy = _Dao.WczytajWszystkieDetale();
+            List<KatLoginyFirmy> firmyZBazy = _Dao.WczytajWszystkieFirmy();
 
-            daneZBazy.ForEach(detal =>
+            detaleZBazy.ForEach(detal =>
             {
-
-                DaneUzytkownika dane = new DaneUzytkownika
-                {
-                    Identyfikator = detal.Identyfikator,
-                    Imie = detal.Imie,
-                    Nazwisko = detal.Nazwisko,
-                    Email = detal.Email,
-                    Usuniety = detal.Usuniety
-                };
 
                 DaneiDetaleUzytkownika daneDoDodania = new DaneiDetaleUzytkownika()
                 {
-                    DaneUzytkownika = dane,
-                    Detale = new List<KatLoginyDetale>() { detal }
+                    Detale = detal,
+                    Firmy = firmyZBazy.Where(x => x.Identyfikator.Trim() == detal.Identyfikator.Trim()).ToList()
                 };
 
-                if (wynik.Contains(daneDoDodania))
-                {
-                    DaneiDetaleUzytkownika juzDodaneDetale = wynik.Find(el => el.DaneUzytkownika.Identyfikator == dane.Identyfikator);
-                    if (juzDodaneDetale != null)
-                    {
-                        juzDodaneDetale.Detale.Add(detal);
-                    }
-                }
-                else
-                {
-                    wynik.Add(daneDoDodania);
-                }
+                wynik.Add(daneDoDodania);
 
             });
 
             return wynik;
         }
 
-        public List<KatLoginyDetale> GetUserDetails(string identyfikator)
+        public List<KatLoginyFirmy> GetUserCompanies(string identyfikator)
         {
-            List<KatLoginyDetale> queryResult = _Dao.WczytajDetaleDlaUzytkownika(identyfikator);
+            List<KatLoginyFirmy> queryResult = _Dao.WczytajFirmyDlaUzytkownika(identyfikator);
+
+            return queryResult;
+        }
+
+        public KatLoginyDetale GetUserDetails(string identyfikator)
+        {
+            KatLoginyDetale queryResult = _Dao.WczytajDetaleDlaUzytkownika(identyfikator);
 
             return queryResult;
         }
@@ -91,7 +79,7 @@ namespace Eteczka.BE.Services
         public bool DodajNowegoUzytkownika(AddKatLoginyDto user)
         {
             KatLoginy nowyUser = _Mapper.MapujKatLoginy(user);
-            List<KatLoginyDetale> detale = _Mapper.MapujKatLoginyDetale(user);
+            KatLoginyDetale detale = _Mapper.MapujKatLoginyDetale(user);
 
             bool result = _Dao.DodajNowegoPracownika(nowyUser, detale);
 
@@ -104,9 +92,9 @@ namespace Eteczka.BE.Services
 
             return result;
         }
-        public bool UsunUzytkownika(AddKatLoginyDto user)
+        public bool UsunUzytkownika(string id)
         {
-            bool result = _Dao.UsunUzytkownika(user);
+            bool result = _Dao.UsunUzytkownika(id);
 
             return result;
         }

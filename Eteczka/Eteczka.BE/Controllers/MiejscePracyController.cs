@@ -25,7 +25,7 @@ namespace Eteczka.BE.Controllers
             {
                 if (numeread != null)
                 {
-                    miejscaPracy = _MiejscePracyService.PobierzMiejscaPracyDlaPracownika(numeread, sesja.AktywnaFirma);
+                    miejscaPracy = _MiejscePracyService.PobierzMiejscaPracyDlaPracownika(numeread, sesja.AktywnaFirma.Firma);
                 }
             }
             return Json(new

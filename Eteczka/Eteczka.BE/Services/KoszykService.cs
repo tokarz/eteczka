@@ -17,28 +17,28 @@ namespace Eteczka.BE.Services
             this._KoszykDao = koszykDao;
         }
 
-        public int PobierzIloscPlikowWKoszyku(string firma, KatLoginyDetale aktywnyUser)
+        public int PobierzIloscPlikowWKoszyku(KatLoginyFirmy aktywnaFirma)
         {
-            return _KoszykDao.Policz(firma, aktywnyUser);
+            return _KoszykDao.Policz(aktywnaFirma);
         }
 
-        public List<Pliki> PobierzPlikiWKoszyku(string firma, KatLoginyDetale aktywnyUser)
+        public List<Pliki> PobierzPlikiWKoszyku(KatLoginyFirmy aktywnaFirma)
         {
-            return _KoszykDao.PobierzZawartoscKoszyka(firma, aktywnyUser);
+            return _KoszykDao.PobierzZawartoscKoszyka(aktywnaFirma);
         }
 
-        public bool DodajPlikiDoKoszyka(string firma, KatLoginyDetale aktywnyUser, List<string> plikiId)
+        public bool DodajPlikiDoKoszyka(KatLoginyFirmy aktywnaFirma, List<string> plikiId)
         {
-            return _KoszykDao.DodajPlikiDoKoszyka(firma, aktywnyUser, plikiId);
+            return _KoszykDao.DodajPlikiDoKoszyka(aktywnaFirma, plikiId);
         }
 
-        public bool UsunZKoszyka(string firma, KatLoginyDetale aktywnyUser, List<string> plikiId)
+        public bool UsunZKoszyka(KatLoginyFirmy aktywnaFirma, List<string> plikiId)
         {
-            return _KoszykDao.UsunZKoszyka(firma, aktywnyUser, plikiId);
+            return _KoszykDao.UsunZKoszyka(aktywnaFirma, plikiId);
         }
-        public bool WyczyscKoszyk(string firma, KatLoginyDetale aktywnyUser)
+        public bool WyczyscKoszyk(KatLoginyFirmy aktywnaFirma)
         {
-            return _KoszykDao.WyczyscKoszyk(firma, aktywnyUser);
+            return _KoszykDao.WyczyscKoszyk(aktywnaFirma);
         }
     }
 }

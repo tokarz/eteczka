@@ -147,7 +147,6 @@
   margin: 10px 10px;
   height: 500px;
   box-shadow: 0 0 2px black;
-  padding: 25px;
   -moz-animation: 4s fadein;
   -o-animation: 4s fadein;
   -webkit-animation: 4s fadein;
@@ -159,17 +158,17 @@
   vertical-align: text-bottom; }
 
 .admin-option-full {
-  width: 91%; }
+  width: 96%;
+  display: block;
+  position: static;
+  height: 96%;
+  margin: 10px auto; }
 
 .admin-option-content {
   margin-top: 50px;
   width: 100%; }
 
 .admin-option-header {
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
   background: whitesmoke;
   color: #074C75;
   padding: 5px;
@@ -305,6 +304,7 @@
 .companies-label {
   margin-top: 10px; }
 
+.confidentials-label select,
 .companies-label .single-company-label,
 .companies-label select {
   width: 200px;
@@ -998,6 +998,16 @@ md-toolbar {
   height: calc(100% - 30px);
   background: white; }
 
+.rightsColumn input {
+  cursor: pointer; }
+
+.rightsColumn span {
+  width: 8%;
+  display: inline-block; }
+
+.rightsColumn td {
+  cursor: pointer; }
+
 .table-search {
   width: 99%;
   margin: 5px auto;
@@ -1309,4 +1319,16 @@ li {
 
 .options-wrapper {
   height: 90%; }
+
+.striped-table {
+  border-bottom: 1px solid #E3E3E3; }
+
+.striped-table tbody tr:hover {
+  cursor: pointer; }
+
+.striped-table tbody tr:nth-child(even) {
+  background: white; }
+
+.striped-table tbody tr:nth-child(odd) {
+  background: #E3E3E3; }
 

@@ -21,7 +21,7 @@ namespace Eteczka.BE.Services
 
         public List<KatWydzialy> PobierzWydzialyDlaFirmy(SessionDetails sesja)
         {
-            List<KatWydzialy> pobraneWydzialy = _WydzialDao.PobierzDlaFirmy(sesja.AktywnaFirma);
+            List<KatWydzialy> pobraneWydzialy = _WydzialDao.PobierzDlaFirmy(sesja.AktywnaFirma.Firma);
 
             return pobraneWydzialy;
         }

@@ -38,9 +38,10 @@ namespace Eteczka.BE.Services
             }};
             SessionDetails jakasSesja = new SessionDetails()
             {
-                AktywnaFirma = "JakasAktywnaFirma ze Zgierza",
-                AktywnyUser = new KatLoginyDetale()
+                
+                AktywnaFirma = new KatLoginyFirmy()
                 {
+                    Firma = "JakasAktywnaFirma ze Zgierza",
                     Confidential = 10
                 }
             };
@@ -78,10 +79,11 @@ namespace Eteczka.BE.Services
 
             SessionDetails JakasSesja = new SessionDetails()
             {
-                AktywnaFirma = "TFW",
-                 AktywnyUser = new KatLoginyDetale()
-                 {
-                     Confidential = 10
+                
+                AktywnaFirma = new KatLoginyFirmy()
+                {
+                    Firma = "TFW",
+                    Confidential = 10
                  }
             };
 
@@ -122,10 +124,11 @@ namespace Eteczka.BE.Services
 
             SessionDetails sesja = new SessionDetails()
             {
-                AktywnaFirma = "TFG",
-                 AktywnyUser = new KatLoginyDetale()
-                 {
-                     Confidential = 10
+                
+                AktywnaFirma = new KatLoginyFirmy()
+                {
+                    Firma = "TFG",
+                    Confidential = 10
                  }
             };
 
@@ -150,10 +153,11 @@ namespace Eteczka.BE.Services
 
             SessionDetails sesja = new SessionDetails()
             {
-                AktywnaFirma = "TFG",
-                 AktywnyUser = new KatLoginyDetale()
-                 {
-                     Confidential = 10
+             
+                AktywnaFirma = new KatLoginyFirmy()
+                {
+                    Firma = "TFG",
+                    Confidential = 10
                  }
             };
             _PracownikDao.PobierzPozostalychPracownikow("TFG", 10).Returns(PracownicyZDb);
@@ -177,9 +181,10 @@ namespace Eteczka.BE.Services
 
             SessionDetails sesja = new SessionDetails()
             {
-                AktywnaFirma = "AFM",
-                AktywnyUser = new KatLoginyDetale()
+                
+                AktywnaFirma = new KatLoginyFirmy()
                 {
+                    Firma = "AFM",
                     Confidential = 10
                 }
             };
@@ -201,9 +206,9 @@ namespace Eteczka.BE.Services
             PracownicyZDb.Add(pracownikZDb);
             SessionDetails sesja = new SessionDetails()
             {
-                AktywnaFirma = "TFG",
-                AktywnyUser = new KatLoginyDetale()
+                AktywnaFirma = new KatLoginyFirmy()
                 {
+                    Firma = "TFG",
                     Confidential = 10
                 }
             };
@@ -225,9 +230,9 @@ namespace Eteczka.BE.Services
             };
             SessionDetails sesja = new SessionDetails()
             {
-                AktywnaFirma = "AFM",
-                AktywnyUser = new KatLoginyDetale()
+                AktywnaFirma = new KatLoginyFirmy()
                 {
+                    Firma = "AFM",
                     Confidential = 10
                 }
             };
@@ -253,7 +258,7 @@ namespace Eteczka.BE.Services
            
             SessionDetails sesja = new SessionDetails()
             {
-                AktywnyUser = new KatLoginyDetale()
+                AktywnaFirma = new KatLoginyFirmy()
                 {
                     Identyfikator = "test"
                 }
@@ -287,7 +292,7 @@ namespace Eteczka.BE.Services
             };
             SessionDetails sesja = new SessionDetails()
             {
-                AktywnyUser = new KatLoginyDetale()
+                AktywnaFirma = new KatLoginyFirmy()
                 {
                     Identyfikator = "test"
                 }
@@ -323,7 +328,7 @@ namespace Eteczka.BE.Services
 
             SessionDetails sesja = new SessionDetails()
             {
-                AktywnyUser = new KatLoginyDetale()
+                AktywnaFirma = new KatLoginyFirmy()
                 {
                     Identyfikator = "test"
                 }
@@ -352,7 +357,7 @@ namespace Eteczka.BE.Services
             
             SessionDetails sesja = new SessionDetails()
             {
-                AktywnyUser = new KatLoginyDetale()
+                AktywnaFirma = new KatLoginyFirmy()
                 {
                     Identyfikator = "test"
                 }

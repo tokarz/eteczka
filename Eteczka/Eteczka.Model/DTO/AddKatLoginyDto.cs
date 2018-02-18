@@ -15,12 +15,7 @@ namespace Eteczka.Model.DTO
         public bool IsAdmin { get; set; }
         public string Nazwisko { get; set; }
         public string Imie { get; set; }
-        public List<KatFirmy> Firmy { get; set; }
         public string Email { get; set; }
-        public Uprawnienia Uprawnienia { get; set; }
-        public DateTime DataModify { get; set; }
         public bool Usuniety { get; set; }
-        public int Confidential { get; set; }
-        public string KodKierownik { get; set; }
     }
 }

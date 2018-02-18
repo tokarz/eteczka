@@ -1,1 +1,36 @@
-﻿<div>{{title}}</div>
+﻿<div class="admin-option admin-option-full">
+    <div class="admin-option-header">
+        <h3><i class="fa fa-cloud-download"></i>Import Danych z Systemu Ksiegowego</h3>
+    </div>
+    <div class="admin-option-content">
+        <div class="buttonsParagraph">
+            <div>
+                <button ng-class="checkButtonClass('users')" ng-click="importUsers()">Import Pracownikow Json[{{updateStatus.users.countJson}}]-Db[{{updateStatus.users.countDb}}]</button>
+            </div>
+            <div>
+                <button ng-class="checkButtonClass('archives')" ng-click="importArchives()">Import Lokalizacji Archiwow[{{updateStatus.archives.countJson}}]-Db[{{updateStatus.archives.countDb}}]</button>
+            </div>
+            <div>
+                <button ng-class="checkButtonClass('firms')" ng-click="importFirms()">Import Firm Json[{{updateStatus.firms.countJson}}]-Db[{{updateStatus.firms.countDb}}]</button>
+            </div>
+            <div>
+                <button ng-class="checkButtonClass('areas')" ng-click="importAreas()">Import Rejonow Json[{{updateStatus.areas.countJson}}]-Db[{{updateStatus.areas.countDb}}]</button>
+            </div>
+            <div>
+                <button ng-class="checkButtonClass('workplaces')" ng-click="importWorkplaces()">Import Miejsca Pracy Json[{{updateStatus.workplaces.countJson}}]-Db[{{updateStatus.workplaces.countDb}}]</button>
+            </div>
+            <div>
+                <button ng-class="checkButtonClass('subdepartment')" ng-click="importSubdepartments()">Import Podwydzialy Json[{{updateStatus.subdepartment.countJson}}]-Db[{{updateStatus.subdepartment.countDb}}]</button>
+            </div>
+            <div>
+                <button ng-class="checkButtonClass('department')" ng-click="importDepartments()">ImportWydzialy Json[{{updateStatus.department.countJson}}]-Db[{{updateStatus.department.countDb}}]</button>
+            </div>
+            <div>
+                <button ng-class="checkButtonClass('account5')" ng-click="importAccount5()">Import Konto5 Json[{{updateStatus.account5.countJson}}]-Db[{{updateStatus.account5.countDb}}]</button>
+            </div>
+            <div>
+                <button ng-class="checkButtonClass('dokRodzaj')" ng-click="importDocumentTypes()">Import Rodzaje Dokumentow[{{updateStatus.dokRodzaj.countJson}}]-Db[{{updateStatus.dokRodzaj.countDb}}]</button>
+            </div>
+        </div>
+    </div>
+</div>

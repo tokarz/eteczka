@@ -56,7 +56,7 @@ namespace Eteczka.BE.Controllers
             if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
             {
                 var httpRequest = HttpContext.Request;
-                string firma = Sesja.PobierzStanSesji().PobierzSesje(sessionId).AktywnaFirma;
+                string firma = Sesja.PobierzStanSesji().PobierzSesje(sessionId).AktywnaFirma.Firma;
                 string eadRootName = ConfigurationManager.AppSettings["rootdir"];
                 string eadRoot = Environment.GetEnvironmentVariable(eadRootName);
 
@@ -85,7 +85,7 @@ namespace Eteczka.BE.Controllers
             if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
             {
                 SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
-                pliki = _PlikiService.PobierzDlaUzytkownika(numeread, sesja.AktywnaFirma);
+                pliki = _PlikiService.PobierzDlaUzytkownika(numeread, sesja.AktywnaFirma.Firma);
             }
 
             return Json(new
@@ -139,7 +139,7 @@ namespace Eteczka.BE.Controllers
             if (sesja.CzySesjaJestOtwarta(sessionId))
             {
                 SessionDetails detaleSesji = sesja.PobierzSesje(sessionId);
-                success = _PlikiService.ZakomitujPlikDoBazy(plik, detaleSesji.AktywnaFirma, detaleSesji.AktywnyUser.Identyfikator);
+                success = _PlikiService.ZakomitujPlikDoBazy(plik, detaleSesji.AktywnaFirma.Firma, detaleSesji.AktywnaFirma.Identyfikator);
             }
 
             return Json(new

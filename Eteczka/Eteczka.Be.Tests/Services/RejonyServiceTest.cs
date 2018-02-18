@@ -40,7 +40,10 @@ namespace Eteczka.Be.Tests.Services
         {
             SessionDetails sesja = new SessionDetails()
             {
-                AktywnaFirma = "Jagrol"
+                AktywnaFirma = new KatLoginyFirmy()
+                {
+                    Firma = "Jagrol"
+                }
             };
             List<KatRejony> RejonyZDb = new List<KatRejony>();
             _RejonyDao.PobieraczRejonowDlaFirmy("Jagrol").Returns(RejonyZDb);

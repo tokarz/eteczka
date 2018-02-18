@@ -20,13 +20,13 @@ namespace Eteczka.DB.DAO
             this._PlikiMapper = plikiMapper;
         }
 
-        public bool DodajPlikiDoKoszyka(string firma, KatLoginyDetale aktywnyUser, List<string> plikiId)
+        public bool DodajPlikiDoKoszyka(KatLoginyFirmy aktywnaFirma, List<string> plikiId)
         {
             bool result = false;
             StringBuilder batchQuery = new StringBuilder();
             foreach (string id in plikiId)
             {
-                string insertQuery = string.Format("INSERT INTO \"Koszyk\" (identyfikator, firma, idpliki) VALUES ('{0}', '{1}', {2});", aktywnyUser.Identyfikator.Trim(), firma.Trim(), id);
+                string insertQuery = string.Format("INSERT INTO \"Koszyk\" (identyfikator, firma, idpliki) VALUES ('{0}', '{1}', {2});", aktywnaFirma.Identyfikator.Trim(), aktywnaFirma.Firma.Trim(), id);
                 batchQuery.Append(insertQuery);
             }
 
@@ -36,11 +36,11 @@ namespace Eteczka.DB.DAO
             return result;
         }
 
-        public int Policz(string firma, KatLoginyDetale user)
+        public int Policz(KatLoginyFirmy aktywnaFirma)
         {
             int result = 0;
 
-            string sqlQuery = "SELECT COUNT(*) FROM \"Koszyk\" WHERE firma = '" + firma.Trim() + "' AND identyfikator = '" + user.Identyfikator.Trim() + "';";
+            string sqlQuery = "SELECT COUNT(*) FROM \"Koszyk\" WHERE firma = '" + aktywnaFirma.Firma.Trim() + "' AND identyfikator = '" + aktywnaFirma.Identyfikator.Trim() + "';";
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
             DataTable count = connectionState.ExecuteQuery(sqlQuery);
             if (count != null && count.Rows != null && count.Rows.Count > 0)
@@ -51,11 +51,11 @@ namespace Eteczka.DB.DAO
             return result;
         }
 
-        public List<Pliki> PobierzZawartoscKoszyka(string firma, KatLoginyDetale user)
+        public List<Pliki> PobierzZawartoscKoszyka(KatLoginyFirmy aktywnaFirma)
         {
             List<Pliki> pobranePliki = new List<Pliki>();
             //select * from "Pliki" where id = (select idpliki from "Koszyk" where firma = 'AFM' and identyfikator = 'M.Tokarz')
-            string sqlQuery = "select * from \"Pliki\" as pl left join \"KatPracownicy\" as pr on pl.numeread = pr.numeread left join \"KatDokumentyRodzaj\" on pl.symbol = \"KatDokumentyRodzaj\".symbol WHERE id in (select idpliki from \"Koszyk\" where firma = '" + firma + "' and identyfikator = '" + user.Identyfikator + "')";
+            string sqlQuery = "select * from \"Pliki\" as pl left join \"KatPracownicy\" as pr on pl.numeread = pr.numeread left join \"KatDokumentyRodzaj\" on pl.symbol = \"KatDokumentyRodzaj\".symbol WHERE id in (select idpliki from \"Koszyk\" where firma = '" + aktywnaFirma.Firma.Trim() + "' and identyfikator = '" + aktywnaFirma.Identyfikator + "')";
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
             DataTable result = connectionState.ExecuteQuery(sqlQuery);
 
@@ -68,23 +68,23 @@ namespace Eteczka.DB.DAO
             return pobranePliki;
         }
 
-        public bool UsunZKoszyka(string firma, KatLoginyDetale user, List<string> plikiId)
+        public bool UsunZKoszyka(KatLoginyFirmy aktywnaFirma, List<string> plikiId)
         {
             bool result = false;
 
             string plikiWherePart = string.Join(",", plikiId);
 
-            string sqlQuery = "DELETE FROM \"Koszyk\" WHERE firma = '" + firma.Trim() + "' AND identyfikator = '" + user.Identyfikator.Trim() + "' AND idpliki in (" + plikiWherePart + ");";
+            string sqlQuery = "DELETE FROM \"Koszyk\" WHERE firma = '" + aktywnaFirma.Firma.Trim() + "' AND identyfikator = '" + aktywnaFirma.Identyfikator.Trim() + "' AND idpliki in (" + plikiWherePart + ");";
 
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
             result = connectionState.ExecuteNonQuery(sqlQuery);
 
             return result;
         }
-        public bool WyczyscKoszyk(string firma, KatLoginyDetale user)
+        public bool WyczyscKoszyk(KatLoginyFirmy aktywnaFirma)
         {
             bool result = false;
-            string sqlQuery = "DELETE FROM \"Koszyk\" WHERE firma = '" + firma.Trim() + "' AND identyfikator = '" + user.Identyfikator.Trim() + "';";
+            string sqlQuery = "DELETE FROM \"Koszyk\" WHERE firma = '" + aktywnaFirma.Firma.Trim() + "' AND identyfikator = '" + aktywnaFirma.Identyfikator.Trim() + "';";
 
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
             result = connectionState.ExecuteNonQuery(sqlQuery);

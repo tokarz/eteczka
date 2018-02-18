@@ -1,4 +1,4 @@
-﻿    using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -185,35 +185,35 @@ namespace Eteczka.BE.Services
                 string konto5 = (filtry.Konto5 != null) ? ("%" + filtry.Konto5.Konto5 + "%") : "%%";
                 string typ = (filtry.Typ != null) ? ("%" + filtry.Typ.SymbolEad + "%") : "%%";
 
-                wyszukanePliki = _Dao.WyszukajPlikiZFiltrow(sesja.AktywnaFirma, rejon, wydzial, podwydzial, konto5, typ, filtry.Pracownik, sortOrder, sortColumn);
+                wyszukanePliki = _Dao.WyszukajPlikiZFiltrow(sesja.AktywnaFirma.Firma, rejon, wydzial, podwydzial, konto5, typ, filtry.Pracownik, sortOrder, sortColumn);
             }
             return wyszukanePliki;
         }
 
         public bool WyslijPlikiMailem(SessionDetails sesja, string adresaci, List<string> Zalaczniki, string hasloDoZip, string temat, string wiadomosc)
         {
-            
-            bool result = _PlikiUtils.WyslijPlikiMailem(sesja.AktywnaFirma, adresaci, Zalaczniki, hasloDoZip, temat, wiadomosc);
+
+            bool result = _PlikiUtils.WyslijPlikiMailem(sesja.AktywnaFirma.Firma, adresaci, Zalaczniki, hasloDoZip, temat, wiadomosc);
 
             return result;
         }
 
         public bool EdytujDokumentWBazie(SessionDetails sesja, KomitPliku plik, string idPliku)
         {
-            bool result = _Dao.EdytujPlikWBazie(plik, sesja.AktywnyUser.Identyfikator, sesja.AktywnyUser.Identyfikator, idPliku);
+            bool result = _Dao.EdytujPlikWBazie(plik, sesja.AktywnaFirma.Identyfikator, sesja.AktywnaFirma.Identyfikator, idPliku);
 
             return result;
         }
 
         public List<Pliki> SzukajOstatnioDodanePlikiPrac(SessionDetails sesja, string numeread, int liczbaPlikow)
         {
-            List<Pliki> WyszukanePliki = _Dao.ZnajdzOstatnioDodanePlikiPracownika(numeread, sesja.AktywnaFirma, liczbaPlikow);
+            List<Pliki> WyszukanePliki = _Dao.ZnajdzOstatnioDodanePlikiPracownika(numeread, sesja.AktywnaFirma.Firma, liczbaPlikow);
 
             return WyszukanePliki;
         }
         public int ZliczPlikiWTeczcePracownika(SessionDetails sesja, string numeread)
         {
-            int result = _Dao.PoliczPlikiPracownikaWTeczce(numeread, sesja.AktywnaFirma);
+            int result = _Dao.PoliczPlikiPracownikaWTeczce(numeread, sesja.AktywnaFirma.Firma);
 
             return result;
         }

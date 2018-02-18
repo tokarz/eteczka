@@ -66,7 +66,7 @@ namespace Eteczka.DB.DAO
             _ConnectionState.ExecuteQuery(sqlQuery).Returns(queryResult);
             _Mapper.MapDetails(queryResult).Returns(oczekiwanaLista);
 
-            List<KatLoginyDetale> result = _Sut.WczytajDetaleDlaUzytkownika("jakiesId");
+            KatLoginyDetale result = _Sut.WczytajDetaleDlaUzytkownika("jakiesId");
             Assert.IsNotNull(result);
             Assert.AreSame(oczekiwanaLista, result);
 

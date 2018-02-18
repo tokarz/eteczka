@@ -34,7 +34,6 @@
     margin: 10px 10px;
     height: 500px;
     box-shadow: 0 0 2px black;
-    padding: 25px;
     -moz-animation: 4s fadein;
     -o-animation: 4s fadein;
     -webkit-animation: 4s fadein;
@@ -47,7 +46,11 @@
 }
 
 .admin-option-full {
-    width: 91%;
+    width: 96%;
+    display: block;
+    position: static;
+    height: 96%;
+    margin: 10px auto;
 }
 
 .admin-option-content {
@@ -56,12 +59,8 @@
 }
 
 .admin-option-header {
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
     background: whitesmoke;
-    color: $darkblue;
+    color: #074C75;
     padding: 5px;
     text-align: center;
     box-shadow: 0 0 4px black;

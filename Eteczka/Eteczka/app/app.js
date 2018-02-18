@@ -18,7 +18,7 @@ var app = angular.module('EtApp',
         'angular-files-drop',
         'ngMaterial'
     ]
-);
+).constant('_', window._);
 
 app.config(function ($stateProvider) {
     var loginState = {
@@ -98,6 +98,12 @@ app.config(function ($stateProvider) {
         template: '<settings-sessions></settings-sessions>'
     }
 
+    var settingsAdminSessions = {
+        url: '/adminsessions',
+        name: 'adminsessions',
+        template: '<admin-sessions></admin-sessions>'
+    }
+
     var settingsFiles = {
         url: '/settingsfiles',
         name: 'settingsfiles',
@@ -132,6 +138,7 @@ app.config(function ($stateProvider) {
     $stateProvider.state(settingsManageUsers);
     $stateProvider.state(settingsImportData);
     $stateProvider.state(settingsSessions);
+    $stateProvider.state(settingsAdminSessions);
     $stateProvider.state(settingsFiles);
 
 });

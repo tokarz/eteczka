@@ -24,7 +24,7 @@ namespace Eteczka.BE.Controllers
                 if (plikiId != null && plikiId.Count > 0)
                 {
                     SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
-                    success = _KoszykService.UsunZKoszyka(sesja.AktywnaFirma, sesja.AktywnyUser, plikiId);
+                    success = _KoszykService.UsunZKoszyka(sesja.AktywnaFirma, plikiId);
                 }
             }
 
@@ -41,7 +41,7 @@ namespace Eteczka.BE.Controllers
             if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
             {
                 SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
-                success = _KoszykService.WyczyscKoszyk(sesja.AktywnaFirma, sesja.AktywnyUser);
+                success = _KoszykService.WyczyscKoszyk(sesja.AktywnaFirma);
             }
 
             return Json(new
@@ -60,7 +60,7 @@ namespace Eteczka.BE.Controllers
                 SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
                 if (plikiId != null)
                 {
-                    List<Pliki> juzDodanePliki = _KoszykService.PobierzPlikiWKoszyku(sesja.AktywnaFirma, sesja.AktywnyUser);
+                    List<Pliki> juzDodanePliki = _KoszykService.PobierzPlikiWKoszyku(sesja.AktywnaFirma);
                     foreach (Pliki plikWKoszyku in juzDodanePliki)
                     {
                         if (plikiId.Contains("" + plikWKoszyku.Id))
@@ -69,7 +69,7 @@ namespace Eteczka.BE.Controllers
                         }
                     }
 
-                    success = _KoszykService.DodajPlikiDoKoszyka(sesja.AktywnaFirma, sesja.AktywnyUser, plikiId);
+                    success = _KoszykService.DodajPlikiDoKoszyka(sesja.AktywnaFirma, plikiId);
                 }
                 else
                 {
@@ -90,7 +90,7 @@ namespace Eteczka.BE.Controllers
             if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
             {
                 SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
-                pliki = _KoszykService.PobierzPlikiWKoszyku(sesja.AktywnaFirma, sesja.AktywnyUser);
+                pliki = _KoszykService.PobierzPlikiWKoszyku(sesja.AktywnaFirma);
             }
 
             return Json(new
@@ -105,7 +105,7 @@ namespace Eteczka.BE.Controllers
             if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
             {
                 SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
-                ilosc = _KoszykService.PobierzIloscPlikowWKoszyku(sesja.AktywnaFirma, sesja.AktywnyUser);
+                ilosc = _KoszykService.PobierzIloscPlikowWKoszyku(sesja.AktywnaFirma);
             }
 
             return Json(new
