@@ -94,6 +94,18 @@ angular.module('et.services').factory('settingsService', ['httpService', 'sessio
                 sessionId: sessionService.getSessionId(),
                 user: user
             });
+        },
+        addCompanyToUser: function(company) {
+            return httpService.post('KatLoginy/DodajFirmeDlaUzytkownika', {
+                sessionId: sessionService.getSessionId(),
+                company: company
+            });
+        },
+        updateUserCompany: function(company) {
+            return httpService.post('KatLoginy/AktualizujFirmeDlaUzytkownika', {
+                sessionId: sessionService.getSessionId(),
+                company: company
+            });
         }
 
     };

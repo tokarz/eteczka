@@ -1,15 +1,16 @@
 ﻿'use strict';
-angular.module('et.controllers').controller('menuUsersContentController', ['$scope', '$state', '$mdDialog', 'settingsService', 'modalService', '_', function ($scope, $state, $mdDialog, settingsService, modalService, _) {
+angular.module('et.controllers').controller('menuUsersContentController', ['$scope', '$state', '$mdDialog', 'settingsService', 'modalService', 'companiesService', '_', function ($scope, $state, $mdDialog, settingsService, modalService, companiesService, _) {
     $scope.userDetails = [];
+    $scope.allCompanies = [];
     $scope.allSelected = false;
-    $scope.selectedCompany = {};
+    $scope.selectedCompany = false;
     //$scope.confidentialValues = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-    $scope.confidentialValues = _.range(1,11).map(function (i) { return '' + i; });
+    $scope.confidentialValues = _.range(1, 11).map(function (i) { return '' + i; });
 
     $scope.toggleSelectCompany = function (userCompany) {
         if (!_.isEmpty($scope.selectedCompany)) {
             if (_.isEqual($scope.selectedCompany, userCompany)) {
-                $scope.selectedCompany = {};
+                $scope.selectedCompany = false;
             } else {
                 $scope.selectedCompany = userCompany;
             }
@@ -47,8 +48,11 @@ angular.module('et.controllers').controller('menuUsersContentController', ['$sco
     $scope.$watch('user', function (user) {
         $scope.userDetails = [];
         $scope.userCompanies = [];
-
+        $scope.unassignedCompanies = [];
+        $scope.activeUser = null;
         if (user && !_.isEmpty(user) && $scope.details) {
+            $scope.activeUser = user;
+
             $scope.fullDetailsForUser = $scope.details.find(function (detail) {
                 return detail.Detale.Identyfikator === user.Identyfikator
             });
@@ -59,6 +63,15 @@ angular.module('et.controllers').controller('menuUsersContentController', ['$sco
                 $scope.userCompanies.forEach(function (company) {
                     company.allSelected = $scope.checkIfAllSelected(company);
                 })
+
+                $scope.unassignedCompanies = $scope.allCompanies.filter(function (currentCompany) {
+                    var found = false;
+                    $scope.userCompanies.forEach(function (currentUserCompany) {
+                        found = found || (currentUserCompany.Firma.trim() === currentCompany.Firma.trim());
+                    });
+
+                    return !found;
+                });
             }
         }
     });
@@ -118,14 +131,8 @@ angular.module('et.controllers').controller('menuUsersContentController', ['$sco
     $scope.openAddUserDialog = function () {
         var modalOptions = {
             body: 'app/main/components/menu-users-content/addEditUserModal/userModal.html',
-            controller: $scope.addUserControllerFunction,
-            //locals: {
-            //    description: $scope.fileDescription,
-            //    fileTypes: $scope.fileTypes,
-            //    employees: $scope.employees,
-            //    activeEmployee: $rootScope.activeUser,
-            //    name: $scope.selectedstagedfile ? $scope.selectedstagedfile.NazwaEad : ''
-            //}
+            controller: $scope.addUserControllerFunction
+            
         };
 
         openModal(
@@ -166,25 +173,61 @@ angular.module('et.controllers').controller('menuUsersContentController', ['$sco
         };
     }
 
-    $scope.openSetUserRightsDialog = function () {
+    $scope.companySelected = false;
+
+    
+    $scope.openDeleteUserRightsDialog = function () {
+
+    }
+
+    $scope.openSetUserRightsDialog = function (edit) {
         var modalOptions = {
             body: 'app/main/components/menu-users-content/setUserRightsModal/userRightsModal.html',
             controller: $scope.setUserRightsController,
             locals: {
-                userCompanies: $scope.userCompanies
+                companies: edit ? [$scope.selectedCompany] : $scope.unassignedCompanies,
+                selected: $scope.selectedCompany
             }
         };
 
         openModal(modalOptions, function (value) {
-            console.log(value)
-            // TODO
+            var company = {
+                Identyfikator: $scope.activeUser.Identyfikator,
+                Firma: value.Firma.Firma,
+                Uprawnienia: value.Uprawnienia,
+                DataModify: new Date().toLocaleString(),
+                Confidential: value.Confidential,
+                Usuniety: false
+            };
+
+            if (edit) {
+                settingsService.updateUserCompany(company).then(function (res) {
+                    if (res.success) {
+                        $state.reload();
+                    }
+                });
+            } else {
+                settingsService.addCompanyToUser(company).then(function (res) {
+                    if (res.success) {
+                        $state.reload();
+                    }
+                });
             }
+
+            
+        }
         ).catch();
     }
 
-    $scope.setUserRightsController = function ($scope, $mdDialog, modalService, userCompanies) {
+    $scope.setUserRightsController = function ($scope, $mdDialog, modalService, companies, selected) {
         $scope.modalResult = {};
-        $scope.userCompanies = userCompanies;
+        $scope.userCompanies = companies;
+
+        if (selected) {
+            $scope.modalResult.Firma = selected.Firma;
+            $scope.modalResult.Confidential = selected.Confidential;
+            $scope.modalResult.Uprawnienia = selected.Uprawnienia;
+        }
 
         $scope.hide = function () {
             $mdDialog.hide();
@@ -202,4 +245,8 @@ angular.module('et.controllers').controller('menuUsersContentController', ['$sco
         };
     }
 
+
+    companiesService.getAll().then(function (all) {
+        $scope.allCompanies = all.Firmy;
+    });
 }]);

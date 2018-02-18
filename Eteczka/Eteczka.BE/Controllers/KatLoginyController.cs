@@ -6,11 +6,13 @@ using System.Collections.Generic;
 using Eteczka.BE.Model;
 using Eteczka.Model.DTO;
 using System;
+using NLog;
 
 namespace Eteczka.BE.Controllers
 {
     public class KatLoginyController : Controller
     {
+        Logger LOGGER = LogManager.GetLogger("default");
         private IKatLoginyService _KatLoginyService;
 
         public KatLoginyController(IKatLoginyService katLoginyService)
@@ -80,7 +82,7 @@ namespace Eteczka.BE.Controllers
         }
 
         [HttpPost]
-        public ActionResult AktualizujFirmeDlaUzytkownika(string sessionId, KatLoginyFirmy firmaDoDodania)
+        public ActionResult AktualizujFirmeDlaUzytkownika(string sessionId, KatLoginyFirmy company)
         {
             bool sucess = false;
             ActionResult result = null;
@@ -89,7 +91,7 @@ namespace Eteczka.BE.Controllers
                 StanSesji stanSesji = Sesja.PobierzStanSesji();
                 if (true || stanSesji.CzySesjaJestOtwarta(sessionId) && stanSesji.CzySesjaAdministratora(sessionId))
                 {
-                    sucess = _KatLoginyService.AktualizujFirmeDlaUzytkownika(firmaDoDodania);
+                    sucess = _KatLoginyService.AktualizujFirmeDlaUzytkownika(company);
                 }
 
                 result = Json(new
@@ -109,7 +111,7 @@ namespace Eteczka.BE.Controllers
         }
 
         [HttpPost]
-        public ActionResult DodajFirmeDlaUzytkownika(string sessionId, KatLoginyFirmy firmaDoDodania)
+        public ActionResult DodajFirmeDlaUzytkownika(string sessionId, KatLoginyFirmy company)
         {
             bool sucess = false;
             ActionResult result = null;
@@ -118,7 +120,7 @@ namespace Eteczka.BE.Controllers
                 StanSesji stanSesji = Sesja.PobierzStanSesji();
                 if (true || stanSesji.CzySesjaJestOtwarta(sessionId) && stanSesji.CzySesjaAdministratora(sessionId))
                 {
-                    sucess = _KatLoginyService.DodajFirmeDlaUzytkownika(firmaDoDodania);
+                    sucess = _KatLoginyService.DodajFirmeDlaUzytkownika(company);
                 }
 
                 result = Json(new
@@ -265,6 +267,7 @@ namespace Eteczka.BE.Controllers
 
         public ActionResult PobierzPracownika(string nazwa, string haslo)
         {
+            LOGGER.Info("Proba logowania: " + nazwa + ": " + DateTime.Now);
             KatLoginy user = _KatLoginyService.GetUserByNameAndPassword(nazwa, haslo);
             bool success = user != null;
 

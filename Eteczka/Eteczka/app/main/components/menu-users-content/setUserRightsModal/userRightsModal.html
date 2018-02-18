@@ -11,14 +11,13 @@
                 <label class="modal-table-label" for="company">Firma*</label>
                 <select name="company" class="modal-table-input modal-select-input"
                         ng-model="modalResult.Firma"
-                        ng-options="option for option in userCompanies"></select>
+                        ng-options="option.Firma for option in userCompanies"></select>
             </div>
             <div>
                 <label class="modal-table-label" for="confidential">Confidential*</label>
                 <select name="confidential" class="modal-table-input modal-select-input"
                         ng-model="modalResult.Confidential"
-                        ng-options="option for option in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]"
-                        ng-init="modalResult.Confidential = 0"></select>
+                        ng-options="option for option in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10']"></select>
             </div>
             <div>
                 <label class="modal-table-label">Role*</label>

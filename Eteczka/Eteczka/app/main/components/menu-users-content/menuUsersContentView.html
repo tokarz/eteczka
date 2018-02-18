@@ -2,7 +2,7 @@
     <div class="user-details">
         <div class="top-toolbar toolbar-panel">
             <span class="toolbar-option option-one fa fa-plus-circle" ng-click="openAddUserDialog()"></span>
-            <span class="toolbar-option option-three fa fa-trash-o" ng-click="triggerDeleteUser()"></span>
+            <span ng-show="activeUser" class="toolbar-option option-three fa fa-trash-o" ng-click="triggerDeleteUser()"></span>
         </div>
         <div class="user-details-list toolbar-content">
             <h3 style="margin:auto;text-align:center">Dane Pracownika</h3>
@@ -39,9 +39,9 @@
     </div>
     <div class="user-history">
         <div class="top-toolbar toolbar-panel">
-            <span ng-show="user.Nazwisko" class="toolbar-option option-one fa fa-plus-circle" ng-click="openSetUserRightsDialog()"></span>
-            <span ng-show="selectedCompany" class="toolbar-option option-two fa fa-pencil-square"></span>
-            <span ng-show="selectedCompany" class="toolbar-option option-three fa fa-trash-o"></span>
+            <span ng-show="user.Nazwisko" class="toolbar-option option-one fa fa-plus-circle" ng-click="openSetUserRightsDialog(false)"></span>
+            <span ng-show="selectedCompany" class="toolbar-option option-two fa fa-pencil-square" ng-click="openSetUserRightsDialog(true)"></span>
+            <span ng-show="selectedCompany" class="toolbar-option option-three fa fa-trash-o" ng-click="openDeleteUserRightsDialog()"></span>
         </div>
         <div class="toolbar-content">
             <h3 style="margin:auto;text-align:center">Uprawnienia</h3>
@@ -63,38 +63,35 @@
                     <tr ng-repeat="userCompany in userCompanies" ng-click="toggleSelectCompany(userCompany)" ng-class="isCompanySelected(userCompany)">
                         <td>{{userCompany.Firma}}</td>
                         <td class="rightsColumn">
-                            <span>
-                                <i class="fa fa-pencil" title="Tylko odczyt"></i><input ng-click="toggleBox(userCompany.Uprawnienia.RolaReadOnly, userCompany)" type="checkbox" ng-model="userCompany.Uprawnienia.RolaReadOnly" />
+                            <span ng-show="userCompany.Uprawnienia.RolaReadOnly">
+                                <i class="fa fa-pencil" title="Tylko odczyt"></i>
                             </span>
-                            <span>
-                                <i class="fa fa-user-plus" title="Dodawanie Pracownika"></i><input ng-click="toggleBox(userCompany.Uprawnienia.RolaAddPracownik, userCompany)" type="checkbox" ng-model="userCompany.Uprawnienia.RolaAddPracownik" />
+                            <span ng-show="userCompany.Uprawnienia.RolaAddPracownik">
+                                <i class="fa fa-user-plus" title="Dodawanie Pracownika"></i>
                             </span>
-                            <span>
-                                <i class="fa fa-user" title="Edycja Pracownika"></i><input ng-click="toggleBox(userCompany.Uprawnienia.RolaModifyPracownik, userCompany)" type="checkbox" ng-model="userCompany.Uprawnienia.RolaModifyPracownik" />
+                            <span ng-show="userCompany.Uprawnienia.RolaModifyPracownik">
+                                <i class="fa fa-user" title="Edycja Pracownika"></i>
                             </span>
-                            <span>
-                                <i class="fa fa-plus-circle" title="Dodawanie dokumentów"></i><input ng-click="toggleBox(userCompany.Uprawnienia.RolaAddFile, userCompany)" type="checkbox" ng-model="userCompany.Uprawnienia.RolaAddFile" />
+                            <span ng-show="userCompany.Uprawnienia.RolaAddFile">
+                                <i class="fa fa-plus-circle" title="Dodawanie dokumentów"></i>
                             </span>
-                            <span>
-                                <i class="fa fa-file-pdf-o" title="Edycja dokumentów"></i><input ng-click="toggleBox(userCompany.Uprawnienia.RolaModifyFile, userCompany)" type="checkbox" ng-model="userCompany.Uprawnienia.RolaModifyFile" />
+                            <span ng-show="userCompany.Uprawnienia.RolaModifyFile">
+                                <i class="fa fa-file-pdf-o" title="Edycja dokumentów"></i>
                             </span>
-                            <span>
-                                <i class="fa fa-database" title="Edycja słowników"></i><input ng-click="toggleBox(userCompany.Uprawnienia.RolaSlowniki, userCompany)" type="checkbox" ng-model="userCompany.Uprawnienia.RolaSlowniki" />
+                            <span ng-show="userCompany.Uprawnienia.RolaSlowniki">
+                                <i class="fa fa-database" title="Edycja słowników"></i>
                             </span>
-                            <span>
-                                <i class="fa fa-envelope-o" title="Wysyłanie Poczty E-Mail"></i><input ng-click="toggleBox(userCompany.Uprawnienia.RolaSendEmail, userCompany)" type="checkbox" ng-model="userCompany.Uprawnienia.RolaSendEmail" />
+                            <span ng-show="userCompany.Uprawnienia.RolaSendEmail">
+                                <i class="fa fa-envelope-o" title="Wysyłanie Poczty E-Mail"></i>
                             </span>
-                            <span>
-                                <i class="fa fa-book" title="Generowanie raportów"></i><input ng-click="toggleBox(userCompany.Uprawnienia.RolaRaport, userCompany)" type="checkbox" ng-model="userCompany.Uprawnienia.RolaRaport" />
+                            <span ng-show="userCompany.Uprawnienia.RolaRaport">
+                                <i class="fa fa-book" title="Generowanie raportów"></i>
                             </span>
-                            <span>
-                                <i class="fa fa-download" title="Eksporty"></i><input ng-click="toggleBox(userCompany.Uprawnienia.RolaRaportExport, userCompany)" type="checkbox" ng-model="userCompany.Uprawnienia.RolaRaportExport" />
+                            <span ng-show="userCompany.Uprawnienia.RolaRaportExport">
+                                <i class="fa fa-download" title="Eksporty"></i>
                             </span>
-                            <span>
-                                <i class="fa fa-check" title="Podwójny akcept"></i><input ng-click="toggleBox(userCompany.Uprawnienia.RolaDoubleAkcept, userCompany)" type="checkbox" ng-model="userCompany.Uprawnienia.RolaDoubleAkcept" />
-                            </span>
-                            <span>
-                                <i class="fa fa-asterisk" title="Zaznacz wszystkie"></i><input type="checkbox" ng-click="toggleSelectAll(userCompany);$event.stopPropagation();" ng-model="userCompany.allSelected" />
+                            <span ng-show="userCompany.Uprawnienia.RolaDoubleAkcept">
+                                <i class="fa fa-check" title="Podwójny akcept"></i>
                             </span>
                         </td>
                         <td>
