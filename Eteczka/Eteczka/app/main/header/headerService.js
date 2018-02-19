@@ -5,9 +5,9 @@ angular.module('et.services').factory('headerService', ['httpService', 'sessionS
             return httpService.post('KatDokumentyRodzaj/DopiszRodzajDokumentu', {
                 sessionId: sessionService.getSessionId(),
                 symbol: fileType.Symbol,
-                nazwaDokumentu: fileType.NazwaDokumentu,
-                typEdycji: fileType.TypEdycji,
-                teczkaDzial: fileType.TeczkaDzial
+                nazwaDokumentu: fileType.Nazwa,
+                typEdycji: fileType.Typedycji,
+                teczkaDzial: fileType.Teczkadzial
             });
         }
     }
