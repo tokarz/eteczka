@@ -171,6 +171,35 @@ namespace Eteczka.BE.Controllers
 
         }
 
+        public ActionResult ZmienHasloAdministratora(string sessionId, string oldPassword,  string shortPassword, string longPassword)
+        {
+            bool sucess = false;
+            ActionResult result = null;
+            try
+            {
+                StanSesji stanSesji = Sesja.PobierzStanSesji();
+                if (stanSesji.CzySesjaJestOtwarta(sessionId) && stanSesji.CzySesjaAdministratora(sessionId))
+                {
+                    sucess = _KatLoginyService.ZmienHasloAdministratora(shortPassword, longPassword);
+                }
+
+                result = Json(new
+                {
+                    success = sucess
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            return result;
+        }
+        
+
         [HttpPost]
         [ActionName("ZmienHaslo")]
         public ActionResult ZmienHaslo(string sessionId, AddKatLoginyDto user)
@@ -204,8 +233,7 @@ namespace Eteczka.BE.Controllers
         }
 
         [HttpPost]
-        [ActionName("UsunPrac")]
-        public ActionResult UsunPrac(string sessionId, AddKatLoginyDto user)
+        public ActionResult UsunPrac(string sessionId, KatLoginyDetale user)
         {
 
             bool sucess = false;
@@ -235,7 +263,7 @@ namespace Eteczka.BE.Controllers
 
         }
 
-        [HttpDelete]
+        [HttpPost]
         public ActionResult UsunFirmeUzytkownika(string sessionId, KatLoginyFirmy firma)
         {
             bool sucess = false;

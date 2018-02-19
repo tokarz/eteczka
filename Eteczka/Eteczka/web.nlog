@@ -1,7 +1,7 @@
 ﻿<nlog xmlns="http://www.nlog-project.org/schemas/NLog.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <targets>
     <target name="default" xsi:type="File"
-      fileName="d:\eteczka.main\logs\app-log.txt"
+      fileName="c:/eteczka.main/logs/user.log"
       archiveFileName="d:\eteczka.main\archives\logs\app-log.{#}.txt"
       archiveEvery="Day"
       archiveNumbering="Rolling"

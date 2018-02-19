@@ -1,8 +1,8 @@
 ﻿'use strict';
-angular.module('et.directives').directive('settingsSessions', function () {
+angular.module('et.directives').directive('adminSessions', function () {
     return {
         scope: {},
-        templateUrl: 'app/views/settings/sessions/settingsSessions.html',
-        controller: 'settingsSessionsController'
+        templateUrl: 'app/views/settings/sessions/admin/adminSessions.html',
+        controller: 'adminSessionsController'
     }
 });

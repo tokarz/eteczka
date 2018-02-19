@@ -34,7 +34,7 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
 
     $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
         $scope.activeOption = toState.name;
-        $scope.isAdmin = (toState.name === 'admin' || _.startsWith(toState.name, 'settings'));
+        $scope.isAdmin = (_.startsWith(toState.name, 'admin') || _.startsWith(toState.name, 'settings'));
         $scope.menusVisible = toState.name !== 'home' && toState.name !== 'login' && toState.name !== 'processing' && !$scope.isAdmin;
         $scope.smallOptions = [];
         $scope.menuEmployeesVisible = toState.name.startsWith('emp');
@@ -145,7 +145,7 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
             $scope.activeSmallOption = toState.name === 'fi-files' ? $scope.smallOptions[0] : $scope.smallOptions[1];
         }
 
-        $scope.menuSettingsVisible = toState.name.startsWith('settings');
+        $scope.menuSettingsVisible = toState.name.startsWith('settings') || toState.name.startsWith('admin');
         if ($scope.menuSettingsVisible) {
             $scope.smallOptions = [
                 {
@@ -187,6 +187,16 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
                         $scope.navigateTo('settingsfiles');
                     },
                     state: 'settingsfiles'
+                },
+                {
+                    id: 4,
+                    className: 'fa fa-key small-option-four',
+                    label: 'Hasła',
+                    active: false,
+                    action: function () {
+                        $scope.navigateTo('adminsessions');
+                    },
+                    state: 'adminsessions'
                 }
             ];
 
@@ -194,12 +204,7 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
                 return option.state === toState.name;
             })
 
-            //$scope.activeSmallOption = $scope.smallOptions.filter(function (option) {
-            //    return option.state === toState.name;
-            //});
         }
-
-
 
         $scope.shoppingCartVisible = (toState.name === 'shopcart');
         if ($scope.shoppingCartVisible) {
@@ -243,7 +248,7 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
 
     $scope.isSmallOptionActive = function (op) {
         var result = '';
-        if ($scope.activeSmallOption.id === op.id) {
+        if ($scope.activeSmallOption && $scope.activeSmallOption.id === op.id) {
             result = 'option-active';
         }
 

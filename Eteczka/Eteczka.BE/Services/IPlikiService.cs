@@ -19,5 +19,6 @@ namespace Eteczka.BE.Services
         bool EdytujDokumentWBazie(SessionDetails sesja, KomitPliku plik, string idPliku);
         List<Pliki> SzukajOstatnioDodanePlikiPrac(SessionDetails sesja, string numeread, int liczbaPlikow);
         int ZliczPlikiWTeczcePracownika(SessionDetails sesja, string numeread);
+        bool ZmienHaslaPlikow(string stareHaslo, string noweHaslo);
     }
 }

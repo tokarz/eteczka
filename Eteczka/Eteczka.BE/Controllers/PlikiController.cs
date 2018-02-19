@@ -34,6 +34,21 @@ namespace Eteczka.BE.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult ZmienHaslaPlikow(string sessionId, string stareHaslo, string noweHaslo)
+        {
+            bool success = false;
+            StanSesji stanSesji = Sesja.PobierzStanSesji();
+            if (stanSesji.CzySesjaJestOtwarta(sessionId) && stanSesji.CzySesjaAdministratora(sessionId))
+            {
+                success = _PlikiService.ZmienHaslaPlikow(stareHaslo, noweHaslo);
+            }
+
+            return Json(new
+            {
+                success
+            }, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult PobierzMetadane(string sessionId, string plik)
         {
             MetaDanePliku meta = new MetaDanePliku(); ;

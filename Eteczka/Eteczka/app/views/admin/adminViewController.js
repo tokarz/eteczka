@@ -33,6 +33,14 @@ angular.module('et.controllers').controller('adminViewController', ['$scope', '$
             clickaction: function () {
                 $state.go('settingsfiles');
             }
+        },
+        {
+            label: 'Hasła',
+            ngclass: 'menu-icon fa fa-key',
+            menuclass: 'menu-button menu-button-five',
+            clickaction: function () {
+                $state.go('adminsessions');
+            }
         }
     ];
 

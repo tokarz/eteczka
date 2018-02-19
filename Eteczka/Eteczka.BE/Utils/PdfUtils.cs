@@ -33,7 +33,7 @@ namespace Eteczka.BE.Utils
                 //if (File.Exists(plikZaszyfrowany))
                 {
                     string nazwaPliku = plikZaszyfrowany.Substring(plikZaszyfrowany.LastIndexOf("\\"));
-                    document = PdfReader.Open(plikZaszyfrowany, "adminadmin");
+                    document = PdfReader.Open(plikZaszyfrowany, "#Blk8dr#Blk8dr#");
                     document.Save(tempZrodloKatalog + "\\" + nazwaPliku);
                     result = true;
                 }

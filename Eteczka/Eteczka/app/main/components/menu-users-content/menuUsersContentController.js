@@ -87,6 +87,35 @@ angular.module('et.controllers').controller('menuUsersContentController', ['$sco
         return result;
     }
 
+    $scope.triggerDeleteUser = function (user) {
+        var confirm = $mdDialog.confirm()
+            .title('Czy Chcesz Usunąć użytkownika [' + user.Identyfikator + '] i wszystkie jego uprawnienia?')
+            .textContent('Usunięcie użytkownika może zostać cofnięte tylko przez specjalną interwencję')
+            .ariaLabel('Lucky day')
+            .ok('Tak')
+            .cancel('Nie');
+
+        $mdDialog.show(confirm).then(function (value) {
+            settingsService.deleteUser(user).then(function (res) {
+                if (res.success) {
+                    $state.reload();
+                }
+            }).catch(function (ex) {
+
+                $mdDialog.show(
+                    $mdDialog.alert()
+                        .clickOutsideToClose(true)
+                        .title('Błąd podczas usuwania!')
+                        .textContent('Wystąpił nieoczekiwany błąd serwera! Sprawdź logi')
+                        .ariaLabel('Alert Dialog Demo')
+                        .ok('Rozumiem')
+                ).then(function () {
+                    $state.go('login');
+                });
+            })
+        });
+    }
+
     $scope.triggerDeleteUserCompany = function (company) {
         var confirm = $mdDialog.confirm()
             .title('Czy Chcesz Usunąć dostęp do firmy' + company.Firma + ' ?')

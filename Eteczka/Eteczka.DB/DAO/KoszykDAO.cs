@@ -39,13 +39,15 @@ namespace Eteczka.DB.DAO
         public int Policz(KatLoginyFirmy aktywnaFirma)
         {
             int result = 0;
-
-            string sqlQuery = "SELECT COUNT(*) FROM \"Koszyk\" WHERE firma = '" + aktywnaFirma.Firma.Trim() + "' AND identyfikator = '" + aktywnaFirma.Identyfikator.Trim() + "';";
-            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
-            DataTable count = connectionState.ExecuteQuery(sqlQuery);
-            if (count != null && count.Rows != null && count.Rows.Count > 0)
+            if (aktywnaFirma != null)
             {
-                result = int.Parse(count.Rows[0][0].ToString());
+                string sqlQuery = "SELECT COUNT(*) FROM \"Koszyk\" WHERE firma = '" + aktywnaFirma.Firma.Trim() + "' AND identyfikator = '" + aktywnaFirma.Identyfikator.Trim() + "';";
+                IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+                DataTable count = connectionState.ExecuteQuery(sqlQuery);
+                if (count != null && count.Rows != null && count.Rows.Count > 0)
+                {
+                    result = int.Parse(count.Rows[0][0].ToString());
+                }
             }
 
             return result;

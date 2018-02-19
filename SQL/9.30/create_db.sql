@@ -805,8 +805,6 @@ INSERT INTO "KatLoginyFirmy"(
             false, false, false, false, false,
             '2017-05-02 13:44:00',  false, 10, '');
 
-
-
             --DRUGA FIRMA
 
             INSERT INTO "KatLoginyFirmy"(

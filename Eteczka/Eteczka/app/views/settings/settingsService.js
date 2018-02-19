@@ -85,8 +85,15 @@ angular.module('et.services').factory('settingsService', ['httpService', 'sessio
             });
         },
         deleteCompanyForUser: function (company) {
-            return httpService.get('KatLoginy/PobierzWszystkichUzytkownikow', {
-                sessionId: sessionService.getSessionId()
+            return httpService.post('KatLoginy/UsunFirmeUzytkownika', {
+                sessionId: sessionService.getSessionId(),
+                company:company
+            });
+        },
+        deleteUser: function(user) {
+            return httpService.post('KatLoginy/UsunPrac', {
+                sessionId: sessionService.getSessionId(),
+                user: user
             });
         },
         addNewUser: function (user) {
@@ -105,6 +112,21 @@ angular.module('et.services').factory('settingsService', ['httpService', 'sessio
             return httpService.post('KatLoginy/AktualizujFirmeDlaUzytkownika', {
                 sessionId: sessionService.getSessionId(),
                 company: company
+            });
+        },
+        setNewAdminPassword: function (oldPassword, shortPassword, longPassword) {
+            return httpService.post('KatLoginy/ZmienHasloAdministratora', {
+                sessionId: sessionService.getSessionId(),
+                oldPassword: oldPassword,
+                shortPassword: shortPassword,
+                longPassword: longPassword
+            });
+        },
+        setNewFilesPassword: function(old, newPassword) {
+             return httpService.post('Pliki/ZmienHaslaPlikow', {
+                sessionId: sessionService.getSessionId(),
+                stareHaslo: old,
+                noweHaslo: newPassword
             });
         }
 

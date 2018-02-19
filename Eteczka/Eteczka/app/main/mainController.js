@@ -35,11 +35,13 @@ angular.module('et.controllers').controller('mainController', ['$window', '$root
         function (event, toState, toParams, fromState, fromParams) {
             if (toState.name !== 'login' && toState.name !== 'processing') {
                 if ($scope.isAdmin === true) {
-                    if (!_.startsWith(toState.name, 'settings') && !_.isEqual(toState.name, 'admin')) {
+                    if (!_.startsWith(toState.name, 'settings') && !_.startsWith(toState.name, 'admin')) {
+                        console.log('Prevented transition [' + fromState.name + '] => [' + toState.name + ']')
                         event.preventDefault();
                     }
                 } else if ($scope.isAdmin === false) {
                     if (_.startsWith(toState.name, 'settings') || _.isEqual(toState.name, 'admin')) {
+                        console.log('Prevented transition ['+ fromState.name + '] => [' + toState.name + ']')
                         event.preventDefault();
                     }
                 }

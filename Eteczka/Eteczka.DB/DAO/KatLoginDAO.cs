@@ -104,6 +104,30 @@ namespace Eteczka.DB.DAO
             return result;
         }
 
+        public bool ZmienHasloAdministratora(string shortPassword, string longPassword)
+        {
+            bool result = false;
+
+
+            string shortHash = _Crypto.CalculateMD5Hash(shortPassword);
+            string longHash = _Crypto.CalculateMD5Hash(longPassword);
+
+            string updateString = "UPDATE \"KatLoginy\" SET hasloshort= '" + shortHash + "', haslolong='" + longHash + "' WHERE identyfikator = 'Administrator';";
+
+            try
+            {
+                IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+                result = connectionState.ExecuteNonQuery(updateString.ToString());
+
+            }
+            catch (Exception ex)
+            {
+                result = false;
+            }
+
+            return result;
+        }
+
         public bool ZmienHasloUzytkownika(AddKatLoginyDto userDoZmianyHasla)
         {
             bool result = false;
@@ -157,9 +181,9 @@ namespace Eteczka.DB.DAO
             return fetchedResult;
         }
 
-        
 
-            public bool AktualizujFirmeDlaUzytkownika(KatLoginyFirmy firma)
+
+        public bool AktualizujFirmeDlaUzytkownika(KatLoginyFirmy firma)
         {
             bool result = false;
             string updateFirmy = string.Format("identyfikator='{0}',firma='{1}',rolareadonly='{2}',rolaaddpracownik='{3}',rolamodifypracownik='{4}', rolaaddfile='{5}', rolamodifyfile='{6}',rolaslowniki='{7}',rolasendmail='{8}',rolaraport='{9}',rolaraportexport='{10}', roladoubleakcept='{11}', datamodify='{12}',usuniety='{13}',confidential='{14}', kodkierownik='{15}'", firma.Identyfikator.Trim(), firma.Firma.Trim(), firma.Uprawnienia.RolaReadOnly, firma.Uprawnienia.RolaAddPracownik, firma.Uprawnienia.RolaModifyPracownik, firma.Uprawnienia.RolaAddFile, firma.Uprawnienia.RolaModifyFile, firma.Uprawnienia.RolaSlowniki, firma.Uprawnienia.RolaSendEmail, firma.Uprawnienia.RolaRaport, firma.Uprawnienia.RolaRaportExport, firma.Uprawnienia.RolaDoubleAkcept, firma.DataModify, firma.Usuniety, firma.Confidential, firma.KodKierownik);

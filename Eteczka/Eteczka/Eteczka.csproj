@@ -250,9 +250,11 @@
     <Content Include="app\views\settings\import\settingsImport.html" />
     <Content Include="app\views\settings\import\settingsImportController.js" />
     <Content Include="app\views\settings\import\settingsImportDirective.js" />
+    <Content Include="app\views\settings\sessions\admin\adminPassword\adminPasswordModal.html" />
     <Content Include="app\views\settings\sessions\admin\adminSessions.html" />
     <Content Include="app\views\settings\sessions\admin\adminSessionsController.js" />
     <Content Include="app\views\settings\sessions\admin\adminSessionsDirective.js" />
+    <Content Include="app\views\settings\sessions\admin\filesPassword\filesPasswordModal.html" />
     <Content Include="app\views\settings\sessions\settingsSessions.html" />
     <Content Include="app\views\settings\sessions\settingsSessionsController.js" />
     <Content Include="app\views\settings\sessions\settingsSessionsDirective.js" />
@@ -267,6 +269,7 @@
     <Content Include="app\views\shopcart\shopCartService.js" />
     <Content Include="app\views\shopcart\shopCartView.html" />
     <Content Include="coverage.js" />
+    <None Include="NLog.config" />
     <Content Include="node_modules\lodash.find\index.js" />
     <Content Include="Scripts\DataTables\Buttons-1.5.1\css\buttons.bootstrap.css" />
     <Content Include="Scripts\DataTables\Buttons-1.5.1\css\buttons.bootstrap.min.css" />

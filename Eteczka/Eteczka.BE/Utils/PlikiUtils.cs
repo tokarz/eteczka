@@ -20,7 +20,7 @@ namespace Eteczka.BE.Utils
         private IDirectoryWrapper _Wrapper;
         private IPdfUtils _PdfUtils;
         private IZipUtils _ZipUtils;
-        Logger LOGGER = LogManager.GetLogger("PlikiUtils");
+        Logger LOGGER = LogManager.GetLogger("default");
 
         public PlikiUtils(IDirectoryWrapper wrapper, IPdfUtils pdfUtils, IZipUtils zipUtils)
         {
@@ -406,8 +406,8 @@ namespace Eteczka.BE.Utils
             string result = "";
             try
             {
-                // #Blk8dr#Blk8dr#
-                PdfDocument document = PdfReader.Open(sciezka, "adminadmin");
+                // 
+                PdfDocument document = PdfReader.Open(sciezka, "#Blk8dr#Blk8dr#");
                 using (MemoryStream stream = new MemoryStream())
                 {
                     document.Save(stream, true);
@@ -424,6 +424,49 @@ namespace Eteczka.BE.Utils
             return result;
         }
 
+        public bool ZmienHasloPlikow(List<string> files, string oldPassword, string newPassword)
+        {
+            bool result = false;
+
+            foreach(string file in files)
+            {
+                try
+                {
+                    PdfDocument document = PdfReader.Open(file, oldPassword);
+
+                    PdfSecuritySettings securitySettings = document.SecuritySettings;
+
+                    // Setting one of the passwords automatically sets the security level to 
+                    // PdfDocumentSecurityLevel.Encrypted128Bit.
+                    securitySettings.UserPassword = newPassword;
+                    securitySettings.OwnerPassword = newPassword;
+
+                    // Don't use 40 bit encryption unless needed for compatibility reasons
+                    //securitySettings.DocumentSecurityLevel = PdfDocumentSecurityLevel.Encrypted40Bit;
+
+                    // Restrict some rights.
+                    securitySettings.PermitAccessibilityExtractContent = false;
+                    securitySettings.PermitAnnotations = false;
+                    securitySettings.PermitAssembleDocument = false;
+                    securitySettings.PermitExtractContent = false;
+                    securitySettings.PermitFormsFill = true;
+                    securitySettings.PermitFullQualityPrint = false;
+                    securitySettings.PermitModifyDocument = true;
+                    securitySettings.PermitPrint = false;
+
+                    // Save the document...
+                    document.Save(file);
+                    result = true;
+                }
+                catch (Exception)
+                {
+                    result = false;
+                }
+            }
+
+            return result;
+        }
+
         public bool ZaszyfrujIPrzeniesPlikPdf(string file)
         {
             bool result = false;
@@ -435,8 +478,8 @@ namespace Eteczka.BE.Utils
 
                 // Setting one of the passwords automatically sets the security level to 
                 // PdfDocumentSecurityLevel.Encrypted128Bit.
-                securitySettings.UserPassword = "haslohaslo";
-                securitySettings.OwnerPassword = "adminadmin";
+                securitySettings.UserPassword = "#Blk8dr#Blk8dr#";
+                securitySettings.OwnerPassword = "#Blk8dr#Blk8dr#";
 
                 // Don't use 40 bit encryption unless needed for compatibility reasons
                 //securitySettings.DocumentSecurityLevel = PdfDocumentSecurityLevel.Encrypted40Bit;

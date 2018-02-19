@@ -26,6 +26,37 @@ namespace Eteczka.BE.Services
             this._PlikiUtils = plikiUtils;
         }
 
+        public bool ZmienHaslaPlikow(string stareHaslo, string noweHaslo)
+        {
+            
+            List<string> plikiDoZmianyHasla = new List<string>();
+            List<string> firmyZPlikami = new List<string>();
+            List<Pliki> pobrane = _Dao.PobierzWszystkiePliki("asc", "datapocz");
+
+            string eadRootName = ConfigurationManager.AppSettings["rootdir"];
+            string filesFolder = ConfigurationManager.AppSettings["filesdir"];
+            string EAD_ROOT = Environment.GetEnvironmentVariable(eadRootName);
+
+
+
+            foreach(Pliki plik in pobrane)
+            {
+                if(!firmyZPlikami.Contains(plik.Firma))
+                {
+                    firmyZPlikami.Add(plik.Firma);
+                }
+            }
+
+            foreach(string firma in firmyZPlikami)
+            {
+                string sciezkaFolderu = Path.Combine(EAD_ROOT, filesFolder, firma);
+                List<string> plikiFirmy = Directory.GetFiles(sciezkaFolderu, "*.pdf").ToList();
+                plikiDoZmianyHasla.AddRange(plikiFirmy);
+            }
+
+            return _PlikiUtils.ZmienHasloPlikow(plikiDoZmianyHasla, stareHaslo, noweHaslo);
+        }
+
         public List<Pliki> PobierzWszystkie(string sortOrder = "asc", string sortColumn = "datapocz")
         {
 

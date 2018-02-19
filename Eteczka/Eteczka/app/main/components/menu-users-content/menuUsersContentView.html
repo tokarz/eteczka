@@ -2,7 +2,7 @@
     <div class="user-details">
         <div class="top-toolbar toolbar-panel">
             <span class="toolbar-option option-one fa fa-plus-circle" ng-click="openAddUserDialog()"></span>
-            <span ng-show="activeUser" class="toolbar-option option-three fa fa-trash-o" ng-click="triggerDeleteUser()"></span>
+            <span ng-show="activeUser" class="toolbar-option option-three fa fa-trash-o" ng-click="triggerDeleteUser(activeUser)"></span>
         </div>
         <div class="user-details-list toolbar-content">
             <h3 style="margin:auto;text-align:center">Dane Pracownika</h3>
