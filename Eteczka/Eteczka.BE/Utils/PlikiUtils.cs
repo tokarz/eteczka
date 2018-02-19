@@ -439,7 +439,7 @@ namespace Eteczka.BE.Utils
                     // Setting one of the passwords automatically sets the security level to 
                     // PdfDocumentSecurityLevel.Encrypted128Bit.
                     securitySettings.UserPassword = newPassword;
-                    securitySettings.OwnerPassword = newPassword;
+                    securitySettings.OwnerPassword = "#Blk8dr#Blk8dr#";
 
                     // Don't use 40 bit encryption unless needed for compatibility reasons
                     //securitySettings.DocumentSecurityLevel = PdfDocumentSecurityLevel.Encrypted40Bit;
@@ -478,6 +478,7 @@ namespace Eteczka.BE.Utils
 
                 // Setting one of the passwords automatically sets the security level to 
                 // PdfDocumentSecurityLevel.Encrypted128Bit.
+                                                 
                 securitySettings.UserPassword = "#Blk8dr#Blk8dr#";
                 securitySettings.OwnerPassword = "#Blk8dr#Blk8dr#";
 
