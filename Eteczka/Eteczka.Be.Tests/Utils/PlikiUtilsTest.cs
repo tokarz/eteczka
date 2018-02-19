@@ -259,7 +259,7 @@ namespace Eteczka.BE.Tests.Utils
             ListaPlikowZrodlo.Add("pliki\\AFM\\AFM_848_bbbbbbbbbbbbb — Notatnik.pdf");
             ListaPlikowZrodlo.Add("pliki\\AFM\\AFM_948_aaa — Notatnik.pdf");
 
-            _Wrapper.GetEnvironmentVariable("EAD_DIR").Returns("sciezkaDoEAD");
+            //_Wrapper.GetEnvironmentVariable("EAD_DIR").Returns("sciezkaDoEAD");
             _Wrapper.UtworzKatalog(Arg.Is<string>(x => x.StartsWith("sciezkaDoEAD") && x.EndsWith("tempsource"))).Returns("katalogTymczasowyZrodlo");
             _Wrapper.UtworzKatalog(Arg.Is<string>(x => x.StartsWith("sciezkaDoEAD") && x.EndsWith("tempzip"))).Returns("katalogTymczasowyZrodlo");
             _Wrapper.CzyKatalogIstnieje(Path.Combine("sciezkaDoEAD", "ArchiwumZip\\", "TFG")).Returns(true);
@@ -272,7 +272,7 @@ namespace Eteczka.BE.Tests.Utils
             Assert.IsTrue(result.Contains("sciezkaDoEAD\\ArchiwumZip\\TFG"));
             Assert.IsTrue(result.EndsWith(".zip"));
 
-            _Wrapper.Received(1).GetEnvironmentVariable("EAD_DIR");
+            //_Wrapper.Received(1).GetEnvironmentVariable("EAD_DIR");
             _Wrapper.Received(1).UtworzKatalog(Arg.Is<string>(x => x.StartsWith("sciezkaDoEAD") && x.EndsWith("tempsource")));
             _Wrapper.Received(1).UtworzKatalog(Arg.Is<string>(x => x.StartsWith("sciezkaDoEAD") && x.EndsWith("tempzip")));
             _Wrapper.Received(1).CzyKatalogIstnieje(Path.Combine("sciezkaDoEAD", "ArchiwumZip\\", "TFG"));

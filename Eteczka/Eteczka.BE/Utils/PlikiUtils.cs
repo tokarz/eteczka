@@ -12,6 +12,7 @@ using Ionic.Zip;
 using System.Net.Mail;
 using NLog;
 using Eteczka.BE.Model;
+using System.Configuration;
 
 namespace Eteczka.BE.Utils
 {
@@ -509,7 +510,7 @@ namespace Eteczka.BE.Utils
 
         public string SpakujPliki(string firma, List<string> plikiDoSpakowania, string haslo)
         {
-            string eadRoot = _Wrapper.GetEnvironmentVariable("EAD_DIR");
+            string eadRoot = ConfigurationManager.AppSettings["rootdir"];
             string dataFormat = "yyyyMMddHHmmssfff";
 
             string tempZrodloKatalog = Path.Combine(eadRoot, DateTime.Now.ToString(dataFormat) + "tempsource");

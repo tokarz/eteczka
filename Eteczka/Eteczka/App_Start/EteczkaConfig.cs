@@ -25,8 +25,7 @@ namespace Eteczka
             AdminEmail = ConfigurationManager.AppSettings["adminemail"];
             SmtpServer = ConfigurationManager.AppSettings["smtpserver"];
 
-            string eadRootName = ConfigurationManager.AppSettings["rootdir"];
-            EAD_ROOT = Environment.GetEnvironmentVariable(eadRootName);
+            EAD_ROOT = ConfigurationManager.AppSettings["rootdir"];
 
             string configurationPath = EAD_ROOT + "/eteczka.create.txt";
 

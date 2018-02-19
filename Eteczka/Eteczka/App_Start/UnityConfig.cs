@@ -135,7 +135,7 @@ namespace Eteczka
         private static void LogStartup(bool success)
         {
             string eadRootName = ConfigurationManager.AppSettings["rootdir"];
-            string configurationPath = Path.Combine(Environment.GetEnvironmentVariable(eadRootName), "logs", "eteczka.di.txt");
+            string configurationPath = Path.Combine(eadRootName, "logs", "eteczka.di.txt");
             string prefix = success ? "" : "NOT";
 
             if (File.Exists(configurationPath))

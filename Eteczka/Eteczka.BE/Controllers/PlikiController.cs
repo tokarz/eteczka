@@ -72,8 +72,7 @@ namespace Eteczka.BE.Controllers
             {
                 var httpRequest = HttpContext.Request;
                 string firma = Sesja.PobierzStanSesji().PobierzSesje(sessionId).AktywnaFirma.Firma;
-                string eadRootName = ConfigurationManager.AppSettings["rootdir"];
-                string eadRoot = Environment.GetEnvironmentVariable(eadRootName);
+                string eadRoot = ConfigurationManager.AppSettings["rootdir"];
 
                 if (httpRequest.Files.Count > 0)
                 {

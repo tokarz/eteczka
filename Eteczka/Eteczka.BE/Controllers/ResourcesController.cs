@@ -23,10 +23,8 @@ namespace Eteczka.BE.Controllers
             if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
             {
                 string firma = Sesja.PobierzStanSesji().PobierzSesje(sessionId).AktywnaFirma.Firma.Trim();
-                string eadRootName = ConfigurationManager.AppSettings["rootdir"];
+                string eadRoot = ConfigurationManager.AppSettings["rootdir"];
                 string pliki = ConfigurationManager.AppSettings["filesdir"];
-
-                string eadRoot = Environment.GetEnvironmentVariable(eadRootName);
 
                 string filepath = System.IO.Path.Combine(eadRoot, pliki, firma, fileName != null ? fileName.Trim() : "");
 
@@ -58,8 +56,7 @@ namespace Eteczka.BE.Controllers
             if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
             {
                 string firma = Sesja.PobierzStanSesji().PobierzSesje(sessionId).AktywnaFirma.Firma;
-                string eadRootName = ConfigurationManager.AppSettings["rootdir"];
-                string eadRoot = Environment.GetEnvironmentVariable(eadRootName);
+                string eadRoot = ConfigurationManager.AppSettings["rootdir"];
                 string filepath = Path.Combine(eadRoot, "waitingroom", firma, fileName);
 
                 base64PDF = _PlikiUtils.PobierzZaszyfrowanaZawartoscPliku(filepath, sessionId);

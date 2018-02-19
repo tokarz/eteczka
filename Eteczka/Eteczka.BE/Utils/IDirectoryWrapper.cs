@@ -14,7 +14,6 @@ namespace Eteczka.BE.Utils
         bool CzyKatalogIstnieje(string sciezka);
         bool CzyPlikIstnieje(string sciezka);
         string WczytajPlik(string sciezka, string rozszerzenie = "");
-        string GetEnvironmentVariable(string name);
         bool CzyPlikJestWUzyciu(string nazwaPliku);
         int ZliczPlikiWKatalogu(string katalog);
     }

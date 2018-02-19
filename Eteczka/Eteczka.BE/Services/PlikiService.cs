@@ -35,11 +35,11 @@ namespace Eteczka.BE.Services
 
             string eadRootName = ConfigurationManager.AppSettings["rootdir"];
             string filesFolder = ConfigurationManager.AppSettings["filesdir"];
-            string EAD_ROOT = Environment.GetEnvironmentVariable(eadRootName);
+            string EAD_ROOT = ConfigurationManager.AppSettings["rootdir"];
 
 
 
-            foreach(Pliki plik in pobrane)
+            foreach (Pliki plik in pobrane)
             {
                 if(!firmyZPlikami.Contains(plik.Firma))
                 {
@@ -85,7 +85,7 @@ namespace Eteczka.BE.Services
 
             string nazwaPliku = firma.Trim() + "_" + DateTime.Now.Millisecond + "_" + plik.Nazwa.Trim();
 
-            string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
+            string eadRoot = ConfigurationManager.AppSettings["rootdir"];
             string katalogZrodlowy = Path.Combine(eadRoot, "waitingroom", firma.Trim());
             string plikZrodlowy = Path.Combine(katalogZrodlowy, plik.Nazwa.Trim());
 
@@ -123,7 +123,7 @@ namespace Eteczka.BE.Services
         public List<Pliki> PobierzPlikiDlaFirmy(string firma, string sortOrder = "asc", string sortColumn = "datapocz")
         {
             List<Pliki> result = new List<Pliki>();
-            string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
+            string eadRoot = ConfigurationManager.AppSettings["rootdir"];
             string sciezkaDoWaitingRoomu = Path.Combine(eadRoot, "waitingroom", firma);
 
             if (Directory.Exists(sciezkaDoWaitingRoomu))
@@ -158,7 +158,7 @@ namespace Eteczka.BE.Services
             result.Jrwa = pobranyPlik.NumerEad;
             result.Type = "" + pobranyPlik.TypPliku;
 
-            string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
+            string eadRoot = ConfigurationManager.AppSettings["rootdir"];
 
 
             string sciezkaDoPlikow = Path.Combine(eadRoot, "pliki");

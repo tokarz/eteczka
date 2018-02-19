@@ -4,6 +4,7 @@ using PdfSharp.Pdf;
 using PdfSharp.Pdf.IO;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -52,7 +53,7 @@ namespace Eteczka.BE.Utils
                 docRend.Document = doc;
                 docRend.RenderDocument();
                 //Zapis pliku
-                string eadRoot = _Wrapper.GetEnvironmentVariable("EAD_DIR");
+                string eadRoot = ConfigurationManager.AppSettings["rootdir"];
                 string raportyPdfFolder = Path.Combine(eadRoot, "RaportyPdf\\");
                 if (!_Wrapper.CzyKatalogIstnieje(raportyPdfFolder))
                 {

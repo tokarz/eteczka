@@ -87,7 +87,7 @@ namespace Eteczka.BE.Services
         public bool DoesFolderExist(string folder)
         {
             bool result = false;
-            string eadRoot = System.Environment.GetEnvironmentVariable("EAD_DIR");
+            string eadRoot = ConfigurationManager.AppSettings["rootdir"];
             string sciezkaDoWaitingRoom = Path.Combine(eadRoot, "waitingroom");
             if (!String.IsNullOrEmpty(folder))
             {
@@ -100,7 +100,7 @@ namespace Eteczka.BE.Services
         public bool CreateSourceFolder(string folder)
         {
             bool result = false;
-            string eadRoot = System.Environment.GetEnvironmentVariable("EAD_DIR");
+            string eadRoot = ConfigurationManager.AppSettings["rootdir"];
             string sciezkaDoWaitingRoom = Path.Combine(eadRoot, "waitingroom");
             if (!Directory.Exists(sciezkaDoWaitingRoom))
             {
@@ -128,7 +128,7 @@ namespace Eteczka.BE.Services
             ImportResult result = new ImportResult();
             List<KatLokalPapier> lokalneArchiwum = new List<KatLokalPapier>();
             List<string> filePaths = new List<string>();
-            string eadRoot = System.Environment.GetEnvironmentVariable("EAD_DIR");
+            string eadRoot = ConfigurationManager.AppSettings["rootdir"];
 
             string sciezkaDoPlikow = Path.Combine(eadRoot, "zet", "KatLokalPapier");
 
@@ -168,7 +168,7 @@ namespace Eteczka.BE.Services
             ImportResult result = new ImportResult();
             List<KatFirmy> lokalneFirmy = new List<KatFirmy>();
             List<string> filePaths = new List<string>();
-            string eadRoot = System.Environment.GetEnvironmentVariable("EAD_DIR");
+            string eadRoot = ConfigurationManager.AppSettings["rootdir"];
 
             string sciezkaDoPlikow = Path.Combine(eadRoot, "zet", "KatFirmy");
 
@@ -209,7 +209,7 @@ namespace Eteczka.BE.Services
 
             List<KatRejony> lokalneRejony = new List<KatRejony>();
             List<string> filePaths = new List<string>();
-            string eadRoot = System.Environment.GetEnvironmentVariable("EAD_DIR");
+            string eadRoot = ConfigurationManager.AppSettings["rootdir"];
 
             string sciezkaDoPlikow = Path.Combine(eadRoot, "zet", "KatRejony");
 
@@ -246,7 +246,7 @@ namespace Eteczka.BE.Services
         public ImportResult ImportujPracownikow(string sessionId)
         {
             ImportResult result = new ImportResult();
-            string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
+            string eadRoot = ConfigurationManager.AppSettings["rootdir"];
             if (eadRoot == null)
             {
                 throw new Exception("EAD_DIR_NOT_SET!");
@@ -287,7 +287,7 @@ namespace Eteczka.BE.Services
         public ImportResult ImportWorkplaces(string sessionId)
         {
             ImportResult result = new ImportResult();
-            string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
+            string eadRoot = ConfigurationManager.AppSettings["rootdir"];
             List<MiejscePracy> miejscaPracy = new List<MiejscePracy>();
 
             string sciezkaDoKatalogu = Path.Combine(eadRoot, "zet");
@@ -323,7 +323,7 @@ namespace Eteczka.BE.Services
         public ImportResult ImportSubDepartments(string sessionId)
         {
             ImportResult result = new ImportResult();
-            string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
+            string eadRoot = ConfigurationManager.AppSettings["rootdir"];
             List<KatPodWydzialy> podwydzialy = new List<KatPodWydzialy>();
 
             string sciezkaDoKatalogu = Path.Combine(eadRoot, "zet");
@@ -358,7 +358,7 @@ namespace Eteczka.BE.Services
         public ImportResult ImportDepartments(string sessionId)
         {
             ImportResult result = new ImportResult();
-            string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
+            string eadRoot = ConfigurationManager.AppSettings["rootdir"];
             List<KatWydzialy> dzialy = new List<KatWydzialy>();
 
             string sciezkaDoKatalogu = Path.Combine(eadRoot, "zet");
@@ -394,7 +394,7 @@ namespace Eteczka.BE.Services
         public ImportResult ImportAccounts5(string sessionId)
         {
             ImportResult result = new ImportResult();
-            string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
+            string eadRoot = ConfigurationManager.AppSettings["rootdir"];
             List<KatKonto5> konta = new List<KatKonto5>();
 
             string sciezkaDoKatalogu = Path.Combine(eadRoot, "zet");
@@ -430,7 +430,7 @@ namespace Eteczka.BE.Services
         public ImportResult ImportKatDokumentyRodzaj(string sessionId)
         {
             ImportResult result = new ImportResult();
-            string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
+            string eadRoot = ConfigurationManager.AppSettings["rootdir"];
             List<KatDokumentyRodzaj> rodzajeDokumentow = new List<KatDokumentyRodzaj>();
 
             string sciezkaDoKatalogu = Path.Combine(eadRoot, "zet");
@@ -467,7 +467,7 @@ namespace Eteczka.BE.Services
         public ImportResult WczytajDokZExcela(bool nadpisz = true)
         {
             ImportResult result = new ImportResult();
-            string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
+            string eadRoot = ConfigurationManager.AppSettings["rootdir"];
 
             string sciezkaDoPliku = Path.Combine(eadRoot, "excel\\Rodzaje_dokumentow_Eteczka.xlsx");
 

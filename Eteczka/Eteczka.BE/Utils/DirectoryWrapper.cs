@@ -63,11 +63,6 @@ namespace Eteczka.BE.Utils
             return plik.ToString();
         }
 
-        public string GetEnvironmentVariable(string name)
-        {
-            return Environment.GetEnvironmentVariable(name);
-        }
-
         public bool CzyPlikJestWUzyciu(string nazwaPliku)
         {
             bool zablokowany = false;

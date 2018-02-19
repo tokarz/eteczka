@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -19,7 +20,7 @@ namespace Eteczka.BE.Utils
         public string WygenerujSciezkeZapisuExcell(string nazwaPliku, string user)
         {
 
-            string eadRoot = _Wrapper.GetEnvironmentVariable("EAD_DIR");
+            string eadRoot = ConfigurationManager.AppSettings["rootdir"];
             string raportyExcellFolder = Path.Combine(eadRoot, "RaportyExcell\\");
             string sciezkaZapisu = raportyExcellFolder + nazwaPliku + " - wygenerowano przez " + user + ".xlsx";
               

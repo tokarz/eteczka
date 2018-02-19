@@ -5,6 +5,7 @@ using Eteczka.Model.Entities;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -64,7 +65,7 @@ namespace Eteczka.BE.Services
             {
                 case "users":
                     {
-                        string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
+                        string eadRoot = ConfigurationManager.AppSettings["rootdir"];
                         List<Pracownik> pracownicy = new List<Pracownik>();
 
                         if (eadRoot == null)
@@ -103,7 +104,7 @@ namespace Eteczka.BE.Services
                     }
                 case "firms":
                     {
-                        string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
+                        string eadRoot = ConfigurationManager.AppSettings["rootdir"];
                         List<Pracownik> pracownicy = new List<Pracownik>();
 
                         string sciezkaDoKatalogu = Path.Combine(eadRoot, "zet");
@@ -138,7 +139,7 @@ namespace Eteczka.BE.Services
                     }
                 case "areas":
                     {
-                        string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
+                        string eadRoot = ConfigurationManager.AppSettings["rootdir"];
                         List<Pracownik> pracownicy = new List<Pracownik>();
 
                         string sciezkaDoKatalogu = Path.Combine(eadRoot, "zet");
@@ -173,7 +174,7 @@ namespace Eteczka.BE.Services
                     }
                 case "archives":
                     {
-                        string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
+                        string eadRoot = ConfigurationManager.AppSettings["rootdir"];
                         List<Pracownik> pracownicy = new List<Pracownik>();
 
                         string sciezkaDoKatalogu = Path.Combine(eadRoot, "zet");
@@ -208,7 +209,7 @@ namespace Eteczka.BE.Services
                     }
                 case "workplaces":
                     {
-                        string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
+                        string eadRoot = ConfigurationManager.AppSettings["rootdir"];
                         List<Pracownik> pracownicy = new List<Pracownik>();
 
                         string sciezkaDoKatalogu = Path.Combine(eadRoot, "zet");
@@ -243,7 +244,7 @@ namespace Eteczka.BE.Services
                     }
                 case "subdepartment":
                     {
-                        string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
+                        string eadRoot = ConfigurationManager.AppSettings["rootdir"];
                         List<Pracownik> pracownicy = new List<Pracownik>();
 
                         string sciezkaDoKatalogu = Path.Combine(eadRoot, "zet");
@@ -278,7 +279,7 @@ namespace Eteczka.BE.Services
                     }
                 case "department":
                     {
-                        string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
+                        string eadRoot = ConfigurationManager.AppSettings["rootdir"];
                         List<Pracownik> pracownicy = new List<Pracownik>();
 
                         string sciezkaDoKatalogu = Path.Combine(eadRoot, "zet");
@@ -313,7 +314,7 @@ namespace Eteczka.BE.Services
                     }
                 case "account5":
                     {
-                        string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
+                        string eadRoot = ConfigurationManager.AppSettings["rootdir"];
                         List<Pracownik> pracownicy = new List<Pracownik>();
 
                         string sciezkaDoKatalogu = Path.Combine(eadRoot, "zet");
@@ -348,7 +349,7 @@ namespace Eteczka.BE.Services
                     }
                 case "dokRodzaj":
                     {
-                        string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
+                        string eadRoot = ConfigurationManager.AppSettings["rootdir"];
                         List<Pracownik> pracownicy = new List<Pracownik>();
 
                         string sciezkaDoKatalogu = Path.Combine(eadRoot, "zet");
@@ -379,7 +380,7 @@ namespace Eteczka.BE.Services
                         result.CountImportJson = counter;
                         result.CountImportDb = _KatDokumentyRodzajDAO.PoliczRodzajeWBazie();
 
-                        //string eadRoot = Environment.GetEnvironmentVariable("EAD_DIR");
+                        //string eadRoot = ConfigurationManager.AppSettings["rootdir"];
                         //List<Pracownik> pracownicy = new List<Pracownik>();
 
                         //string sciezkaDoKatalogu = Path.Combine(eadRoot, "excel");
