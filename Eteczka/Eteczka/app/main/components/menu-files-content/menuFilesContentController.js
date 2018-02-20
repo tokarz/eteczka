@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('et.controllers').controller('menuFilesContentController', ['$rootScope', '$scope', 'filesViewService', 'shopCartService', 'modalService', function ($rootScope, $scope, filesViewService, shopCartService, modalService) {
+angular.module('et.controllers').controller('menuFilesContentController', ['$rootScope', '$scope', '$state', 'filesViewService', 'shopCartService', 'modalService', function ($rootScope, $scope, $state, filesViewService, shopCartService, modalService) {
     $scope.selectedFile = null;
     $scope.emptyTableMessage = 'Nie zaznaczono elementu do wyswietlenia';
     $scope.userFiles = [];
@@ -261,6 +261,7 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
                     filesViewService.editCommittedFile(value).then(function (res) {
                         if (res.sucess) {
                             modalService.alert('Zatwierdzanie zmian w pliku', 'Plik zostal zmieniony');
+                            $state.reload();
                         } else {
                             modalService.alert('Zatwierdzanie zmian w pliku', 'Blad! Plik nie zostal zmieniony! Zweryfikuj dane i prawa dostepu lub skontaktuj sie z Administratorem');
                         }
