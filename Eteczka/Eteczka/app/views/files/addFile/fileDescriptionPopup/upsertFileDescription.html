@@ -60,6 +60,17 @@
                 <input class="modal-table-input" name="docName" type="text" ng-model="modalResult.Typ.Nazwa" disabled />
             </div>
             <div class="modal-table-row">
+                <label class="modal-table-label" for="docNr">Numer dokumentu *</label>
+                <input class="modal-table-input" name="docNr" type="text"
+                       ng-model="modalResult.NrDokumentu"
+                       ng-pattern="/^\d+$/"
+                       ng-model-options="{updateOn: 'blur'}"
+                       required />
+            </div>
+            <div ng-show="upsertFileDescription.$submitted || upsertFileDescription.docNr.$touched">
+                <span class="modal-table-error" ng-show="upsertFileDescription.docNr.$error.pattern">W polu "Numer dokumentu" moga znajdowac sie tylko cyfry</span>
+            </div>
+            <div class="modal-table-row">
                 <label class="modal-table-label" for="isDocOwner">Dokument Wlasny</label>
                 <select class="modal-table-input modal-select-input"
                         name="isDocOwner"
@@ -87,9 +98,9 @@
                                        required>
                         </md-datepicker>
                         <!--<div ng-messages="upsertFileDescription.creationDate.$error">
-                            <div ng-message="required">To pole jest wymagane!</div>
-                            <div ng-message="upsertFileDescription.creationDate.$error.pattern">Data musi miec format: RRRR-MM-DD</div>
-                        </div>-->
+                    <div ng-message="required">To pole jest wymagane!</div>
+                    <div ng-message="upsertFileDescription.creationDate.$error.pattern">Data musi miec format: RRRR-MM-DD</div>
+                </div>-->
                     </md-input-container>
                 </div>
             </div>
@@ -105,9 +116,9 @@
                                        required>
                         </md-datepicker>
                         <!--<div ng-messages="upsertFileDescription.validFromDate.$error">
-                            <div ng-message="required">To pole jest wymagane!</div>
-                            <div ng-message="upsertFileDescription.validFromDate.$error.pattern">Data musi miec format: RRRR-MM-DD</div>
-                        </div>-->
+                    <div ng-message="required">To pole jest wymagane!</div>
+                    <div ng-message="upsertFileDescription.validFromDate.$error.pattern">Data musi miec format: RRRR-MM-DD</div>
+                </div>-->
                     </md-input-container>
                 </div>
             </div>
@@ -124,9 +135,9 @@
                                        ng-required="!isDisabled()">
                         </md-datepicker>
                         <!--<div ng-messages="upsertFileDescription.validUntilDate.$error">
-                            <div ng-message="required">To pole jest wymagane!</div>
-                            <div ng-message="upsertFileDescription.validUntilDate.$error.pattern">Data musi miec format: RRRR-MM-DD</div>
-                        </div>-->
+                    <div ng-message="required">To pole jest wymagane!</div>
+                    <div ng-message="upsertFileDescription.validUntilDate.$error.pattern">Data musi miec format: RRRR-MM-DD</div>
+                </div>-->
                     </md-input-container>
                 </div>
             </div>
