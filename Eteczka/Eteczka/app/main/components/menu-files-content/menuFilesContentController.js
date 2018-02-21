@@ -260,11 +260,13 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
 
     $scope.$watch('user', function (user) {
         if (user) {
+            $scope.userFiles = [];
             filesViewService.getFilesForUser(user).then(function (result) {
                 $scope.userFiles = result.pliki;
                 $scope.selectedFile = null;
             });
         } else {
+            $scope.userFiles = [];
             $scope.selectedFile = null;
         }
     });
