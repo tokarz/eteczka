@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('et.controllers').controller('menuFilesContentController', ['$rootScope', '$scope', 'filesViewService', 'shopCartService', 'modalService', function ($rootScope, $scope, filesViewService, shopCartService, modalService) {
+angular.module('et.controllers').controller('menuFilesContentController', ['$rootScope', '$scope', '$state', 'filesViewService', 'shopCartService', 'modalService', function ($rootScope, $scope, $state, filesViewService, shopCartService, modalService) {
     $scope.selectedFile = null;
     $scope.emptyTableMessage = 'Nie zaznaczono elementu do wyswietlenia';
     $scope.userFiles = [];
@@ -154,14 +154,22 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
 
     }
 
-    $scope.editFileDescriptionCtrl = function ($scope, $mdDialog, modalService, description, fileTypes, employees, name) {
-        if (description) {
-            $scope.modalResult = description;
-        }
-
+    $scope.editFileDescriptionCtrl = function ($scope, $mdDialog, modalService, description, fileTypes, employees, name, user) {
+        $scope.modalResult = Object.assign(
+            {},
+            description,
+            {
+                Pracownik: user,
+                Typ: { Symbol: description.Symbol, Nazwa: description.OpisRodzajuDokumentu, Teczkadzial: description.TeczkaDzial },
+                DataWytworzenia: new Date(description.DataDokumentuStr),
+                DataPocz: new Date(description.DataPoczStr),
+                DataKoniec: (typeof description.DataKoniecStr !== 'undefined') ? new Date(description.DataKoniecStr) : undefined,
+                Dokwlasny: description.DokumentWlasny
+            }
+        );
+        console.log('$scope.modalResult', $scope.modalResult)
         $scope.yesNoOptions = [{ name: 'TAK', value: true }, { name: 'NIE', value: false }]
         $scope.docPartOptions = ['A', 'B', 'C']
-        $scope.modalResult.Dokwlasny = $scope.modalResult.Dokwlasny || $scope.yesNoOptions[0].value;
         $scope.modalResult.Nazwa = name;
 
         $scope.pracownikPesel = '';
@@ -228,6 +236,9 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
     }
 
     $scope.triggerEditFileDescriptionDialog = function () {
+        if ($scope.selectedFile === null || $scope.selectedUser === null) {
+            return
+        }
         var modalOptions = {
             body: 'app/views/files/addFile/fileDescriptionPopup/upsertFileDescription.html',
             controller: $scope.editFileDescriptionCtrl,
@@ -236,7 +247,8 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
                 fileTypes: $scope.fileTypes,
                 employees: $scope.employees,
                 activeEmployee: $rootScope.activeUser,
-                name: $scope.selectedFile ? $scope.selectedFile.Nazwa : ''
+                name: $scope.selectedFile ? $scope.selectedFile.Nazwa : '',
+                user: $scope.selectedUser
             }
         };
 
@@ -246,10 +258,10 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
                 $scope.createdMetaData = value;
                 $rootScope.activeUser = value.Pracownik ? value.Pracownik : {};
                 modalService.confirm('Zapisać zmiany?', 'Czy chcesz zapisać zmiany w opisie pliku ?').then(function () {
-                    filesViewService.editCommittedFile().then(function (res) {
-                        if (res.success) {
+                    filesViewService.editCommittedFile(value).then(function (res) {
+                        if (res.sucess) {
                             modalService.alert('Zatwierdzanie zmian w pliku', 'Plik zostal zmieniony');
-                            // $state.reload(); - przeladowac stan kiedy edytujemy?
+                            $state.reload();
                         } else {
                             modalService.alert('Zatwierdzanie zmian w pliku', 'Blad! Plik nie zostal zmieniony! Zweryfikuj dane i prawa dostepu lub skontaktuj sie z Administratorem');
                         }
@@ -267,6 +279,7 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
             });
         } else {
             $scope.userFiles = [];
+            $scope.selectedUser = null
             $scope.selectedFile = null;
         }
     });

@@ -124,10 +124,11 @@ namespace Eteczka.DB.DAO
                         idoper.Trim(),
                         idakcept.Trim(),
                         plik.Pracownik.Numeread.Trim(),
-                        id.Trim()
+                        id.Trim(),
+                        plik.Typ.Teczkadzial.Trim()
                         };
 
-                    string updateQuery = string.Format("UPDATE \"Pliki\" SET " + "symbol='{0}', dokwlasny='{1}', datadokumentu='{2}', datapocz='{3}', datakoniec='{4}', opisdodatkowy='{5}', nrdokumentu='{6}', datamodify='{7}', dataakcept='{8}', idoper='{9}', idakcept='{10}' WHERE id = '{12}'", obs);
+                    string updateQuery = string.Format("UPDATE \"Pliki\" SET " + "symbol='{0}', dokwlasny='{1}', datadokumentu='{2}', datapocz='{3}', datakoniec='{4}', opisdodatkowy='{5}', nrdokumentu='{6}', datamodify='{7}', dataakcept='{8}', idoper='{9}', idakcept='{10}', numeread='{11}', teczkadzial='{13}' WHERE id = '{12}'", obs);
 
                     IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
                     result = connectionState.ExecuteNonQuery(updateQuery);
