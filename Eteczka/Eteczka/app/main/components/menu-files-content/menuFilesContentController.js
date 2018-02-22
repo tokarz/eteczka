@@ -271,6 +271,7 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
     }
 
     $scope.$watch('user', function (user) {
+        $scope.selectedUser = user;
         if (user) {
             $scope.userFiles = [];
             filesViewService.getFilesForUser(user).then(function (result) {
@@ -279,7 +280,6 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
             });
         } else {
             $scope.userFiles = [];
-            $scope.selectedUser = null
             $scope.selectedFile = null;
         }
     });

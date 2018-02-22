@@ -131,6 +131,7 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
                                     } else {
                                         modalService.alert('Blad w dodawaniu typu dokumentu', 'Blad! Typ dokumentu nie zostal dodany! Zweryfikuj dane i prawa dostepu lub skontaktuj sie z Administratorem');
                                     }
+                                    $state.reload();
                                 })
                                     .catch(function (ex) {
                                         if (ex !== 'cancel' && ex !== 'backdrop click') {
