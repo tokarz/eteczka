@@ -63,7 +63,7 @@ namespace Eteczka.BE.Services
 
                 // Podsumowanie teczki
                 paragraph = sec.AddParagraph("Pracownik: " + pracownik.Imie + " " + pracownik.Nazwisko + ", data urodzenia: " + pracownik.DataUrodzenia + " r.");
-                paragraph = sec.AddParagraph("Miejsce pracy: " + sesja.AktywnaFirma);
+                paragraph = sec.AddParagraph("Miejsce pracy: " + sesja.AktywnaFirma.Firma);
                 paragraph = sec.AddParagraph("Data wygenerowania raportu: " + DateTime.Now.ToString("dd-MM-yyyy") + "r.");
                 paragraph = sec.AddParagraph();
                 paragraph = sec.AddParagraph();
@@ -206,7 +206,7 @@ namespace Eteczka.BE.Services
 
             // Podsumowanie teczki
             paragraph = sec.AddParagraph("Pracownik: " + pracownik.Imie + " " + pracownik.Nazwisko + ", data urodzenia: " + pracownik.DataUrodzenia + " r.");
-            paragraph = sec.AddParagraph("Miejsce pracy: " + sesja.AktywnaFirma);
+            paragraph = sec.AddParagraph("Miejsce pracy: " + sesja.AktywnaFirma.Firma);
             paragraph = sec.AddParagraph("Data wygenerowania raportu: " + DateTime.Now.ToString("dd-MM-yyyy") + "r.");
             paragraph = sec.AddParagraph();
             paragraph = sec.AddParagraph();

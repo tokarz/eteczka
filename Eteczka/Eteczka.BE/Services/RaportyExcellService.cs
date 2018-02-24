@@ -84,7 +84,7 @@ namespace Eteczka.BE.Services
 
                     rzad = arkusz.CreateRow(3);
                     komorka = rzad.CreateCell(0);
-                    komorka.SetCellValue("Miejsce pracy: " + sesja.AktywnaFirma);
+                    komorka.SetCellValue("Miejsce pracy: " + sesja.AktywnaFirma.Firma);
                     arkusz.AddMergedRegion(new CellRangeAddress(3, 3, 0, 5));
 
                     rzad = arkusz.CreateRow(4);
