@@ -186,7 +186,7 @@ namespace Eteczka.DB.DAO
             return result;
         }
 
-        public List<Pliki> PobierzPlikPoNumerzeEad(string numeread, string firma, string sortOrder, string sortColumn)
+        public List<Pliki> PobierzPlikPoNumerzeEad(string numeread, string firma)
         {
             //string sqlQuery = "SELECT * from \"Pliki\" WHERE numeread = '" + numeread + "';";
             if (numeread == null)
@@ -207,7 +207,7 @@ namespace Eteczka.DB.DAO
                   + " ON \"Pliki\".numeread = \"KatPracownicy\".numeread "
                   + "WHERE \"Pliki\".firma = '" + firma.Trim() + "' "
                   + "AND \"KatPracownicy\".numeread = '" + numeread + "' "
-                  + "ORDER BY " + sortColumn + " " + sortOrder + ";";
+                  + "ORDER BY \"Pliki\".numeread,\"Pliki\".teczkadzial,SUBSTRING(nrdokumentu FROM '([0-9]+)')::int, nrdokumentu;";
 
             //sqlQuery += " order by " + sortColumn + " " + sortOrder + ";";
 

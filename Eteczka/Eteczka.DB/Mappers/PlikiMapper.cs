@@ -44,7 +44,7 @@ namespace Eteczka.DB.Mappers
                     //DataUrodzenia = DateTime.Parse(row["dataurodzenia"].ToString()),
                     SymbolEad = row["symbolead"].ToString(),
                     TeczkaDzial = row["teczkadzial"].ToString(),
-                    NrDokumentu = int.Parse(row["nrdokumentu"].ToString()),
+                    NrDokumentu = row["nrdokumentu"].ToString(),
                     DataDodania = DateTime.Parse(row["datadodania"].ToString())
 
                 };

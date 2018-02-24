@@ -31,7 +31,7 @@ namespace Eteczka.BE.Services
         {
             bool result = false;
 
-            List<Pliki> Dokumenty = _PlikiDAO.PobierzPlikPoNumerzeEad(numeread, sesja.AktywnaFirma.Firma, "nrdokumentu asc", "\"Pliki\".teczkadzial asc, ");
+            List<Pliki> Dokumenty = _PlikiDAO.PobierzPlikPoNumerzeEad(numeread, sesja.AktywnaFirma.Firma);
             Pracownik pracownik = _PracownikDAO.PobierzPracownikaPoId(numeread);
             
             
@@ -170,7 +170,7 @@ namespace Eteczka.BE.Services
         {
             bool result = false;
 
-            List<Pliki> Dokumenty = _PlikiDAO.PobierzPlikPoNumerzeEad(numeread, sesja.AktywnaFirma.Firma, "nrdokumentu asc", "\"Pliki\".teczkadzial asc, ");
+            List<Pliki> Dokumenty = _PlikiDAO.PobierzPlikPoNumerzeEad(numeread, sesja.AktywnaFirma.Firma);
             Pracownik pracownik = _PracownikDAO.PobierzPracownikaPoId(numeread);
 
             //dodać null checka!

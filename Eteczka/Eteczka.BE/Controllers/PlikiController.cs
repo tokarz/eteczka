@@ -7,6 +7,7 @@ using Eteczka.BE.Model;
 using System.Configuration;
 using System.IO;
 using System;
+using System.Linq;
 
 namespace Eteczka.BE.Controllers
 {
@@ -283,6 +284,66 @@ namespace Eteczka.BE.Controllers
                 {
                     liczbaPlikow = liczbaPlikow,
                     sucess = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            return result;
+        }
+
+        public ActionResult PobierzFolderyZWaitingroom(string sessionId)
+        {
+            ActionResult result = null;
+            List<string> sciezkiDoFolderow = new List<string>();
+
+            try
+            {
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    string eadRoot = ConfigurationManager.AppSettings["rootdir"];
+                    string sciezkaDoWaitingroom = eadRoot + "\\waitingroom";
+                    sciezkiDoFolderow = Directory.GetDirectories(sciezkaDoWaitingroom).ToList<string>();
+                }
+                result = Json(new
+                {
+                    sciezkiDoFolderow = sciezkiDoFolderow,
+                    sucess = sciezkiDoFolderow != null && sciezkiDoFolderow.Count() > 0 ? true : false
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            return result;
+            
+        }
+
+        public ActionResult UstawWaitingroomDlaUsera(string sessionId, string folder)
+        {
+            ActionResult result = null;
+            SessionDetails sesja = null;
+            try
+            {
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    sesja.UserWaitingroom = folder;
+                }
+                result = Json(new
+                {
+                    sesja = sesja,
+                    sucess = sesja != null
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

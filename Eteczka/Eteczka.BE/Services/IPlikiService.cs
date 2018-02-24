@@ -8,7 +8,7 @@ namespace Eteczka.BE.Services
     public interface IPlikiService
     {
         List<Pliki> PobierzWszystkie(string sortOrder = "asc", string sortColumn = "datapocz");
-        List<Pliki> PobierzDlaUzytkownika(string numeread, string firma, string sortOdred = "nrdokumentu asc", string sortColumn = "\"Pliki\".teczkadzial asc,");
+        List<Pliki> PobierzDlaUzytkownika(string numeread, string firma);
         List<Pliki> PobierzZawierajaceTekst(string searchText, string sortOrder = "asc", string sortColumn = "datapocz");
         List<Pliki> PobierzPlikiDlaFirmy(string firma, string sortOrder = "asc", string sortColumn = "datapocz");
         MetaDanePliku PobierzMetadane(string plik);

@@ -14,5 +14,6 @@ namespace Eteczka.BE.Model
         public KatLoginyFirmy AktywnaFirma { get; set; }
         public List<KatLoginyFirmy> WszystkieFirmy { get; set; }
         public bool IsAdmin {get; set;}
+        public string UserWaitingroom { get; set; }
     }
 }

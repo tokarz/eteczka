@@ -79,7 +79,7 @@ namespace Eteczka.Model.Entities
         public string Systembazowy { get; set; }//EAD
         public bool Usuniety { get; set; }
         public string TeczkaDzial { get; set; }
-        public int NrDokumentu { get; set; }
+        public string NrDokumentu { get; set; }
        
     }
 }
