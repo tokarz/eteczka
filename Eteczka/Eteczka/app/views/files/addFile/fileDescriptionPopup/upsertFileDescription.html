@@ -61,14 +61,7 @@
             </div>
             <div class="modal-table-row">
                 <label class="modal-table-label" for="docNr">Numer dokumentu *</label>
-                <input class="modal-table-input" name="docNr" type="text"
-                       ng-model="modalResult.NrDokumentu"
-                       ng-pattern="/^\d+$/"
-                       ng-model-options="{updateOn: 'blur'}"
-                       required />
-            </div>
-            <div ng-show="upsertFileDescription.$submitted || upsertFileDescription.docNr.$touched">
-                <span class="modal-table-error" ng-show="upsertFileDescription.docNr.$error.pattern">W polu "Numer dokumentu" moga znajdowac sie tylko cyfry</span>
+                <input class="modal-table-input" name="docNr" type="text" ng-model="modalResult.NrDokumentu" required />
             </div>
             <div class="modal-table-row">
                 <label class="modal-table-label" for="isDocOwner">Dokument Wlasny</label>
