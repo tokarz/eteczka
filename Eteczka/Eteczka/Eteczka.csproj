@@ -240,6 +240,7 @@
     <Content Include="app\main\utils\draggableDirective.js" />
     <Content Include="app\main\utils\table\eadTableDirective.js" />
     <Content Include="app\views\employeesfiles\editEmployeeFileModal.html" />
+    <Content Include="app\views\files\addFile\fileDescriptionPopup\getUserFolderModal.html" />
     <Content Include="app\views\home\homeView.html" />
     <Content Include="app\views\home\homeViewController.js" />
     <Content Include="app\views\home\homeViewDirective.js" />

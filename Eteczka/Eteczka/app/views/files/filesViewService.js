@@ -52,6 +52,17 @@ angular.module('et.services').factory('filesViewService', ['httpService', 'sessi
                 sessionId: sessionService.getSessionId(),
                 numeread: user.Numeread
             });
+        },
+        getFoldersList: function () {
+            return httpService.get('Pliki/PobierzFolderyZWaitingroom', {
+                sessionId: sessionService.getSessionId()
+            });
+        },
+        setUsersFolder: function (folderName) {
+            return httpService.get('Pliki/UstawWaitingroomDlaUsera', {
+                sessionId: sessionService.getSessionId(),
+                folder: folderName
+            });
         }
     }
 }]);

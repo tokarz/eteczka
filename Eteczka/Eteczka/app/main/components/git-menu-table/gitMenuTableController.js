@@ -6,6 +6,7 @@ angular.module('et.controllers').controller('gitMenuTableController', ['$rootSco
     $scope.filetopreview = null;
     $scope.fileDescription = {};
     $scope.activeUser = {};
+    $scope.availableUsersFolders = [];
 
     $scope.$watch('company', function (value) {
         if (value) {
@@ -133,9 +134,15 @@ angular.module('et.controllers').controller('gitMenuTableController', ['$rootSco
             $scope.employees = employees.Data.data
         })
     }
+    $scope.loadFoldersList = function () {
+        filesViewService.getFoldersList().then(function (result) {
+            $scope.availableUsersFolders = result.sciezkiDoFolderow
+        })
+    };
 
+    $scope.loadFoldersList();
     $scope.loadFileTypes();
-    $scope.loadEmployees()
+    $scope.loadEmployees();
 
     companiesService.getActiveCompany().then(function (result) {
         $scope.parameters.company = result.firma;
@@ -220,6 +227,31 @@ angular.module('et.controllers').controller('gitMenuTableController', ['$rootSco
         }
     }
 
+    $scope.getUserFolderCtrl = function ($scope, $mdDialog, folderList) {
+        $scope.modalResult = {}
+        $scope.folderList = folderList;
+        $scope.modalResult.chosenFolder = null
+
+        $scope.setFolder = function (folder) {
+            $scope.modalResult.chosenFolder = folder
+        };
+
+        $scope.hide = function () {
+            $mdDialog.hide();
+        };
+
+        $scope.cancel = function () {
+            $mdDialog.cancel();
+        };
+
+        $scope.answer = function (answer, errors) {
+            console.log(errors)
+            if (!errors || Object.keys(errors).length === 0) {
+                $mdDialog.hide(answer);
+            }
+        };
+    }
+
     $scope.commitFile = function () {
         if ($scope.createdMetaData !== null) {
             filesViewService.commitFile($scope.createdMetaData).then(function (res) {
@@ -274,6 +306,33 @@ angular.module('et.controllers').controller('gitMenuTableController', ['$rootSco
                 modalService.confirm('Zapisać plik?', 'Czy chcesz zapisać plik użytkownikowi ?').then(function () {
                     $scope.commitFile();
                 });
+            }
+        );
+    }
+
+    $scope.triggerGetUserFolderModal = function () {
+        var modalOptions = {
+            body: 'app/views/files/addFile/fileDescriptionPopup/getUserFolderModal.html',
+            controller: $scope.getUserFolderCtrl,
+            locals: {
+                folderList: $scope.availableUsersFolders
+            }
+        };
+
+        openModal(
+            modalOptions,
+            function (value) {
+                if (value) {
+                    filesViewService.setUsersFolder(value).then(function (result) {
+                        if (result.sucess) {
+                            modalService.alert('', 'Ustawiono wybrany folder');
+                        } else {
+                            modalService.alert('', 'Błąd przy ustawianiu folderu');
+                        }
+                    })
+                } else {
+                    modalService.alert('', 'Nie wybrano żadnego folderu');
+                }
             }
         );
     }

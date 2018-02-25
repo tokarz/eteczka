@@ -1,0 +1,33 @@
+﻿<md-dialog aria-label="Opis dokumentu" draggable class="open-to-left">
+    <form ng-cloak name="getUserFolder" novalidate>
+        <md-toolbar>
+            <div class="modal-header md-toolbar-tools">
+                <h2>Wybieranie folderu uzytkownika</h2>
+                <span flex></span>
+                <!--<md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+                </md-button>-->
+            </div>
+        </md-toolbar>
+        <md-dialog-content style="padding:15px">
+            <div>
+                <h3 style="margin:auto;text-align:center">Lista dostepnych folderow</h3>
+                <table class="striped-table" style="width:100%;text-align:center">
+                    <tr ng-repeat="folder in availableUsersFolders">
+                        <th>{{folder}}</th>
+                        <th><button ng-click="setFolder(folder)">Wybierz</button></th>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <span ng-show="chosenFolder">Wybrany folder: {{modalResult.chosenFolder}}</span>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" ng-click="cancel()">Anuluj</button>
+                <button type="submit" class="btn btn-primary" ng-click="answer(modalResult, getUserFolder.$error)">Zatwierdz</button>
+            </div>
+        </md-dialog-actions>
+    </form>
+</md-dialog>
