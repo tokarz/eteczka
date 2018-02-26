@@ -3,7 +3,7 @@ angular.module('et.controllers').controller('shopCartController', ['$scope', '$s
     $scope.rows = [];
     $scope.emptyBasketMsg = 'Koszyk jest pusty!';
     $scope.printSelectedOptions = function () {
-        alert('print');
+        
     }
 
     var openModal = function (modalOptions, executor) {
@@ -129,10 +129,10 @@ angular.module('et.controllers').controller('shopCartController', ['$scope', '$s
     //}
 
     $scope.toolbar = [
-        {
-            action: $scope.printSelectedOptions,
-            itemClass: 'toolbar-option option-one fa fa-print',
-        },
+        //{
+        //    action: $scope.printSelectedOptions,
+        //    itemClass: 'toolbar-option option-one fa fa-print',
+        //},
         {
             action: $scope.openSendEmailDialog,
             itemClass: 'toolbar-option option-two fa fa-envelope-open-o',

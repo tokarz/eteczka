@@ -28,7 +28,7 @@ namespace Eteczka.BE.Services
 
         public bool ZmienHaslaPlikow(string stareHaslo, string noweHaslo)
         {
-            
+
             List<string> plikiDoZmianyHasla = new List<string>();
             List<string> firmyZPlikami = new List<string>();
             List<Pliki> pobrane = _Dao.PobierzWszystkiePliki("asc", "datapocz");
@@ -41,13 +41,13 @@ namespace Eteczka.BE.Services
 
             foreach (Pliki plik in pobrane)
             {
-                if(!firmyZPlikami.Contains(plik.Firma))
+                if (!firmyZPlikami.Contains(plik.Firma))
                 {
                     firmyZPlikami.Add(plik.Firma);
                 }
             }
 
-            foreach(string firma in firmyZPlikami)
+            foreach (string firma in firmyZPlikami)
             {
                 string sciezkaFolderu = Path.Combine(EAD_ROOT, filesFolder, firma);
                 List<string> plikiFirmy = Directory.GetFiles(sciezkaFolderu, "*.pdf").ToList();
@@ -79,14 +79,14 @@ namespace Eteczka.BE.Services
             return result;
         }
 
-        public bool ZakomitujPlikDoBazy(KomitPliku plik, string firma, string idOper)
+        public bool ZakomitujPlikDoBazy(KomitPliku plik, string firma, string waitingRoom, string idOper)
         {
             bool result = false;
 
             string nazwaPliku = firma.Trim() + "_" + DateTime.Now.Millisecond + "_" + plik.Nazwa.Trim();
-
+            
             string eadRoot = ConfigurationManager.AppSettings["rootdir"];
-            string katalogZrodlowy = Path.Combine(eadRoot, "waitingroom", firma.Trim());
+            string katalogZrodlowy = Path.Combine(eadRoot, "waitingroom", firma.Trim(), waitingRoom);
             string plikZrodlowy = Path.Combine(katalogZrodlowy, plik.Nazwa.Trim());
 
             string katalogDocelowy = Path.Combine(eadRoot, "pliki", firma.Trim());
@@ -120,29 +120,32 @@ namespace Eteczka.BE.Services
             return result;
         }
 
-        public List<Pliki> PobierzPlikiDlaFirmy(string firma, string sortOrder = "asc", string sortColumn = "datapocz")
+        public List<Pliki> PobierzPlikiDlaFirmy(string firma, string folder, string sortOrder = "asc", string sortColumn = "datapocz")
         {
             List<Pliki> result = new List<Pliki>();
             string eadRoot = ConfigurationManager.AppSettings["rootdir"];
-            string sciezkaDoWaitingRoomu = Path.Combine(eadRoot, "waitingroom", firma);
-
-            if (Directory.Exists(sciezkaDoWaitingRoomu))
+            if (folder != null)
             {
-                string[] plikiDlaFirmy = Directory.GetFiles(sciezkaDoWaitingRoomu);
-                foreach (string plikDlaFirmy in plikiDlaFirmy)
+                string sciezkaDoWaitingRoomu = Path.Combine(eadRoot, "waitingroom", firma, folder);
+
+                if (Directory.Exists(sciezkaDoWaitingRoomu))
                 {
-
-                    Pliki plik = new Pliki()
+                    string[] plikiDlaFirmy = Directory.GetFiles(sciezkaDoWaitingRoomu);
+                    foreach (string plikDlaFirmy in plikiDlaFirmy)
                     {
-                        NazwaScan = _PlikiUtils.WezNazwePlikuZeSciezki(plikDlaFirmy),
-                        NazwaEad = _PlikiUtils.WezNazwePlikuZeSciezki(plikDlaFirmy),
-                        DataDokumentu = File.GetCreationTime(plikDlaFirmy),
-                        PelnasciezkaEad = plikDlaFirmy
-                    };
 
-                    result.Add(plik);
+                        Pliki plik = new Pliki()
+                        {
+                            NazwaScan = _PlikiUtils.WezNazwePlikuZeSciezki(plikDlaFirmy),
+                            NazwaEad = _PlikiUtils.WezNazwePlikuZeSciezki(plikDlaFirmy),
+                            DataDokumentu = File.GetCreationTime(plikDlaFirmy),
+                            PelnasciezkaEad = plikDlaFirmy
+                        };
+
+                        result.Add(plik);
+                    }
+
                 }
-
             }
 
             return result;

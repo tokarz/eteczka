@@ -12,10 +12,9 @@ angular.module('et.services').factory('filesViewService', ['httpService', 'sessi
                 numeread: user.Numeread
             });
         },
-        getGitStateForCompany: function (firma) {
+        getGitStateForCompany: function () {
             return httpService.get('Pliki/PobierzGitStatusDlaFirmy', {
-                sessionId: sessionService.getSessionId(),
-                firma: firma
+                sessionId: sessionService.getSessionId()
             });
         },
         getFileTypes: function () {
@@ -39,7 +38,7 @@ angular.module('et.services').factory('filesViewService', ['httpService', 'sessi
                 sessionId: sessionService.getSessionId(),
                 idPliku: plik.Id,
                 plik: plik
-            }); 
+            });
         },
         deleteFiles: function (files) {
             return httpService.post('Pliki/UsunPliki', {
@@ -62,6 +61,11 @@ angular.module('et.services').factory('filesViewService', ['httpService', 'sessi
             return httpService.get('Pliki/UstawWaitingroomDlaUsera', {
                 sessionId: sessionService.getSessionId(),
                 folder: folderName
+            });
+        },
+        hasUserChoseFolder: function () {
+            return httpService.get('Pliki/CzyUserWybralFolder', {
+                sessionId: sessionService.getSessionId()
             });
         }
     }

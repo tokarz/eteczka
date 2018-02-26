@@ -7,28 +7,51 @@ angular.module('et.controllers').controller('gitMenuTableController', ['$rootSco
     $scope.fileDescription = {};
     $scope.activeUser = {};
     $scope.availableUsersFolders = [];
+    $scope.userChoseFolder = false;
+    $scope.chosenFolder = '';
 
     $scope.$watch('company', function (value) {
-        if (value) {
-            $scope.loading = true;
-            filesViewService.getGitStateForCompany(value).then(function (result) {
-                $scope.newrows = result.newfiles;
-                $scope.stagedrows = [];
-
-                $scope.stagedRowsFromCache = cacheService.getValue('stagedFiles');
-
-                if ($scope.stagedRowsFromCache) {
-                    $scope.stagedrows = $scope.stagedRowsFromCache;
-
-                    $scope.newrows = _.differenceWith($scope.newrows, $scope.stagedrows, function (first, second) {
-                        return first.NazwaEad === second.NazwaEad;
-                    });
-                }
-
-                $scope.loading = false;
-            });
-        }
+        filesViewService.hasUserChoseFolder().then(function (res) {
+            if (res && res.success) {
+                $scope.userChoseFolder = true;
+                $scope.chosenFolder = res.folder;
+                $scope.getFilesForPath();
+            }
+        });
     });
+
+    $scope.getFilesForPath = function () {
+        $scope.loading = true;
+        filesViewService.getGitStateForCompany().then(function (result) {
+            $scope.newrows = result.pliki;
+            $scope.stagedrows = [];
+
+            $scope.stagedRowsFromCache = cacheService.getValue('stagedFiles');
+
+            if ($scope.stagedRowsFromCache) {
+                $scope.stagedrows = $scope.stagedRowsFromCache;
+
+                $scope.newrows = _.differenceWith($scope.newrows, $scope.stagedrows, function (first, second) {
+                    return first.NazwaEad === second.NazwaEad;
+                });
+            }
+
+            $scope.loading = false;
+        });
+
+    }
+
+    $('#stageFile').onchange = function () {
+        var pliki = $('#stageFile')[0].files;
+
+        addFileService.dodajPlikDoPoczekalni(pliki).then(function (success) {
+            if (success) {
+                modalService.alert('Dodanie pliku do poczekalni', 'Plik(i) dodano!');
+            } else {
+                modalService.alert('Dodanie pliku do poczekalni', 'Błąd dodawania pliku(ów)!');
+            }
+        });
+    };
 
     $('#stageFile').on('change', function () {
         var pliki = $('#stageFile')[0].files;
@@ -323,9 +346,18 @@ angular.module('et.controllers').controller('gitMenuTableController', ['$rootSco
             modalOptions,
             function (value) {
                 if (value) {
-                    filesViewService.setUsersFolder(value).then(function (result) {
+                    filesViewService.setUsersFolder(value.chosenFolder).then(function (result) {
                         if (result.sucess) {
                             modalService.alert('', 'Ustawiono wybrany folder');
+
+                            $scope.userChoseFolder = false;
+                            filesViewService.hasUserChoseFolder().then(function (res) {
+                                if (res && res.success) {
+                                    $scope.userChoseFolder = true;
+                                    $scope.getFilesForPath();
+                                    $scope.chosenFolder = res.folder;
+                                }
+                            });
                         } else {
                             modalService.alert('', 'Błąd przy ustawianiu folderu');
                         }

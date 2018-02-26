@@ -1,16 +1,24 @@
 ﻿<div class="menu-table-wrapper">
     <div class="toolbar-panel git-panel">
-        <span style="display:inline-block;margin-top: 5px">
+        <span style="display:inline-block;margin-top: 5px;width:100%" ng-if="userChoseFolder">
             <span class="git-icon" style="text-align:center;cursor:pointer" ng-click="showFileDialog()">
                 <span class="fa fa-plus-square" style="margin-right:5px"></span>
                 <span>Dodaj Pliki</span>
-                <input type="file" id="stageFile" style="visibility:hidden" multiple />
             </span>
+            <span class="git-icon" style="text-align:center;cursor:pointer;float:right" ng-click="triggerGetUserFolderModal()">
+                {{chosenFolder}}<i class="fa fa-folder" aria-hidden="true" style="margin-right:2px;font-weight:bold;color:#074C75;margin-left: 5px"></i>
+            </span>
+            <input type="file" id="stageFile" style="display:none;width:1px" />
         </span>
     </div>
     <div class="toolbar-content" style="height: 37vh;width:100%;margin:auto">
         <table style="width:100%;text-align:center">
-            <tbody>
+            <tbody ng-if="!userChoseFolder">
+                <tr style="height:100%">
+                    <td class="choose-folder-col" ng-click="triggerGetUserFolderModal()"><i class="fa fa-folder" aria-hidden="true" style="margin-right:2px;font-weight:bold;color:darkred"></i>Dodaj/Zmień folder</td>
+                </tr>
+            </tbody>
+            <tbody ng-if="userChoseFolder">
                 <tr ng-if="loading" style="text-align:center">
                     <td style="display:block;width:90%;margin:auto">
                         <processing></processing>

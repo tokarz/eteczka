@@ -53,12 +53,13 @@ namespace Eteczka.BE.Controllers
         public ActionResult GetResource(string sessionId, string fileName)
         {
             string base64PDF = "";
-            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            StanSesji stanSesji = Sesja.PobierzStanSesji();
+            if (stanSesji.CzySesjaJestOtwarta(sessionId))
             {
                 string firma = Sesja.PobierzStanSesji().PobierzSesje(sessionId).AktywnaFirma.Firma;
                 string eadRoot = ConfigurationManager.AppSettings["rootdir"];
-                string filepath = Path.Combine(eadRoot, "waitingroom", firma, fileName);
-
+                string userFolder = stanSesji.PobierzSesje(sessionId).UserWaitingroom;
+                string filepath = Path.Combine(eadRoot, "waitingroom", firma, userFolder, fileName);
                 base64PDF = _PlikiUtils.PobierzZaszyfrowanaZawartoscPliku(filepath, sessionId);
             }
 

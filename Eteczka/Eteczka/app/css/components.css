@@ -417,3 +417,23 @@ table.dataTable thead th,
 table.dataTable thead td {
   padding: 2px 4px; }
 
+.choose-folder-col {
+  position: relative;
+  height: 98%;
+  width: 98%;
+  display: block;
+  overflow: hidden; }
+
+.choose-folder-col i {
+  margin-right: 2px;
+  font-weight: bold;
+  font-size: 5em;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%); }
+
+.choose-folder-col i:hover {
+  color: darkred;
+  cursor: pointer; }
+

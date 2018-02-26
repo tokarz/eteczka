@@ -13,7 +13,7 @@
             <div>
                 <h3 style="margin:auto;text-align:center">Lista dostepnych folderow</h3>
                 <table class="striped-table" style="width:100%;text-align:center">
-                    <tr ng-repeat="folder in availableUsersFolders">
+                    <tr ng-repeat="folder in folderList">
                         <th>{{folder}}</th>
                         <th><button ng-click="setFolder(folder)">Wybierz</button></th>
                     </tr>

@@ -37,6 +37,36 @@ namespace Eteczka.BE.Utils
         //Przydatne podpowiedzi:
         //Metody : string.split, string lastIndexOf
         //Testy sa juz napisane i swieca sie na czerwono!:)
+
+        public string WezNazweFolderuZeSciezki(string sciezka)
+        {
+            int lastSlash = sciezka.LastIndexOf("/");
+            if (lastSlash == -1)
+            {
+                lastSlash = sciezka.LastIndexOf("\\");
+            }
+
+            int ostatniSlash = (lastSlash + 1);
+
+
+            string nazwaFolderu = (sciezka.Substring(ostatniSlash));
+
+
+            return nazwaFolderu;
+        }
+
+        public List<string> WezNazweFolderowZeSciezek(List<string> sciezki)
+        {
+            List<string> znalezioneNazwyFolderow = new List<string>();
+
+            foreach (string sciezka in sciezki)
+            {
+                znalezioneNazwyFolderow.Add(this.WezNazweFolderuZeSciezki(sciezka));
+            }
+
+            return znalezioneNazwyFolderow;
+        }
+
         public string WezNazwePlikuZeSciezki(string sciezka)
         {
             int lastSlash = sciezka.LastIndexOf("/");
@@ -429,7 +459,7 @@ namespace Eteczka.BE.Utils
         {
             bool result = false;
 
-            foreach(string file in files)
+            foreach (string file in files)
             {
                 try
                 {
@@ -479,7 +509,7 @@ namespace Eteczka.BE.Utils
 
                 // Setting one of the passwords automatically sets the security level to 
                 // PdfDocumentSecurityLevel.Encrypted128Bit.
-                                                 
+
                 securitySettings.UserPassword = "#Blk8dr#Blk8dr#";
                 securitySettings.OwnerPassword = "#Blk8dr#Blk8dr#";
 
