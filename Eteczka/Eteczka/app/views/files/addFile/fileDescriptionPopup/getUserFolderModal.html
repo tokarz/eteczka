@@ -12,6 +12,7 @@
         <md-dialog-content style="padding:15px">
             <div>
                 <h3 style="margin:auto;text-align:center">Lista dostepnych folderow</h3>
+                <br />
                 <table class="striped-table" style="width:100%;text-align:center">
                     <tr ng-repeat="folder in folderList">
                         <th>{{folder}}</th>
@@ -20,7 +21,8 @@
                 </table>
             </div>
             <div>
-                <span ng-show="chosenFolder">Wybrany folder: {{modalResult.chosenFolder}}</span>
+                <br />
+                <span ng-show="modalResult.chosenFolder">Wybrany folder: {{modalResult.chosenFolder}}</span>
             </div>
         </md-dialog-content>
         <md-dialog-actions layout="row">

@@ -126,10 +126,10 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
                         modalService.showModal(modalOptions)
                             .then(function (result) {
                                 headerService.addFileType(result).then(function (res) {
-                                    if (res.success) {
-                                        modalService.alert('Typ dokumentu zostal poprawnie dodany');
+                                    if (res.success.Result === true) {
+                                        modalService.alert('Dodano', res.success.Message ? res.success.Message : 'Typ dokumentu zostal poprawnie dodany');
                                     } else {
-                                        modalService.alert('Blad w dodawaniu typu dokumentu', 'Blad! Typ dokumentu nie zostal dodany! Zweryfikuj dane i prawa dostepu lub skontaktuj sie z Administratorem');
+                                        modalService.alert('Blad w dodawaniu typu dokumentu', res.success.Message ? res.success.Message : 'Blad! Typ dokumentu nie zostal dodany! Zweryfikuj dane i prawa dostepu lub skontaktuj sie z Administratorem');
                                     }
                                     $state.reload();
                                 })
