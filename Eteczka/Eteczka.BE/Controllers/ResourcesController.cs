@@ -58,7 +58,7 @@ namespace Eteczka.BE.Controllers
             {
                 string firma = Sesja.PobierzStanSesji().PobierzSesje(sessionId).AktywnaFirma.Firma;
                 string eadRoot = ConfigurationManager.AppSettings["rootdir"];
-                string userFolder = stanSesji.PobierzSesje(sessionId).UserWaitingroom;
+                string userFolder = _PlikiUtils.StworzSciezkeZListy(stanSesji.PobierzSesje(sessionId).AktywnyFolder);
                 string filepath = Path.Combine(eadRoot, "waitingroom", firma, userFolder, fileName);
                 base64PDF = _PlikiUtils.PobierzZaszyfrowanaZawartoscPliku(filepath, sessionId);
             }

@@ -78,7 +78,7 @@ namespace Eteczka.BE.Controllers
                 StanSesji stanSesji = Sesja.PobierzStanSesji();
                 SessionDetails detalseSesji = stanSesji.PobierzSesje(sessionId);
                 string firma = detalseSesji.AktywnaFirma.Firma;
-                string folderUzytkownika = detalseSesji.UserWaitingroom;
+                string folderUzytkownika = _PlikiUtils.StworzSciezkeZListy(detalseSesji.AktywnyFolder);
                 string eadRoot = ConfigurationManager.AppSettings["rootdir"];
 
                 if (httpRequest.Files.Count > 0)
@@ -160,7 +160,7 @@ namespace Eteczka.BE.Controllers
             if (sesja.CzySesjaJestOtwarta(sessionId))
             {
                 SessionDetails detaleSesji = sesja.PobierzSesje(sessionId);
-                success = _PlikiService.ZakomitujPlikDoBazy(plik, detaleSesji.AktywnaFirma.Firma, detaleSesji.UserWaitingroom, detaleSesji.AktywnaFirma.Identyfikator);
+                success = _PlikiService.ZakomitujPlikDoBazy(plik, detaleSesji.AktywnaFirma.Firma, _PlikiUtils.StworzSciezkeZListy(detaleSesji.AktywnyFolder), detaleSesji.AktywnaFirma.Identyfikator);
             }
 
             return Json(new
@@ -174,12 +174,14 @@ namespace Eteczka.BE.Controllers
             bool success = false;
             string folder = "";
             StanSesji stanSesji = Sesja.PobierzStanSesji();
+            
 
             if (stanSesji.CzySesjaJestOtwarta(sessionId))
             {
                 SessionDetails detaleSesji = stanSesji.PobierzSesje(sessionId);
-                success = (detaleSesji.UserWaitingroom != null && detaleSesji.UserWaitingroom.Length > 0);
-                folder = detaleSesji.UserWaitingroom;
+                string aktywnyFolder = _PlikiUtils.StworzSciezkeZListy(detaleSesji.AktywnyFolder);
+                success = (detaleSesji.AktywnyFolder != null && aktywnyFolder.Length > 0);
+                folder = aktywnyFolder;
             }
 
             return Json(new
@@ -198,7 +200,7 @@ namespace Eteczka.BE.Controllers
             if (stanSesji.CzySesjaJestOtwarta(sessionId))
             {
                 SessionDetails detaleSesji = stanSesji.PobierzSesje(sessionId);
-                pliki = _PlikiService.PobierzPlikiDlaFirmy(detaleSesji.AktywnaFirma.Firma, detaleSesji.UserWaitingroom);
+                pliki = _PlikiService.PobierzPlikiDlaFirmy(detaleSesji.AktywnaFirma.Firma, _PlikiUtils.StworzSciezkeZListy(detaleSesji.AktywnyFolder));
             }
 
             return Json(new
@@ -326,10 +328,11 @@ namespace Eteczka.BE.Controllers
             return result;
         }
 
-        public ActionResult PobierzFolderyZWaitingroom(string sessionId)
+        public ActionResult PobierzStruktureZWaitingroom(string sessionId)
         {
             ActionResult result = null;
             List<string> sciezkiDoFolderow = new List<string>();
+            List<string> sciezkiDoPlikow = new List<string>();
 
             try
             {
@@ -338,21 +341,28 @@ namespace Eteczka.BE.Controllers
                     SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
                     string firma = sesja.AktywnaFirma.Firma;
                     string eadRoot = ConfigurationManager.AppSettings["rootdir"];
-                    string sciezkaDoWaitingroom = eadRoot + "\\waitingroom\\" + firma;
-                    sciezkiDoFolderow = Directory.GetDirectories(sciezkaDoWaitingroom).ToList<string>();
-                    sciezkiDoFolderow = _PlikiUtils.WezNazweFolderowZeSciezek(sciezkiDoFolderow);
+                    string sciezkaAktywnegoFolderu = eadRoot + "\\waitingroom\\" + firma.Trim() + "\\" + _PlikiUtils.StworzSciezkeZListy(sesja.AktywnyFolder);
+
+                    if(Directory.Exists(sciezkaAktywnegoFolderu))
+                    {
+                        sciezkiDoFolderow = Directory.GetDirectories(sciezkaAktywnegoFolderu).ToList<string>();
+                        sciezkiDoFolderow = _PlikiUtils.WezNazweFolderowZeSciezek(sciezkiDoFolderow);
+                        sciezkiDoPlikow = Directory.GetFiles(sciezkaAktywnegoFolderu).ToList<string>();
+                        sciezkiDoPlikow = _PlikiUtils.WezNazwePlikowZeSciezek(sciezkiDoPlikow);
+                    }
+  
                 }
                 result = Json(new
                 {
                     sciezkiDoFolderow,
-                    sucess = sciezkiDoFolderow != null && sciezkiDoFolderow.Count() > 0 ? true : false
+                    sciezkiDoPlikow,
+                    
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
                 result = Json(new
                 {
-                    sucess = false,
                     wyjatek = true
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -369,7 +379,15 @@ namespace Eteczka.BE.Controllers
                 if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
                 {
                     sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
-                    sesja.UserWaitingroom = folder;
+                    
+                    if (folder == ".." && sesja.AktywnyFolder.Count() > 0 )
+                    {
+                        sesja.AktywnyFolder.RemoveAt(sesja.AktywnyFolder.Count()-1);
+                    }
+                    else if (folder !="..")
+                    {
+                        sesja.AktywnyFolder.Add(folder);
+                    }  
                 }
                 result = Json(new
                 {

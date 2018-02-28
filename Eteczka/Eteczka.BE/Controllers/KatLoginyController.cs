@@ -302,6 +302,7 @@ namespace Eteczka.BE.Controllers
             KatLoginyDetale userdetails = new KatLoginyDetale();
             List<KatLoginyFirmy> userCompanies = new List<KatLoginyFirmy>();
             List<string> firms = new List<string>();
+            List<string> AktywnyFolder = new List<string>();
             SessionDetails sesja = null;
             ActionResult result = null;
             try
@@ -327,6 +328,7 @@ namespace Eteczka.BE.Controllers
                                 return detail.Firma;
                             }).ToList();
                             sesja.IsAdmin = false;
+                            sesja.AktywnyFolder = AktywnyFolder;
                         }
                     }
                 }

@@ -57,12 +57,16 @@ namespace Eteczka.BE.Utils
 
         public List<string> WezNazweFolderowZeSciezek(List<string> sciezki)
         {
-            List<string> znalezioneNazwyFolderow = new List<string>();
 
-            foreach (string sciezka in sciezki)
+            List<string> znalezioneNazwyFolderow = new List<string>();
+            if (sciezki!=null)
             {
-                znalezioneNazwyFolderow.Add(this.WezNazweFolderuZeSciezki(sciezka));
+                foreach (string sciezka in sciezki)
+                {
+                    znalezioneNazwyFolderow.Add(this.WezNazweFolderuZeSciezki(sciezka));
+                }
             }
+            
 
             return znalezioneNazwyFolderow;
         }
@@ -637,6 +641,23 @@ namespace Eteczka.BE.Utils
                 // logi
             }
             return result;
+        }
+        public string StworzSciezkeZListy(List<string>Lista)
+        {
+            
+            StringBuilder s = new StringBuilder();
+            string sciezka = "";
+            if (Lista!=null)
+            {
+                foreach (string l in Lista)
+                {
+                    s.Append("\\" + l);
+                    sciezka = s.ToString().Substring(1);
+                }
+            }
+            
+            
+            return sciezka;
         }
 
     }
