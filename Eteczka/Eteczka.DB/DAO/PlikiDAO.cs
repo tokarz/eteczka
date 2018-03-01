@@ -142,6 +142,36 @@ namespace Eteczka.DB.DAO
 
         }
 
+        public bool UsunDokumentZBazy(KomitPliku plik, string idoper, string idakcept, string id)
+        {
+            bool result = false;
+            try
+            {
+                if (plik != null)
+                {
+
+                    object[] obs = new object[]
+                    {
+                        DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture),
+                        DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture),
+                        idoper.Trim(),
+                        idakcept.Trim(),
+                        id.Trim()
+                    };
+
+                    string updateQuery = string.Format("UPDATE \"Pliki\" SET usuniety = 'TRUE', datamodify = '{0}', dataakcept = '{1}', idoper = '{2}', idakcept = '{3}' where id = '{4}'", obs);
+                    IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+                    result = connectionState.ExecuteNonQuery(updateQuery);
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                result = false;
+            }
+            return result;
+        }
+
         private string ParsujDate(DateTime data, string format = "yyyy-MM-dd")
         {
             string result = "";
@@ -206,6 +236,7 @@ namespace Eteczka.DB.DAO
                   + "LEFT OUTER JOIN \"KatPracownicy\" "
                   + " ON \"Pliki\".numeread = \"KatPracownicy\".numeread "
                   + "WHERE \"Pliki\".firma = '" + firma.Trim() + "' "
+                  + "AND \"Pliki\".usuniety = 'FALSE'"
                   + "AND \"KatPracownicy\".numeread = '" + numeread + "' "
                   + "ORDER BY \"Pliki\".numeread,\"Pliki\".teczkadzial,SUBSTRING(nrdokumentu FROM '([0-9]+)')::int, nrdokumentu;";
 
@@ -272,6 +303,7 @@ namespace Eteczka.DB.DAO
             + "WHERE "
             + "\"Pliki\".firma IN ('" + firma.Trim() + "') "
             + "AND \"Pliki\".symbolead LIKE '" + typ.Trim() + "' "
+            + "AND \"Pliki\".usuniety = 'FALSE'"
             + "AND \"Pliki\".numeread IN "
             + "(SELECT numeread FROM \"MiejscePracy\" "
             + "WHERE NOT \"MiejscePracy\".usuniety "

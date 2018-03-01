@@ -271,6 +271,33 @@ namespace Eteczka.BE.Controllers
             }
             return result;
         }
+        [HttpPost]
+        public ActionResult UsunDokumentZBazyDanych(string sessionId, string idPliku, KomitPliku plik)
+        {
+            ActionResult result = null;
+            bool sucess = false;
+            try
+            {
+                if(Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    sucess = _PlikiService.UsunDokumentWBazie(sesja, plik, idPliku);
+                }
+                result = Json(new
+                {
+                    sucess = sucess,
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            return result;
+        }
 
         public ActionResult ZnajdzOstatnioDodanePlikiPracownika(string sessionId, string numeread, int liczbaPlikow)
         {

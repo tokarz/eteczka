@@ -20,5 +20,6 @@ namespace Eteczka.BE.Services
         List<Pliki> SzukajOstatnioDodanePlikiPrac(SessionDetails sesja, string numeread, int liczbaPlikow);
         int ZliczPlikiWTeczcePracownika(SessionDetails sesja, string numeread);
         bool ZmienHaslaPlikow(string stareHaslo, string noweHaslo);
+        bool UsunDokumentWBazie(SessionDetails sesja, KomitPliku plik, string idPliku);
     }
 }

@@ -238,6 +238,11 @@ namespace Eteczka.BE.Services
 
             return result;
         }
+        public bool UsunDokumentWBazie(SessionDetails sesja, KomitPliku plik, string idPliku)
+        {
+            bool result = _Dao.UsunDokumentZBazy(plik, sesja.AktywnaFirma.Identyfikator, sesja.AktywnaFirma.Identyfikator, idPliku);
+            return result;
+        }
 
         public List<Pliki> SzukajOstatnioDodanePlikiPrac(SessionDetails sesja, string numeread, int liczbaPlikow)
         {
