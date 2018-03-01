@@ -84,7 +84,7 @@ namespace Eteczka.BE.Services
             bool result = false;
 
             string nazwaPliku = firma.Trim() + "_" + DateTime.Now.Millisecond + "_" + plik.Nazwa.Trim();
-            
+
             string eadRoot = ConfigurationManager.AppSettings["rootdir"];
             string katalogZrodlowy = Path.Combine(eadRoot, "waitingroom", firma.Trim(), waitingRoom);
             string plikZrodlowy = Path.Combine(katalogZrodlowy, plik.Nazwa.Trim());
@@ -116,6 +116,32 @@ namespace Eteczka.BE.Services
             //1) Zrob insert
             //2)Skopiuj plik
             //3) Weryfikuj
+
+            return result;
+        }
+
+
+
+        public List<string> PobierzFolderyDlaFirmy(string firma, string folder, string sortOrder = "asc", string sortColumn = "datapocz")
+        {
+            List<string> result = new List<string>();
+            string eadRoot = ConfigurationManager.AppSettings["rootdir"];
+            if (folder != null)
+            {
+                string sciezkaDoWaitingRoomu = Path.Combine(eadRoot, "waitingroom", firma, folder);
+
+                if (Directory.Exists(sciezkaDoWaitingRoomu))
+                {
+                    string[] foldery = Directory.GetDirectories(sciezkaDoWaitingRoomu);
+                    
+                    foreach (string pelnaSciezkaDoFolderu in foldery)
+                    {
+                        string samFolder = _PlikiUtils.WezNazweFolderuZeSciezki(pelnaSciezkaDoFolderu);
+
+                        result.Add(samFolder);
+                    }
+                }
+            }
 
             return result;
         }

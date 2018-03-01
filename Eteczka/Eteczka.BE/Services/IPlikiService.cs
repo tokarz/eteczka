@@ -11,6 +11,7 @@ namespace Eteczka.BE.Services
         List<Pliki> PobierzDlaUzytkownika(string numeread, string firma);
         List<Pliki> PobierzZawierajaceTekst(string searchText, string sortOrder = "asc", string sortColumn = "datapocz");
         List<Pliki> PobierzPlikiDlaFirmy(string firma, string folder, string sortOrder = "asc", string sortColumn = "datapocz");
+        List<string> PobierzFolderyDlaFirmy(string firma, string folder, string sortOrder = "asc", string sortColumn = "datapocz");
         MetaDanePliku PobierzMetadane(string plik);
         StanPlikow PobierzStanPlikow(string sessionId);
         bool ZakomitujPlikDoBazy(KomitPliku plik, string firma, string waitingRoom, string idOper);

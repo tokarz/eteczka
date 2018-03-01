@@ -7,38 +7,34 @@ angular.module('et.controllers').controller('gitMenuTableController', ['$rootSco
     $scope.fileDescription = {};
     $scope.activeUser = {};
     $scope.availableUsersFolders = [];
-    $scope.userChoseFolder = false;
-    $scope.chosenFolder = '';
+    $scope.subfolders = [];
+    $scope.files = [];
+    $scope.activePath = '//';
 
     $scope.$watch('company', function (value) {
-        filesViewService.hasUserChoseFolder().then(function (res) {
-            if (res && res.success) {
-                $scope.userChoseFolder = true;
-                $scope.chosenFolder = res.folder;
+        $scope.getFilesForPath();
+    });
+
+    $scope.goToFolder = function (folderName) {
+        filesViewService.setUsersFolder(folderName).then(function (result) {
+            if (result.success) {
                 $scope.getFilesForPath();
             }
         });
-    });
+    }
 
     $scope.getFilesForPath = function () {
         $scope.loading = true;
         filesViewService.getGitStateForCompany().then(function (result) {
-            $scope.newrows = result.pliki;
-            $scope.stagedrows = [];
-
+            $scope.files = result.pliki;
+            $scope.subfolders = result.foldery;
+            $scope.activePath = result.aktywnaSciezka;
             $scope.stagedRowsFromCache = cacheService.getValue('stagedFiles');
-
             if ($scope.stagedRowsFromCache) {
                 $scope.stagedrows = $scope.stagedRowsFromCache;
-
-                $scope.newrows = _.differenceWith($scope.newrows, $scope.stagedrows, function (first, second) {
-                    return first.NazwaEad === second.NazwaEad;
-                });
             }
 
-            $scope.loading = false;
         });
-
     }
 
     $('#stageFile').onchange = function () {
@@ -163,7 +159,7 @@ angular.module('et.controllers').controller('gitMenuTableController', ['$rootSco
         })
     };
 
-    $scope.loadFoldersList();
+    //$scope.loadFoldersList();
     $scope.loadFileTypes();
     $scope.loadEmployees();
 
@@ -287,11 +283,12 @@ angular.module('et.controllers').controller('gitMenuTableController', ['$rootSco
                     });
 
                     cacheService.addToCache('stagedFiles', updatedFiles);
-
-                    $state.reload();
                 } else {
                     modalService.alert('Zatwierdzanie pliku', 'Blad! Plik Nie Zostal Dodany! Zweryfikuj dane i prawa dostepu lub skontaktuj sie z Administratorem');
                 }
+                $state.reload();
+            }).catch(function (ex) {
+                console.error('File not commited!!');
             });
         }
     }
