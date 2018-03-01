@@ -338,7 +338,7 @@ namespace Eteczka.DB.DAO
             + "ON \"Pliki\".numeread = \"KatPracownicy\".numeread "
             + "LEFT OUTER JOIN\"KatDokumentyRodzaj\" "
             + "ON \"Pliki\".symbol = \"KatDokumentyRodzaj\".symbol "
-            + "WHERE \"Pliki\".numeread = '" + numeread + "' AND firma='" + firma + "' ORDER BY id DESC LIMIT " + liczbaPlikow + "";
+            + "WHERE \"Pliki\".numeread = '" + numeread + "' AND firma='" + firma + "' AND \"Pliki\".usuniety = 'FALSE' ORDER BY id DESC LIMIT " + liczbaPlikow + "";
 
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
             DataTable result = connectionState.ExecuteQuery(sqlQuery);
