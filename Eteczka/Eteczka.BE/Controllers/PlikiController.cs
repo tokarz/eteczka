@@ -174,7 +174,7 @@ namespace Eteczka.BE.Controllers
             bool success = false;
             string folder = "";
             StanSesji stanSesji = Sesja.PobierzStanSesji();
-            
+
 
             if (stanSesji.CzySesjaJestOtwarta(sessionId))
             {
@@ -194,18 +194,29 @@ namespace Eteczka.BE.Controllers
         public ActionResult PobierzGitStatusDlaFirmy(string sessionId)
         {
             List<Pliki> pliki = new List<Pliki>();
+            List<string> foldery = new List<string>();
+            string aktywnaSciezka = "";
 
             StanSesji stanSesji = Sesja.PobierzStanSesji();
 
             if (stanSesji.CzySesjaJestOtwarta(sessionId))
             {
                 SessionDetails detaleSesji = stanSesji.PobierzSesje(sessionId);
-                pliki = _PlikiService.PobierzPlikiDlaFirmy(detaleSesji.AktywnaFirma.Firma, _PlikiUtils.StworzSciezkeZListy(detaleSesji.AktywnyFolder));
+                aktywnaSciezka = _PlikiUtils.StworzSciezkeZListy(detaleSesji.AktywnyFolder);
+
+                pliki = _PlikiService.PobierzPlikiDlaFirmy(detaleSesji.AktywnaFirma.Firma, aktywnaSciezka);
+                foldery = _PlikiService.PobierzFolderyDlaFirmy(detaleSesji.AktywnaFirma.Firma, aktywnaSciezka);
+                if (detaleSesji.AktywnyFolder.Count > 0)
+                {
+                    foldery.Insert(0, "..");
+                }
             }
 
             return Json(new
             {
-                pliki
+                pliki,
+                foldery,
+                aktywnaSciezka
             }, JsonRequestBehavior.AllowGet);
         }
 
@@ -278,7 +289,7 @@ namespace Eteczka.BE.Controllers
             bool sucess = false;
             try
             {
-                if(Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
                 {
                     SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
                     sucess = _PlikiService.UsunDokumentWBazie(sesja, plik, idPliku);
@@ -370,20 +381,24 @@ namespace Eteczka.BE.Controllers
                     string eadRoot = ConfigurationManager.AppSettings["rootdir"];
                     string sciezkaAktywnegoFolderu = eadRoot + "\\waitingroom\\" + firma.Trim() + "\\" + _PlikiUtils.StworzSciezkeZListy(sesja.AktywnyFolder);
 
-                    if(Directory.Exists(sciezkaAktywnegoFolderu))
+                    if (Directory.Exists(sciezkaAktywnegoFolderu))
                     {
                         sciezkiDoFolderow = Directory.GetDirectories(sciezkaAktywnegoFolderu).ToList<string>();
                         sciezkiDoFolderow = _PlikiUtils.WezNazweFolderowZeSciezek(sciezkiDoFolderow);
+                        if(sesja.AktywnyFolder.Count == 0)
+                        {
+                            sciezkiDoFolderow.Insert(0, "..");
+                        }
                         sciezkiDoPlikow = Directory.GetFiles(sciezkaAktywnegoFolderu).ToList<string>();
                         sciezkiDoPlikow = _PlikiUtils.WezNazwePlikowZeSciezek(sciezkiDoPlikow);
                     }
-  
+
                 }
                 result = Json(new
                 {
                     sciezkiDoFolderow,
                     sciezkiDoPlikow,
-                    
+
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -400,33 +415,33 @@ namespace Eteczka.BE.Controllers
         public ActionResult UstawWaitingroomDlaUsera(string sessionId, string folder)
         {
             ActionResult result = null;
-            SessionDetails sesja = null;
+            bool success = false;
             try
             {
                 if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
                 {
-                    sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
-                    
-                    if (folder == ".." && sesja.AktywnyFolder.Count() > 0 )
+                    SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+
+                    if (folder == ".." && sesja.AktywnyFolder.Count() > 0)
                     {
-                        sesja.AktywnyFolder.RemoveAt(sesja.AktywnyFolder.Count()-1);
+                        sesja.AktywnyFolder.RemoveAt(sesja.AktywnyFolder.Count() - 1);
                     }
-                    else if (folder !="..")
+                    else if (folder != "..")
                     {
                         sesja.AktywnyFolder.Add(folder);
-                    }  
+                    }
+                    success = true;
                 }
                 result = Json(new
                 {
-                    sesja = sesja,
-                    sucess = sesja != null
+                    success
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
                 result = Json(new
                 {
-                    sucess = false,
+                    success,
                     wyjatek = true
                 }, JsonRequestBehavior.AllowGet);
             }
