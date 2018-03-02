@@ -144,11 +144,20 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
     }
 
     $scope.triggerDeleteEmployeePopup = function () {
-        var filesToDelete = [];
-        angular.forEach($scope.userFiles, function (elm) {
-            if (elm.checked) {
-                filesToDelete.push(elm);
+        var selectedFiles = 0;
+        $scope.userFiles.forEach(function (fileRow) {
+            if (fileRow.checked) {
+                selectedFiles = +1;
             }
+        });
+
+        modalService.confirm('Usuwanie plików', 'Czy jesteś pewien, że chcesz usunąć zaznaczone pliki?').then(function () {
+            filesViewService.deleteSelectedFiles($scope.userFiles.filter(function (fileRow) { return fileRow.checked; }).map(function (selectedFileRow) { return selectedFileRow.Id})).then(function () {
+                modalService.alert('Usuwanie plików', 'Pliki usunięto!');
+                $state.reload();
+            }).catch(function (ex) {
+                console.error('Błąd usuwania plików!')
+            });
         });
 
 

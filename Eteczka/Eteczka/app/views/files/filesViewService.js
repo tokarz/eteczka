@@ -67,6 +67,12 @@ angular.module('et.services').factory('filesViewService', ['httpService', 'sessi
             return httpService.get('Pliki/CzyUserWybralFolder', {
                 sessionId: sessionService.getSessionId()
             });
+        },
+        deleteSelectedFiles: function (ids) {
+            return httpService.get('Pliki/UsunDokumentyZBazyDanych', {
+                sessionId: sessionService.getSessionId(),
+                ids: ids
+            });
         }
     }
 }]);

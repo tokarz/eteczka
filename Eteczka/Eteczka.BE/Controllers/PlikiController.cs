@@ -282,8 +282,8 @@ namespace Eteczka.BE.Controllers
             }
             return result;
         }
-        [HttpPost]
-        public ActionResult UsunDokumentZBazyDanych(string sessionId, string idPliku, KomitPliku plik)
+
+        public ActionResult UsunDokumentyZBazyDanych(string sessionId, List<string> ids)
         {
             ActionResult result = null;
             bool sucess = false;
@@ -292,11 +292,11 @@ namespace Eteczka.BE.Controllers
                 if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
                 {
                     SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
-                    sucess = _PlikiService.UsunDokumentWBazie(sesja, plik, idPliku);
+                    sucess = _PlikiService.UsunDokumentyWBazie(sesja, ids);
                 }
                 result = Json(new
                 {
-                    sucess = sucess,
+                    sucess,
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
