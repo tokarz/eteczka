@@ -25,7 +25,7 @@ angular.module('et.controllers').controller('menuTableController', ['$scope', fu
     $scope.getRowStyle = function (user) {
         var result = 'table-row';
 
-        if (user === $scope.selectedrow) {
+        if (user && $scope.selectedrow && user.Numeread && $scope.selectedrow.Numeread && user.Numeread === $scope.selectedrow.Numeread) {
             result += ' active-row';
         }
 

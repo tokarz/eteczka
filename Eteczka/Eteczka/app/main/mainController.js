@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('et.controllers').controller('mainController', ['$window', '$rootScope', '$scope', '$state', 'sessionService', function ($window, $rootScope, $scope, $state, sessionService) {
+angular.module('et.controllers').controller('mainController', ['$window', '$rootScope', '$scope', '$state', 'sessionService', 'cacheService', function ($window, $rootScope, $scope, $state, sessionService, cacheService) {
     $state.go('login');
     $scope.title = 'ETeczka';
     $scope.isLoaded = false;
@@ -41,12 +41,17 @@ angular.module('et.controllers').controller('mainController', ['$window', '$root
                     }
                 } else if ($scope.isAdmin === false) {
                     if (_.startsWith(toState.name, 'settings') || _.isEqual(toState.name, 'admin')) {
-                        console.log('Prevented transition ['+ fromState.name + '] => [' + toState.name + ']')
+                        console.log('Prevented transition [' + fromState.name + '] => [' + toState.name + ']')
                         event.preventDefault();
                     }
                 }
             } else if (toState.name === 'processing') {
                 event.preventDefault();
+            }
+
+            if (!_.isEqual(toState.name, fromState.name)) {
+                // cache sluzy tylko do akcji state.reload(). Przy zmianie stanu - czyscimy!
+                cacheService.clearCache();
             }
         });
 }]);
