@@ -142,28 +142,50 @@ namespace Eteczka.DB.DAO
 
         }
 
-        public bool UsunDokumentZBazy(KomitPliku plik, string idoper, string idakcept, string id)
+        public bool UsunDokumentyZBazy(List<string> ids, string idoper, string idakcept)
         {
             bool result = false;
             try
             {
-                if (plik != null)
-                {
+                string listaId = string.Join(",", ids);
 
-                    object[] obs = new object[]
-                    {
+                object[] obs = new object[]
+                {
+                        DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture),
+                        DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture),
+                        idoper.Trim(),
+                        idakcept.Trim(),
+                        listaId,
+                };
+
+                string updateQuery = string.Format("UPDATE \"Pliki\" SET usuniety = 'TRUE', datamodify = '{0}', dataakcept = '{1}', idoper = '{2}', idakcept = '{3}' where id in ({4})", obs);
+                IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+                result = connectionState.ExecuteNonQuery(updateQuery);
+            }
+            catch (Exception ex)
+            {
+                result = false;
+            }
+            return result;
+        }
+
+        public bool UsunDokumentZBazy(string id, string idoper, string idakcept)
+        {
+            bool result = false;
+            try
+            {
+                object[] obs = new object[]
+                {
                         DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture),
                         DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture),
                         idoper.Trim(),
                         idakcept.Trim(),
                         id.Trim()
-                    };
+                };
 
-                    string updateQuery = string.Format("UPDATE \"Pliki\" SET usuniety = 'TRUE', datamodify = '{0}', dataakcept = '{1}', idoper = '{2}', idakcept = '{3}' where id = '{4}'", obs);
-                    IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
-                    result = connectionState.ExecuteNonQuery(updateQuery);
-                }
-                
+                string updateQuery = string.Format("UPDATE \"Pliki\" SET usuniety = 'TRUE', datamodify = '{0}', dataakcept = '{1}', idoper = '{2}', idakcept = '{3}' where id = '{4}'", obs);
+                IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+                result = connectionState.ExecuteNonQuery(updateQuery);
             }
             catch (Exception ex)
             {
@@ -359,12 +381,12 @@ namespace Eteczka.DB.DAO
             string sqlQuery = "SELECT COUNT(*) FROM \"Pliki\" WHERE numeread='" + numeread + "' AND firma='" + firma + "'";
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
             DataTable result = connectionState.ExecuteQuery(sqlQuery);
-            
-                if (result != null && result.Rows != null && result.Rows.Count > 0)
-                {
-                    liczbaPlikow = int.Parse(result.Rows[0][0].ToString());
-                }
-            
+
+            if (result != null && result.Rows != null && result.Rows.Count > 0)
+            {
+                liczbaPlikow = int.Parse(result.Rows[0][0].ToString());
+            }
+
             return liczbaPlikow;
         }
 

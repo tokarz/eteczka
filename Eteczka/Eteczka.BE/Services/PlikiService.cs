@@ -264,9 +264,9 @@ namespace Eteczka.BE.Services
 
             return result;
         }
-        public bool UsunDokumentWBazie(SessionDetails sesja, KomitPliku plik, string idPliku)
+        public bool UsunDokumentyWBazie(SessionDetails sesja, List<string> idPlikow)
         {
-            bool result = _Dao.UsunDokumentZBazy(plik, sesja.AktywnaFirma.Identyfikator, sesja.AktywnaFirma.Identyfikator, idPliku);
+            bool result = _Dao.UsunDokumentyZBazy(idPlikow, sesja.AktywnaFirma.Identyfikator, sesja.AktywnaFirma.Identyfikator);
             return result;
         }
 

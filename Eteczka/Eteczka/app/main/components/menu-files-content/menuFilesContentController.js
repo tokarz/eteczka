@@ -1,9 +1,11 @@
 ﻿'use strict';
-angular.module('et.controllers').controller('menuFilesContentController', ['$rootScope', '$scope', '$state', 'filesViewService', 'shopCartService', 'modalService', function ($rootScope, $scope, $state, filesViewService, shopCartService, modalService) {
+angular.module('et.controllers').controller('menuFilesContentController', ['$rootScope', '$scope', '$state', 'filesViewService', 'shopCartService', 'modalService', 'cacheService', function ($rootScope, $scope, $state, filesViewService, shopCartService, modalService, cacheService) {
     $scope.selectedFile = null;
-    $scope.emptyTableMessage = 'Nie zaznaczono elementu do wyswietlenia';
+    $scope.emptyTableMessage = 'Nie zaznaczono elementu do wyświetlenia';
+    $scope.noFilesMessage = 'Zaznaczona osoba nie ma przypisanych plików';
     $scope.userFiles = [];
     $scope.selected = { row: - 1 };
+    $scope.selectedUser = false;
 
     $scope.$watch('selected.row', function (row) {
         if (typeof row !== 'undefined' && row >= 0 && row < $scope.userFiles.length) {
@@ -144,11 +146,21 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
     }
 
     $scope.triggerDeleteEmployeePopup = function () {
-        var filesToDelete = [];
-        angular.forEach($scope.userFiles, function (elm) {
-            if (elm.checked) {
-                filesToDelete.push(elm);
+        var selectedFiles = 0;
+        $scope.userFiles.forEach(function (fileRow) {
+            if (fileRow.checked) {
+                selectedFiles = +1;
             }
+        });
+
+        modalService.confirm('Usuwanie plików', 'Czy jesteś pewien, że chcesz usunąć zaznaczone pliki?').then(function () {
+            filesViewService.deleteSelectedFiles($scope.userFiles.filter(function (fileRow) { return fileRow.checked; }).map(function (selectedFileRow) { return selectedFileRow.Id })).then(function () {
+                modalService.alert('Usuwanie plików', 'Pliki usunięto!');
+                cacheService.addToCache('MFCC.user', $scope.user);
+                $state.reload();
+            }).catch(function (ex) {
+                console.error('Błąd usuwania plików!')
+            });
         });
 
 
@@ -271,9 +283,11 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
     }
 
     $scope.$watch('user', function (user) {
+        $scope.userFiles = [];
         $scope.selectedUser = user;
-        if (user) {
+        if (user && Object.keys(user).length !== 0) {
             $scope.userFiles = [];
+            $scope.selectedUser = true;
             filesViewService.getFilesForUser(user).then(function (result) {
                 $scope.userFiles = result.pliki;
                 $scope.selectedFile = null;
@@ -281,6 +295,7 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
         } else {
             $scope.userFiles = [];
             $scope.selectedFile = null;
+            $scope.selectedUser = false;
         }
     });
 
@@ -315,4 +330,10 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
             $scope.userFiles = value;
         }
     });
+
+
+    $scope.userFromCache = cacheService.getValue('MFCC.user');
+    if ($scope.userFromCache) {
+        $scope.user = $scope.userFromCache;
+    }
 }]);
