@@ -73,7 +73,8 @@ namespace Eteczka.DB.DAO
                         "\"MiejscePracy\".podwydzial = \"KatPodWydzial\".podwydzial " +
                 "WHERE  NOT \"MiejscePracy\".usuniety AND " +
                         "numeread = '" + numerEad.Trim() + "' AND " +
-                        "\"MiejscePracy\".firma IN ( '" + firma.Trim() + "' );";
+                        "\"MiejscePracy\".firma IN ( '" + firma.Trim() + "' ) " +
+                "ORDER BY datapocz;";
 
 
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
