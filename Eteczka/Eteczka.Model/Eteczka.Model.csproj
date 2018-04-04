@@ -46,6 +46,7 @@
     <Compile Include="DTO\AddKatLoginyDto.cs" />
     <Compile Include="DTO\DaneiDetaleUzytkownika.cs" />
     <Compile Include="DTO\DaneUzytkownika.cs" />
+    <Compile Include="DTO\FiltryDat.cs" />
     <Compile Include="DTO\FiltryPlikow.cs" />
     <Compile Include="DTO\InsertResult.cs" />
     <Compile Include="DTO\KomitPliku.cs" />

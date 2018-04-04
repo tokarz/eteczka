@@ -15,7 +15,9 @@ namespace Eteczka.Model.DTO
         public KatPodWydzialy Podwydzial { get; set; }
         public KatKonto5 Konto5 { get; set; }
         public KatDokumentyRodzaj Typ { get; set; }
-        
+        public FiltryDat DateRange { get; set; }
+
+
 
     }
 }

@@ -167,7 +167,6 @@ angular.module('et.directives').directive('filePreview', function () {
                     curDown = false;
                 });
 
-
                 function onPrevPage() {
                     if (pageNum <= 1) {
                         return;
@@ -184,6 +183,10 @@ angular.module('et.directives').directive('filePreview', function () {
 
                 function onZoomIn() {
                     scale += 0.25;
+                    if (scale > 5) {
+                        scale = 5;
+                    }
+
                     renderPage(pageNum);
 
                 }
@@ -212,6 +215,15 @@ angular.module('et.directives').directive('filePreview', function () {
                 }
                 document.getElementById('zoomout').addEventListener('click', _.debounce(onZoomOut, 100));
 
+                document.getElementById('pdfPreview').addEventListener('wheel', function (e) {
+                    if (e.deltaY < 0) {
+                        onZoomIn();
+                    }
+                    if (e.deltaY > 0) {
+                        onZoomOut();
+                    }
+                    e.preventDefault();
+                });
 
                 function onNextPage() {
                     if (pageNum >= pdfDoc.numPages) {

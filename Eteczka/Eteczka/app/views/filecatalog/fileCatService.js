@@ -27,7 +27,7 @@ angular.module('et.services').factory('fileCatService', ['httpService', 'session
                 sessionId: sessionService.getSessionId()
             });
         },
-        getValuesForFilters: function (rejon, wydzial, podwydzial, konto5, typ, user) {
+        getValuesForFilters: function (rejon, wydzial, podwydzial, konto5, typ, user, dateRange) {
             return httpService.post('Pliki/PobierzPlikiWgFiltrow', {
                 sessionId: sessionService.getSessionId(),
                 filtry: {
@@ -36,7 +36,8 @@ angular.module('et.services').factory('fileCatService', ['httpService', 'session
                     Podwydzial: podwydzial,
                     Konto5: konto5,
                     Typ: typ,
-                    Pracownik: user
+                    Pracownik: user,
+                    DateRange: dateRange
                 }
             });
         }

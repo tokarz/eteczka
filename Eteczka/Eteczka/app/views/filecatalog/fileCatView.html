@@ -12,7 +12,7 @@
                 <option value=""></option>
             </select>
         </div>
-        <div class="filter-option" ng-show="subDepartmentsFilters && subDepartmentsFilters.length > 0">
+        <div class="filter-option">
             <label>Podwydzial</label>
             <select ng-options="filter.Nazwa for filter in subDepartmentsFilters" ng-model="selectedSubDepartment" ng-change="assignSubDepartment()">
                 <option value=""></option>
@@ -30,10 +30,20 @@
                 <option value=""></option>
             </select>
         </div>
-        <!--<div class="filter-option">
+        <div class="filter-option">
             <label>Pracownik</label>
             <input ng-model="selectedUser" type="search" ng-change="searchForUser" />
-        </div>-->
+        </div>
+        <div class="filter-option">
+            <label>Od - Do</label>
+            <input ng-model="dateRange.DateFrom" type="date" ng-change="assignDateType()" />
+            <select ng-model="dateRange.DateType">
+                <option>Data Dodania</option>
+                <option>Data Dokumentu</option>
+            </select>
+            <input ng-model="dateRange.DateTo" type="date" ng-change="assignDateTo()" />
+        </div>
+
     </div>
     <div class="filter-buttons-option">
         <button ng-click="reloadTableContents()">Filtruj</button>
@@ -43,7 +53,7 @@
         <div class="user-details-list toolbar-content"></div>
         <div style="width:98%;margin:auto">
             <div class="component-content-wrapper" style="width:100%;height:73vh">
-                <menu-files-content rows="rows"></menu-files-content>
+                <menu-files-content rows="rows" shownames="true"></menu-files-content>
             </div>
         </div>
     </div>

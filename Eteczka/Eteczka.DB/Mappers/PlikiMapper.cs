@@ -37,8 +37,8 @@ namespace Eteczka.DB.Mappers
                     DataAkcept = DateTime.Parse(row["dataakcept"].ToString()),
                     Systembazowy = row["systembazowy"].ToString(),//EAD
                     Usuniety = bool.Parse(row["usuniety"].ToString()),
-                    //Imie = row["imie"].ToString(),
-                    //Nazwisko = row["nazwisko"].ToString(),
+                    Imie = row["imie"].ToString(),
+                    Nazwisko = row["nazwisko"].ToString(),
                     //Pesel = row["pesel"].ToString(),
                     //DrugieImie = row["imie2"].ToString(),
                     //DataUrodzenia = DateTime.Parse(row["dataurodzenia"].ToString()),

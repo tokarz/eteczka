@@ -3,7 +3,7 @@ angular.module('et.controllers').controller('employeesFilesController', ['$scope
     $scope.tabs = [
         { Id: 0, Name: 'Zatrudnieni' },
         { Id: 1, Name: 'Wszyscy' },
-        { Id: 2, Name: 'Pozostali' }
+        { Id: 2, Name: 'Archiwum' }
     ];
 
     $scope.parameters = {

@@ -41,6 +41,8 @@
                             <th title="Dział">Dz</th>
                             <th>ND</th>
                             <th>Rodzaj Dokumentu</th>
+                            <th ng-show="shownames">Imie</th>
+                            <th ng-show="shownames">Nazwisko</th>
                             <th>Data dodania do systemu</th>
                             <th>Data Pocz</th>
                             <th>Data Kon</th>
@@ -52,6 +54,8 @@
                             <td>{{file.TeczkaDzial}}</td>
                             <td>{{file.NrDokumentu}}</td>
                             <td>{{file.Symbol}} <i class="fa fa-question-circle" style="cursor:pointer;float:right" title="{{file.OpisRodzajuDokumentu}}"></i></td>
+                            <td ng-show="shownames">{{file.Imie}}</td>
+                            <td ng-show="shownames">{{file.Nazwisko}}</td>
                             <td>{{file.DataDodaniaStr}}</td>
                             <td>{{file.DataPoczStr}}</td>
                             <td>{{file.DataKoniecStr}}</td>

@@ -7,6 +7,12 @@ angular.module('et.controllers').controller('fileCatController', ['$scope', '$q'
 
     $scope.departmentFilters = [];
 
+    $scope.dateRange = {
+        DateFrom: '',
+        DateType: '',
+        DateTo: ''
+    }
+
     $scope.assignDepartment = function () {
         if ($scope.selectedDepartment && $scope.selectedDepartment.Wydzial) {
             fileCatService.getSubDepartments($scope.selectedDepartment.Wydzial.trim()).then(function (res) {
@@ -31,7 +37,13 @@ angular.module('et.controllers').controller('fileCatController', ['$scope', '$q'
     $scope.selectedType = '';
     $scope.assignType = function () {
     }
-
+    $scope.assignDateType = function () {
+    }
+    $scope.assignDateFrom = function () {
+    }
+    $scope.assignDateTo = function () {
+    }
+    
     $scope.init = function () {
         var deferred = $q.defer();
         fileCatService.getDocumentTypes().then(function (res) {
@@ -93,7 +105,7 @@ angular.module('et.controllers').controller('fileCatController', ['$scope', '$q'
     }
 
     $scope.reloadTableContents = function () {
-        fileCatService.getValuesForFilters($scope.selectedArea, $scope.selectedDepartment, $scope.selectedSubDepartment, $scope.selectedAccount5, $scope.selectedType, $scope.selectedUser).then(function (result) {
+        fileCatService.getValuesForFilters($scope.selectedArea, $scope.selectedDepartment, $scope.selectedSubDepartment, $scope.selectedAccount5, $scope.selectedType, $scope.selectedUser, $scope.dateRange).then(function (result) {
             $scope.rows = result.pliki;
         });
     }

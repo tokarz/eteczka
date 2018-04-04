@@ -22,6 +22,26 @@ angular.module('et.controllers').controller('menuTableController', ['$scope', fu
         }
     }
 
+    $scope.goRowUp = function () {
+        if ($scope.selectedrow) {
+            var indexOfRow = $scope.rows.indexOf($scope.selectedrow);
+            if (indexOfRow !== -1 && indexOfRow !== $scope.selectedrow.length - 1) {
+                $scope.selectedrow = $scope.rows[indexOfRow + 1];
+                $scope.$apply();
+            }
+        }
+    }
+
+    $scope.goRowDown = function () {
+        if ($scope.selectedrow) {
+            var indexOfRow = $scope.rows.indexOf($scope.selectedrow);
+            if (indexOfRow !== -1 && indexOfRow !== 0) {
+                $scope.selectedrow = $scope.rows[indexOfRow - 1];
+                $scope.$apply();
+            }
+        }
+    }
+
     $scope.getRowStyle = function (user) {
         var result = 'table-row';
 
@@ -31,6 +51,6 @@ angular.module('et.controllers').controller('menuTableController', ['$scope', fu
 
         return result;
     }
-    
+
 
 }]);
