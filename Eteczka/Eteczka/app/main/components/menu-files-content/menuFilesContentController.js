@@ -284,10 +284,9 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
 
     $scope.$watch('user', function (user) {
         $scope.userFiles = [];
-        $scope.selectedUser = user;
         if (user && Object.keys(user).length !== 0) {
             $scope.userFiles = [];
-            $scope.selectedUser = true;
+            $scope.selectedUser = user;
             filesViewService.getFilesForUser(user).then(function (result) {
                 $scope.userFiles = result.pliki;
                 $scope.selectedFile = null;
@@ -295,7 +294,7 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
         } else {
             $scope.userFiles = [];
             $scope.selectedFile = null;
-            $scope.selectedUser = false;
+            $scope.selectedUser = null;
         }
     });
 
