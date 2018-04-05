@@ -43,6 +43,26 @@ XX.XX.2018 - YY.YY.2018 Import danych spolki A
 
 
 1.4
+       -  (K) Serwer SMTP i wysy³anie maili
+       -  (K) Logowanie dostêpu do plików i sesji
+       -  (K) Zmiana has³a u¿ytkownika
+       -  (K) Resizable (Burqin dla podgl¹du plików)
+       -  (K) Usuwanie uzytkowników (Nataniel Szwarc)
+       -  (K) Zmiana has³a dla u¿ytkowników
+       -  (K) Raporty - podstawowy zakres
+       -  (K) Obs³uga Uprawnieñ (Widoki FE i Kontrolery BE)
+       -  (K) Auto-logout po X min
+       -  (K) Format i biblioteka do analizy logów pod k¹tem wymagañ ustawy (Raporty kto kiedy i jaki dostêp mia³ do pliku X)
+       -  (K) Przycisk drukowania w podgl¹dzie PDF	
+       -  (K) Sprawdzic mozliwosc drukowania wielu dokumentów (sklejania w 1 raport)
+       -  (K) Podglad istniejacych rodzajow dokumentu
+       -  (K) Wczytywanie filtrów - Indykator postêpu FE
+       -  (K) Wczytywanie filtrów - MaxJsonLengthException dla braku filtrów (albo nie pozwalamy albo zmieniamy typ)
+       -  (K) Wczytywanie filtrów - Wyœwietlenie (gdzieœ) iloœci odfiltrowanych wiadomoœci
+       -  (K) Wczytywanie filtrów - U¿ywanie nowego filtra, gdy stary jest aktywny 		
+
+1.5
        -  (K) dokumentacja, manual dla uzytkownika (grafiki Michal i Kasia)
        -  (D) testy pamieci i memory leakow
        -  (D) widoki i odseparowanie od Foxa (tworzenie struktury firmy)!
+

@@ -39,11 +39,10 @@
                     <thead class="display table-header" cellspacing="0">
                         <tr>
                             <th title="Dział">Dz</th>
-                            <th>ND</th>
                             <th>Rodzaj Dokumentu</th>
-                            <th ng-show="shownames">Imie</th>
                             <th ng-show="shownames">Nazwisko</th>
-                            <th>Data dodania do systemu</th>
+                            <th ng-show="shownames">Imie</th>
+                            <th>Data dodania</th>
                             <th>Data Pocz</th>
                             <th>Data Kon</th>
                             <th> <span class="fa fa-check-square" style="cursor: pointer" ng-click="toggleSelectAll()"></span></th>
@@ -51,11 +50,10 @@
                     </thead>
                     <tbody style="text-align:left">
                         <tr ng-if="userFiles && userFiles.length > 0" ng-repeat="file in userFiles" ng-click="selectFile(file)" ng-class="getRowStyle(file)">
-                            <td>{{file.TeczkaDzial}}</td>
-                            <td>{{file.NrDokumentu}}</td>
+                            <td>{{file.TeczkaDzial}} {{file.NrDokumentu}}</td>
                             <td>{{file.Symbol}} <i class="fa fa-question-circle" style="cursor:pointer;float:right" title="{{file.OpisRodzajuDokumentu}}"></i></td>
-                            <td ng-show="shownames">{{file.Imie}}</td>
                             <td ng-show="shownames">{{file.Nazwisko}}</td>
+                            <td ng-show="shownames">{{file.Imie}}</td>
                             <td>{{file.DataDodaniaStr}}</td>
                             <td>{{file.DataPoczStr}}</td>
                             <td>{{file.DataKoniecStr}}</td>
