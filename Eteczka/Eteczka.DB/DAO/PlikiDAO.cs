@@ -317,15 +317,15 @@ namespace Eteczka.DB.DAO
 
 
             string sqlQuery =
-            "SELECT \"Pliki\".*, \"KatPracownicy\".*, \"KatDokumentyRodzaj\".* FROM \"Pliki\" "
+            "SELECT \"Pliki\".*, \"Pliki\".teczkadzial as numerdzialu, \"KatPracownicy\".*, \"KatDokumentyRodzaj\".* FROM \"Pliki\" "
             + "LEFT OUTER JOIN \"KatPracownicy\" "
             + "ON \"Pliki\".numeread = \"KatPracownicy\".numeread "
-              + "LEFT OUTER JOIN\"KatDokumentyRodzaj\" "
+              + "LEFT OUTER JOIN \"KatDokumentyRodzaj\" "
             + "ON \"Pliki\".symbol = \"KatDokumentyRodzaj\".symbol "
             + "WHERE "
             + "\"Pliki\".firma IN ('" + firma.Trim() + "') "
             + "AND \"Pliki\".symbolead LIKE '" + typ.Trim() + "' "
-            + "AND \"Pliki\".usuniety = 'FALSE'"
+            + "AND \"Pliki\".usuniety = 'FALSE' "
             + "AND \"Pliki\".numeread IN "
             + "(SELECT numeread FROM \"MiejscePracy\" "
             + "WHERE NOT \"MiejscePracy\".usuniety "
@@ -334,6 +334,7 @@ namespace Eteczka.DB.DAO
             + "AND wydzial LIKE '" + wydzial.Trim() + "' "
             + "AND podwydzial LIKE '" + podwydzial.Trim() + "' "
             + "AND konto5 LIKE '" + konto5.Trim() + "' ) "
+            + "ORDER BY nazwisko, imie, numerdzialu, SUBSTRING(nrdokumentu FROM '([0-9]+)')::int, nrdokumentu "
             + ";";
 
             List<Pliki> fetchedResult = new List<Pliki>();
