@@ -3,6 +3,7 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
     $scope.selectedFile = null;
     $scope.emptyTableMessage = 'Nie zaznaczono elementu do wyświetlenia';
     $scope.noFilesMessage = 'Zaznaczona osoba nie ma przypisanych plików';
+    $scope.fileListWrapperClass = 'file-list-wrapper-full'
     $scope.userFiles = [];
     $scope.selected = { row: - 1 };
     $scope.selectedUser = false;
@@ -120,8 +121,10 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
     $scope.selectFile = function (file) {
         if ($scope.selectedFile === file) {
             $scope.selectedFile = null;
+            $scope.fileListWrapperClass = 'file-list-wrapper-full'
         } else {
             $scope.selectedFile = file;
+            $scope.fileListWrapperClass = 'file-list-wrapper'
         }
     }
 

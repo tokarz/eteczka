@@ -25,7 +25,7 @@
             <span ng-repeat="toolbarItem in toolbar" ng-class="toolbarItem.itemClass" ng-click="toolbarItem.action()"></span>
         </div>
         <div class="main-files-content-wrapper">
-            <div class="file-list-wrapper">
+            <div ng-class="fileListWrapperClass">
                 <table style="width:100%;text-align:center" et-data-table haskeys="true" selectedrow="selected.row">
                     <colgroup>
                         <col style="width:10%" />
@@ -64,7 +64,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="file-preview-wrapper">
+            <div ng-if="selectedFile" class="file-preview-wrapper">
                 <file-preview file="selectedFile" fileproperty="NazwaEad" secure="true"></file-preview>
             </div>
         </div>

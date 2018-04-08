@@ -271,6 +271,12 @@
   width: 50%;
   float: left; }
 
+.file-list-wrapper-full {
+    height: 100%;
+    width: 100%;
+    float: left;
+}
+
 .file-preview-wrapper {
   height: 100%;
   width: 50%;
