@@ -297,7 +297,7 @@ namespace Eteczka.DB.DAO
             return fetchedDok;
         }
 
-        public List<Pliki> WyszukajPlikiZFiltrow(string firma, string rejon, string wydzial, string podwydzial, string konto5, string typ, string pesel, string sortOrder, string sortColumn)
+        public List<Pliki> WyszukajPlikiZFiltrow(string firma, string rejon, string wydzial, string podwydzial, string konto5, string typ, string pesel, string date1, string date2, string dateType, string sortOrder, string sortColumn)
         {
             //TODO: Tutaj kwerenda Paszczaka z filtrami!!
             //string sqlQuery = "SELECT * from \"Pliki\";";
@@ -334,6 +334,7 @@ namespace Eteczka.DB.DAO
             + "AND wydzial LIKE '" + wydzial.Trim() + "' "
             + "AND podwydzial LIKE '" + podwydzial.Trim() + "' "
             + "AND konto5 LIKE '" + konto5.Trim() + "' ) "
+            + "AND'" + dateType + "'BETWEEN'" + date1 + "'AND'" + date2 + "'"
             + "ORDER BY nazwisko, imie, numerdzialu, SUBSTRING(nrdokumentu FROM '([0-9]+)')::int, nrdokumentu "
             + ";";
 

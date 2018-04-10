@@ -233,19 +233,24 @@ namespace Eteczka.BE.Services
             return result;
         }
 
-        public List<Pliki> SzukajPlikiZFiltrow(SessionDetails sesja, FiltryPlikow filtry, string sortOrder, string sortColumn)
+        public List<Pliki> SzukajPlikiZFiltrow(SessionDetails sesja, FiltryPlikow filtry, FiltryDat filtryDat, string sortOrder, string sortColumn)
         {
             List<Pliki> wyszukanePliki = new List<Pliki>();
-            if (filtry != null)
+            
+            if (filtry != null && filtryDat != null)
             {
-
+                string dateType = filtryDat.DateType;
+                string date1 = (filtryDat.DateFrom != null) ? (filtryDat.DateFrom.ToString("yyyy-MM-dd")) : "0000-00-00";
+                string date2 = (filtryDat.DateTo != null) ? (filtry.DateRange.DateTo.ToString("yyyy-MM-dd")) : "9999-99-99";
+              
+                
                 string rejon = (filtry.Rejon != null) ? ("%" + filtry.Rejon.Rejon + "%") : "%%";
                 string wydzial = (filtry.Wydzial != null) ? ("%" + filtry.Wydzial.Wydzial + "%") : "%%";
                 string podwydzial = (filtry.Podwydzial != null) ? ("%" + filtry.Podwydzial.Podwydzial + "%") : "%%";
                 string konto5 = (filtry.Konto5 != null) ? ("%" + filtry.Konto5.Konto5 + "%") : "%%";
                 string typ = (filtry.Typ != null) ? ("%" + filtry.Typ.SymbolEad + "%") : "%%";
 
-                wyszukanePliki = _Dao.WyszukajPlikiZFiltrow(sesja.AktywnaFirma.Firma, rejon, wydzial, podwydzial, konto5, typ, filtry.Pracownik, sortOrder, sortColumn);
+                wyszukanePliki = _Dao.WyszukajPlikiZFiltrow(sesja.AktywnaFirma.Firma, rejon, wydzial, podwydzial, konto5, typ, filtry.Pracownik, date1, date2, dateType, sortOrder, sortColumn);
             }
             return wyszukanePliki;
         }

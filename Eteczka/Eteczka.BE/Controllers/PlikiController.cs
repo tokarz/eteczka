@@ -221,7 +221,7 @@ namespace Eteczka.BE.Controllers
         }
 
         [HttpPost]
-        public ActionResult PobierzPlikiWgFiltrow(string sessionId, FiltryPlikow filtry)
+        public ActionResult PobierzPlikiWgFiltrow(string sessionId, FiltryPlikow filtry, FiltryDat filtryDat)
         {
             List<Pliki> pliki = new List<Pliki>();
 
@@ -229,7 +229,7 @@ namespace Eteczka.BE.Controllers
             {
                 SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
 
-                pliki = _PlikiService.SzukajPlikiZFiltrow(sesja, filtry);
+                pliki = _PlikiService.SzukajPlikiZFiltrow(sesja, filtry, filtryDat);
             }
 
             return Json(new
