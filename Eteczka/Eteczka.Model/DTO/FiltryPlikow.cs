@@ -9,7 +9,7 @@ namespace Eteczka.Model.DTO
 {
     public class FiltryPlikow
     {
-        public string Pracownik { get; set; }
+        public Pracownik Pracownik { get; set; }
         public KatRejony Rejon { get; set; }
         public KatWydzialy Wydzial { get; set; }
         public KatPodWydzialy Podwydzial { get; set; }
