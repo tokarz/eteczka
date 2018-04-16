@@ -30,7 +30,7 @@ namespace Eteczka.BE.Controllers
 
             return Json(new
             {
-                success = success
+                success
             }, JsonRequestBehavior.AllowGet);
         }
 
@@ -46,7 +46,7 @@ namespace Eteczka.BE.Controllers
 
             return Json(new
             {
-                success = success
+                success
             }, JsonRequestBehavior.AllowGet);
         }
 
@@ -79,8 +79,8 @@ namespace Eteczka.BE.Controllers
 
             return Json(new
             {
-                success = success,
-                blad = blad
+                success,
+                blad
             }, JsonRequestBehavior.AllowGet);
         }
 
@@ -95,7 +95,7 @@ namespace Eteczka.BE.Controllers
 
             return Json(new
             {
-                pliki = pliki
+                pliki
             }, JsonRequestBehavior.AllowGet);
         }
 

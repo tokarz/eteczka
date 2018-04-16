@@ -187,10 +187,6 @@
     <Compile Include="Mappers\JsonToKatFirmyMapper.cs" />
     <Compile Include="Mappers\JsonToKatLokalMapper.cs" />
     <Compile Include="Mappers\PodWydzialDtoMapper.cs" />
-    <Compile Include="Model\ISesja.cs" />
-    <Compile Include="Model\Sesja.cs" />
-    <Compile Include="Model\SessionDetails.cs" />
-    <Compile Include="Model\StanSesji.cs" />
     <Compile Include="Services\EmailService.cs" />
     <Compile Include="Services\FirmyService.cs" />
     <Compile Include="Services\IEmailService.cs" />

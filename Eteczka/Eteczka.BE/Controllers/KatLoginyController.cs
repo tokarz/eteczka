@@ -7,12 +7,14 @@ using Eteczka.BE.Model;
 using Eteczka.Model.DTO;
 using System;
 using NLog;
+using Eteczka.Utils.Logger;
+using Eteczka.Utils.Common.DTO;
 
 namespace Eteczka.BE.Controllers
 {
     public class KatLoginyController : Controller
     {
-        Logger LOGGER = LogManager.GetLogger("default");
+        IEadLogger LOGGER = LoggerFactory.GetLogger();
         private IKatLoginyService _KatLoginyService;
 
         public KatLoginyController(IKatLoginyService katLoginyService)
@@ -53,7 +55,6 @@ namespace Eteczka.BE.Controllers
 
         public ActionResult PobierzDetaleUzytkownikow(string sessionId, string id)
         {
-            bool padlWyjatek = false;
             bool success = false;
             List<KatLoginyDetale> users = new List<KatLoginyDetale>();
             ActionResult result = null;
@@ -67,10 +68,10 @@ namespace Eteczka.BE.Controllers
 
                 result = Json(new
                 {
-                    success = success
+                    success
                 }, JsonRequestBehavior.AllowGet);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 result = Json(new
                 {
@@ -281,7 +282,7 @@ namespace Eteczka.BE.Controllers
                     success = sucess
                 }, JsonRequestBehavior.AllowGet);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 result = Json(new
                 {
@@ -295,7 +296,7 @@ namespace Eteczka.BE.Controllers
 
         public ActionResult PobierzPracownika(string nazwa, string haslo)
         {
-            LOGGER.Info("Proba logowania: " + nazwa + ": " + DateTime.Now);
+            LOGGER.LOG(PoziomLogowania.INFO, Akcja.ZWYKLA, string.Format("Proba logowania [{0}]", nazwa));
             KatLoginy user = _KatLoginyService.GetUserByNameAndPassword(nazwa, haslo);
             bool success = user != null;
 
@@ -311,16 +312,18 @@ namespace Eteczka.BE.Controllers
                 {
                     userdetails = _KatLoginyService.GetUserDetails(user.Identyfikator.Trim());
                     userCompanies = _KatLoginyService.GetUserCompanies(user.Identyfikator.Trim());
+
+                    sesja = Sesja.UtworzSesje();
+                    sesja.IdUzytkownika = user.Identyfikator.Trim();
+
                     if (user.IsAdmin == true)
                     {
-                        sesja = Sesja.UtworzSesje();
                         sesja.IsAdmin = true;
                     }
                     else
                     {
                         if (userCompanies != null && userCompanies.Count > 0)
                         {
-                            sesja = Sesja.UtworzSesje();
                             sesja.AktywnaFirma = userCompanies[0];
                             sesja.WszystkieFirmy = userCompanies;
                             firms = userCompanies.Select(detail =>
@@ -331,6 +334,8 @@ namespace Eteczka.BE.Controllers
                             sesja.AktywnyFolder = AktywnyFolder;
                         }
                     }
+
+                    LOGGER.LOG(PoziomLogowania.STATISTIC, Akcja.ZWYKLA, string.Format("Zalogowano", nazwa), sesja);
                 }
 
                 result = Json(new

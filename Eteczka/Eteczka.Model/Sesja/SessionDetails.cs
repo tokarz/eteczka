@@ -7,6 +7,7 @@ namespace Eteczka.BE.Model
     public class SessionDetails
     {
         public string IdSesji { get; set; }
+        public string IdUzytkownika { get; set; }
         public DateTime PoczatekSesji { get; set; }
         public DateTime OstatniaAktywnoscSesji { get; set; }
         public bool SesjaAktywna { get; set; }

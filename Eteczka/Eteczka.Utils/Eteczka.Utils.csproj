@@ -64,6 +64,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -103,10 +104,19 @@
   <ItemGroup>
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
+    <Compile Include="Common\DTO\Akcja.cs" />
+    <Compile Include="Common\DTO\Log.cs" />
+    <Compile Include="Common\DTO\PoziomLogowania.cs" />
+    <Compile Include="Logger\EadLogger.cs" />
+    <Compile Include="Logger\IEadLogger.cs" />
+    <Compile Include="Logger\LoggerFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Common\DTO\" />
+    <ProjectReference Include="..\Eteczka.Model\Eteczka.Model.csproj">
+      <Project>{7a4f0a5e-5387-4532-8761-51ff431bdaa0}</Project>
+      <Name>Eteczka.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
