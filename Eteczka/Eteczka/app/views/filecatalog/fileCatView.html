@@ -32,7 +32,23 @@
         </div>
         <div class="filter-option">
             <label>Pracownik</label>
-            <input ng-model="selectedUser" type="search" ng-change="searchForUser" />
+            <!--<select ng-options="filter.Nazwisko for filter in employeeFilters" ng-model="selectedEmployee" ng-change="assignEmployee()">
+                <option value=""></option>
+            </select>-->
+            <md-autocomplete md-selected-item="selectedEmployee"
+                             md-search-text="employeeName"
+                             md-items="item in employeeSearch(employeeName)"
+                             md-item-text="item.Nazwisko"
+                             md-min-length="0"
+                             required
+                             ng-model="selectedEmployee">
+                <md-item-template>
+                    <span md-highlight-text="searchEmployee" md-highlight-flags="^i">{{item.Nazwisko}} {{item.Imie}} {{item.DataUrodzenia}}</span>
+                </md-item-template>
+                <md-not-found>
+                    Nie znaleziono "{{employeeName}}".
+                </md-not-found>
+            </md-autocomplete>
         </div>
         <div class="filter-option">
             <label>Od - Do</label>

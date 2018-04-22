@@ -248,7 +248,7 @@ namespace Eteczka.BE.Services
                 string podwydzial = (filtry.Podwydzial != null) ? ("%" + filtry.Podwydzial.Podwydzial + "%") : "%%";
                 string konto5 = (filtry.Konto5 != null) ? ("%" + filtry.Konto5.Konto5 + "%") : "%%";
                 string typ = (filtry.Typ != null) ? ("%" + filtry.Typ.SymbolEad + "%") : "%%";
-                string numeread = ("%" + filtry.Pracownik.Numeread + "%") ??  "%%";
+                string numeread = (filtry.Pracownik != null) ? ("%" + filtry.Pracownik.Numeread + "%") : "%%";
 
                 wyszukanePliki = _Dao.WyszukajPlikiZFiltrow(sesja.AktywnaFirma.Firma, rejon, wydzial, podwydzial, konto5, typ, numeread, date1, date2, dateType, sortOrder, sortColumn);
             }
