@@ -28,5 +28,15 @@ angular.module('et.services').factory('shopCartService', ['httpService', 'sessio
                 sessionId: sessionService.getSessionId()
             });
         },
+        sendFilesViaEmail: function (recipients, zipPassword, subject, content, attachments) {
+            return httpService.get('Pliki/WyslijMailemPliki', {
+                sessionId: sessionService.getSessionId(),
+                adresaci: recipients,
+                hasloDoZip: zipPassword,
+                temat: subject,
+                wiadomosc: content,
+                Zalaczniki: attachments
+            });
+        }
     }
 }]);

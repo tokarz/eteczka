@@ -41,6 +41,8 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
     }
 
     $scope.sendEmailCtrl = function ($scope, $mdDialog, selectedFiles) {
+        $scope.modalResult = $scope.modalResult || {};
+
         $scope.hide = function () {
             $mdDialog.hide();
         };
@@ -56,7 +58,7 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
             }
         };
 
-        $scope.filesToAttach = selectedFiles;
+        $scope.modalResult.filesToAttach = selectedFiles;
     }
 
     $scope.generatePdf = function () {
@@ -87,7 +89,21 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
                 triggerZipPasswordModal()
                     .then(function (zipPassword) {
                         var result = Object.assign({}, value, zipPassword)
-                        // add be function to send email
+
+                        shopCartService.sendFilesViaEmail(
+                            result.recipients,
+                            result.zipPassword,
+                            result.subject,
+                            result.content,
+                            result.filesToAttach.map(function (file) { return file.PelnasciezkaEad })
+                        ).then(function (res) {
+                            if (res.success === true) {
+                                modalService.alert('Wysylanie dokumentow z koszyka', 'Wiadomosc zostala wyslana');
+                                $state.reload();
+                            } else {
+                                modalService.alert('Blad w wysylaniu wiadomosci', 'Blad! Wiadomosc nie zostala wyslana! Zweryfikuj wprowadzone dane i prawa dostepu lub skontaktuj sie z Administratorem');
+                            }
+                        });
                     });
             }
         )
