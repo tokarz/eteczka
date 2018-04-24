@@ -61,6 +61,7 @@ angular.module('et.controllers').controller('shopCartController', ['$scope', '$s
 
                         shopCartService.sendFilesViaEmail(
                             result.recipients,
+                            result.copyRecipients,
                             result.zipPassword,
                             result.subject,
                             result.content,

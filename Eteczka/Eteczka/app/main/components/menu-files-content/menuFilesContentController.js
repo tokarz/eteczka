@@ -92,6 +92,7 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
 
                         shopCartService.sendFilesViaEmail(
                             result.recipients,
+                            result.copyRecipients,
                             result.zipPassword,
                             result.subject,
                             result.content,

@@ -28,10 +28,11 @@ angular.module('et.services').factory('shopCartService', ['httpService', 'sessio
                 sessionId: sessionService.getSessionId()
             });
         },
-        sendFilesViaEmail: function (recipients, zipPassword, subject, content, attachments) {
+        sendFilesViaEmail: function (recipients, ccReceipients, zipPassword, subject, content, attachments) {
             return httpService.get('Pliki/WyslijMailemPliki', {
                 sessionId: sessionService.getSessionId(),
                 adresaci: recipients,
+                adresaciCc: ccReceipients,
                 hasloDoZip: zipPassword,
                 temat: subject,
                 wiadomosc: content,
