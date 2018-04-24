@@ -255,10 +255,10 @@ namespace Eteczka.BE.Services
             return wyszukanePliki;
         }
 
-        public bool WyslijPlikiMailem(SessionDetails sesja, string adresaci, List<string> Zalaczniki, string hasloDoZip, string temat, string wiadomosc)
+        public bool WyslijPlikiMailem(SessionDetails sesja, string adresaci, string adresaciCc, List<string> Zalaczniki, string hasloDoZip, string temat, string wiadomosc)
         {
 
-            bool result = _PlikiUtils.WyslijPlikiMailem(sesja.AktywnaFirma.Firma, adresaci, Zalaczniki, hasloDoZip, temat, wiadomosc);
+            bool result = _PlikiUtils.WyslijPlikiMailem(sesja.AktywnaFirma.Firma, adresaci, adresaciCc, Zalaczniki, hasloDoZip, temat, wiadomosc);
 
             return result;
         }

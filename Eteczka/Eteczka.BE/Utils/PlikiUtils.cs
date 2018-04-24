@@ -590,7 +590,7 @@ namespace Eteczka.BE.Utils
         }
 
 
-        public bool WyslijPlikiMailem(string firma, string adresaci, List<string> Zalaczniki, string hasloDoZip, string temat = "Zestaw plików", string wiadomosc = "W załączeniu zestaw plików.")
+        public bool WyslijPlikiMailem(string firma, string adresaci, string adresaciCc,  List<string> Zalaczniki, string hasloDoZip, string temat = "Zestaw plików", string wiadomosc = "W załączeniu zestaw plików.")
         {
             bool result = false;
 
@@ -614,6 +614,15 @@ namespace Eteczka.BE.Utils
                     if (new Osys().ProstyWalidatorMaila(adresEmail))
                     {
                         mail.To.Add(adresEmail);
+                    }
+                }
+
+                string[] listaAdresatowMailaCc = adresaciCc.Replace(" ", "").Split(',');
+                foreach (string adresEmailCc in listaAdresatowMailaCc)
+                {
+                    if (new Osys().ProstyWalidatorMaila(adresEmailCc))
+                    {
+                        mail.CC.Add(adresEmailCc);
                     }
                 }
 

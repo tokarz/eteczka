@@ -238,7 +238,7 @@ namespace Eteczka.BE.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult WyslijMailemPliki(string sessionId, string adresaci, string hasloDoZip, string temat, string wiadomosc, List<string> Zalaczniki)
+        public ActionResult WyslijMailemPliki(string sessionId, string adresaci, string adresaciCc, string hasloDoZip, string temat, string wiadomosc, List<string> Zalaczniki)
         {
 
             bool success = false;
@@ -246,7 +246,7 @@ namespace Eteczka.BE.Controllers
             {
                 SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
 
-                success = _PlikiService.WyslijPlikiMailem(sesja, adresaci, Zalaczniki, hasloDoZip, temat, wiadomosc);
+                success = _PlikiService.WyslijPlikiMailem(sesja, adresaci, adresaciCc, Zalaczniki, hasloDoZip, temat, wiadomosc);
             }
             return Json(new
             {

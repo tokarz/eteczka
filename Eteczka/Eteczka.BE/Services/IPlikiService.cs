@@ -16,7 +16,7 @@ namespace Eteczka.BE.Services
         StanPlikow PobierzStanPlikow(string sessionId);
         bool ZakomitujPlikDoBazy(KomitPliku plik, string firma, string waitingRoom, string idOper);
         List<Pliki> SzukajPlikiZFiltrow(SessionDetails sesja, FiltryPlikow filtry, string sortOrder = "asc", string sortColumn = "datapocz");
-        bool WyslijPlikiMailem(SessionDetails sesja, string adresaci, List<string> Zalaczniki, string hasloDoZip, string temat, string wiadomosc);
+        bool WyslijPlikiMailem(SessionDetails sesja, string adresaci, string adresaciCc, List<string> Zalaczniki, string hasloDoZip, string temat, string wiadomosc);
         bool EdytujDokumentWBazie(SessionDetails sesja, KomitPliku plik, string idPliku);
         List<Pliki> SzukajOstatnioDodanePlikiPrac(SessionDetails sesja, string numeread, int liczbaPlikow);
         int ZliczPlikiWTeczcePracownika(SessionDetails sesja, string numeread);
