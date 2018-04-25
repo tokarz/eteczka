@@ -596,7 +596,7 @@ namespace Eteczka.BE.Utils
 
             //Do 1.1 dane serwera wpisałem na sztywno, docelowo chyba będą pobierane poprzez DAO z tabeli Smtp.
             string ServerSmtp = "poczta.o2.pl";
-            int Port = 25;
+            int Port = 587;
             string EmailNadawcy = "eaddevteam@o2.pl";
             string CredentialsLogin = "eaddevteam@o2.pl";
             string Haslo = "Fushta!123";
@@ -604,7 +604,20 @@ namespace Eteczka.BE.Utils
             try
             {
                 MailMessage mail = new MailMessage();
-                SmtpClient SmtpServer = new SmtpClient(ServerSmtp);
+                SmtpClient Client = new SmtpClient();
+
+                Client.Port = Port;
+                Client.Host = ServerSmtp;
+                Client.EnableSsl = true;
+                Client.Timeout = 10000;
+                Client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                Client.UseDefaultCredentials = false;
+
+                Client.Credentials = new System.Net.NetworkCredential(CredentialsLogin, Haslo);
+                
+                
+                
+
                 mail.From = new MailAddress(EmailNadawcy);
 
 
@@ -636,12 +649,9 @@ namespace Eteczka.BE.Utils
                 {
                     mail.Attachments.Add(attachment);
                 }
-                SmtpServer.Port = Port;
-                SmtpServer.Credentials = new System.Net.NetworkCredential(CredentialsLogin, Haslo);
-                SmtpServer.EnableSsl = true;
-                SmtpServer.Timeout = 10000;
+                
 
-                SmtpServer.Send(mail);
+                Client.Send(mail);
                 result = true;
 
             }
