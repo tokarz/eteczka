@@ -10,7 +10,7 @@
     <div class="user-details" style="height:100%;" ng-if="userFiles && userFiles.length > 0">
         <div class="toolbar-panel" ng-if="!toolbar">
             <!--<span class="toolbar-option option-one fa fa-plus-circle" ng-click="triggerAddEmployeeDialog()"></span>
-            <span class="toolbar-option option-two fa fa-pencil-square" ng-click="triggerEditEmployeeDialog()"></span>-->
+    <span class="toolbar-option option-two fa fa-pencil-square" ng-click="triggerEditEmployeeDialog()"></span>-->
             <span class="toolbar-option option-three fa fa-trash-o" ng-click="triggerDeleteEmployeePopup()"></span>
 
             <!--<span class="toolbar-option option-four fa fa-print" ng-click="triggerPrintPreview()"></span>-->
@@ -18,6 +18,7 @@
             <span class="not-yet-available toolbar-option option-six fa fa-download" ng-click="triggerDownloadFiles()"></span>
             <span class="toolbar-option option-two fa fa-pencil-square" ng-click="triggerEditFileDescriptionDialog()"></span>
             <span class="toolbar-option fa fa-file-pdf-o" ng-click="generatePdf()"></span>
+            <span class="toolbar-option fa fa-file-excel-o" ng-click="generateExcelReport()"></span>
 
             <span class="toolbar-option option-seven fa fa-shopping-basket" ng-click="triggeraddtocart()"></span>
         </div>

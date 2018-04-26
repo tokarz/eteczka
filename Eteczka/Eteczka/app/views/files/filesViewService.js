@@ -52,6 +52,12 @@ angular.module('et.services').factory('filesViewService', ['httpService', 'sessi
                 numeread: user.Numeread
             });
         },
+        generateExcelReport: function (user) {
+            return httpService.get('Raporty/GenerujRaportExcellSkorowidzPelny', {
+                sessionId: sessionService.getSessionId(),
+                numeread: user.Numeread
+            });
+        },
         getFoldersList: function () {
             return httpService.get('Pliki/PobierzFolderyZWaitingroom', {
                 sessionId: sessionService.getSessionId()

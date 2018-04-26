@@ -62,12 +62,23 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
     }
 
     $scope.generatePdf = function () {
-        filesViewService.generatePdf($scope.user).then(function () {
-            modalService.alert('Raport Pdf', 'Raport wygenerowano!');
-        }, function () {
-            modalService.alert('Raport Pdf (Blad!) ', 'Blad przy generowaniu raportu! Sprawdz logi systemowe');
-        });
+        if ($scope.user) {
+            filesViewService.generatePdf($scope.user).then(function () {
+                modalService.alert('Raport Pdf', 'Raport wygenerowano!');
+            }, function () {
+                modalService.alert('Raport Pdf (Blad!) ', 'Blad przy generowaniu raportu! Sprawdz logi systemowe');
+            });
+        }
+    }
 
+    $scope.generateExcelReport = function () {
+        if ($scope.user) {
+            filesViewService.generateExcelReport($scope.user).then(function () {
+                modalService.alert('Raport Excel', 'Raport wygenerowano!');
+            }, function () {
+                modalService.alert('Raport Excel (Blad!) ', 'Blad przy generowaniu raportu! Sprawdz logi systemowe');
+            });
+        }
     }
 
     $scope.openSendEmailDialog = function () {
