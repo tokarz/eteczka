@@ -612,44 +612,44 @@ namespace Eteczka.BE.Utils
                 Client.Timeout = 10000;
                 Client.DeliveryMethod = SmtpDeliveryMethod.Network;
                 Client.UseDefaultCredentials = false;
-
                 Client.Credentials = new System.Net.NetworkCredential(CredentialsLogin, Haslo);
-                
-                
-                
 
                 mail.From = new MailAddress(EmailNadawcy);
-
 
                 string[] listaAdresatowMaila = adresaci.Replace(" ", "").Split(',');
                 foreach (string adresEmail in listaAdresatowMaila)
                 {
                     if (new Osys().ProstyWalidatorMaila(adresEmail))
                     {
-                        mail.To.Add(adresEmail);
+                        mail.To.Add(new MailAddress(adresEmail));
                     }
                 }
 
-                string[] listaAdresatowMailaCc = adresaciCc.Replace(" ", "").Split(',');
-                foreach (string adresEmailCc in listaAdresatowMailaCc)
+                if (adresaciCc != null)
                 {
-                    if (new Osys().ProstyWalidatorMaila(adresEmailCc))
+                    string[] listaAdresatowMailaCc = adresaciCc.Replace(" ", "").Split(',');
+                    foreach (string adresEmailCc in listaAdresatowMailaCc)
                     {
-                        mail.CC.Add(adresEmailCc);
+                        if (new Osys().ProstyWalidatorMaila(adresEmailCc))
+                        {
+                            mail.CC.Add(new MailAddress(adresEmailCc));
+                        }
                     }
-                }
+                }  
 
                 mail.Subject = temat;
                 mail.Body = wiadomosc;
 
-                System.Net.Mail.Attachment attachment;
-                string zalacznik = SpakujPliki(firma.Trim(), Zalaczniki, hasloDoZip);
-                attachment = new System.Net.Mail.Attachment(zalacznik);
-                if (File.Exists(zalacznik))
+                if (Zalaczniki != null)
                 {
-                    mail.Attachments.Add(attachment);
+                    System.Net.Mail.Attachment attachment;
+                    string zalacznik = SpakujPliki(firma.Trim(), Zalaczniki, hasloDoZip);
+                    attachment = new System.Net.Mail.Attachment(zalacznik);
+                    if (File.Exists(zalacznik))
+                    {
+                        mail.Attachments.Add(attachment);
+                    }
                 }
-                
 
                 Client.Send(mail);
                 result = true;

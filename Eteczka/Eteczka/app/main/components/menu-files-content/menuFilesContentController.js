@@ -97,7 +97,11 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
         openModal(
             modalOptions,
             function (value) {
-                triggerZipPasswordModal()
+                var promise = (Array.isArray(value.filesToAttach) && value.filesToAttach.length > 0)
+                    ? triggerZipPasswordModal()
+                    : Promise.resolve({});
+
+                promise
                     .then(function (zipPassword) {
                         var result = Object.assign({}, value, zipPassword)
 
@@ -110,7 +114,7 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
                             result.filesToAttach.map(function (file) { return file.PelnasciezkaEad })
                         ).then(function (res) {
                             if (res.success === true) {
-                                modalService.alert('Wysylanie dokumentow z koszyka', 'Wiadomosc zostala wyslana');
+                                modalService.alert('Wysylanie dokumentow', 'Wiadomosc zostala wyslana');
                                 $state.reload();
                             } else {
                                 modalService.alert('Blad w wysylaniu wiadomosci', 'Blad! Wiadomosc nie zostala wyslana! Zweryfikuj wprowadzone dane i prawa dostepu lub skontaktuj sie z Administratorem');
