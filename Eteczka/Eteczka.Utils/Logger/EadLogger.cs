@@ -23,7 +23,7 @@ namespace Eteczka.Utils.Logger
             {
                 Akcja = akcja,
                 Wiadomosc = widomosc,
-                Firma = sesja == null ? "" : sesja.AktywnaFirma.Firma.Trim(),
+                Firma = sesja == null ? "" : (sesja.AktywnaFirma == null ? "" : sesja.AktywnaFirma.Firma.Trim()),
                 CzasWiadomosci = DateTime.Now.ToString("yyyyMMddHHmmss"),
                 Id = "ToBeGenerated",
                 InformacjeDodatkowe = "",

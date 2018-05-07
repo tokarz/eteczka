@@ -207,6 +207,10 @@
   width: 98%;
   margin: auto; }
 
+.disabled-field {
+  opacity: 0.5;
+  pointer-events: none; }
+
 @keyframes fadein {
   0% {
     opacity: 0; }

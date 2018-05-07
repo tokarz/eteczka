@@ -102,6 +102,12 @@ angular.module('et.services').factory('settingsService', ['httpService', 'sessio
                 user: user
             });
         },
+        editUserPassword: function (user) {
+            return httpService.post('KatLoginy/ZmienHaslo', {
+                sessionId: sessionService.getSessionId(),
+                user: user
+            });
+        },
         addCompanyToUser: function(company) {
             return httpService.post('KatLoginy/DodajFirmeDlaUzytkownika', {
                 sessionId: sessionService.getSessionId(),

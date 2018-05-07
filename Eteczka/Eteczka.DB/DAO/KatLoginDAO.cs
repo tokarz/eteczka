@@ -38,7 +38,7 @@ namespace Eteczka.DB.DAO
 
         public List<KatLoginy> WczytajWszystkichUzytkownikow()
         {
-            string sqlQuery = "SELECT * from \"KatLoginy\";";
+            string sqlQuery = "SELECT * from \"KatLoginy\" WHERE usuniety = false;";
 
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
             DataTable queryResult = connectionState.ExecuteQuery(sqlQuery);
@@ -50,8 +50,7 @@ namespace Eteczka.DB.DAO
         public KatLoginy WczytajPracownikaPoNazwieIHasle(string username, string password)
         {
             //SQL Injection Threat!
-            string sqlQuery = "SELECT * from \"KatLoginy\" WHERE identyfikator = '" + username + "' and haslolong = '" + _Crypto.CalculateMD5Hash(password) + "';";
-
+            string sqlQuery = "SELECT * from \"KatLoginy\" WHERE identyfikator = '" + username + "' and haslolong = '" + _Crypto.CalculateMD5Hash(password) + "' AND usuniety = false;";
 
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
             DataTable queryResult = connectionState.ExecuteQuery(sqlQuery);
@@ -120,7 +119,7 @@ namespace Eteczka.DB.DAO
                 result = connectionState.ExecuteNonQuery(updateString.ToString());
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 result = false;
             }
@@ -144,7 +143,7 @@ namespace Eteczka.DB.DAO
                     result = connectionState.ExecuteNonQuery(updateString.ToString());
 
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     result = false;
                 }
@@ -180,8 +179,6 @@ namespace Eteczka.DB.DAO
 
             return fetchedResult;
         }
-
-
 
         public bool AktualizujFirmeDlaUzytkownika(KatLoginyFirmy firma)
         {
@@ -252,10 +249,12 @@ namespace Eteczka.DB.DAO
             string wherePart = ";";
             if (!czyAdminTez)
             {
-                wherePart = " WHERE identyfikator != 'Administrator';";
+                wherePart = "and d.identyfikator != 'Administrator';";
             }
-            string sqlQuery = "SELECT * from \"KatLoginyDetale\"" + wherePart;
 
+            //SELECT * from "KatLoginyDetale" "d" left join "KatLoginy" l on d.identyfikator = l.identyfikator where usuniety = false
+
+            string sqlQuery = "SELECT * from \"KatLoginyDetale\" \"d\" left join \"KatLoginy\" \"l\" on  d.identyfikator = l.identyfikator where usuniety = false " + wherePart;
 
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
             DataTable queryResult = connectionState.ExecuteQuery(sqlQuery);

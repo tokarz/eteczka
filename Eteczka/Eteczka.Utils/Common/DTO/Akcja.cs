@@ -4,6 +4,7 @@
     {
         ZWYKLA,
         MAIL,
-        PLIK
+        PLIK,
+        DANE_OSOBOWE
     }
 }

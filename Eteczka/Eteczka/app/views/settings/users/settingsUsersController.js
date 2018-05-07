@@ -16,6 +16,7 @@ angular.module('et.controllers').controller('settingsUsersController', ['$scope'
     $scope.getAllHrUsers = function () {
         settingsService.getAllHrUsers().then(function (res) {
             $scope.allUsersData = res.usersWithCredentials;
+
             $scope.parameters.users = $scope.allUsersData.map(function (fullData) {
                 return fullData.Detale;
             });

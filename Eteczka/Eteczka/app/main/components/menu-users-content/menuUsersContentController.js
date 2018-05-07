@@ -157,11 +157,36 @@ angular.module('et.controllers').controller('menuUsersContentController', ['$sco
             });
     }
 
+    $scope.openEditUserDialog = function () {
+        var modalOptions = {
+            body: 'app/main/components/menu-users-content/addEditUserModal/userModal.html',
+            controller: $scope.addUserControllerFunction,
+            locals: {
+                isEdit: true,
+                user: $scope.activeUser.Identyfikator
+            }
+        };
+
+        openModal(
+            modalOptions,
+            function (value) {
+                settingsService.editUserPassword(value).then(function (res) {
+                    if (res.success) {
+                        $state.reload();
+                    }
+                }).catch();
+            }
+        );
+    }
+
     $scope.openAddUserDialog = function () {
         var modalOptions = {
             body: 'app/main/components/menu-users-content/addEditUserModal/userModal.html',
-            controller: $scope.addUserControllerFunction
-            
+            controller: $scope.addUserControllerFunction,
+            locals: {
+                isEdit: false,
+                user: null
+            }
         };
 
         openModal(
@@ -176,8 +201,14 @@ angular.module('et.controllers').controller('menuUsersContentController', ['$sco
         );
     }
 
-    $scope.addUserControllerFunction = function ($scope, $mdDialog, modalService) {
+    $scope.addUserControllerFunction = function ($scope, $mdDialog, modalService, isEdit, user) {
+        $scope.isEdit = isEdit ? true : false;
+
         $scope.modalResult = {};
+
+        if (user) {
+            $scope.modalResult.Identyfikator = user;
+        }
 
         $scope.yesNoOptions = [{ name: 'TAK', value: true }, { name: 'NIE', value: false }]
         $scope.docPartOptions = ['A', 'B', 'C']
@@ -189,6 +220,15 @@ angular.module('et.controllers').controller('menuUsersContentController', ['$sco
         $scope.cancel = function () {
             $mdDialog.cancel();
         };
+
+        $scope.isEditable = function () {
+            let result = '';
+            if (isEdit) {
+                result = 'disabled-field';
+            }
+
+            return result;
+        }
 
         $scope.answer = function (answer, errors) {
             console.log(errors)
@@ -204,7 +244,7 @@ angular.module('et.controllers').controller('menuUsersContentController', ['$sco
 
     $scope.companySelected = false;
 
-    
+
     $scope.openDeleteUserRightsDialog = function () {
 
     }
@@ -243,7 +283,7 @@ angular.module('et.controllers').controller('menuUsersContentController', ['$sco
                 });
             }
 
-            
+
         }
         ).catch();
     }
@@ -273,7 +313,6 @@ angular.module('et.controllers').controller('menuUsersContentController', ['$sco
             }
         };
     }
-
 
     companiesService.getAll().then(function (all) {
         $scope.allCompanies = all.Firmy;

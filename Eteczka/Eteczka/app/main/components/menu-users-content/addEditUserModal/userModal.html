@@ -7,15 +7,15 @@
             </div>
         </md-toolbar>
         <md-dialog-content style="padding:15px">
-            <div class="modal-table-row">
+            <div class="modal-table-row" ng-if="!isEdit">
                 <label class="modal-table-label" for="employee">Nazwisko*</label>
                 <input type="text" ng-model="modalResult.Nazwisko" required />
             </div>
-            <div class="modal-table-row">
+            <div class="modal-table-row" ng-if="!isEdit">
                 <label class="modal-table-label" for="employeeName">Imie*</label>
                 <input class="modal-table-input" name="employeeName" ng-model="modalResult.Imie" type="text" required />
             </div>
-            <div class="modal-table-row">
+            <div class="modal-table-row" ng-class="isEditable()">
                 <label class="modal-table-label" for="docName">Nazwa użytkownika</label>
                 <input class="modal-table-input" type="text" ng-model="modalResult.Identyfikator" required />
             </div>
@@ -43,7 +43,7 @@
             <div ng-show="userForm.$submitted || userForm.longRepeat.$touched">
                 <span class="modal-table-error" ng-show="isNotEqual(modalResult.Haslolong, modalResult.HaslolongRepeat)">Hasla nie zgadzaja sie</span>
             </div>
-            <div class="modal-table-row">
+            <div class="modal-table-row" ng-if="!isEdit">
                 <label class="modal-table-label" for="docName">Email</label>
                 <input class="modal-table-input" type="email" ng-model="modalResult.Email" required />
             </div>
