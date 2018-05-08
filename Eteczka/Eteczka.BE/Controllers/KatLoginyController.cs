@@ -22,6 +22,35 @@ namespace Eteczka.BE.Controllers
             this._KatLoginyService = katLoginyService;
         }
 
+        public ActionResult SprawdzHasloKrotkie(string sessionId, string password)
+        {
+            bool success = false;
+            ActionResult result = null;
+            try
+            {
+                StanSesji stanSesji = Sesja.PobierzStanSesji();
+                if (stanSesji.CzySesjaJestOtwarta(sessionId))
+                {
+                    SessionDetails daneSesji = stanSesji.PobierzSesje(sessionId);
+                    success = _KatLoginyService.SprawdzHasloKrotkie(daneSesji.IdUzytkownika, password);
+                }
+
+                result = Json(new
+                {
+                    success,
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            return result;
+        }
+
         public ActionResult PobierzWszystkichUzytkownikow(string sessionId)
         {
             List<DaneiDetaleUzytkownika> usersWithCredentials = new List<DaneiDetaleUzytkownika>();
@@ -172,7 +201,7 @@ namespace Eteczka.BE.Controllers
 
         }
 
-        public ActionResult ZmienHasloAdministratora(string sessionId, string oldPassword,  string shortPassword, string longPassword)
+        public ActionResult ZmienHasloAdministratora(string sessionId, string oldPassword, string shortPassword, string longPassword)
         {
             bool sucess = false;
             ActionResult result = null;
@@ -199,7 +228,7 @@ namespace Eteczka.BE.Controllers
             }
             return result;
         }
-        
+
 
         [HttpPost]
         [ActionName("ZmienHaslo")]

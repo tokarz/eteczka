@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('et.controllers').controller('menuFilesContentController', ['$rootScope', '$scope', '$state', 'filesViewService', 'shopCartService', 'modalService', 'cacheService', function ($rootScope, $scope, $state, filesViewService, shopCartService, modalService, cacheService) {
+angular.module('et.controllers').controller('menuFilesContentController', ['$rootScope', '$scope', '$state', 'filesViewService', 'shopCartService', 'modalService', 'cacheService', 'usersService', function ($rootScope, $scope, $state, filesViewService, shopCartService, modalService, cacheService, usersService) {
     $scope.selectedFile = null;
     $scope.emptyTableMessage = 'Nie zaznaczono elementu do wyświetlenia';
     $scope.noFilesMessage = 'Zaznaczona osoba nie ma przypisanych plików';
@@ -87,7 +87,7 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
             controller: $scope.sendEmailCtrl,
             locals: {
                 selectedFiles: $scope.userFiles.filter(function (elm) {
-                    if (elm.checked) {
+                    if (elm.checked || elm.Id === $scope.selectedFile.Id) {
                         return elm;
                     }
                 })
@@ -189,16 +189,27 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
         });
 
         modalService.confirm('Usuwanie plików', 'Czy jesteś pewien, że chcesz usunąć zaznaczone pliki?').then(function () {
-            filesViewService.deleteSelectedFiles($scope.userFiles.filter(function (fileRow) { return fileRow.checked; }).map(function (selectedFileRow) { return selectedFileRow.Id })).then(function () {
-                modalService.alert('Usuwanie plików', 'Pliki usunięto!');
-                cacheService.addToCache('MFCC.user', $scope.user);
-                $state.reload();
-            }).catch(function (ex) {
-                console.error('Błąd usuwania plików!')
-            });
+            modalService.promptPassword('Haslo', 'Wymagane podanie hasła (krótkiego)')
+                .then(function (password) {
+                    usersService.checkPassword(password).then(function (correctPassword) {
+                        if (correctPassword && correctPassword.success) {
+                            filesViewService.deleteSelectedFiles($scope.userFiles.filter(function (fileRow) {
+                                return fileRow.checked || fileRow.Id === $scope.selectedFile.Id;
+                            }).map(function (selectedFileRow) { return selectedFileRow.Id })).then(function () {
+                                modalService.alert('Usuwanie plików', 'Pliki usunięto!');
+                                cacheService.addToCache('MFCC.user', $scope.user);
+                                $state.reload();
+                            }).catch(function (ex) {
+                                console.error('Błąd usuwania plików!')
+                            });
+                        } else {
+                            modalService.alert('Usuwanie plików', 'Błędne hasło!');
+                        }
+                    });
+                }).catch(function () {
+                    modalService.alert('Usuwanie plików', 'Błąd usuwania plików!')
+                });
         });
-
-
     }
 
     $scope.editFileDescriptionCtrl = function ($scope, $mdDialog, modalService, description, fileTypes, employees, name, user) {
@@ -305,14 +316,23 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
                 $scope.createdMetaData = value;
                 $rootScope.activeUser = value.Pracownik ? value.Pracownik : {};
                 modalService.confirm('Zapisać zmiany?', 'Czy chcesz zapisać zmiany w opisie pliku ?').then(function () {
-                    filesViewService.editCommittedFile(value).then(function (res) {
-                        if (res.sucess) {
-                            modalService.alert('Zatwierdzanie zmian w pliku', 'Plik zostal zmieniony');
-                            $state.reload();
-                        } else {
-                            modalService.alert('Zatwierdzanie zmian w pliku', 'Blad! Plik nie zostal zmieniony! Zweryfikuj dane i prawa dostepu lub skontaktuj sie z Administratorem');
-                        }
-                    });
+                    modalService.promptPassword('Haslo', 'Wymagane podanie hasła (krótkiego)')
+                        .then(function (password) {
+                            usersService.checkPassword(password).then(function (correctPassword) {
+                                if (correctPassword && correctPassword.success) {
+                                    filesViewService.editCommittedFile(value).then(function (res) {
+                                        if (res.sucess) {
+                                            modalService.alert('Zatwierdzanie zmian w pliku', 'Plik zostal zmieniony');
+                                            $state.reload();
+                                        } else {
+                                            modalService.alert('Zatwierdzanie zmian w pliku', 'Blad! Plik nie zostal zmieniony! Zweryfikuj dane i prawa dostepu lub skontaktuj sie z Administratorem');
+                                        }
+                                    });
+                                } else {
+                                    modalService.alert('Zatwierdzanie zmian w pliku', 'Niepoprawne hasło!');
+                                }
+                            });
+                        });
                 });
             });
     }

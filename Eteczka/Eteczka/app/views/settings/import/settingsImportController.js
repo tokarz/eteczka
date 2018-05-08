@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('et.controllers').controller('settingsImportController', ['$scope', 'settingsService', function ($scope, settingsService) {
+angular.module('et.controllers').controller('settingsImportController', ['$scope', 'settingsService', 'companiesService', function ($scope, settingsService, companiesService) {
     //$scope.importAllUsers = function () {
     //    settingsService.getAllUserAccounts().then(function (result) {
     //        $scope.users = result.users;
@@ -9,12 +9,16 @@ angular.module('et.controllers').controller('settingsImportController', ['$scope
     //    });
     //}
 
-    //$scope.importAllCompanies = function () {
-    //    companiesService.getAll().then(function (result) {
-    //        $scope.folders = result.Firmy;
-    //        $scope.checkButtonsState($scope.folders);
-    //    });
-    //}
+    $scope.importAllCompanies = function () {
+        companiesService.importMissing().then(function (success) {
+            if (success) {
+                companiesService.getAll().then(function (result) {
+                    $scope.folders = result.Firmy;
+                    $scope.checkButtonsState($scope.folders);
+                });
+            }
+        });
+    }
 
     $scope.checkButtonClass = function (type) {
         var result = 'button-success';

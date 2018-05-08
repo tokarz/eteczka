@@ -96,6 +96,14 @@ namespace Eteczka.BE.Services
             return result;
         }
 
+        public bool SprawdzHasloKrotkie(string id, string haslo)
+        {
+            bool result = _Dao.SprawdzHasloKrotkie(id, haslo);
+
+            return result;
+
+        }
+
         public bool ZmienHaslo(AddKatLoginyDto user)
         {
             bool result = _Dao.ZmienHasloUzytkownika(user);

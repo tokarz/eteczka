@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('et.controllers').controller('menuController', ['$rootScope', '$scope', '$mdDialog', '$state', 'companiesService', function ($rootScope, $scope, $mdDialog, $state, companiesService) {
+angular.module('et.controllers').controller('menuController', ['$rootScope', '$scope', '$mdDialog', '$state', 'companiesService', 'cacheService', function ($rootScope, $scope, $mdDialog, $state, companiesService, cacheService) {
     $scope.userMenuVisible = false;
     $scope.valueRejected = false;
     $scope.showUserOptions = function () {
@@ -29,6 +29,9 @@ angular.module('et.controllers').controller('menuController', ['$rootScope', '$s
             companiesService.setActiveCompany(newValue).then(function (res) {
                 if (res && res.success) {
                     console.log('Ustawiono firme: [' + newValue + ']');
+
+                    cacheService.clearCache();
+
                     $state.reload();
                 }
             },

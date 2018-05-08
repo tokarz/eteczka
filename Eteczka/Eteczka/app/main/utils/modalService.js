@@ -19,12 +19,12 @@ angular.module('et.utils').factory('modalService', ['$mdDialog', function ($mdDi
             }
 
             return $mdDialog.show(
-                    $mdDialog.confirm()
-                        .clickOutsideToClose(true)
-                        .title(title)
-                        .textContent(content)
-                        .ok(ok)
-                );
+                $mdDialog.confirm()
+                    .clickOutsideToClose(true)
+                    .title(title)
+                    .textContent(content)
+                    .ok(ok)
+            );
         },
         confirm: function (title, message) {
             var confirm = $mdDialog.confirm()
@@ -36,8 +36,20 @@ angular.module('et.utils').factory('modalService', ['$mdDialog', function ($mdDi
                 .cancel('Nie');
 
             return $mdDialog.show(confirm);
+        },
+        promptPassword: function (title, message) {
+            var prompt = $mdDialog.prompt()
+                .title(title)
+                .textContent(message)
+                .placeholder('Haslo')
+                .ariaLabel('Haslo')
+                .required(true)
+                .ok('Ok')
+                .cancel('Anuluj');
+
+            return $mdDialog.show(prompt);
         }
-        
+
     };
 
 }]);

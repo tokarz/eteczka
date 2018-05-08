@@ -12,6 +12,11 @@ namespace Eteczka.Utils.Logger
 {
     public class EadLogger : IEadLogger
     {
+        public void LOG_DANE_OSOBOWE(PoziomLogowania poziom, Akcja akcja, string wiadomosc, SessionDetails sesja, object TabelaPrzed, object TabelaPo)
+        {
+
+        }
+
         public void LOG(PoziomLogowania poziom, Akcja akcja, string widomosc, SessionDetails sesja = null, string numerEad = "")
         {
             string logLevel = ConfigurationManager.AppSettings["logLevel"];

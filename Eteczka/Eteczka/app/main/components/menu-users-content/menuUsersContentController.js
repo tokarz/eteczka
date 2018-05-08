@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('et.controllers').controller('menuUsersContentController', ['$scope', '$state', '$mdDialog', 'settingsService', 'modalService', 'companiesService', '_', function ($scope, $state, $mdDialog, settingsService, modalService, companiesService, _) {
+angular.module('et.controllers').controller('menuUsersContentController', ['$scope', '$state', '$mdDialog', 'settingsService', 'modalService', 'companiesService', 'usersService', '_', function ($scope, $state, $mdDialog, settingsService, modalService, companiesService, usersService, _) {
     $scope.userDetails = [];
     $scope.allCompanies = [];
     $scope.allSelected = false;
@@ -125,23 +125,38 @@ angular.module('et.controllers').controller('menuUsersContentController', ['$sco
             .cancel('Nie');
 
         $mdDialog.show(confirm).then(function (value) {
-            settingsService.deleteCompanyForUser(company).then(function (res) {
-                if (res.success) {
-                    $state.reload();
-                }
-            }).catch(function (ex) {
 
-                $mdDialog.show(
-                    $mdDialog.alert()
-                        .clickOutsideToClose(true)
-                        .title('Błąd podczas usuwania!')
-                        .textContent('Wystąpił nieoczekiwany błąd serwera! Sprawdź logi')
-                        .ariaLabel('Alert Dialog Demo')
-                        .ok('Rozumiem')
-                ).then(function () {
-                    $state.go('login');
+            modalService.promptPassword('Haslo', 'Wymagane podanie hasła (krótkiego)')
+                .then(function (password) {
+                    usersService.checkPassword(password).then(function (correctPassword) {
+                        if (correctPassword) {
+                            settingsService.deleteCompanyForUser(company).then(function (res) {
+                                if (res.success) {
+                                    $state.reload();
+                                }
+                            }).catch(function (ex) {
+
+                                $mdDialog.show(
+                                    $mdDialog.alert()
+                                        .clickOutsideToClose(true)
+                                        .title('Błąd podczas usuwania!')
+                                        .textContent('Wystąpił nieoczekiwany błąd serwera! Sprawdź logi')
+                                        .ariaLabel('Alert Dialog Demo')
+                                        .ok('Rozumiem')
+                                ).then(function () {
+                                    $state.go('login');
+                                });
+                            })
+                        }
+                    })
+                })
+                .catch(function (ex) {
+                    if (ex !== 'cancel' && ex !== 'backdrop click') {
+                        console.error(ex);
+                    }
                 });
-            })
+
+
         });
     }
 

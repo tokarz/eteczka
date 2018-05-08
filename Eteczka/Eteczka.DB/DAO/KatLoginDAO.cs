@@ -27,6 +27,19 @@ namespace Eteczka.DB.DAO
             this._Crypto = crypto;
         }
 
+        public bool SprawdzHasloKrotkie(string id, string haslo)
+        {
+            string hasloHash = _Crypto.CalculateMD5Hash(haslo);
+            string sqlQuery = "SELECT * FROM \"KatLoginy\" WHERE identyfikator = '" + id + "' and hasloshort = '" + hasloHash + "' AND usuniety = false";
+
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+            DataTable queryResult = connectionState.ExecuteQuery(sqlQuery);
+
+            bool result = (queryResult != null && queryResult.Rows.Count == 1);
+
+            return result;
+        }
+
         public bool UsunFirmeUzytkownika(KatLoginyFirmy firma)
         {
             string sqlQuery = "UPDATE \"KatLoginyFirmy\" SET usuniety=true WHERE identyfikator='" + firma.Identyfikator.Trim() + "' and firma='" + firma.Firma + "';";

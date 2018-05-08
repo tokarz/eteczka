@@ -9,11 +9,14 @@ using System.IO;
 using System;
 using System.Linq;
 using Eteczka.BE.Utils;
+using Eteczka.Utils.Logger;
 
 namespace Eteczka.BE.Controllers
 {
     public class PlikiController : Controller
     {
+        IEadLogger LOGGER = LoggerFactory.GetLogger();
+
         private IPlikiService _PlikiService;
         private PlikiUtils _PlikiUtils;
 
@@ -40,11 +43,17 @@ namespace Eteczka.BE.Controllers
 
         public ActionResult ZmienHaslaPlikow(string sessionId, string stareHaslo, string noweHaslo)
         {
+            LOGGER.LOG(Eteczka.Utils.Common.DTO.PoziomLogowania.INFO, Eteczka.Utils.Common.DTO.Akcja.HASLO, "Password Change - START");
             bool success = false;
             StanSesji stanSesji = Sesja.PobierzStanSesji();
             if (stanSesji.CzySesjaJestOtwarta(sessionId) && stanSesji.CzySesjaAdministratora(sessionId))
             {
+                SessionDetails sesja = stanSesji.PobierzSesje(sessionId);
+
+                LOGGER.LOG(Eteczka.Utils.Common.DTO.PoziomLogowania.INFO, Eteczka.Utils.Common.DTO.Akcja.HASLO, "Password Change USER ", sesja);
                 success = _PlikiService.ZmienHaslaPlikow(stareHaslo, noweHaslo);
+
+                LOGGER.LOG(Eteczka.Utils.Common.DTO.PoziomLogowania.INFO, Eteczka.Utils.Common.DTO.Akcja.HASLO, "Password Change USER " + (success ? " successfull " : "failed"), sesja);
             }
 
             return Json(new
@@ -153,6 +162,7 @@ namespace Eteczka.BE.Controllers
         [HttpPost]
         public ActionResult KomitujPlik(string sessionId, KomitPliku plik)
         {
+            LOGGER.LOG(Eteczka.Utils.Common.DTO.PoziomLogowania.INFO, Eteczka.Utils.Common.DTO.Akcja.PLIK, "File Commit - START");
             bool success = false;
 
             StanSesji sesja = Sesja.PobierzStanSesji();
@@ -160,7 +170,9 @@ namespace Eteczka.BE.Controllers
             if (sesja.CzySesjaJestOtwarta(sessionId))
             {
                 SessionDetails detaleSesji = sesja.PobierzSesje(sessionId);
+                LOGGER.LOG(Eteczka.Utils.Common.DTO.PoziomLogowania.INFO, Eteczka.Utils.Common.DTO.Akcja.PLIK, "File Commit - USER ", detaleSesji, plik.NrDokumentu);
                 success = _PlikiService.ZakomitujPlikDoBazy(plik, detaleSesji.AktywnaFirma.Firma, _PlikiUtils.StworzSciezkeZListy(detaleSesji.AktywnyFolder), detaleSesji.AktywnaFirma.Identyfikator);
+                LOGGER.LOG(Eteczka.Utils.Common.DTO.PoziomLogowania.INFO, Eteczka.Utils.Common.DTO.Akcja.PLIK, "File Commit - USER " + (success ? " successfull " : "failed"), detaleSesji, plik.NrDokumentu);
             }
 
             return Json(new

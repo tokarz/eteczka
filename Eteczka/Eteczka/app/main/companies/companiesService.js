@@ -6,6 +6,12 @@ angular.module('et.services').factory('companiesService', ['httpService', 'sessi
                 sessionId: sessionService.getSessionId()
             });
         },
+        importMissing: function () {
+            return httpService.get('FilesImport/ImportujFirmy', {
+                sessionId: sessionService.getSessionId(),
+                nadpisz: false
+            });
+        },
         setActiveCompany: function (company) {
             return httpService.get('Firmy/UstawAktywnaFirme', {
                 sessionId: sessionService.getSessionId(),

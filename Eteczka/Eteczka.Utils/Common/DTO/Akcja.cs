@@ -5,6 +5,7 @@
         ZWYKLA,
         MAIL,
         PLIK,
-        DANE_OSOBOWE
+        DANE_OSOBOWE,
+        HASLO
     }
 }

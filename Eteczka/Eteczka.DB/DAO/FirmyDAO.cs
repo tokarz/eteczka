@@ -28,7 +28,13 @@ namespace Eteczka.DB.DAO
             bool result = false;
             StringBuilder sqls = new StringBuilder();
 
-            foreach (KatFirmy biezacyPlik in firmy)
+            List<KatFirmy> juzDodaneFirmy = PobierzFirmyZBazy();
+
+            var jeszczeNieDodaneFirmy = firmy.Where(firmaDoDodania => {
+                return !juzDodaneFirmy.Any(istniejacaFirma => istniejacaFirma.Nip == firmaDoDodania.Nip);
+            });
+
+            foreach (KatFirmy biezacyPlik in jeszczeNieDodaneFirmy)
             {
                 string valuesLine = "('" + biezacyPlik.Firma + "', '" + biezacyPlik.Nazwa + "','" + biezacyPlik.Nazwaskrocona + "', '" + biezacyPlik.Ulica + "','" + biezacyPlik.Numerdomu + "','" + biezacyPlik.Numerlokalu + "','" + biezacyPlik.Miasto + "','" + biezacyPlik.Kodpocztowy + "','" + biezacyPlik.Poczta + "','" + biezacyPlik.Gmina + "','" + biezacyPlik.Powiat + "', '" + biezacyPlik.Wojewodztwo + "', '" + biezacyPlik.Nip + "', '" + biezacyPlik.Regon + "', '" + biezacyPlik.Nazwa2 +
                     "', '" + biezacyPlik.Pesel + "', '" + biezacyPlik.Idoper + "', '" + biezacyPlik.Idakcept + "', '" + biezacyPlik.Nazwisko + "', '" + biezacyPlik.Imie + "', '" + biezacyPlik.Datamodify + "', '" + biezacyPlik.Dataakcept + "', 'EAD', 'false');";
