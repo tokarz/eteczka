@@ -111,16 +111,19 @@ namespace Eteczka.BE.Controllers
         public ActionResult PobierzDlaUzytkownika(string sessionId, string numeread)
         {
             List<Pliki> pliki = new List<Pliki>();
+            Pliki last = null;
 
             if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
             {
                 SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
                 pliki = _PlikiService.PobierzDlaUzytkownika(numeread, sesja.AktywnaFirma.Firma);
+                last = pliki.Count > 0 ? pliki.OrderByDescending(f => f.DataSkanu).First() : null;
             }
 
             return Json(new
             {
-                pliki = pliki
+                pliki,
+                last
             }, JsonRequestBehavior.AllowGet);
         }
 
@@ -397,7 +400,7 @@ namespace Eteczka.BE.Controllers
                     {
                         sciezkiDoFolderow = Directory.GetDirectories(sciezkaAktywnegoFolderu).ToList<string>();
                         sciezkiDoFolderow = _PlikiUtils.WezNazweFolderowZeSciezek(sciezkiDoFolderow);
-                        if(sesja.AktywnyFolder.Count == 0)
+                        if (sesja.AktywnyFolder.Count == 0)
                         {
                             sciezkiDoFolderow.Insert(0, "..");
                         }

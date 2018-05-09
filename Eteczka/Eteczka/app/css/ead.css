@@ -1097,6 +1097,9 @@ md-toolbar {
   width: 100%;
   overflow: hidden; }
 
+.file-list-wrapper-full {
+  width: 100% !important; }
+
 .file-list-wrapper {
   height: 100%;
   width: 50%;

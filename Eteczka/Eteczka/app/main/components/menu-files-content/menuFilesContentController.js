@@ -7,6 +7,12 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
     $scope.userFiles = [];
     $scope.selected = { row: - 1 };
     $scope.selectedUser = false;
+    $scope.tLastAddedLabel = 'ostatnio dodano: ';
+    $scope.tSummaryTitle = 'Teczka pracownika';
+
+    $scope.endsWith234 = function(value) {
+        return value.endsWith('2') || value.endsWith('3') || value.endsWith('4');
+    }
 
     $scope.$watch('selected.row', function (row) {
         if (typeof row !== 'undefined' && row >= 0 && row < $scope.userFiles.length) {
@@ -156,7 +162,7 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
             $scope.fileListWrapperClass = 'file-list-wrapper-full'
         } else {
             $scope.selectedFile = file;
-            $scope.fileListWrapperClass = 'file-list-wrapper'
+            $scope.fileListWrapperClass = ''
         }
     }
 
@@ -181,13 +187,6 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
     }
 
     $scope.triggerDeleteEmployeePopup = function () {
-        var selectedFiles = 0;
-        $scope.userFiles.forEach(function (fileRow) {
-            if (fileRow.checked) {
-                selectedFiles = +1;
-            }
-        });
-
         modalService.confirm('Usuwanie plików', 'Czy jesteś pewien, że chcesz usunąć zaznaczone pliki?').then(function () {
             modalService.promptPassword('Haslo', 'Wymagane podanie hasła (krótkiego)')
                 .then(function (password) {
@@ -198,9 +197,10 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
                             }).map(function (selectedFileRow) { return selectedFileRow.Id })).then(function () {
                                 modalService.alert('Usuwanie plików', 'Pliki usunięto!');
                                 cacheService.addToCache('MFCC.user', $scope.user);
+
                                 $state.reload();
                             }).catch(function (ex) {
-                                console.error('Błąd usuwania plików!')
+                                modalService.alert('Usuwanie plików', 'Pliki nie mogły być usunięte! Skontaktuj się z Administratorem');
                             });
                         } else {
                             modalService.alert('Usuwanie plików', 'Błędne hasło!');
@@ -345,6 +345,14 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
             filesViewService.getFilesForUser(user).then(function (result) {
                 $scope.userFiles = result.pliki;
                 $scope.selectedFile = null;
+
+    
+                $scope.lastAddedFileType = (result && result.last) ? result.last.Symbol : '';
+                $scope.lastAddedFileDate = (result && result.last) ? result.last.DataSkanuStr : '';
+
+                $scope.filesSummaryText = $scope.userFiles.length === 1 ? 'dokument' : ($scope.endsWith234($scope.userFiles.length + '') ? 'dokumenty' : 'dokumentów');
+                $scope.documentsSummary = $scope.userFiles.length + ' ' + $scope.filesSummaryText;
+                $scope.user.Summary = ($scope.userFiles && $scope.userFiles.length) > 0 ? ($scope.user.Imie + ' ' + $scope.user.Nazwisko + ' ' + $scope.documentsSummary + ', ' + $scope.tLastAddedLabel + $scope.lastAddedFileType + ' ' + $scope.lastAddedFileDate) : '';
             });
         } else {
             $scope.userFiles = [];

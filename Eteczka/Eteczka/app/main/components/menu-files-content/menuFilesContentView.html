@@ -8,9 +8,12 @@
         </h1>
     </div>
     <div class="user-details" style="height:100%;" ng-if="userFiles && userFiles.length > 0">
+        <div class="user-summary">
+            {{tSummaryTitle}}: {{user.Summary}}
+        </div>
         <div class="toolbar-panel" ng-if="!toolbar">
             <!--<span class="toolbar-option option-one fa fa-plus-circle" ng-click="triggerAddEmployeeDialog()"></span>
-    <span class="toolbar-option option-two fa fa-pencil-square" ng-click="triggerEditEmployeeDialog()"></span>-->
+            <span class="toolbar-option option-two fa fa-pencil-square" ng-click="triggerEditEmployeeDialog()"></span>-->
             <span class="toolbar-option option-three fa fa-trash-o" ng-click="triggerDeleteEmployeePopup()"></span>
 
             <!--<span class="toolbar-option option-four fa fa-print" ng-click="triggerPrintPreview()"></span>-->
@@ -26,7 +29,7 @@
             <span ng-repeat="toolbarItem in toolbar" ng-class="toolbarItem.itemClass" ng-click="toolbarItem.action()"></span>
         </div>
         <div class="main-files-content-wrapper">
-            <div ng-class="fileListWrapperClass">
+            <div class="file-list-wrapper" ng-class="fileListWrapperClass">
                 <table style="width:100%;text-align:center" et-data-table haskeys="true" selectedrow="selected.row">
                     <colgroup>
                         <col style="width:10%" />
@@ -65,7 +68,7 @@
                     </tbody>
                 </table>
             </div>
-            <div ng-if="selectedFile" class="file-preview-wrapper">
+            <div ng-show="selectedFile" class="file-preview-wrapper">
                 <file-preview file="selectedFile" fileproperty="NazwaEad" secure="true"></file-preview>
             </div>
         </div>
