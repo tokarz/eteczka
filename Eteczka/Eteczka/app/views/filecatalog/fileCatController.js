@@ -8,8 +8,8 @@ angular.module('et.controllers').controller('fileCatController', ['$scope', '$q'
     $scope.departmentFilters = [];
 
     $scope.dateRange = {
-        DateFrom: '',
         DateType: '',
+        DateFrom: '',
         DateTo: ''
     }
 
@@ -64,6 +64,10 @@ angular.module('et.controllers').controller('fileCatController', ['$scope', '$q'
     
     $scope.init = function () {
         var deferred = $q.defer();
+
+        Object.keys($scope.dateRange).forEach(function (key) {
+            $scope.dateRange[key] = '';
+        })
 
         fileCatService.getDocumentTypes().then(function (res) {
             $scope.documentTypeFilters = res.PobraneDokumenty;
