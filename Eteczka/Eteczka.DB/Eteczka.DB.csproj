@@ -165,10 +165,12 @@
     <Compile Include="Mappers\IPlikiMapper.cs" />
     <Compile Include="Mappers\IKatPodWydzialMapper.cs" />
     <Compile Include="Mappers\IRejonMapper.cs" />
+    <Compile Include="Mappers\ISerwerSmptMapper.cs" />
     <Compile Include="Mappers\KatRodzajeDokumentowMapper.cs" />
     <Compile Include="Mappers\KatKonto5Mapper.cs" />
     <Compile Include="Mappers\KatPodWydzialMapper.cs" />
     <Compile Include="Mappers\KatRodzajeDokumentowExcelMapper.cs" />
+    <Compile Include="Mappers\SerwerSmtpMapper.cs" />
     <Compile Include="Mappers\UprawnieniaMapper.cs" />
     <Compile Include="Mappers\IUprawnieniaMapper.cs" />
     <Compile Include="Mappers\KatLoginyMapper.cs" />

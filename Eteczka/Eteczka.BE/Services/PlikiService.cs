@@ -239,7 +239,9 @@ namespace Eteczka.BE.Services
             
             if (filtry != null)
             {
-                string dateType = (filtry.DateRange.DateType) ?? "datadokumentu";
+                string dateType = (filtry.DateRange.DateType == "datadodania" || filtry.DateRange.DateType == "datapocz" || filtry.DateRange.DateType == "datakoniec") ? filtry.DateRange.DateType : "datadokumentu";
+
+                //string dateType = (filtry.DateRange.DateType) ?? "datadokumentu";
                 string date1 = (filtry.DateRange.DateFrom != DateTime.MinValue) ? (filtry.DateRange.DateFrom.ToString("yyyy-MM-dd")) : "0000-00-00";
                 string date2 = (filtry.DateRange.DateTo != DateTime.MinValue) ? (filtry.DateRange.DateTo.ToString("yyyy-MM-dd")) : "9999-12-31";
               

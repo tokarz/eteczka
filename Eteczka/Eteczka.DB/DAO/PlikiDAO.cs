@@ -334,7 +334,7 @@ namespace Eteczka.DB.DAO
             + "AND wydzial LIKE '" + wydzial.Trim() + "' "
             + "AND podwydzial LIKE '" + podwydzial.Trim() + "' "
             + "AND konto5 LIKE '" + konto5.Trim() + "' "
-            + "AND '" + System.DateTime.Now.ToString().Substring( 0 ,10) + "' BETWEEN datapocz AND datakoniec) "
+            + "AND '" + System.DateTime.Now.ToString("yyyy-MM-dd") + "' BETWEEN datapocz AND datakoniec) "
             + "AND \"Pliki\".numeread LIKE '" + numeread.Trim() + "'"
             + "AND " + dateType + " BETWEEN'" + date1 + "'AND'" + date2 + "'"
             + "ORDER BY nazwisko, imie, numerdzialu, SUBSTRING(nrdokumentu FROM '([0-9]+)')::int, nrdokumentu "
