@@ -54,10 +54,10 @@
             <label>Od - Do</label>
             <input ng-model="dateRange.DateFrom" type="date" ng-change="assignDateType()" />
             <select ng-model="dateRange.DateType">
-                <option>Data Dodania</option>
-                <option>Data Dokumentu</option>
-                <option>Data Poczatkowa</option>
-                <option>Data Koncowa</option>
+                <option value="datadodania">Data Dodania</option>
+                <option value="datadokumentu">Data Dokumentu</option>
+                <option value="datapocz">Data Poczatkowa</option>
+                <option value="datakoniec">Data Koncowa</option>
             </select>
             <input ng-model="dateRange.DateTo" type="date" ng-change="assignDateTo()" />
         </div>
