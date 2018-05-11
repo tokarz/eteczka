@@ -260,7 +260,7 @@ namespace Eteczka.BE.Services
         public bool WyslijPlikiMailem(SessionDetails sesja, string adresaci, string adresaciCc, List<string> Zalaczniki, string hasloDoZip, string temat, string wiadomosc)
         {
 
-            bool result = _PlikiUtils.WyslijPlikiMailem(sesja.AktywnaFirma.Firma, adresaci, adresaciCc, Zalaczniki, hasloDoZip, temat, wiadomosc);
+            bool result = _PlikiUtils.WyslijPlikiMailem(sesja.AktywnaFirma.Firma, sesja.IdUzytkownika, adresaci, adresaciCc, Zalaczniki, hasloDoZip, temat, wiadomosc);
 
             return result;
         }
