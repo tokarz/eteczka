@@ -13,6 +13,8 @@ using System.Net.Mail;
 using NLog;
 using Eteczka.BE.Model;
 using System.Configuration;
+using Eteczka.Model.Entities;
+using Eteczka.DB.DAO;
 
 namespace Eteczka.BE.Utils
 {
@@ -21,13 +23,16 @@ namespace Eteczka.BE.Utils
         private IDirectoryWrapper _Wrapper;
         private IPdfUtils _PdfUtils;
         private IZipUtils _ZipUtils;
+        private PlikiDAO _PlikiDAO;
+
         Logger LOGGER = LogManager.GetLogger("default");
 
-        public PlikiUtils(IDirectoryWrapper wrapper, IPdfUtils pdfUtils, IZipUtils zipUtils)
+        public PlikiUtils(IDirectoryWrapper wrapper, IPdfUtils pdfUtils, IZipUtils zipUtils, PlikiDAO PlikiDAO)
         {
             this._Wrapper = wrapper;
             this._PdfUtils = pdfUtils;
             this._ZipUtils = zipUtils;
+            this._PlikiDAO = PlikiDAO;
         }
         //Przykladowe dzialanie metody:
         //Uruchomiona z argumentem c:/katalog/plik.txt
@@ -59,14 +64,14 @@ namespace Eteczka.BE.Utils
         {
 
             List<string> znalezioneNazwyFolderow = new List<string>();
-            if (sciezki!=null)
+            if (sciezki != null)
             {
                 foreach (string sciezka in sciezki)
                 {
                     znalezioneNazwyFolderow.Add(this.WezNazweFolderuZeSciezki(sciezka));
                 }
             }
-            
+
 
             return znalezioneNazwyFolderow;
         }
@@ -590,31 +595,34 @@ namespace Eteczka.BE.Utils
         }
 
 
-        public bool WyslijPlikiMailem(string firma, string adresaci, string adresaciCc,  List<string> Zalaczniki, string hasloDoZip, string temat = "Zestaw plików", string wiadomosc = "W załączeniu zestaw plików.")
+        public bool WyslijPlikiMailem(string firma, string adresaci, string adresaciCc, List<string> Zalaczniki, string hasloDoZip, string temat, string wiadomosc)
         {
             bool result = false;
 
+
+
             //Do 1.1 dane serwera wpisałem na sztywno, docelowo chyba będą pobierane poprzez DAO z tabeli Smtp.
-            string ServerSmtp = "poczta.o2.pl";
-            int Port = 587;
-            string EmailNadawcy = "eaddevteam@o2.pl";
-            string CredentialsLogin = "eaddevteam@o2.pl";
-            string Haslo = "Fushta!123";
+            //string ServerSmtp = "poczta.o2.pl";
+            //int Port = 587;
+            //string EmailNadawcy = "eaddevteam@o2.pl";
+            //string CredentialsLogin = "eaddevteam@o2.pl";
+            //string Haslo = "Fushta!123";
 
             try
             {
+                SerwerSmtp daneKonfiguracyjneSerwera = _PlikiDAO.PobierzKonfiguracjeSerwera("poczta.o2.pl");
                 MailMessage mail = new MailMessage();
                 SmtpClient Client = new SmtpClient();
 
-                Client.Port = Port;
-                Client.Host = ServerSmtp;
+                Client.Port = daneKonfiguracyjneSerwera.SmtpPort;
+                Client.Host = daneKonfiguracyjneSerwera.SmtpSerwer;
                 Client.EnableSsl = true;
                 Client.Timeout = 10000;
                 Client.DeliveryMethod = SmtpDeliveryMethod.Network;
                 Client.UseDefaultCredentials = false;
-                Client.Credentials = new System.Net.NetworkCredential(CredentialsLogin, Haslo);
+                Client.Credentials = new System.Net.NetworkCredential(daneKonfiguracyjneSerwera.MailUsername, daneKonfiguracyjneSerwera.MailPassword);
 
-                mail.From = new MailAddress(EmailNadawcy);
+                mail.From = new MailAddress(daneKonfiguracyjneSerwera.MailSender);
 
                 string[] listaAdresatowMaila = adresaci.Replace(" ", "").Split(',');
                 foreach (string adresEmail in listaAdresatowMaila)
@@ -635,10 +643,10 @@ namespace Eteczka.BE.Utils
                             mail.CC.Add(new MailAddress(adresEmailCc));
                         }
                     }
-                }  
+                }
 
-                mail.Subject = temat;
-                mail.Body = wiadomosc;
+                mail.Subject = temat ?? daneKonfiguracyjneSerwera.MailSubject;
+                mail.Body = wiadomosc ?? daneKonfiguracyjneSerwera.MailBody;
 
                 if (Zalaczniki != null)
                 {
@@ -662,12 +670,12 @@ namespace Eteczka.BE.Utils
             }
             return result;
         }
-        public string StworzSciezkeZListy(List<string>Lista)
+        public string StworzSciezkeZListy(List<string> Lista)
         {
-            
+
             StringBuilder s = new StringBuilder();
             string sciezka = "";
-            if (Lista!=null)
+            if (Lista != null)
             {
                 foreach (string l in Lista)
                 {
@@ -675,8 +683,8 @@ namespace Eteczka.BE.Utils
                     sciezka = s.ToString().Substring(1);
                 }
             }
-            
-            
+
+
             return sciezka;
         }
 

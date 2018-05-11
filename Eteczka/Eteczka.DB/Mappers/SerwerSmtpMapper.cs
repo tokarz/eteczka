@@ -16,15 +16,15 @@ namespace Eteczka.DB.Mappers
 
             if (row != null)
             {
-                fetchedSerwer.SmtpSerwer = row["smtpserwer"].ToString();
-                fetchedSerwer.MailUsername = row["mailusername"].ToString();
-                fetchedSerwer.MailPassword = row["mailpassword"].ToString();
-                fetchedSerwer.MailSender = row["mailsender"].ToString();
-                fetchedSerwer.MailSubject = row["mailsubject"].ToString();
-                fetchedSerwer.MailBody = row["mailbody"].ToString();
-                fetchedSerwer.PdfMasterPassword = row["pdfmasterpassword"].ToString();
+                fetchedSerwer.SmtpSerwer = row["smtpserwer"].ToString().Trim();
+                fetchedSerwer.MailUsername = row["mailusername"].ToString().Trim();
+                fetchedSerwer.MailPassword = row["mailpassword"].ToString().Trim();
+                fetchedSerwer.MailSender = row["mailsender"].ToString().Trim();
+                fetchedSerwer.MailSubject = row["mailsubject"].ToString().Trim();
+                fetchedSerwer.MailBody = row["mailbody"].ToString().Trim();
+                fetchedSerwer.PdfMasterPassword = row["pdfmasterpassword"].ToString().Trim();
                 fetchedSerwer.DataModify = DateTime.Parse(row["datamodify"].ToString());
-                fetchedSerwer.SmtpPort = int.Parse(row["smtport"].ToString());
+                fetchedSerwer.SmtpPort = int.Parse(row["smtpport"].ToString().Trim());
             }
 
             return fetchedSerwer;

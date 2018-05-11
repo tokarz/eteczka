@@ -71,6 +71,7 @@ namespace Eteczka
             container.RegisterType<IUprawnieniaMapper, UprawnieniaMapper>();
             container.RegisterType<IKatPodWydzialMapper, KatPodWydzialMapper>();
             container.RegisterType<IKatRodzajeDokumentowMapper, KatRodzajeDokumentowMapper>();
+            container.RegisterType<ISerwerSmptMapper, SerwerSmtpMapper>();
 
             container.RegisterType<IJsonToKatFirmyMapper, JsonToKatFirmyMapper>();
             container.RegisterType<IJsonToKatLokalMapper, JsonToKatLokalMapper>();
