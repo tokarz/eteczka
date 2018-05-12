@@ -21,11 +21,11 @@
             </div>
             <div class="modal-table-row">
                 <label class="modal-table-label" for="docName">Hasło krótkie</label>
-                <input class="modal-table-input" type="text" ng-model="modalResult.Hasloshort" required />
+                <input class="modal-table-input" type="text" ng-model="modalResult.Hasloshort" ng-required="!isEdit" />
             </div>
             <div class="modal-table-row">
                 <label class="modal-table-label" for="shortRepeat">Powtórz hasło krótkie</label>
-                <input class="modal-table-input" name="shortRepeat" type="text" ng-model="modalResult.HasloshortRepeat" required
+                <input class="modal-table-input" name="shortRepeat" type="text" ng-model="modalResult.HasloshortRepeat" ng-required="modalResult.Hasloshort"
                        ng-change="isNotEqual(modalResult.Hasloshort, modalResult.HasloshortRepeat)" />
             </div>
             <div ng-show="userForm.$submitted || userForm.shortRepeat.$touched ">
@@ -33,11 +33,11 @@
             </div>
             <div class="modal-table-row">
                 <label class="modal-table-label" for="docName">Hasło długie</label>
-                <input class="modal-table-input" type="text" ng-model="modalResult.Haslolong" required />
+                <input class="modal-table-input" type="text" ng-model="modalResult.Haslolong" ng-required="!isEdit" />
             </div>
             <div class="modal-table-row">
                 <label class="modal-table-label" for="longRepeat">Powtórz hasło długie</label>
-                <input class="modal-table-input" name="longRepeat" type="text" ng-model="modalResult.HaslolongRepeat" required
+                <input class="modal-table-input" name="longRepeat" type="text" ng-model="modalResult.HaslolongRepeat" ng-required="modalResult.Haslolong"
                        ng-change="isNotEqual(modalResult.Haslolong, modalResult.HaslolongRepeat)" />
             </div>
             <div ng-show="userForm.$submitted || userForm.longRepeat.$touched">
