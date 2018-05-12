@@ -41,7 +41,7 @@
         <div class="top-toolbar toolbar-panel">
             <span ng-show="user.Nazwisko" class="toolbar-option option-one fa fa-plus-circle" ng-click="openSetUserRightsDialog(false)"></span>
             <span ng-show="selectedCompany" class="toolbar-option option-two fa fa-pencil-square" ng-click="openSetUserRightsDialog(true)"></span>
-            <span ng-show="selectedCompany" class="toolbar-option option-three fa fa-trash-o" ng-click="openDeleteUserRightsDialog()"></span>
+            <span ng-show="selectedCompany" class="toolbar-option option-three fa fa-trash-o" ng-click="triggerDeleteUserCompany()"></span>
         </div>
         <div class="toolbar-content">
             <h3 style="margin:auto;text-align:center">Uprawnienia</h3>

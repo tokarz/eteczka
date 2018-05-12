@@ -328,6 +328,8 @@ namespace Eteczka.DB.DAO
             + "\"Pliki\".firma IN ('" + firma.Trim() + "') "
             + "AND \"Pliki\".symbolead LIKE '" + typ.Trim() + "' "
             + "AND \"Pliki\".usuniety = 'FALSE' "
+            + "AND \"Pliki\".numeread LIKE '" + numeread.Trim() + "' "
+            + "AND \"Pliki\"." + dateType + " BETWEEN '" + date1 + "' AND '" + date2 + "' "
             + "AND \"Pliki\".numeread IN "
             + "(SELECT numeread FROM \"MiejscePracy\" "
             + "WHERE NOT \"MiejscePracy\".usuniety "
@@ -337,8 +339,6 @@ namespace Eteczka.DB.DAO
             + "AND podwydzial LIKE '" + podwydzial.Trim() + "' "
             + "AND konto5 LIKE '" + konto5.Trim() + "' "
             + "AND '" + System.DateTime.Now.ToString("yyyy-MM-dd") + "' BETWEEN datapocz AND datakoniec) "
-            + "AND \"Pliki\".numeread LIKE '" + numeread.Trim() + "'"
-            + "AND " + dateType + " BETWEEN'" + date1 + "'AND'" + date2 + "'"
             + "ORDER BY nazwisko, imie, numerdzialu, SUBSTRING(nrdokumentu FROM '([0-9]+)')::int, nrdokumentu "
             + ";";
 

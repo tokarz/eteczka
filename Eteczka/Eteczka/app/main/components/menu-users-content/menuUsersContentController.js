@@ -116,9 +116,9 @@ angular.module('et.controllers').controller('menuUsersContentController', ['$sco
         });
     }
 
-    $scope.triggerDeleteUserCompany = function (company) {
+    $scope.triggerDeleteUserCompany = function () {
         var confirm = $mdDialog.confirm()
-            .title('Czy Chcesz Usunąć dostęp do firmy' + company.Firma + ' ?')
+            .title('Czy Chcesz Usunąć dostęp do firmy ' + $scope.selectedCompany.Firma + ' ?')
             .textContent('Usunięcie firmy odbierze użytkownikowi prawa dostępu do pracowników i dokumentów firmy')
             .ariaLabel('Lucky day')
             .ok('Tak')
@@ -130,7 +130,7 @@ angular.module('et.controllers').controller('menuUsersContentController', ['$sco
                 .then(function (password) {
                     usersService.checkPassword(password).then(function (correctPassword) {
                         if (correctPassword) {
-                            settingsService.deleteCompanyForUser(company).then(function (res) {
+                            settingsService.deleteCompanyForUser($scope.selectedCompany).then(function (res) {
                                 if (res.success) {
                                     $state.reload();
                                 }
@@ -147,6 +147,9 @@ angular.module('et.controllers').controller('menuUsersContentController', ['$sco
                                     $state.go('login');
                                 });
                             })
+                        }
+                        else {
+                            modalService.alert('Haslo niepoprawne', 'Podano nieprawidłowe haslo (krotkie). Operacja zostanie przerwana.')
                         }
                     })
                 })
@@ -210,6 +213,8 @@ angular.module('et.controllers').controller('menuUsersContentController', ['$sco
                 settingsService.addNewUser(value).then(function (res) {
                     if (res.success) {
                         $state.reload();
+                    } else {
+                        modalService.alert('Blad dodawania pracownika', 'Blad! Uzytkownik nie zostal dodany!');
                     }
                 }).catch();
             }
@@ -259,11 +264,6 @@ angular.module('et.controllers').controller('menuUsersContentController', ['$sco
 
     $scope.companySelected = false;
 
-
-    $scope.openDeleteUserRightsDialog = function () {
-
-    }
-
     $scope.openSetUserRightsDialog = function (edit) {
         var modalOptions = {
             body: 'app/main/components/menu-users-content/setUserRightsModal/userRightsModal.html',
@@ -288,11 +288,17 @@ angular.module('et.controllers').controller('menuUsersContentController', ['$sco
                 settingsService.updateUserCompany(company).then(function (res) {
                     if (res.success) {
                         $state.reload();
+                    } else {
+                        modalService.alert('Blad edycji pracownika', 'Blad! Uprawnienia uzytkownika nie zostaly zmienione!');
+                        $state.reload();
                     }
                 });
             } else {
                 settingsService.addCompanyToUser(company).then(function (res) {
                     if (res.success) {
+                        $state.reload();
+                    } else {
+                        modalService.alert('Blad edycji pracownika', 'Blad! Uprawnienia uzytkownika nie zostaly dodane!');
                         $state.reload();
                     }
                 });
