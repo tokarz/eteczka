@@ -87,7 +87,7 @@ angular.module('et.services').factory('settingsService', ['httpService', 'sessio
         deleteCompanyForUser: function (company) {
             return httpService.post('KatLoginy/UsunFirmeUzytkownika', {
                 sessionId: sessionService.getSessionId(),
-                company:company
+                firma: company
             });
         },
         deleteUser: function(user) {
