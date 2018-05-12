@@ -19,6 +19,7 @@ namespace Eteczka.BE.Services
         bool AktualizujFirmeDlaUzytkownika(KatLoginyFirmy firma);
         
         bool ZmienHaslo(AddKatLoginyDto user);
+        bool ZmienHasloShort(AddKatLoginyDto user);
         bool ZmienHasloAdministratora(string shortPassword, string longPassword);
         bool UsunUzytkownika(string identyfikator);
         bool UsunFirmeUzytkownika(KatLoginyFirmy firma);

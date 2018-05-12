@@ -259,7 +259,37 @@ namespace Eteczka.BE.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
             return result;
+        }
 
+        [HttpPost]
+        [ActionName("ZmienHasloShort")]
+        public ActionResult ZmienHasloShort(string sessionId, AddKatLoginyDto user)
+        {
+            ActionResult result = null;
+            bool sucess = false;
+
+            try
+            {
+                StanSesji stanSesji = Sesja.PobierzStanSesji();
+                if (stanSesji.CzySesjaJestOtwarta(sessionId))
+                {
+                    sucess = _KatLoginyService.ZmienHasloShort(user);
+                }
+                result = Json(new
+                {
+                    success = sucess
+
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            return result;
         }
 
         [HttpPost]

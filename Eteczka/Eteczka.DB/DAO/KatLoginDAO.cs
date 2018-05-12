@@ -164,6 +164,27 @@ namespace Eteczka.DB.DAO
 
             return result;
         }
+
+        public bool ZmienHasloShortUzytkownia (AddKatLoginyDto userDoZmianyHasla)
+        {
+            bool result = false;
+            if (userDoZmianyHasla.Hasloshort != null)
+            {
+                userDoZmianyHasla.Hasloshort = _Crypto.CalculateMD5Hash(userDoZmianyHasla.Hasloshort);
+                string updateQuery = "UPDATE \"KatLoginy\" SET hasloshort='" + userDoZmianyHasla.Hasloshort + "' WHERE identyfikator = '" + userDoZmianyHasla.Identyfikator + "';";
+                try
+                {
+                    IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+                    result = connectionState.ExecuteNonQuery(updateQuery);
+                    
+                }
+                catch (Exception)
+                {
+                    result = false;
+                }
+            }
+            return result;
+        }
         public bool UsunUzytkownika(string id)
         {
             bool result = false;
