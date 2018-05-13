@@ -6,6 +6,7 @@ angular.module('et.directives').directive('menuFilesContent', function () {
             user: '=',
             rows: '=',
             toolbar: '=',
+            selectedRow: '=',
             emptymessage: '@',
             shownames: '=',
             hasSummary: '='
