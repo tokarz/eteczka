@@ -239,7 +239,9 @@ namespace Eteczka.BE.Services
             
             if (filtry != null)
             {
-                string dateType = (filtry.DateRange.DateType) ?? "datadokumentu";
+                string dateType = (filtry.DateRange.DateType == "datadodania" || filtry.DateRange.DateType == "datapocz" || filtry.DateRange.DateType == "datakoniec") ? filtry.DateRange.DateType : "datadokumentu";
+
+                //string dateType = (filtry.DateRange.DateType) ?? "datadokumentu";
                 string date1 = (filtry.DateRange.DateFrom != DateTime.MinValue) ? (filtry.DateRange.DateFrom.ToString("yyyy-MM-dd")) : "0000-00-00";
                 string date2 = (filtry.DateRange.DateTo != DateTime.MinValue) ? (filtry.DateRange.DateTo.ToString("yyyy-MM-dd")) : "9999-12-31";
               
@@ -258,7 +260,7 @@ namespace Eteczka.BE.Services
         public bool WyslijPlikiMailem(SessionDetails sesja, string adresaci, string adresaciCc, List<string> Zalaczniki, string hasloDoZip, string temat, string wiadomosc)
         {
 
-            bool result = _PlikiUtils.WyslijPlikiMailem(sesja.AktywnaFirma.Firma, adresaci, adresaciCc, Zalaczniki, hasloDoZip, temat, wiadomosc);
+            bool result = _PlikiUtils.WyslijPlikiMailem(sesja.AktywnaFirma.Firma, sesja.IdUzytkownika, adresaci, adresaciCc, Zalaczniki, hasloDoZip, temat, wiadomosc);
 
             return result;
         }

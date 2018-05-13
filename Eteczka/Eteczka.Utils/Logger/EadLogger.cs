@@ -1,4 +1,5 @@
 ﻿using Eteczka.BE.Model;
+using Eteczka.Utils.Common;
 using Eteczka.Utils.Common.DTO;
 using System;
 using System.Collections.Generic;
@@ -48,5 +49,16 @@ namespace Eteczka.Utils.Logger
                 File.AppendAllText(fullPath, "{" + log.ToString() + "};" + Environment.NewLine);
             }
         }
+
+        public void LOG_EMAIL_SENDING(EmailLog emailLog)
+        {
+            string rootDir = ConfigurationManager.AppSettings["rootdir"];
+            string sciezkaDoPliku = Path.Combine(rootDir, "logs", "EMAILLOGS.log");
+
+            File.AppendAllText(sciezkaDoPliku, emailLog.ToJsonFormat() + Environment.NewLine);
+            
+        }
+
+       
     }
 }

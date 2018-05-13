@@ -12,11 +12,20 @@
         <md-dialog-content style="padding:15px">
             <div class="modal-table-row">
                 <label class="modal-table-label" for="recipients">Do *</label>
-                <input class="modal-table-input" name="recipients" type="email" ng-model="modalResult.recipients" required />
+                <input class="modal-table-input" 
+                       name="recipients" 
+                       type="text" 
+                       ng-model="modalResult.recipients" 
+                       ng-pattern="/^(\S+@\S+\.\S+,?\s?)+$/" 
+                       required />
             </div>
             <div class="modal-table-row">
                 <label class="modal-table-label" for="copyRecipients">DW</label>
-                <input class="modal-table-input" name="copyRecipients" type="email" ng-model="modalResult.copyRecipients" />
+                <input class="modal-table-input" 
+                       name="copyRecipients" 
+                       type="text" 
+                       ng-model="modalResult.copyRecipients" 
+                       ng-pattern="/^(\S+@\S+\.\S+,?\s?)+$/" />
             </div>
             <div class="modal-table-row">
                 <label class="modal-table-label" for="topic">Temat *</label>

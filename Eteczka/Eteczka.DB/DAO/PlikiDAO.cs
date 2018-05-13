@@ -17,12 +17,14 @@ namespace Eteczka.DB.DAO
         private IPlikiMapper _PlikiMapper;
         private IDbConnectionFactory _ConnectionFactory;
         private IConnection _Connection;
+        private ISerwerSmptMapper _SmtpMapper;
 
-        public PlikiDAO(IDbConnectionFactory factory, IPlikiMapper plikiMapper, IConnection connection)
+        public PlikiDAO(IDbConnectionFactory factory, IPlikiMapper plikiMapper, IConnection connection, ISerwerSmptMapper SmtpMapper)
         {
             this._ConnectionFactory = factory;
             this._PlikiMapper = plikiMapper;
             this._Connection = connection;
+            this._SmtpMapper = SmtpMapper;
         }
 
         public List<Pliki> PobierzWszystkiePliki(string order, string column)
@@ -326,6 +328,8 @@ namespace Eteczka.DB.DAO
             + "\"Pliki\".firma IN ('" + firma.Trim() + "') "
             + "AND \"Pliki\".symbolead LIKE '" + typ.Trim() + "' "
             + "AND \"Pliki\".usuniety = 'FALSE' "
+            + "AND \"Pliki\".numeread LIKE '" + numeread.Trim() + "' "
+            + "AND \"Pliki\"." + dateType + " BETWEEN '" + date1 + "' AND '" + date2 + "' "
             + "AND \"Pliki\".numeread IN "
             + "(SELECT numeread FROM \"MiejscePracy\" "
             + "WHERE NOT \"MiejscePracy\".usuniety "
@@ -333,9 +337,8 @@ namespace Eteczka.DB.DAO
             + "AND rejon LIKE '" + rejon.Trim() + "' "
             + "AND wydzial LIKE '" + wydzial.Trim() + "' "
             + "AND podwydzial LIKE '" + podwydzial.Trim() + "' "
-            + "AND konto5 LIKE '" + konto5.Trim() + "' ) "
-            + "AND \"Pliki\".numeread LIKE '" + numeread.Trim() + "'"
-            + "AND " + dateType + " BETWEEN'" + date1 + "'AND'" + date2 + "'"
+            + "AND konto5 LIKE '" + konto5.Trim() + "' "
+            + "AND '" + System.DateTime.Now.ToString("yyyy-MM-dd") + "' BETWEEN datapocz AND datakoniec) "
             + "ORDER BY nazwisko, imie, numerdzialu, SUBSTRING(nrdokumentu FROM '([0-9]+)')::int, nrdokumentu "
             + ";";
 
@@ -391,6 +394,26 @@ namespace Eteczka.DB.DAO
             }
 
             return liczbaPlikow;
+        }
+
+        public SerwerSmtp PobierzKonfiguracjeSerwera(string smtp)
+        {
+            SerwerSmtp pobranaKonfiguracja = null;
+            string query = "SELECT * from \"SerwerSmtp\" WHERE smtpserwer = '" + smtp + "'";
+            try
+            {
+                IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+                DataTable result = connectionState.ExecuteQuery(query);
+                if (result.Rows.Count == 1)
+                {
+                    pobranaKonfiguracja = _SmtpMapper.MapujZSql(result.Rows[0]);
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+ 
+            return pobranaKonfiguracja;
         }
 
 

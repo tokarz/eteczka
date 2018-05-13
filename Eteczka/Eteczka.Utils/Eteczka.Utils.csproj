@@ -107,6 +107,7 @@
     <Compile Include="Common\DTO\Akcja.cs" />
     <Compile Include="Common\DTO\Log.cs" />
     <Compile Include="Common\DTO\PoziomLogowania.cs" />
+    <Compile Include="Common\EmailLog.cs" />
     <Compile Include="Logger\EadLogger.cs" />
     <Compile Include="Logger\IEadLogger.cs" />
     <Compile Include="Logger\LoggerFactory.cs" />

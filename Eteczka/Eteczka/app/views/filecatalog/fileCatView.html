@@ -57,10 +57,10 @@
                 <label><i class="fa fa-calendar" aria-hidden="true"></i> Od - Do</label>
                 <div style="height:40px;text-align:center">
                     <input ng-model="dateRange.DateFrom" type="date" ng-change="assignDateType()" style="width:33%;float:left" />
-                    <select ng-model="dateRange.DateType" style="width:30%;margin:auto">
-                        <option>Data Dodania</option>
-                        <option>Data Dokumentu</option>
-                        <option>Data Pocz.</option>
+                <option value="datadodania">Data Dodania</option>
+                <option value="datadokumentu">Data Dokumentu</option>
+                <option value="datapocz">Data Poczatkowa</option>
+                <option value="datakoniec">Data Koncowa</option>
                         <option>Data Koniec</option>
                     </select>
                     <input ng-model="dateRange.DateTo" type="date" ng-change="assignDateTo()" style="width:33%;float:right" />

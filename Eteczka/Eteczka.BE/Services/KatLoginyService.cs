@@ -116,6 +116,13 @@ namespace Eteczka.BE.Services
             return result;
         }
 
+        public bool ZmienHasloShort(AddKatLoginyDto user)
+        {
+            bool result = _Dao.ZmienHasloShortUzytkownia(user);
+
+            return result;
+        }
+
         public bool ZmienHasloAdministratora(string shortPassword, string longPassword)
         {
             bool result = _Dao.ZmienHasloAdministratora(shortPassword, longPassword);

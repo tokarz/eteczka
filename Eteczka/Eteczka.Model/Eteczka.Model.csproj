@@ -69,6 +69,7 @@
     <Compile Include="Entities\MiejscePracy.cs" />
     <Compile Include="Entities\Pliki.cs" />
     <Compile Include="Entities\Pracownik.cs" />
+    <Compile Include="Entities\SerwerSmtp.cs" />
     <Compile Include="Entities\Uprawnienia.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
