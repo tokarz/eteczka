@@ -23,7 +23,7 @@ namespace Eteczka.DB.Mappers
                 fetchedSerwer.MailSubject = row["mailsubject"].ToString().Trim();
                 fetchedSerwer.MailBody = row["mailbody"].ToString().Trim();
                 fetchedSerwer.PdfMasterPassword = row["pdfmasterpassword"].ToString().Trim();
-                fetchedSerwer.DataModify = DateTime.Parse(row["datamodify"].ToString());
+                //fetchedSerwer.DataModify = DateTime.Parse(row["datamodify"].ToString());
                 fetchedSerwer.SmtpPort = int.Parse(row["smtpport"].ToString().Trim());
             }
 

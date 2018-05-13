@@ -9,6 +9,11 @@ angular.module('et.controllers').controller('fileCatController', ['$scope', '$q'
 
     $scope.dateTypes = [
         {
+            id: 0,
+            label: '(Brak)',
+            value: ''
+        },
+        {
             id: 1,
             label: 'Data Dodania',
             value: 'datadodania'
