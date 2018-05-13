@@ -158,10 +158,10 @@ angular.module('et.controllers').controller('shopCartController', ['$scope', '$s
             action: $scope.downloadFiles,
             itemClass: 'not-yet-available toolbar-option option-two fa fa-download',
         },
-        {
-            action: $scope.toggleSelectAll,
-            itemClass: 'toolbar-option option-select-all fa fa-check-square',
-        },
+        //{
+        //    action: $scope.toggleSelectAll,
+        //    itemClass: 'toolbar-option option-select-all fa fa-check-square',
+        //},
         //{
         //    action: $scope.deleteAllFromCart,
         //    itemClass: 'toolbar-option option-three fa fa-trash-o',

@@ -7,7 +7,8 @@ angular.module('et.directives').directive('menuFilesContent', function () {
             rows: '=',
             toolbar: '=',
             emptymessage: '@',
-            shownames: '@'
+            shownames: '=',
+            hasSummary: '='
         },
         controller: 'menuFilesContentController',
         templateUrl: 'app/main/components/menu-files-content/menuFilesContentView.html'

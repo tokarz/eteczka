@@ -3,7 +3,7 @@
     <div class="component-content-wrapper">
         <h1 ng-if="!parameters.user">Zaznacz Pracownika</h1>
         <div ng-if="parameters.user">
-            <menu-files-content user="parameters.user"></menu-files-content>
+            <menu-files-content user="parameters.user" has-summary="true"></menu-files-content>
         </div>
     </div>
 </div>

@@ -25,7 +25,8 @@ namespace Eteczka.BE.Tests.Utils
             _Wrapper = Substitute.For<IDirectoryWrapper>();
             _PdfUtils = Substitute.For<IPdfUtils>();
             _ZipUtils = Substitute.For<IZipUtils>();
-            _Sut = new PlikiUtils(_Wrapper, _PdfUtils, _ZipUtils);
+            
+            _Sut = new PlikiUtils(_Wrapper, _PdfUtils, _ZipUtils, null);
         }
 
         [Test]
