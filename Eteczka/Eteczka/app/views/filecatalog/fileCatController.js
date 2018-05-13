@@ -7,8 +7,30 @@ angular.module('et.controllers').controller('fileCatController', ['$scope', '$q'
 
     $scope.departmentFilters = [];
 
+    $scope.dateTypes = [
+        {
+            id: 1,
+            label: 'Data Dodania',
+            value: 'datadodania'
+        }, {
+            id: 2,
+            label: 'Data Dokumentu',
+            value: 'datadokumentu'
+        },
+        {
+            id: 3,
+            label: 'Data Początkowa',
+            value: 'datapocz'
+        },
+        {
+            id: 4,
+            label: 'Data Końcowa',
+            value: 'datakoniec'
+        }
+    ];
+
     $scope.dateRange = {
-        DateType: '',
+        DateType: $scope.dateTypes[0],
         DateFrom: '',
         DateTo: ''
     }
@@ -39,14 +61,8 @@ angular.module('et.controllers').controller('fileCatController', ['$scope', '$q'
     $scope.selectedType = '';
     $scope.assignType = function () {
     }
-    $scope.assignDateType = function () {
-    }
-    $scope.assignDateFrom = function () {
-    }
-    $scope.assignDateTo = function () {
-    }
-    $scope.assignEmployee = function () {
-    }
+
+
 
     var createFilterFor = function (keys, query) {
         var lowercaseQuery = angular.lowercase(query);
@@ -61,7 +77,7 @@ angular.module('et.controllers').controller('fileCatController', ['$scope', '$q'
     $scope.employeeSearch = function (name) {
         return name ? $scope.employeeFilters.filter(createFilterFor(["Nazwisko"], name)) : $scope.employeeFilters;
     }
-    
+
     $scope.init = function () {
         var deferred = $q.defer();
 
