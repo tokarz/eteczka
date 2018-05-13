@@ -231,10 +231,9 @@ namespace Eteczka.BE.Controllers
 
 
         [HttpPost]
-        [ActionName("ZmienHaslo")]
-        public ActionResult ZmienHaslo(string sessionId, AddKatLoginyDto user)
+        [ActionName("EdytujPrac")]
+        public ActionResult EdytujPracownika(string sessionId, AddKatLoginyDto user)
         {
-
             bool sucess = false;
             ActionResult result = null;
             try
@@ -242,7 +241,7 @@ namespace Eteczka.BE.Controllers
                 StanSesji stanSesji = Sesja.PobierzStanSesji();
                 if (stanSesji.CzySesjaJestOtwarta(sessionId) && stanSesji.CzySesjaAdministratora(sessionId))
                 {
-                    sucess = _KatLoginyService.ZmienHaslo(user);
+                    sucess = _KatLoginyService.EdytujUzytkownika(user);
                 }
 
                 result = Json(new

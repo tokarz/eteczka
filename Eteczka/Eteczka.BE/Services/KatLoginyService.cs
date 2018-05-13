@@ -104,9 +104,14 @@ namespace Eteczka.BE.Services
 
         }
 
-        public bool ZmienHaslo(AddKatLoginyDto user)
+        public bool EdytujUzytkownika(AddKatLoginyDto user)
         {
-            bool result = _Dao.ZmienHasloUzytkownika(user);
+            bool result = false;
+
+            if (user != null)
+            {
+                result = _Dao.EdytujUzytkownika(user);
+            }
 
             return result;
         }
@@ -125,6 +130,6 @@ namespace Eteczka.BE.Services
             return result;
         }
 
-        
+
     }
 }

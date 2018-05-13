@@ -16,6 +16,7 @@ angular.module('et.directives').directive('etDataTable', ['$timeout', function (
             haskeys: '@',
             scrolly: '@',
             scrollx: '@',
+            reload: '=',
             selectedrow: '='
         },
         link: function (scope, element) {
@@ -45,6 +46,12 @@ angular.module('et.directives').directive('etDataTable', ['$timeout', function (
                             targets: -1
                         }
                     ]
+                });
+
+                scope.$watch('reload', function () {
+                    $timeout(function () {
+                        scope.table.columns.adjust().draw();
+                    });
                 });
 
                 scope.table

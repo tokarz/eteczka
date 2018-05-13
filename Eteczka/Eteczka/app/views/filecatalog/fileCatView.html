@@ -1,69 +1,78 @@
 ﻿<div class="option-wrapper">
-    <div class="filters-panel">
-        <div class="filter-option">
-            <label>Rejon</label>
-            <select ng-options="filter.Nazwa for filter in areasFilters" ng-model="selectedArea" ng-change="assignArea()">
-                <option value=""></option>
-            </select>
+    <div class="filters-wrapper">
+        <div class="filters-panel">
+            <div class="filter-option">
+                <label>Rejon</label>
+                <select ng-options="filter.Nazwa for filter in areasFilters" ng-model="selectedArea" ng-change="assignArea()">
+                    <option value=""></option>
+                </select>
+            </div>
+            <div class="filter-option">
+                <label>Wydzial</label>
+                <select ng-options="filter.Nazwa for filter in departmentFilters" ng-model="selectedDepartment" ng-change="assignDepartment()">
+                    <option value=""></option>
+                </select>
+            </div>
+            <div class="filter-option">
+                <label>Podwydzial</label>
+                <select ng-options="filter.Nazwa for filter in subDepartmentsFilters" ng-model="selectedSubDepartment" ng-change="assignSubDepartment()">
+                    <option value=""></option>
+                </select>
+            </div>
+            <div class="filter-option">
+                <label>Konta5</label>
+                <select ng-options="filter.Konto5 for filter in account5Filters" ng-model="selectedAccount5" ng-change="assignAccount5()">
+                    <option value=""></option>
+                </select>
+            </div>
+            <div class="filter-option">
+                <label>Rodzaj Dokumentu</label>
+                <select ng-options="filter.Symbol for filter in documentTypeFilters" ng-model="selectedType" ng-change="assignType()">
+                    <option value=""></option>
+                </select>
+            </div>
         </div>
-        <div class="filter-option">
-            <label>Wydzial</label>
-            <select ng-options="filter.Nazwa for filter in departmentFilters" ng-model="selectedDepartment" ng-change="assignDepartment()">
-                <option value=""></option>
-            </select>
-        </div>
-        <div class="filter-option">
-            <label>Podwydzial</label>
-            <select ng-options="filter.Nazwa for filter in subDepartmentsFilters" ng-model="selectedSubDepartment" ng-change="assignSubDepartment()">
-                <option value=""></option>
-            </select>
-        </div>
-        <div class="filter-option">
-            <label>Konta5</label>
-            <select ng-options="filter.Konto5 for filter in account5Filters" ng-model="selectedAccount5" ng-change="assignAccount5()">
-                <option value=""></option>
-            </select>
-        </div>
-        <div class="filter-option">
-            <label>Rodzaj Dokumentu</label>
-            <select ng-options="filter.Symbol for filter in documentTypeFilters" ng-model="selectedType" ng-change="assignType()">
-                <option value=""></option>
-            </select>
-        </div>
-        <div class="filter-option">
-            <label>Pracownik</label>
-            <!--<select ng-options="filter.Nazwisko for filter in employeeFilters" ng-model="selectedEmployee" ng-change="assignEmployee()">
+        <div class="filters-panel">
+            <div class="filter-option">
+                <label>Pracownik</label>
+                <!--<select ng-options="filter.Nazwisko for filter in employeeFilters" ng-model="selectedEmployee" ng-change="assignEmployee()">
                 <option value=""></option>
             </select>-->
-            <md-autocomplete md-selected-item="selectedEmployee"
-                             md-search-text="employeeName"
-                             md-items="item in employeeSearch(employeeName)"
-                             md-item-text="item.Nazwisko"
-                             md-min-length="0"
-                             required
-                             ng-model="selectedEmployee">
-                <md-item-template>
-                    <span md-highlight-text="searchEmployee" md-highlight-flags="^i">{{item.Nazwisko}} {{item.Imie}} {{item.DataUrodzenia}}</span>
-                </md-item-template>
-                <md-not-found>
-                    Nie znaleziono "{{employeeName}}".
-                </md-not-found>
-            </md-autocomplete>
-        </div>
-        <div class="filter-option">
-            <label>Od - Do</label>
-            <input ng-model="dateRange.DateFrom" type="date" ng-change="assignDateType()" />
-            <select ng-model="dateRange.DateType">
-                <option>Data Dodania</option>
-                <option>Data Dokumentu</option>
-            </select>
-            <input ng-model="dateRange.DateTo" type="date" ng-change="assignDateTo()" />
-        </div>
+                <md-autocomplete md-selected-item="selectedEmployee"
+                                 md-search-text="employeeName"
+                                 md-items="item in employeeSearch(employeeName)"
+                                 md-item-text="item.Nazwisko"
+                                 md-min-length="0"
+                                 required
+                                 ng-model="selectedEmployee">
+                    <md-item-template>
+                        <span md-highlight-text="searchEmployee" md-highlight-flags="^i">{{item.Nazwisko}} {{item.Imie}} {{item.DataUrodzenia}}</span>
+                    </md-item-template>
+                    <md-not-found>
+                        Nie znaleziono "{{employeeName}}".
+                    </md-not-found>
+                </md-autocomplete>
+            </div>
+            <div class="filter-option">
+                <label><i class="fa fa-calendar" aria-hidden="true"></i> Od - Do</label>
+                <div style="height:40px;text-align:center">
+                    <input ng-model="dateRange.DateFrom" type="date" ng-change="assignDateType()" style="width:33%;float:left" />
+                    <select ng-model="dateRange.DateType" style="width:30%;margin:auto">
+                        <option>Data Dodania</option>
+                        <option>Data Dokumentu</option>
+                        <option>Data Pocz.</option>
+                        <option>Data Koniec</option>
+                    </select>
+                    <input ng-model="dateRange.DateTo" type="date" ng-change="assignDateTo()" style="width:33%;float:right" />
+                </div>
 
-    </div>
-    <div class="filter-buttons-option">
-        <button ng-click="reloadTableContents()">Filtruj</button>
-        <button ng-click="clearAllFilters()">Wyczysc</button>
+            </div>
+
+        </div>
+        <div class="filter-buttons-option">
+            <button ng-click="reloadTableContents()">Filtruj</button>
+            <button ng-click="clearAllFilters()">Wyczysc</button>
+        </div>
     </div>
     <div class="files-table-wrapper">
         <div class="user-details-list toolbar-content"></div>

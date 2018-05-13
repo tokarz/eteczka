@@ -101,7 +101,6 @@ angular.module('et.controllers').controller('menuUsersContentController', ['$sco
                     $state.reload();
                 }
             }).catch(function (ex) {
-
                 $mdDialog.show(
                     $mdDialog.alert()
                         .clickOutsideToClose(true)
@@ -125,36 +124,24 @@ angular.module('et.controllers').controller('menuUsersContentController', ['$sco
             .cancel('Nie');
 
         $mdDialog.show(confirm).then(function (value) {
+            settingsService.deleteCompanyForUser(company).then(function (res) {
+                if (res.success) {
+                    $state.reload();
+                }
+            }).catch(function (ex) {
 
-            modalService.promptPassword('Haslo', 'Wymagane podanie hasła (krótkiego)')
-                .then(function (password) {
-                    usersService.checkPassword(password).then(function (correctPassword) {
-                        if (correctPassword) {
-                            settingsService.deleteCompanyForUser(company).then(function (res) {
-                                if (res.success) {
-                                    $state.reload();
-                                }
-                            }).catch(function (ex) {
-
-                                $mdDialog.show(
-                                    $mdDialog.alert()
-                                        .clickOutsideToClose(true)
-                                        .title('Błąd podczas usuwania!')
-                                        .textContent('Wystąpił nieoczekiwany błąd serwera! Sprawdź logi')
-                                        .ariaLabel('Alert Dialog Demo')
-                                        .ok('Rozumiem')
-                                ).then(function () {
-                                    $state.go('login');
-                                });
-                            })
-                        }
-                    })
-                })
-                .catch(function (ex) {
-                    if (ex !== 'cancel' && ex !== 'backdrop click') {
-                        console.error(ex);
-                    }
+                $mdDialog.show(
+                    $mdDialog.alert()
+                        .clickOutsideToClose(true)
+                        .title('Błąd podczas usuwania!')
+                        .textContent('Wystąpił nieoczekiwany błąd serwera! Sprawdź logi')
+                        .ariaLabel('Alert Dialog Demo')
+                        .ok('Rozumiem')
+                ).then(function () {
+                    $state.go('login');
                 });
+            })
+
 
 
         });
@@ -178,14 +165,14 @@ angular.module('et.controllers').controller('menuUsersContentController', ['$sco
             controller: $scope.addUserControllerFunction,
             locals: {
                 isEdit: true,
-                user: $scope.activeUser.Identyfikator
+                user: $scope.activeUser
             }
         };
 
         openModal(
             modalOptions,
             function (value) {
-                settingsService.editUserPassword(value).then(function (res) {
+                settingsService.editUser(value).then(function (res) {
                     if (res.success) {
                         $state.reload();
                     }
@@ -222,7 +209,7 @@ angular.module('et.controllers').controller('menuUsersContentController', ['$sco
         $scope.modalResult = {};
 
         if (user) {
-            $scope.modalResult.Identyfikator = user;
+            $scope.modalResult = user;
         }
 
         $scope.yesNoOptions = [{ name: 'TAK', value: true }, { name: 'NIE', value: false }]

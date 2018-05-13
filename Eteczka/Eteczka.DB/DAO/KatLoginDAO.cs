@@ -182,6 +182,102 @@ namespace Eteczka.DB.DAO
             return result;
         }
 
+        public bool EdytujUzytkownika(AddKatLoginyDto userChanges)
+        {
+            bool result = false;
+            StringBuilder katLoginyDetaleQueryBuilder = new StringBuilder();
+            katLoginyDetaleQueryBuilder.Append("UPDATE \"KatLoginyDetale\" SET ");
+
+            StringBuilder katLoginyQueryBuilder = new StringBuilder();
+            katLoginyQueryBuilder.Append("UPDATE \"KatLoginy\" SET ");
+
+            try
+            {
+                bool wereDetailsModified = false;
+                bool wasLoginModified = false;
+
+                if (userChanges.Nazwisko != null && userChanges.Nazwisko.Length > 0)
+                {
+                    wereDetailsModified = true;
+                    katLoginyDetaleQueryBuilder.Append("nazwisko ='" + userChanges.Nazwisko + "', ");
+                }
+                if (userChanges.Imie != null && userChanges.Imie.Length > 0)
+                {
+                    wereDetailsModified = true;
+                    katLoginyDetaleQueryBuilder.Append("imie ='" + userChanges.Imie + "', ");
+                }
+                if (userChanges.Email != null && userChanges.Email.Length > 0)
+                {
+                    wereDetailsModified = true;
+                    katLoginyDetaleQueryBuilder.Append("pocztaemail ='" + userChanges.Email + "'");
+                }
+
+                if (userChanges.Hasloshort != null && userChanges.Hasloshort.Length > 0)
+                {
+                    wasLoginModified = true;
+                    katLoginyQueryBuilder.Append(" hasloshort ='" + _Crypto.CalculateMD5Hash(userChanges.Hasloshort) + "',");
+                }
+                if (userChanges.Haslolong != null && userChanges.Haslolong.Length > 0)
+                {
+                    wasLoginModified = true;
+                    katLoginyQueryBuilder.Append(" haslolong ='" + _Crypto.CalculateMD5Hash(userChanges.Haslolong) + "', ");
+                }
+
+                IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+
+                if (wasLoginModified)
+                {
+                    katLoginyQueryBuilder.Append("datamodify ='" + DateTime.Now.ToShortDateString() + "' WHERE identyfikator = '" + userChanges.Identyfikator + "';");
+                    string katLoginyQuery = katLoginyQueryBuilder.ToString();
+                    result = connectionState.ExecuteNonQuery(katLoginyQuery);
+                }
+
+                if ((!wasLoginModified || result) && wereDetailsModified)
+                {
+                    katLoginyDetaleQueryBuilder.Append(" WHERE identyfikator = '" + userChanges.Identyfikator + "';");
+                    string katLoginyDetaleQuery = katLoginyDetaleQueryBuilder.ToString();
+                    result = connectionState.ExecuteNonQuery(katLoginyDetaleQuery);
+                }
+
+            }
+            catch (Exception)
+            {
+                result = false;
+            }
+
+            return result;
+        }
+
+        public AddKatLoginyDto WczytajUzytkownika(string id, bool isAdmin = false)
+        {
+            AddKatLoginyDto result = null;
+            string updateString = "SELECT * from \"KatLoginy\" WHERE identyfikator = '" + id + "' and isAdmin = '" + isAdmin + "';";
+
+            try
+            {
+                IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+                DataTable queryResult = connectionState.ExecuteQuery(updateString.ToString());
+                KatLoginyDetale detale = _KatLoginyMapper.MapSingleDetail(queryResult);
+                KatLoginy loginy = _KatLoginyMapper.Map(queryResult);
+
+                result = new AddKatLoginyDto()
+                {
+                    Email = detale.Email,
+                    Identyfikator = loginy.Identyfikator,
+                    Imie = detale.Imie,
+                    Nazwisko = detale.Nazwisko,
+                    Usuniety = loginy.Usuniety
+                };
+
+            }
+            catch (Exception)
+            {
+                result = null;
+            }
+
+            return result;
+        }
+
         public KatLoginyDetale WczytajDetaleDlaUzytkownika(string id)
         {
             string sqlQuery = "SELECT * from \"KatLoginyDetale\" WHERE identyfikator = '" + id + "';";
@@ -254,8 +350,6 @@ namespace Eteczka.DB.DAO
 
             return fetchedResult;
         }
-
-
 
         public List<KatLoginyDetale> WczytajWszystkieDetale(bool czyAdminTez = false)
         {

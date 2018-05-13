@@ -380,7 +380,8 @@
   margin: auto; }
 
 .filters-panel {
-  width: 85%; }
+  width: 85%;
+  margin: 10px auto; }
 
 .filter-buttons-option {
   position: absolute;

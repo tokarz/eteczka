@@ -15,10 +15,10 @@ namespace Eteczka.BE.Services
         List<KatLoginyDetale> GetAllUsersDetails();
 
         bool DodajNowegoUzytkownika(AddKatLoginyDto user);
+        bool EdytujUzytkownika(AddKatLoginyDto user);
         bool DodajFirmeDlaUzytkownika(KatLoginyFirmy firma);
         bool AktualizujFirmeDlaUzytkownika(KatLoginyFirmy firma);
         
-        bool ZmienHaslo(AddKatLoginyDto user);
         bool ZmienHasloAdministratora(string shortPassword, string longPassword);
         bool UsunUzytkownika(string identyfikator);
         bool UsunFirmeUzytkownika(KatLoginyFirmy firma);

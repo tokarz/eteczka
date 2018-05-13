@@ -7,13 +7,15 @@
             </div>
         </md-toolbar>
         <md-dialog-content style="padding:15px">
-            <div class="modal-table-row" ng-if="!isEdit">
+            <div class="modal-table-row">
                 <label class="modal-table-label" for="employee">Nazwisko*</label>
-                <input type="text" ng-model="modalResult.Nazwisko" required />
+                <input type="text" ng-model="modalResult.Nazwisko" ng-if="!isEdit" required />
+                <input type="text" ng-model="modalResult.Nazwisko" ng-if="isEdit" />
             </div>
-            <div class="modal-table-row" ng-if="!isEdit">
+            <div class="modal-table-row">
                 <label class="modal-table-label" for="employeeName">Imie*</label>
-                <input class="modal-table-input" name="employeeName" ng-model="modalResult.Imie" type="text" required />
+                <input ng-if="!isEdit" class="modal-table-input" name="employeeName" ng-model="modalResult.Imie" type="text" required />
+                <input ng-if="isEdit" class="modal-table-input" name="employeeName" ng-model="modalResult.Imie" type="text" />
             </div>
             <div class="modal-table-row" ng-class="isEditable()">
                 <label class="modal-table-label" for="docName">Nazwa użytkownika</label>
@@ -21,11 +23,15 @@
             </div>
             <div class="modal-table-row">
                 <label class="modal-table-label" for="docName">Hasło krótkie</label>
-                <input class="modal-table-input" type="text" ng-model="modalResult.Hasloshort" required />
+                
+                <input ng-if="!isEdit" class="modal-table-input" type="text" ng-model="modalResult.Hasloshort" required />
+                <input ng-if="isEdit" class="modal-table-input" type="text" ng-model="modalResult.Hasloshort" />
             </div>
             <div class="modal-table-row">
                 <label class="modal-table-label" for="shortRepeat">Powtórz hasło krótkie</label>
-                <input class="modal-table-input" name="shortRepeat" type="text" ng-model="modalResult.HasloshortRepeat" required
+                <input ng-if="!isEdit" class="modal-table-input" name="shortRepeat" type="text" ng-model="modalResult.HasloshortRepeat" required
+                       ng-change="isNotEqual(modalResult.Hasloshort, modalResult.HasloshortRepeat)" />
+                <input ng-if="isEdit" class="modal-table-input" name="shortRepeat" type="text" ng-model="modalResult.HasloshortRepeat"
                        ng-change="isNotEqual(modalResult.Hasloshort, modalResult.HasloshortRepeat)" />
             </div>
             <div ng-show="userForm.$submitted || userForm.shortRepeat.$touched ">
@@ -33,19 +39,23 @@
             </div>
             <div class="modal-table-row">
                 <label class="modal-table-label" for="docName">Hasło długie</label>
-                <input class="modal-table-input" type="text" ng-model="modalResult.Haslolong" required />
+                <input ng-if="!isEdit" class="modal-table-input" type="text" ng-model="modalResult.Haslolong" required />
+                <input ng-if="isEdit" class="modal-table-input" type="text" ng-model="modalResult.Haslolong" />
             </div>
             <div class="modal-table-row">
                 <label class="modal-table-label" for="longRepeat">Powtórz hasło długie</label>
-                <input class="modal-table-input" name="longRepeat" type="text" ng-model="modalResult.HaslolongRepeat" required
+                <input ng-if="!isEdit" class="modal-table-input" name="longRepeat" type="text" ng-model="modalResult.HaslolongRepeat" required
+                       ng-change="isNotEqual(modalResult.Haslolong, modalResult.HaslolongRepeat)" />
+                <input ng-if="isEdit" class="modal-table-input" name="longRepeat" type="text" ng-model="modalResult.HaslolongRepeat"
                        ng-change="isNotEqual(modalResult.Haslolong, modalResult.HaslolongRepeat)" />
             </div>
             <div ng-show="userForm.$submitted || userForm.longRepeat.$touched">
                 <span class="modal-table-error" ng-show="isNotEqual(modalResult.Haslolong, modalResult.HaslolongRepeat)">Hasla nie zgadzaja sie</span>
             </div>
-            <div class="modal-table-row" ng-if="!isEdit">
+            <div class="modal-table-row">
                 <label class="modal-table-label" for="docName">Email</label>
-                <input class="modal-table-input" type="email" ng-model="modalResult.Email" required />
+                <input ng-if="!isEdit" class="modal-table-input" type="email" ng-model="modalResult.Email" required />
+                <input ng-if="isEdit" class="modal-table-input" type="email" ng-model="modalResult.Email" />
             </div>
         </md-dialog-content>
         <md-dialog-actions layout="row">
