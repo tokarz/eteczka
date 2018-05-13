@@ -133,7 +133,7 @@ namespace Eteczka.BE.Services
                 if (Directory.Exists(sciezkaDoWaitingRoomu))
                 {
                     string[] foldery = Directory.GetDirectories(sciezkaDoWaitingRoomu);
-                    
+
                     foreach (string pelnaSciezkaDoFolderu in foldery)
                     {
                         string samFolder = _PlikiUtils.WezNazweFolderuZeSciezki(pelnaSciezkaDoFolderu);
@@ -236,7 +236,7 @@ namespace Eteczka.BE.Services
         public List<Pliki> SzukajPlikiZFiltrow(SessionDetails sesja, FiltryPlikow filtry, string sortOrder, string sortColumn)
         {
             List<Pliki> wyszukanePliki = new List<Pliki>();
-            
+
             if (filtry != null)
             {
                 string dateType = (filtry.DateRange.DateType == "datadodania" || filtry.DateRange.DateType == "datapocz" || filtry.DateRange.DateType == "datakoniec") ? filtry.DateRange.DateType : "datadokumentu";
@@ -244,7 +244,13 @@ namespace Eteczka.BE.Services
                 //string dateType = (filtry.DateRange.DateType) ?? "datadokumentu";
                 string date1 = (filtry.DateRange.DateFrom != DateTime.MinValue) ? (filtry.DateRange.DateFrom.ToString("yyyy-MM-dd")) : "0000-00-00";
                 string date2 = (filtry.DateRange.DateTo != DateTime.MinValue) ? (filtry.DateRange.DateTo.ToString("yyyy-MM-dd")) : "9999-12-31";
-              
+
+                if (filtry.DateRange.DateType == null)
+                {
+                    date1 = "0000-00-00";
+                    date2 = "9999-12-31";
+                }
+
                 string rejon = (filtry.Rejon != null) ? ("%" + filtry.Rejon.Rejon + "%") : "%%";
                 string wydzial = (filtry.Wydzial != null) ? ("%" + filtry.Wydzial.Wydzial + "%") : "%%";
                 string podwydzial = (filtry.Podwydzial != null) ? ("%" + filtry.Podwydzial.Podwydzial + "%") : "%%";

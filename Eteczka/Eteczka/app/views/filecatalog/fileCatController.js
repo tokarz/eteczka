@@ -34,11 +34,7 @@ angular.module('et.controllers').controller('fileCatController', ['$scope', '$q'
         }
     ];
 
-    $scope.dateRange = {
-        DateType: $scope.dateTypes[0],
-        DateFrom: '',
-        DateTo: ''
-    }
+
 
     $scope.assignDepartment = function () {
         if ($scope.selectedDepartment && $scope.selectedDepartment.Wydzial) {
@@ -67,8 +63,6 @@ angular.module('et.controllers').controller('fileCatController', ['$scope', '$q'
     $scope.assignType = function () {
     }
 
-
-
     var createFilterFor = function (keys, query) {
         var lowercaseQuery = angular.lowercase(query);
 
@@ -86,9 +80,11 @@ angular.module('et.controllers').controller('fileCatController', ['$scope', '$q'
     $scope.init = function () {
         var deferred = $q.defer();
 
-        Object.keys($scope.dateRange).forEach(function (key) {
-            $scope.dateRange[key] = '';
-        })
+        $scope.dateRange = {
+            DateType: $scope.dateTypes[0],
+            DateFrom: '',
+            DateTo: ''
+        }
 
         fileCatService.getDocumentTypes().then(function (res) {
             $scope.documentTypeFilters = res.PobraneDokumenty;
@@ -152,7 +148,12 @@ angular.module('et.controllers').controller('fileCatController', ['$scope', '$q'
 
     $scope.reloadTableContents = function () {
         $scope.rows = [];
-        fileCatService.getValuesForFilters($scope.selectedArea, $scope.selectedDepartment, $scope.selectedSubDepartment, $scope.selectedAccount5, $scope.selectedType, $scope.selectedEmployee, $scope.dateRange).then(function (result) {
+        $scope.selectedDates = {
+            DateFrom: $scope.dateRange.DateFrom,
+            DateTo: $scope.dateRange.DateTo,
+            DateType: $scope.dateRange.DateType.value
+        }
+        fileCatService.getValuesForFilters($scope.selectedArea, $scope.selectedDepartment, $scope.selectedSubDepartment, $scope.selectedAccount5, $scope.selectedType, $scope.selectedEmployee, $scope.selectedDates).then(function (result) {
             $scope.rows = result.pliki;
         });
     }
