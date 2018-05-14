@@ -2,11 +2,11 @@
     <div class="files-table-wrapper">
         <div class="user-details-list toolbar-content"></div>
         <div style="width:98%;margin:auto">
-            <div ng-if="!rows || rows.length < 1">
+            <div ng-if="!files.rows || files.rows.length < 1">
                 <h1 class="emptyfileheader">{{emptyBasketMsg}}</h1>
             </div>
-            <div class="component-content-wrapper" style="width:100%" ng-if="rows && rows.length > 0">
-                <menu-files-content toolbar="toolbar" rows="rows" emptymessage="{{emptyBasketMsg}}" has-summary="false" shownames="true"></menu-files-content>
+            <div class="component-content-wrapper" style="width:100%" ng-if="files.rows && files.rows.length > 0">
+                <menu-files-content selected-row="files.selectedRow" toolbar="toolbar" rows="files.rows" emptymessage="{{emptyBasketMsg}}" has-summary="false" shownames="true"></menu-files-content>
             </div>
         </div>
     </div>

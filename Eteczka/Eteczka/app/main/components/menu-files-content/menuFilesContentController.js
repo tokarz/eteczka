@@ -10,7 +10,7 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
     $scope.tLastAddedLabel = 'ostatnio dodano: ';
     $scope.tSummaryTitle = 'Teczka pracownika';
 
-    $scope.endsWith234 = function(value) {
+    $scope.endsWith234 = function (value) {
         return value.endsWith('2') || value.endsWith('3') || value.endsWith('4');
     }
 
@@ -155,7 +155,6 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
         return openModal(modalOptions, function (value) { return value })
     }
 
-
     $scope.selectFile = function (file) {
         if ($scope.selectedFile === file) {
             $scope.selectedFile = null;
@@ -164,6 +163,8 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
             $scope.selectedFile = file;
             $scope.fileListWrapperClass = ''
         }
+
+        $scope.selectedRow = $scope.selectedFile;
     }
 
     $scope.getRowStyle = function (file) {
@@ -346,7 +347,7 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
                 $scope.userFiles = result.pliki;
                 $scope.selectedFile = null;
 
-    
+
                 $scope.lastAddedFileType = (result && result.last) ? result.last.Symbol : '';
                 $scope.lastAddedFileDate = (result && result.last) ? result.last.DataSkanuStr : '';
 

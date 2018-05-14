@@ -1,9 +1,12 @@
 ﻿'use strict';
 angular.module('et.controllers').controller('shopCartController', ['$scope', '$state', 'shopCartService', 'modalService', function ($scope, $state, shopCartService, modalService) {
-    $scope.rows = [];
+    $scope.files = {
+        rows: [],
+        selectedRow: {}
+    };
     $scope.emptyBasketMsg = 'Koszyk jest pusty!';
     $scope.printSelectedOptions = function () {
-        
+
     }
 
     var openModal = function (modalOptions, executor) {
@@ -39,14 +42,14 @@ angular.module('et.controllers').controller('shopCartController', ['$scope', '$s
         $scope.modalResult.filesToAttach = selectedFiles
     }
 
-    $scope.openSendEmailDialog = function () {  
+    $scope.openSendEmailDialog = function () {
         var modalOptions = {
             body: 'app/views/shopcart/shopCartModals/sendEmailModal.html',
             controller: $scope.sendEmailCtrl,
             locals: {
-                selectedFiles: $scope.rows.filter(function (elm) {
-                    if (elm.checked) {
-                        return elm
+                selectedFiles: $scope.files.rows.filter(function (elm) {
+                    if (($scope.files.selectedRow && $scope.files.selectedRow.Id === elm.Id) || elm.checked) {
+                        return elm;
                     }
                 })
             }
@@ -103,12 +106,8 @@ angular.module('et.controllers').controller('shopCartController', ['$scope', '$s
         return openModal(modalOptions, function (value) { return value })
     }
 
-    //$scope.downloadFiles = function () {
-    //    alert('print');
-    //}
-
     $scope.toggleSelectAll = function () {
-        angular.forEach($scope.rows, function (elm) {
+        angular.forEach($scope.files.rows, function (elm) {
             if (elm) {
                 elm.checked = !elm.checked;
             }
@@ -118,8 +117,8 @@ angular.module('et.controllers').controller('shopCartController', ['$scope', '$s
     $scope.deleteSelectedFromCart = function () {
         var elementsToDelete = [];
 
-        angular.forEach($scope.rows, function (file) {
-            if (file && file.checked) {
+        angular.forEach($scope.files.rows, function (file) {
+            if (file && (($scope.files.selectedRow && $scope.files.selectedRow.Id === file.Id) || (file.checked))) {
                 elementsToDelete.push(file.Id);
             }
         });
@@ -134,22 +133,7 @@ angular.module('et.controllers').controller('shopCartController', ['$scope', '$s
         });
     }
 
-    //$scope.deleteAllFromCart = function () {
-    //    shopCartService.deleteAllCartElements().then(function (result) {
-    //        $state.reload();
-    //        if (result.success) {
-    //            modalService.alert('', 'Pliki usunieto!');
-    //        } else {
-    //            modalService.alert('', 'Pliki nie mogly zostac usuniete!');
-    //        }
-    //    });
-    //}
-
     $scope.toolbar = [
-        //{
-        //    action: $scope.printSelectedOptions,
-        //    itemClass: 'toolbar-option option-one fa fa-print',
-        //},
         {
             action: $scope.openSendEmailDialog,
             itemClass: 'toolbar-option option-two fa fa-envelope-open-o',
@@ -158,14 +142,6 @@ angular.module('et.controllers').controller('shopCartController', ['$scope', '$s
             action: $scope.downloadFiles,
             itemClass: 'not-yet-available toolbar-option option-two fa fa-download',
         },
-        //{
-        //    action: $scope.toggleSelectAll,
-        //    itemClass: 'toolbar-option option-select-all fa fa-check-square',
-        //},
-        //{
-        //    action: $scope.deleteAllFromCart,
-        //    itemClass: 'toolbar-option option-three fa fa-trash-o',
-        //},
         {
             action: $scope.deleteSelectedFromCart,
             itemClass: 'toolbar-option option-three fa fa-trash-o',
@@ -174,7 +150,10 @@ angular.module('et.controllers').controller('shopCartController', ['$scope', '$s
 
     shopCartService.getShoppingCartForUser().then(function (result) {
         if (result) {
-            $scope.rows = result.pliki;
+            $scope.files = {
+                rows: result.pliki,
+                selectedRow: null
+            }
         }
     });
 
