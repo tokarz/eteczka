@@ -16,6 +16,7 @@ using Eteczka.Model.Entities;
 using Eteczka.DB.DAO;
 using Eteczka.Utils.Common;
 using Eteczka.Utils.Logger;
+using System.Globalization;
 
 namespace Eteczka.BE.Utils
 {
@@ -656,7 +657,7 @@ namespace Eteczka.BE.Utils
 
                 LOGER.LOG_EMAIL_SENDING(new EmailLog()
                 {
-                    CzasWiadomosci = DateTime.Now.ToString("yyyyMMddhhmmssmm"),
+                    CzasWiadomosci = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture),
                     Firma = firma,
                     UserId = user,
                     Adresaci = adresaci,
@@ -681,7 +682,7 @@ namespace Eteczka.BE.Utils
           
             LOGER.LOG_EMAIL_SENDING(new EmailLog()
             {
-                CzasWiadomosci = DateTime.Now.ToString("yyyyMMddhhmmssmm"),
+                CzasWiadomosci = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture),
                 Firma = firma,
                 UserId = user,
                 Adresaci = adresaci,
