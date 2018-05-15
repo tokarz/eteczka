@@ -14,15 +14,7 @@
 
         public override string ToString()
         {
-            return string.Format(@"Czas: {0}, Id: {1}, UserId: {2}, NumerEad: {3}, Firma:{4}, Wiadomosc: {5}, Akcja: {6}, Dodatkowe: {7}",
-                CzasWiadomosci,
-                Id,
-                UserId,
-                NumerEad,
-                Firma,
-                Wiadomosc,
-                Akcja.ToString(),
-                InformacjeDodatkowe);
+          return ($"\"Czas\" : \" {CzasWiadomosci}\", \"Id\" : \"{Id}\", \"UserId\" : \"{UserId}\", \"NumerEad\" : \"{NumerEad}\", \"Firma\" : \"{Firma}\", \"Wiadomosc\" : \"{Wiadomosc}\", \"Akcja\" : \"{Akcja.ToString()}\", \"Dodatkowe\" : \"{InformacjeDodatkowe}\"");  
         }
     }
 }

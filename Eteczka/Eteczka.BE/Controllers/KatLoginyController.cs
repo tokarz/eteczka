@@ -248,6 +248,7 @@ namespace Eteczka.BE.Controllers
                 {
                     success = sucess
                 }, JsonRequestBehavior.AllowGet);
+
             }
             catch (Exception ex)
             {

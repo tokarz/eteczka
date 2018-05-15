@@ -1,5 +1,7 @@
 ﻿using Eteczka.BE.Model;
 using Eteczka.BE.Services;
+using Eteczka.Utils.Logger;
+using Eteczka.Utils.Common.DTO;
 using System;
 using System.Web.Mvc;
 
@@ -7,6 +9,7 @@ namespace Eteczka.BE.Controllers
 {
     public class RaportyController : Controller
     {
+        IEadLogger LOGGER = LoggerFactory.GetLogger();
         private IRaportyPdfService _RaportyPdfService;
         private IRaportyExcellService _RaportyExcellService;
         public RaportyController(IRaportyPdfService raportyPdfService, IRaportyExcellService raportyExcellService)
@@ -15,18 +18,35 @@ namespace Eteczka.BE.Controllers
             this._RaportyExcellService = raportyExcellService;
         }
         public ActionResult GenerujRaportPdfSkorowidzTeczki(string sessionId, string numeread)
-
         {
+            ActionResult result = null;
             bool success = false;
-            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            SessionDetails sesja = null;
+
+            try
             {
-                SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
-                success = _RaportyPdfService.SkorowidzTeczkiPracownika(sesja, numeread);
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    success = _RaportyPdfService.SkorowidzTeczkiPracownika(sesja, numeread);
+                }
+
+                result = Json(new
+                {
+                    sucess = success
+                }, JsonRequestBehavior.AllowGet);
+
+                LOGGER.LOG(PoziomLogowania.INFO, Akcja.RAPORT, "Wygenerowano raport PDF: Skorowidz teczki.",sesja, numeread);
             }
-            return Json(new
+            catch (Exception)
             {
-                success = success
-            }, JsonRequestBehavior.AllowGet);
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            return result;
 
         }
         public ActionResult GenerujRaportPdfSkorowidzTeczkiPelny(string sessionId, string numeread)
@@ -60,18 +80,34 @@ namespace Eteczka.BE.Controllers
         }
 
         public ActionResult GenerujRaportExcellSkorowidzPelny(string sessionId, string numeread)
-
         {
+            ActionResult result = null;
+            SessionDetails sesja = null;
             bool success = false;
-            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            try
             {
-                SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
-                success = _RaportyExcellService.SkorowidzTeczkiExcellPelny(sesja, numeread);
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    success = _RaportyExcellService.SkorowidzTeczkiExcellPelny(sesja, numeread);
+                }
+                result = Json(new
+                {
+                    sucess = success
+                }, JsonRequestBehavior.AllowGet);
+
+                LOGGER.LOG(PoziomLogowania.INFO, Akcja.RAPORT, "Wygenerowano raport XLSX: Pełny skorowidz teczki", sesja, numeread);
             }
-            return Json(new
+            catch (Exception)
             {
-                success = success
-            }, JsonRequestBehavior.AllowGet);
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            
+            return result;
         }
     }
 }

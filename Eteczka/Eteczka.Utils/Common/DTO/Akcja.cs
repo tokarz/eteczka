@@ -6,6 +6,7 @@
         MAIL,
         PLIK,
         DANE_OSOBOWE,
-        HASLO
+        HASLO,
+        RAPORT
     }
 }
