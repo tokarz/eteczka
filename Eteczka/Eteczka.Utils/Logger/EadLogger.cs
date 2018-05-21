@@ -1,4 +1,6 @@
 ﻿using Eteczka.BE.Model;
+using Eteczka.Model.DTO;
+using Eteczka.Model.Entities;
 using Eteczka.Utils.Common;
 using Eteczka.Utils.Common.DTO;
 using System;
@@ -8,13 +10,32 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using System.Globalization;
+using System.ComponentModel;
+
 
 namespace Eteczka.Utils.Logger
 {
     public class EadLogger : IEadLogger
     {
-        public void LOG_DANE_OSOBOWE(PoziomLogowania poziom, Akcja akcja, string wiadomosc, SessionDetails sesja, object TabelaPrzed, object TabelaPo)
+        public void LOG_DANE_OSOBOWE(PoziomLogowania poziom, Akcja akcja, SessionDetails sesja, string nazwaTabeli,object TabelaPo, object TabelaPrzed=null)
         {
+           string path = ConfigurationManager.AppSettings["rootdir"];
+           string fullPath = string.Format(@"{0}/{1}/{2}.log", path, "logs", poziom.ToString());
+            LogTabela log = new LogTabela()
+            {
+                CzasWiadomosci = DateTime.Now.ToString("yyyyMMddHHmmss"),
+                User = sesja.IdUzytkownika,
+                Firma = sesja == null ? "" : (sesja.AktywnaFirma == null ? "" : sesja.AktywnaFirma.Firma.Trim()),
+                Akcja = akcja,
+                NazwaTabeli = nazwaTabeli,
+                TabelaPrzed = TabelaPrzed != null ? this.SerializujDoJson(TabelaPrzed) : "\"\"",
+                TabelaPo = this.SerializujDoJson(TabelaPo),
+                System = "EAD"
+            };
+
+            File.AppendAllText(fullPath, log.ToJsonFormat() + Environment.NewLine);
 
         }
 
@@ -59,6 +80,19 @@ namespace Eteczka.Utils.Logger
             
         }
 
-       
+        public string SerializujDoJson(object ob)
+        {
+            var jSetting = new JsonSerializerSettings()
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                DefaultValueHandling = DefaultValueHandling.Ignore,
+                DateFormatString = "yyyy - MM - dd HH:mm: ss.ff"
+            };
+            string objectSerialized = JsonConvert.SerializeObject(ob, jSetting);
+
+            return objectSerialized;
+        }
+
+
     }
 }

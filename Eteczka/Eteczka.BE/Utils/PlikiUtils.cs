@@ -657,7 +657,7 @@ namespace Eteczka.BE.Utils
 
                 LOGER.LOG_EMAIL_SENDING(new EmailLog()
                 {
-                    CzasWiadomosci = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture),
+                    CzasWiadomosci = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ff", CultureInfo.InvariantCulture),
                     Firma = firma,
                     UserId = user,
                     Adresaci = adresaci,

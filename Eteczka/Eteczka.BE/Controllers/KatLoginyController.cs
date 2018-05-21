@@ -176,11 +176,13 @@ namespace Eteczka.BE.Controllers
 
             bool sucess = false;
             ActionResult result = null;
+            SessionDetails sesja = null;
             try
             {
                 StanSesji stanSesji = Sesja.PobierzStanSesji();
                 if (stanSesji.CzySesjaJestOtwarta(sessionId) && stanSesji.CzySesjaAdministratora(sessionId))
                 {
+                    sesja = stanSesji.PobierzSesje(sessionId);
                     sucess = _KatLoginyService.DodajNowegoUzytkownika(user);
                 }
 
@@ -188,6 +190,8 @@ namespace Eteczka.BE.Controllers
                 {
                     success = sucess
                 }, JsonRequestBehavior.AllowGet);
+
+                LOGGER.LOG_DANE_OSOBOWE(PoziomLogowania.INFO, Akcja.USER_PERSONAL_DATA_ADD, sesja, "KatLoginy, KatLoginyDetale", user);
             }
             catch (Exception ex)
             {
@@ -236,11 +240,13 @@ namespace Eteczka.BE.Controllers
         {
             bool sucess = false;
             ActionResult result = null;
+            SessionDetails sesja = null;
             try
             {
                 StanSesji stanSesji = Sesja.PobierzStanSesji();
                 if (stanSesji.CzySesjaJestOtwarta(sessionId) && stanSesji.CzySesjaAdministratora(sessionId))
                 {
+                    sesja = stanSesji.PobierzSesje(sessionId);
                     sucess = _KatLoginyService.EdytujUzytkownika(user);
                 }
 
@@ -248,7 +254,7 @@ namespace Eteczka.BE.Controllers
                 {
                     success = sucess
                 }, JsonRequestBehavior.AllowGet);
-
+                LOGGER.LOG_DANE_OSOBOWE(PoziomLogowania.INFO, Akcja.USER_PERSONAL_DATA_EDIT, sesja,"KatLoginy",user);
             }
             catch (Exception ex)
             {
