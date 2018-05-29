@@ -72,6 +72,7 @@
     <Compile Include="Entities\SerwerSmtp.cs" />
     <Compile Include="Entities\Uprawnienia.cs" />
     <Compile Include="Entities\User.cs" />
+    <Compile Include="IToLogSerializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sesja\ISesja.cs" />
     <Compile Include="Sesja\Sesja.cs" />

@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Globalization;
 using System.ComponentModel;
-
+using Eteczka.Model;
 
 namespace Eteczka.Utils.Logger
 {
@@ -23,6 +23,20 @@ namespace Eteczka.Utils.Logger
         {
            string path = ConfigurationManager.AppSettings["rootdir"];
            string fullPath = string.Format(@"{0}/{1}/{2}.log", path, "logs", poziom.ToString());
+
+            IToLogSerializer TabelaPrzedDoLoguBezHasel = null;
+
+            if ( TabelaPrzed is KatLoginy || TabelaPrzed is AddKatLoginyDto)
+            {
+                TabelaPrzedDoLoguBezHasel = (TabelaPrzed as IToLogSerializer).WykluczPolaZHaslem(TabelaPrzed);
+            }
+            IToLogSerializer TabelaPoDoLoguBezHasel = null;
+
+            if (TabelaPo is KatLoginy || TabelaPo is AddKatLoginyDto)
+            {
+                TabelaPoDoLoguBezHasel = (TabelaPo as IToLogSerializer).WykluczPolaZHaslem(TabelaPo);
+            }
+
             LogTabela log = new LogTabela()
             {
                 CzasWiadomosci = DateTime.Now.ToString("yyyyMMddHHmmss"),
@@ -30,8 +44,8 @@ namespace Eteczka.Utils.Logger
                 Firma = sesja == null ? "" : (sesja.AktywnaFirma == null ? "" : sesja.AktywnaFirma.Firma.Trim()),
                 Akcja = akcja,
                 NazwaTabeli = nazwaTabeli,
-                TabelaPrzed = TabelaPrzed != null ? this.SerializujDoJson(TabelaPrzed) : "\"\"",
-                TabelaPo = this.SerializujDoJson(TabelaPo),
+                TabelaPrzed = TabelaPrzedDoLoguBezHasel != null ? this.SerializujDoJson(TabelaPrzedDoLoguBezHasel) : (TabelaPrzed != null ? this.SerializujDoJson(TabelaPrzed) :  "\"\""),
+                TabelaPo = TabelaPoDoLoguBezHasel != null ? this.SerializujDoJson(TabelaPoDoLoguBezHasel) : this.SerializujDoJson(TabelaPo),
                 System = "EAD"
             };
 

@@ -116,11 +116,13 @@ namespace Eteczka.BE.Controllers
         {
             bool sucess = false;
             ActionResult result = null;
+            SessionDetails sesja = null;
             try
             {
                 StanSesji stanSesji = Sesja.PobierzStanSesji();
                 if (true || stanSesji.CzySesjaJestOtwarta(sessionId) && stanSesji.CzySesjaAdministratora(sessionId))
                 {
+                    sesja = stanSesji.PobierzSesje(sessionId);
                     sucess = _KatLoginyService.AktualizujFirmeDlaUzytkownika(company);
                 }
 
@@ -128,6 +130,7 @@ namespace Eteczka.BE.Controllers
                 {
                     success = sucess
                 }, JsonRequestBehavior.AllowGet);
+                LOGGER.LOG_DANE_OSOBOWE(PoziomLogowania.INFO, Akcja.EMPLOYEE_PERMISSIONS_EDIT, sesja, "KatLoginyFirmy", company);
             }
             catch (Exception ex)
             {
@@ -145,11 +148,13 @@ namespace Eteczka.BE.Controllers
         {
             bool sucess = false;
             ActionResult result = null;
+            SessionDetails sesja = null;
             try
             {
                 StanSesji stanSesji = Sesja.PobierzStanSesji();
                 if (true || stanSesji.CzySesjaJestOtwarta(sessionId) && stanSesji.CzySesjaAdministratora(sessionId))
                 {
+                    sesja = stanSesji.PobierzSesje(sessionId);
                     sucess = _KatLoginyService.DodajFirmeDlaUzytkownika(company);
                 }
 
@@ -157,6 +162,7 @@ namespace Eteczka.BE.Controllers
                 {
                     success = sucess
                 }, JsonRequestBehavior.AllowGet);
+                LOGGER.LOG_DANE_OSOBOWE(PoziomLogowania.INFO, Akcja.EMPLOYEE_PERMISSIONS_ADD, sesja, "KatLoginyFirmy", company);
             }
             catch (Exception ex)
             {
@@ -209,11 +215,13 @@ namespace Eteczka.BE.Controllers
         {
             bool sucess = false;
             ActionResult result = null;
+            SessionDetails sesja = null;
             try
             {
                 StanSesji stanSesji = Sesja.PobierzStanSesji();
                 if (stanSesji.CzySesjaJestOtwarta(sessionId) && stanSesji.CzySesjaAdministratora(sessionId))
                 {
+                    sesja = stanSesji.PobierzSesje(sessionId);
                     sucess = _KatLoginyService.ZmienHasloAdministratora(shortPassword, longPassword);
                 }
 
@@ -221,6 +229,9 @@ namespace Eteczka.BE.Controllers
                 {
                     success = sucess
                 }, JsonRequestBehavior.AllowGet);
+
+
+                LOGGER.LOG_DANE_OSOBOWE(PoziomLogowania.INFO, Akcja.ADMIN_PASSWORD_CHANGE, sesja, "KatLoginy", "Admin's password changed.");
             }
             catch (Exception ex)
             {
@@ -304,11 +315,13 @@ namespace Eteczka.BE.Controllers
 
             bool sucess = false;
             ActionResult result = null;
+            SessionDetails sesja = null;
             try
             {
                 StanSesji stanSesji = Sesja.PobierzStanSesji();
                 if (stanSesji.CzySesjaJestOtwarta(sessionId) && stanSesji.CzySesjaAdministratora(sessionId))
                 {
+                    sesja = stanSesji.PobierzSesje(sessionId);
                     sucess = _KatLoginyService.UsunUzytkownika(user.Identyfikator);
                 }
 
@@ -316,6 +329,8 @@ namespace Eteczka.BE.Controllers
                 {
                     success = sucess
                 }, JsonRequestBehavior.AllowGet);
+
+                LOGGER.LOG_DANE_OSOBOWE(PoziomLogowania.INFO, Akcja.EMPLOYEE_PERSONAL_DATA_DELETE, sesja, "KatLoginyDetale", user);
             }
             catch (Exception ex)
             {

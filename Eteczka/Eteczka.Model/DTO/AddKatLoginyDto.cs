@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Eteczka.Model.DTO
 {
-    public class AddKatLoginyDto
+    public class AddKatLoginyDto : IToLogSerializer
     {
         public string Identyfikator { get; set; }
         public string Hasloshort { get; set; }
@@ -17,5 +17,21 @@ namespace Eteczka.Model.DTO
         public string Imie { get; set; }
         public string Email { get; set; }
         public bool Usuniety { get; set; }
+
+        public IToLogSerializer WykluczPolaZHaslem(object ob)
+        {
+            IToLogSerializer obiektDoLogu = new AddKatLoginyDto()
+            {
+                Identyfikator = Identyfikator,
+                Hasloshort = Hasloshort != null ? "****" : null,
+                Haslolong = Haslolong != null ? "****" : null,
+                IsAdmin = IsAdmin,
+                Nazwisko = Nazwisko,
+                Imie = Imie,
+                Email = Email,
+                Usuniety = Usuniety
+            };
+            return obiektDoLogu;
+        }
     }
 }
