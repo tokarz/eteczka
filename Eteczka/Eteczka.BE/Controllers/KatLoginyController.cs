@@ -130,7 +130,7 @@ namespace Eteczka.BE.Controllers
                 {
                     success = sucess
                 }, JsonRequestBehavior.AllowGet);
-                LOGGER.LOG_DANE_OSOBOWE(PoziomLogowania.INFO, Akcja.EMPLOYEE_PERMISSIONS_EDIT, sesja, "KatLoginyFirmy", company);
+                LOGGER.LOG_DANE_OSOBOWE(PoziomLogowania.INFO, Akcja.USER_PERMISSIONS_EDIT, sesja, "KatLoginyFirmy", company);
             }
             catch (Exception ex)
             {
@@ -162,7 +162,7 @@ namespace Eteczka.BE.Controllers
                 {
                     success = sucess
                 }, JsonRequestBehavior.AllowGet);
-                LOGGER.LOG_DANE_OSOBOWE(PoziomLogowania.INFO, Akcja.EMPLOYEE_PERMISSIONS_ADD, sesja, "KatLoginyFirmy", company);
+                LOGGER.LOG_DANE_OSOBOWE(PoziomLogowania.INFO, Akcja.USER_PERMISSIONS_ADD, sesja, "KatLoginyFirmy", company);
             }
             catch (Exception ex)
             {
@@ -330,7 +330,7 @@ namespace Eteczka.BE.Controllers
                     success = sucess
                 }, JsonRequestBehavior.AllowGet);
 
-                LOGGER.LOG_DANE_OSOBOWE(PoziomLogowania.INFO, Akcja.EMPLOYEE_PERSONAL_DATA_DELETE, sesja, "KatLoginyDetale", user);
+                LOGGER.LOG_DANE_OSOBOWE(PoziomLogowania.INFO, Akcja.USER_PERSONAL_DATA_DELETE, sesja, "KatLoginyDetale", "User " + user.Identyfikator.Trim() + " was removed.");
             }
             catch (Exception ex)
             {
@@ -349,11 +349,13 @@ namespace Eteczka.BE.Controllers
         {
             bool sucess = false;
             ActionResult result = null;
+            SessionDetails sesja = null;
             try
             {
                 StanSesji stanSesji = Sesja.PobierzStanSesji();
                 if (stanSesji.CzySesjaJestOtwarta(sessionId) && stanSesji.CzySesjaAdministratora(sessionId))
                 {
+                    sesja = stanSesji.PobierzSesje(sessionId);
                     sucess = this._KatLoginyService.UsunFirmeUzytkownika(firma);
                 }
 
@@ -361,6 +363,7 @@ namespace Eteczka.BE.Controllers
                 {
                     success = sucess
                 }, JsonRequestBehavior.AllowGet);
+                LOGGER.LOG_DANE_OSOBOWE(PoziomLogowania.INFO, Akcja.USER_PERMISSIONS_EDIT, sesja, "KatLoginyFirmy", firma);
             }
             catch (Exception)
             {
