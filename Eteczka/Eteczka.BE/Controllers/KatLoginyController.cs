@@ -130,7 +130,7 @@ namespace Eteczka.BE.Controllers
                 {
                     success = sucess
                 }, JsonRequestBehavior.AllowGet);
-                LOGGER.LOG_DANE_OSOBOWE(PoziomLogowania.INFO, Akcja.USER_PERMISSIONS_EDIT, sesja, "KatLoginyFirmy", company);
+                LOGGER.LOG_ZMIANY_W_TABELACH(PoziomLogowania.INFO, Akcja.USER_PERMISSIONS_EDIT, sesja, sucess, "KatLoginyFirmy", company);
             }
             catch (Exception ex)
             {
@@ -139,6 +139,7 @@ namespace Eteczka.BE.Controllers
                     sucess = false,
                     wyjatek = true
                 }, JsonRequestBehavior.AllowGet);
+                LOGGER.LOG_ZMIANY_W_TABELACH(PoziomLogowania.INFO, Akcja.USER_PERMISSIONS_EDIT, sesja, sucess, "KatLoginyFirmy", company);
             }
             return result;
         }
@@ -162,7 +163,7 @@ namespace Eteczka.BE.Controllers
                 {
                     success = sucess
                 }, JsonRequestBehavior.AllowGet);
-                LOGGER.LOG_DANE_OSOBOWE(PoziomLogowania.INFO, Akcja.USER_PERMISSIONS_ADD, sesja, "KatLoginyFirmy", company);
+                LOGGER.LOG_ZMIANY_W_TABELACH(PoziomLogowania.INFO, Akcja.USER_PERMISSIONS_ADD, sesja, sucess, "KatLoginyFirmy", company);
             }
             catch (Exception ex)
             {
@@ -171,6 +172,7 @@ namespace Eteczka.BE.Controllers
                     sucess = false,
                     wyjatek = true
                 }, JsonRequestBehavior.AllowGet);
+                LOGGER.LOG_ZMIANY_W_TABELACH(PoziomLogowania.INFO, Akcja.USER_PERMISSIONS_ADD, sesja, sucess, "KatLoginyFirmy", company);
             }
             return result;
         }
@@ -197,7 +199,7 @@ namespace Eteczka.BE.Controllers
                     success = sucess
                 }, JsonRequestBehavior.AllowGet);
 
-                LOGGER.LOG_DANE_OSOBOWE(PoziomLogowania.INFO, Akcja.USER_PERSONAL_DATA_ADD, sesja, "KatLoginy, KatLoginyDetale", user);
+                LOGGER.LOG_ZMIANY_W_TABELACH(PoziomLogowania.INFO, Akcja.USER_PERSONAL_DATA_ADD, sesja, sucess, "KatLoginy, KatLoginyDetale", user);
             }
             catch (Exception ex)
             {
@@ -206,6 +208,7 @@ namespace Eteczka.BE.Controllers
                     sucess = false,
                     wyjatek = true
                 }, JsonRequestBehavior.AllowGet);
+                LOGGER.LOG_ZMIANY_W_TABELACH(PoziomLogowania.INFO, Akcja.USER_PERSONAL_DATA_ADD, sesja, sucess, "KatLoginy, KatLoginyDetale", user);
             }
             return result;
 
@@ -231,7 +234,7 @@ namespace Eteczka.BE.Controllers
                 }, JsonRequestBehavior.AllowGet);
 
 
-                LOGGER.LOG_DANE_OSOBOWE(PoziomLogowania.INFO, Akcja.ADMIN_PASSWORD_CHANGE, sesja, "KatLoginy", "Admin's password changed.");
+                LOGGER.LOG_ZMIANY_W_TABELACH(PoziomLogowania.INFO, Akcja.ADMIN_PASSWORD_CHANGE, sesja, sucess, "KatLoginy", "Admin's password changed.");
             }
             catch (Exception ex)
             {
@@ -240,6 +243,7 @@ namespace Eteczka.BE.Controllers
                     sucess = false,
                     wyjatek = true
                 }, JsonRequestBehavior.AllowGet);
+                LOGGER.LOG_ZMIANY_W_TABELACH(PoziomLogowania.INFO, Akcja.ADMIN_PASSWORD_CHANGE, sesja, sucess, "KatLoginy", "Admin's password changed.");
             }
             return result;
         }
@@ -265,7 +269,7 @@ namespace Eteczka.BE.Controllers
                 {
                     success = sucess
                 }, JsonRequestBehavior.AllowGet);
-                LOGGER.LOG_DANE_OSOBOWE(PoziomLogowania.INFO, Akcja.USER_PERSONAL_DATA_EDIT, sesja,"KatLoginy",user);
+                LOGGER.LOG_ZMIANY_W_TABELACH(PoziomLogowania.INFO, Akcja.USER_PERSONAL_DATA_EDIT, sesja, sucess, "KatLoginy", user);
             }
             catch (Exception ex)
             {
@@ -274,6 +278,7 @@ namespace Eteczka.BE.Controllers
                     sucess = false,
                     wyjatek = true
                 }, JsonRequestBehavior.AllowGet);
+                LOGGER.LOG_ZMIANY_W_TABELACH(PoziomLogowania.INFO, Akcja.USER_PERSONAL_DATA_EDIT, sesja, sucess, "KatLoginy", user);
             }
             return result;
         }
@@ -330,7 +335,7 @@ namespace Eteczka.BE.Controllers
                     success = sucess
                 }, JsonRequestBehavior.AllowGet);
 
-                LOGGER.LOG_DANE_OSOBOWE(PoziomLogowania.INFO, Akcja.USER_PERSONAL_DATA_DELETE, sesja, "KatLoginyDetale", "User " + user.Identyfikator.Trim() + " was removed.");
+                LOGGER.LOG_ZMIANY_W_TABELACH(PoziomLogowania.INFO, Akcja.USER_PERSONAL_DATA_DELETE, sesja, sucess, "KatLoginyDetale", "User " + user.Identyfikator.Trim() + (sucess ? " was removed" : " removal attempt"));
             }
             catch (Exception ex)
             {
@@ -339,6 +344,8 @@ namespace Eteczka.BE.Controllers
                     sucess = false,
                     wyjatek = true
                 }, JsonRequestBehavior.AllowGet);
+                LOGGER.LOG_ZMIANY_W_TABELACH(PoziomLogowania.INFO, Akcja.USER_PERSONAL_DATA_DELETE, sesja, sucess, "KatLoginyDetale", "User " + user.Identyfikator.Trim() +  " removal attempt");
+
             }
             return result;
 
@@ -363,7 +370,7 @@ namespace Eteczka.BE.Controllers
                 {
                     success = sucess
                 }, JsonRequestBehavior.AllowGet);
-                LOGGER.LOG_DANE_OSOBOWE(PoziomLogowania.INFO, Akcja.USER_PERMISSIONS_EDIT, sesja, "KatLoginyFirmy", firma);
+                LOGGER.LOG_ZMIANY_W_TABELACH(PoziomLogowania.INFO, Akcja.USER_PERMISSIONS_EDIT, sesja, sucess, "KatLoginyFirmy", firma);
             }
             catch (Exception)
             {
@@ -372,6 +379,7 @@ namespace Eteczka.BE.Controllers
                     sucess = false,
                     wyjatek = true
                 }, JsonRequestBehavior.AllowGet);
+                LOGGER.LOG_ZMIANY_W_TABELACH(PoziomLogowania.INFO, Akcja.USER_PERMISSIONS_EDIT, sesja, sucess, "KatLoginyFirmy", firma);
             }
             return result;
 
@@ -379,7 +387,7 @@ namespace Eteczka.BE.Controllers
 
         public ActionResult PobierzPracownika(string nazwa, string haslo)
         {
-            LOGGER.LOG(PoziomLogowania.INFO, Akcja.ZWYKLA, string.Format("Proba logowania [{0}]", nazwa));
+            LOGGER.LOG(PoziomLogowania.INFO, Akcja.USER_LOGIN, string.Format("Login attempt [{0}]", nazwa));
             KatLoginy user = _KatLoginyService.GetUserByNameAndPassword(nazwa, haslo);
             bool success = user != null;
 
@@ -418,7 +426,7 @@ namespace Eteczka.BE.Controllers
                         }
                     }
 
-                    LOGGER.LOG(PoziomLogowania.STATISTIC, Akcja.ZWYKLA, string.Format("Zalogowano", nazwa), sesja);
+                    LOGGER.LOG(PoziomLogowania.INFO, Akcja.USER_LOGIN, string.Format("Logged", nazwa), sesja);
                 }
 
                 result = Json(new

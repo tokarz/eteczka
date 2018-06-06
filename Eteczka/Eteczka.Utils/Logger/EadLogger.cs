@@ -19,7 +19,7 @@ namespace Eteczka.Utils.Logger
 {
     public class EadLogger : IEadLogger
     {
-        public void LOG_DANE_OSOBOWE(PoziomLogowania poziom, Akcja akcja, SessionDetails sesja, string nazwaTabeli,object TabelaPo, object TabelaPrzed=null)
+        public void LOG_ZMIANY_W_TABELACH(PoziomLogowania poziom, Akcja akcja, SessionDetails sesja, bool sucess, string nazwaTabeli, object TabelaPo, object TabelaPrzed = null, string message = null)
         {
            string path = ConfigurationManager.AppSettings["rootdir"];
            string fullPath = string.Format(@"{0}/{1}/{2}.log", path, "logs", poziom.ToString());
@@ -46,6 +46,8 @@ namespace Eteczka.Utils.Logger
                 NazwaTabeli = nazwaTabeli,
                 TabelaPrzed = TabelaPrzedDoLoguBezHasel != null ? this.SerializujDoJson(TabelaPrzedDoLoguBezHasel) : (TabelaPrzed != null ? this.SerializujDoJson(TabelaPrzed) :  "\"\""),
                 TabelaPo = TabelaPoDoLoguBezHasel != null ? this.SerializujDoJson(TabelaPoDoLoguBezHasel) : this.SerializujDoJson(TabelaPo),
+                Sucess = sucess,
+                Wiadomosc = message ?? "\"\"",
                 System = "EAD"
             };
 

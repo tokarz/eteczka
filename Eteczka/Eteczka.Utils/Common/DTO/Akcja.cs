@@ -2,7 +2,7 @@
 {
     public enum Akcja
     {
-        ZWYKLA,
+        USER_LOGIN,
         MAIL,
         PLIK,
         EMPLOYEE_PERSONAL_DATA_ADD,
@@ -14,7 +14,7 @@
         USER_PERSONAL_DATA_EDIT,
         USER_PERSONAL_DATA_DELETE,
         ADMIN_PASSWORD_CHANGE,
-        HASLO,
+        FILES_PASSWORD_CHANGE,
         RAPORT
     }
 }

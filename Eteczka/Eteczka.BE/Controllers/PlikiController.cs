@@ -43,17 +43,17 @@ namespace Eteczka.BE.Controllers
 
         public ActionResult ZmienHaslaPlikow(string sessionId, string stareHaslo, string noweHaslo)
         {
-            LOGGER.LOG(Eteczka.Utils.Common.DTO.PoziomLogowania.INFO, Eteczka.Utils.Common.DTO.Akcja.HASLO, "Password Change - START");
+            LOGGER.LOG(Eteczka.Utils.Common.DTO.PoziomLogowania.INFO, Eteczka.Utils.Common.DTO.Akcja.FILES_PASSWORD_CHANGE, "Password Change - START");
             bool success = false;
             StanSesji stanSesji = Sesja.PobierzStanSesji();
             if (stanSesji.CzySesjaJestOtwarta(sessionId) && stanSesji.CzySesjaAdministratora(sessionId))
             {
                 SessionDetails sesja = stanSesji.PobierzSesje(sessionId);
 
-                LOGGER.LOG(Eteczka.Utils.Common.DTO.PoziomLogowania.INFO, Eteczka.Utils.Common.DTO.Akcja.HASLO, "Password Change USER ", sesja);
+                LOGGER.LOG(Eteczka.Utils.Common.DTO.PoziomLogowania.INFO, Eteczka.Utils.Common.DTO.Akcja.FILES_PASSWORD_CHANGE, "Password Change USER ", sesja);
                 success = _PlikiService.ZmienHaslaPlikow(stareHaslo, noweHaslo);
 
-                LOGGER.LOG(Eteczka.Utils.Common.DTO.PoziomLogowania.INFO, Eteczka.Utils.Common.DTO.Akcja.HASLO, "Password Change USER " + (success ? " successfull " : "failed"), sesja);
+                LOGGER.LOG(Eteczka.Utils.Common.DTO.PoziomLogowania.INFO, Eteczka.Utils.Common.DTO.Akcja.FILES_PASSWORD_CHANGE, "Password Change USER " + (success ? " successfull " : "failed"), sesja);
             }
 
             return Json(new

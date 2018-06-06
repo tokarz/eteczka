@@ -7,6 +7,8 @@ using Eteczka.BE.Model;
 using NLog;
 using Eteczka.BE.Services;
 using Eteczka.Model.DTO;
+using Eteczka.Utils.Logger;
+using Eteczka.Utils.Common.DTO;
 
 namespace Eteczka.BE.Controllers
 {
@@ -15,6 +17,7 @@ namespace Eteczka.BE.Controllers
         Logger LOGGER = LogManager.GetLogger("PracownicyController");
         private IPracownicyService _PracownicyService;
         private IImportService _ImportService;
+        IEadLogger LOGER = LoggerFactory.GetLogger();
 
         public PracownicyController(IPracownicyService pracownicyService, IImportService importService)
         {
@@ -74,18 +77,21 @@ namespace Eteczka.BE.Controllers
         {
             InsertResult wynikInserta = new InsertResult();
             ActionResult result = null;
+            SessionDetails sesja = null;
 
             try
             {
                 if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
                 {
-                    SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
                     wynikInserta = _PracownicyService.DodajPracownika(user, sesja);
                 }
                 result = Json(new
                 {
                     success = wynikInserta,
                 }, JsonRequestBehavior.AllowGet);
+
+                LOGER.LOG_ZMIANY_W_TABELACH(PoziomLogowania.INFO, Akcja.EMPLOYEE_PERSONAL_DATA_ADD, sesja, wynikInserta.Result, "KatPracownicy", user);
             }
             catch (Exception ex)
             {
@@ -94,6 +100,7 @@ namespace Eteczka.BE.Controllers
                     success = false,
                     wyjatek = true,
                 }, JsonRequestBehavior.AllowGet);
+                LOGER.LOG_ZMIANY_W_TABELACH(PoziomLogowania.INFO, Akcja.EMPLOYEE_PERSONAL_DATA_ADD, sesja, wynikInserta.Result, "KatPracownicy", user);
             }
             return result;
         }
@@ -104,11 +111,12 @@ namespace Eteczka.BE.Controllers
         {
             InsertResult success = new InsertResult();
             ActionResult result = null;
+            SessionDetails sesja = null;
             try
             {
                 if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
                 {
-                    SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
                     success = _PracownicyService.EdytujPracownika(pracownik, sesja);
                 }
 
@@ -116,6 +124,8 @@ namespace Eteczka.BE.Controllers
                 {
                     sucess = success
                 }, JsonRequestBehavior.AllowGet);
+
+                LOGER.LOG_ZMIANY_W_TABELACH(PoziomLogowania.INFO, Akcja.EMPLOYEE_PERSONAL_DATA_EDIT, sesja, success.Result, "KatPracownicy", pracownik);
             }
             catch (Exception ex)
             {

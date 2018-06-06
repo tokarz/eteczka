@@ -15,13 +15,15 @@ namespace Eteczka.Utils.Common.DTO
         public string NazwaTabeli { get; set; }
         public string TabelaPrzed { get; set; }
         public string TabelaPo { get; set; }
+        public bool Sucess { get; set; }
+        public string Wiadomosc { get; set; }
         public string System { get; set; }
 
 
         public string ToJsonFormat()
         {
-            return "{" + string.Format("\"ActionTime\" : \"{0}\", \"User\" : \"{1}\", \"Firm\" :\"{2}\", \"Action\" : \"{3}\",\"TableName\" : \"{4}\",\"Changes\" : {5}, \"TableBefore\" : {6},  \"System\" : \"{7}\""
-                , CzasWiadomosci.Trim(), User.Trim(), Firma.Trim(), Akcja, NazwaTabeli, TabelaPo, TabelaPrzed, System) + "}";
+            return "{" + string.Format("\"ActionTime\" : \"{0}\", \"User\" : \"{1}\", \"Firm\" :\"{2}\", \"Action\" : \"{3}\",\"TableName\" : \"{4}\",\"Changes\" : {5}, \"TableBefore\" : {6}, \"Sucess\" : {7}, \"Message\" : {8}, \"System\" : \"{9}\""
+                , CzasWiadomosci.Trim(), User.Trim(), Firma.Trim(), Akcja, NazwaTabeli, TabelaPo, TabelaPrzed, Sucess, Wiadomosc, System) + "}";
 
 
         }
