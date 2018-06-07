@@ -4,7 +4,7 @@
     {
         USER_LOGIN,
         MAIL,
-        PLIK,
+        FILE_ADD,
         EMPLOYEE_PERSONAL_DATA_ADD,
         EMPLOYEE_PERSONAL_DATA_EDIT,
         EMPLOYEE_PERSONAL_DATA_DELETE,

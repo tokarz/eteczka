@@ -426,7 +426,7 @@ namespace Eteczka.BE.Controllers
                         }
                     }
 
-                    LOGGER.LOG(PoziomLogowania.INFO, Akcja.USER_LOGIN, string.Format("Logged", nazwa), sesja);
+                    LOGGER.LOG(PoziomLogowania.INFO, Akcja.USER_LOGIN, string.Format("Logged [{0}]", nazwa), success, sesja);
                 }
 
                 result = Json(new

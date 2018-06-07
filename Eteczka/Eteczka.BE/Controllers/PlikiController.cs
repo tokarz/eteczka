@@ -43,17 +43,17 @@ namespace Eteczka.BE.Controllers
 
         public ActionResult ZmienHaslaPlikow(string sessionId, string stareHaslo, string noweHaslo)
         {
-            LOGGER.LOG(Eteczka.Utils.Common.DTO.PoziomLogowania.INFO, Eteczka.Utils.Common.DTO.Akcja.FILES_PASSWORD_CHANGE, "Password Change - START");
+            LOGGER.LOG(Eteczka.Utils.Common.DTO.PoziomLogowania.INFO, Eteczka.Utils.Common.DTO.Akcja.FILES_PASSWORD_CHANGE, "Files Password Change - START");
             bool success = false;
             StanSesji stanSesji = Sesja.PobierzStanSesji();
             if (stanSesji.CzySesjaJestOtwarta(sessionId) && stanSesji.CzySesjaAdministratora(sessionId))
             {
                 SessionDetails sesja = stanSesji.PobierzSesje(sessionId);
 
-                LOGGER.LOG(Eteczka.Utils.Common.DTO.PoziomLogowania.INFO, Eteczka.Utils.Common.DTO.Akcja.FILES_PASSWORD_CHANGE, "Password Change USER ", sesja);
+                
                 success = _PlikiService.ZmienHaslaPlikow(stareHaslo, noweHaslo);
 
-                LOGGER.LOG(Eteczka.Utils.Common.DTO.PoziomLogowania.INFO, Eteczka.Utils.Common.DTO.Akcja.FILES_PASSWORD_CHANGE, "Password Change USER " + (success ? " successfull " : "failed"), sesja);
+                LOGGER.LOG(Eteczka.Utils.Common.DTO.PoziomLogowania.INFO, Eteczka.Utils.Common.DTO.Akcja.FILES_PASSWORD_CHANGE, "Files Password Change - FINISH ", success, sesja);
             }
 
             return Json(new
@@ -165,7 +165,7 @@ namespace Eteczka.BE.Controllers
         [HttpPost]
         public ActionResult KomitujPlik(string sessionId, KomitPliku plik)
         {
-            LOGGER.LOG(Eteczka.Utils.Common.DTO.PoziomLogowania.INFO, Eteczka.Utils.Common.DTO.Akcja.PLIK, "File Commit - START");
+            LOGGER.LOG(Eteczka.Utils.Common.DTO.PoziomLogowania.INFO, Eteczka.Utils.Common.DTO.Akcja.FILE_ADD, ("File Commit - START [documentId: " + plik.NrDokumentu + ", employee" + plik.Pracownik.Numeread + "]"));
             bool success = false;
 
             StanSesji sesja = Sesja.PobierzStanSesji();
@@ -173,9 +173,9 @@ namespace Eteczka.BE.Controllers
             if (sesja.CzySesjaJestOtwarta(sessionId))
             {
                 SessionDetails detaleSesji = sesja.PobierzSesje(sessionId);
-                LOGGER.LOG(Eteczka.Utils.Common.DTO.PoziomLogowania.INFO, Eteczka.Utils.Common.DTO.Akcja.PLIK, "File Commit - USER ", detaleSesji, plik.NrDokumentu);
+                
                 success = _PlikiService.ZakomitujPlikDoBazy(plik, detaleSesji.AktywnaFirma.Firma, _PlikiUtils.StworzSciezkeZListy(detaleSesji.AktywnyFolder), detaleSesji.AktywnaFirma.Identyfikator);
-                LOGGER.LOG(Eteczka.Utils.Common.DTO.PoziomLogowania.INFO, Eteczka.Utils.Common.DTO.Akcja.PLIK, "File Commit - USER " + (success ? " successfull " : "failed"), detaleSesji, plik.NrDokumentu);
+                LOGGER.LOG(Eteczka.Utils.Common.DTO.PoziomLogowania.INFO, Eteczka.Utils.Common.DTO.Akcja.FILE_ADD, ("File Commit - FINISH [documentId: " + plik.NrDokumentu + ", employee: " + plik.Pracownik.Numeread.Trim() + "]"), success, detaleSesji);
             }
 
             return Json(new

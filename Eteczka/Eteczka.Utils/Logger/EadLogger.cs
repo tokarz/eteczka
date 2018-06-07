@@ -55,7 +55,7 @@ namespace Eteczka.Utils.Logger
 
         }
 
-        public void LOG(PoziomLogowania poziom, Akcja akcja, string widomosc, SessionDetails sesja = null, string numerEad = "")
+        public void LOG(PoziomLogowania poziom, Akcja akcja, string widomosc, bool sucess = false, SessionDetails sesja = null, string numerEad = "")
         {
             string logLevel = ConfigurationManager.AppSettings["logLevel"];
             string path = ConfigurationManager.AppSettings["rootdir"];
@@ -68,10 +68,11 @@ namespace Eteczka.Utils.Logger
                 Wiadomosc = widomosc,
                 Firma = sesja == null ? "" : (sesja.AktywnaFirma == null ? "" : sesja.AktywnaFirma.Firma.Trim()),
                 CzasWiadomosci = DateTime.Now.ToString("yyyyMMddHHmmss"),
-                Id = "ToBeGenerated",
-                InformacjeDodatkowe = "",
-                NumerEad = numerEad,
-                UserId = sesja == null ? "" : sesja.IdUzytkownika.Trim()
+                //Id = "ToBeGenerated",
+                //InformacjeDodatkowe = "",
+                //NumerEad = numerEad,
+                UserId = sesja == null ? "" : sesja.IdUzytkownika.Trim(),
+                Sucess = sucess
             };
 
             if (poziom == PoziomLogowania.DEBUG)

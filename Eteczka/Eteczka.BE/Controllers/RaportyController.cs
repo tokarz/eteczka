@@ -36,7 +36,7 @@ namespace Eteczka.BE.Controllers
                     sucess = success
                 }, JsonRequestBehavior.AllowGet);
 
-                LOGGER.LOG(PoziomLogowania.INFO, Akcja.RAPORT, "Wygenerowano raport PDF: Skorowidz teczki.",sesja, numeread);
+                LOGGER.LOG(PoziomLogowania.INFO, Akcja.RAPORT, "Generowanie raport PDF: Skorowidz teczki. Pracownik: " + numeread.Trim() + ", firma: " + sesja.AktywnaFirma.Firma.Trim(), success, sesja);
             }
             catch (Exception)
             {
@@ -96,7 +96,7 @@ namespace Eteczka.BE.Controllers
                     sucess = success
                 }, JsonRequestBehavior.AllowGet);
 
-                LOGGER.LOG(PoziomLogowania.INFO, Akcja.RAPORT, "Wygenerowano raport XLSX: Pełny skorowidz teczki", sesja, numeread);
+                LOGGER.LOG(PoziomLogowania.INFO, Akcja.RAPORT, "Generowanie raportu XLSX: Pełny skorowidz teczki pracownika " + numeread.Trim() + ", firma: " + sesja.AktywnaFirma.Firma.Trim(), success, sesja);
             }
             catch (Exception)
             {
