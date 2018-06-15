@@ -48,7 +48,7 @@
             </div>
             <div class="modal-table-row">
                 <label class="modal-table-label" for="password">Haslo</label>
-                <input class="modal-table-input" name="password" type="text" ng-model="modalResult.Password" required/>
+                <input class="modal-table-input" name="password" type="password" ng-model="modalResult.Password" required/>
             </div>
             <div ng-show="adminContact.$submitted || adminContact.password.$touched">
                 <span class="modal-table-error" ng-show="adminContact.password.$error.required">Prosze podac haslo</span>
