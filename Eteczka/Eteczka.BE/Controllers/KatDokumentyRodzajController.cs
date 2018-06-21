@@ -5,11 +5,16 @@ using Eteczka.BE.Services;
 using Eteczka.BE.Model;
 using Eteczka.Model.DTO;
 using System;
+using Eteczka.Utils.Logger;
+using Eteczka.Utils.Common.DTO;
 
 namespace Eteczka.BE.Controllers
 {
     public class KatDokumentyRodzajController : Controller
     {
+
+        IEadLogger LOGGER = LoggerFactory.GetLogger();
+
         private KatDokumentyRodzajService _KatDokumentyRodzajService;
 
         public KatDokumentyRodzajController(KatDokumentyRodzajService KatDokumentyRodzajService)
@@ -52,11 +57,12 @@ namespace Eteczka.BE.Controllers
         {
             InsertResult sucess = new InsertResult();
             ActionResult result = null;
+            SessionDetails sesja = null;
             try
             {
                 if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
                 {
-                    SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
 
                     sucess = _KatDokumentyRodzajService.DodajRodzajDokumentuDoBazy(symbol, nazwaDokumentu, typEdycji, teczkaDzial, sesja);
                 }
@@ -73,6 +79,7 @@ namespace Eteczka.BE.Controllers
                     wyjatek = true
                 }, JsonRequestBehavior.AllowGet);
             }
+            LOGGER.LOG_MAIN_LOG(PoziomLogowania.INFO, Akcja.DOCUMENT_TYPE_ADD, sesja, sucess.Result, "KatDokumentyRodzaj", " ", " ", "Document [" + symbol.Trim() + "]" + (sucess.Result ? " added" : "add attempt failure"));
             return result;
             
         }
@@ -80,11 +87,12 @@ namespace Eteczka.BE.Controllers
         {
             InsertResult sucess = new InsertResult();
             ActionResult result = null;
+            SessionDetails sesja = null;
             try
             {
                 if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
                 {
-                    SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
 
                     sucess = _KatDokumentyRodzajService.DezaktywujRodzajDokumentu(symbol, sesja);
                 }
@@ -101,6 +109,7 @@ namespace Eteczka.BE.Controllers
                     wyjatek = true
                 }, JsonRequestBehavior.AllowGet);
             }
+            LOGGER.LOG_MAIN_LOG(PoziomLogowania.INFO, Akcja.DOCUMENT_TYPE_DELETE, sesja, sucess.Result, "KatDokumentyRodzaj", " ", " ", "Document [" + symbol.Trim() + "]" + (sucess.Result ? " deleted" : "delete attempt failure"));
             return result;
         }
 
@@ -136,11 +145,12 @@ namespace Eteczka.BE.Controllers
         {
             InsertResult sucess = new InsertResult();
             ActionResult result = null;
+            SessionDetails sesja = null;
             try
             {
                 if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
                 {
-                    SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
                     sucess = _KatDokumentyRodzajService.EdytujRodzajDokumentu(sesja, dokument);
                 }
                 result = Json(new
@@ -157,6 +167,7 @@ namespace Eteczka.BE.Controllers
                     wyjatek = true
                 }, JsonRequestBehavior.AllowGet);
             }
+            LOGGER.LOG_MAIN_LOG(PoziomLogowania.INFO, Akcja.DOCUMENT_TYPE_EDIT, sesja, sucess.Result, "KatDokumentyRodzaj", dokument, " ", "Document [" + dokument.Symbol.Trim() + "]" + (sucess.Result ? " edited" : "edition attempt failure"));
             return result;
         }
     }

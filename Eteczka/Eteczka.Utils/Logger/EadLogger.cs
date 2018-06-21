@@ -19,7 +19,7 @@ namespace Eteczka.Utils.Logger
 {
     public class EadLogger : IEadLogger
     {
-        public void LOG_ZMIANY_W_TABELACH(PoziomLogowania poziom, Akcja akcja, SessionDetails sesja, bool sucess, string nazwaTabeli, object TabelaPo, object TabelaPrzed = null, string message = null)
+        public void LOG_MAIN_LOG(PoziomLogowania poziom, Akcja akcja, SessionDetails sesja, bool sucess, string nazwaTabeli, object TabelaPo, object TabelaPrzed = null, string message = null)
         {
            string path = ConfigurationManager.AppSettings["rootdir"];
            string fullPath = string.Format(@"{0}/{1}/{2}.log", path, "logs", poziom.ToString());

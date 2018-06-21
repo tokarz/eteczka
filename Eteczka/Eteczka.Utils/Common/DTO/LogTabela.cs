@@ -22,8 +22,8 @@ namespace Eteczka.Utils.Common.DTO
 
         public string ToJsonFormat()
         {
-            return "{" + string.Format("\"ActionTime\" : \"{0}\", \"UserId\" : \"{1}\", \"Firm\" :\"{2}\", \"Action\" : \"{3}\",\"TableName\" : \"{4}\",\"Changes\" : {5}, \"TableBefore\" : {6}, \"Sucess\" : {7}, \"Message\" : {8}, \"System\" : \"{9}\""
-                , CzasWiadomosci.Trim(), User.Trim(), Firma.Trim(), Akcja, NazwaTabeli, TabelaPo, TabelaPrzed, Sucess.ToString().ToLower(), Wiadomosc, System) + "}";
+            return "{" + string.Format("\"ActionTime\" : \"{0}\", \"UserId\" : \"{1}\", \"Firm\" :\"{2}\", \"Action\" : \"{3}\",\"TableName\" : \"{4}\",\"Changes\" : {5}, \"TableBefore\" : {6}, \"Sucess\" : {7}, \"Message\" : \"{8}\", \"System\" : \"{9}\""
+                , CzasWiadomosci.Trim(), User.Trim(), Firma.Trim(), Akcja, NazwaTabeli, TabelaPo, TabelaPrzed, Sucess.ToString().ToLower(), Wiadomosc, System) + "};";
 
 
         }

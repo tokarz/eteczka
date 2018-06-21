@@ -230,7 +230,7 @@ namespace Eteczka.DB.DAO
                 if (userChanges.Email != null && userChanges.Email.Length > 0)
                 {
                     wereDetailsModified = true;
-                    katLoginyDetaleQueryBuilder.Append("pocztaemail ='" + userChanges.Email + "'");
+                    katLoginyDetaleQueryBuilder.Append("pocztaemail ='" + userChanges.Email + "',");
                 }
 
                 if (userChanges.Hasloshort != null && userChanges.Hasloshort.Length > 0)
@@ -252,16 +252,17 @@ namespace Eteczka.DB.DAO
                     string katLoginyQuery = katLoginyQueryBuilder.ToString();
                     result = connectionState.ExecuteNonQuery(katLoginyQuery);
                 }
-
+                IConnectionState connectionState2 = _ConnectionFactory.CreateConnectionToDB(_Connection);
                 if ((!wasLoginModified || result) && wereDetailsModified)
                 {
                     katLoginyDetaleQueryBuilder.Append(" WHERE identyfikator = '" + userChanges.Identyfikator + "';");
                     string katLoginyDetaleQuery = katLoginyDetaleQueryBuilder.ToString();
-                    result = connectionState.ExecuteNonQuery(katLoginyDetaleQuery);
+                    string katLoginyDetaleFinalQuery = katLoginyDetaleQuery.Remove(katLoginyDetaleQuery.LastIndexOf(","), 1);
+                    result = connectionState2.ExecuteNonQuery(katLoginyDetaleFinalQuery);
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex ) 
             {
                 result = false;
             }

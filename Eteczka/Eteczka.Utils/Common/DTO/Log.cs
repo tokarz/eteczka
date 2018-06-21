@@ -18,7 +18,7 @@
 
         public override string ToString()
         {
-          return ($"\"ActionTime\" : \" {CzasWiadomosci}\",  \"UserId\" : \"{UserId}\",  \"Company\" : \"{Firma}\", \"Action\" : \"{Akcja.ToString()}\", \"TableName\" : \"\", \"Changes\" : \"\", \"TableBefore\" : \"\", \"Sucess\" : {Sucess.ToString().ToLower()}, \"Message\" : \"{Wiadomosc}\", \"System\" : \"EAD\"");  
+          return ($"\"ActionTime\" : \" {CzasWiadomosci}\",  \"UserId\" : \"{UserId}\",  \"Company\" : \"{Firma}\", \"Action\" : \"{Akcja.ToString()}\", \"TableName\" : \"\", \"Changes\" : \"\", \"TableBefore\" : \"\", \"Sucess\" : {Sucess.ToString().ToLower()}, \"Message\" : \"{Wiadomosc}\", \"System\" : \"EAD\";");  
         }
     }
 }

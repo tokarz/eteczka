@@ -90,8 +90,6 @@ namespace Eteczka.BE.Controllers
                 {
                     success = wynikInserta,
                 }, JsonRequestBehavior.AllowGet);
-
-                LOGER.LOG_ZMIANY_W_TABELACH(PoziomLogowania.INFO, Akcja.EMPLOYEE_PERSONAL_DATA_ADD, sesja, wynikInserta.Result, "KatPracownicy", user);
             }
             catch (Exception ex)
             {
@@ -100,8 +98,8 @@ namespace Eteczka.BE.Controllers
                     success = false,
                     wyjatek = true,
                 }, JsonRequestBehavior.AllowGet);
-                LOGER.LOG_ZMIANY_W_TABELACH(PoziomLogowania.INFO, Akcja.EMPLOYEE_PERSONAL_DATA_ADD, sesja, wynikInserta.Result, "KatPracownicy", user);
             }
+            LOGER.LOG_MAIN_LOG(PoziomLogowania.INFO, Akcja.EMPLOYEE_PERSONAL_DATA_ADD, sesja, wynikInserta.Result, "KatPracownicy", user, " ", "Employee: [" + user.Imie.Trim() + " " + user.Nazwisko.Trim() + ", company: " + sesja.AktywnaFirma.Firma.Trim() + "] " + (wynikInserta.Result ? "added" : "add attempt failure."));
             return result;
         }
 
@@ -124,8 +122,6 @@ namespace Eteczka.BE.Controllers
                 {
                     sucess = success
                 }, JsonRequestBehavior.AllowGet);
-
-                LOGER.LOG_ZMIANY_W_TABELACH(PoziomLogowania.INFO, Akcja.EMPLOYEE_PERSONAL_DATA_EDIT, sesja, success.Result, "KatPracownicy", pracownik);
             }
             catch (Exception ex)
             {
@@ -135,6 +131,7 @@ namespace Eteczka.BE.Controllers
                     wyjatek = true
                 }, JsonRequestBehavior.AllowGet);
             }
+            LOGER.LOG_MAIN_LOG(PoziomLogowania.INFO, Akcja.EMPLOYEE_PERSONAL_DATA_EDIT, sesja, success.Result, "KatPracownicy", pracownik, " ", "Employee: [" + pracownik.Imie.Trim() + " " + pracownik.Nazwisko.Trim() + ", company: " + sesja.AktywnaFirma.Firma.Trim() + "]" + (success.Result ? " edition succesful" : "edition attempt failure."));
             return result;
         }
 

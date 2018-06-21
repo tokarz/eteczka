@@ -130,7 +130,7 @@ namespace Eteczka.BE.Controllers
                 {
                     success = sucess
                 }, JsonRequestBehavior.AllowGet);
-                LOGGER.LOG_ZMIANY_W_TABELACH(PoziomLogowania.INFO, Akcja.USER_PERMISSIONS_EDIT, sesja, sucess, "KatLoginyFirmy", company);
+                
             }
             catch (Exception ex)
             {
@@ -139,8 +139,8 @@ namespace Eteczka.BE.Controllers
                     sucess = false,
                     wyjatek = true
                 }, JsonRequestBehavior.AllowGet);
-                LOGGER.LOG_ZMIANY_W_TABELACH(PoziomLogowania.INFO, Akcja.USER_PERMISSIONS_EDIT, sesja, sucess, "KatLoginyFirmy", company);
             }
+            LOGGER.LOG_MAIN_LOG(PoziomLogowania.INFO, Akcja.USER_PERMISSIONS_EDIT, sesja, sucess, "KatLoginyFirmy", company, " ", "User [" + company.Identyfikator.Trim() + "]" + (sucess ? " company updated" : " company update failure."));
             return result;
         }
 
@@ -163,7 +163,6 @@ namespace Eteczka.BE.Controllers
                 {
                     success = sucess
                 }, JsonRequestBehavior.AllowGet);
-                LOGGER.LOG_ZMIANY_W_TABELACH(PoziomLogowania.INFO, Akcja.USER_PERMISSIONS_ADD, sesja, sucess, "KatLoginyFirmy", company);
             }
             catch (Exception ex)
             {
@@ -172,8 +171,8 @@ namespace Eteczka.BE.Controllers
                     sucess = false,
                     wyjatek = true
                 }, JsonRequestBehavior.AllowGet);
-                LOGGER.LOG_ZMIANY_W_TABELACH(PoziomLogowania.INFO, Akcja.USER_PERMISSIONS_ADD, sesja, sucess, "KatLoginyFirmy", company);
             }
+            LOGGER.LOG_MAIN_LOG(PoziomLogowania.INFO, Akcja.USER_PERMISSIONS_ADD, sesja, sucess, "KatLoginyFirmy", company, " ", "User [" + company.Identyfikator.Trim() + "]" + " company " + company.Firma.Trim() + (sucess ? " added." : " add attempt failure."));
             return result;
         }
 
@@ -199,7 +198,6 @@ namespace Eteczka.BE.Controllers
                     success = sucess
                 }, JsonRequestBehavior.AllowGet);
 
-                LOGGER.LOG_ZMIANY_W_TABELACH(PoziomLogowania.INFO, Akcja.USER_PERSONAL_DATA_ADD, sesja, sucess, "KatLoginy, KatLoginyDetale", user);
             }
             catch (Exception ex)
             {
@@ -208,8 +206,8 @@ namespace Eteczka.BE.Controllers
                     sucess = false,
                     wyjatek = true
                 }, JsonRequestBehavior.AllowGet);
-                LOGGER.LOG_ZMIANY_W_TABELACH(PoziomLogowania.INFO, Akcja.USER_PERSONAL_DATA_ADD, sesja, sucess, "KatLoginy, KatLoginyDetale", user);
             }
+            LOGGER.LOG_MAIN_LOG(PoziomLogowania.INFO, Akcja.USER_PERSONAL_DATA_ADD, sesja, sucess, "KatLoginy, KatLoginyDetale", user, " ", "User [" + user.Identyfikator.Trim() + "]" + (sucess ? " added." : " add attempt failure."));
             return result;
 
         }
@@ -232,9 +230,6 @@ namespace Eteczka.BE.Controllers
                 {
                     success = sucess
                 }, JsonRequestBehavior.AllowGet);
-
-
-                LOGGER.LOG_ZMIANY_W_TABELACH(PoziomLogowania.INFO, Akcja.ADMIN_PASSWORD_CHANGE, sesja, sucess, "KatLoginy", "Admin's password changed.");
             }
             catch (Exception ex)
             {
@@ -243,8 +238,8 @@ namespace Eteczka.BE.Controllers
                     sucess = false,
                     wyjatek = true
                 }, JsonRequestBehavior.AllowGet);
-                LOGGER.LOG_ZMIANY_W_TABELACH(PoziomLogowania.INFO, Akcja.ADMIN_PASSWORD_CHANGE, sesja, sucess, "KatLoginy", "Admin's password changed.");
             }
+            LOGGER.LOG_MAIN_LOG(PoziomLogowania.INFO, Akcja.ADMIN_PASSWORD_CHANGE, sesja, sucess, "KatLoginy", " ", " ", (sucess ? "Admin's password changed." : "Admin's password change attemtp failure."));
             return result;
         }
 
@@ -269,7 +264,6 @@ namespace Eteczka.BE.Controllers
                 {
                     success = sucess
                 }, JsonRequestBehavior.AllowGet);
-                LOGGER.LOG_ZMIANY_W_TABELACH(PoziomLogowania.INFO, Akcja.USER_PERSONAL_DATA_EDIT, sesja, sucess, "KatLoginy", user);
             }
             catch (Exception ex)
             {
@@ -278,8 +272,8 @@ namespace Eteczka.BE.Controllers
                     sucess = false,
                     wyjatek = true
                 }, JsonRequestBehavior.AllowGet);
-                LOGGER.LOG_ZMIANY_W_TABELACH(PoziomLogowania.INFO, Akcja.USER_PERSONAL_DATA_EDIT, sesja, sucess, "KatLoginy", user);
             }
+            LOGGER.LOG_MAIN_LOG(PoziomLogowania.INFO, Akcja.USER_PERSONAL_DATA_EDIT, sesja, sucess, "KatLoginy", user, " ", sucess ? "User " + "[" + user.Identyfikator.Trim() + "]" + " edition successful." : "User " + "[" + user.Identyfikator.Trim() + "]" + " edition attempt failure.");
             return result;
         }
 
@@ -334,8 +328,6 @@ namespace Eteczka.BE.Controllers
                 {
                     success = sucess
                 }, JsonRequestBehavior.AllowGet);
-
-                LOGGER.LOG_ZMIANY_W_TABELACH(PoziomLogowania.INFO, Akcja.USER_PERSONAL_DATA_DELETE, sesja, sucess, "KatLoginyDetale", "User " + user.Identyfikator.Trim() + (sucess ? " was removed" : " removal attempt"));
             }
             catch (Exception ex)
             {
@@ -344,9 +336,8 @@ namespace Eteczka.BE.Controllers
                     sucess = false,
                     wyjatek = true
                 }, JsonRequestBehavior.AllowGet);
-                LOGGER.LOG_ZMIANY_W_TABELACH(PoziomLogowania.INFO, Akcja.USER_PERSONAL_DATA_DELETE, sesja, sucess, "KatLoginyDetale", "User " + user.Identyfikator.Trim() +  " removal attempt");
-
             }
+            LOGGER.LOG_MAIN_LOG(PoziomLogowania.INFO, Akcja.USER_PERSONAL_DATA_DELETE, sesja, sucess, "KatLoginyDetale", user, " ", "User " + "[" + user.Identyfikator.Trim() + "]" + (sucess ? " was removed" : " removal attempt failure."));
             return result;
 
         }
@@ -370,7 +361,6 @@ namespace Eteczka.BE.Controllers
                 {
                     success = sucess
                 }, JsonRequestBehavior.AllowGet);
-                LOGGER.LOG_ZMIANY_W_TABELACH(PoziomLogowania.INFO, Akcja.USER_PERMISSIONS_EDIT, sesja, sucess, "KatLoginyFirmy", firma);
             }
             catch (Exception)
             {
@@ -379,15 +369,16 @@ namespace Eteczka.BE.Controllers
                     sucess = false,
                     wyjatek = true
                 }, JsonRequestBehavior.AllowGet);
-                LOGGER.LOG_ZMIANY_W_TABELACH(PoziomLogowania.INFO, Akcja.USER_PERMISSIONS_EDIT, sesja, sucess, "KatLoginyFirmy", firma);
             }
+            LOGGER.LOG_MAIN_LOG(PoziomLogowania.INFO, Akcja.USER_PERMISSIONS_EDIT, sesja, sucess, "KatLoginyFirmy", firma, "User " + "[" + firma.Identyfikator.Trim() + "]" + firma.Firma.Trim() + (sucess ? " was removed" : " removal attempt failure."));
             return result;
 
         }
 
         public ActionResult PobierzPracownika(string nazwa, string haslo)
         {
-            LOGGER.LOG(PoziomLogowania.INFO, Akcja.USER_LOGIN, string.Format("Login attempt [{0}]", nazwa));
+            LOGGER.LOG(PoziomLogowania.STATISTIC, Akcja.USER_LOGIN, string.Format("Login attempt [{0}]", nazwa));
+            
             KatLoginy user = _KatLoginyService.GetUserByNameAndPassword(nazwa, haslo);
             bool success = user != null;
 
@@ -425,8 +416,6 @@ namespace Eteczka.BE.Controllers
                             sesja.AktywnyFolder = AktywnyFolder;
                         }
                     }
-
-                    LOGGER.LOG(PoziomLogowania.INFO, Akcja.USER_LOGIN, string.Format("Logged [{0}]", nazwa), success, sesja);
                 }
 
                 result = Json(new
@@ -446,6 +435,7 @@ namespace Eteczka.BE.Controllers
                     wyjatek = true
                 }, JsonRequestBehavior.AllowGet);
             }
+            LOGGER.LOG_MAIN_LOG(PoziomLogowania.INFO, Akcja.USER_LOGIN, sesja, success, "KatLoginy, KatLoginyDetale, KatLoginyFirmy", " ", " ", "User " + "[" + nazwa + "]" + (success ? " logged." : " loggin attempt failure."));
             return result;
         }
 

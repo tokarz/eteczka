@@ -35,8 +35,6 @@ namespace Eteczka.BE.Controllers
                 {
                     sucess = success
                 }, JsonRequestBehavior.AllowGet);
-
-                LOGGER.LOG(PoziomLogowania.INFO, Akcja.RAPORT, "Generowanie raport PDF: Skorowidz teczki. Pracownik: " + numeread.Trim() + ", firma: " + sesja.AktywnaFirma.Firma.Trim(), success, sesja);
             }
             catch (Exception)
             {
@@ -46,6 +44,8 @@ namespace Eteczka.BE.Controllers
                     wyjatek = true
                 }, JsonRequestBehavior.AllowGet);
             }
+
+            LOGGER.LOG_MAIN_LOG(PoziomLogowania.INFO, Akcja.RAPORT, sesja, success, " ", " ", " ", "Files folder of employee [" + numeread.Trim() + ", company: " + sesja.AktywnaFirma.Firma.Trim() + (success ? "] PDF report generated succesfully" : "] PDF report generating attempt failure."));
             return result;
 
         }
@@ -54,11 +54,12 @@ namespace Eteczka.BE.Controllers
         {
             bool success = false;
             ActionResult result = null;
+            SessionDetails sesja = null;
             try
             {
                 if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
                 {
-                    SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
                     success = _RaportyPdfService.SkorowidzTeczkiPracownikaPelny(sesja, numeread);
                 }
                 result = Json(new
@@ -74,6 +75,7 @@ namespace Eteczka.BE.Controllers
                     wyjatek = true
                 }, JsonRequestBehavior.AllowGet);
             }
+            LOGGER.LOG_MAIN_LOG(PoziomLogowania.INFO, Akcja.RAPORT, sesja, success, " ", " ", " ", "Files folder of employee [" + numeread.Trim() + ", company: " + sesja.AktywnaFirma.Firma.Trim() + (success ? "] PDF full report generated succesfully" : "] PDF full report generating attempt failure."));
             return result;
             
             
@@ -95,8 +97,6 @@ namespace Eteczka.BE.Controllers
                 {
                     sucess = success
                 }, JsonRequestBehavior.AllowGet);
-
-                LOGGER.LOG(PoziomLogowania.INFO, Akcja.RAPORT, "Generowanie raportu XLSX: Pełny skorowidz teczki pracownika " + numeread.Trim() + ", firma: " + sesja.AktywnaFirma.Firma.Trim(), success, sesja);
             }
             catch (Exception)
             {
@@ -106,7 +106,7 @@ namespace Eteczka.BE.Controllers
                     wyjatek = true
                 }, JsonRequestBehavior.AllowGet);
             }
-            
+            LOGGER.LOG_MAIN_LOG(PoziomLogowania.INFO, Akcja.RAPORT, sesja, success, " ", " ", " ",  "Files folder of employee [" + numeread.Trim() + ", company: " + sesja.AktywnaFirma.Firma.Trim() + (success ? "] XLSX full report generated succesfully" : "] XLSX full report generating attempt failure."));
             return result;
         }
     }
