@@ -152,7 +152,7 @@ angular.module('et.controllers').controller('shopCartController', ['$scope', '$s
         if (result) {
             $scope.files = {
                 rows: result.pliki,
-                selectedRow: null
+                selectedRow: {}
             }
         }
     });
