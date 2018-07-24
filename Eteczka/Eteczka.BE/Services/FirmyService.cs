@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Eteczka.DB.DAO;
-using Eteczka.BE.Mappers;
+﻿using Eteczka.DB.DAO;
 using Eteczka.Model.Entities;
+using System.Collections.Generic;
 
 namespace Eteczka.BE.Services
 {
