@@ -38,16 +38,14 @@ angular.module('et.utils').factory('modalService', ['$mdDialog', function ($mdDi
             return $mdDialog.show(confirm);
         },
         promptPassword: function (title, message) {
-            var prompt = $mdDialog.prompt()
-                .title(title)
-                .textContent(message)
-                .placeholder('Haslo')
-                .ariaLabel('Haslo')
-                .required(true)
-                .ok('Ok')
-                .cancel('Anuluj');
+            var dialogParams = {
+                title: title,
+                templateUrl: 'app/main/utils/modalTemplate/userPasswordModal.html',
+                controller: 'ModalController',
+                clickOutsideToClose: true
+            }
 
-            return $mdDialog.show(prompt);
+            return $mdDialog.show(dialogParams);
         }
 
     };

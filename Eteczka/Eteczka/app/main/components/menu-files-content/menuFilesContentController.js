@@ -191,7 +191,7 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
         modalService.confirm('Usuwanie plików', 'Czy jesteś pewien, że chcesz usunąć zaznaczone pliki?').then(function () {
             modalService.promptPassword('Haslo', 'Wymagane podanie hasła (krótkiego)')
                 .then(function (password) {
-                    usersService.checkPassword(password).then(function (correctPassword) {
+                    usersService.checkPassword(password && password.userPassword).then(function (correctPassword) {
                         if (correctPassword && correctPassword.success) {
                             filesViewService.deleteSelectedFiles($scope.userFiles.filter(function (fileRow) {
                                 return fileRow.checked || fileRow.Id === $scope.selectedFile.Id;
@@ -226,7 +226,6 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
                 Dokwlasny: description.DokumentWlasny
             }
         );
-        console.log('$scope.modalResult', $scope.modalResult)
         $scope.yesNoOptions = [{ name: 'TAK', value: true }, { name: 'NIE', value: false }]
         $scope.docPartOptions = ['A', 'B', 'C']
         $scope.modalResult.Nazwa = name;
@@ -319,7 +318,7 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
                 modalService.confirm('Zapisać zmiany?', 'Czy chcesz zapisać zmiany w opisie pliku ?').then(function () {
                     modalService.promptPassword('Haslo', 'Wymagane podanie hasła (krótkiego)')
                         .then(function (password) {
-                            usersService.checkPassword(password).then(function (correctPassword) {
+                            usersService.checkPassword(password && password.userPassword).then(function (correctPassword) {
                                 if (correctPassword && correctPassword.success) {
                                     filesViewService.editCommittedFile(value).then(function (res) {
                                         if (res.sucess) {
