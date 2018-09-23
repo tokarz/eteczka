@@ -188,14 +188,22 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
     }
 
     $scope.triggerDeleteEmployeePopup = function () {
+        var filesToDelete = $scope.userFiles
+            .filter(function (fileRow) { return (fileRow.checked || ($scope.selectedFile && fileRow.Id === $scope.selectedFile.Id ))})
+            .map(function (selectedFileRow) { return selectedFileRow.Id });
+
+        if (filesToDelete.length === 0) {
+            modalService.alert('Usuwanie plików', 'Nie zaznaczono żadnego pliku!');
+
+            return
+        }
+ 
         modalService.confirm('Usuwanie plików', 'Czy jesteś pewien, że chcesz usunąć zaznaczone pliki?').then(function () {
             modalService.promptPassword('Haslo', 'Wymagane podanie hasła (krótkiego)')
                 .then(function (password) {
                     usersService.checkPassword(password && password.userPassword).then(function (correctPassword) {
                         if (correctPassword && correctPassword.success) {
-                            filesViewService.deleteSelectedFiles($scope.userFiles.filter(function (fileRow) {
-                                return fileRow.checked || fileRow.Id === $scope.selectedFile.Id;
-                            }).map(function (selectedFileRow) { return selectedFileRow.Id })).then(function () {
+                            filesViewService.deleteSelectedFiles(filesToDelete).then(function () {
                                 modalService.alert('Usuwanie plików', 'Pliki usunięto!');
                                 cacheService.addToCache('MFCC.user', $scope.user);
 
