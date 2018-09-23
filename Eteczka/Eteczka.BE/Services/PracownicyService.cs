@@ -82,7 +82,7 @@ namespace Eteczka.BE.Services
         public InsertResult DodajPracownika(Pracownik pracownik, SessionDetails sesja)
         {
             InsertResult result = new InsertResult();
-            pracownik.Numeread = pracownik.Nazwisko.Substring(0, 3) + pracownik.Imie.Substring(0, 3) + pracownik.PESEL;
+            pracownik.Numeread = this.StworzNumerEad(pracownik);
             Pracownik pracownikWBazie = _PracownikDao.PobierzPracownikaPoId(pracownik.Numeread);
             if(pracownikWBazie != null)
             {
@@ -112,8 +112,14 @@ namespace Eteczka.BE.Services
                 result.Result = _PracownikDao.EdytujPracownika(pracownik, sesja.AktywnaFirma.Identyfikator, sesja.AktywnaFirma.Identyfikator);
             }
 
-
             return result;
+        }
+
+        public string StworzNumerEad(Pracownik pracownik)
+        {
+            string nrEad = pracownik.Nazwisko.Substring(0, 3) + pracownik.Imie.Substring(0, 3) + pracownik.PESEL;
+
+            return nrEad;
         }
     }
 }

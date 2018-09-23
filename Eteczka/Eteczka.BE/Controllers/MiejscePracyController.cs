@@ -4,6 +4,7 @@ using Eteczka.BE.Services;
 using Eteczka.Model.Entities;
 using Eteczka.Model.DTO;
 using Eteczka.BE.Model;
+using System;
 
 namespace Eteczka.BE.Controllers
 {
@@ -32,6 +33,99 @@ namespace Eteczka.BE.Controllers
             {
                 MiejscaPracy = miejscaPracy
             }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult DodajMiejscePracy(string sessionId, MiejscePracy miejsceDoDodania)
+        {
+            ActionResult result = null;
+            InsertResult wynikInserta = null;
+            SessionDetails detaleSesji = null;
+
+            try
+            {
+                if(Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    detaleSesji = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    wynikInserta = _MiejscePracyService.DodajMiejscePracy(detaleSesji, miejsceDoDodania);
+                }
+                result = Json(new
+                {
+                    sucess = wynikInserta
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            return result;
+        }
+        [HttpPut]
+        public ActionResult EdytujMiejscePracy(string sessionId, MiejscePracy miejsceDoEdycji)
+        {
+            ActionResult result = null;
+            SessionDetails detaleSesji = null;
+            InsertResult wynikInserta = null;
+
+            try
+            {
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    detaleSesji = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    wynikInserta = _MiejscePracyService.EdytujMiejscePracy(detaleSesji, miejsceDoEdycji);
+                }
+                result = Json(new
+                {
+                    sucess = wynikInserta
+                }, JsonRequestBehavior.AllowGet);  
+            }
+            catch (Exception ex)
+            {
+
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            return result;
+        }
+
+        [HttpPut]
+        public ActionResult UsunMiejscePracy(string sessionId, MiejscePracy miejsceDoUsuniecia)
+        {
+            ActionResult result = null;
+            InsertResult wynikUpdate = null;
+            SessionDetails detaleSesji = null;
+
+            try
+            {
+                if(Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    detaleSesji = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    wynikUpdate = _MiejscePracyService.UsunMiejscePracy(detaleSesji, miejsceDoUsuniecia);
+
+                }
+                result = Json(new
+                {
+                    sucess = wynikUpdate
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);    
+            }
+            return result;
+
+
         }
     }
 }

@@ -101,5 +101,72 @@ namespace Eteczka.DB.DAO
 
             return result;
         }
+        public bool DodajMiejscePracy(MiejscePracy miejsceDoDodania, string idoper, string idakcept)
+        {
+
+            bool result = false;
+            string sqlQuery = "INSERT INTO \"MiejscePracy\" (firma, rejon, wydzial, podwydzial, konto5, datapocz, datakoniec, idoper, idakcept, datamodify, dataakcept, numeread, systembazowy, usuniety)" +
+                "VALUES('" + miejsceDoDodania.Firma +"','"+ miejsceDoDodania.Rejon +"','" + miejsceDoDodania.Wydzial +"','" + miejsceDoDodania.Podwydzial + "','" + miejsceDoDodania.Konto5 +"','" + miejsceDoDodania.DataPocz.ToString("yyyy-MM-dd") + "','" + miejsceDoDodania.DataKoniec.ToString("yyyy-MM-dd") + "','" + idoper.Trim() + "','" + idakcept.Trim() + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ms") + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ms") + "','" + miejsceDoDodania.NumerEad + "','EAD'," + "FALSE)";
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+            result = connectionState.ExecuteNonQuery(sqlQuery);
+            return result;
+        }
+
+        public bool EdytujMiejscePracy(MiejscePracy miejsceDoEdycji, string idoper, string idakcept)
+        {
+            bool result = false;
+            object[] wartosci = new object[]
+            {
+                miejsceDoEdycji.Firma,
+                miejsceDoEdycji.Rejon,
+                miejsceDoEdycji.Wydzial,
+                miejsceDoEdycji.Podwydzial,
+                miejsceDoEdycji.Konto5,
+                idoper,
+                idakcept,
+                miejsceDoEdycji.DataPocz.ToString("yyyy-MM-dd"),
+                miejsceDoEdycji.DataKoniec.ToString("yyyy-MM-dd"),
+                DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ms"),
+                miejsceDoEdycji.Id
+
+            };
+
+            string sqlQuery = string.Format("UPDATE \"MiejscePracy\" " +
+                "SET firma = '{0}', rejon = '{1}', wydzial = '{2}', podwydzial = '{3}', konto5 = '{4}', " +
+                "idoper = '{5}', idakcept = '{6}', datapocz = '{7}', datakoniec = '{8}', datamodify = '{9}' " +
+                "WHERE id = '{10}'", wartosci);
+
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+            result = connectionState.ExecuteNonQuery(sqlQuery);
+
+            return result;
+        }
+
+        public bool UsunMiejscePracy(long id, string idoper, string idakcept)
+        {
+            bool result = false;
+            string sqlQuery = "UPDATE \"MiejscePracy\" " +
+                "SET usuniety = 'true', idoper = '" + idoper + "', idakcept = '" + idakcept + "', datamodify = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ms") + "'" +
+                "WHERE id = '" + id + "'";
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+            result = connectionState.ExecuteNonQuery(sqlQuery);
+
+            return result;
+
+        }
+
+        public bool SprawdzCzyMiejscePracyIstniejeWFirmie(long id)
+        {
+            bool result = false;
+            string sqlQuery = "SELECT * FROM \"MiejscePracy\" where id = '" + id + "'"; 
+
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+            DataTable table = connectionState.ExecuteQuery(sqlQuery);
+            if (table != null & table.Rows != null & table.Rows.Count > 0 )
+            {
+                result = true;
+            }
+            return result;
+        }
     }
 }
