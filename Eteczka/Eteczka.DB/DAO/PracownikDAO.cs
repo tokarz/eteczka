@@ -368,7 +368,7 @@ namespace Eteczka.DB.DAO
                     pracownik.ImieMatki,
                     pracownik.ImieOjca,
                     pracownik.PeselInny,
-                    idoper, 
+                    idoper,
                     idakcept,
                     pracownik.DataModify,
                     pracownik.DataAkcept,
@@ -395,6 +395,76 @@ namespace Eteczka.DB.DAO
 
             return success;
         }
+
+        public bool DodajPracownikaZMiejscemPracy(Pracownik pracownikDoDodania, MiejscePracy miejsceDoDodania, string idoper, string idakcept)
+        {
+            bool sucess = false;
+
+            try
+            {
+                object[] DanePracownika = new object[] {
+                    pracownikDoDodania.Imie,
+                    pracownikDoDodania.Nazwisko,
+                    pracownikDoDodania.PESEL,
+                    pracownikDoDodania.Numeread,
+                    pracownikDoDodania.Kraj,
+                    pracownikDoDodania.NazwiskoRodowe,
+                    pracownikDoDodania.ImieMatki,
+                    pracownikDoDodania.ImieOjca,
+                    pracownikDoDodania.PeselInny,
+                    idoper,
+                    idakcept,
+                    DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ms"),
+                    DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ms"),
+                    pracownikDoDodania.DataUrodzenia,
+                    pracownikDoDodania.Imie2,
+                    "EAD",
+                    false,
+                    pracownikDoDodania.Kodkierownik,
+                    pracownikDoDodania.Confidential
+
+                };
+                StringBuilder builder = new StringBuilder();
+                string PracownikValues = string.Format("'{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}', '{10}', '{11}', '{12}', '{13}', '{14}', '{15}', {16}, '{17}', {18}", DanePracownika);
+                string sqlQueryPracownik = "INSERT INTO \"KatPracownicy\"(imie, nazwisko, pesel, numeread, kraj, nazwiskorodowe, imiematki, imieojca, peselinny, idoper, idakcept, datamodify, dataakcept, dataurodzenia, imie2, systembazowy, usuniety, kodkierownik, confidential) VALUES (" + PracownikValues + ");";
+                builder.Append(sqlQueryPracownik);
+
+                object[] DaneMiejscaPracy = new object[]
+                {
+                miejsceDoDodania.Firma,
+                miejsceDoDodania.Rejon,
+                miejsceDoDodania.Wydzial,
+                miejsceDoDodania.Podwydzial,
+                miejsceDoDodania.Konto5,
+                miejsceDoDodania.DataPocz.ToString("yyyy-MM-dd"),
+                miejsceDoDodania.DataKoniec.ToString("yyyy-MM-dd"),
+                idoper,
+                idakcept,
+                DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ms"),
+                DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ms"),
+                miejsceDoDodania.NumerEad,
+                "EAD",
+                false
+                 };
+
+                string MiejscePracyValues = string.Format("'{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}', '{10}', '{11}', '{12}', '{13}'", DaneMiejscaPracy);
+                string sqlQueryMiejscePracy = "INSERT INTO \"MiejscePracy\"(firma, rejon, wydzial, podwydzial, konto5, datapocz, datakoniec, idoper, idakcept,datamodify, dataakcept, numeread, systembazowy, usuniety) VALUES (" + MiejscePracyValues + ");";
+
+                builder.Append(sqlQueryMiejscePracy);
+                string sqlQuery = builder.ToString();
+
+                IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+                sucess = connectionState.ExecuteNonQuery(sqlQuery);
+            }
+            catch (Exception)
+            {
+
+            }
+
+            return sucess;
+
+        }
+
         public bool EdytujPracownika(Pracownik pracownik, string idoper, string idakcept)
         {
             bool success = false;
@@ -409,7 +479,7 @@ namespace Eteczka.DB.DAO
                     pracownik.ImieMatki,
                     pracownik.ImieOjca,
                     pracownik.PeselInny,
-                    idoper, 
+                    idoper,
                     idakcept,
                     pracownik.DataModify,
                     pracownik.DataAkcept,

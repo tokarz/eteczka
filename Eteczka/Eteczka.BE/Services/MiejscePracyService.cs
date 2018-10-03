@@ -31,14 +31,17 @@ namespace Eteczka.BE.Services
         public InsertResult DodajMiejscePracy(SessionDetails sesja, MiejscePracy miejsceDoDodania)
         {
             InsertResult result = new InsertResult();
-
-            if (_MiejscePracyDao.SprawdzCzyMiejscePracyIstniejeWFirmie(miejsceDoDodania.Id))
-            {
-                result.Message = "Pracownik  aktualnie posiada w firmie miejsce pracy. Upewnij się czy nie należy zamknąć poprzedniego miejsca pracy";
-
-            }
-
+            bool czyMiejscePracyIstnieje = _MiejscePracyDao.SprawdzCzyMiejscePracyIstniejeWFirmie(miejsceDoDodania.Id);
+            
             result.Result = _MiejscePracyDao.DodajMiejscePracy(miejsceDoDodania, sesja.IdUzytkownika, sesja.IdUzytkownika);
+            if (czyMiejscePracyIstnieje && result.Result)
+            {
+                result.Message = "Dodano nowe miejsce pracy. Uwaga: pracownik już posiada w firmie inne aktualne miejsce pracy. Upewnij się czy nie należy zamknąć poprzedniego miejsca pracy";
+            }
+            else
+            {
+                result.Message = result.Result == true ? "Dodano nowe miejsce pracy." : "Próba dodania nowego miejsca pracy nie powiodła się.";
+            }
 
             return result;
         }

@@ -12,16 +12,21 @@ using Newtonsoft.Json.Linq;
 using Eteczka.BE.Mappers;
 using Eteczka.BE.Model;
 using Eteczka.Model.DTO;
+using Eteczka.DB.Mappers;
 
 namespace Eteczka.BE.Services
 {
     public class PracownicyService : IPracownicyService
     {
         private IPracownikDAO _PracownikDao;
+        private IPracownikZMiejscemPracyMapper _mapper;
+        private IMiejscePracyService _miejscePracyService;
 
-        public PracownicyService(IPracownikDAO pracownikDao)
+        public PracownicyService(IPracownikDAO pracownikDao, IPracownikZMiejscemPracyMapper mapper, IMiejscePracyService miejscePracyService)
         {
             this._PracownikDao = pracownikDao;
+            this._mapper = mapper;
+            this._miejscePracyService = miejscePracyService;
         }
 
         public List<Pracownik> PobierzWszystkich(SessionDetails sesja)
@@ -98,6 +103,28 @@ namespace Eteczka.BE.Services
             return result;
         }
 
+        public InsertResult DodajPracownikaIMiejscePracy(SessionDetails sesja, PracownikZMiejscemPracy pracownikDoDodania)
+        {
+            InsertResult result = new InsertResult();
+            Pracownik pracownik = _mapper.MapujDoPracownika(pracownikDoDodania);
+            pracownik.Numeread = this.StworzNumerEad(pracownik);
+            MiejscePracy miejscePracy = _mapper.MapujDoMiejscaPracy(pracownikDoDodania);
+            miejscePracy.NumerEad = pracownik.Numeread;
+            Pracownik pracownikWbazie = _PracownikDao.PobierzPracownikaPoId(pracownik.Numeread);
+
+            if (pracownikWbazie != null)
+            {
+                result = _miejscePracyService.DodajMiejscePracy(sesja, miejscePracy);
+            }
+            else
+            {
+                result.Result = _PracownikDao.DodajPracownikaZMiejscemPracy(pracownik, miejscePracy, sesja.IdUzytkownika.Trim(), sesja.IdUzytkownika.Trim());
+                result.Message = result.Result ? "Pracownik z miejscem pracy został dodany." : "Próba dodania pracownika i miejsca pracy nie powiodła się.";
+            }
+
+            return result;
+        }
+
         public InsertResult EdytujPracownika(Pracownik pracownik, SessionDetails sesja)
         {
             InsertResult result = new InsertResult();
@@ -117,7 +144,7 @@ namespace Eteczka.BE.Services
 
         public string StworzNumerEad(Pracownik pracownik)
         {
-            string nrEad = pracownik.Nazwisko.Substring(0, 3) + pracownik.Imie.Substring(0, 3) + pracownik.PESEL;
+            string nrEad = pracownik.Nazwisko.Substring(0, 3).ToUpper() + pracownik.Imie.Substring(0, 3).ToUpper() + pracownik.PESEL;
 
             return nrEad;
         }

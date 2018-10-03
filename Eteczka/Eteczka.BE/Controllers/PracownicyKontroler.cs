@@ -108,6 +108,40 @@ namespace Eteczka.BE.Controllers
         }
 
         [HttpPost]
+        public ActionResult DodajPracownikaIMiejscePracy(string sessionId, PracownikZMiejscemPracy pracownikDoDodania)
+        {
+            ActionResult result = null;
+            InsertResult wynikInserta = null;
+            SessionDetails detaleSesji = null;
+
+            try
+            {
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+
+                    detaleSesji = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    wynikInserta = _PracownicyService.DodajPracownikaIMiejscePracy(detaleSesji, pracownikDoDodania); 
+                }
+                result = Json(new
+                {
+                    sucess = wynikInserta
+                }, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception ex)
+            {
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            return result;
+
+
+        }
+
+        [HttpPost]
         [ActionName("Edytuj")]
         public ActionResult EdytujPracownika(string sessionId, Pracownik pracownik)
         {

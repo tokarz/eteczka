@@ -20,6 +20,7 @@ namespace Eteczka.DB.DAO
         List<Pracownik> WyszukiwaczZatrPracownikowPoTekscie(string search, string firma, int confidential, int limit = 500, string orderby = "nazwisko", bool asc = true);
         List<Pracownik> WyszukiwaczPozostZatrPracownikowPoTekscie(string search, string firma, int confidential, int limit = 500, string orderby = "nazwisko", bool asc = true);
         bool DodajPracownika(Pracownik pracownik, string idoper, string idakcept);
+        bool DodajPracownikaZMiejscemPracy(Pracownik pracownikDoDodania, MiejscePracy miejsceDoDodania, string idoper, string idakcept);
         bool EdytujPracownika(Pracownik pracownik, string idoper, string idakcept);
     }
 }

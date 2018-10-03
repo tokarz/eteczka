@@ -20,6 +20,7 @@ namespace Eteczka.BE.Services
         List<Pracownik> ZnajdzZatrPracownikowPoTekscie(string search, SessionDetails sesja);
         List<Pracownik> ZnajdzPozostPracownikowPoTekscie(string search, SessionDetails sesja);
         InsertResult DodajPracownika(Pracownik pracownik, SessionDetails sesja);
+        InsertResult DodajPracownikaIMiejscePracy(SessionDetails sesja, PracownikZMiejscemPracy pracownikDoDodania);
         InsertResult EdytujPracownika(Pracownik pracownik, SessionDetails sesja);
 
     }
