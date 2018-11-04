@@ -57,7 +57,24 @@ angular.module('et.services').factory('employeesService', ['httpService', 'sessi
                 sessionId: sessionService.getSessionId(),
                 pracownik: pracownik
             });
+        },
+        addEmployeeWithWorkplace: function (employeeWithWorkplace) {
+            return httpService.post('Pracownicy/DodajPracownikaIMiejscePracy', {
+                sessionId: sessionService.getSessionId(),
+                pracownikDoDodania: employeeWithWorkplace
+            });
+        },
+        addWorkplace: function (workplace) {
+            return httpService.post('MiejscePracy/DodajMiejscePracy', {
+                sessionId: sessionService.getSessionId(),
+                miejsceDoDodania: workplace
+            });
+        },
+        editWorkplace: function (workplace) {
+            return httpService.post('MiejscePracy/EdytujMiejscePracy', {
+                sessionId: sessionService.getSessionId(),
+                miejsceDoEdycji: workplace
+            });
         }
-
     };
 }]);

@@ -115,6 +115,25 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
         return result;
     }
 
+    $scope.mapWorkplaceInput = function (workplace) {
+        if (workplace) {
+            if (workplace.Rejon && workplace.Rejon.Rejon) {
+                workplace.Rejon = workplace.Rejon.Rejon
+            }
+            if (workplace.Wydzial && workplace.Wydzial.Wydzial) {
+                workplace.Wydzial = workplace.Wydzial.Wydzial
+            }
+            if (workplace.Podwydzial && workplace.Podwydzial.Podwydzial) {
+                workplace.Podwydzial = workplace.Podwydzial.Podwydzial
+            }
+            if (workplace.Konto5 && workplace.Konto5.Konto5) {
+                workplace.Konto5 = workplace.Konto5.Konto5
+            }
+        }
+
+        return workplace
+    }
+
     $scope.upsertEmployeeCtrl = function ($scope, $mdDialog, user) {
         if (user) {
             $scope.modalResult = user;
@@ -231,24 +250,34 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
 
 
     $scope.triggerAddEmployeeDialog = function () {
-        var modalOptions = {
+        var userModalOptions = {
             body: 'app/views/employees/editEmployeesPopup/upsertUserModal.html',
             controller: $scope.upsertEmployeeCtrl,
             locals: {
                 user: null
             }
         };
+        var userWorkplaceModalOptions = {
+            body: 'app/views/employees/editWorkplacesPopup/upsertWorkplaceModal.html',
+            controller: $scope.upsertWorkplaceCtrl,
+            locals: {
+                workplace: { Firma: $scope.company.firma },
+                workplaceParams: $scope.workplaceParams
+            }
+        };
 
-        openModal(modalOptions, function (user) {
-            employeesService.addEmployee(user).then(function (res) {
-                $state.reload();
-                if (res.data.Result) {
-                    modalService.alert('', 'Dodano Pracownika!');
-                } else {
-                    modalService.alert('Blad', 'Blad Dodawania Pracownika [' + res.data.Message + ']');
-                }
-            }, function (err) {
-                modalService.alert('Blad', err);
+        openModal(userModalOptions, function (user) {
+            openModal(userWorkplaceModalOptions, function (workplace) {
+                employeesService.addEmployeeWithWorkplace(Object.assign({}, user, $scope.mapWorkplaceInput(workplace))).then(function (res) {
+                    $state.reload();
+                    if (res.sucess.Result) {
+                        modalService.alert('', res.sucess.Message);
+                    } else {
+                        modalService.alert('Blad', 'Blad Dodawania Pracownika [' + res.sucess.Message + ']');
+                    }
+                }, function (err) {
+                    modalService.alert('Blad', err);
+                });
             });
         });
     }
@@ -267,10 +296,10 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
             function (user) {
                 employeesService.editEmployee(user).then(function (res) {
                     $state.reload();
-                    if (res.data.Result) {
+                    if (res.sucess.Result) {
                         modalService.alert('', 'Zapisano zmiany dla pracownika!');
                     } else {
-                        modalService.alert('Blad', 'Blad Edycji Pracownika [' + res.data.Message + ']');
+                        modalService.alert('Blad', 'Blad Edycji Pracownika [' + res.sucess.Message + ']');
                     }
                 }, function (err) {
                     modalService.alert('Blad', err);
@@ -380,7 +409,18 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
 
         openModal(
             modalOptions,
-            function (value) { console.log('tu bedzie wywolanie funkcji dodawania miejsca pracy', value) }
+            function (workplace) {
+                employeesService.addWorkplace(Object.assign({ NumerEad: $scope.user.Numeread }, $scope.mapWorkplaceInput(workplace))).then(function (res) {
+                    $state.reload();
+                    if (res.sucess.Result) {
+                        modalService.alert('', res.sucess.Message);
+                    } else {
+                        modalService.alert('Blad', 'Blad Dodawania miejsca pracy dla Pracownika: [' + res.sucess.Message + ']');
+                    }
+                }, function (err) {
+                    modalService.alert('Blad', err);
+                });
+            }
         )
     }
 
@@ -396,7 +436,18 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
 
         openModal(
             modalOptions,
-            function (value) { console.log('tu bedzie wywolanie funkcji edytowania miejsca pracy', value) }
+            function (value) {
+                employeesService.editWorkplace(Object.assign({ NumerEad: $scope.user.Numeread }, $scope.mapWorkplaceInput(workplace))).then(function (res) {
+                    $state.reload();
+                    if (res.sucess.Result) {
+                        modalService.alert('', res.sucess.Message);
+                    } else {
+                        modalService.alert('Blad', 'Blad edycji miejsca pracy dla Pracownika: [' + res.sucess.Message + ']');
+                    }
+                }, function (err) {
+                    modalService.alert('Blad', err);
+                });
+            }
         )
     }
 
