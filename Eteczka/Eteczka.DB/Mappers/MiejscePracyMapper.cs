@@ -38,8 +38,8 @@ namespace Eteczka.DB.Mappers
         {
             MiejscePracyDlaPracownika result = new MiejscePracyDlaPracownika()
             {
-                DataPoczatkowa = DateTime.Parse(row[0].ToString()).ToShortDateString(),
-                DataKoniec = DateTime.Parse(row[1].ToString()).ToShortDateString(),
+                DataPocz = DateTime.Parse(row[0].ToString()).ToString("yyyy-MM-dd"),
+                DataKoniec = DateTime.Parse(row[1].ToString()).ToString("yyyy-MM-dd"),
                 Firma = row[2].ToString(),
                 Rejon = row[3].ToString(),
                 Wydzial = row[4].ToString(),

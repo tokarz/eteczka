@@ -8,7 +8,7 @@ namespace Eteczka.Model.DTO
 {
     public class MiejscePracyDlaPracownika
     {
-        public string DataPoczatkowa { get; set; }
+        public string DataPocz { get; set; }
         public string DataKoniec { get; set; }
         public string Firma { get; set; }
         public string Rejon { get; set; }

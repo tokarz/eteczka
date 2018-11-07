@@ -31,6 +31,7 @@ namespace Eteczka.BE.Services
         public InsertResult DodajMiejscePracy(SessionDetails sesja, MiejscePracy miejsceDoDodania)
         {
             InsertResult result = new InsertResult();
+            //TODO: Do zmiany walidcja - nie może być po Id, bo jest nadawane dopiero przy zapisie do bazy.
             bool czyMiejscePracyIstnieje = _MiejscePracyDao.SprawdzCzyMiejscePracyIstniejeWFirmie(miejsceDoDodania.Id);
             
             result.Result = _MiejscePracyDao.DodajMiejscePracy(miejsceDoDodania, sesja.IdUzytkownika, sesja.IdUzytkownika);

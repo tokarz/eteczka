@@ -40,7 +40,7 @@ namespace Eteczka.Utils.Logger
             LogTabela log = new LogTabela()
             {
                 CzasWiadomosci = DateTime.Now.ToString("yyyyMMddHHmmss"),
-                User = sesja.IdUzytkownika,
+                User = sesja == null ? "" : (sesja.IdUzytkownika ?? ""),
                 Firma = sesja == null ? "" : (sesja.AktywnaFirma == null ? "" : sesja.AktywnaFirma.Firma.Trim()),
                 Akcja = akcja,
                 NazwaTabeli = nazwaTabeli,

@@ -403,14 +403,14 @@ namespace Eteczka.DB.DAO
             try
             {
                 object[] DanePracownika = new object[] {
-                    pracownikDoDodania.Imie,
-                    pracownikDoDodania.Nazwisko,
+                    pracownikDoDodania.Imie != null ? pracownikDoDodania.Imie.ToUpper() : pracownikDoDodania.Imie,
+                    pracownikDoDodania.Nazwisko != null ? pracownikDoDodania.Nazwisko.ToUpper() : pracownikDoDodania.Nazwisko,
                     pracownikDoDodania.PESEL,
                     pracownikDoDodania.Numeread,
-                    pracownikDoDodania.Kraj,
-                    pracownikDoDodania.NazwiskoRodowe,
-                    pracownikDoDodania.ImieMatki,
-                    pracownikDoDodania.ImieOjca,
+                    pracownikDoDodania.Kraj != null ? pracownikDoDodania.Kraj.ToUpper() : pracownikDoDodania.Kraj,
+                    pracownikDoDodania.NazwiskoRodowe != null ? pracownikDoDodania.NazwiskoRodowe.ToUpper() : pracownikDoDodania.NazwiskoRodowe,
+                    pracownikDoDodania.ImieMatki != null ? pracownikDoDodania.ImieMatki.ToUpper() : pracownikDoDodania.ImieMatki,
+                    pracownikDoDodania.ImieOjca != null ? pracownikDoDodania.ImieOjca.ToUpper() : pracownikDoDodania.ImieOjca,
                     pracownikDoDodania.PeselInny,
                     idoper,
                     idakcept,
@@ -456,7 +456,7 @@ namespace Eteczka.DB.DAO
                 IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
                 sucess = connectionState.ExecuteNonQuery(sqlQuery);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
             }
@@ -471,20 +471,20 @@ namespace Eteczka.DB.DAO
             try
             {
                 object[] objects = new object[] {
-                    pracownik.Imie,
-                    pracownik.Nazwisko,
+                    pracownik.Imie != null ? pracownik.Imie.ToUpper() : pracownik.Imie,
+                    pracownik.Nazwisko != null ? pracownik.Nazwisko.ToUpper() : pracownik.Nazwisko,
                     pracownik.PESEL,
-                    pracownik.Kraj,
-                    pracownik.NazwiskoRodowe,
-                    pracownik.ImieMatki,
-                    pracownik.ImieOjca,
+                    pracownik.Kraj != null ? pracownik.Kraj.ToUpper() : pracownik.Kraj,
+                    pracownik.NazwiskoRodowe != null ? pracownik.NazwiskoRodowe.ToUpper() : pracownik.NazwiskoRodowe,
+                    pracownik.ImieMatki != null ? pracownik.ImieMatki.ToUpper(): pracownik.ImieMatki,
+                    pracownik.ImieOjca != null ? pracownik.ImieOjca.ToUpper() : pracownik.ImieOjca,
                     pracownik.PeselInny,
                     idoper,
                     idakcept,
                     pracownik.DataModify,
                     pracownik.DataAkcept,
                     pracownik.DataUrodzenia,
-                    pracownik.Imie2,
+                    pracownik.Imie2.ToUpper(),
                     pracownik.SystemBazowy,
                     pracownik.Usuniety,
                     pracownik.Kodkierownik,
