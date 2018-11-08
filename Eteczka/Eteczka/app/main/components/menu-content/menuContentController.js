@@ -436,7 +436,7 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
 
         openModal(
             modalOptions,
-            function (value) {
+            function (workplace) {
                 employeesService.editWorkplace(Object.assign({ NumerEad: $scope.user.Numeread }, $scope.mapWorkplaceInput(workplace))).then(function (res) {
                     $state.reload();
                     if (res.sucess.Result) {

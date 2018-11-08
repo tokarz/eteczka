@@ -71,7 +71,7 @@ angular.module('et.services').factory('employeesService', ['httpService', 'sessi
             });
         },
         editWorkplace: function (workplace) {
-            return httpService.post('MiejscePracy/EdytujMiejscePracy', {
+            return httpService.put('MiejscePracy/EdytujMiejscePracy', {
                 sessionId: sessionService.getSessionId(),
                 miejsceDoEdycji: workplace
             });
