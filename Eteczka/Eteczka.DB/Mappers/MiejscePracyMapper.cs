@@ -29,7 +29,7 @@ namespace Eteczka.DB.Mappers
             fetchedMiejscePracy.NumerEad = row[11].ToString();
             fetchedMiejscePracy.SystemBazowy = row[12].ToString();
             fetchedMiejscePracy.Usuniety = bool.Parse(row[13].ToString());
-            //fetchedMiejscePracy.Id = row[14].ToString(); - tego chyba nie mapujemy? W miejscach pracy jest private set.
+            fetchedMiejscePracy.Id = int.Parse(row[14].ToString()); 
 
             return fetchedMiejscePracy;
         }
@@ -44,9 +44,10 @@ namespace Eteczka.DB.Mappers
                 Rejon = row[3].ToString(),
                 Wydzial = row[4].ToString(),
                 Podwydzial = row[5].ToString(),
-                Konto5 = row[9].ToString()
+                Konto5 = row[9].ToString(),
+                Id = long.Parse(row[10].ToString())
             };
-
+       
             return result;
         }
     }

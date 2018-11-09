@@ -15,5 +15,6 @@ namespace Eteczka.Model.DTO
         public string Wydzial { get; set; }
         public string Podwydzial { get; set; }
         public string Konto5 { get; set; }
+        public long Id { get; set;}
     }
 }

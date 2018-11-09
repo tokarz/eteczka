@@ -30,18 +30,20 @@ namespace Eteczka.BE.Services
 
         public InsertResult DodajMiejscePracy(SessionDetails sesja, MiejscePracy miejsceDoDodania)
         {
-            InsertResult result = new InsertResult();
-            //TODO: Do zmiany walidcja - nie może być po Id, bo jest nadawane dopiero przy zapisie do bazy.
-            bool czyMiejscePracyIstnieje = _MiejscePracyDao.SprawdzCzyMiejscePracyIstniejeWFirmie(miejsceDoDodania.Id);
-            
-            result.Result = _MiejscePracyDao.DodajMiejscePracy(miejsceDoDodania, sesja.IdUzytkownika, sesja.IdUzytkownika);
-            if (czyMiejscePracyIstnieje && result.Result)
+
+            bool CzyPracownikMaAktualneMiejscePracy = _MiejscePracyDao.CzyPracownikMaAktualneMiejscePracy(miejsceDoDodania);
+            InsertResult result = new InsertResult()
             {
-                result.Message = "Dodano nowe miejsce pracy. Uwaga: pracownik już posiada w firmie inne aktualne miejsce pracy. Upewnij się czy nie należy zamknąć poprzedniego miejsca pracy";
+                Result = _MiejscePracyDao.DodajMiejscePracy(miejsceDoDodania, sesja.IdUzytkownika, sesja.IdUzytkownika)
+            };
+           
+            if (CzyPracownikMaAktualneMiejscePracy && result.Result)
+            {
+                result.Message = "Dodano nowe miejsce pracy. Uwaga: pracownik już posiada w firmie inne aktualne miejsce pracy. Upewnij się czy nie należy zamknąć poprzedniego miejsca pracy.";
             }
             else
             {
-                result.Message = result.Result == true ? "Dodano nowe miejsce pracy." : "Próba dodania nowego miejsca pracy nie powiodła się.";
+                result.Message = result.Result == true ? "Dodano nowe miejsce pracy." : "Próba dodania nowego miejsca pracy nie powiodła się. Skontaktuj się z administratorem.";
             }
 
             return result;
@@ -51,9 +53,14 @@ namespace Eteczka.BE.Services
         {
             InsertResult result = new InsertResult();
 
-            if (_MiejscePracyDao.SprawdzCzyMiejscePracyIstniejeWFirmie(miejsceDoEdycji.Id))
+            if (_MiejscePracyDao.CzyMiejscePracyIstnieje(miejsceDoEdycji.Id))
             {
                 result.Result = _MiejscePracyDao.EdytujMiejscePracy(miejsceDoEdycji, sesja.IdUzytkownika, sesja.IdUzytkownika);
+                result.Message = result.Result == true ? "Zapisano zmiany." : "Zmiany nie zostały zapisane. Skontaktuj się z administratorem.";
+            }
+            else
+            {
+                result.Message = "Zmiany nie zostały zapisane. Skontaktuj się z administratorem.";
             }
             return result;
         }
@@ -62,9 +69,18 @@ namespace Eteczka.BE.Services
         {
             InsertResult result = new InsertResult();
         
-            if(_MiejscePracyDao.SprawdzCzyMiejscePracyIstniejeWFirmie(miejsceDoUsuniecia.Id))
+            if(_MiejscePracyDao.CzyMiejscePracyIstnieje(miejsceDoUsuniecia.Id))
             {
-                result.Result = _MiejscePracyDao.UsunMiejscePracy(miejsceDoUsuniecia.Id, sesja.IdUzytkownika, sesja.IdUzytkownika);
+                if ( _MiejscePracyDao.CzyPracownikPosiadaWiecejNizJednoMiejscePracyWFirmie(miejsceDoUsuniecia))
+                {
+                    result.Result = _MiejscePracyDao.UsunMiejscePracy(miejsceDoUsuniecia.Id, sesja.IdUzytkownika, sesja.IdUzytkownika);
+                    result.Message = result.Result == true ? "Miejsce pracy zostało usunięte." : "Miejsce pracy nie zostało usunięte. Skontaktuj się z administratorem.";
+                }
+                else
+                {
+                    result.Message = "Nie można usunąć miejsca pracy. Pracownik musi posiadać przynajmniej jedno miejsce pracy. Dodaj pracownikowi inne miejsce pracy, a potem usuń stare, lub zmień datę końca zatrudnienia.";
+                }
+  
             }
 
             return result;

@@ -60,7 +60,8 @@ namespace Eteczka.DB.DAO
                     "\"KatRejony\".nazwa as rejonnazwa, " +
                     "\"KatWydzial\".nazwa as wydzialnazwa, " +
                     "\"KatPodWydzial\".nazwa as podwydzialnazwa, " +
-                    "konto5 " +
+                    "konto5, " +
+                    "id " +
                 "FROM \"MiejscePracy\" " +
                 "LEFT OUTER JOIN \"KatRejony\" " +
                     "ON \"MiejscePracy\".firma = \"KatRejony\".firma AND \"MiejscePracy\".rejon = \"KatRejony\".rejon " +
@@ -155,14 +156,51 @@ namespace Eteczka.DB.DAO
 
         }
 
-        public bool SprawdzCzyMiejscePracyIstniejeWFirmie(long id)
+        public bool CzyPracownikMaAktualneMiejscePracy(MiejscePracy miejsceDoSprawdzenia)
         {
             bool result = false;
-            string sqlQuery = "SELECT * FROM \"MiejscePracy\" where id = '" + id + "'"; 
+            string sqlQuery = "SELECT id FROM \"MiejscePracy\" " +
+                "WHERE firma = '" + miejsceDoSprawdzenia.Firma +
+                "' AND numeread = '" + miejsceDoSprawdzenia.NumerEad +
+                "' AND '" + DateTime.Now.ToString("yyyy-MM-dd") + "'  " +
+                "BETWEEN datapocz AND datakoniec";
 
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
             DataTable table = connectionState.ExecuteQuery(sqlQuery);
+
             if (table != null & table.Rows != null & table.Rows.Count > 0 )
+            {
+                result = true;
+            }
+            return result;
+        }
+
+        public bool CzyPracownikPosiadaWiecejNizJednoMiejscePracyWFirmie(MiejscePracy miejsceDoSprawdzenia)
+        {
+            bool result = false;
+            string sqlQuery = "SELECT id FROM \"MiejscePracy\" " +
+                   "WHERE firma = '" + miejsceDoSprawdzenia.Firma +
+                   "' AND numeread = '" + miejsceDoSprawdzenia.NumerEad + "'";
+
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+            DataTable table = connectionState.ExecuteQuery(sqlQuery);
+
+            if (table != null && table.Rows != null && table.Rows.Count > 1)
+            {
+                result = true;
+            }
+            return result;
+        }
+
+        public bool CzyMiejscePracyIstnieje (long id)
+        {
+            bool result = false;
+            string sqlQuery = "SELECT id from \"MiejscePracy\" WHERE id = '" + id + "'";
+
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+            DataTable table = connectionState.ExecuteQuery(sqlQuery);
+
+            if (table != null && table.Rows != null && table.Rows.Count > 0)
             {
                 result = true;
             }
