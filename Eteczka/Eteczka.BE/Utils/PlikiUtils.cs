@@ -610,7 +610,7 @@ namespace Eteczka.BE.Utils
             try
             {
                 //TODO: Szyfrowanie/odszyfrowywanie hasła baza-aplikacja.
-                SerwerSmtp daneKonfiguracyjneSerwera = _PlikiDAO.PobierzKonfiguracjeSerwera("poczta.o2.pl");
+                SerwerSmtp daneKonfiguracyjneSerwera = _PlikiDAO.PobierzKonfiguracjeSerwera("smtp-topfarms.ogicom.pl");
      
                 Client.Port = daneKonfiguracyjneSerwera.SmtpPort;
                 Client.Host = daneKonfiguracyjneSerwera.SmtpSerwer;
