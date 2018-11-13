@@ -577,8 +577,11 @@ namespace Eteczka.BE.Utils
             try
             {
                 _PdfUtils.SavePdf(plikiDoSpakowania, tempZrodloKatalog);
+               
 
                 List<string> listaPlikow = _Wrapper.PobierzPlikiZKatalogu(tempZrodloKatalog);
+                this.ZmienNazwyPlikow(listaPlikow);
+                listaPlikow = _Wrapper.PobierzPlikiZKatalogu(tempZrodloKatalog);
                 //List<string> ListaPlikow = Directory.GetFiles(tempZrodloKatalog).ToList();
 
                 _ZipUtils.SpakujPlikiZHaslem(listaPlikow, haslo, tempZipSaveSciezka, sciezkaDoZipa);
@@ -607,7 +610,7 @@ namespace Eteczka.BE.Utils
             try
             {
                 //TODO: Szyfrowanie/odszyfrowywanie hasła baza-aplikacja.
-                SerwerSmtp daneKonfiguracyjneSerwera = _PlikiDAO.PobierzKonfiguracjeSerwera("smtp-topfarms.ogicom.pl");
+                SerwerSmtp daneKonfiguracyjneSerwera = _PlikiDAO.PobierzKonfiguracjeSerwera("poczta.o2.pl");
      
                 Client.Port = daneKonfiguracyjneSerwera.SmtpPort;
                 Client.Host = daneKonfiguracyjneSerwera.SmtpSerwer;
@@ -723,6 +726,23 @@ namespace Eteczka.BE.Utils
                 }
             }
             return listaZalacznikow;
+        }
+
+        public void ZmienNazwyPlikow (List<string> listaPlikowDoZmiany)
+        {
+            int counter = 1;
+            foreach (string staryPlik in listaPlikowDoZmiany)
+            {
+                string nazwaPlikuZeSciezki = this.WezNazwePlikuZeSciezki(staryPlik);
+                Pliki plikZbazy = _PlikiDAO.PobierzDokumentPoNazwiePliku(nazwaPlikuZeSciezki);
+                string sciezkaDokatalogu = staryPlik.Substring(0, staryPlik.LastIndexOf("\\") + 1);
+                string nowaSciezka = string.Concat(sciezkaDokatalogu, counter, ".", plikZbazy.NumerEad.Substring(0,6), "_", plikZbazy.TeczkaDzial.Trim(), plikZbazy.NrDokumentu.Trim(), "_", plikZbazy.Symbol.Trim(), "_", plikZbazy.DataDodania.ToString("yyyy-MM-dd"), ".pdf");
+                counter ++;
+                if (File.Exists(staryPlik))
+                {
+                    File.Move(staryPlik, nowaSciezka);
+                }  
+            }
         }
     }
 }

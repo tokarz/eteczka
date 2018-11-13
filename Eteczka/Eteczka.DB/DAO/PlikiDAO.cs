@@ -417,6 +417,21 @@ namespace Eteczka.DB.DAO
             return pobranaKonfiguracja;
         }
 
+        public Pliki PobierzDokumentPoNazwiePliku(string nazwaPliku)
+        {
+            Pliki znalezionyPlik= new Pliki();
+            
+            string sqlQuery = "SELECT * FROM \"Pliki\" WHERE nazwaead = '" + nazwaPliku + "'";
+
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+            DataTable result = connectionState.ExecuteQuery(sqlQuery);
+            if (result != null && result.Rows != null && result.Rows.Count ==1)
+            {
+                znalezionyPlik = _PlikiMapper.MapujZSql(result.Rows[0]);
+            } 
+            return znalezionyPlik;
+        }
+
 
 
 
