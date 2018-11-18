@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('et.controllers').controller('menuContentController', ['$scope', '$state', 'menuContentService', 'modalService', 'peselService', 'utilsService', 'employeesService', function ($scope, $state, menuContentService, modalService, peselService, utilsService, employeesService) {
+angular.module('et.controllers').controller('menuContentController', ['$scope', '$state', 'menuContentService', 'modalService', 'peselService', 'utilsService', 'employeesService', 'usersService', function ($scope, $state, menuContentService, modalService, peselService, utilsService, employeesService, usersService) {
     $scope.company = null;
    
     $scope.selectedWorkplace = {};
@@ -97,7 +97,6 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
     }
 
     $scope.selectRow = function (workplace) {
-        console.log(workplace, $scope.workplaceParams)
         if ($scope.selectedWorkplace === workplace) {
             $scope.selectedWorkplace = {};
         } else {
@@ -386,13 +385,10 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
 
         return openModal(
             modalOptions,
-            function (value) {
-                /* return menuContentService.getUserPassword().then(function (result) {
-                    return result === value
+            function (password) {
+                return usersService.checkPassword(password && password.userPassword).then(function (correctPassword) {
+                    return (correctPassword && correctPassword.success)
                 })
-                */
-
-                return true
             }
         )
     }
@@ -476,16 +472,29 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
         openModal(
             modalOptions,
             function (workplace) {
-                employeesService.removeWorkplace($scope.mapWorkplaceInput(workplace)).then(function (res) {
-                    if (res.sucess.Result) {
-                        $state.reload();
-                        modalService.alert('', res.sucess.Message);
-                    } else {
-                        modalService.alert('Blad', 'Blad usuwania miejsca pracy dla Pracownika: [' + res.sucess.Message + ']');
-                    }
-                }, function (err) {
-                    modalService.alert('Blad', err);
-                });
+                triggerShortPasswordCheck()
+                    .then(function (isShortPasswordCorrect) {
+                        if (typeof isShortPasswordCorrect === 'undefined') {
+                            return
+                        }
+
+                        if (isShortPasswordCorrect === false) {
+                            return modalService.alert('Blad', 'haslo uzytkownika niepoprawne')
+                        }
+
+                        employeesService.removeWorkplace($scope.mapWorkplaceInput(workplace)).then(function (res) {
+                            if (res.sucess.Result) {
+                                $state.reload();
+                                modalService.alert('', res.sucess.Message);
+                            } else {
+                                modalService.alert('Blad', 'Blad usuwania miejsca pracy dla Pracownika: [' + res.sucess.Message + ']');
+                            }
+                        }, function (err) {
+                            modalService.alert('Blad', err);
+                        });
+                    })
+                    .catch(console.error)
+                
             }
         )
     }
