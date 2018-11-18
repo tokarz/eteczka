@@ -75,6 +75,12 @@ angular.module('et.services').factory('employeesService', ['httpService', 'sessi
                 sessionId: sessionService.getSessionId(),
                 miejsceDoEdycji: workplace
             });
+        },
+        removeWorkplace: function (workplace) {
+            return httpService.put('MiejscePracy/UsunMiejscePracy', {
+                sessionId: sessionService.getSessionId(),
+                miejsceDoUsuniecia: workplace
+            });
         }
     };
 }]);

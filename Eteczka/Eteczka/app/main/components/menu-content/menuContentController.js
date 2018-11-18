@@ -438,8 +438,8 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
             modalOptions,
             function (workplace) {
                 employeesService.editWorkplace(Object.assign({ NumerEad: $scope.user.Numeread }, $scope.mapWorkplaceInput(workplace))).then(function (res) {
-                    $state.reload();
                     if (res.sucess.Result) {
+                        $state.reload();
                         modalService.alert('', res.sucess.Message);
                     } else {
                         modalService.alert('Blad', 'Blad edycji miejsca pracy dla Pracownika: [' + res.sucess.Message + ']');
@@ -475,7 +475,18 @@ angular.module('et.controllers').controller('menuContentController', ['$scope', 
 
         openModal(
             modalOptions,
-            function (value) { console.log('tu bedzie wywolanie funkcji usuwania miejsca pracy', value) }
+            function (workplace) {
+                employeesService.removeWorkplace($scope.mapWorkplaceInput(workplace)).then(function (res) {
+                    if (res.sucess.Result) {
+                        $state.reload();
+                        modalService.alert('', res.sucess.Message);
+                    } else {
+                        modalService.alert('Blad', 'Blad usuwania miejsca pracy dla Pracownika: [' + res.sucess.Message + ']');
+                    }
+                }, function (err) {
+                    modalService.alert('Blad', err);
+                });
+            }
         )
     }
 
