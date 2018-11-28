@@ -1,8 +1,34 @@
 ﻿<html>
 <head>
     <title>Drukowanie Pdfa</title>
+    <style>
+        @media print {
+            .notToPrint {
+                display:none;
+            }
+        }
+
+        .printButton {
+            display: inline-block;
+            padding: 0.2em 1em;
+            height: auto;
+            width: 100px;
+            background: #074C75;
+            opacity: 0.8;
+            color: white;
+        }
+
+        .printButton {
+            opacity:1;
+            cursor:pointer;
+        }
+
+    </style>
 </head>
 <body>
+    <div style="position:sticky;width:100%;height:50px;text-align:center" class="notToPrint">
+        <button class="printButton" onclick="window.print();">Drukuj</button>
+    </div>
     <div id="holder"></div>
 
     <script src="Scripts/pdfjs/pdf.js"></script>
