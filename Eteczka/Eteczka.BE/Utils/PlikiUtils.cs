@@ -610,7 +610,7 @@ namespace Eteczka.BE.Utils
             try
             {
                 //TODO: Szyfrowanie/odszyfrowywanie hasła baza-aplikacja.
-                SerwerSmtp daneKonfiguracyjneSerwera = _PlikiDAO.PobierzKonfiguracjeSerwera("smtp-topfarms.ogicom.pl");
+                SerwerSmtp daneKonfiguracyjneSerwera = _PlikiDAO.PobierzKonfiguracjeSerwera("poczta.o2.pl");
      
                 Client.Port = daneKonfiguracyjneSerwera.SmtpPort;
                 Client.Host = daneKonfiguracyjneSerwera.SmtpSerwer;
@@ -736,7 +736,7 @@ namespace Eteczka.BE.Utils
                 string nazwaPlikuZeSciezki = this.WezNazwePlikuZeSciezki(staryPlik);
                 Pliki plikZbazy = _PlikiDAO.PobierzDokumentPoNazwiePliku(nazwaPlikuZeSciezki);
                 string sciezkaDokatalogu = staryPlik.Substring(0, staryPlik.LastIndexOf("\\") + 1);
-                string nowaSciezka = string.Concat(sciezkaDokatalogu, counter, ".", plikZbazy.NumerEad.Substring(0,6), "_", plikZbazy.TeczkaDzial.Trim(), plikZbazy.NrDokumentu.Trim(), "_", plikZbazy.Symbol.Trim(), "_", plikZbazy.DataDodania.ToString("yyyy-MM-dd"), ".pdf");
+                string nowaSciezka = string.Concat(sciezkaDokatalogu, plikZbazy.NumerEad.Substring(0,6), "_", plikZbazy.TeczkaDzial.Trim(), plikZbazy.NrDokumentu.Trim(), "_", plikZbazy.Symbol.Trim(), "_", plikZbazy.DataDodania.ToString("yyyy-MM-dd"),"_(", counter, ").pdf");
                 counter ++;
                 if (File.Exists(staryPlik))
                 {
