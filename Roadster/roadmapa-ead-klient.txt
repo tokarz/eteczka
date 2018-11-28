@@ -42,27 +42,41 @@ XX.XX.2018 - YY.YY.2018 Import danych spolki A
        -  (D) Idea indywidualnych profili uz.(jako support, fajne ale nie tanie!)
 
 
-1.4
-       -  (K) Serwer SMTP i wysy³anie maili
-       -  (K) Logowanie dostêpu do plików i sesji
-       -  (K) Zmiana has³a u¿ytkownika
-       -  (K) Resizable (Burqin dla podgl¹du plików)
-       -  (K) Usuwanie uzytkowników (Nataniel Szwarc)
-       -  (K) Zmiana has³a dla u¿ytkowników
-       -  (K) Raporty - podstawowy zakres
-       -  (K) Obs³uga Uprawnieñ (Widoki FE i Kontrolery BE)
-       -  (K) Auto-logout po X min
-       -  (K) Format i biblioteka do analizy logów pod k¹tem wymagañ ustawy (Raporty kto kiedy i jaki dostêp mia³ do pliku X)
-       -  (K) Przycisk drukowania w podgl¹dzie PDF	
-       -  (K) Sprawdzic mozliwosc drukowania wielu dokumentów (sklejania w 1 raport)
-       -  (K) Podglad istniejacych rodzajow dokumentu
-       -  (K) Wczytywanie filtrów - Indykator postêpu FE
-       -  (K) Wczytywanie filtrów - MaxJsonLengthException dla braku filtrów (albo nie pozwalamy albo zmieniamy typ)
-       -  (K) Wczytywanie filtrów - Wyœwietlenie (gdzieœ) iloœci odfiltrowanych wiadomoœci
-       -  (K) Wczytywanie filtrów - U¿ywanie nowego filtra, gdy stary jest aktywny 		
+1.4 (Porzucone - 1.5-5)
+       -  (K) Serwer SMTP i wysy³anie maili (80%)
+       -  (K) Logowanie dostêpu do plików i sesji (80%)
+       -  (K) Zmiana has³a u¿ytkownika (100% - rft)
+       -  (K) Resizable (Burqin dla podgl¹du plików) (50% - trzeba zobaczyc) 
+       -  (K) Usuwanie uzytkowników (Nataniel Szwarc) (50% - nie dziala we wszystkich przypadkach
+       -  (K) Zmiana has³a dla u¿ytkowników ( 70% - sprawdzic )
+       -  (K) Raporty - podstawowy zakres ( 0% )
+       -  (K) Obs³uga Uprawnieñ (Widoki FE i Kontrolery BE) (0%)
+       -  (K) Auto-logout po X min ( do uzgodnienia z Arkiem, poki co dziala po 15min )
+       -  (K) Format i biblioteka do analizy logów pod k¹tem wymagañ ustawy (Raporty kto kiedy i jaki dostêp mia³ do pliku X) (Michal - do sprawdzenia)
+       -  (K) Przycisk drukowania w podgl¹dzie PDF (0%)	
+       -  (K) Sprawdzic mozliwosc drukowania wielu dokumentów (sklejania w 1 raport) (0%)
+       -  (K) Podglad istniejacych rodzajow dokumentu (0%)
+       -  (K) Wczytywanie filtrów - Indykator postêpu FE (0%)
+       -  (K) Wczytywanie filtrów - MaxJsonLengthException dla braku filtrów (albo nie pozwalamy albo zmieniamy typ) (0%)
+       -  (K) Wczytywanie filtrów - Wyœwietlenie (gdzieœ) iloœci odfiltrowanych wiadomoœci (0%)
+       -  (K) Wczytywanie filtrów - U¿ywanie nowego filtra, gdy stary jest aktywny (80% -rft)		
 
-1.5
+1.5 (Porzucone - 1.5-5)
        -  (K) dokumentacja, manual dla uzytkownika (grafiki Michal i Kasia)
        -  (D) testy pamieci i memory leakow
        -  (D) widoki i odseparowanie od Foxa (tworzenie struktury firmy)!
+
+1.5-5 (Deadline - Todo: Paszczak)
+
+
+1.6 (Deadline - Todo: Paszczak)
+        - (D) widoki i odseparowanie od Foxa (tworzenie struktury firmy)!
+ 	- Ksiazka adresowa maili 
+        - Dostosowanie do ustawy (Michal)
+        - Podpis cyfrowy !!
+        - Sortowanie dokumentow po zmianie na DataTable (Maciek)
+ 
+
+
+
 
