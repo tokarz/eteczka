@@ -1,54 +1,49 @@
-
-01.12.2017 - Instalacja systemu 1.2 na serwerze testowym
-
-04.12.2017 - 09.12.2017 - Testy instalacji i okres poprawy bledow
-
-15.12.2017 - instalacja stabilnej wersji 1.2.5
-
-
-19.02.2017 - 20.12.2017 Import danych 1 spolki - TopGen
-
-21.12.2017 - 31.01.2018 Okres testowania i zglaszania bledow do 1.2.5
-01.02.2018 - instalacja stabilnej wersji 1.3
-02.02.2018 - 28.02.2018 - Okres testowania i zglaszania bledow do 1.3
-
-
-START PETLI
-
-XX.XX.2018 - YY.YY.2018 Import danych spolki A
-(nastepne 3tyg - zglaszanie bledow do systemu)
+Zrealizowane
+       -  (K) Zmiana has³a u¿ytkownika (100% - rft)
+Dzia³a poprawnie dla has³a short i long
 
 
 
+Czyszczenie œmieci 2018-12-13
 
- 1.2.5:
 
-       -  (K) poprawka bledu insertow foxa
-       -  (D) import rodz. dokumentow jako json
-       -  (K) poprawki FE drobne
+Do poprawki : Deadline  2018-12-13 
 
- 1.3
-       -  (K) Wstepna propozycja raportow
-       -  (D) repsonsywna strona na kazda przegladarke
-       -  (K) strona about - uzyte biblioteki i licencje, wymagane wersje przegladarek
-       -  (K) naprawa zgloszonych bledow do TopGenu i pozostalych
-       -  (K) eksporty do dokumentow (Michal juz zaczal)
-       -  (D) zapytanie o SSL i HTTPS (Arka)
-       -  (D) zmiana widokow (Paszcz i Michal)
-       -  (K) kalendarzyki w modalach (wzajemni ewspolpracujace)
-       -  (K) Uprawnienia, oprogramowanie flag z uprawnieniami i Confidential
-       -  (D) Wczytywanie kwerend dynamicznie (z pliku lub bazy)
-       -  (K) Zapewnienie zgodnosci z przepisami o danych osobowych (Michal wie o co kaman)
-       -  (D) Idea indywidualnych profili uz.(jako support, fajne ale nie tanie!)
+       -  (D) Usuwanie u¿ytkowników (Nataniel Szwarc) (50% - nie dziala we wszystkich przypadkach
+
+1. Usuniêcie nszwarc ustawia usuniety = true w KatLoginy, nie ustawia KatLoginyFirmy usuniety = true
+
+2. Usuniêcie nszwarc z uprawnieñ do firmy np. TopGen dzia³a. Jest zapis do KatloginyFirmy usuniety = true
+Nie dzia³a ponowne dopisanie nszwarc do TopGen - brak zapisu usuniety = false 
+Trzeba wtedy dopisaæ np. nszwarc1 i nadaæ uprawnienia do firmy TopGen na innym loginie
+  
+Deadline - 2018-12-13 
+
+	Skrypt instalacyjny dla Marka Pañki ¿eby móg³ siê nauczyæ i sprzedawaæ
+
+Deadline - 2018-12-06
+
+	Sortowanie dokumentow po zmianie na DataTable (Maciek)
+
+Deadline - 2018-12-06
+
+	Dopisywanie pracownika do KatPracownicy i MiejscePracy 
+
+Deadline - 2018-12-06
+
+	Iloœæ plików przy wysy³aniu maila 
+
+
+**********koniec œmieci
+to co poni¿ej opiszê po rozpisaniu szczegó³owym
+
+
 
 
 1.4 (Porzucone - 1.5-5)
        -  (K) Serwer SMTP i wysy³anie maili (80%)
        -  (K) Logowanie dostêpu do plików i sesji (80%)
-       -  (K) Zmiana has³a u¿ytkownika (100% - rft)
        -  (K) Resizable (Burqin dla podgl¹du plików) (50% - trzeba zobaczyc) 
-       -  (K) Usuwanie uzytkowników (Nataniel Szwarc) (50% - nie dziala we wszystkich przypadkach
-       -  (K) Zmiana has³a dla u¿ytkowników ( 70% - sprawdzic )
        -  (K) Raporty - podstawowy zakres ( 0% )
        -  (K) Obs³uga Uprawnieñ (Widoki FE i Kontrolery BE) (0%)
        -  (K) Auto-logout po X min ( do uzgodnienia z Arkiem, poki co dziala po 15min )
@@ -78,5 +73,18 @@ XX.XX.2018 - YY.YY.2018 Import danych spolki A
  
 
 
+1.3
+       -  (K) Wstepna propozycja raportow
+       -  (D) repsonsywna strona na kazda przegladarke
+       -  (K) strona about - uzyte biblioteki i licencje, wymagane wersje przegladarek
+       -  (K) naprawa zgloszonych bledow do TopGenu i pozostalych
+       -  (K) eksporty do dokumentow (Michal juz zaczal)
+       -  (D) zapytanie o SSL i HTTPS (Arka)
+       -  (D) zmiana widokow (Paszcz i Michal)
+       -  (K) kalendarzyki w modalach (wzajemni ewspolpracujace)
+       -  (K) Uprawnienia, oprogramowanie flag z uprawnieniami i Confidential
+       -  (D) Wczytywanie kwerend dynamicznie (z pliku lub bazy)
+       -  (K) Zapewnienie zgodnosci z przepisami o danych osobowych (Michal wie o co kaman)
+       -  (D) Idea indywidualnych profili uz.(jako support, fajne ale nie tanie!)
 
 
