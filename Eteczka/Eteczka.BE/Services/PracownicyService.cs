@@ -107,7 +107,16 @@ namespace Eteczka.BE.Services
         {
             InsertResult result = new InsertResult();
             Pracownik pracownik = _mapper.MapujDoPracownika(pracownikDoDodania);
-            pracownik.Numeread = this.StworzNumerEad(pracownik);
+
+            if (pracownik.PESEL != null)
+            {
+                pracownik.Numeread = this.StworzNumerEad(pracownik);
+            }
+            else
+            {
+                pracownik.Numeread = this.StworzZastepczyNumerEad(pracownik);
+            }
+            
             MiejscePracy miejscePracy = _mapper.MapujDoMiejscaPracy(pracownikDoDodania);
             miejscePracy.NumerEad = pracownik.Numeread;
             Pracownik pracownikWbazie = _PracownikDao.PobierzPracownikaPoId(pracownik.Numeread);
@@ -147,6 +156,25 @@ namespace Eteczka.BE.Services
             string nrEad = pracownik.Nazwisko.Substring(0, 3).ToUpper() + pracownik.Imie.Substring(0, 3).ToUpper() + pracownik.PESEL;
 
             return nrEad;
+        }
+
+        public string StworzZastepczyNumerEad(Pracownik pracownik)
+        {
+            string[] dataClean = pracownik.DataUrodzenia.Split('-');
+            StringBuilder builder = new StringBuilder();
+             
+            foreach (string s in dataClean)
+            {
+                builder.Append(s);
+            }
+                
+            string dataString = builder.ToString();
+            Random random = new Random();
+            int randomNumber = random.Next(100, 999);
+
+            string ZastepczyNumerEad = pracownik.Nazwisko.Substring(0, 3).ToUpper() + pracownik.Imie.Substring(0, 3).ToUpper() + dataString + randomNumber;
+
+            return ZastepczyNumerEad;
         }
     }
 }
