@@ -26,13 +26,13 @@ angular.module('et.controllers').controller('menuUsersContentController', ['$sco
         }
 
         return result;
-    }
+    };
 
     $scope.toggleBox = function (x, company) {
         x = !x;
 
         company.allSelected = $scope.checkIfAllSelected(company.Uprawnienia);
-    }
+    };
 
     $scope.toggleSelectAll = function (company) {
         var areAlleAlreadySelected = $scope.checkIfAllSelected(company.Uprawnienia);
@@ -43,7 +43,7 @@ angular.module('et.controllers').controller('menuUsersContentController', ['$sco
         }
 
         company.allSelected = $scope.checkIfAllSelected(company.Uprawnienia);
-    }
+    };
 
     $scope.$watch('user', function (user) {
         $scope.userDetails = [];
@@ -54,7 +54,7 @@ angular.module('et.controllers').controller('menuUsersContentController', ['$sco
             $scope.activeUser = user;
 
             $scope.fullDetailsForUser = $scope.details.find(function (detail) {
-                return detail.Detale.Identyfikator === user.Identyfikator
+                return detail.Detale.Identyfikator === user.Identyfikator;
             });
             if ($scope.fullDetailsForUser) {
                 $scope.userDetails = $scope.fullDetailsForUser.Detale;
@@ -62,7 +62,7 @@ angular.module('et.controllers').controller('menuUsersContentController', ['$sco
 
                 $scope.userCompanies.forEach(function (company) {
                     company.allSelected = $scope.checkIfAllSelected(company);
-                })
+                });
 
                 $scope.unassignedCompanies = $scope.allCompanies.filter(function (currentCompany) {
                     var found = false;
@@ -85,7 +85,7 @@ angular.module('et.controllers').controller('menuUsersContentController', ['$sco
         }
 
         return result;
-    }
+    };
 
     $scope.triggerDeleteUser = function (user) {
         var confirm = $mdDialog.confirm()
@@ -111,9 +111,9 @@ angular.module('et.controllers').controller('menuUsersContentController', ['$sco
                 ).then(function () {
                     $state.go('login');
                 });
-            })
+            });
         });
-    }
+    };
 
     $scope.triggerDeleteUserCompany = function (company) {
         var confirm = $mdDialog.confirm()
@@ -140,12 +140,9 @@ angular.module('et.controllers').controller('menuUsersContentController', ['$sco
                 ).then(function () {
                     $state.go('login');
                 });
-            })
-
-
-
+            });
         });
-    }
+    };
 
     var openModal = function (modalOptions, executor) {
         return modalService.showModal(modalOptions)
@@ -157,7 +154,7 @@ angular.module('et.controllers').controller('menuUsersContentController', ['$sco
                     console.error(ex);
                 }
             });
-    }
+    };
 
     $scope.openEditUserDialog = function () {
         var modalOptions = {
@@ -179,7 +176,7 @@ angular.module('et.controllers').controller('menuUsersContentController', ['$sco
                 }).catch();
             }
         );
-    }
+    };
 
     $scope.openAddUserDialog = function () {
         var modalOptions = {
@@ -201,7 +198,7 @@ angular.module('et.controllers').controller('menuUsersContentController', ['$sco
                 }).catch();
             }
         );
-    }
+    };
 
     $scope.addUserControllerFunction = function ($scope, $mdDialog, modalService, isEdit, user) {
         $scope.isEdit = isEdit ? true : false;
@@ -213,7 +210,7 @@ angular.module('et.controllers').controller('menuUsersContentController', ['$sco
         }
 
         $scope.yesNoOptions = [{ name: 'TAK', value: true }, { name: 'NIE', value: false }]
-        $scope.docPartOptions = ['A', 'B', 'C']
+        $scope.docPartOptions = ['A', 'B', 'C'];
 
         $scope.hide = function () {
             $mdDialog.hide();
@@ -230,7 +227,7 @@ angular.module('et.controllers').controller('menuUsersContentController', ['$sco
             }
 
             return result;
-        }
+        };
 
         $scope.answer = function (answer, errors) {
             console.log(errors)
@@ -242,14 +239,14 @@ angular.module('et.controllers').controller('menuUsersContentController', ['$sco
         $scope.isNotEqual = function (baseText, textToMatch) {
             return (baseText !== textToMatch)
         };
-    }
+    };
 
     $scope.companySelected = false;
 
 
     $scope.openDeleteUserRightsDialog = function () {
 
-    }
+    };
 
     $scope.openSetUserRightsDialog = function (edit) {
         var modalOptions = {
@@ -288,7 +285,7 @@ angular.module('et.controllers').controller('menuUsersContentController', ['$sco
 
         }
         ).catch();
-    }
+    };
 
     $scope.setUserRightsController = function ($scope, $mdDialog, modalService, companies, selected) {
         $scope.modalResult = {};
@@ -314,7 +311,7 @@ angular.module('et.controllers').controller('menuUsersContentController', ['$sco
                 $mdDialog.hide(answer);
             }
         };
-    }
+    };
 
     companiesService.getAll().then(function (all) {
         $scope.allCompanies = all.Firmy;

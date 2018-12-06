@@ -10,7 +10,7 @@ angular.module('et.controllers').controller('mainController', ['$window', '$root
 
     $scope.startupContext = {
         title: 'EAd',
-        version: '1.0'
+        version: '1.5-5'
     };
 
     $scope.currentState = {

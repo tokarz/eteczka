@@ -270,7 +270,10 @@
     <Content Include="app\views\shopcart\shopCartService.js" />
     <Content Include="app\views\shopcart\shopCartView.html" />
     <Content Include="coverage.js" />
+    <Content Include="webpack.config.js" />
+    <Content Include=".babelrc" />
     <None Include="NLog.config" />
+    <Content Include="gulpfile.js" />
     <Content Include="node_modules\lodash.find\index.js" />
     <Content Include="Scripts\DataTables\Buttons-1.5.1\css\buttons.bootstrap.css" />
     <Content Include="Scripts\DataTables\Buttons-1.5.1\css\buttons.bootstrap.min.css" />
