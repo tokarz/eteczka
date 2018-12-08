@@ -1,7 +1,7 @@
 ﻿'use strict';
 angular.module('et.controllers').controller('filesViewController', ['$scope', '$state', 'companiesService', 'filesViewService', 'modalService', 'sessionService', function ($scope, $state, companiesService, filesViewService, modalService, sessionService) {
     $scope.parameters = {
-        company: '',
+        company: ''
     };
 
     //$scope.selectedStagedFile = null;

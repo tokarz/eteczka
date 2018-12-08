@@ -29,7 +29,8 @@
     float: right;
     box-shadow: 0 0 2px black;
     background: white;
-    overflow: auto;
+    /*overflow: auto;    bylo auto i powodowalo podwojny scroll w tabeli. Trzeba sprawdzic efekt na wszystkich tabelach*/
+    overflow: hidden;
 }
 
 .tab {

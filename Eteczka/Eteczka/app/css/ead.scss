@@ -119,3 +119,13 @@ li {
 .striped-table tbody tr:nth-child(odd) {
     background: $lightgray;
 }
+
+
+.dataTables_scrollHead {
+    background: $tableHeader;
+}
+
+.user-summary {
+    text-align: center;
+    font-weight:bold;
+}

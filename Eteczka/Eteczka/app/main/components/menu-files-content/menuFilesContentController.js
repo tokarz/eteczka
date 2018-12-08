@@ -3,16 +3,18 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
     $scope.selectedFile = null;
     $scope.emptyTableMessage = 'Nie zaznaczono elementu do wyświetlenia';
     $scope.noFilesMessage = 'Zaznaczona osoba nie ma przypisanych plików';
-    $scope.fileListWrapperClass = 'file-list-wrapper-full'
+    $scope.fileListWrapperClass = 'file-list-wrapper-full';
     $scope.userFiles = [];
     $scope.selected = { row: - 1 };
     $scope.selectedUser = false;
     $scope.tLastAddedLabel = 'ostatnio dodano: ';
     $scope.tSummaryTitle = 'Teczka pracownika';
 
+    $scope.colDefs = [{ 'type': 'numstring', 'targets': 0 }];
+
     $scope.endsWith234 = function (value) {
         return value.endsWith('2') || value.endsWith('3') || value.endsWith('4');
-    }
+    };
 
     $scope.$watch('selected.row', function (row) {
         if (typeof row !== 'undefined' && row >= 0 && row < $scope.userFiles.length) {
@@ -22,14 +24,14 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
 
     $scope.loadFileTypes = function () {
         filesViewService.getFileTypes().then(function (fileTypes) {
-            $scope.fileTypes = fileTypes.PobraneDokumenty
-        })
-    }
+            $scope.fileTypes = fileTypes.PobraneDokumenty;
+        });
+    };
     $scope.loadEmployees = function () {
         filesViewService.getAllEmployees().then(function (employees) {
-            $scope.employees = employees.Data.data
-        })
-    }
+            $scope.employees = employees.Data.data;
+        });
+    };
 
     $scope.loadFileTypes();
     $scope.loadEmployees();
@@ -44,7 +46,7 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
                     console.log("error found!", error);
                 }
             });
-    }
+    };
 
     $scope.sendEmailCtrl = function ($scope, $mdDialog, selectedFiles) {
         $scope.modalResult = $scope.modalResult || {};
@@ -58,14 +60,13 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
         };
 
         $scope.answer = function (answer, errors) {
-            console.log(errors)
             if (!errors || Object.keys(errors).length === 0) {
                 $mdDialog.hide(answer);
             }
         };
 
         $scope.modalResult.filesToAttach = selectedFiles;
-    }
+    };
 
     $scope.generatePdf = function () {
         if ($scope.user) {
@@ -75,7 +76,7 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
                 modalService.alert('Raport Pdf (Blad!) ', 'Blad przy generowaniu raportu! Sprawdz logi systemowe');
             });
         }
-    }
+    };
 
     $scope.generateExcelReport = function () {
         if ($scope.user) {
@@ -85,7 +86,7 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
                 modalService.alert('Raport Excel (Blad!) ', 'Blad przy generowaniu raportu! Sprawdz logi systemowe');
             });
         }
-    }
+    };
 
     $scope.openSendEmailDialog = function () {
         var modalOptions = {
@@ -109,7 +110,7 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
 
                 promise
                     .then(function (zipPassword) {
-                        var result = Object.assign({}, value, zipPassword)
+                        var result = Object.assign({}, value, zipPassword);
 
                         shopCartService.sendFilesViaEmail(
                             result.recipients,
@@ -128,8 +129,8 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
                         });
                     });
             }
-        )
-    }
+        );
+    };
 
     var triggerZipPasswordModal = function () {
         var modalOptions = {
@@ -144,28 +145,27 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
                 };
 
                 $scope.answer = function (answer, errors) {
-                    console.log(errors)
                     if (!errors || Object.keys(errors).length === 0) {
                         $mdDialog.hide(answer);
                     }
                 };
             }
-        }
+        };
 
-        return openModal(modalOptions, function (value) { return value })
-    }
+        return openModal(modalOptions, function (value) { return value; });
+    };
 
     $scope.selectFile = function (file) {
         if ($scope.selectedFile === file) {
             $scope.selectedFile = null;
-            $scope.fileListWrapperClass = 'file-list-wrapper-full'
+            $scope.fileListWrapperClass = 'file-list-wrapper-full';
         } else {
             $scope.selectedFile = file;
-            $scope.fileListWrapperClass = ''
+            $scope.fileListWrapperClass = '';
         }
 
         $scope.selectedRow = $scope.selectedFile;
-    }
+    };
 
     $scope.getRowStyle = function (file) {
         var result = 'table-row';
@@ -179,25 +179,25 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
         }
 
         return result;
-    }
+    };
 
     $scope.toggleSelectAll = function () {
         angular.forEach($scope.userFiles, function (elm) {
             elm.checked = !elm.checked;
         });
-    }
+    };
 
     $scope.triggerDeleteEmployeePopup = function () {
         var filesToDelete = $scope.userFiles
-            .filter(function (fileRow) { return (fileRow.checked || ($scope.selectedFile && fileRow.Id === $scope.selectedFile.Id ))})
+            .filter(function (fileRow) { return (fileRow.checked || ($scope.selectedFile && fileRow.Id === $scope.selectedFile.Id)) })
             .map(function (selectedFileRow) { return selectedFileRow.Id });
 
         if (filesToDelete.length === 0) {
             modalService.alert('Usuwanie plików', 'Nie zaznaczono żadnego pliku!');
 
-            return
+            return;
         }
- 
+
         modalService.confirm('Usuwanie plików', 'Czy jesteś pewien, że chcesz usunąć zaznaczone pliki?').then(function () {
             modalService.promptPassword('Haslo', 'Wymagane podanie hasła (krótkiego)')
                 .then(function (password) {
@@ -208,7 +208,7 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
                                 cacheService.addToCache('MFCC.user', $scope.user);
 
                                 $state.reload();
-                            }).catch(function (ex) {
+                            }).catch(function () {
                                 modalService.alert('Usuwanie plików', 'Pliki nie mogły być usunięte! Skontaktuj się z Administratorem');
                             });
                         } else {
@@ -216,10 +216,10 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
                         }
                     });
                 }).catch(function () {
-                    modalService.alert('Usuwanie plików', 'Błąd usuwania plików!')
+                    modalService.alert('Usuwanie plików', 'Błąd usuwania plików!');
                 });
         });
-    }
+    };
 
     $scope.editFileDescriptionCtrl = function ($scope, $mdDialog, modalService, description, fileTypes, employees, name, user) {
         $scope.modalResult = Object.assign(
@@ -234,8 +234,8 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
                 Dokwlasny: description.DokumentWlasny
             }
         );
-        $scope.yesNoOptions = [{ name: 'TAK', value: true }, { name: 'NIE', value: false }]
-        $scope.docPartOptions = ['A', 'B', 'C']
+        $scope.yesNoOptions = [{ name: 'TAK', value: true }, { name: 'NIE', value: false }];
+        $scope.docPartOptions = ['A', 'B', 'C'];
         $scope.modalResult.Nazwa = name;
 
         $scope.pracownikPesel = '';
@@ -249,7 +249,6 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
         };
 
         $scope.answer = function (answer, errors) {
-            console.log(errors)
             if (!errors || Object.keys(errors).length === 0) {
                 $mdDialog.hide(answer);
             }
@@ -257,38 +256,38 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
 
         $scope.isDisabled = function () {
             return !$scope.modalResult.Typ || !$scope.isTypeWithDates($scope.modalResult.Typ.Symbol);
-        }
+        };
 
         $scope.fillValidFromDate = function () {
             if (!$scope.modalResult.DataPocz && $scope.modalResult.DataWytworzenia) {
-                $scope.modalResult.DataPocz = $scope.modalResult.DataWytworzenia
+                $scope.modalResult.DataPocz = $scope.modalResult.DataWytworzenia;
             }
-        }
+        };
 
         $scope.isTypeWithDates = function (fileSymbol) {
             var type = fileTypes.find(function (file) {
-                return file.Symbol === fileSymbol
-            }).Typedycji
+                return file.Symbol === fileSymbol;
+            }).Typedycji;
 
             if (type.trim() === 'b') {
-                return true
+                return true;
             }
             else {
-                return false
+                return false;
             }
-        }
+        };
 
         var querySearch = function (arrayTosearchIn, keys, query) {
             return query ? arrayTosearchIn.filter(createFilterFor(keys, query)) : arrayTosearchIn;
-        }
+        };
 
         $scope.fileTypeSearch = function (query) {
-            return querySearch(fileTypes, ["Symbol", "Nazwa"], query)
-        }
+            return querySearch(fileTypes, ["Symbol", "Nazwa"], query);
+        };
 
         $scope.employeeSearch = function (query) {
-            return querySearch(employees, ["Nazwisko"], query)
-        }
+            return querySearch(employees, ["Nazwisko"], query);
+        };
 
         var createFilterFor = function (keys, query) {
             var lowercaseQuery = angular.lowercase(query);
@@ -296,14 +295,14 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
             return function filterFn(object) {
                 return keys.some(function (key) {
                     return (object[key].toLowerCase().indexOf(lowercaseQuery) === 0);
-                })
+                });
             };
-        }
-    }
+        };
+    };
 
     $scope.triggerEditFileDescriptionDialog = function () {
         if ($scope.selectedFile === null || $scope.selectedUser === null) {
-            return
+            return;
         }
         var modalOptions = {
             body: 'app/views/files/addFile/fileDescriptionPopup/upsertFileDescription.html',
@@ -343,7 +342,7 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
                         });
                 });
             });
-    }
+    };
 
     $scope.$watch('user', function (user) {
         $scope.userFiles = [];
@@ -353,7 +352,6 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
             filesViewService.getFilesForUser(user).then(function (result) {
                 $scope.userFiles = result.pliki;
                 $scope.selectedFile = null;
-
 
                 $scope.lastAddedFileType = (result && result.last) ? result.last.Symbol : '';
                 $scope.lastAddedFileDate = (result && result.last) ? result.last.DataSkanuStr : '';
