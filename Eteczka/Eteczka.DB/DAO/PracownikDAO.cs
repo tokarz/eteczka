@@ -148,9 +148,54 @@ namespace Eteczka.DB.DAO
 
             catch (Exception ex)
             {
-                LOGGER.Error("PobierzPracownikaPoId [" + numeread + "]", ex);
+                //LOGGER.Error("PobierzPracownikaPoId [" + numeread + "]", ex);
             }
 
+            return pobranyPracownik;
+        }
+
+        public Pracownik PobierzPracownikaPoPeselu(string pesel)
+        {
+            Pracownik pobranyPracownik = null;
+            string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE pesel = '" + pesel.Trim() + "' ";
+            try
+            {
+                IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+                DataTable result = connectionState.ExecuteQuery(sqlQuery);
+
+                if (result.Rows.Count == 1)
+                {
+                    pobranyPracownik = _PracownikMapper.MapujZSql(result.Rows[0]);
+                }
+            }
+
+            catch (Exception ex)
+            {  
+            }
+            return pobranyPracownik;
+        }
+
+        public Pracownik PobierzPracownikaPoImieniuNazwiskuIDacieUrodzenia(string imie, string nazwisko, string dataUrodzenia)
+        {
+
+
+            Pracownik pobranyPracownik = null;
+            string sqlQuery = "SELECT * FROM \"KatPracownicy\" WHERE imie = '" + imie.Trim().ToUpper() + 
+                "' AND nazwisko = '" + nazwisko.Trim().ToUpper() + "' AND dataurodzenia = '" + dataUrodzenia + "'";
+            try
+            {
+                IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+                DataTable result = connectionState.ExecuteQuery(sqlQuery);
+
+                if (result.Rows.Count == 1)
+                {
+                    pobranyPracownik = _PracownikMapper.MapujZSql(result.Rows[0]);
+                }
+            }
+
+            catch (Exception ex)
+            {
+            }
             return pobranyPracownik;
         }
 

@@ -14,6 +14,8 @@ namespace Eteczka.DB.DAO
         List<Pracownik> PobierzZatrudnionychPracownikow(string firma, int confidential, string orderby = "nazwisko,imie", bool asc = true);
         List<Pracownik> PobierzPracownikow(string firma, int confidential, string limit = "*", string offset = "0", string orderby = "nazwisko,imie", bool asc = true);
         Pracownik PobierzPracownikaPoId(string numeread);
+        Pracownik PobierzPracownikaPoPeselu(string pesel);
+        Pracownik PobierzPracownikaPoImieniuNazwiskuIDacieUrodzenia(string imie, string nazwisko, string dataUrodzenia);
         List<Pracownik> WyszukiwaczPracownikow(string search, string firma, int confidential);
         List<Pracownik> WyszukiwaczPracownikowPoTekscie(string search, string firma, int confidential, int limit = 100, string orderby = "nazwisko", bool asc = true);
         int PoliczPracownikowWBazie();

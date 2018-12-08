@@ -119,16 +119,27 @@ namespace Eteczka.BE.Services
             
             MiejscePracy miejscePracy = _mapper.MapujDoMiejscaPracy(pracownikDoDodania);
             miejscePracy.NumerEad = pracownik.Numeread;
-            Pracownik pracownikWbazie = _PracownikDao.PobierzPracownikaPoId(pracownik.Numeread);
-
-            if (pracownikWbazie != null)
+            Pracownik pracownikPoImieniuNazwiskuIDacieUrodzenia = _PracownikDao.PobierzPracownikaPoImieniuNazwiskuIDacieUrodzenia(pracownik.Imie, pracownik.Nazwisko, pracownik.DataUrodzenia);
+            Pracownik pracownikWBaziePoPeselu = null;
+            if (pracownik.PESEL != null)
             {
+                pracownikWBaziePoPeselu = _PracownikDao.PobierzPracownikaPoPeselu(pracownik.PESEL);
+            }
+            
+
+            if (pracownikPoImieniuNazwiskuIDacieUrodzenia != null || pracownikWBaziePoPeselu != null)
+            {
+                miejscePracy.NumerEad = pracownikWBaziePoPeselu != null ? pracownikWBaziePoPeselu.Numeread : pracownikPoImieniuNazwiskuIDacieUrodzenia.Numeread;
+                string imie = pracownikWBaziePoPeselu != null ? pracownikWBaziePoPeselu.Imie : pracownikPoImieniuNazwiskuIDacieUrodzenia.Imie;
+                string nazwisko = pracownikWBaziePoPeselu != null ? pracownikWBaziePoPeselu.Nazwisko : pracownikPoImieniuNazwiskuIDacieUrodzenia.Nazwisko;
                 result = _miejscePracyService.DodajMiejscePracy(sesja, miejscePracy);
+                
+                result.Message = "W bazie istnieje pracownik o podanym numerze pesel lub imieniu, nazwisku i dacie urodzenia: " + imie.Trim() + " " + nazwisko.Trim() +  ". Dopisano pracownikowi miejsce pracy.";
             }
             else
             {
                 result.Result = _PracownikDao.DodajPracownikaZMiejscemPracy(pracownik, miejscePracy, sesja.IdUzytkownika.Trim(), sesja.IdUzytkownika.Trim());
-                result.Message = result.Result ? "Pracownik z miejscem pracy został dodany." : "Próba dodania pracownika i miejsca pracy nie powiodła się.";
+                result.Message = result.Result ? "Pracownik został dodany." : "Próba dodania pracownika nie powiodła się.";
             }
 
             return result;
