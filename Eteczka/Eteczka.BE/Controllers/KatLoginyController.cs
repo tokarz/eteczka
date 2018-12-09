@@ -321,7 +321,7 @@ namespace Eteczka.BE.Controllers
                 if (stanSesji.CzySesjaJestOtwarta(sessionId) && stanSesji.CzySesjaAdministratora(sessionId))
                 {
                     sesja = stanSesji.PobierzSesje(sessionId);
-                    sucess = _KatLoginyService.UsunUzytkownika(user.Identyfikator);
+                    sucess = _KatLoginyService.UsunUzytkownikowiWszystkieFirmy(user.Identyfikator);
                 }
 
                 result = Json(new

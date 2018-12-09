@@ -185,10 +185,10 @@ namespace Eteczka.DB.DAO
             }
             return result;
         }
-        public bool UsunUzytkownika(string id)
+        public bool UsunUzytkownikowiUprawnieniaDoWszystkichFirm(string id)
         {
             bool result = false;
-            string updateString = "UPDATE \"KatLoginy\" SET usuniety = true WHERE identyfikator = '" + id + "';";
+            string updateString = "UPDATE \"KatLoginyFirmy\" SET usuniety = true WHERE identyfikator = '" + id + "';";
 
             try
             {

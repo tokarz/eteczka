@@ -73,7 +73,7 @@ namespace Eteczka.BE.Controllers
 
         [HttpPut]
         [ActionName("Dodaj")]
-        public ActionResult DodajPracownika(string sessionId, Pracownik user)
+        public ActionResult DodajPracownika(string sessionId, Pracownik pracownikDoDodania)
         {
             InsertResult wynikInserta = new InsertResult();
             ActionResult result = null;
@@ -84,7 +84,7 @@ namespace Eteczka.BE.Controllers
                 if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
                 {
                     sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
-                    wynikInserta = _PracownicyService.DodajPracownika(user, sesja);
+                    wynikInserta = _PracownicyService.DodajPracownika(pracownikDoDodania, sesja);
                 }
                 result = Json(new
                 {
@@ -99,9 +99,9 @@ namespace Eteczka.BE.Controllers
                     wyjatek = true,
                 }, JsonRequestBehavior.AllowGet);
             }
-            if (user.Imie !=null & user.Nazwisko != null & sesja != null)
+            if (pracownikDoDodania.Imie !=null & pracownikDoDodania.Nazwisko != null & sesja != null)
             {
-                LOGER.LOG_MAIN_LOG(PoziomLogowania.INFO, Akcja.EMPLOYEE_PERSONAL_DATA_ADD, sesja, wynikInserta.Result, "KatPracownicy", user, " ", "Employee: [" + user.Imie.Trim() + " " + user.Nazwisko.Trim() + ", company: " + sesja.AktywnaFirma.Firma.Trim() + "] " + (wynikInserta.Result ? "added" : "add attempt failure."));
+                LOGER.LOG_MAIN_LOG(PoziomLogowania.INFO, Akcja.EMPLOYEE_PERSONAL_DATA_ADD, sesja, wynikInserta.Result, "KatPracownicy", pracownikDoDodania, " ", "Employee: [" + pracownikDoDodania.Imie.Trim() + " " + pracownikDoDodania.Nazwisko.Trim() + ", company: " + sesja.AktywnaFirma.Firma.Trim() + "] " + (wynikInserta.Result ? "added" : "add attempt failure."));
             }
             
             return result;
@@ -134,7 +134,12 @@ namespace Eteczka.BE.Controllers
                 {
                     sucess = false,
                     wyjatek = true
-                }, JsonRequestBehavior.AllowGet);
+                }, JsonRequestBehavior.AllowGet); 
+            }
+
+            if (pracownikDoDodania.Imie != null & pracownikDoDodania.Nazwisko != null & detaleSesji != null)
+            {
+                LOGER.LOG_MAIN_LOG(PoziomLogowania.INFO, Akcja.EMPLOYEE_PERSONAL_DATA_ADD, detaleSesji, wynikInserta.Result, "KatPracownicy", pracownikDoDodania, " ", "Employee: [" + pracownikDoDodania.Imie.Trim() + " " + pracownikDoDodania.Nazwisko.Trim() + ", company: " + detaleSesji.AktywnaFirma.Firma.Trim() + "] " + (wynikInserta.Result ? "added" : "add attempt failure."));
             }
             return result;
 

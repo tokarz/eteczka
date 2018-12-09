@@ -130,9 +130,9 @@ namespace Eteczka.BE.Services
             return result;
         }
 
-        public bool UsunUzytkownika(string id)
+        public bool UsunUzytkownikowiWszystkieFirmy(string id)
         {
-            bool result = _Dao.UsunUzytkownika(id);
+            bool result = _Dao.UsunUzytkownikowiUprawnieniaDoWszystkichFirm(id);
 
             return result;
         }
