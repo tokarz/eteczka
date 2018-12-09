@@ -11,14 +11,14 @@
         </md-toolbar>
         <md-dialog-content style="padding:15px">
             <div class="modal-table-row">
-                <label class="modal-table-label" for="pesel">PESEL *</label>
+                <label class="modal-table-label" for="pesel">PESEL</label>
                 <input class="modal-table-input"
                        name="pesel" type="text"
                        ng-model="modalResult.PESEL"
                        ng-pattern="/^\d{11}$/"
                        ng-change="modalResult.DataUrodzenia = isPeselValid(modalResult.PESEL) ? getBirthdate(modalResult.PESEL) : modalResult.DataUrodzenia"
                        ng-model-options="{updateOn: 'blur'}"
-                       ng-required="!modalResult.PeselInny" />
+                       />
             </div>
             <div ng-show="upsertEmployee.$submitted || upsertEmployee.pesel.$touched">
                 <span class="modal-table-error" ng-show="upsertEmployee.pesel.$error.pattern">W polu PESEL musi znajdowac sie 11 cyfr!</span>
@@ -73,19 +73,21 @@
                         ng-init="modalResult.Confidential = 0"></select>
             </div>
             <!-- pole nie bedzie udostepnione, bo nie jest chwilowo nigdzie uzywane
-            <div class="modal-table-row">
-                <label class="modal-table-label" for="country">Kraj</label>
-                <input class="modal-table-input" name="country" type="text" ng-model="modalResult.Kraj" />
-            </div>-->
-            <div class="modal-table-row">
-                <label class="modal-table-label" for="peselOther">Pesel obcy</label>
-                <input class="modal-table-input"
-                       name="peselOther"
-                       type="text"
-                       ng-model="modalResult.PeselInny"
-                       ng-disabled="shouldDisableByPesel(modalResult.PESEL, modalResult.PeselInny);"
-                       ng-required="!modalResult.PESEL" />
-            </div>
+    <div class="modal-table-row">
+        <label class="modal-table-label" for="country">Kraj</label>
+        <input class="modal-table-input" name="country" type="text" ng-model="modalResult.Kraj" />
+    </div>-->
+            <!--
+        <div class="modal-table-row">
+        <label class="modal-table-label" for="peselOther">Pesel obcy</label>
+        <input class="modal-table-input"
+               name="peselOther"
+               type="text"
+               ng-model="modalResult.PeselInny"
+               ng-disabled="shouldDisableByPesel(modalResult.PESEL, modalResult.PeselInny);"
+               ng-required="!modalResult.PESEL" />
+        </div>
+    -->
         </md-dialog-content>
         <md-dialog-actions layout="row">
             <div class="modal-footer">
