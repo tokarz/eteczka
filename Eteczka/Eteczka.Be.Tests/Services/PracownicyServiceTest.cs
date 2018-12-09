@@ -9,6 +9,7 @@ using Eteczka.DB.DAO;
 using Eteczka.Model.Entities;
 using Eteczka.BE.Model;
 using Eteczka.Model.DTO;
+using Eteczka.DB.Mappers;
 
 namespace Eteczka.BE.Services
 {
@@ -18,15 +19,19 @@ namespace Eteczka.BE.Services
 
         private IPracownicyService _Sut;
         private IPracownikDAO _PracownikDao;
+        private IPracownikZMiejscemPracyMapper _Mapper;
+        private IMiejscePracyService _MiejscePracyService;
 
         [SetUp]
         public void setUp()
         {
             //Tworzymy Mocka (zaslepke obiektu)
             _PracownikDao = Substitute.For<IPracownikDAO>();
+            _Mapper = Substitute.For<IPracownikZMiejscemPracyMapper>();
+            _MiejscePracyService = Substitute.For<IMiejscePracyService>();
 
             //Inicjujemy nasza testowana klase razem z Mockiem (Mackiem?)
-            _Sut = new PracownicyService(_PracownikDao);
+            _Sut = new PracownicyService(_PracownikDao, _Mapper, _MiejscePracyService);
         }
 
         [Test]

@@ -94,7 +94,7 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
             controller: $scope.sendEmailCtrl,
             locals: {
                 selectedFiles: $scope.userFiles.filter(function (elm) {
-                    if (elm.checked || elm.Id === $scope.selectedFile.Id) {
+                    if (elm.checked) {
                         return elm;
                     }
                 })
@@ -358,7 +358,7 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
 
                 $scope.filesSummaryText = $scope.userFiles.length === 1 ? 'dokument' : ($scope.endsWith234($scope.userFiles.length + '') ? 'dokumenty' : 'dokumentów');
                 $scope.documentsSummary = $scope.userFiles.length + ' ' + $scope.filesSummaryText;
-                $scope.user.Summary = ($scope.userFiles && $scope.userFiles.length) > 0 ? ($scope.user.Imie + ' ' + $scope.user.Nazwisko + ' ' + $scope.documentsSummary + ', ' + $scope.tLastAddedLabel + $scope.lastAddedFileType + ' ' + $scope.lastAddedFileDate) : '';
+                $scope.user.Summary = ($scope.userFiles && $scope.userFiles.length) > 0 ? ($scope.user.Imie + ' ' + $scope.user.Nazwisko + ', ' + $scope.documentsSummary + ', ' + $scope.tLastAddedLabel + $scope.lastAddedFileType + ' ' + $scope.lastAddedFileDate) : '';
             });
         } else {
             $scope.userFiles = [];

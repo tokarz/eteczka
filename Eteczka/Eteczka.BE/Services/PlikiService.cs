@@ -120,8 +120,6 @@ namespace Eteczka.BE.Services
             return result;
         }
 
-
-
         public List<string> PobierzFolderyDlaFirmy(string firma, string folder, string sortOrder = "asc", string sortColumn = "datapocz")
         {
             List<string> result = new List<string>();
@@ -263,13 +261,7 @@ namespace Eteczka.BE.Services
             return wyszukanePliki;
         }
 
-        public bool WyslijPlikiMailem(SessionDetails sesja, string adresaci, string adresaciCc, List<string> Zalaczniki, string hasloDoZip, string temat, string wiadomosc)
-        {
-
-            bool result = _PlikiUtils.WyslijPlikiMailem(sesja.AktywnaFirma.Firma, sesja.IdUzytkownika, adresaci, adresaciCc, Zalaczniki, hasloDoZip, temat, wiadomosc);
-
-            return result;
-        }
+        
 
         public bool EdytujDokumentWBazie(SessionDetails sesja, KomitPliku plik, string idPliku)
         {
@@ -295,9 +287,5 @@ namespace Eteczka.BE.Services
 
             return result;
         }
-
-
-
-
     }
 }

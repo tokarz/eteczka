@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DTO\AddKatLoginyDto.cs" />
+    <Compile Include="DTO\DaneEmail.cs" />
     <Compile Include="DTO\DaneiDetaleUzytkownika.cs" />
     <Compile Include="DTO\DaneUzytkownika.cs" />
     <Compile Include="DTO\FiltryDat.cs" />

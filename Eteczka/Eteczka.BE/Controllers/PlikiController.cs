@@ -39,7 +39,7 @@ namespace Eteczka.BE.Controllers
 
             return Json(new
             {
-                pliki = pliki
+                pliki
             }, JsonRequestBehavior.AllowGet);
         }
 
@@ -287,41 +287,7 @@ namespace Eteczka.BE.Controllers
                 pliki = pliki
             }, JsonRequestBehavior.AllowGet);
         }
-
-        public ActionResult WyslijMailemPliki(string sessionId, string adresaci, string adresaciCc, string hasloDoZip, string temat, string wiadomosc, List<string> Zalaczniki)
-        {
-
-            bool success = false;
-            ActionResult result = null;
-            SessionDetails sesja = null;
-            try
-            {
-                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
-                {
-                   sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
-
-                    success = _PlikiService.WyslijPlikiMailem(sesja, adresaci, adresaciCc, Zalaczniki, hasloDoZip, temat, wiadomosc);
-                }
-                result =  Json(new
-                {
-                    success = success
-                }, JsonRequestBehavior.AllowGet);
-                
-            }
-
-            catch (Exception)
-            {
-                result = Json(new
-                {
-                    success = false,
-                    wyjatek = true
-                }, JsonRequestBehavior.AllowGet); 
-            }
-            LOGGER.LOG_MAIN_LOG(PoziomLogowania.INFO, Akcja.MAIL_SENDING, sesja, success, " ", " ", " ", "Email message " + (success ? "sent" : "not sent"));
-            return result;
-           
-
-        }
+        
         [HttpPost]
         public ActionResult EdytujDokumentZBazy(string sessionId, string idPliku, KomitPliku plik)
         {

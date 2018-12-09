@@ -29,15 +29,14 @@ angular.module('et.services').factory('shopCartService', ['httpService', 'sessio
             });
         },
         sendFilesViaEmail: function (recipients, ccReceipients, zipPassword, subject, content, attachments) {
-            return httpService.get('Pliki/WyslijMailemPliki', {
-                sessionId: sessionService.getSessionId(),
-                adresaci: recipients,
-                adresaciCc: ccReceipients,
-                hasloDoZip: zipPassword,
-                temat: subject,
-                wiadomosc: content,
+            return httpService.post('Email/WyslijMailemPliki?sessionId=' + sessionService.getSessionId(), {
+                Adresaci: recipients,
+                AdresaciCc: ccReceipients,
+                HasloDoZip: zipPassword,
+                Temat: subject,
+                Wiadomosc: content,
                 Zalaczniki: attachments
             });
         }
-    }
+    };
 }]);

@@ -17,6 +17,7 @@ using Eteczka.DB.DAO;
 using Eteczka.Utils.Common;
 using Eteczka.Utils.Logger;
 using System.Globalization;
+using Eteczka.Model.DTO;
 
 namespace Eteczka.BE.Utils
 {
@@ -601,7 +602,7 @@ namespace Eteczka.BE.Utils
         }
 
 
-        public bool WyslijPlikiMailem(string firma, string user, string adresaci, string adresaciCc, List<string> Zalaczniki, string hasloDoZip, string temat, string wiadomosc)
+        public bool WyslijPlikiMailem(string firma, string user, DaneEmail email)
         {
             bool result = false;
 
@@ -622,7 +623,7 @@ namespace Eteczka.BE.Utils
 
                 mail.From = new MailAddress(daneKonfiguracyjneSerwera.MailSender);
 
-                string[] listaAdresatowMaila = adresaci.Replace(" ", "").Split(',');
+                string[] listaAdresatowMaila = email.Adresaci.Replace(" ", "").Split(',');
                 foreach (string adresEmail in listaAdresatowMaila)
                 {
                     if (new Osys().ProstyWalidatorMaila(adresEmail))
@@ -631,9 +632,9 @@ namespace Eteczka.BE.Utils
                     }
                 }
 
-                if (adresaciCc != null)
+                if (email.AdresaciCc != null)
                 {
-                    string[] listaAdresatowMailaCc = adresaciCc.Replace(" ", "").Split(',');
+                    string[] listaAdresatowMailaCc = email.AdresaciCc.Replace(" ", "").Split(',');
                     foreach (string adresEmailCc in listaAdresatowMailaCc)
                     {
                         if (new Osys().ProstyWalidatorMaila(adresEmailCc))
@@ -643,12 +644,12 @@ namespace Eteczka.BE.Utils
                     }
                 }
 
-                mail.Subject = temat ?? daneKonfiguracyjneSerwera.MailSubject;
-                mail.Body = wiadomosc ?? daneKonfiguracyjneSerwera.MailBody;
+                mail.Subject = email.Temat ?? daneKonfiguracyjneSerwera.MailSubject;
+                mail.Body = email.Wiadomosc ?? daneKonfiguracyjneSerwera.MailBody;
 
-                if (Zalaczniki != null)
+                if (email.Zalaczniki != null)
                 {
-                    string zalacznik = SpakujPliki(firma.Trim(), Zalaczniki, hasloDoZip);
+                    string zalacznik = SpakujPliki(firma.Trim(), email.Zalaczniki, email.HasloDoZip);
                     Attachment attachment = new System.Net.Mail.Attachment(zalacznik);
                     if (File.Exists(zalacznik))
                     {
@@ -663,11 +664,11 @@ namespace Eteczka.BE.Utils
                     CzasWiadomosci = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ff", CultureInfo.InvariantCulture),
                     Firma = firma,
                     UserId = user,
-                    Adresaci = adresaci,
-                    AdresaciCc = adresaciCc ?? "",
-                    Temat = temat ?? "",
-                    Tresc = wiadomosc ?? "",
-                    Zalaczniki = this.StworzStringListaZalacznikow(Zalaczniki),
+                    Adresaci = email.Adresaci,
+                    AdresaciCc = email.AdresaciCc ?? "",
+                    Temat = email.Temat ?? "",
+                    Tresc = email.Wiadomosc ?? "",
+                    Zalaczniki = this.StworzStringListaZalacznikow(email.Zalaczniki),
                     Status = "Próba wysłania wiadomości."
 
                 });
@@ -688,11 +689,11 @@ namespace Eteczka.BE.Utils
                 CzasWiadomosci = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture),
                 Firma = firma,
                 UserId = user,
-                Adresaci = adresaci,
-                AdresaciCc = adresaciCc ?? "",
-                Temat = temat ?? "",
-                Tresc = wiadomosc ?? "",
-                Zalaczniki = this.StworzStringListaZalacznikow(Zalaczniki),
+                Adresaci = email.Adresaci,
+                AdresaciCc = email.AdresaciCc ?? "",
+                Temat = email.Temat ?? "",
+                Tresc = email.Wiadomosc ?? "",
+                Zalaczniki = this.StworzStringListaZalacznikow(email.Zalaczniki),
                 Status = result == true ? "Wiadomość wysłana." : "Wiadomośc nie została wysłana."
             });
             return result;
