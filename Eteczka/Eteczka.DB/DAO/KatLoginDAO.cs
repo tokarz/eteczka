@@ -391,5 +391,20 @@ namespace Eteczka.DB.DAO
 
             return fetchedResult;
         }
+
+        public bool CzyUzytkownikMaUprawnieniaDoFirmy(string login, string firma)
+        {
+            bool result = false;
+            string sqlQuery = "SELECT * FROM \"KatLoginyFirmy\" WHERE LOWER (identyfikator) = LOWER ('" + login.Trim() + "') AND LOWER (firma) = LOWER ('" + firma.Trim() + "')";
+
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+            DataTable queryResult = connectionState.ExecuteQuery(sqlQuery);
+            if (queryResult != null && queryResult.Rows != null && queryResult.Rows.Count == 1)
+            {
+                result = true;
+            }
+
+            return result;
+        }
     }
 }

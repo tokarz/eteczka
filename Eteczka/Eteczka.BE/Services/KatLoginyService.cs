@@ -83,7 +83,17 @@ namespace Eteczka.BE.Services
 
         public bool DodajFirmeDlaUzytkownika(KatLoginyFirmy firma)
         {
-            return _Dao.DodajFirmeDlaUzytkownika(firma);
+            bool result = false;
+            if (!_Dao.CzyUzytkownikMaUprawnieniaDoFirmy(firma.Identyfikator, firma.Firma))
+            {
+                result = _Dao.DodajFirmeDlaUzytkownika(firma);
+            }
+            else
+            {
+                result = _Dao.AktualizujFirmeDlaUzytkownika(firma);
+
+            }
+            return result;
         }
 
         public bool DodajNowegoUzytkownika(AddKatLoginyDto user)
