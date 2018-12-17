@@ -128,7 +128,7 @@ namespace Eteczka.DB.DAO
                         plik.Pracownik.Numeread.Trim(),
                         id.Trim(),
                         plik.Typ.Teczkadzial.Trim(),
-                        plik.Typ.SymbolEad.Trim()
+                        plik.Typ.SymbolEad
                         };
 
                     string updateQuery = string.Format("UPDATE \"Pliki\" SET " + "symbol='{0}', dokwlasny='{1}', datadokumentu='{2}', datapocz='{3}', datakoniec='{4}', opisdodatkowy='{5}', nrdokumentu='{6}', datamodify='{7}', dataakcept='{8}', idoper='{9}', idakcept='{10}', numeread='{11}', teczkadzial='{13}', symbolead='{14}' WHERE id = '{12}'", obs);
@@ -137,7 +137,7 @@ namespace Eteczka.DB.DAO
                     result = connectionState.ExecuteNonQuery(updateQuery);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 result = false;
             }
