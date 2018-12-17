@@ -327,6 +327,7 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
                         .then(function (password) {
                             usersService.checkPassword(password && password.userPassword).then(function (correctPassword) {
                                 if (correctPassword && correctPassword.success) {
+                                    var mappedValue = alignValueStructureToBeObject(value);
                                     filesViewService.editCommittedFile(value).then(function (res) {
                                         if (res.sucess) {
                                             modalService.alert('Zatwierdzanie zmian w pliku', 'Plik zostal zmieniony');
@@ -341,6 +342,26 @@ angular.module('et.controllers').controller('menuFilesContentController', ['$roo
                             });
                         });
                 });
+
+                function alignValueStructureToBeObject(source) {
+                    var result = Object.assign(source, {});
+                    if (result.Typ) {
+                        result.Typ = Object.assign({
+                            SymbolEad: source.SymbolEad,
+                            Dokwlasny: source.DokumentWlasny,
+                            Teczkadzial: source.Teczkadzial,
+                            Idoper: source.IdOper,
+                            Idakcept: source.IdAkcept,
+                            Datamodify: source.DataModyfikacji,
+                            Dataakcept: source.DataAkcept,
+                            SystemBazowy: source.Systembazowy,
+                            Usuniety: source.Usuniety
+                        }, result.Typ);
+
+                    }
+
+                    return result;
+                }
             });
     };
 
