@@ -64,7 +64,7 @@
                     <tbody style="text-align:left">
                         <tr ng-if="userFiles && userFiles.length > 0" ng-repeat="file in userFiles" ng-click="selectFile(file)" ng-class="getRowStyle(file)">
                             <td>{{file.TeczkaDzial}} {{file.NrDokumentu}}</td>
-                            <td>{{file.Symbol}} <i ng-if="file.OpisRodzajuDokumentu" class="fa fa-question-circle" style="cursor:pointer;float:right" title="{{file.OpisRodzajuDokumentu}}"></i></td>
+                            <td>{{file.Symbol}} <i ng-if="file.OpisDodatkowy && file.OpisDodatkowy.trim().length " class="fa fa-question-circle" style="cursor:pointer;float:right" title="{{file.OpisDodatkowy}}"></i></td>
                             <td ng-show="shownames">{{file.Nazwisko}}</td>
                             <td ng-show="shownames">{{file.Imie}}</td>
                             <td>{{file.DataDodaniaStr}}</td>
