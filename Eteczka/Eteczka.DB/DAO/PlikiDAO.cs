@@ -421,7 +421,7 @@ namespace Eteczka.DB.DAO
         {
             Pliki znalezionyPlik= new Pliki();
             
-            string sqlQuery = "SELECT * FROM \"Pliki\" WHERE nazwaead = '" + nazwaPliku + "'";
+            string sqlQuery = "SELECT * FROM \"Pliki\" INNER JOIN \"KatPracownicy\" on \"Pliki\".numeread = \"KatPracownicy\".numeread WHERE nazwaead = '" + nazwaPliku + "'";
 
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
             DataTable result = connectionState.ExecuteQuery(sqlQuery);
