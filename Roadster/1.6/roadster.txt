@@ -1,0 +1,9 @@
+1.6     - Widoki i odseparowanie od Foxa (tworzenie struktury firmy)!
+ 	- Ksiazka adresowa maili 
+        - Dostosowanie do ustawy (Michal)
+        - Podpis cyfrowy !!
+	- Raporty
+ 	- Zabezpieczenia wszystkich insertów o selecty ze sprawdzeniem istniejacych juz danych
+	- Pe³na strategia logów i wybor niezbednych 
+	- Audyt ?
+	
