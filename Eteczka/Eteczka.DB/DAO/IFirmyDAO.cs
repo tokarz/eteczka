@@ -13,6 +13,11 @@ namespace Eteczka.DB.DAO
         int PoliczFirmyWBazie();
         List<KatFirmy> PobierzFirmyZBazy(string orderBy = "firma");
         bool ZapiszKatalogRoboczy(string firma, string sciezka);
+        bool DodajFirme(KatFirmy firmaDoDodania, string idoper, string idakcept);
+        bool EdytujFirme(KatFirmy firmaDoEdycji, string nip, string idoper, string idakcept);
+        KatFirmy WyszukajFirmePoNipie(string nip);
         
+
+
     }
 }

@@ -135,7 +135,7 @@ namespace Eteczka.BE.Controllers
             {
                 SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
                 pliki = _PlikiService.PobierzDlaUzytkownika(numeread, sesja.AktywnaFirma.Firma);
-                last = pliki.Count > 0 ? pliki.OrderByDescending(f => f.DataSkanu).First() : null;
+                last = pliki.Count > 0 ? pliki.OrderByDescending(f => f.DataModyfikacji).First() : null;
             }
 
             return Json(new

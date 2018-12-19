@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Eteczka.BE.DTO;
+using Eteczka.Model.DTO;
 using Eteczka.Model.Entities;
 
 namespace Eteczka.BE.Services
@@ -11,6 +12,8 @@ namespace Eteczka.BE.Services
     public interface IFirmyService
     {
         List<KatFirmy> PobierzWszystkie();
-        
+        InsertResult DodajFirme(KatFirmy firmaDoDodania, string idoper, string idakcept);
+
+
     }
 }

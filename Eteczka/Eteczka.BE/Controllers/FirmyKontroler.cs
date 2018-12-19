@@ -3,7 +3,8 @@ using System.Web.Mvc;
 using Eteczka.Model.Entities;
 using Eteczka.BE.Services;
 using Eteczka.BE.Model;
-
+using Eteczka.Model.DTO;
+using System;
 
 namespace Eteczka.BE.Controllers
 {
@@ -58,6 +59,39 @@ namespace Eteczka.BE.Controllers
             {
                 firma = firma
             }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult DodajFirme(string sessionId, KatFirmy firmaDoDodania)
+        {
+
+            ActionResult result = null;
+            InsertResult sucess = new InsertResult();
+            SessionDetails sesja = null;
+            try
+            {
+
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    sucess = _FirmyService.DodajFirme(firmaDoDodania, sesja.IdUzytkownika, sesja.IdUzytkownika);
+
+                    result = Json(new
+                    {
+                        sucess
+                    }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+            return result;
         }
     }
 }
