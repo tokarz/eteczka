@@ -83,7 +83,7 @@ namespace Eteczka.BE.Services
         {
             bool result = false;
 
-            string nazwaPliku = firma.Trim() + "_" + DateTime.Now.Millisecond + "_" + plik.Nazwa.Trim();
+            string nazwaPliku = firma.Trim() + "_" + Guid.NewGuid() + "_" + plik.Nazwa.Trim();
 
             string eadRoot = ConfigurationManager.AppSettings["rootdir"];
             string katalogZrodlowy = Path.Combine(eadRoot, "waitingroom", firma.Trim(), waitingRoom);
