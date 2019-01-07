@@ -12,7 +12,12 @@ namespace Eteczka.BE.Services
     public interface IFirmyService
     {
         List<KatFirmy> PobierzWszystkie();
+        List<KatFirmy> PobierzWszystkieAktywneFirmy();
+        List<KatFirmy> PobierzWszystkieNieaktywneFirmy();
+        KatFirmy WyszukajFirmePoNipie(string nip);
         InsertResult DodajFirme(KatFirmy firmaDoDodania, string idoper, string idakcept);
+        InsertResult EdytujFirme(KatFirmy firmaDoEdycji, string idoper, string idakcept);
+        InsertResult UsunFirme(string nip);
 
 
     }

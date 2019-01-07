@@ -133,7 +133,7 @@ namespace Eteczka.DB.DAO
             return result;
         }
 
-        public bool EdytujFirme(KatFirmy firmaDoEdycji, string nip, string idoper, string idakcept)
+        public bool EdytujFirme(KatFirmy firmaDoEdycji, string idoper, string idakcept)
         {
             bool result = false;
             object[] objects = new object[]
@@ -165,13 +165,23 @@ namespace Eteczka.DB.DAO
                 firmaDoEdycji.Waitingroom
 
     };
-            string sqlUpdateQuery = string.Format("UPDATE \"KatFirmy\" SET firma = '{0}', nazwa = '{1}', nazwaskrocona = '{2}', ulica = '{3}', numerdomu = '{4}', numerlokalu = '{5}', miasto = '{6}', kodpocztowy = '{7}', poczta = '{8}', gmina = '{9}', powiat = '{10}', wojewodztwo = '{11}', nip = '{12}', regon = '{13}', nazwa2 = '{14}', pesel = '{15}', idoper = '{16}', idakcept = '{17}', nazwisko = '{18}', imie = '{19}', datamodify = '{20}', dataakcept = '{21}', systembazowy = '{22}', usuniety = '{23}', waitingroom = '{24}' WHERE nip = '" + nip + "';", objects);
+            string sqlUpdateQuery = string.Format("UPDATE \"KatFirmy\" SET firma = '{0}', nazwa = '{1}', nazwaskrocona = '{2}', ulica = '{3}', numerdomu = '{4}', numerlokalu = '{5}', miasto = '{6}', kodpocztowy = '{7}', poczta = '{8}', gmina = '{9}', powiat = '{10}', wojewodztwo = '{11}', nip = '{12}', regon = '{13}', nazwa2 = '{14}', pesel = '{15}', idoper = '{16}', idakcept = '{17}', nazwisko = '{18}', imie = '{19}', datamodify = '{20}', dataakcept = '{21}', systembazowy = '{22}', usuniety = '{23}', waitingroom = '{24}' WHERE nip = '" + firmaDoEdycji.Nip + "';", objects);
 
 
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
             result = connectionState.ExecuteNonQuery(sqlUpdateQuery);
 
             return result;
+        }
+
+        public bool UsunFirme(string nip)
+        {
+            bool result = false;
+            string sqlQuery = "UPDATE \"KatFirmy\" SET usuniety = 'true' WHERE nip = '" + nip + "'";
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+            result = connectionState.ExecuteNonQuery(sqlQuery);
+
+            return result;   
         }
 
         public KatFirmy WyszukajFirmePoNipie(string nip)

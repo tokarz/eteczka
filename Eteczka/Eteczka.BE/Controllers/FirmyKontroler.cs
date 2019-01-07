@@ -31,6 +31,78 @@ namespace Eteczka.BE.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        public ActionResult PobierzWszystkieAktywneFirmy(string sessionId)
+        {
+            ActionResult result = null;
+            SessionDetails sesja = null;
+            List<KatFirmy> PobraneFirmy = new List<KatFirmy>();
+
+            try
+            {
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    PobraneFirmy = _FirmyService.PobierzWszystkieAktywneFirmy();
+                }
+                result = Json(new
+                {
+                    PobraneFirmy,
+                    sucess = PobraneFirmy.Count > 0 ? true : false
+
+                }, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception ex)
+            {
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+
+                }, JsonRequestBehavior.AllowGet);
+
+            }
+
+            return result;
+        }
+
+        [HttpGet]
+        public ActionResult PobierzWszystkieNieaktywneFirmy(string sessionId)
+        {
+            ActionResult result = null;
+            SessionDetails sesja = null;
+            List<KatFirmy> PobraneFirmy = new List<KatFirmy>();
+
+            try
+            {
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    PobraneFirmy = _FirmyService.PobierzWszystkieNieaktywneFirmy();
+                }
+                result = Json(new
+                {
+                    PobraneFirmy,
+                    sucess = PobraneFirmy.Count > 0 ? true : false
+
+                }, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception ex)
+            {
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+
+                }, JsonRequestBehavior.AllowGet);
+
+            }
+
+            return result;
+        }
+
         public ActionResult UstawAktywnaFirme(string sessionID, string company)
         {
             bool success = false;
@@ -59,6 +131,40 @@ namespace Eteczka.BE.Controllers
             {
                 firma = firma
             }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult WyszukajFirmePoNipie(string sessionId, string nip)
+        {
+            ActionResult result = null;
+            SessionDetails sesja = null;
+            KatFirmy znalezionaFirma = null;
+            try
+            {
+                if ( Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+
+                    sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    znalezionaFirma = _FirmyService.WyszukajFirmePoNipie(nip);
+                }
+                result = Json(new
+                {
+                    sucess = znalezionaFirma != null ? true : false,
+                    znalezionaFirma
+
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+
+                }, JsonRequestBehavior.AllowGet);
+            }
+            return result;
+
         }
 
         [HttpPost]
@@ -93,6 +199,75 @@ namespace Eteczka.BE.Controllers
 
             return result;
         }
+
+        [HttpPut]
+        public ActionResult EdytujFirme(string sessionId, KatFirmy firmaDoEdycji, string nip)
+        {
+            ActionResult result = null;
+            InsertResult sucess = new InsertResult();
+            SessionDetails sesja = null;
+
+            try
+            {
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    sucess = _FirmyService.EdytujFirme(firmaDoEdycji, sesja.IdUzytkownika, sesja.IdUzytkownika);
+                }
+
+                result = Json(new
+                {
+                    sucess
+
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+            return result;
+        }
+
+        [HttpPut]
+        public ActionResult UsunFirme(string sessionId, string nip)
+        {
+            ActionResult result = null;
+            InsertResult sucess = new InsertResult();
+            SessionDetails sesja = null;
+
+            try
+            {
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    sucess = _FirmyService.UsunFirme(nip);
+                }
+
+                result = Json(new
+                {
+                    sucess
+
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+            return result;
+        }
+
     }
 }
 
