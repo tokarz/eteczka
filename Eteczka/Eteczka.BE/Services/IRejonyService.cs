@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Eteczka.Model.Entities;
 using Eteczka.BE.Model;
-
+using Eteczka.Model.DTO;
 
 namespace Eteczka.BE.Services
 {
@@ -13,5 +13,6 @@ namespace Eteczka.BE.Services
     {
         List<KatRejony> PobierzRejony();
         List<KatRejony> PobierzRejonyDlaFirmy(SessionDetails sesja);
+        InsertResult DodajRejonDlaFirmy(KatRejony rejonDoDodania, string idoper, string idakcept);
     }
 }

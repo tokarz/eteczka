@@ -13,6 +13,8 @@ namespace Eteczka.DB.DAO
         int PoliczRejonyWBazie();
         List<KatRejony> PobieraczRejonow();
         List<KatRejony> PobieraczRejonowDlaFirmy(string firma);
+        bool DodajRejonDlaFirmy(KatRejony rejonDoDodania, string idoper, string idakcept);
+        bool SprawdzCzyRejonIstniejeWFirmie(string rejon, string firma);
 
     }
 }

@@ -86,6 +86,51 @@ namespace Eteczka.DB.DAO
                 PobraneRejony.Add(pobranyRejon);
             }
             return PobraneRejony;
+        }
+        public bool SprawdzCzyRejonIstniejeWFirmie(string rejon, string firma)
+        {
+            bool result = false;
+            int count = 0;
+
+            string sqlQuery = "SELECT COUNT (*) FROM \"KatRejony\" WHERE LOWER (firma) = '" + firma.ToLower() + "' AND LOWER(rejon) = '" + rejon.ToLower() + "'";
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+            DataTable table = connectionState.ExecuteQuery(sqlQuery);
+
+            if (table != null && table.Rows != null && table.Rows.Count > 0)
+            {
+                count = int.Parse(table.Rows[0][0].ToString());
+            }
+
+            result = count > 0 ? true : false;
+
+            return result;
+        }
+
+        public bool DodajRejonDlaFirmy(KatRejony rejonDoDodania, string idoper, string idakcept)
+        {
+            bool result = false;
+
+            object[] values = new object[]
+            {
+                rejonDoDodania.Rejon,
+                rejonDoDodania.Nazwa,
+                idoper,
+                idakcept,
+                rejonDoDodania.Firma,
+                DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ms"),
+                DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ms"),
+                rejonDoDodania.Mnemonik,
+                "EAD",
+                false
+            };
+
+            string sqlQuery = string.Format("INSERT INTO \"KatRejony\" (rejon, nazwa, idoper, idakcept, firma, datamodify, dataakcept, mnemonik, systembazowy, usuniety) " +
+                "VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}')", values);
+
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+            result = connectionState.ExecuteNonQuery(sqlQuery);
+
+            return result;
 
         }
 
