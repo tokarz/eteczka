@@ -174,7 +174,7 @@ namespace Eteczka.DB.DAO
             return result;
         }
 
-        public bool UsunFirme(string nip)
+        public bool DezaktywujFirme(string nip)
         {
             bool result = false;
             string sqlQuery = "UPDATE \"KatFirmy\" SET usuniety = 'true' WHERE nip = '" + nip + "'";
@@ -182,6 +182,18 @@ namespace Eteczka.DB.DAO
             result = connectionState.ExecuteNonQuery(sqlQuery);
 
             return result;   
+        }
+
+        public bool PrzywrocFirmeZBazy(string nip)
+        {
+
+            bool result = false;
+
+            string sqlQuery = "UPDATE \"KatFirmy\" SET usuniety = 'false' WHERE nip = '" + nip + "'";
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+            result = connectionState.ExecuteNonQuery(sqlQuery);
+
+            return result;
         }
 
         public KatFirmy WyszukajFirmePoNipie(string nip)

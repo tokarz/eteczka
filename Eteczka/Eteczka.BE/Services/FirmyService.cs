@@ -46,11 +46,19 @@ namespace Eteczka.BE.Services
         public InsertResult DodajFirme(KatFirmy firmaDoDodania, string idoper, string idakcept)
         {
             InsertResult result = new InsertResult();
-            if (_Dao.WyszukajFirmePoNipie(firmaDoDodania.Nip) == null)
+            KatFirmy firmaWBazie = _Dao.WyszukajFirmePoNipie(firmaDoDodania.Nip);
+            if (firmaWBazie == null)
             {
 
                 result.Result = _Dao.DodajFirme(firmaDoDodania, idoper, idakcept);
                 result.Message = result.Result ? "Firma została dodana" : "Próba dodania firmy nie powiodła się.";
+            }
+
+            else if (firmaWBazie != null && firmaWBazie.Usuniety == true )
+            {
+                result.Result = _Dao.PrzywrocFirmeZBazy(firmaDoDodania.Nip);
+                result.Message = result.Result ? "Firma o podanym numerze NIP znajdowała się już w bazie. Zmieniono status firmy na aktywny." : "Próba dodania firmy nie powiodła się.";
+
             }
             else
             {
@@ -60,14 +68,43 @@ namespace Eteczka.BE.Services
             return result;
         }
 
-        public InsertResult EdytujFirme(KatFirmy firmaDoEdycji, string idoper, string idakcept)
+        public InsertResult EdytujFirme(KatFirmy firmaDoEdycji, string nip,string idoper, string idakcept)
         {
 
             InsertResult result = new InsertResult();
 
-            result.Result = _Dao.EdytujFirme(firmaDoEdycji, idoper, idakcept);
-            result.Message = result.Result == true ? "Zapisano zmiany." : "Próba edycji nie powiodła się.";
-           
+            if (firmaDoEdycji.Nip == nip)
+            {
+                if (_Dao.WyszukajFirmePoNipie(nip) != null)
+                {
+                    result.Result = _Dao.EdytujFirme(firmaDoEdycji, idoper, idakcept);
+                    result.Message = result.Result == true ? "Zapisano zmiany." : "Próba edycji nie powiodła się.";
+                }
+                else
+                {
+                    result.Message = "Próba edycji firmy nie powiodła się.";
+                }
+            }
+            else
+            {
+                if (_Dao.WyszukajFirmePoNipie(nip) != null)
+                {
+                    if (_Dao.WyszukajFirmePoNipie(firmaDoEdycji.Nip) == null)
+                    {
+                        result.Result = _Dao.EdytujFirme(firmaDoEdycji, idoper, idakcept);
+                        result.Message = result.Result == true ? "Zapisano zmiany." : "Próba edycji nie powiodła się.";
+                    }
+
+                    else
+                    {
+                        result.Message = "Edycja nie powiodła się. Podany numer NIP już figuruje w bazie.";
+                    }
+                }
+                else
+                {
+                    result.Message = "Próba edycji firmy nie powiodła się.";
+                }
+            }       
             return result;
         }
 
@@ -76,8 +113,16 @@ namespace Eteczka.BE.Services
 
             InsertResult result = new InsertResult();
 
-            result.Result = _Dao.UsunFirme(nip);
-            result.Message = result.Result == true ? "Firma została usunięta." : "Próba usunięcia firmy nie powiodła się.";
+            if (_Dao.WyszukajFirmePoNipie(nip) != null)
+            {
+                result.Result = _Dao.DezaktywujFirme(nip);
+                result.Message = result.Result == true ? "Firma została usunięta." : "Próba usunięcia firmy nie powiodła się.";
+            }
+            else
+            {
+                result.Message = "Próba usunięcia firmy nie powiodła się.";
+            }
+                
 
             return result;
         }

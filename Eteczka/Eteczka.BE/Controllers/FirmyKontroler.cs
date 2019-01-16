@@ -201,7 +201,7 @@ namespace Eteczka.BE.Controllers
         }
 
         [HttpPut]
-        public ActionResult EdytujFirme(string sessionId, KatFirmy firmaDoEdycji, string nip)
+        public ActionResult EdytujFirme(string sessionId, string nipWBazie, KatFirmy firmaDoEdycji)
         {
             ActionResult result = null;
             InsertResult sucess = new InsertResult();
@@ -212,7 +212,7 @@ namespace Eteczka.BE.Controllers
                 if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
                 {
                     sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
-                    sucess = _FirmyService.EdytujFirme(firmaDoEdycji, sesja.IdUzytkownika, sesja.IdUzytkownika);
+                    sucess = _FirmyService.EdytujFirme(firmaDoEdycji, nipWBazie, sesja.IdUzytkownika, sesja.IdUzytkownika);
                 }
 
                 result = Json(new

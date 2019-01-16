@@ -16,7 +16,7 @@ namespace Eteczka.BE.Services
         List<KatFirmy> PobierzWszystkieNieaktywneFirmy();
         KatFirmy WyszukajFirmePoNipie(string nip);
         InsertResult DodajFirme(KatFirmy firmaDoDodania, string idoper, string idakcept);
-        InsertResult EdytujFirme(KatFirmy firmaDoEdycji, string idoper, string idakcept);
+        InsertResult EdytujFirme(KatFirmy firmaDoEdycji, string nip, string idoper, string idakcept);
         InsertResult UsunFirme(string nip);
 
 
