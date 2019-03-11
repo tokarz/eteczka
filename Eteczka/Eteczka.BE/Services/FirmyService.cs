@@ -72,12 +72,13 @@ namespace Eteczka.BE.Services
         {
 
             InsertResult result = new InsertResult();
+            
 
             if (firmaDoEdycji.Nip == nip)
             {
                 if (_Dao.WyszukajFirmePoNipie(nip) != null)
                 {
-                    result.Result = _Dao.EdytujFirme(firmaDoEdycji, idoper, idakcept);
+                    result.Result = _Dao.EdytujFirme(firmaDoEdycji, nip, idoper, idakcept);
                     result.Message = result.Result == true ? "Zapisano zmiany." : "Próba edycji nie powiodła się.";
                 }
                 else
@@ -91,7 +92,7 @@ namespace Eteczka.BE.Services
                 {
                     if (_Dao.WyszukajFirmePoNipie(firmaDoEdycji.Nip) == null)
                     {
-                        result.Result = _Dao.EdytujFirme(firmaDoEdycji, idoper, idakcept);
+                        result.Result = _Dao.EdytujFirme(firmaDoEdycji, nip, idoper, idakcept);
                         result.Message = result.Result == true ? "Zapisano zmiany." : "Próba edycji nie powiodła się.";
                     }
 

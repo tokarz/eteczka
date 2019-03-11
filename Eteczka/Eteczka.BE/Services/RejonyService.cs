@@ -49,5 +49,48 @@ namespace Eteczka.BE.Services
             return result;
 
         }
+        public InsertResult EdytujRejonDlaFirmy(KatRejony rejonDoEdycji, string rejonPrzedZmiana, string idoper, string idakcept)
+        {
+            InsertResult result = new InsertResult();
+
+
+            if (rejonDoEdycji.Rejon == rejonPrzedZmiana)
+            {
+                if (_RejonDao.SprawdzCzyRejonIstniejeWFirmie(rejonPrzedZmiana, rejonDoEdycji.Firma))
+                {
+                    result.Result = _RejonDao.EdytujRejonDlaFirmy(rejonDoEdycji, rejonPrzedZmiana, idoper, idakcept);
+                    result.Message = result.Result == true ? "Zapisano zmiany." : "Próba edycji nie powiodła się.";
+                }
+                else
+                {
+
+                    result.Message = "Edycja nie powiodła się. Rejon o takiej nazwie już istnieje w tej firmie.";
+                }
+            }
+            else
+            {
+                if (_RejonDao.SprawdzCzyRejonIstniejeWFirmie(rejonPrzedZmiana, rejonDoEdycji.Firma))
+                {
+                    if (!_RejonDao.SprawdzCzyRejonIstniejeWFirmie(rejonDoEdycji.Rejon, rejonDoEdycji.Firma))
+                    {
+                        result.Result = _RejonDao.EdytujRejonDlaFirmy(rejonDoEdycji, rejonPrzedZmiana, idoper, idakcept);
+                        result.Message = result.Result == true ? "Zapisano zmiany." : "Próba edycji nie powiodła się.";
+                    }
+                    else
+                    {
+                        result.Message = "Edycja nie powiodła się. Rejon o podanej nazwie już istnieje w tej firmie.";
+                    }
+                }
+                else
+                {
+                    result.Message = "Edycja nie powiodła się. ";
+                }
+
+            }
+
+
+
+            return result;
+        }
     }
 }

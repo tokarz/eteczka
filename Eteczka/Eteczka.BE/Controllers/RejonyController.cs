@@ -77,6 +77,37 @@ namespace Eteczka.BE.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
             return result;
+        }
+
+        [HttpPut]
+        public ActionResult EdytujRejonDlaFirmy(string sessionId, string rejonWBazie, KatRejony rejonDoEdycji)
+        {
+            ActionResult result = null;
+            SessionDetails sesja = null;
+            InsertResult sucess = null;
+
+            try
+            {
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    sucess = _rejonyService.EdytujRejonDlaFirmy(rejonDoEdycji, rejonWBazie, sesja.IdUzytkownika, sesja.IdUzytkownika);
+                    result = Json(new
+                    {
+                        sucess
+                    }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+
+            }
+            return result;
 
         }
     }

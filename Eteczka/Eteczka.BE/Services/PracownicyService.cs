@@ -152,7 +152,7 @@ namespace Eteczka.BE.Services
             if (pracownikWBazie == null)
             {
                 result.Result = false;
-                result.Message = "Pracownik o tym identyfikatorze już widnieje w bazie! Sprawdź Pesel, imię i nazwisko";
+                result.Message = "Pracownik o tym identyfikatorze nie widnieje w bazie! Sprawdź Pesel, imię i nazwisko.";
             }
             else
             {

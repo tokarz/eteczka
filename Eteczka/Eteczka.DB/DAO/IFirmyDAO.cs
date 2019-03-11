@@ -14,7 +14,7 @@ namespace Eteczka.DB.DAO
         List<KatFirmy> PobierzFirmyZBazy(string orderBy = "firma");
         bool ZapiszKatalogRoboczy(string firma, string sciezka);
         bool DodajFirme(KatFirmy firmaDoDodania, string idoper, string idakcept);
-        bool EdytujFirme(KatFirmy firmaDoEdycji, string idoper, string idakcept);
+        bool EdytujFirme(KatFirmy firmaDoEdycji, string nipPrzedZmiana, string idoper, string idakcept);
         bool DezaktywujFirme(string nip);
         bool PrzywrocFirmeZBazy(string nip);
         KatFirmy WyszukajFirmePoNipie(string nip);

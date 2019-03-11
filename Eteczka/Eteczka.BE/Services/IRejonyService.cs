@@ -14,5 +14,6 @@ namespace Eteczka.BE.Services
         List<KatRejony> PobierzRejony();
         List<KatRejony> PobierzRejonyDlaFirmy(SessionDetails sesja);
         InsertResult DodajRejonDlaFirmy(KatRejony rejonDoDodania, string idoper, string idakcept);
+        InsertResult EdytujRejonDlaFirmy(KatRejony rejonDoEdycji, string rejonPrzedZmiana, string idoper, string idakcept);
     }
 }
