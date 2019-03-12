@@ -63,7 +63,6 @@ namespace Eteczka.BE.Services
                 }
                 else
                 {
-
                     result.Message = "Edycja nie powiodła się. Rejon o takiej nazwie już istnieje w tej firmie.";
                 }
             }
@@ -85,11 +84,18 @@ namespace Eteczka.BE.Services
                 {
                     result.Message = "Edycja nie powiodła się. ";
                 }
-
             }
+            return result;
+        }
+        public InsertResult UsunRejon(string firma, string rejon, string idoper, string idakcept)
+        {
+            InsertResult result = new InsertResult();
 
-
-
+            if (_RejonDao.SprawdzCzyRejonIstniejeWFirmie(rejon, firma))
+            {
+                result.Result = _RejonDao.UsunRejon(firma, rejon, idoper, idakcept);
+                result.Message = result.Result == true ? "Rejon został usunięty." : "Operacja usuwania nie powiodła się.";
+            }
             return result;
         }
     }

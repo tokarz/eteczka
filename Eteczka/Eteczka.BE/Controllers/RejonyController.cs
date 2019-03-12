@@ -84,7 +84,7 @@ namespace Eteczka.BE.Controllers
         {
             ActionResult result = null;
             SessionDetails sesja = null;
-            InsertResult sucess = null;
+            InsertResult sucess = new InsertResult();
 
             try
             {
@@ -92,11 +92,12 @@ namespace Eteczka.BE.Controllers
                 {
                     sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
                     sucess = _rejonyService.EdytujRejonDlaFirmy(rejonDoEdycji, rejonWBazie, sesja.IdUzytkownika, sesja.IdUzytkownika);
-                    result = Json(new
-                    {
-                        sucess
-                    }, JsonRequestBehavior.AllowGet);
+                    
                 }
+                result = Json(new
+                {
+                    sucess
+                }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -109,6 +110,35 @@ namespace Eteczka.BE.Controllers
             }
             return result;
 
+        }
+        [HttpPut]
+        public ActionResult UsunRejon(string sessionId, string firma, string rejon)
+        {
+            ActionResult result = null;
+            SessionDetails sesja = null;
+            InsertResult wynikInserta = new InsertResult();
+
+            try
+            {
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    wynikInserta = _rejonyService.UsunRejon(firma, rejon, sesja.IdUzytkownika, sesja.IdUzytkownika);
+                }
+                result = Json(new
+                {
+                    wynikInserta
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                result = Json(new
+                {
+                    wynikInserta = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            return result;
         }
     }
 }

@@ -134,7 +134,7 @@ namespace Eteczka.BE.Controllers
         }
 
         [HttpGet]
-        public ActionResult WyszukajFirmePoNipie(string sessionId, string nip)
+        public ActionResult WyszukajFirmePoNipie(string sessionId, string nipWBazie)
         {
             ActionResult result = null;
             SessionDetails sesja = null;
@@ -145,7 +145,7 @@ namespace Eteczka.BE.Controllers
                 {
 
                     sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
-                    znalezionaFirma = _FirmyService.WyszukajFirmePoNipie(nip);
+                    znalezionaFirma = _FirmyService.WyszukajFirmePoNipie(nipWBazie);
                 }
                 result = Json(new
                 {

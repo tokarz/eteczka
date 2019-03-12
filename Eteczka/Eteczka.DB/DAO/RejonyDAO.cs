@@ -160,6 +160,22 @@ namespace Eteczka.DB.DAO
             return result;
         }
 
+        public bool UsunRejon(string firma, string rejon, string idoper, string idakcept)
+        {
+
+            bool result = false;
+
+            string sqlQuery = "UPDATE \"KatRejony\" " +
+                "SET usuniety = 'true', idoper = '" + idoper + "', idakcept = '" + idakcept + "', " +
+                "datamodify = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ms") + "', dataakcept = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ms") + 
+                "' WHERE firma = '" + firma + "' AND rejon = '" + rejon + "'";
+
+            IConnectionState connection = _ConnectionFactory.CreateConnectionToDB(_Connection);
+            result = connection.ExecuteNonQuery(sqlQuery);
+
+            return result;
+        }
+
     }
 
 
