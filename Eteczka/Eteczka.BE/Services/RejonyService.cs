@@ -96,6 +96,10 @@ namespace Eteczka.BE.Services
                 result.Result = _RejonDao.UsunRejon(firma, rejon, idoper, idakcept);
                 result.Message = result.Result == true ? "Rejon został usunięty." : "Operacja usuwania nie powiodła się.";
             }
+            else
+            {
+                result.Message = "Operacja usuwania nie powiodła się. Klucz firma + rejon nie istnieje w bazie danych.";
+            }
             return result;
         }
     }
