@@ -5,13 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Eteczka.Model.Entities;
 using Eteczka.BE.Model;
-
+using Eteczka.Model.DTO;
 
 namespace Eteczka.BE.Services
 {
     public interface IWydzialyService
     {
         List<KatWydzialy> PobierzWydzialyDlaFirmy(SessionDetails sesja);
+        InsertResult DodajWydzialDlaFirmy(KatWydzialy wydzialDoDodania, string idoper, string idakcept);
 
     }
 }

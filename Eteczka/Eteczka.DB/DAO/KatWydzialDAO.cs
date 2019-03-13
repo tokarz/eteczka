@@ -72,9 +72,52 @@ namespace Eteczka.DB.DAO
                 KatWydzialy PobranyWydzial = _KatWydzialMapper.MapujzSql(row);
                 PobraneWydzialyDlaFirmy.Add(PobranyWydzial);
             }
-        
-           
+
             return PobraneWydzialyDlaFirmy;
+        }
+
+        public bool SprawdzCzyWydzialIstniejeWFirmie(string firma, string wydzial)
+        {
+            bool result = false;
+            int count = 0;
+
+            string sqlQuery = "SELECT COUNT (*) FROM \"KatWydzial\" WHERE firma = '" + firma + "' AND wydzial = '" + wydzial + "'";
+
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+            DataTable table = connectionState.ExecuteQuery(sqlQuery);
+
+            if (table != null && table.Rows != null && table.Rows.Count > 0)
+            {
+                count = int.Parse(table.Rows[0][0].ToString());
+            }
+            result = count > 0 ? true : false;
+
+            return result;
+
+        }
+        public bool DodajWydzialDlaFirmy(KatWydzialy wydzialDoDodania, string idoper, string idakcept)
+        {
+            bool result = false;
+
+            object[] values = new object[]
+                {
+                wydzialDoDodania.Wydzial,
+                wydzialDoDodania.Nazwa,
+                DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ms"),
+                idoper,
+                idakcept,
+                DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ms"),
+                wydzialDoDodania.Firma,
+                "EAD",
+                false
+                };
+            string sqlQuery = string.Format("INSERT INTO \"KatWydzial\" (wydzial, nazwa, datamodify, idoper, idakcept, dataakcept, firma, systembazowy, usuniety) " +
+                "VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}')", values);
+
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+            result = connectionState.ExecuteNonQuery(sqlQuery);
+
+            return result;
         }
     }
 }
