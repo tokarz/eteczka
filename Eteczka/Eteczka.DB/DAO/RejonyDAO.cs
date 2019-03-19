@@ -134,7 +134,7 @@ namespace Eteczka.DB.DAO
 
         }
 
-        public bool EdytujRejonDlaFirmy(KatRejony rejonDoEdycji, string rejonPrzedZmiana, string idoper, string idakcept)
+        public bool EdytujRejonDlaFirmy(KatRejony rejonDoEdycji, string idoper, string idakcept)
         {
             bool result = false;
 
@@ -152,7 +152,7 @@ namespace Eteczka.DB.DAO
                 false
             };
 
-            string updateQuery = string.Format("UPDATE \"KatRejony\" SET rejon = '{0}', nazwa = '{1}', idoper = '{2}', idakcept = '{3}', firma = '{4}', datamodify = '{5}', dataakcept = '{6}', mnemonik = '{7}', systembazowy = '{8}', usuniety = '{9}' WHERE firma = '" + rejonDoEdycji.Firma + "' AND rejon = '" + rejonPrzedZmiana + "'", values);
+            string updateQuery = string.Format("UPDATE \"KatRejony\" SET nazwa = '{1}', idoper = '{2}', idakcept = '{3}', firma = '{4}', datamodify = '{5}', dataakcept = '{6}', mnemonik = '{7}', systembazowy = '{8}', usuniety = '{9}' WHERE firma = '" + rejonDoEdycji.Firma + "' AND rejon = '" + rejonDoEdycji.Rejon + "'", values);
 
             IConnectionState connection = _ConnectionFactory.CreateConnectionToDB(_Connection);
             result = connection.ExecuteNonQuery(updateQuery);

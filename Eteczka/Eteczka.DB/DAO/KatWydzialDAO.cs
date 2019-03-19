@@ -119,5 +119,39 @@ namespace Eteczka.DB.DAO
 
             return result;
         }
+        public bool EdytujWydzialDlaFirmy(KatWydzialy  wydzialDoEdycji, string idoper, string idakcept)
+        {
+            bool result = false;
+
+            object[] values = new object[]
+            {
+                wydzialDoEdycji.Wydzial,
+                wydzialDoEdycji.Nazwa,
+                DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ms"),
+                idoper,
+                idakcept,
+                DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ms"),
+                "EAD",
+                false
+            };
+            string updateQuery = string.Format("UPDATE \"KatWydzial\" SET nazwa = '{1}', datamodify = '{2}', idoper = '{3}', idakcept = '{4}', dataakcept = '{5}', systembazowy = '{6}', usuniety = '{7}' WHERE firma = '" + wydzialDoEdycji.Firma + "' AND wydzial = '" + wydzialDoEdycji.Wydzial + "'",values);
+
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+            result = connectionState.ExecuteNonQuery(updateQuery);
+
+            return result;
+        }
+
+        public bool UsunWydzialZFirmy(string firma, string wydzial, string idoper, string idakcept)
+        {
+            bool result = false;
+            string updateQuery = "UPDATE \"KatWydzial\" SET usuniety = 'true', idoper = '" + idoper + "', idakcept = '" + idakcept + "', " +
+                "datamodify = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ms") + "', dataakcept = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ms") + "' WHERE firma = '" + firma + "' AND wydzial = '" + wydzial + "' ";
+
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+            result = connectionState.ExecuteNonQuery(updateQuery);
+
+            return result;
+        }
     }
 }

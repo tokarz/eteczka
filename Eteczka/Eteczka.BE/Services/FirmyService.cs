@@ -109,15 +109,15 @@ namespace Eteczka.BE.Services
             return result;
         }
 
-        public InsertResult UsunFirme(string nip)
+        public InsertResult UsunFirme(string nip, string idoper, string idakcept)
         {
 
             InsertResult result = new InsertResult();
 
             if (_Dao.WyszukajFirmePoNipie(nip) != null)
             {
-                result.Result = _Dao.DezaktywujFirme(nip);
-                result.Message = result.Result == true ? "Firma została usunięta." : "Próba usunięcia firmy nie powiodła się.";
+                result.Result = _Dao.DezaktywujFirme(nip, idoper, idakcept);
+                result.Message = result.Result == true ? "Firma została przeniesiona do nieaktywnych." : "Próba usunięcia firmy nie powiodła się.";
             }
             else
             {

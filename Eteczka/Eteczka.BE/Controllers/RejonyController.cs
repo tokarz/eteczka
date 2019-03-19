@@ -91,7 +91,7 @@ namespace Eteczka.BE.Controllers
                 if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
                 {
                     sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
-                    sucess = _rejonyService.EdytujRejonDlaFirmy(rejonDoEdycji, rejonWBazie, sesja.IdUzytkownika, sesja.IdUzytkownika);
+                    sucess = _rejonyService.EdytujRejonDlaFirmy(rejonDoEdycji,  sesja.IdUzytkownika, sesja.IdUzytkownika);
                     
                 }
                 result = Json(new

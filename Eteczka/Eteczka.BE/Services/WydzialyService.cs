@@ -43,5 +43,42 @@ namespace Eteczka.BE.Services
 
             return result;
         }
+
+        public InsertResult EdytujWydzialDlaFirmy(KatWydzialy wydzialDoEdycji, string idoper, string idakcept)
+        {
+
+            InsertResult result = new InsertResult();
+
+            if (_WydzialDao.SprawdzCzyWydzialIstniejeWFirmie(wydzialDoEdycji.Firma, wydzialDoEdycji.Wydzial))
+            {
+                result.Result = _WydzialDao.EdytujWydzialDlaFirmy(wydzialDoEdycji, idoper, idakcept);
+                result.Message = result.Result == true ? "Edycja zakończona pomyślnie." : "Próba edycji nie powiodła się.";
+            }
+            else
+            {
+                result.Result = false;
+                result.Message = "Edycja nie powiodła się. W tej firmie nie istnieje taki wydział.";
+            }
+
+                return result;
+        }
+
+        public InsertResult UsunWydzialZFirmy(KatWydzialy wydzialDoUsuniecia, string idoper, string idakcept)
+        {
+            InsertResult result = new InsertResult();
+
+            if (_WydzialDao.SprawdzCzyWydzialIstniejeWFirmie(wydzialDoUsuniecia.Firma, wydzialDoUsuniecia.Wydzial))
+            {
+                result.Result = _WydzialDao.UsunWydzialZFirmy(wydzialDoUsuniecia.Firma, wydzialDoUsuniecia.Wydzial, idoper, idakcept);
+                result.Message = result.Result == true ? "Wydział został przeniesiony na listę nieaktywnych." : " Usuwanie wydziału nie powiodło się";
+            }
+            else
+            {
+                result.Result = false;
+                result.Message = "Usuwanie nie powiodło się. Podany wydział nie istnieje.";
+            }
+
+            return result;
+        }
     }
 }

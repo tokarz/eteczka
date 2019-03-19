@@ -17,7 +17,7 @@ namespace Eteczka.BE.Services
         KatFirmy WyszukajFirmePoNipie(string nip);
         InsertResult DodajFirme(KatFirmy firmaDoDodania, string idoper, string idakcept);
         InsertResult EdytujFirme(KatFirmy firmaDoEdycji, string nip, string idoper, string idakcept);
-        InsertResult UsunFirme(string nip);
+        InsertResult UsunFirme(string nip, string idoper, string idakcept);
 
 
     }

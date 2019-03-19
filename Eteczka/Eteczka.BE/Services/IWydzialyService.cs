@@ -13,6 +13,8 @@ namespace Eteczka.BE.Services
     {
         List<KatWydzialy> PobierzWydzialyDlaFirmy(SessionDetails sesja);
         InsertResult DodajWydzialDlaFirmy(KatWydzialy wydzialDoDodania, string idoper, string idakcept);
+        InsertResult EdytujWydzialDlaFirmy(KatWydzialy wydzialDoEdycji, string idoper, string idakcept);
+        InsertResult UsunWydzialZFirmy(KatWydzialy wydzialDoUsuniecia, string idoper, string idakcept);
 
     }
 }

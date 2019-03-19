@@ -246,7 +246,7 @@ namespace Eteczka.BE.Controllers
                 if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
                 {
                     sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
-                    sucess = _FirmyService.UsunFirme(nip);
+                    sucess = _FirmyService.UsunFirme(nip, sesja.IdUzytkownika, sesja.IdUzytkownika);
                 }
 
                 result = Json(new

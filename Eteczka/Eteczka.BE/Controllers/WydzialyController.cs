@@ -61,5 +61,69 @@ namespace Eteczka.BE.Controllers
             return result;
         }
 
+        [HttpPut]
+        public ActionResult EdytujWydzialDlaFirmy(string sessionId, KatWydzialy wydzialDoEdycji)
+        {
+            ActionResult result = null;
+            SessionDetails sesja = null;
+            InsertResult sucess = new InsertResult();
+
+            try
+            {
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    sucess = _wydzialyService.EdytujWydzialDlaFirmy(wydzialDoEdycji, sesja.IdUzytkownika, sesja.IdUzytkownika);
+                }
+
+                result = Json(new
+                {
+                    sucess
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+            return result;
+        }
+        [HttpPut]
+        public ActionResult UsunWydzialZFirmy(string sessionId, KatWydzialy wydzialDoUsuniecia)
+        {
+            ActionResult result = null;
+            SessionDetails sesja = null;
+            InsertResult success = new InsertResult();
+
+            try
+            {
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+
+                    success = _wydzialyService.UsunWydzialZFirmy(wydzialDoUsuniecia, sesja.IdUzytkownika, sesja.IdUzytkownika);
+                }
+                result = Json(new
+                {
+                    success
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                result = Json(new
+                {
+                    success = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+
+            }
+            return result;
+            }
+        }
+
     }
-}
+
