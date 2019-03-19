@@ -28,10 +28,10 @@ angular.module('et.controllers').controller('homeViewController', ['$scope', '$s
         },
         {
             label: 'Struktura Firmy',
-            ngclass: 'menu-icon fa fa-sitemap not-yet-available',
+            ngclass: 'menu-icon fa fa-sitemap',
             menuclass: 'menu-button menu-button-four',
             clickaction: function () {
-
+                $state.go('company');
             }
         }
     ];
