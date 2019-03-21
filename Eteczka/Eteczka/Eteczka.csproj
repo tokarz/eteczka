@@ -222,6 +222,9 @@
     <Content Include="app\css\modal.min.css">
       <DependentUpon>modal.css</DependentUpon>
     </Content>
+    <Content Include="app\main\components\menu-companies-table\menuCompaniesTable.html" />
+    <Content Include="app\main\components\menu-companies-table\menuCompaniesTableController.js" />
+    <Content Include="app\main\components\menu-companies-table\menuCompaniesTableDirective.js" />
     <Content Include="app\main\components\menu-users-content\addEditUserModal\userModal.html" />
     <Content Include="app\main\components\menu-users-content\menuUsersContentController.js" />
     <Content Include="app\main\components\menu-users-content\menuUsersContentDirective.js" />
@@ -239,6 +242,10 @@
     <Content Include="app\main\utils\datemask.js" />
     <Content Include="app\main\utils\draggableDirective.js" />
     <Content Include="app\main\utils\table\eadTableDirective.js" />
+    <Content Include="app\views\company\companyService.js" />
+    <Content Include="app\views\company\companyView.html" />
+    <Content Include="app\views\company\CompanyViewController.js" />
+    <Content Include="app\views\company\companyViewDirective.js" />
     <Content Include="app\views\employeesfiles\editEmployeeFileModal.html" />
     <Content Include="app\views\files\addFile\fileDescriptionPopup\getUserFolderModal.html" />
     <Content Include="app\views\home\homeView.html" />

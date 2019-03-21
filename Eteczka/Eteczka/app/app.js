@@ -74,6 +74,13 @@ app.config(function ($stateProvider) {
         name: 'addUsers',
         template: '<add-users-view></add-users-view>'
     };
+
+    var companyState = {
+        url: '/companystructure',
+        name: 'company',
+        template: '<company-view></company-view>'
+    };
+
     var processingState = {
         url: '/processing',
         name: 'processing',
@@ -128,6 +135,7 @@ app.config(function ($stateProvider) {
     $stateProvider.state(filesState);
     $stateProvider.state(filecatalogState);
     $stateProvider.state(employeesState);
+    $stateProvider.state(companyState);
     $stateProvider.state(employeesFilesState);
     $stateProvider.state(addUsersState);
     $stateProvider.state(processingState);
