@@ -73,5 +73,80 @@ namespace Eteczka.DB.DAO
             }
             return PobranePodWydzialy;
         }
+
+        public bool SprawdzCzyPodWydzialIstnieje(string firma, string wydzial, string podwydzial)
+        {
+            bool result = false;
+
+            string sqlQuery = "SELECT COUNT (*) FROM \"KatPodWydzial\" WHERE firma = '" + firma + "' AND wydzial = '" + wydzial + "' AND podwydzial = '" + podwydzial + "'";
+
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+
+            DataTable table = connectionState.ExecuteQuery(sqlQuery);
+
+            int count = 0;
+
+            if (table != null && table.Rows != null && table.Rows.Count > 0)
+            {
+                count = int.Parse(table.Rows[0][0].ToString());
+            }
+            result = count > 0 ? true : false;
+
+            return result;
+        }
+
+        public bool DodajPodWydzial(KatPodWydzialy wydzialDoDodania, string idoper, string idakcept)
+        {
+            bool result = false;
+
+            object[] values = new object[]
+            {
+                wydzialDoDodania.Podwydzial,
+                wydzialDoDodania.Nazwa,
+                wydzialDoDodania.Wydzial,
+                DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ms"),
+                idoper,
+                idakcept,
+                DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ms"),
+                wydzialDoDodania.Firma,
+                "EAD",
+                false
+            };
+
+            string sqlQuery = string.Format("INSERT INTO \"KatPodWydzial\" (podwydzial, nazwa, wydzial, datamodify, idoper, idakcept, dataakcept, firma, systembazowy, usuniety) " +
+                "VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}')", values);
+
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+            result = connectionState.ExecuteNonQuery(sqlQuery);
+
+            return result;
+        }
+
+        public bool EdytujPodWydzial(KatPodWydzialy podWydzialDoEdycji, string idoper, string idakcept)
+        {
+            bool result = false;
+
+            string sqlQuery = $"UPDATE \"KatPodWydzial\" SET nazwa = '{podWydzialDoEdycji.Nazwa}', datamodify = '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ms")}', idoper = '{idoper}', idakcept = '{idakcept}' " +
+                $"WHERE firma = '{podWydzialDoEdycji.Firma}' AND wydzial = '{podWydzialDoEdycji.Wydzial}' AND podwydzial = '{podWydzialDoEdycji.Podwydzial}'";
+
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+            result = connectionState.ExecuteNonQuery(sqlQuery);
+
+            return result;
+        }
+
+        public bool UsunPodWydzial(KatPodWydzialy podWydzialDoUsuniecia, string idoper, string idakcept)
+        {
+            bool result = false;
+
+            string sqlQuery = $"UPDATE \"KatPodWydzial\" SET usuniety = 'true', idoper = '{idoper}', idakcept = '{idakcept}', datamodify = '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ms")}' " +
+                $"WHERE firma = '{podWydzialDoUsuniecia.Firma}' AND wydzial = '{podWydzialDoUsuniecia.Wydzial}' AND podwydzial = '{podWydzialDoUsuniecia.Podwydzial}'";
+
+            IConnectionState connectionDetail = _ConnectionFactory.CreateConnectionToDB(_Connection);
+
+            result = connectionDetail.ExecuteNonQuery(sqlQuery);
+
+            return result;
+        }
     }
 }

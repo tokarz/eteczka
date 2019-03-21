@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using Eteczka.Model.Entities;
 using Eteczka.BE.Services;
 using Eteczka.BE.Model;
+using Eteczka.Model.DTO;
 
 namespace Eteczka.BE.Controllers
 {
@@ -33,6 +34,99 @@ namespace Eteczka.BE.Controllers
             {
                 PodWydzialy = pobranePodWydzialy
             }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult DodajPodwydzial(string sessionId, KatPodWydzialy wydzialDoDodania)
+        {
+            ActionResult result = null;
+            SessionDetails sesja = null;
+            InsertResult sucess = new InsertResult();
+
+            try
+            {
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    sucess = _PodWydzialService.DodajPodWydzial(wydzialDoDodania, sesja.IdUzytkownika, sesja.IdUzytkownika);
+                }
+                result = Json(new
+                {
+                    sucess
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+            return result;
+        }
+
+        [HttpPut]
+        public ActionResult EdytujPodWydzial(string sessionId, KatPodWydzialy podWydzialDoEdycji)
+        {
+            ActionResult result = null;
+            SessionDetails sesja = null;
+            InsertResult sucess = new InsertResult();
+
+            try
+            {
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    sucess = _PodWydzialService.EdytujPodWydzial(podWydzialDoEdycji, sesja.IdUzytkownika, sesja.IdUzytkownika);
+                }
+                result = Json(new
+                {
+                    sucess
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+            return result;
+        }
+
+        public ActionResult UsunPodWydzial(string sessionId, KatPodWydzialy podWydzialDoUsuniecia)
+        {
+            ActionResult result = null;
+            SessionDetails sesja = null;
+            InsertResult sucess = new InsertResult();
+
+            try
+            {
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    sucess = _PodWydzialService.UsunPodWydzial(podWydzialDoUsuniecia, sesja.IdUzytkownika, sesja.IdUzytkownika);
+                }
+
+                result = Json(new
+                {
+                    sucess
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+            return result;
         }
 
 
