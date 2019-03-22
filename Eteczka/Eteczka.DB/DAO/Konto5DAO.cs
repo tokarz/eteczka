@@ -74,5 +74,54 @@ namespace Eteczka.DB.DAO
             return PobraneKonta5;
 
         }
+
+        public bool DodajKonto5(KatKonto5 konto, string idoper, string idakcept)
+        {
+            bool result = false;
+
+            object[] values = new object[]
+            {
+                konto.Konto5,
+                konto.Nazwa,
+                idoper,
+                idakcept,
+                konto.Firma,
+                konto.Kontoskr,
+                DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ms"),
+                DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ms"),
+                "EAD",
+                false
+            };
+
+            string sqlQuery = string.Format("INSERT INTO \"KatKonta5\" (konto5, nazwa, idoper, idakcept, firma, kontoskr, datamodify, dataakcept, systembazowy, usuniety)" +
+                "VALUES('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}')", values);
+
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+
+            result = connectionState.ExecuteNonQuery(sqlQuery);
+
+            return result;
+        }
+
+        public bool SprawdzCzyKonto5IstniejeWFirmie(string firma, string konto5)
+        {
+            bool result = false;
+
+            string sqlQuery = $"SELECT COUNT (*) FROM \"KatKonta5\" WHERE firma = '{firma}' AND konto5 = '{konto5}'";
+
+            IConnectionState connection = _ConnectionFactory.CreateConnectionToDB(_Connection);
+
+            int count = 0;
+            DataTable table = connection.ExecuteQuery(sqlQuery);
+
+            if(table != null && table.Rows != null && table.Rows.Count > 0 )
+            {
+                count = int.Parse(table.Rows[0][0].ToString());
+            }
+
+            result = count > 0 ? true : false;
+
+            return result;
+        }
     }
 }

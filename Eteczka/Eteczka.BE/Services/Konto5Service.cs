@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Eteczka.Model.Entities;
 using Eteczka.DB.DAO;
 using Eteczka.BE.Model;
+using Eteczka.Model.DTO;
 
 namespace Eteczka.BE.Services
 {
@@ -24,5 +25,23 @@ namespace Eteczka.BE.Services
 
             return pobraneKonta5;
         }
+
+        public InsertResult DodajKonto5(KatKonto5 konto, string idoper, string idakcept)
+        {
+            InsertResult result = new InsertResult();
+
+            if (!_konto5DAO.SprawdzCzyKonto5IstniejeWFirmie(konto.Firma, konto.Konto5))
+            {
+                result.Result = _konto5DAO.DodajKonto5(konto, idoper, idakcept);
+                result.Message = result.Result == true ? "Konto5 zostało dodane." : "Konto5 nie zostało dodane.";
+            }
+            else
+            {
+                result.Message = "Takie konto5 już istnieje. Pozycja nie została dodana.";
+            }
+
+            return result;
+        }
+        
     }
 }
