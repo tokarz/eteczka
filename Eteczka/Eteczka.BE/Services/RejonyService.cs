@@ -80,5 +80,12 @@ namespace Eteczka.BE.Services
             }
             return result;
         }
+
+        public List<KatRejony> WyszukajRejon(string firma, string search)
+        {
+            List<KatRejony> result = _RejonDao.WyszukajRejon(firma, search);
+
+            return result;
+        }
     }
 }

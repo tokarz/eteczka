@@ -140,5 +140,37 @@ namespace Eteczka.BE.Controllers
             }
             return result;
         }
+
+        [HttpGet]
+        public ActionResult WyszukajRejony (string sessionId, string firma, string search)
+        {
+            ActionResult result = null;
+            SessionDetails sesja = null;
+            List<KatRejony> WyszukaneRejony = new List<KatRejony>();
+
+            try
+            {
+                if ( Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    WyszukaneRejony = _rejonyService.WyszukajRejon(firma, search);
+                }
+                result = Json(new
+                {
+                    sucess = WyszukaneRejony.Count > 0 ? true : false,
+                    WyszukaneRejony
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+            return result;
+        }
     }
 }

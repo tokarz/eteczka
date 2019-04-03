@@ -16,5 +16,6 @@ namespace Eteczka.BE.Services
         InsertResult DodajRejonDlaFirmy(KatRejony rejonDoDodania, string idoper, string idakcept);
         InsertResult EdytujRejonDlaFirmy(KatRejony rejonDoEdycji, string idoper, string idakcept);
         InsertResult UsunRejon(string firma, string rejon, string idoper, string idakcept);
+        List<KatRejony> WyszukajRejon(string firma, string search);
     }
 }

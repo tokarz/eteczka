@@ -135,7 +135,7 @@ namespace Eteczka.DB.DAO
             List<KatKonto5> result = new List<KatKonto5>();
 
             string sqlQuery = "SELECT * FROM \"KatKonta5\" WHERE LOWER(firma) = LOWER('" + firma + "') " +
-                "AND LOWER(nazwa) like LOWER('%" + search + "%') OR LOWER(konto5) like LOWER('%" + search + "%') OR LOWER(kontoskr) like LOWER('%" + search + "%')";
+                "AND (LOWER(nazwa) like LOWER('%" + search + "%') OR LOWER(konto5) like LOWER('%" + search + "%') OR LOWER(kontoskr) like LOWER('%" + search + "%'))";
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
             DataTable table = connectionState.ExecuteQuery(sqlQuery);
 

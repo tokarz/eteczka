@@ -53,5 +53,22 @@ namespace Eteczka.Be.Tests.Services
 
             _RejonyDao.Received(1).PobieraczRejonowDlaFirmy("Jagrol");
         }
+        [Test]
+        public void WyszukajRejon()
+        {
+            List<KatRejony> RejonyZBazy = new List<KatRejony>()
+            {
+                new KatRejony() {Firma = "TopGen", Rejon = "33", Nazwa = "Kotyny" },
+                new KatRejony() {Firma = "TopGen", Rejon = "23", Nazwa = "Psiarze"}
+            };
+
+            _RejonyDao.WyszukajRejon("TopGen", "szukam").Returns(RejonyZBazy);
+
+            List<KatRejony> result = _Sut.WyszukajRejon("TopGen", "szukam");
+
+            Assert.AreSame(result, RejonyZBazy);
+
+            _RejonyDao.Received(1).WyszukajRejon("TopGen", "szukam");
+        }
     }
 }

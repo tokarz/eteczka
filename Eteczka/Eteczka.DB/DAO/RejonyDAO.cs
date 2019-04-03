@@ -176,6 +176,27 @@ namespace Eteczka.DB.DAO
             return result;
         }
 
+        public List<KatRejony> WyszukajRejon (string firma, string search)
+        {
+            List<KatRejony> result = new List<KatRejony>();
+
+            string sqlQuery = "SELECT * FROM \"KatRejony\" WHERE Lower(firma) = LOWER('" + firma + "') " +
+                "AND (LOWER(rejon) like LOWER('%" + search + "%') " +
+                "OR LOWER(nazwa) like LOWER('%" + search + "%') OR LOWER(mnemonik) like LOWER('%" + search + "%'))";
+
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+
+            DataTable table = connectionState.ExecuteQuery(sqlQuery);
+
+            foreach (DataRow row in table.Rows)
+            {
+                result.Add(_RejonMapper.MapujZSql(row));
+            }
+
+            return result;
+
+        }
+
     }
 
 

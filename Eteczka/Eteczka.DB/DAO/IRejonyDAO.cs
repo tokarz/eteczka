@@ -17,6 +17,7 @@ namespace Eteczka.DB.DAO
         bool SprawdzCzyRejonIstniejeWFirmie(string rejon, string firma);
         bool EdytujRejonDlaFirmy(KatRejony rejonDoEdycji,  string idoper, string idakcept);
         bool UsunRejon(string firma, string rejon, string idoper, string idakcept);
+        List<KatRejony> WyszukajRejon(string firma, string search);
 
     }
 }
