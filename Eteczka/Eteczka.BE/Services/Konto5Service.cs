@@ -42,6 +42,49 @@ namespace Eteczka.BE.Services
 
             return result;
         }
-        
+
+        public InsertResult EdytujKonto5(KatKonto5 konto, string idoper, string idakcept)
+        {
+            InsertResult result = new InsertResult();
+
+            if (_konto5DAO.SprawdzCzyKonto5IstniejeWFirmie(konto.Firma, konto.Konto5))
+            {
+                result.Result = _konto5DAO.EdytujKonto5(konto, idoper, idakcept);
+                result.Message = result.Result == true ? "Zapisano zmiany." : "Zmiany nie zostały zapisane.";
+            }
+            else
+            {
+                result.Message = "Edycja nie powiodła się. Podane konto5 nie istnieje.";
+            }
+
+            return result;
+        }
+
+        public InsertResult UsunKonto5(KatKonto5 konto, string idoper, string idakcept)
+        {
+            InsertResult result = new InsertResult();
+
+            if (_konto5DAO.SprawdzCzyKonto5IstniejeWFirmie(konto.Firma, konto.Konto5))
+            {
+                result.Result = _konto5DAO.UsunKonto5(konto.Firma, konto.Konto5, idoper, idakcept);
+                result.Message = result.Result == true ? "Konto5 zostało przeniesione na listę nieaktywnych." : "Usuwanie nie powiodło się.";
+            }
+            else
+            {
+                result.Message = "Usuwanie nie powiodło się. Wskazane konto 5 nie istnieje.";
+            }
+
+            return result;
+        }
+
+        public List<KatKonto5> WyszukajKonto5(string firma, string search)
+        {
+            List<KatKonto5> result = _konto5DAO.WyszukajKonto5(firma, search);
+
+            return result;
+        }
+
+
+
     }
 }

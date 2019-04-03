@@ -14,5 +14,9 @@ namespace Eteczka.BE.Services
     {
         List<KatKonto5> PobierzKonta5(SessionDetails sesja);
         InsertResult DodajKonto5(KatKonto5 konto, string idoper, string idakcept);
+        InsertResult EdytujKonto5(KatKonto5 konto, string idoper, string idakcept);
+        InsertResult UsunKonto5(KatKonto5 konto, string idoper, string idakcept);
+        List<KatKonto5> WyszukajKonto5(string firma, string search);
     }
+   
 }

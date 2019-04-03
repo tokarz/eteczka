@@ -63,7 +63,100 @@ namespace Eteczka.BE.Controllers
             return result;
         }
 
+        [HttpPut]
+        public ActionResult EdytujKonto5 (string sessionId, KatKonto5 konto)
+        {
+            ActionResult result = null;
+            SessionDetails sesja = null;
+            InsertResult sucess = new InsertResult();
 
-            
+            try
+            {
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    sucess = _katKonto5Service.EdytujKonto5(konto, sesja.IdUzytkownika, sesja.IdUzytkownika);
+                }
+                result = Json(new
+                {
+                    sucess
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+            return result;
+        }  
+        
+        [HttpPut]
+        public ActionResult UsunKonto5(string sessionId, KatKonto5 konto)
+        {
+            ActionResult result = null;
+            SessionDetails sesja = null;
+            InsertResult sucess = new InsertResult();
+
+            try
+            {
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    sucess = _katKonto5Service.UsunKonto5(konto, sesja.IdUzytkownika, sesja.IdUzytkownika);
+                }
+                result = Json(new
+                {
+                    sucess
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+            return result;
+        }
+
+        [HttpGet]
+        public ActionResult WyszukajKonto5(string sessionId, string firma, string search)
+        {
+            ActionResult result = null;
+            SessionDetails sesja = null;
+            List<KatKonto5> WyszukaneKonta = new List<KatKonto5>();
+
+            try
+            {
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    WyszukaneKonta = _katKonto5Service.WyszukajKonto5(firma, search);
+                }
+
+                result = Json(new
+                {
+                    sucess = WyszukaneKonta != null && WyszukaneKonta.Count > 0 ? true : false,
+                    wyszukaneKonta = WyszukaneKonta
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                result = Json(new
+                {
+
+                    sucess = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+            return result;
+        }
     }
 }

@@ -103,6 +103,51 @@ namespace Eteczka.DB.DAO
             return result;
         }
 
+        public bool EdytujKonto5 (KatKonto5 konto, string idoper, string idakcept)
+        {
+            bool result = false;
+
+            string sqlQuery = $"UPDATE \"KatKonta5\" SET nazwa = '{konto.Nazwa}', idoper = '{idoper}', idakcept = '{idakcept}', kontoskr = '{konto.Kontoskr}', datamodify ='{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ms")}', dataakcept = '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ms")}' " +
+                $"WHERE firma = '{konto.Firma}' AND konto5 = '{konto.Konto5}' ";
+
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+
+            result = connectionState.ExecuteNonQuery(sqlQuery);
+
+            return result;
+
+        }
+
+        public bool UsunKonto5(string firma, string konto5, string idoper, string idakcept)
+        {
+            bool result = false;
+            string sqlQuery = "UPDATE \"KatKonta5\" SET usuniety = 'true', idoper = '" + idoper + "', idakcept = '" + idakcept + "' , datamodify = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ms") + "' " +
+                "WHERE firma = '" + firma + "' AND konto5 = '" + konto5 + "'";
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+
+            result = connectionState.ExecuteNonQuery(sqlQuery);
+
+            return result;
+        }
+
+        public List<KatKonto5> WyszukajKonto5 (string firma, string search)
+        {
+            List<KatKonto5> result = new List<KatKonto5>();
+
+            string sqlQuery = "SELECT * FROM \"KatKonta5\" WHERE LOWER(firma) = LOWER('" + firma + "') " +
+                "AND LOWER(nazwa) like LOWER('%" + search + "%') OR LOWER(konto5) like LOWER('%" + search + "%') OR LOWER(kontoskr) like LOWER('%" + search + "%')";
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+            DataTable table = connectionState.ExecuteQuery(sqlQuery);
+
+            foreach (DataRow row in table.Rows)
+            {
+                result.Add(_KatKonto5Mapper.MapujZSql(row));
+            }
+
+            return result;
+
+        }
+
         public bool SprawdzCzyKonto5IstniejeWFirmie(string firma, string konto5)
         {
             bool result = false;
