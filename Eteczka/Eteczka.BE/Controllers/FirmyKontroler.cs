@@ -267,6 +267,39 @@ namespace Eteczka.BE.Controllers
 
             return result;
         }
+        [HttpGet]
+        public ActionResult WyszukajFirmePoNipieFirmieLubNazwie(string sessionId, string search)
+        {
+            ActionResult result = null;
+            SessionDetails sesja = null;
+            List<KatFirmy> FirmyZDB = new List<KatFirmy>();
+            try
+            {
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    FirmyZDB = _FirmyService.WyszukajFirmePoNipieFirmieLubNazwie(search);
+
+                }
+                result = Json(new
+                {
+                    FirmyZDB,
+                    sucess = true
+
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+                
+            }
+            return result;
+
+        }
 
     }
 }

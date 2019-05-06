@@ -197,7 +197,7 @@ namespace Eteczka.DB.DAO
             return result;
         }
 
-        public KatFirmy WyszukajFirmePoNipie(string nip)
+        public KatFirmy PobierzFirmePoNipie(string nip)
         {
             KatFirmy znalezionaFirma = null;
 
@@ -213,9 +213,27 @@ namespace Eteczka.DB.DAO
             return znalezionaFirma;
         }
 
-        
+        public List<KatFirmy> WyszukajFirmePoNazwieNipieLubFirmie(string search)
+        {
+            List<KatFirmy> result = new List<KatFirmy>();
 
-    
+            string sqlQuery = "SELECT * FROM \"KatFirmy\" WHERE UPPER(nip) || UPPER(nazwa) || UPPER(firma) LIKE UPPER('%" + search + "%');";
+
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+            DataTable table = connectionState.ExecuteQuery(sqlQuery);
+
+            
+                foreach (DataRow row in table.Rows)
+                {
+                   result.Add( _FirmyMapper.MapujZSql(row));
+                }
+
+            return result;
+        }
+
+
+
+
 
     }
 }

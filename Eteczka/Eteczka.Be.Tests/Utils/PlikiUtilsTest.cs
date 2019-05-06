@@ -287,6 +287,40 @@ namespace Eteczka.BE.Tests.Utils
 
 
         }
+        [Test]
+        public void StworzSciezkeZListy()
+        {
+            List<string> Lista = new List<string>()
+            {
+                "Ala",
+                "ma",
+                "kota",
+                "a",
+                "kot",
+                "ma",
+                "Ale"
+            };
+            string result = "Ala\\ma\\kota\\a\\kot\\ma\\Ale";
+
+            Assert.IsNotNull(_Sut.StworzSciezkeZListy(Lista));
+            Assert.AreEqual(result, _Sut.StworzSciezkeZListy(Lista));
+
+        }
+        [Test]
+        public void StworzStringListaZalacznikow()
+        {
+
+            List<string> Lista = new List<string>()
+            {
+                "aaa\\Zalacznik1",
+                "bb\\ccc\\Zalacznik2",
+                "ccc\\Zalacznik3"
+            };
+
+            string expectedResult = " Zalacznik1, Zalacznik2, Zalacznik3";
+
+            Assert.AreEqual(expectedResult, _Sut.StworzStringListaZalacznikow(Lista));
+        }
 
     }
 }

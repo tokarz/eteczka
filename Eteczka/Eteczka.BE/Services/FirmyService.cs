@@ -38,7 +38,7 @@ namespace Eteczka.BE.Services
 
         public KatFirmy WyszukajFirmePoNipie(string nip)
         {
-            KatFirmy wyszukanaFirma = _Dao.WyszukajFirmePoNipie(nip);
+            KatFirmy wyszukanaFirma = _Dao.PobierzFirmePoNipie(nip);
 
             return wyszukanaFirma;
         }
@@ -46,7 +46,7 @@ namespace Eteczka.BE.Services
         public InsertResult DodajFirme(KatFirmy firmaDoDodania, string idoper, string idakcept)
         {
             InsertResult result = new InsertResult();
-            KatFirmy firmaWBazie = _Dao.WyszukajFirmePoNipie(firmaDoDodania.Nip);
+            KatFirmy firmaWBazie = _Dao.PobierzFirmePoNipie(firmaDoDodania.Nip);
             if (firmaWBazie == null)
             {
 
@@ -76,7 +76,7 @@ namespace Eteczka.BE.Services
 
             if (firmaDoEdycji.Nip == nip)
             {
-                if (_Dao.WyszukajFirmePoNipie(nip) != null)
+                if (_Dao.PobierzFirmePoNipie(nip) != null)
                 {
                     result.Result = _Dao.EdytujFirme(firmaDoEdycji, nip, idoper, idakcept);
                     result.Message = result.Result == true ? "Zapisano zmiany." : "Próba edycji nie powiodła się.";
@@ -88,9 +88,9 @@ namespace Eteczka.BE.Services
             }
             else
             {
-                if (_Dao.WyszukajFirmePoNipie(nip) != null)
+                if (_Dao.PobierzFirmePoNipie(nip) != null)
                 {
-                    if (_Dao.WyszukajFirmePoNipie(firmaDoEdycji.Nip) == null)
+                    if (_Dao.PobierzFirmePoNipie(firmaDoEdycji.Nip) == null)
                     {
                         result.Result = _Dao.EdytujFirme(firmaDoEdycji, nip, idoper, idakcept);
                         result.Message = result.Result == true ? "Zapisano zmiany." : "Próba edycji nie powiodła się.";
@@ -114,7 +114,7 @@ namespace Eteczka.BE.Services
 
             InsertResult result = new InsertResult();
 
-            if (_Dao.WyszukajFirmePoNipie(nip) != null)
+            if (_Dao.PobierzFirmePoNipie(nip) != null)
             {
                 result.Result = _Dao.DezaktywujFirme(nip, idoper, idakcept);
                 result.Message = result.Result == true ? "Firma została przeniesiona do nieaktywnych." : "Próba usunięcia firmy nie powiodła się.";
@@ -124,6 +124,13 @@ namespace Eteczka.BE.Services
                 result.Message = "Próba usunięcia firmy nie powiodła się.";
             }
                 
+
+            return result;
+        }
+
+        public List<KatFirmy> WyszukajFirmePoNipieFirmieLubNazwie(string search)
+        {
+            List<KatFirmy> result = _Dao.WyszukajFirmePoNazwieNipieLubFirmie(search);
 
             return result;
         }

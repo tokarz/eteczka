@@ -122,7 +122,7 @@ namespace Eteczka.DB.Tests.DAO
             _ConnectionState.ExecuteQuery(sqlQuery).Returns(table);
             _FirmyMapper.MapujZSql(row).Returns(firmaZDB);
 
-            KatFirmy znalezionaFirma = _sut.WyszukajFirmePoNipie("0123456789");
+            KatFirmy znalezionaFirma = _sut.PobierzFirmePoNipie("0123456789");
 
             Assert.IsNotNull(znalezionaFirma);
             Assert.AreEqual(firmaZDB, znalezionaFirma);
