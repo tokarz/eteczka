@@ -1,0 +1,9 @@
+1) Instalacja PostgreSQL i pgAdmin3(domyslne ustawienia na start)
+2) Dodanie psql do zmiennych srodowiskowych(domyślnie c:\Program Files\PostgreSQL\9.5\bin\)	
+3) Uruchom z katalogu SQL "create_db 9.50"
+4) Sprawdź czy baza danych "E-Agropin-EAD" została stworzona i czy w tabeli DbInfo widnieje wersja 9.50
+5) stwórz katalog "eteczka.main" i ustaw na niego zmienną środowiskową EAD_DIR lub domyślnie stwórz katalog "d:\eteczka.main" 
+   i ustaw na niego zmienną środowiskową EAD_DIR
+6) wywołaj skrypt "create_ead_work_directory.bat" i sprawdź czy powstały katalogi "archiwum", "logs", "pliki", "strukturaFirmy"
+  UWAGA - ten katalog zawiera dane (co prawda zaszyfrowane) i powinien być przez administratora zabezpoeczony!
+7) wywołaj skrypt "build.bat"
