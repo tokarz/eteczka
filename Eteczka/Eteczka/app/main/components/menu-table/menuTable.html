@@ -11,8 +11,11 @@
                         <processing></processing>
                     </td>
                 </tr>
-                <tr ng-if="!loading" ng-repeat="row in rows" ng-click="selectRow(row)" ng-class="getRowStyle(row)">
-                    <td>{{row.Nazwisko}} {{row.Imie}}</td>
+                <tr ng-if="!loading" ng-repeat="row in rows | filter:search" ng-click="selectRow(row)" ng-class="getRowStyle(row)">
+                    <td ng-if="customColumns" title="{{row[customTitleColumn]}}">
+                        <span ng-repeat="column in customColumns.split(',')">{{row[column]}}</span>
+                    </td>
+                    <td ng-if="!customColumns">{{row.Nazwisko}} {{row.Imie}}</td>
                 </tr>
             </tbody>
         </table>

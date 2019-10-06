@@ -1,0 +1,30 @@
+priorytety 1 - 4 
+
+1.7 User stories/Epics     
+	A) tworzenie struktury firmy (2Dni) (MT&MS, B) (1)
+ 	B) Ksiazka adresowa maili (5Dni) (MS&O) (3)
+    C) Dostosowanie do ustawy (Michal) (5Dni) (MS&P) (2)
+    D) Podpis cyfrowy !! (8Dni) (All) (1)
+	E) Raporty (14Dni) (MT&MS&P) (2)
+ 	F) Zabezpieczenia wszystkich insertów o selecty ze sprawdzeniem istniejacych juz danych (4Dni) (MT&MS) (3)
+	G) Pe³na strategia logów i wybor niezbednych (5Dni) (MS) (3)
+	H) Skrypt instalacyjny (2Dni) (MT) (2)
+	I) Testy GUI i Systemowe (P) (5Dni) (4)
+	J) Uprawnienia - koncepcja + implementacja (P koncepcja, Reszta - Dev)(5Dni) (2)
+	K) KodKierownika - analiza (2Dni) (4)
+	
+	
+	Suma: 57Dni (3Developerów * niepelny czas pracy) = 45Dni 
+	Deadline: 21 Listopada!! 
+	
+	Taski rozbicie i rozdzielenie - Maciek do 10.10
+	
+	3 sprinty po 15 dni
+	
+	1) 7.10 - 22.10
+		A, D(analiza asap) = 10Dni
+		J, H
+	
+	2)23.10 - 07.11
+	3)08.11 - 21.11
+	

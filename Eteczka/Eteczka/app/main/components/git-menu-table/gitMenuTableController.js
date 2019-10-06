@@ -305,30 +305,30 @@ angular.module('et.controllers').controller('gitMenuTableController', ['$rootSco
             });
     }
 
-    $scope.triggerUpsertFileDescriptionDialog = function () {
-        var modalOptions = {
-            body: 'app/views/files/addFile/fileDescriptionPopup/upsertFileDescription.html',
-            controller: $scope.upsertFileDescriptionCtrl,
-            locals: {
-                description: $scope.fileDescription,
-                fileTypes: $scope.fileTypes,
-                employees: $scope.employees,
-                activeEmployee: $rootScope.activeUser,
-                name: $scope.selectedstagedfile ? $scope.selectedstagedfile.NazwaEad : ''
-            }
-        };
+	$scope.triggerUpsertFileDescriptionDialog = function () {
+		var modalOptions = {
+			body: 'app/views/files/addFile/fileDescriptionPopup/upsertFileDescription.html',
+			controller: $scope.upsertFileDescriptionCtrl,
+			locals: {
+				description: $scope.fileDescription,
+				fileTypes: $scope.fileTypes,
+				employees: $scope.employees,
+				activeEmployee: $rootScope.activeUser,
+				name: $scope.selectedstagedfile ? $scope.selectedstagedfile.NazwaEad : ''
+			}
+		};
 
-        openModal(
-            modalOptions,
-            function (value) {
-                $scope.createdMetaData = value;
-                $rootScope.activeUser = value.Pracownik ? value.Pracownik : {};
-                modalService.confirm('Zapisać plik?', 'Czy chcesz zapisać plik użytkownikowi ?').then(function () {
-                    $scope.commitFile();
-                });
-            }
-        );
-    }
+		openModal(
+			modalOptions,
+			function (value) {
+				$scope.createdMetaData = value;
+				$rootScope.activeUser = value.Pracownik ? value.Pracownik : {};
+				modalService.confirm('Zapisać plik?', 'Czy chcesz zapisać plik użytkownikowi ?').then(function () {
+					$scope.commitFile();
+				});
+			}
+		);
+	};
 
     $scope.triggerGetUserFolderModal = function () {
         var modalOptions = {

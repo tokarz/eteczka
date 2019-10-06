@@ -9,20 +9,22 @@ angular.module('et.directives').directive('menuTable', function () {
             activetab: '=',
             search: '=',
             loading: '=',
-            placeholder: '@'
+			placeholder: '@',
+			customColumns: '@',
+			customTitleColumn: '@'
         },
         controller: 'menuTableController',
         templateUrl: 'app/main/components/menu-table/menuTable.html',
         link: function (scope, element) {
             $(element).find('.ead-table').on('keyup', function (e) {
-                checkKey(e)
+				checkKey(e);
             });
 
             function checkKey(e) {
                 e = e || window.event;
-                if (e.keyCode == '38') {
+                if (e.keyCode === '38') {
                     scope.goRowDown();
-                } else if (e.keyCode == '40') {
+                } else if (e.keyCode === '40') {
                     scope.goRowUp();
                 }
                 e.stopPropagation();

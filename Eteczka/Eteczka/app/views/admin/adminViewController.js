@@ -9,7 +9,15 @@ angular.module('et.controllers').controller('adminViewController', ['$scope', '$
             clickaction: function () {
                 $state.go('settingsusers');
             }
-        },
+		},
+		{
+			label: 'Firmy',
+			ngclass: 'menu-icon fa fa-building',
+			menuclass: 'menu-button menu-button-one',
+			clickaction: function () {
+				$state.go('settingscompanies');
+			}
+		},
         {
             label: 'Importy',
             ngclass: 'menu-icon fa fa-upload',

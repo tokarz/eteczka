@@ -5,6 +5,6 @@ const webpackConfig = require('./webpack.config.js');
 
 gulp.task('js', () => {
     gulp.src('./src/js/index.js')
-        .pipe(webpackStream(webpackConfig), web-  pack)
+        .pipe(webpackStream(webpackConfig), webpack)
         .pipe(gulp.dest('./dist/js'));
 });

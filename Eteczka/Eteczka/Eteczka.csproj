@@ -225,6 +225,11 @@
     <Content Include="app\main\components\menu-companies-table\menuCompaniesTable.html" />
     <Content Include="app\main\components\menu-companies-table\menuCompaniesTableController.js" />
     <Content Include="app\main\components\menu-companies-table\menuCompaniesTableDirective.js" />
+    <Content Include="app\main\components\menu-companies\addEditCompanyModal\companyModal.html" />
+    <Content Include="app\main\components\menu-companies\menuCompaniesController.js" />
+    <Content Include="app\main\components\menu-companies\menuCompaniesDirective.js" />
+    <Content Include="app\main\components\menu-companies\menuCompaniesService.js" />
+    <Content Include="app\main\components\menu-companies\menuCompaniesView.html" />
     <Content Include="app\main\components\menu-users-content\addEditUserModal\userModal.html" />
     <Content Include="app\main\components\menu-users-content\menuUsersContentController.js" />
     <Content Include="app\main\components\menu-users-content\menuUsersContentDirective.js" />
@@ -252,6 +257,9 @@
     <Content Include="app\views\home\homeViewController.js" />
     <Content Include="app\views\home\homeViewDirective.js" />
     <Content Include="app\views\settings\addUserModal.html" />
+    <Content Include="app\views\settings\companies\settingsCompanies.html" />
+    <Content Include="app\views\settings\companies\settingsCompaniesController.js" />
+    <Content Include="app\views\settings\companies\settingsCompaniesDirective.js" />
     <Content Include="app\views\settings\files\settingsFiles.html" />
     <Content Include="app\views\settings\files\settingsFilesDirective.js" />
     <Content Include="app\views\settings\files\settingsFilesController.js" />

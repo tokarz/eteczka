@@ -134,7 +134,12 @@ angular.module('et.services').factory('settingsService', ['httpService', 'sessio
                 stareHaslo: old,
                 noweHaslo: newPassword
             });
-        }
+		},
+		getAllCompanies: function () {
+			return httpService.post('Firmy/PobierzWszystkieFirmy', {
+				sessionId: sessionService.getSessionId()
+			});
+		}
 
     };
 }]);

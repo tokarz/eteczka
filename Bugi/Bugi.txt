@@ -1,0 +1,16 @@
+﻿1) za duzo pdfów sie nie otwiera (!)
+2) tabele - błędy graficzne (brzydkie odstepy nierowne)
+3) Widok administratora - nowa opcja (Firmy) nie ma swojego odpowiednika w panelu gornym
+4) Logi - wywalaja sie gdy nie ma pliku logow
+5) skrypt instalacyjny - nie robia sie wszystkie katalogi (brakuje np waitingroom i logs)
+6) manipulacja pdfem - za szybka, malo uzyteczna
+7) filtry w koszyku - nowa koncepcja albo uruchomienie starej
+8) brak skryptu budujacego FE
+9) Dynamiczne logo potrzebne dla innych uzytkownikow
+10) Opracowywany dokument Dokumenty->Wprowadzanie plików - nie znika z gornej listy
+11) Problem z checkboxami przy usuwaniu 
+12) pomysl - lucene lub inny system do wyszukiwania wewnątrz plików (może elastic?:P)
+13) nieresponsywne
+14) raporty (oba) - prosba o podanie sciezki do zapisu (lub domyslnie)
+15) waiting room jako niejedyna opcja dodawania plikow!
+16) przegladarka dla typow dokumentow (obecnie jest to tylko popup)
