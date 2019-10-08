@@ -1,6 +1,7 @@
-﻿<div class="option-wrapper">
-    <menu-companies-table rows="parameters.companies" loading="parameters.loading" selectedrow="parameters.company" tab="parameters.tab" search="parameters.searchTerm"></menu-companies-table>
-    <div class="component-content-wrapper">
-        <!-- Add menu-company-content when ready <menu-company-content company="parameters.company"></menu-company-content>-->
+﻿<div class="multi-option-wrapper">
+    <menu-companies-table rows="parameters.options" loading="parameters.loading" selectedrow="parameters.selectedOption"></menu-companies-table>
+    <menu-companies-table rows="parameters.targets" loading="parameters.loading" selectedrow="parameters.target" ng-show="showTarget()"></menu-companies-table>
+    <div class="component-content-target-wrapper">
+        <menu-department-content department="parameters.target" ng-show="showDepartment()"></menu-department-content>
     </div>
 </div>

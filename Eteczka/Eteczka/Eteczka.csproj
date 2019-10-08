@@ -225,6 +225,9 @@
     <Content Include="app\main\components\menu-companies-table\menuCompaniesTable.html" />
     <Content Include="app\main\components\menu-companies-table\menuCompaniesTableController.js" />
     <Content Include="app\main\components\menu-companies-table\menuCompaniesTableDirective.js" />
+    <Content Include="app\main\components\menu-department-content\menuDepartmentContentController.js" />
+    <Content Include="app\main\components\menu-department-content\menuDepartmentContentDirective.js" />
+    <Content Include="app\main\components\menu-department-content\menuDepartmentContentView.html" />
     <Content Include="app\main\components\menu-users-content\addEditUserModal\userModal.html" />
     <Content Include="app\main\components\menu-users-content\menuUsersContentController.js" />
     <Content Include="app\main\components\menu-users-content\menuUsersContentDirective.js" />

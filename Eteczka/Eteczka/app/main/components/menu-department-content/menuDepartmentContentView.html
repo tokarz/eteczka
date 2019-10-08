@@ -1,0 +1,24 @@
+﻿<div class="component-main-wrapper">
+    <div class="user-details">
+        <div class="top-toolbar toolbar-panel">
+            <span class="toolbar-option option-one fa fa-plus-circle" ng-click="triggerAddDepartment()"></span>
+            <span ng-show="department.Nazwa" class="toolbar-option option-two fa fa-pencil-square" ng-click="triggerEditDepartment()"></span>
+            <span ng-show="department.Nazwa" class="toolbar-option option-three fa fa-trash-o" ng-click="triggerDeleteDepartment()"></span>
+        </div>
+        <div class="user-details-list toolbar-content">
+            <h3 style="margin:auto;text-align:center">Wydzial</h3>
+            <div class="details-row">
+                <span class="details-label">Id</span>
+                <span class="details-value">{{department.Wydzial}}</span>
+            </div>
+            <div class="details-row">
+                <span class="details-label">Nazwa</span>
+                <span class="details-value">{{department.Nazwa}}</span>
+            </div>
+            <div class="details-row">
+                <span class="details-label">System bazowy</span>
+                <span class="details-value">{{department.Systembazowy}}</span>
+            </div>
+        </div>
+    </div>
+</div>
