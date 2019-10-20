@@ -1,61 +1,31 @@
-﻿<md-dialog aria-label="Formularz dodawania/edycji użytkownika" draggable class="open-to-left">
-    <form ng-cloak name="userForm" novalidate>
+﻿<md-dialog aria-label="Formularz dodawania/edycji firmy" draggable class="open-to-left">
+    <form ng-cloak name="companyForm" novalidate>
         <md-toolbar>
             <div class="modal-header md-toolbar-tools">
-                <h2>Formularz dodawania/edycji użytkownika</h2>
+                <h2>Formularz dodawania/edycji firmy</h2>
                 <span flex></span>
             </div>
         </md-toolbar>
         <md-dialog-content style="padding:15px">
             <div class="modal-table-row">
-                <label class="modal-table-label" for="employee">Nazwisko*</label>
-                <input type="text" ng-model="modalResult.Nazwisko" ng-if="!isEdit" required />
-                <input type="text" ng-model="modalResult.Nazwisko" ng-if="isEdit" />
+                <label class="modal-table-label" for="copanyName">Nazwa*</label>
+                <input type="text" ng-model="modalResult.Nazwa" ng-if="!isEdit" required />
+                <input type="text" ng-model="modalResult.Nazwa" ng-if="isEdit" />
             </div>
             <div class="modal-table-row">
-                <label class="modal-table-label" for="employeeName">Imie*</label>
-                <input ng-if="!isEdit" class="modal-table-input" name="employeeName" ng-model="modalResult.Imie" type="text" required />
-                <input ng-if="isEdit" class="modal-table-input" name="employeeName" ng-model="modalResult.Imie" type="text" />
-            </div>
-            <div class="modal-table-row" ng-class="isEditable()">
-                <label class="modal-table-label" for="docName">Nazwa użytkownika</label>
-                <input class="modal-table-input" type="text" ng-model="modalResult.Identyfikator" required />
+                <label class="modal-table-label" for="nip">NIP*</label>
+                <input ng-if="!isEdit" class="modal-table-input" name="nip" ng-model="modalResult.Nip" type="text" required />
+                <input ng-if="isEdit" class="modal-table-input" name="nip" ng-model="modalResult.Nip" type="text" />
             </div>
             <div class="modal-table-row">
-                <label class="modal-table-label" for="docName">Hasło krótkie</label>
-                
-                <input ng-if="!isEdit" class="modal-table-input" type="password" ng-model="modalResult.Hasloshort" required />
-                <input ng-if="isEdit" class="modal-table-input" type="password" ng-model="modalResult.Hasloshort" />
+                <label class="modal-table-label" for="regon">Regon*</label>
+                <input ng-if="!isEdit" class="modal-table-input" type="text" ng-model="modalResult.Regon" required />
+                <input ng-if="isEdit" class="modal-table-input" type="text" ng-model="modalResult.Regon" />
             </div>
             <div class="modal-table-row">
-                <label class="modal-table-label" for="shortRepeat">Powtórz hasło krótkie</label>
-                <input ng-if="!isEdit" class="modal-table-input" name="shortRepeat" type="password" ng-model="modalResult.HasloshortRepeat" required
-                       ng-change="isNotEqual(modalResult.Hasloshort, modalResult.HasloshortRepeat)" />
-                <input ng-if="isEdit" class="modal-table-input" name="shortRepeat" type="password" ng-model="modalResult.HasloshortRepeat"
-                       ng-change="isNotEqual(modalResult.Hasloshort, modalResult.HasloshortRepeat)" />
-            </div>
-            <div ng-show="userForm.$submitted || userForm.shortRepeat.$touched ">
-                <span class="modal-table-error" ng-show="isNotEqual(modalResult.Hasloshort, modalResult.HasloshortRepeat)">Hasla nie zgadzaja sie</span>
-            </div>
-            <div class="modal-table-row">
-                <label class="modal-table-label" for="docName">Hasło długie</label>
-                <input ng-if="!isEdit" class="modal-table-input" type="password" ng-model="modalResult.Haslolong" required />
-                <input ng-if="isEdit" class="modal-table-input" type="password" ng-model="modalResult.Haslolong" />
-            </div>
-            <div class="modal-table-row">
-                <label class="modal-table-label" for="longRepeat">Powtórz hasło długie</label>
-                <input ng-if="!isEdit" class="modal-table-input" name="longRepeat" type="password" ng-model="modalResult.HaslolongRepeat" required
-                       ng-change="isNotEqual(modalResult.Haslolong, modalResult.HaslolongRepeat)" />
-                <input ng-if="isEdit" class="modal-table-input" name="longRepeat" type="password" ng-model="modalResult.HaslolongRepeat"
-                       ng-change="isNotEqual(modalResult.Haslolong, modalResult.HaslolongRepeat)" />
-            </div>
-            <div ng-show="userForm.$submitted || userForm.longRepeat.$touched">
-                <span class="modal-table-error" ng-show="isNotEqual(modalResult.Haslolong, modalResult.HaslolongRepeat)">Hasla nie zgadzaja sie</span>
-            </div>
-            <div class="modal-table-row">
-                <label class="modal-table-label" for="docName">Email</label>
-                <input ng-if="!isEdit" class="modal-table-input" type="email" ng-model="modalResult.Email" required />
-                <input ng-if="isEdit" class="modal-table-input" type="email" ng-model="modalResult.Email" />
+                <label class="modal-table-label" for="address">Adres*</label>
+                <input ng-if="!isEdit" class="modal-table-input" type="text" ng-model="modalResult.Adres" required />
+                <input ng-if="isEdit" class="modal-table-input" type="text" ng-model="modalResult.Adres" />
             </div>
         </md-dialog-content>
         <md-dialog-actions layout="row">
