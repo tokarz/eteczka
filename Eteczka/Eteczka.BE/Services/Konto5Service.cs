@@ -19,9 +19,9 @@ namespace Eteczka.BE.Services
         {
             this._konto5DAO = konto5DAO;
         }
-        public List<KatKonto5> PobierzKonta5(SessionDetails sesja)
+        public List<KatKonto5> PobierzKonta5(string firma)
         {
-            List<KatKonto5> pobraneKonta5 = _konto5DAO.pobierajKonto5DlaFirmy(sesja.AktywnaFirma.Firma);
+            List<KatKonto5> pobraneKonta5 = _konto5DAO.pobierajKonto5DlaFirmy(firma);
 
             return pobraneKonta5;
         }

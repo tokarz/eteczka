@@ -11,7 +11,7 @@ namespace Eteczka.BE.Services
 {
     public interface IPodWydzialService
     {
-        List<KatPodWydzialy> PobranaListaPodWydzialow(SessionDetails sesja, string wydzial);
+        List<KatPodWydzialy> PobranaListaPodWydzialow(string firma, string wydzial);
         InsertResult DodajPodWydzial(KatPodWydzialy podWydzialDoDodania, string idoper, string idakcept);
         InsertResult EdytujPodWydzial(KatPodWydzialy podWydzialDoEdycji, string idoper, string idakcept);
         InsertResult UsunPodWydzial(KatPodWydzialy podWydzialDoUsuniecia, string idoper, string idakcept);

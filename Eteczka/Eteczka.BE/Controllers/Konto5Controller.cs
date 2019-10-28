@@ -16,7 +16,7 @@ namespace Eteczka.BE.Controllers
         {
             this._katKonto5Service = katKonto5Service;
         }
-
+        [HttpGet]
         public ActionResult PobierzKonta5(string sessionId)
         {
 
@@ -24,7 +24,7 @@ namespace Eteczka.BE.Controllers
             if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
             {
                 SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
-                pobraneKonta5 = _katKonto5Service.PobierzKonta5(sesja);
+                pobraneKonta5 = _katKonto5Service.PobierzKonta5(sesja.AktywnaFirma.Firma);
             }
            
             return Json(new
@@ -32,7 +32,22 @@ namespace Eteczka.BE.Controllers
                pobraneKonta5 = pobraneKonta5
             }, JsonRequestBehavior.AllowGet);
         }
+        [HttpGet]
+        public ActionResult PobierzKonta5(string sessionId, string firma)
+        {
 
+            List<KatKonto5> pobraneKonta5 = new List<KatKonto5>();
+            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            {
+                SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                pobraneKonta5 = _katKonto5Service.PobierzKonta5(firma);
+            }
+
+            return Json(new
+            {
+                pobraneKonta5 = pobraneKonta5
+            }, JsonRequestBehavior.AllowGet);
+        }
         [HttpPost]
         public ActionResult DodajKonto5WFirmie(string sessionId, KatKonto5 konto)
         {

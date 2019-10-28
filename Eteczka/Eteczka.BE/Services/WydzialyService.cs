@@ -20,9 +20,9 @@ namespace Eteczka.BE.Services
             this._WydzialDao = wydzialDao;
         }
 
-        public List<KatWydzialy> PobierzWydzialyDlaFirmy(SessionDetails sesja)
+        public List<KatWydzialy> PobierzWydzialyDlaFirmy(string firma)
         {
-            List<KatWydzialy> pobraneWydzialy = _WydzialDao.PobierzDlaFirmy(sesja.AktywnaFirma.Firma);
+            List<KatWydzialy> pobraneWydzialy = _WydzialDao.PobierzDlaFirmy(firma);
 
             return pobraneWydzialy;
         }

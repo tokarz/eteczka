@@ -27,9 +27,24 @@ namespace Eteczka.BE.Controllers
             if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
             {
                 SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
-                pobranePodWydzialy = _PodWydzialService.PobranaListaPodWydzialow(sesja, wydzial);
+                pobranePodWydzialy = _PodWydzialService.PobranaListaPodWydzialow(sesja.AktywnaFirma.Firma, wydzial);
             }
             
+            return Json(new
+            {
+                PodWydzialy = pobranePodWydzialy
+            }, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult PobierzWszystkiePodwydzialy(string sessionId, string wydzial, string firma)
+        {
+
+            List<KatPodWydzialy> pobranePodWydzialy = new List<KatPodWydzialy>();
+            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            {
+                SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                pobranePodWydzialy = _PodWydzialService.PobranaListaPodWydzialow(firma, wydzial);
+            }
+
             return Json(new
             {
                 PodWydzialy = pobranePodWydzialy

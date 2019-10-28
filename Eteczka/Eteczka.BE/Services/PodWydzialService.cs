@@ -22,9 +22,9 @@ namespace Eteczka.BE.Services
             
         }
 
-        public List<KatPodWydzialy> PobranaListaPodWydzialow(SessionDetails sesja, string wydzial)
+        public List<KatPodWydzialy> PobranaListaPodWydzialow(string firma, string wydzial)
         {
-            List<KatPodWydzialy> pobranePodWydzialy = _PodWydzialDAO.PobierzPodWydzialy(sesja.AktywnaFirma.Firma, wydzial);
+            List<KatPodWydzialy> pobranePodWydzialy = _PodWydzialDAO.PobierzPodWydzialy(firma, wydzial);
 
             return pobranePodWydzialy;
         }

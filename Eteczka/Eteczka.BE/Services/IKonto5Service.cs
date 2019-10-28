@@ -12,7 +12,7 @@ namespace Eteczka.BE.Services
 {
     public interface IKonto5Service
     {
-        List<KatKonto5> PobierzKonta5(SessionDetails sesja);
+        List<KatKonto5> PobierzKonta5(string firma);
         InsertResult DodajKonto5(KatKonto5 konto, string idoper, string idakcept);
         InsertResult EdytujKonto5(KatKonto5 konto, string idoper, string idakcept);
         InsertResult UsunKonto5(KatKonto5 konto, string idoper, string idakcept);

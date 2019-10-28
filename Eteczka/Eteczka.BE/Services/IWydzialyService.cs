@@ -11,7 +11,7 @@ namespace Eteczka.BE.Services
 {
     public interface IWydzialyService
     {
-        List<KatWydzialy> PobierzWydzialyDlaFirmy(SessionDetails sesja);
+        List<KatWydzialy> PobierzWydzialyDlaFirmy(string firma);
         InsertResult DodajWydzialDlaFirmy(KatWydzialy wydzialDoDodania, string idoper, string idakcept);
         InsertResult EdytujWydzialDlaFirmy(KatWydzialy wydzialDoEdycji, string idoper, string idakcept);
         InsertResult UsunWydzialZFirmy(KatWydzialy wydzialDoUsuniecia, string idoper, string idakcept);

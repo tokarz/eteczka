@@ -31,13 +31,14 @@ namespace Eteczka.BE.Controllers
             }, JsonRequestBehavior.AllowGet);
 
         }
+        [HttpGet]
         public ActionResult PobierzRejonyDlaWybranejFirmy(string sessionId)
         {
             List<KatRejony> PobraneRejony = new List<KatRejony>();
             if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
             {
                 SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
-                PobraneRejony = _rejonyService.PobierzRejonyDlaFirmy(sesja);
+                PobraneRejony = _rejonyService.PobierzRejonyDlaFirmy(sesja.AktywnaFirma.Firma);
             }
 
             return Json(new
@@ -46,6 +47,22 @@ namespace Eteczka.BE.Controllers
             }, JsonRequestBehavior.AllowGet);
 
         }
+        public ActionResult PobierzRejonyDlaWybranejFirmy(string sessionId, string firma)
+        {
+            List<KatRejony> PobraneRejony = new List<KatRejony>();
+            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            {
+                SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                PobraneRejony = _rejonyService.PobierzRejonyDlaFirmy(firma);
+            }
+
+            return Json(new
+            {
+                Rejony = PobraneRejony
+            }, JsonRequestBehavior.AllowGet);
+
+        }
+
 
         [HttpPost]
         public ActionResult DodajRejonDlaFirmy(string sessionId, KatRejony rejonDoDodania)

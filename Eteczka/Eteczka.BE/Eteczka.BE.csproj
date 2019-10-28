@@ -148,7 +148,7 @@
     <Compile Include="Controllers\EmailController.cs" />
     <Compile Include="Controllers\FilesImportController.cs" />
     <Compile Include="Controllers\FileTypeController.cs" />
-    <Compile Include="Controllers\FirmyKontroler.cs" />
+    <Compile Include="Controllers\FirmyController.cs" />
     <Compile Include="Controllers\KatDokumentyRodzajController.cs" />
     <Compile Include="Controllers\Konto5Controller.cs" />
     <Compile Include="Controllers\KoszykController.cs" />

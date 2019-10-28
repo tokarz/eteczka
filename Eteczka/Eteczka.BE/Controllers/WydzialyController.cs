@@ -17,13 +17,29 @@ namespace Eteczka.BE.Controllers
             this._wydzialyService = wydzialyService;
         }
 
+        [HttpGet]
         public ActionResult PobierzWydzialy(string sessionId)
         {
             List<KatWydzialy> PobraneWydzialy = new List<KatWydzialy>();
             if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
             {
                 SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
-                PobraneWydzialy = _wydzialyService.PobierzWydzialyDlaFirmy(sesja);
+                PobraneWydzialy = _wydzialyService.PobierzWydzialyDlaFirmy(sesja.AktywnaFirma.Firma);
+            }
+
+            return Json(new
+            {
+                Wydzialy = PobraneWydzialy
+            }, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public ActionResult PobierzWydzialy(string sessionId, string firma)
+        {
+            List<KatWydzialy> PobraneWydzialy = new List<KatWydzialy>();
+            if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+            {
+                SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                PobraneWydzialy = _wydzialyService.PobierzWydzialyDlaFirmy(firma);
             }
 
             return Json(new

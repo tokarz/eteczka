@@ -12,7 +12,7 @@ namespace Eteczka.BE.Services
     public interface IRejonyService
     {
         List<KatRejony> PobierzRejony();
-        List<KatRejony> PobierzRejonyDlaFirmy(SessionDetails sesja);
+        List<KatRejony> PobierzRejonyDlaFirmy(string firma);
         InsertResult DodajRejonDlaFirmy(KatRejony rejonDoDodania, string idoper, string idakcept);
         InsertResult EdytujRejonDlaFirmy(KatRejony rejonDoEdycji, string idoper, string idakcept);
         InsertResult UsunRejon(string firma, string rejon, string idoper, string idakcept);

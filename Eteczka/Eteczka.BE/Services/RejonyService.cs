@@ -26,9 +26,9 @@ namespace Eteczka.BE.Services
 
             return pobraneRejony;
         }
-        public List<KatRejony> PobierzRejonyDlaFirmy(SessionDetails sesja)
+        public List<KatRejony> PobierzRejonyDlaFirmy(string firma)
         {
-            List<KatRejony> pobraneRejony = _RejonDao.PobieraczRejonowDlaFirmy(sesja.AktywnaFirma.Firma);
+            List<KatRejony> pobraneRejony = _RejonDao.PobieraczRejonowDlaFirmy(firma);
             return pobraneRejony;
         }
 
