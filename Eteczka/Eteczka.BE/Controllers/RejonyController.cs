@@ -47,7 +47,7 @@ namespace Eteczka.BE.Controllers
             }, JsonRequestBehavior.AllowGet);
 
         }
-        public ActionResult PobierzRejonyDlaWybranejFirmy(string sessionId, string firma)
+        public ActionResult PobierzRejonyDlaWybranejFirmyDoStruktury(string sessionId, string firma)
         {
             List<KatRejony> PobraneRejony = new List<KatRejony>();
             if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))

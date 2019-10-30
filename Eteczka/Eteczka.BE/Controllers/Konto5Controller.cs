@@ -33,7 +33,7 @@ namespace Eteczka.BE.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
         [HttpGet]
-        public ActionResult PobierzKonta5(string sessionId, string firma)
+        public ActionResult PobierzKonta5DoStruktury(string sessionId, string firma)
         {
 
             List<KatKonto5> pobraneKonta5 = new List<KatKonto5>();

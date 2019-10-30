@@ -130,7 +130,7 @@ namespace Eteczka.BE.Controllers
                 {
                     success = sucess
                 }, JsonRequestBehavior.AllowGet);
-                
+
             }
             catch (Exception ex)
             {
@@ -184,19 +184,32 @@ namespace Eteczka.BE.Controllers
             bool sucess = false;
             ActionResult result = null;
             SessionDetails sesja = null;
+            bool hasPermission = false;
             try
             {
                 StanSesji stanSesji = Sesja.PobierzStanSesji();
                 if (stanSesji.CzySesjaJestOtwarta(sessionId) && stanSesji.CzySesjaAdministratora(sessionId))
                 {
                     sesja = stanSesji.PobierzSesje(sessionId);
-                    sucess = _KatLoginyService.DodajNowegoUzytkownika(user);
+                    hasPermission = sesja.AktywnaFirma.Uprawnienia.RolaAddPracownik ? true : false;
+                    if (hasPermission)
+                    {
+                        sucess = _KatLoginyService.DodajNowegoUzytkownika(user);
+                        
+                        result = Json(new
+                        {
+                            success = sucess
+                        }, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        result = Json(new
+                        {
+                            sucess = false,
+                            noPermission = true
+                        }, JsonRequestBehavior.AllowGet);
+                    }
                 }
-
-                result = Json(new
-                {
-                    success = sucess
-                }, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception ex)
@@ -378,7 +391,7 @@ namespace Eteczka.BE.Controllers
         public ActionResult PobierzPracownika(string nazwa, string haslo)
         {
             LOGGER.LOG(PoziomLogowania.STATISTIC, Akcja.USER_LOGIN, string.Format("Login attempt [{0}]", nazwa));
-            
+
             KatLoginy user = _KatLoginyService.GetUserByNameAndPassword(nazwa, haslo);
             bool success = user != null;
 
