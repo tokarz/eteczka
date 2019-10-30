@@ -46,12 +46,12 @@ namespace Eteczka.Be.Tests.Services
                 }
             };
             List<KatRejony> RejonyZDb = new List<KatRejony>();
-            _RejonyDao.PobieraczRejonowDlaFirmy("Jagrol").Returns(RejonyZDb);
+            _RejonyDao.PobierzRejonyDlaFirmy("Jagrol").Returns(RejonyZDb);
             List<KatRejony> Result = _Sut.PobierzRejonyDlaFirmy(sesja);
 
             Assert.AreSame(RejonyZDb, Result);
 
-            _RejonyDao.Received(1).PobieraczRejonowDlaFirmy("Jagrol");
+            _RejonyDao.Received(1).PobierzRejonyDlaFirmy("Jagrol");
         }
         [Test]
         public void WyszukajRejon()

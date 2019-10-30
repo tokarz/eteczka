@@ -298,7 +298,37 @@ namespace Eteczka.BE.Controllers
                 
             }
             return result;
+        }
 
+        [HttpPatch]
+        public ActionResult PrzywrocFirmeWBazie(string sessionId, string nip)
+        {
+            ActionResult result = null;
+            InsertResult operationResult = new InsertResult();
+            SessionDetails sesja = null;
+            try
+            {
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    operationResult = _FirmyService.PrzywrocFirmeZBazy(nip, sesja.IdUzytkownika, sesja.IdUzytkownika);
+
+                    result = Json(new
+                    {
+                        operationResult,
+                        sucess = operationResult.Result ? true : false
+                    }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception)
+            {
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            return result;
         }
 
     }

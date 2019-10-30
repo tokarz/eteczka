@@ -56,7 +56,7 @@ namespace Eteczka.BE.Services
 
             else if (firmaWBazie != null && firmaWBazie.Usuniety == true )
             {
-                result.Result = _Dao.PrzywrocFirmeZBazy(firmaDoDodania.Nip);
+                result.Result = _Dao.PrzywrocFirmeZBazy(firmaDoDodania.Nip,idoper, idakcept);
                 result.Message = result.Result ? "Firma o podanym numerze NIP znajdowała się już w bazie. Zmieniono status firmy na aktywny." : "Próba dodania firmy nie powiodła się.";
 
             }
@@ -132,6 +132,21 @@ namespace Eteczka.BE.Services
         {
             List<KatFirmy> result = _Dao.WyszukajFirmePoNazwieNipieLubFirmie(search);
 
+            return result;
+        }
+
+        public InsertResult PrzywrocFirmeZBazy(string nip, string idoper, string idakcept)
+        {
+            InsertResult result = new InsertResult();
+            if (_Dao.PobierzFirmePoNipie(nip) != null)
+            {
+                result.Result = _Dao.PrzywrocFirmeZBazy(nip, idoper, idakcept);
+                result.Message = result.Result ? "Firma została przeniesiona do aktywnych." : "Operacja przywrócenia firmy nie powiodła się.";
+            }
+            else
+            {
+                result.Message = "Firma o podanym numerze NIP nie istnieje w bazie.";
+            }
             return result;
         }
     }

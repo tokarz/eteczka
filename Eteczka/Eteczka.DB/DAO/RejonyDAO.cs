@@ -73,7 +73,7 @@ namespace Eteczka.DB.DAO
             }
             return PobraneRejony;
         }
-        public List<KatRejony> PobieraczRejonowDlaFirmy (string firma)
+        public List<KatRejony> PobierzRejonyDlaFirmy (string firma)
         {
             List<KatRejony> PobraneRejony = new List<KatRejony>();
             string sqlQuery = "SELECT * FROM \"KatRejony\" where LOWER(firma) = '"+ (firma.ToLower().Trim()) +"' ORDER BY nazwa";
@@ -87,6 +87,23 @@ namespace Eteczka.DB.DAO
             }
             return PobraneRejony;
         }
+
+        public List<KatRejony> PobierzAktywneRejonyDlaFirmy(string firma)
+        {
+            List<KatRejony> RejonyZDb= this.PobierzRejonyDlaFirmy(firma);
+
+
+            return RejonyZDb.Where(rejon => rejon.Usuniety == false).ToList();
+        }
+
+        public List<KatRejony> PobierzNieaktywneRejonyDlaFirmy(string firma)
+        {
+            List<KatRejony> RejonyZDb = this.PobierzRejonyDlaFirmy(firma);
+
+
+            return RejonyZDb.Where(rejon => rejon.Usuniety == true).ToList();
+        }
+
         public bool SprawdzCzyRejonIstniejeWFirmie(string rejon, string firma)
         {
             bool result = false;

@@ -45,8 +45,70 @@ namespace Eteczka.BE.Controllers
             {
                 Rejony = PobraneRejony
             }, JsonRequestBehavior.AllowGet);
-
         }
+
+        [HttpGet]
+        public ActionResult PobierzAktywneRejonyDlaFirmy(string sessionId, string firma)
+        {
+            ActionResult result = null;
+            List<KatRejony> PobraneRejony = new List<KatRejony>();
+
+            try
+            {
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    PobraneRejony = _rejonyService.PobierzAktywneRejonyDlaFirmy(firma);
+
+                    result = Json(new
+                    {
+                        PobraneRejony,
+                        sucess = PobraneRejony.Count > 0 ? true : false
+                    }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception)
+            {
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+            return result;
+        }
+
+        [HttpGet]
+        public ActionResult PobierzNieaktywneRejonyDlaFirmy(string sessionId, string firma)
+        {
+            ActionResult result = null;
+            List<KatRejony> PobraneRejony = new List<KatRejony>();
+
+            try
+            {
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    PobraneRejony = _rejonyService.PobierzNieaktywneRejonyDlaFirmy(firma);
+
+                    result = Json(new
+                    {
+                        PobraneRejony,
+                        sucess = PobraneRejony.Count > 0 ? true : false
+                    }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception)
+            {
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+            return result;
+        }
+
         public ActionResult PobierzRejonyDlaChwilowoWybranejFirmy(string sessionId, string firma)
         {
             List<KatRejony> PobraneRejony = new List<KatRejony>();
