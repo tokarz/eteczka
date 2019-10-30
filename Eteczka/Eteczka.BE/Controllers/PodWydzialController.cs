@@ -35,7 +35,7 @@ namespace Eteczka.BE.Controllers
                 PodWydzialy = pobranePodWydzialy
             }, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult PobierzWszystkiePodwydzialy(string sessionId, string wydzial, string firma)
+        public ActionResult PobierzWszystkiePodwydzialyDoStruktury(string sessionId, string wydzial, string firma)
         {
 
             List<KatPodWydzialy> pobranePodWydzialy = new List<KatPodWydzialy>();
