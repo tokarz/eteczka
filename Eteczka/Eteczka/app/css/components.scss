@@ -87,7 +87,7 @@
 
 .toolbar-panel {
     height: 30px;
-    background-color: $tableHeader;
+    background-color: $darkblue;
     color: white;
     padding: 0;
     margin: 0 0 5px;
@@ -175,6 +175,7 @@
     background: whitesmoke;
     text-align: justify;
     padding-left: 5px;
+    border: 1px solid $darkblue;
 }
 
 .option-select-all {
@@ -260,7 +261,7 @@
 
 
 .active-row {
-    background: $lightblue !important;
+    background: $darkblue !important;
     color: white;
 }
 
@@ -278,7 +279,7 @@
 }
 
 .fa-pencil-square:hover {
-    color: $darkblue;
+    color: yellow;
 }
 
 .user-details-toolbar {
@@ -504,6 +505,19 @@ table.dataTable thead td {
 .choose-folder-col i:hover {
     color: $darkred;
     cursor: pointer;
+}
+
+md-tabs-canvas {
+    height: 30px !important;
+    background: #074C75;
+}
+
+md-pagination-wrapper {
+    height: 30px !important;
+}
+
+md-tab-item {
+    padding-top: 2px !important;
 }
 
 @media screen and (max-width:1360px) and (min-width: 961px) {

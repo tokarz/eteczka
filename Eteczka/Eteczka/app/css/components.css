@@ -88,7 +88,7 @@
 
 .toolbar-panel {
   height: 30px;
-  background-color: #31B1DE;
+  background-color: #074C75;
   color: white;
   padding: 0;
   margin: 0 0 5px; }
@@ -159,7 +159,8 @@
   box-shadow: 0 0 1px black;
   background: whitesmoke;
   text-align: justify;
-  padding-left: 5px; }
+  padding-left: 5px;
+  border: 1px solid #074C75; }
 
 .option-select-all {
   position: absolute;
@@ -231,7 +232,7 @@
   color: #074C75; }
 
 .active-row {
-  background: #8FE1E1 !important;
+  background: #074C75 !important;
   color: white; }
 
 .checked-row {
@@ -245,7 +246,7 @@
   color: forestgreen; }
 
 .fa-pencil-square:hover {
-  color: #074C75; }
+  color: yellow; }
 
 .user-details-toolbar {
   height: 30px;
@@ -441,3 +442,13 @@ table.dataTable thead td {
 .choose-folder-col i:hover {
   color: darkred;
   cursor: pointer; }
+
+md-tabs-canvas {
+  height: 30px !important;
+  background: #074C75; }
+
+md-pagination-wrapper {
+  height: 30px !important; }
+
+md-tab-item {
+  padding-top: 2px !important; }

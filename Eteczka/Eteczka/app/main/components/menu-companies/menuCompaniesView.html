@@ -1,9 +1,9 @@
-﻿<div class="component-main-wrapper">
+﻿<div class="component-main-wrapper" ng-show="company">
     <div class="user-details">
         <div class="top-toolbar toolbar-panel">
             <span class="toolbar-option option-one fa fa-plus-circle" ng-click="openAddCompanyDialog()"></span>
-            <span ng-show="company" class="toolbar-option option-one fa fa-pencil-square" ng-click="openEditCompanyDialog()"></span>
-            <span ng-show="company" class="toolbar-option option-three fa fa-trash-o" ng-click="triggerDeleteCompany(company)"></span>
+            <span class="toolbar-option option-one fa fa-pencil-square" ng-click="openEditCompanyDialog()"></span>
+            <span class="toolbar-option option-three fa fa-trash-o" ng-click="triggerDeleteCompany(company)"></span>
         </div>
         <div class="user-details-list toolbar-content">
             <h3 style="margin:auto;text-align:center">Dane Firmy</h3>
@@ -62,11 +62,19 @@
         </div>
     </div>
     <div class="user-history">
-        <div class="top-toolbar toolbar-panel">
-            Zakładki....
-        </div>
-        <div class="toolbar-content">
-            Dane Firmy......
-        </div>
+        <md-content style="height:100%">
+            <md-tabs class="md-primary ui-style-header" md-center-tabs>
+                <md-tab label="{{tab.title}}" ng-repeat="tab in tabs" style="height:30px;background:red">
+                    <md-content class="md-padding">
+                        <p class="md-body-1">
+                            <add-company-structure company="company" type="{{tab.type}}"></add-company-structure>
+                        </p>
+                    </md-content>
+                </md-tab>
+            </md-tabs>
+        </md-content>
     </div>
+</div>
+<div ng-show="!company" class="component-main-wrapper">
+    <h1 class="middle-absolute">Zaznacz Firmę</h1>
 </div>

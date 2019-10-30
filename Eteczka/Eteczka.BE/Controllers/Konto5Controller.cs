@@ -12,7 +12,7 @@ namespace Eteczka.BE.Controllers
     {
         private IKonto5Service _katKonto5Service;
 
-        public Konto5Controller (IKonto5Service katKonto5Service)
+        public Konto5Controller(IKonto5Service katKonto5Service)
         {
             this._katKonto5Service = katKonto5Service;
         }
@@ -26,14 +26,14 @@ namespace Eteczka.BE.Controllers
                 SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
                 pobraneKonta5 = _katKonto5Service.PobierzKonta5(sesja.AktywnaFirma.Firma);
             }
-           
+
             return Json(new
             {
-               pobraneKonta5 = pobraneKonta5
+                Konta = pobraneKonta5
             }, JsonRequestBehavior.AllowGet);
         }
         [HttpGet]
-        public ActionResult PobierzKonta5(string sessionId, string firma)
+        public ActionResult PobierzKonta5DlaFirmy(string sessionId, string firma)
         {
 
             List<KatKonto5> pobraneKonta5 = new List<KatKonto5>();
@@ -45,7 +45,7 @@ namespace Eteczka.BE.Controllers
 
             return Json(new
             {
-                pobraneKonta5 = pobraneKonta5
+                Konta = pobraneKonta5
             }, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
@@ -79,7 +79,7 @@ namespace Eteczka.BE.Controllers
         }
 
         [HttpPut]
-        public ActionResult EdytujKonto5 (string sessionId, KatKonto5 konto)
+        public ActionResult EdytujKonto5(string sessionId, KatKonto5 konto)
         {
             ActionResult result = null;
             SessionDetails sesja = null;
@@ -107,8 +107,8 @@ namespace Eteczka.BE.Controllers
             }
 
             return result;
-        }  
-        
+        }
+
         [HttpPut]
         public ActionResult UsunKonto5(string sessionId, KatKonto5 konto)
         {

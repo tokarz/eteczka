@@ -33,7 +33,7 @@ namespace Eteczka.BE.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
         [HttpGet]
-        public ActionResult PobierzWydzialy(string sessionId, string firma)
+        public ActionResult PobierzWydzialyDlaFirmy(string sessionId, string firma)
         {
             List<KatWydzialy> PobraneWydzialy = new List<KatWydzialy>();
             if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))

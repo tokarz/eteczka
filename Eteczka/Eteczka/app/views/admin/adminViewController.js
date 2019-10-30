@@ -13,7 +13,7 @@ angular.module('et.controllers').controller('adminViewController', ['$scope', '$
 		{
 			label: 'Firmy',
 			ngclass: 'menu-icon fa fa-building',
-			menuclass: 'menu-button menu-button-one',
+			menuclass: 'menu-button menu-button-two',
 			clickaction: function () {
 				$state.go('settingscompanies');
 			}
@@ -21,7 +21,7 @@ angular.module('et.controllers').controller('adminViewController', ['$scope', '$
         {
             label: 'Importy',
             ngclass: 'menu-icon fa fa-upload',
-            menuclass: 'menu-button menu-button-two',
+            menuclass: 'menu-button menu-button-three',
             clickaction: function () {
                 $state.go('settingsimport');
             }
@@ -29,7 +29,7 @@ angular.module('et.controllers').controller('adminViewController', ['$scope', '$
         {
             label: 'Sesje',
             ngclass: 'menu-icon fa fa-clock-o',
-            menuclass: 'menu-button menu-button-three',
+            menuclass: 'menu-button menu-button-four',
             clickaction: function () {
                 $state.go('settingssessions');
             }
@@ -37,7 +37,7 @@ angular.module('et.controllers').controller('adminViewController', ['$scope', '$
         {
             label: 'Foldery i pliki',
             ngclass: 'menu-icon fa fa-files-o',
-            menuclass: 'menu-button menu-button-four',
+            menuclass: 'menu-button menu-button-five',
             clickaction: function () {
                 $state.go('settingsfiles');
             }
@@ -45,7 +45,7 @@ angular.module('et.controllers').controller('adminViewController', ['$scope', '$
         {
             label: 'Hasła',
             ngclass: 'menu-icon fa fa-key',
-            menuclass: 'menu-button menu-button-five',
+            menuclass: 'menu-button menu-button-six',
             clickaction: function () {
                 $state.go('adminsessions');
             }

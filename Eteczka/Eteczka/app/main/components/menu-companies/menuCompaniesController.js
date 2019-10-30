@@ -3,9 +3,28 @@ angular.module('et.controllers').controller('menuCompaniesController', ['$scope'
 	$scope.$watch('company', function (company) {
 	});
 
+	$scope.tabs = [
+		{
+			title: 'Wydzial',
+			type: 0
+		},
+		{
+			title: 'Podwydzial',
+			type: 1
+		},
+		{
+			title: 'Rejon',
+			type: 2
+		},
+		{
+			title: 'Konto',
+			type: 3
+		}
+	];
+
 	$scope.openEditCompanyDialog = function () {
-		var modalOptions = {
-			body: 'app/main/components/menu-users-content/addEditCompanyModal/companyModal.html',
+		const modalOptions = {
+			body: 'app/main/components/menu-companies/addEditCompanyModal/companyModal.html',
 			controller: $scope.addCompanyControllerFunction,
 			locals: {
 				isEdit: true,
@@ -25,9 +44,21 @@ angular.module('et.controllers').controller('menuCompaniesController', ['$scope'
 		);
 	};
 
+	const openModal = function (modalOptions, executor) {
+		return modalService.showModal(modalOptions)
+			.then(function (result) {
+				return executor(result);
+			})
+			.catch(function (error) {
+				if (error !== 'cancel' && error !== 'backdrop click') {
+					console.log("error found!", error);
+				}
+			});
+	};
+
 	$scope.openAddCompanyDialog = function () {
-		var modalOptions = {
-			body: 'app/main/components/menu-users-content/addEditUserModal/userModal.html',
+		const modalOptions = {
+			body: 'app/main/components/menu-companies/addEditCompanyModal/companyModal.html',
 			controller: $scope.addCompanyControllerFunction,
 			locals: {
 				isEdit: false,
@@ -38,11 +69,7 @@ angular.module('et.controllers').controller('menuCompaniesController', ['$scope'
 		openModal(
 			modalOptions,
 			function (value) {
-				settingsService.addNewUser(value).then(function (res) {
-					if (res.success) {
-						$state.reload();
-					}
-				}).catch();
+				alert(value);
 			}
 		);
 	};
@@ -51,13 +78,12 @@ angular.module('et.controllers').controller('menuCompaniesController', ['$scope'
 		alert('delete ' + company);
 	};
 
-	$scope.addCompanyControllerFunction = function ($scope, $mdDialog, modalService, isEdit, user) {
+	$scope.addCompanyControllerFunction = function ($scope, $mdDialog, modalService, isEdit, company) {
 		$scope.isEdit = isEdit ? true : false;
 
 		$scope.modalResult = {};
-
-		if (user) {
-			$scope.modalResult = user;
+		if (company) {
+			$scope.modalResult = company;
 		}
 
 		$scope.yesNoOptions = [{ name: 'TAK', value: true }, { name: 'NIE', value: false }];

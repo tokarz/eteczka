@@ -5,13 +5,13 @@
     <div class="toolbar-content" style="overflow-y:hidden">
         <input placeholder="{{placeholder}}" class="table-search" type="search" ng-model="search" />
         <table class="ead-table">
-            <tbody>
+            <tbody ng-click="deselectRow()">
                 <tr ng-if="loading" style="text-align:center">
                     <td style="display:block;width:90%;margin:auto">
                         <processing></processing>
                     </td>
                 </tr>
-                <tr ng-if="!loading" ng-repeat="row in rows | filter:search" ng-click="selectRow(row)" ng-class="getRowStyle(row)">
+                <tr ng-if="!loading" ng-repeat="row in rows | filter:search" ng-click="selectRow(row); $event.stopPropagation();" ng-class="getRowStyle(row)">
                     <td ng-if="customColumns" title="{{row[customTitleColumn]}}">
                         <span ng-repeat="column in customColumns.split(',')">{{row[column]}}</span>
                     </td>

@@ -1,6 +1,6 @@
 ﻿'use strict';
 angular.module('et.controllers').controller('menuTableController', ['$scope', function ($scope) {
-	$scope.selectedrow = {};
+	$scope.selectedrow = null;
 
 	$scope.isTabActive = function (tab) {
 		var result = 'tab tab-default';
@@ -14,9 +14,13 @@ angular.module('et.controllers').controller('menuTableController', ['$scope', fu
 		$scope.activetab = tab;
 	};
 
+	$scope.deselectRow = function () {
+		$scope.selectedrow = null;
+	};
+
 	$scope.selectRow = function (user) {
 		if ($scope.selectedrow === user) {
-			$scope.selectedrow = {};
+			$scope.selectedrow = null;
 		} else {
 			$scope.selectedrow = user;
 		}
@@ -42,11 +46,14 @@ angular.module('et.controllers').controller('menuTableController', ['$scope', fu
 		}
 	};
 
-	$scope.getRowStyle = function (user) {
-		var result = 'table-row';
+	$scope.getRowStyle = function (row) {
+		let result = 'table-row ';
 
-		if (user && $scope.selectedrow && user.Numeread && $scope.selectedrow.Numeread && user.Numeread === $scope.selectedrow.Numeread) {
-			result += ' active-row';
+		if (row && $scope.selectedrow && row === $scope.selectedrow) {
+			result += 'active-row ';
+			//if (row.Numeread && $scope.selectedrow.Numeread && row.Numeread === $scope.selectedrow.Numeread) {
+			//	result += 'active-user-row ';
+			//}
 		}
 
 		return result;

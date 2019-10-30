@@ -1,7 +1,7 @@
 ﻿<div class="option-wrapper">
     <menu-table rows="parameters.employees" selectedrow="parameters.user" loading="parameters.loading" tabs="parameters.tabs" activetab="parameters.activeTab" search="parameters.searchTerm" placeholder="Wpisz nazwisko lub PESEL"></menu-table>
     <div class="component-content-wrapper">
-        <h1 ng-if="!parameters.user">Zaznacz Pracownika</h1>
+        <h1 class="middle-absolute" ng-if="!parameters.user">Zaznacz Pracownika</h1>
         <div ng-if="parameters.user">
             <menu-files-content user="parameters.user" has-summary="true"></menu-files-content>
         </div>
