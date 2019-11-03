@@ -74,6 +74,26 @@ namespace Eteczka.DB.DAO
             return PobranePodWydzialy;
         }
 
+        public List<KatPodWydzialy> PobierzAktywnePodwydzialyDlaFirmy(string firma, string wydzial)
+        {
+            List<KatPodWydzialy> PodWydzialyZDb = this.PobierzPodWydzialy(firma, wydzial);
+            List<KatPodWydzialy> AktywneWydzialy = (from podWydzial in PodWydzialyZDb
+                                                    where podWydzial.Usuniety == false
+                                                    select podWydzial).ToList();
+
+            return AktywneWydzialy;
+        }
+
+        public List<KatPodWydzialy> PobierzNieaktywnePodwydzialyDlaFirmy(string firma, string wydzial)
+        {
+            List<KatPodWydzialy> PodWydzialyZDb = this.PobierzPodWydzialy(firma, wydzial);
+            List<KatPodWydzialy> NieaktywneWydzialy = (from podWydzial in PodWydzialyZDb
+                                                    where podWydzial.Usuniety == true
+                                                    select podWydzial).ToList();
+
+            return NieaktywneWydzialy;
+        }
+
         public bool SprawdzCzyPodWydzialIstnieje(string firma, string wydzial, string podwydzial)
         {
             bool result = false;
@@ -148,5 +168,21 @@ namespace Eteczka.DB.DAO
 
             return result;
         }
+
+        public bool PrzywrocPodwydzial(KatPodWydzialy podwydzial, string idoper,string idakcept)
+        {
+            bool result = false;
+
+            string sqlQuery = "UPDATE \"KatPodWydzial\" SET usuniety = 'false', idoper = '" + idoper + "', idakcept = '" + idakcept + "', " +
+                "datamodify = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ms") + "', dataakcept = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ms") +
+                 "' WHERE firma = '" + podwydzial.Firma + 
+                 "' AND wydzial = '" + podwydzial.Wydzial + "' AND podwydzial = '" + podwydzial.Podwydzial + "' ";
+
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+            result = connectionState.ExecuteNonQuery(sqlQuery);
+
+            return result;
+        }
+           
     }
 }

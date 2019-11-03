@@ -46,6 +46,22 @@ namespace Eteczka.BE.Services
             return result;
         }
 
+        public List<KatPodWydzialy>PobierzAktywnePodwydzialyDlaFirmy(string firma, string wydzial)
+        {
+            List<KatPodWydzialy> AktywnePodwydzialy = _PodWydzialDAO.PobierzAktywnePodwydzialyDlaFirmy(firma, wydzial);
+
+
+            return AktywnePodwydzialy;
+        }
+
+        public List<KatPodWydzialy> PobierzNieaktywnePodwydzialyDlaFirmy(string firma, string wydzial)
+        {
+            List<KatPodWydzialy> NieaktywnePodwydzialy = _PodWydzialDAO.PobierzNieaktywnePodwydzialyDlaFirmy(firma, wydzial);
+
+
+            return NieaktywnePodwydzialy;
+        }
+
         public InsertResult EdytujPodWydzial(KatPodWydzialy podWydzialDoEdycji, string idoper, string idakcept)
         {
             InsertResult result = new InsertResult();
@@ -78,6 +94,24 @@ namespace Eteczka.BE.Services
             }
 
             return result;
+        }
+
+        public InsertResult PrzywrocPodWydzialZBazy(KatPodWydzialy podwydzial, string idoper, string idakcept)
+        {
+            InsertResult result = new InsertResult();
+
+            if (_PodWydzialDAO.SprawdzCzyPodWydzialIstnieje(podwydzial.Firma, podwydzial.Wydzial, podwydzial.Podwydzial))
+            {
+                result.Result = _PodWydzialDAO.PrzywrocPodwydzial(podwydzial, idoper, idakcept);
+                result.Message = result.Result ? "Podwydział został przywrócony." : "Próba przywrócenia podwydziału nie powiodła się.";
+            }
+            else
+            {
+                result.Message = "Próba przywrócenia podwydziału nie powiodła się. Podany podwydział nie istnieje w bazie danych";
+            }
+
+            return result;
+
         }
     }
 }

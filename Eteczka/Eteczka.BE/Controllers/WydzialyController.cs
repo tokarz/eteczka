@@ -32,6 +32,8 @@ namespace Eteczka.BE.Controllers
                 Wydzialy = PobraneWydzialy
             }, JsonRequestBehavior.AllowGet);
         }
+
+
         [HttpGet]
         public ActionResult PobierzWydzialyDlaFirmy(string sessionId, string firma)
         {
@@ -46,6 +48,70 @@ namespace Eteczka.BE.Controllers
             {
                 Wydzialy = PobraneWydzialy
             }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult PobierzAktywneWydzialyDlaFirmy(string sessionId, string firma)
+        {
+            ActionResult result = null;
+            List<KatWydzialy> WydzialyZDb = new List<KatWydzialy>();
+
+            try
+            {
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    WydzialyZDb = _wydzialyService.PobierzAktywneWydzialyDlaFirmy(firma);
+
+                    result = Json(new
+                    {
+                        WydzialyZDb,
+                        sucess = WydzialyZDb.Count > 0 ? true : false
+                    }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception)
+            {
+
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+            return result;
+        }
+
+        [HttpGet]
+        public ActionResult PobierzNieaktywneWydzialyDlaFirmy(string sessionId, string firma)
+        {
+            ActionResult result = null;
+            List<KatWydzialy> WydzialyZDb = new List<KatWydzialy>();
+
+            try
+            {
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    WydzialyZDb = _wydzialyService.PobierzNieaktywneWydzialyDlaFirmy(firma);
+
+                    result = Json(new
+                    {
+                        WydzialyZDb,
+                        sucess = WydzialyZDb.Count > 0 ? true : false
+                    }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception)
+            {
+
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+            return result;
         }
 
         [HttpPost]
@@ -138,8 +204,41 @@ namespace Eteczka.BE.Controllers
 
             }
             return result;
-            }
         }
 
+        [HttpPatch]
+        public ActionResult PrzywrocWydzialWFirmie(string sessionId, string firma, string wydzial)
+        {
+            ActionResult result = null;
+            InsertResult queryResult = new InsertResult();
+
+            try
+            {
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    queryResult = _wydzialyService.PrzywrocWydzialWFirmieZDb(firma, wydzial, sesja.IdUzytkownika, sesja.IdUzytkownika);
+
+                    result = Json(new
+                    {
+                        queryResult,
+
+                    }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception)
+            {
+                result = Json(new
+                {
+                    queryResult = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+            return result;
+        }
     }
+
+
+}
 
