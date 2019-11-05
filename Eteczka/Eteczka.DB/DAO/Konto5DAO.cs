@@ -61,7 +61,7 @@ namespace Eteczka.DB.DAO
 
             List<KatKonto5> PobraneKonta5 = new List<KatKonto5>();
 
-            string sqlQuery = "Select * FROM \"KatKonta5\" WHERE firma IN ('"+ firma + "') ORDER BY konto5";
+            string sqlQuery = "Select * FROM \"KatKonta5\" WHERE firma IN ('" + firma + "') ORDER BY konto5";
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
             DataTable result = connectionState.ExecuteQuery(sqlQuery);
             foreach (DataRow row in result.Rows)
@@ -72,7 +72,20 @@ namespace Eteczka.DB.DAO
 
             }
             return PobraneKonta5;
+        }
 
+        public List<KatKonto5> PobierzAktywneKonta5DlaFirmy(string firma)
+        {
+            List<KatKonto5> PobraneFirmy = this.pobierajKonto5DlaFirmy(firma).Where(konto => konto.Usuniety == false).ToList();
+
+            return PobraneFirmy;
+        }
+
+        public List<KatKonto5> PobierzNieaktywneKonta5DlaFirmy(string firma)
+        {
+            List<KatKonto5> PobraneFirmy = this.pobierajKonto5DlaFirmy(firma).Where(konto => konto.Usuniety == true).ToList();
+
+            return PobraneFirmy;
         }
 
         public bool DodajKonto5(KatKonto5 konto, string idoper, string idakcept)
@@ -103,7 +116,7 @@ namespace Eteczka.DB.DAO
             return result;
         }
 
-        public bool EdytujKonto5 (KatKonto5 konto, string idoper, string idakcept)
+        public bool EdytujKonto5(KatKonto5 konto, string idoper, string idakcept)
         {
             bool result = false;
 
@@ -130,7 +143,20 @@ namespace Eteczka.DB.DAO
             return result;
         }
 
-        public List<KatKonto5> WyszukajKonto5 (string firma, string search)
+        public bool PrzywrocKonto5(string firma, string konto5, string idoper, string idakcept)
+        {
+            bool result = false;
+            string sqlQuery  = "UPDATE \"KatKonta5\" SET usuniety = 'false', idoper = '" + idoper + "', idakcept = '" + idakcept + "', " +
+                "datamodify = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ms") + "', dataakcept = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ms") +
+                 "' WHERE firma = '" + firma + "' AND konto5 = '" + konto5 + "' ";
+
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+            result = connectionState.ExecuteNonQuery(sqlQuery);
+
+            return result;
+        }
+
+        public List<KatKonto5> WyszukajKonto5(string firma, string search)
         {
             List<KatKonto5> result = new List<KatKonto5>();
 
@@ -159,7 +185,7 @@ namespace Eteczka.DB.DAO
             int count = 0;
             DataTable table = connection.ExecuteQuery(sqlQuery);
 
-            if(table != null && table.Rows != null && table.Rows.Count > 0 )
+            if (table != null && table.Rows != null && table.Rows.Count > 0)
             {
                 count = int.Parse(table.Rows[0][0].ToString());
             }
