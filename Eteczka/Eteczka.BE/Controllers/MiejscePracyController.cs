@@ -41,18 +41,33 @@ namespace Eteczka.BE.Controllers
             ActionResult result = null;
             InsertResult wynikInserta = null;
             SessionDetails detaleSesji = null;
+            bool hasPermissions = false;
 
             try
             {
-                if(Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
                 {
                     detaleSesji = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
-                    wynikInserta = _MiejscePracyService.DodajMiejscePracy(detaleSesji, miejsceDoDodania);
+                    hasPermissions = detaleSesji.AktywnaFirma.Uprawnienia.RolaAddPracownik ? true : false;
+
+                    if (hasPermissions)
+                    {
+                        wynikInserta = _MiejscePracyService.DodajMiejscePracy(detaleSesji, miejsceDoDodania);
+                        result = Json(new
+                        {
+                            sucess = wynikInserta
+                        }, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        result = Json(new
+                        {
+                            sucess = false,
+                            hasPermissions = false
+                        }, JsonRequestBehavior.AllowGet);
+                    }
                 }
-                result = Json(new
-                {
-                    sucess = wynikInserta
-                }, JsonRequestBehavior.AllowGet);
+
             }
             catch (Exception)
             {
@@ -64,24 +79,38 @@ namespace Eteczka.BE.Controllers
             }
             return result;
         }
+
         [HttpPut]
         public ActionResult EdytujMiejscePracy(string sessionId, MiejscePracy miejsceDoEdycji)
         {
             ActionResult result = null;
             SessionDetails detaleSesji = null;
             InsertResult wynikInserta = null;
-
+            bool hasPermissions = false;
             try
             {
                 if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
                 {
                     detaleSesji = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
-                    wynikInserta = _MiejscePracyService.EdytujMiejscePracy(detaleSesji, miejsceDoEdycji);
+                    hasPermissions = detaleSesji.AktywnaFirma.Uprawnienia.RolaModifyPracownik ? true : false;
+
+                    if (hasPermissions)
+                    {
+                        wynikInserta = _MiejscePracyService.EdytujMiejscePracy(detaleSesji, miejsceDoEdycji);
+                        result = Json(new
+                        {
+                            sucess = wynikInserta
+                        }, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        result = Json(new
+                        {
+                            sucess = false,
+                            hasPermissions = false
+                        }, JsonRequestBehavior.AllowGet);
+                    }
                 }
-                result = Json(new
-                {
-                    sucess = wynikInserta
-                }, JsonRequestBehavior.AllowGet);  
             }
             catch (Exception ex)
             {
@@ -92,6 +121,7 @@ namespace Eteczka.BE.Controllers
                     wyjatek = true
                 }, JsonRequestBehavior.AllowGet);
             }
+
             return result;
         }
 
@@ -101,19 +131,32 @@ namespace Eteczka.BE.Controllers
             ActionResult result = null;
             InsertResult wynikUpdate = null;
             SessionDetails detaleSesji = null;
+            bool hasPermissions = false;
 
             try
             {
-                if(Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
                 {
                     detaleSesji = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
-                    wynikUpdate = _MiejscePracyService.UsunMiejscePracy(detaleSesji, miejsceDoUsuniecia);
+                    hasPermissions = detaleSesji.AktywnaFirma.Uprawnienia.RolaModifyPracownik ? true : false;
 
+                    if (hasPermissions)
+                    {
+                        wynikUpdate = _MiejscePracyService.UsunMiejscePracy(detaleSesji, miejsceDoUsuniecia);
+                        result = Json(new
+                        {
+                            sucess = wynikUpdate
+                        }, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        result = Json(new
+                        {
+                            sucess = false,
+                            hasPermissions = false
+                        }, JsonRequestBehavior.AllowGet);
+                    }
                 }
-                result = Json(new
-                {
-                    sucess = wynikUpdate
-                }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -121,11 +164,10 @@ namespace Eteczka.BE.Controllers
                 {
                     sucess = false,
                     wyjatek = true
-                }, JsonRequestBehavior.AllowGet);    
+                }, JsonRequestBehavior.AllowGet);
             }
+
             return result;
-
-
         }
     }
 }

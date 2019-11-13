@@ -25,19 +25,31 @@ namespace Eteczka.BE.Controllers
             bool success = false;
             ActionResult result = null;
             SessionDetails sesja = null;
+            bool hasPermissions = false;
             try
             {
                 if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
                 {
                     sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    hasPermissions = sesja.AktywnaFirma.Uprawnienia.RolaSendEmail ? true : false;
 
-                    success = _EmailService.WyslijPlikiMailem(sesja, email);
+                    if (hasPermissions)
+                    {
+                        success = _EmailService.WyslijPlikiMailem(sesja, email);
+                        result = Json(new
+                        {
+                            success
+                        }, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        result = Json(new
+                        {
+                            sucess = false,
+                            hasPermissions
+                        }, JsonRequestBehavior.AllowGet);
+                    }  
                 }
-                result = Json(new
-                {
-                    success
-                }, JsonRequestBehavior.AllowGet);
-
             }
 
             catch (Exception)

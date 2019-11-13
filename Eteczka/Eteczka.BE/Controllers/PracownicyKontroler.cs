@@ -55,7 +55,7 @@ namespace Eteczka.BE.Controllers
                     wyjatek = true
                 }, JsonRequestBehavior.AllowGet);
             }
-            
+
 
             var serializer = new JavaScriptSerializer();
 
@@ -78,18 +78,33 @@ namespace Eteczka.BE.Controllers
             InsertResult wynikInserta = new InsertResult();
             ActionResult result = null;
             SessionDetails sesja = null;
+            bool hasPermissions = false;
 
             try
             {
                 if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
                 {
                     sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
-                    wynikInserta = _PracownicyService.DodajPracownika(pracownikDoDodania, sesja);
+                    hasPermissions = sesja.AktywnaFirma.Uprawnienia.RolaAddPracownik ? true : false;
+
+                    if (hasPermissions)
+                    {
+                        wynikInserta = _PracownicyService.DodajPracownika(pracownikDoDodania, sesja);
+
+                        result = Json(new
+                        {
+                            success = wynikInserta,
+                        }, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        result = Json(new
+                        {
+                            success = false,
+                            hasPermissions
+                        }, JsonRequestBehavior.AllowGet);
+                    }
                 }
-                result = Json(new
-                {
-                    success = wynikInserta,
-                }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -99,11 +114,11 @@ namespace Eteczka.BE.Controllers
                     wyjatek = true,
                 }, JsonRequestBehavior.AllowGet);
             }
-            if (pracownikDoDodania.Imie !=null & pracownikDoDodania.Nazwisko != null & sesja != null)
+            if (pracownikDoDodania.Imie != null & pracownikDoDodania.Nazwisko != null & sesja != null)
             {
                 LOGER.LOG_MAIN_LOG(PoziomLogowania.INFO, Akcja.EMPLOYEE_PERSONAL_DATA_ADD, sesja, wynikInserta.Result, "KatPracownicy", pracownikDoDodania, " ", "Employee: [" + pracownikDoDodania.Imie.Trim() + " " + pracownikDoDodania.Nazwisko.Trim() + ", company: " + sesja.AktywnaFirma.Firma.Trim() + "] " + (wynikInserta.Result ? "added" : "add attempt failure."));
             }
-            
+
             return result;
         }
 
@@ -113,6 +128,7 @@ namespace Eteczka.BE.Controllers
             ActionResult result = null;
             InsertResult wynikInserta = null;
             SessionDetails detaleSesji = null;
+            bool hasPermissions = false;
 
             try
             {
@@ -120,13 +136,24 @@ namespace Eteczka.BE.Controllers
                 {
 
                     detaleSesji = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
-                    wynikInserta = _PracownicyService.DodajPracownikaIMiejscePracy(detaleSesji, pracownikDoDodania); 
+                    hasPermissions = detaleSesji.AktywnaFirma.Uprawnienia.RolaAddPracownik ? true : false;
+                    if (hasPermissions)
+                    {
+                        wynikInserta = _PracownicyService.DodajPracownikaIMiejscePracy(detaleSesji, pracownikDoDodania);
+                        result = Json(new
+                        {
+                            sucess = wynikInserta
+                        }, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        result = Json(new
+                        {
+                            sucess = false,
+                            hasPermissions
+                        }, JsonRequestBehavior.AllowGet);
+                    }  
                 }
-                result = Json(new
-                {
-                    sucess = wynikInserta
-                }, JsonRequestBehavior.AllowGet);
-
             }
             catch (Exception ex)
             {
@@ -134,7 +161,7 @@ namespace Eteczka.BE.Controllers
                 {
                     sucess = false,
                     wyjatek = true
-                }, JsonRequestBehavior.AllowGet); 
+                }, JsonRequestBehavior.AllowGet);
             }
 
             if (pracownikDoDodania.Imie != null & pracownikDoDodania.Nazwisko != null & detaleSesji != null)
@@ -153,18 +180,31 @@ namespace Eteczka.BE.Controllers
             InsertResult success = new InsertResult();
             ActionResult result = null;
             SessionDetails sesja = null;
+            bool hasPermissions = false;
             try
             {
                 if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
                 {
                     sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    hasPermissions = sesja.AktywnaFirma.Uprawnienia.RolaModifyPracownik ? true : false;
+                    if (hasPermissions)
+                    {
                     success = _PracownicyService.EdytujPracownika(pracownik, sesja);
-                }
 
-                result = Json(new
-                {
-                    sucess = success
-                }, JsonRequestBehavior.AllowGet);
+                    result = Json(new
+                    {
+                        sucess = success
+                    }, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        result = Json(new
+                        {
+                            sucess = false,
+                            hasPermissions
+                        }, JsonRequestBehavior.AllowGet);
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -178,7 +218,7 @@ namespace Eteczka.BE.Controllers
             {
                 LOGER.LOG_MAIN_LOG(PoziomLogowania.INFO, Akcja.EMPLOYEE_PERSONAL_DATA_EDIT, sesja, success.Result, "KatPracownicy", pracownik, " ", "Employee: [" + pracownik.Imie.Trim() + " " + pracownik.Nazwisko.Trim() + ", company: " + sesja.AktywnaFirma.Firma.Trim() + "]" + (success.Result ? " edition succesful" : "edition attempt failure."));
             }
-                
+
             return result;
         }
 
@@ -240,7 +280,7 @@ namespace Eteczka.BE.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
             return result;
-           
+
         }
 
         public ActionResult ImportujJson(string sessionId)
@@ -254,7 +294,7 @@ namespace Eteczka.BE.Controllers
                     success = this._ImportService.ImportujPracownikow(sessionId).ImportSukces;
                 }
 
-                result =  Json(new
+                result = Json(new
                 {
                     success = success
                 }, JsonRequestBehavior.AllowGet);
@@ -295,9 +335,9 @@ namespace Eteczka.BE.Controllers
                     wyjatek = true
                 }, JsonRequestBehavior.AllowGet);
             }
-             return result;
+            return result;
 
-            
+
         }
 
         public ActionResult WyszukajPracownikow(string sessionId, string search)
@@ -312,7 +352,7 @@ namespace Eteczka.BE.Controllers
                     pracownicy = _PracownicyService.ZnajdzPracownikow(search, sesja);
                 }
 
-                result =  Json(new
+                result = Json(new
                 {
                     sucess = pracownicy != null && pracownicy.Count > 0 ? true : false,
                     Pracownicy = pracownicy
@@ -327,7 +367,7 @@ namespace Eteczka.BE.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
             return result;
-           
+
         }
 
         public ActionResult WyszukajPracownikowPoTekscie(string sessionId, string search)
@@ -342,10 +382,10 @@ namespace Eteczka.BE.Controllers
                     Pracownicy = _PracownicyService.ZnajdzPracownikowPoTekscie(search, sesja);
                 }
 
-               result =  Json(new
+                result = Json(new
                 {
-                   sucess = Pracownicy != null && Pracownicy.Count > 0 ? true : false,
-                   pracownicy = Pracownicy
+                    sucess = Pracownicy != null && Pracownicy.Count > 0 ? true : false,
+                    pracownicy = Pracownicy
                 }, JsonRequestBehavior.AllowGet);
             }
             catch
@@ -357,7 +397,7 @@ namespace Eteczka.BE.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
             return result;
-           
+
         }
 
         public ActionResult WyszukajZatrPracownikowPoTekscie(string sessionId, string search)
@@ -419,7 +459,7 @@ namespace Eteczka.BE.Controllers
 
                 }, JsonRequestBehavior.AllowGet);
             }
-            return result; 
+            return result;
         }
     }
 }

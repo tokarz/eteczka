@@ -58,18 +58,33 @@ namespace Eteczka.BE.Controllers
             InsertResult sucess = new InsertResult();
             ActionResult result = null;
             SessionDetails sesja = null;
+            bool hasPermissions = false;
             try
             {
                 if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
                 {
                     sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    hasPermissions = sesja.AktywnaFirma.Uprawnienia.RolaSlowniki ? true : false;
 
-                    sucess = _KatDokumentyRodzajService.DodajRodzajDokumentuDoBazy(symbol, nazwaDokumentu, typEdycji, teczkaDzial, sesja);
+                    if (hasPermissions)
+                    {
+                        sucess = _KatDokumentyRodzajService.DodajRodzajDokumentuDoBazy(symbol, nazwaDokumentu, typEdycji, teczkaDzial, sesja);
+
+                        result = Json(new
+                        {
+                            success = sucess
+                        }, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        result = Json(new
+                        {
+                            sucess = false,
+                            hasPermissions
+                        }, JsonRequestBehavior.AllowGet);
+                    }
                 }
-                result = Json(new
-                {
-                    success = sucess
-                }, JsonRequestBehavior.AllowGet);
+
             }
             catch (Exception ex)
             {
@@ -79,29 +94,46 @@ namespace Eteczka.BE.Controllers
                     wyjatek = true
                 }, JsonRequestBehavior.AllowGet);
             }
-            LOGGER.LOG_MAIN_LOG(PoziomLogowania.INFO, Akcja.DOCUMENT_TYPE_ADD, sesja, sucess.Result, "KatDokumentyRodzaj", " ", " ", "Document [" + symbol.Trim() + "]" + (sucess.Result ? " added" : "add attempt failure"));
+
+            if (symbol != null)
+            {
+                LOGGER.LOG_MAIN_LOG(PoziomLogowania.INFO, Akcja.DOCUMENT_TYPE_ADD, sesja, sucess.Result, "KatDokumentyRodzaj", " ", " ", "Document [" + symbol.Trim() + "]" + (sucess.Result ? " added" : "add attempt failure"));
+            }
             return result;
-            
+
         }
         public ActionResult WylaczRodzajDokumentu(string symbol, string sessionId)
         {
             InsertResult sucess = new InsertResult();
             ActionResult result = null;
             SessionDetails sesja = null;
+            bool hasPermissions = false;
             try
             {
                 if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
                 {
                     sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    hasPermissions = sesja.AktywnaFirma.Uprawnienia.RolaSlowniki ? true : false;
 
-                    sucess = _KatDokumentyRodzajService.DezaktywujRodzajDokumentu(symbol, sesja);
+                    if (hasPermissions)
+                    {
+                        sucess = _KatDokumentyRodzajService.DezaktywujRodzajDokumentu(symbol, sesja);
+                        result = Json(new
+                        {
+                            success = sucess
+                        }, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        result = Json(new
+                        {
+                            success = false,
+                            hasPermissions
+                        }, JsonRequestBehavior.AllowGet);
+                    }
                 }
-                result = Json(new
-                {
-                    success = sucess
-                }, JsonRequestBehavior.AllowGet);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 result = Json(new
                 {
@@ -109,7 +141,12 @@ namespace Eteczka.BE.Controllers
                     wyjatek = true
                 }, JsonRequestBehavior.AllowGet);
             }
-            LOGGER.LOG_MAIN_LOG(PoziomLogowania.INFO, Akcja.DOCUMENT_TYPE_DELETE, sesja, sucess.Result, "KatDokumentyRodzaj", " ", " ", "Document [" + symbol.Trim() + "]" + (sucess.Result ? " deleted" : "delete attempt failure"));
+
+            if (symbol != null)
+            {
+                LOGGER.LOG_MAIN_LOG(PoziomLogowania.INFO, Akcja.DOCUMENT_TYPE_DELETE, sesja, sucess.Result, "KatDokumentyRodzaj", " ", " ", "Document [" + symbol.Trim() + "]" + (sucess.Result ? " deleted" : "delete attempt failure"));
+            }
+
             return result;
         }
 
@@ -146,18 +183,31 @@ namespace Eteczka.BE.Controllers
             InsertResult sucess = new InsertResult();
             ActionResult result = null;
             SessionDetails sesja = null;
+            bool hasPermissions = false;
             try
             {
                 if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
                 {
                     sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
-                    sucess = _KatDokumentyRodzajService.EdytujRodzajDokumentu(sesja, dokument);
-                }
-                result = Json(new
-                {
-                    sucess = sucess
+                    hasPermissions = sesja.AktywnaFirma.Uprawnienia.RolaSlowniki ? true : false;
 
-                }, JsonRequestBehavior.AllowGet);
+                    if (hasPermissions)
+                    {
+                        sucess = _KatDokumentyRodzajService.EdytujRodzajDokumentu(sesja, dokument);
+                        result = Json(new
+                        {
+                            sucess
+                        }, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        result = Json(new
+                        {
+                            sucess = false,
+                            hasPermissions
+                        }, JsonRequestBehavior.AllowGet);
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -167,7 +217,12 @@ namespace Eteczka.BE.Controllers
                     wyjatek = true
                 }, JsonRequestBehavior.AllowGet);
             }
+
+            if (dokument != null && dokument.Symbol != null)
+            {
             LOGGER.LOG_MAIN_LOG(PoziomLogowania.INFO, Akcja.DOCUMENT_TYPE_EDIT, sesja, sucess.Result, "KatDokumentyRodzaj", dokument, " ", "Document [" + dokument.Symbol.Trim() + "]" + (sucess.Result ? " edited" : "edition attempt failure"));
+            }
+
             return result;
         }
     }

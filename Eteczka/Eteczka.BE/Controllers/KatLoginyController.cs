@@ -184,33 +184,21 @@ namespace Eteczka.BE.Controllers
             bool sucess = false;
             ActionResult result = null;
             SessionDetails sesja = null;
-            bool hasPermission = false;
+           
             try
             {
                 StanSesji stanSesji = Sesja.PobierzStanSesji();
                 if (stanSesji.CzySesjaJestOtwarta(sessionId) && stanSesji.CzySesjaAdministratora(sessionId))
                 {
                     sesja = stanSesji.PobierzSesje(sessionId);
-                    hasPermission = sesja.AktywnaFirma.Uprawnienia.RolaAddPracownik ? true : false;
-                    if (hasPermission)
-                    {
+                    
                         sucess = _KatLoginyService.DodajNowegoUzytkownika(user);
                         
                         result = Json(new
                         {
                             success = sucess
-                        }, JsonRequestBehavior.AllowGet);
-                    }
-                    else
-                    {
-                        result = Json(new
-                        {
-                            sucess = false,
-                            noPermission = true
-                        }, JsonRequestBehavior.AllowGet);
-                    }
+                        }, JsonRequestBehavior.AllowGet); 
                 }
-
             }
             catch (Exception ex)
             {
