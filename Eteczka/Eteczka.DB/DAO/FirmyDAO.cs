@@ -185,12 +185,14 @@ namespace Eteczka.DB.DAO
             return result;   
         }
 
-        public bool PrzywrocFirmeZBazy(string nip)
+        public bool PrzywrocFirmeZBazy(string nip, string idoper, string idakcept)
         {
 
             bool result = false;
 
-            string sqlQuery = "UPDATE \"KatFirmy\" SET usuniety = 'false' WHERE nip = '" + nip + "'";
+            string sqlQuery = "UPDATE \"KatFirmy\" SET usuniety = 'false', idoper = '" + idoper + "', idakcept = '" + idakcept + "', " +
+                "datamodify = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ms") + "', dataakcept = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ms") + 
+                "'  WHERE nip = '" + nip + "'";
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
             result = connectionState.ExecuteNonQuery(sqlQuery);
 

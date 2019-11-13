@@ -27,6 +27,20 @@ namespace Eteczka.BE.Services
             return pobraneWydzialy;
         }
 
+        public List<KatWydzialy> PobierzAktywneWydzialyDlaFirmy(string firma)
+        {
+            List<KatWydzialy> WydzialyZDb = _WydzialDao.PobierzAktywneWydzialyDlaFirmy(firma);
+
+            return WydzialyZDb;
+        }
+
+        public List<KatWydzialy> PobierzNieaktywneWydzialyDlaFirmy(string firma)
+        {
+            List<KatWydzialy> WydzialyZDb = _WydzialDao.PobierzNieaktywneWydzialyDlaFirmy(firma);
+
+            return WydzialyZDb;
+        }
+
         public InsertResult DodajWydzialDlaFirmy(KatWydzialy wydzialDoDodania, string idoper, string idakcept)
         {
             InsertResult result = new InsertResult();
@@ -76,6 +90,23 @@ namespace Eteczka.BE.Services
             {
                 result.Result = false;
                 result.Message = "Usuwanie nie powiodło się. Podany wydział nie istnieje.";
+            }
+
+            return result;
+        }
+
+        public InsertResult PrzywrocWydzialWFirmieZDb (string firma, string wydzial, string idoper, string idakcept)
+        {
+            InsertResult result = new InsertResult();
+
+            if (_WydzialDao.SprawdzCzyWydzialIstniejeWFirmie(firma, wydzial))
+            {
+                result.Result = _WydzialDao.PrzywrocWydzialWFirmie(firma, wydzial, idoper, idakcept);
+                result.Message = result.Result ? "Wydział został przeniesiony do aktywnych." : "Przeniesienie wydziału do aktywnych nie powiodło się.";
+            }
+            else
+            {
+                result.Message = "Przywrócenie wydziału nie powiodło się. Podany wydział nie istnieje.";
             }
 
             return result;

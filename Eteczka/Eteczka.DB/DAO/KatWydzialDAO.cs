@@ -76,6 +76,20 @@ namespace Eteczka.DB.DAO
             return PobraneWydzialyDlaFirmy;
         }
 
+        public List<KatWydzialy> PobierzAktywneWydzialyDlaFirmy(string firma)
+        { 
+            List<KatWydzialy> WydzialyZDb = this.PobierzDlaFirmy(firma).Where(wydzial => wydzial.Usuniety == false).ToList();
+
+            return WydzialyZDb;
+        }
+
+        public List<KatWydzialy> PobierzNieaktywneWydzialyDlaFirmy(string firma)
+        {
+            List<KatWydzialy> WydzialyZDb = this.PobierzDlaFirmy(firma).Where(wydzial => wydzial.Usuniety == true).ToList();
+
+            return WydzialyZDb;
+        }
+
         public bool SprawdzCzyWydzialIstniejeWFirmie(string firma, string wydzial)
         {
             bool result = false;
@@ -146,7 +160,21 @@ namespace Eteczka.DB.DAO
         {
             bool result = false;
             string updateQuery = "UPDATE \"KatWydzial\" SET usuniety = 'true', idoper = '" + idoper + "', idakcept = '" + idakcept + "', " +
-                "datamodify = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ms") + "', dataakcept = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ms") + "' WHERE firma = '" + firma + "' AND wydzial = '" + wydzial + "' ";
+                "datamodify = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ms") + "', dataakcept = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ms") + 
+                "' WHERE firma = '" + firma + "' AND wydzial = '" + wydzial + "' ";
+
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+            result = connectionState.ExecuteNonQuery(updateQuery);
+
+            return result;
+        }
+        public bool PrzywrocWydzialWFirmie(string firma, string wydzial, string idoper, string idakcept)
+        {
+            bool result = false;
+
+            string updateQuery  = "UPDATE \"KatWydzial\" SET usuniety = 'false', idoper = '" + idoper + "', idakcept = '" + idakcept + "', " +
+                "datamodify = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ms") + "', dataakcept = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ms") +
+                 "' WHERE firma = '" + firma + "' AND wydzial = '" + wydzial + "' ";
 
             IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
             result = connectionState.ExecuteNonQuery(updateQuery);

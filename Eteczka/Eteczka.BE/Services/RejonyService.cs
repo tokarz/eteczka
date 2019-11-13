@@ -28,8 +28,23 @@ namespace Eteczka.BE.Services
         }
         public List<KatRejony> PobierzRejonyDlaFirmy(string firma)
         {
-            List<KatRejony> pobraneRejony = _RejonDao.PobieraczRejonowDlaFirmy(firma);
+            List<KatRejony> pobraneRejony = _RejonDao.PobierzRejonyDlaFirmy(firma);
+
             return pobraneRejony;
+        }
+
+        public List<KatRejony> PobierzAktywneRejonyDlaFirmy(string firma)
+        {
+            List<KatRejony> PobraneRejony = _RejonDao.PobierzAktywneRejonyDlaFirmy(firma);
+
+            return PobraneRejony;
+        }
+
+        public List<KatRejony> PobierzNieaktywneRejonyDlaFirmy(string firma)
+        {
+            List<KatRejony> PobraneRejony = _RejonDao.PobierzNieaktywneRejonyDlaFirmy(firma);
+
+            return PobraneRejony;
         }
 
         public InsertResult DodajRejonDlaFirmy(KatRejony rejonDoDodania, string idoper, string idakcept)

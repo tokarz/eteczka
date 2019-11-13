@@ -26,6 +26,20 @@ namespace Eteczka.BE.Services
             return pobraneKonta5;
         }
 
+        public List<KatKonto5>PobierzAktywneKonta5DlaFirmy(string firma)
+        {
+            List<KatKonto5> PobraneKonta = _konto5DAO.PobierzAktywneKonta5DlaFirmy(firma);
+
+            return PobraneKonta;
+        }
+
+        public List<KatKonto5> PobierzNieaktywneKonta5DlaFirmy(string firma)
+        {
+            List<KatKonto5> PobraneKonta = _konto5DAO.PobierzNieaktywneKonta5DlaFirmy(firma);
+
+            return PobraneKonta;
+        }
+
         public InsertResult DodajKonto5(KatKonto5 konto, string idoper, string idakcept)
         {
             InsertResult result = new InsertResult();
@@ -75,6 +89,24 @@ namespace Eteczka.BE.Services
             }
 
             return result;
+        }
+
+        public InsertResult PrzywrocKonto5(KatKonto5 konto, string idoper, string idakcept)
+        {
+            InsertResult result = new InsertResult();
+
+            if (_konto5DAO.SprawdzCzyKonto5IstniejeWFirmie(konto.Firma, konto.Konto5))
+            {
+                result.Result = _konto5DAO.PrzywrocKonto5(konto.Firma, konto.Konto5, idoper, idakcept);
+                result.Message = result.Result ? "Konto5 zostało przeniesione do aktywnych." : "Przywrócenie Konta5 nie powiodło się.";
+            }
+            else
+            {
+                result.Message = "Przywrócenie Konta5 nie powiodło się. Podane Konto5 nie istnieje.";
+            }
+
+            return result;
+
         }
 
         public List<KatKonto5> WyszukajKonto5(string firma, string search)

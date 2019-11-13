@@ -453,5 +453,39 @@ namespace Eteczka.BE.Controllers
             return result;
         }
 
+        public ActionResult GetLoggedUsersPermissions(string sessionId)
+        {
+            ActionResult result = null;
+            SessionDetails sesja = null;
+            Uprawnienia permissions = new Uprawnienia();
+
+            try
+            {
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+
+                    permissions = sesja.AktywnaFirma.Uprawnienia;
+
+                    result = Json(new
+                    {
+                        permissions
+
+                    }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception)
+            {
+                result = Json(new
+                {
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+            return result;
+        }
+
+        
+
     }
 }

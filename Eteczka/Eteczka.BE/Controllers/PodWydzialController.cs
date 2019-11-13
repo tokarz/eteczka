@@ -14,8 +14,8 @@ namespace Eteczka.BE.Controllers
     public class PodWydzialController : Controller
     {
         private IPodWydzialService _PodWydzialService;
-        
-        public PodWydzialController (IPodWydzialService PodWydzialService)
+
+        public PodWydzialController(IPodWydzialService PodWydzialService)
         {
             this._PodWydzialService = PodWydzialService;
         }
@@ -29,12 +29,13 @@ namespace Eteczka.BE.Controllers
                 SessionDetails sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
                 pobranePodWydzialy = _PodWydzialService.PobranaListaPodWydzialow(sesja.AktywnaFirma.Firma, wydzial);
             }
-            
+
             return Json(new
             {
                 PodWydzialy = pobranePodWydzialy
             }, JsonRequestBehavior.AllowGet);
         }
+        [HttpGet]
         public ActionResult PobierzWszystkiePodwydzialyDoStruktury(string sessionId, string wydzial, string firma)
         {
 
@@ -49,6 +50,70 @@ namespace Eteczka.BE.Controllers
             {
                 PodWydzialy = pobranePodWydzialy
             }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult PobierzWszystkieAktywnePodwydzialyDoStruktury(string sessionId, string firma, string wydzial)
+        {
+            ActionResult result = null;
+            List<KatPodWydzialy> PobranePodwydzialy = new List<KatPodWydzialy>();
+
+            try
+            {
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    PobranePodwydzialy = _PodWydzialService.PobierzAktywnePodwydzialyDlaFirmy(firma, wydzial);
+
+                    result = Json(new
+                    {
+                        PobranePodwydzialy,
+                        sucess = PobranePodwydzialy.Count > 0 ? true : false
+                    }, JsonRequestBehavior.AllowGet);
+
+                }
+            }
+            catch (Exception)
+            {
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+            return result;
+        }
+
+        [HttpGet]
+        public ActionResult PobierzWszystkieNieaktywnePodwydzialyDoStruktury(string sessionId, string firma, string wydzial)
+        {
+            ActionResult result = null;
+            List<KatPodWydzialy> PobranePodwydzialy = new List<KatPodWydzialy>();
+
+            try
+            {
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    PobranePodwydzialy = _PodWydzialService.PobierzNieaktywnePodwydzialyDlaFirmy(firma, wydzial);
+
+                    result = Json(new
+                    {
+                        PobranePodwydzialy,
+                        sucess = PobranePodwydzialy.Count > 0 ? true : false
+                    }, JsonRequestBehavior.AllowGet);
+
+                }
+            }
+            catch (Exception)
+            {
+                result = Json(new
+                {
+                    sucess = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+            return result;
         }
 
         [HttpPost]
@@ -137,6 +202,38 @@ namespace Eteczka.BE.Controllers
                 result = Json(new
                 {
                     sucess = false,
+                    wyjatek = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+            return result;
+        }
+
+        [HttpPatch]
+        public ActionResult PrzywrocPodwydzialWFirmie(string sessionId, KatPodWydzialy podwydzial)
+        {
+            ActionResult result = null;
+            SessionDetails sesja = null;
+            InsertResult queryResult = new InsertResult();
+
+            try
+            {
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                {
+                    sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    queryResult = _PodWydzialService.PrzywrocPodWydzialZBazy(podwydzial, sesja.IdUzytkownika, sesja.IdUzytkownika);
+
+                    result = Json(new
+                    {
+                        queryResult,
+                    }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                result = Json(new
+                {
+                    queryResult = false,
                     wyjatek = true
                 }, JsonRequestBehavior.AllowGet);
             }
