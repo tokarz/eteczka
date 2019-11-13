@@ -1,0 +1,71 @@
+﻿<md-dialog aria-label="Opis dokumentu" draggable class="open-to-left">
+    <form ng-cloak name="editEmployeeFile" novalidate>
+        <md-toolbar>
+            <div class="modal-header md-toolbar-tools">
+                <h2>Opis dokumentu</h2>
+                <span flex></span>
+                <!--<md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+                </md-button>-->
+            </div>
+        </md-toolbar>
+        <md-dialog-content style="padding:15px">
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="creationDate">Data dokumentu *</label>
+                <input class="modal-table-input"
+                       name="creationDate"
+                       type="text"
+                       placeholder="RRRR-MM-DD"
+                       ng-model="modalResult.DataWytworzenia"
+                       ng-pattern="/^\s*(\d{4})-(\d{2})-(\d{2})\s*$/"
+                       ng-change="fillValidFromDate()"
+                       ng-model-options="{updateOn: 'blur'}"
+                       datemask
+                       separator="-"
+                       required />
+            </div>
+            <div ng-show="editEmployeeFile.$submitted || editEmployeeFile.creationDate.$touched">
+                <span class="modal-table-error" ng-show="editEmployeeFile.creationDate.$error.pattern">Data musi miec format: RRRR-MM-DD</span>
+            </div>
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="validFromDate">Data początku obowiązywania *</label>
+                <input class="modal-table-input"
+                       name="validFromDate"
+                       type="text"
+                       placeholder="RRRR-MM-DD"
+                       ng-model="modalResult.DataPocz"
+                       ng-pattern="/^\s*(\d{4})-(\d{2})-(\d{2})\s*$/"
+                       ng-model-options="{updateOn: 'blur'}"
+                       datemask
+                       separator="-"
+                       required />
+            </div>
+            <div ng-show="editEmployeeFile.$submitted || editEmployeeFile.validFromDate.$touched">
+                <span class="modal-table-error" ng-show="editEmployeeFile.validFromDate.$error.pattern">Data musi miec format: RRRR-MM-DD</span>
+            </div>
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="validUntilDate">Data końca obowiązywania</label>
+                <input class="modal-table-input"
+                       name="validUntilDate"
+                       type="text"
+                       placeholder="RRRR-MM-DD"
+                       ng-model="modalResult.DataKoniec"
+                       ng-pattern="/^\s*(\d{4})-(\d{2})-(\d{2})\s*$/"
+                       ng-model-options="{updateOn: 'blur'}"
+                       datemask
+                       separator="-"
+                       ng-disabled="isDisabled()"
+                       ng-required="!isDisabled()" />
+            </div>
+            <div ng-show="editEmployeeFile.$submitted || editEmployeeFile.validUntilDate.$touched">
+                <span class="modal-table-error" ng-show="editEmployeeFile.validUntilDate.$error.pattern">Data musi miec format: RRRR-MM-DD</span>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" ng-click="cancel()">Anuluj</button>
+                <button type="submit" class="btn btn-primary" ng-click="answer(modalResult, editEmployeeFile.$error)">Zatwierdz</button>
+            </div>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

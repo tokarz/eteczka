@@ -1,0 +1,85 @@
+﻿<div class="component-main-wrapper">
+    <div class="user-details" style="height:100%" ng-if="!userFiles || userFiles.length < 1">
+        <h1 class="emptyfileheader" ng-show="!selectedUser">
+            {{emptyTableMessage}}
+        </h1>
+        <h1 class="emptyfileheader" ng-show="selectedUser">
+            {{noFilesMessage}}
+        </h1>
+    </div>
+    <div class="user-details" style="height:100%;" ng-if="userFiles && userFiles.length > 0">
+        <div class="user-summary" ng-if="hasSummary">
+            {{tSummaryTitle}}: {{user.Summary}}
+        </div>
+        <div class="toolbar-panel" ng-if="!toolbar">
+            <!--<span class="toolbar-option option-one fa fa-plus-circle" ng-click="triggerAddEmployeeDialog()"></span>
+            <span class="toolbar-option option-two fa fa-pencil-square" ng-click="triggerEditEmployeeDialog()"></span>-->
+            <span class="toolbar-option option-three fa fa-trash-o" ng-click="triggerDeleteEmployeePopup()"></span>
+
+            <!--<span class="toolbar-option option-four fa fa-print" ng-click="triggerPrintPreview()"></span>-->
+            <span class="toolbar-option option-five fa fa-envelope-open-o" ng-click="openSendEmailDialog()"></span>
+            <span class="not-yet-available toolbar-option option-six fa fa-download" ng-click="triggerDownloadFiles()"></span>
+            <span class="toolbar-option option-two fa fa-pencil-square" ng-click="triggerEditFileDescriptionDialog()"></span>
+            <span class="toolbar-option fa fa-file-pdf-o" ng-click="generatePdf()"></span>
+            <span class="toolbar-option fa fa-file-excel-o" ng-click="generateExcelReport()"></span>
+
+            <span class="toolbar-option option-seven fa fa-shopping-basket" ng-click="triggeraddtocart()"></span>
+        </div>
+        <div ng-if="toolbar" class="toolbar-panel">
+            <span ng-repeat="toolbarItem in toolbar" ng-class="toolbarItem.itemClass" ng-click="toolbarItem.action()"></span>
+        </div>
+        <div class="main-files-content-wrapper">
+            <div class="file-list-wrapper" ng-class="fileListWrapperClass">
+                <table style="width:100%;text-align:center" et-data-table col-defs="colDefs" reload="fileListWrapperClass" haskeys="true" selectedrow="selected.row">
+                    <colgroup ng-if="shownames">
+                        <col style="width:5%" />
+                        <col style="width:10%" />
+                        <col style="width:10%" />
+                        <col style="width:10%" />
+                        <col style="width:20%" />
+                        <col style="width:20%" />
+                        <col style="width:20%" />
+                        <col style="width:5%" />
+                    </colgroup>
+                    <colgroup ng-if="!shownames">
+                        <col style="width:10%" />
+                        <col style="width:15%" />
+                        <col style="width:25%" />
+                        <col style="width:25%" />
+                        <col style="width:20%" />
+                        <col style="width:5%" />
+                    </colgroup>
+                    <thead class="display table-header" cellspacing="0">
+                        <tr>
+                            <th title="Dział">Dz</th>
+                            <th>Rodzaj Dokumentu</th>
+                            <th ng-show="shownames">Nazwisko</th>
+                            <th ng-show="shownames">Imie</th>
+                            <th>Data dodania</th>
+                            <th>Data Pocz</th>
+                            <th>Data Kon</th>
+                            <th> <span class="fa fa-check-square" style="cursor: pointer" ng-click="toggleSelectAll()"></span></th>
+                        </tr>
+                    </thead>
+                    <tbody style="text-align:left">
+                        <tr ng-if="userFiles && userFiles.length > 0" ng-repeat="file in userFiles" ng-click="selectFile(file)" ng-class="getRowStyle(file)">
+                            <td>{{file.TeczkaDzial}} {{file.NrDokumentu}}</td>
+                            <td>{{file.Symbol}} <i ng-if="file.OpisDodatkowy && file.OpisDodatkowy.trim().length " class="fa fa-question-circle" style="cursor:pointer;float:right" title="{{file.OpisDodatkowy}}"></i></td>
+                            <td ng-show="shownames">{{file.Nazwisko}}</td>
+                            <td ng-show="shownames">{{file.Imie}}</td>
+                            <td>{{file.DataDodaniaStr}}</td>
+                            <td>{{file.DataPoczStr}}</td>
+                            <td>{{file.DataKoniecStr}}</td>
+                            <td>
+                                <input type="checkbox" ng-model="file.checked" ng-click="$event.stopPropagation()" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div ng-show="selectedFile" class="file-preview-wrapper">
+                <file-preview file="selectedFile" fileproperty="NazwaEad" secure="true"></file-preview>
+            </div>
+        </div>
+    </div>
+</div>

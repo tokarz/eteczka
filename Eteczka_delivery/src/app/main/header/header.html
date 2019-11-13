@@ -1,0 +1,59 @@
+﻿<div id="header">
+    <div style="height:100%;display:inline-block;float:left">
+        <img src="Content/img/logo_eAD.png" class="header-logo" ng-click="goHome()" />
+        <span class="employees-small-options" ng-if="userLoggedIn && smallOptions && smallOptions.length > 0">
+            <span ng-repeat="smallOption in smallOptions" class="small-option">
+                <span style="height:100%;width:100%" ng-click="smallOption.action()" ng-class="isSmallOptionActive(smallOption)">
+                    <span ng-class="smallOption.className"></span>
+                    <span class="small-option-label">{{smallOption.label}}</span>
+                </span>
+            </span>
+        </span>
+
+    </div>
+    <div class="menu-buttons-wrapper" ng-if="menusVisible">
+        <ul class="menu-wrapper">
+            <li class="top-menu-button" ng-click="navigateTo('emp-files')" ng-class="isActive('emp')">
+                <span class="menu-icon-group">
+                    <i class="menu-icon fa fa-user-o"></i>
+                    <i class="menu-icon fa fa-user-o"></i>
+                    <i class="menu-icon fa fa-user-o"></i>
+                </span>
+                <span class="menu-button-text">Pracownicy</span>
+
+            </li>
+            <li class="top-menu-button" ng-click="navigateTo('fi-files')" ng-class="isActive('fi')">
+                <span class="menu-icon-group">
+                    <i class="menu-icon fa fa-folder-open-o"></i>
+                </span>
+                <span class="menu-button-text">Dokumenty</span>
+            </li>
+            <li class="top-menu-button" ng-click="navigateTo('raports')" ng-class="isActive('raports')">
+                <!--<li class="top-menu-button not-yet-available" ng-class="isActive('raports')">-->
+
+                <span class="menu-icon-group">
+                    <i class="menu-icon fa fa-bar-chart"></i>
+                </span>
+                <span class="menu-button-text">Raporty</span>
+
+            </li>
+
+            <li class="top-menu-button" ng-click="navigateTo('company')" ng-class="isActive('company')">
+
+                <span class="menu-icon-group">
+                    <i class="menu-icon fa fa-sitemap"></i>
+                </span>
+                <span class="menu-button-text">Struktura Firmy</span>
+            </li>
+        </ul>
+    </div>
+    <div style="width:500px;height:100%;float:right" ng-if="userLoggedIn">
+        <div class="menu-pane-wrapper">
+            <user-menu loginstatus="loginStatus" useroptions="userOptions" firmparams="firmparams" isadmin="isAdmin"></user-menu>
+        </div>
+        <div id="shopping-cart" ng-click="navigateTo('shopcart')" ng-if="!isAdmin">
+            <span class="items-counter">{{basket.count}}</span>
+            <span class="fa fa-shopping-basket"></span>
+        </div>
+    </div>
+</div>

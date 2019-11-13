@@ -1,0 +1,530 @@
+﻿@import 'vars.scss';
+@import 'mixins.scss';
+
+
+.option-wrapper {
+    width: 99%;
+    /*padding: 5px;
+    margin: auto;*/
+    height: calc( 97% - 120px );
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    position: absolute;
+    top: calc( 50% + 55px);
+    left: 50%;
+    margin-top: 5px;
+}
+
+.component-main-wrapper {
+    height: 80vh;
+    background: white;
+}
+
+.component-content-wrapper {
+    height: 100%;
+    width: 80vw;
+    float: right;
+    box-shadow: 0 0 2px black;
+    background: white;
+    /*overflow: auto;    bylo auto i powodowalo podwojny scroll w tabeli. Trzeba sprawdzic efekt na wszystkich tabelach*/
+    overflow: hidden;
+}
+
+.tab {
+    cursor: pointer;
+    display: inline-block;
+    margin: 0 5px;
+}
+
+.tab-default {
+    color: black;
+}
+
+.tab-active {
+    color: white;
+    padding: 5px 5px;
+}
+
+.table-row {
+    color: $darkblue;
+    background: white;
+    cursor: pointer;
+}
+
+.table-row:hover {
+    background: $lightgray;
+}
+
+.git-table-row {
+    color: $darkblue;
+    background: white;
+    cursor: pointer;
+}
+
+.git-table-row:hover {
+    background: $lightgray;
+}
+
+.git-table-row:hover .fa-arrow-circle-down {
+    color: $lightgreen;
+}
+
+.git-table-row .fa-arrow-circle-down,
+.table-row fa-arrow-circle-up {
+    position: absolute;
+    right: 30px;
+}
+
+.top-toolbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.toolbar-panel {
+    height: 30px;
+    background-color: $darkblue;
+    color: white;
+    padding: 0;
+    margin: 0 0 5px;
+}
+
+.toolbar-panel span {
+    cursor: pointer;
+}
+
+.git-panel {
+    background-color: whitesmoke;
+    color: $blue;
+    box-shadow: 0 0 2px black;
+}
+
+.staged-file-description-button {
+    width: 100%;
+    height: 6.5vh;
+    background: $darkblue;
+    color: white;
+    text-align: center;
+    opacity: 0.8;
+}
+
+.staged-file-description-button:hover {
+    cursor: pointer;
+    opacity: 1;
+}
+
+.staged-file-description-button > div {
+    padding-top: 2vh;
+}
+
+.toolbar-option {
+    width: 30px;
+    height: 30px;
+    font-size: 23px !important;
+    margin: 2px 5px;
+}
+
+.toolbar-option:hover {
+    cursor: pointer;
+}
+
+.details-row {
+    line-height: 30px;
+    float: left;
+}
+
+.users-details-row {
+}
+
+
+.users-details-row .details-label {
+    width: 150px;
+    float: left;
+    padding: 5px;
+}
+
+.users-details-row .details-value {
+    width: 880px;
+    height: 30px;
+    float: right;
+    margin-right: 0;
+    color: $darkblue;
+    box-shadow: 0 0 1px black;
+    background: whitesmoke;
+    text-align: justify;
+    padding-left: 5px;
+}
+
+.details-label {
+    width: 300px;
+    float: left;
+    padding: 5px;
+}
+
+.details-value {
+    width: 980px;
+    height: 30px;
+    float: right;
+    margin-right: 0;
+    color: $darkblue;
+    box-shadow: 0 0 1px black;
+    background: whitesmoke;
+    text-align: justify;
+    padding-left: 5px;
+    border: 1px solid $darkblue;
+}
+
+.option-select-all {
+    position: absolute;
+    left: 47.5%;
+}
+
+.option-three {
+    float: right;
+    margin-right: 5px;
+}
+
+.toolbar-content {
+    margin-top: 30px;
+    overflow: hidden;
+    height: calc(100% - 30px);
+    background: white;
+}
+
+.rightsColumn input {
+    cursor: pointer;
+}
+
+.rightsColumn span {
+    width: 8%;
+    display: inline-block;
+}
+
+.rightsColumn td {
+    cursor: pointer;
+}
+
+.table-search {
+    width: 99%;
+    margin: 5px auto;
+    margin-bottom: 5px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.menu-table-wrapper {
+    height: 100%;
+    width: 18vw;
+    float: left;
+    box-shadow: 0 0 2px $darkgrey;
+    /*padding: 5px;*/
+    position: relative;
+    margin-bottom: 1px;
+    background: white;
+    font-size: $FONT_SIZE;
+}
+
+.menu-table-wrapper .toolbar-content table {
+    width: 100%;
+    height: 97%;
+    margin: auto;
+    overflow: hidden;
+    display: block;
+    padding: 0;
+}
+
+.menu-table-wrapper .toolbar-content tbody {
+    overflow: auto;
+    display: block;
+    height: 97%;
+    width: 100%;
+}
+
+.menu-table-wrapper .toolbar-content table tbody tr {
+    width: 100%;
+    display: block;
+}
+
+.user-details,
+.user-history {
+    position: relative;
+    width: 100%;
+    float: left;
+    height: 50%;
+    /*color: $darkblue;*/
+    color: $darkblue;
+}
+
+
+.active-row {
+    background: $darkblue !important;
+    color: white;
+}
+
+.checked-row {
+    background: $darkblue !important;
+    color: white;
+}
+
+.fa-trash-o:hover {
+    color: $error-red;
+}
+
+.fa-plus-circle:hover {
+    color: $lightgreen;
+}
+
+.fa-pencil-square:hover {
+    color: yellow;
+}
+
+.user-details-toolbar {
+    height: 30px;
+    width: 100%;
+}
+
+#company-selection-wrapper {
+    width: 150px;
+    float: left;
+    margin-left: 10px;
+}
+
+#selection-details {
+    float: right;
+    margin-right: 10px;
+    background: whitesmoke;
+    color: black;
+}
+
+.main-files-content-wrapper {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.file-list-wrapper-full {
+    width: 100% !important;
+}
+
+.file-list-wrapper {
+    height: 100%;
+    width: 50%;
+    float: left;
+}
+
+.file-preview-wrapper {
+    height: 100%;
+    width: 50%;
+    float: right;
+    background: whitesmoke;
+}
+
+#git-metrics-side-panel {
+    width: 10vw;
+    float: left;
+    height: 100%;
+    background: whitesmoke;
+    color: white;
+}
+
+#git-metrics-side-panel .fa {
+    margin-right: 5px;
+}
+
+#git-metrics-details {
+    width: 60vw;
+    float: right;
+    height: 100%;
+}
+
+.git-icon {
+    margin: 4px;
+    cursor: pointer;
+}
+
+.git-icon:hover {
+    color: $blue;
+}
+
+.git-metric-li {
+    margin: 5px 0;
+    cursor: pointer;
+    color: $blue;
+}
+
+.git-metric-li:hover {
+    font-weight: bold;
+}
+
+.git-metric-part {
+    height: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+.git-metric-part h3 {
+    color: $blue;
+    margin: 0;
+}
+
+.git-comment-area {
+    height: 200px;
+    width: 99%;
+    text-align: justify;
+    background: white;
+    margin: auto;
+    box-shadow: 0 0 2px black;
+    padding: 5px;
+}
+
+.git-comment-area textarea,
+.git-comment-area input {
+    float: right;
+    width: 50vw;
+    text-align: left;
+    resize: none;
+}
+
+.md-title {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    background: $darkblue;
+    color: white;
+}
+
+.emptyfileheader {
+    text-align: center;
+    color: $darkblue;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    @include center-absolute;
+}
+
+.filter-option {
+    display: inline-block;
+    text-align: center;
+    width: 250px;
+    padding: 5px;
+    background: whitesmoke;
+    box-shadow: 0 0 2px black;
+    border-radius: 5px;
+    margin: 0 5px;
+}
+
+.filter-option > label {
+    color: $darkblue;
+    display: block;
+    font-weight: bold;
+}
+
+.filter-option select {
+    color: $darkblue;
+    text-align: center;
+    cursor: pointer;
+    width: 90%;
+    margin: auto;
+}
+
+.filters-panel {
+    width: 85%;
+    margin: 10px auto;
+}
+
+.filter-buttons-option {
+    position: absolute;
+    right: 1%;
+    top: 0;
+}
+
+.filter-buttons-option button {
+    display: inline-block;
+    /* height: 10px; */
+    padding: 0.2em 1em;
+    height: auto;
+    width: 100%;
+    background: $darkblue;
+    opacity: 0.8;
+    color: white;
+}
+
+.filter-buttons-option button:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+
+.git-details-row {
+    height: 20%;
+    color: $darkblue;
+    font-weight: bold;
+}
+
+#pdfPreviewWrapper {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    text-align: center;
+    background: $darkgrey;
+}
+
+.email-component {
+    color: $darkblue;
+}
+
+table.dataTable thead th,
+table.dataTable thead td {
+    padding: 2px 4px;
+}
+
+.choose-folder-col {
+    position: relative;
+    height: 98%;
+    width: 98%;
+    display: block;
+    overflow: hidden;
+}
+
+.choose-folder-col i {
+    margin-right: 2px;
+    font-weight: bold;
+    font-size: 5em;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.choose-folder-col i:hover {
+    color: $darkred;
+    cursor: pointer;
+}
+
+md-tabs-canvas {
+    height: 30px !important;
+    background: #074C75;
+}
+
+md-pagination-wrapper {
+    height: 30px !important;
+}
+
+md-tab-item {
+    padding-top: 2px !important;
+}
+
+@media screen and (max-width:1360px) and (min-width: 961px) {
+}
+
+@media screen and (max-width:960) and (min-width: 721px) {
+}
+
+@media screen and (max-width:720px) {
+}

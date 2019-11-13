@@ -1,0 +1,10 @@
+﻿{
+	"version": 3,
+	"file": "vars.css",
+	"sources": [
+		"vars.scss"
+	],
+	"sourcesContent": [],
+	"mappings": "AAYA,UAAU,CAAC,MAAM;EACb,EAAE;IACE,OAAO,EAAE,CAAE;;EAGf,IAAI;IACA,OAAO,EAAE,CAAE",
+	"names": []
+}

@@ -1,0 +1,15 @@
+<div class="modal" id="userModal" role="dialog" style="height:600px;width:600px;display:block">
+    <div class="modal-content" style="height:90%;height:100%">
+        <div style="height:90%;height:100%">
+            <div class="modal-header ui-toolbar">
+                <h3 class="modal-title">{{modalOptions.title}}</h3>
+            </div>
+            <div class="modal-body" ng-include="modalOptions.body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" ng-click="modalOptions.cancel()">Anuluj</button>
+                <button type="button" class="btn btn-primary" ng-click="modalOptions.ok()">Zapisz</button>
+            </div>
+        </div>
+    </div>
+</div>

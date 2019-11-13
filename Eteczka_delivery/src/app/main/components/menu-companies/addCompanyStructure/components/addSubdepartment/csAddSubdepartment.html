@@ -1,0 +1,12 @@
+﻿<h1>Wybierz Wydzial</h1>
+<ul>
+    <li ng-repeat="department in allDepartments" ng-click="getForSelectedDepartment(department.Nazwa)">
+        {{department.Nazwa}} 
+    </li>
+</ul>
+<h1>PodWydzialy</h1>
+<ul>
+    <li ng-repeat="subDepartment in allSubDepartments">
+        {{subDepartment.Nazwa}}
+    </li>
+</ul>

@@ -392,6 +392,15 @@ namespace Eteczka.DB.DAO
             return fetchedResult;
         }
 
+        public bool UsunUzytkownika(string id)
+        {
+            string sqlQuery = "UPDATE \"KatLoginy\" SET usuniety=true WHERE identyfikator='" + id.Trim() + "';";
+            IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
+            bool result = connectionState.ExecuteNonQuery(sqlQuery);
+
+            return result;
+        }
+
         public bool CzyUzytkownikMaUprawnieniaDoFirmy(string login, string firma)
         {
             bool result = false;

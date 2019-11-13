@@ -1,0 +1,234 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="EtApp">
+<head>
+    <title>eAD 2019 v1.5-5</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge;text/html" charset="utf-8" />
+    <link rel="stylesheet" href="app/css/ead.css" />
+    <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="app/css/modal.css" />
+    <link rel="stylesheet" href="node_modules/angular-material/angular-material.min.css" />
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.min.css" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css" />
+    <link rel="stylesheet" href="Scripts/DataTables/datatables.min.css" />
+</head>
+<body ng-controller="mainController">
+    <div id="rootWrapper" class="resizable">
+        <header></header>
+        <div id="content">
+            <ui-view></ui-view>
+        </div>
+        <footer></footer>
+    </div>
+    <modal-view></modal-view>
+    <!--<div ng-controller="document-cart-controller" class="document-cart" ng-if="isLoggedIn">
+        <span class="cart-label">Koszyk Akt</span>
+    </div>-->
+    <script src="Scripts/prototypes.js"></script>
+    <!--3rd party scripts-->
+    <script src="Scripts/jquery-1.10.2.min.js"></script>
+    <script src="Scripts/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+    <script src="Scripts/angular/angular.js"></script>
+    <script src="Scripts/angular-ui-router/angular-ui-router.min.js"></script>
+    <script src="Scripts/angular-animate/angular-animate.js"></script>
+    <script src="Scripts/angular/angular.aria.js"></script>
+    <script src="node_modules/angular-material/angular-material.js"></script>
+
+    <!--<script src="Scripts/ui-bootstrap-tpls-0.12.js"></script>-->
+    <script src="Scripts/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
+    <script src="Scripts/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
+
+    <!--datepicker przesuniet do wersji 1.3-->
+    <script src="Scripts/moment.min.js"></script>
+
+    <script src="Scripts/pdfjs/pdf.js"></script>
+
+    <!--(MIT) 4.17.4 based on underscore 1.8.3-->
+    <script src="Scripts/lodash.js"></script>
+
+    <!--Biblioteka animacji i grafiki wektorowej-->
+    <script src="Scripts/d3js/d3.min.js"></script>
+    <script src="Scripts/d3pie.min.js"></script>
+
+    <script src="Scripts/DataTables/datatables.js"></script>
+
+    <!--Przeciagnij i upusc plik (do importu plikow)-->
+    <script src="node_modules/angular-files-drop/dist/index.js"></script>
+
+    <!--Glowny plik konfiguracyjny-->
+    <script src="app/app.js"></script>
+
+    <!--Pliki skryptow nie nalezace do widokow (podwidoki, modale itp.)-->
+    <script src="app/main/mainController.js"></script>
+    <script src="app/main/startup/startupService.js"></script>
+    <script src="app/main/header/menu/menuController.js"></script>
+    <script src="app/main/files/filesController.js"></script>
+    <script src="app/main/session/sessionService.js"></script>
+
+    <!--Widok okna ladowania (processing)-->
+    <script src="app/views/processing/processingDirective.js"></script>
+
+    <!--Popup: Dodawanie Uzytkownika (widok dla Admina!)-->
+    <script src="app/views/addUsers/addUsersViewController.js"></script>
+    <script src="app/views/addUsers/addUsersViewDirective.js"></script>
+    <!--Widok logowania-->
+    <script src="app/views/login/loginViewController.js"></script>
+    <script src="app/views/login/loginViewDirective.js"></script>
+    <script src="app/views/login/loginService.js"></script>
+    <script src="app/views/login/choosefirm//chooseFirmController.js"></script>
+    <script src="app/views/login/choosefirm//chooseFirmDirective.js"></script>
+
+    <!--Widok startowy-->
+    <script src="app/views/home/homeViewController.js"></script>
+    <script src="app/views/home/homeViewDirective.js"></script>
+
+    <!--Widok Admina-->
+    <script src="app/views/admin/adminViewController.js"></script>
+    <script src="app/views/admin/adminViewDirective.js"></script>
+
+    <!--Naglowek -->
+    <script src="app/main/header/headerController.js"></script>
+    <script src="app/main/header/headerDirective.js"></script>
+    <script src="app/main/header/headerService.js"></script>
+    <!--Menu Dropdown-->
+    <script src="app/main/header/menu/menuController.js"></script>
+    <script src="app/main/header/menu/menuDirective.js"></script>
+
+    <!--Widok Plokow Pracownikow-->
+    <script src="app/views/employeesfiles/employeesFilesViewDirective.js"></script>
+
+    <!--Widok Pracownikow-->
+    <script src="app/views/employees/employeesViewController.js"></script>
+    <script src="app/views/employees/employeesViewDirective.js"></script>
+    <script src="app/views/employees/employeesService.js"></script>
+
+    <!--Widok Struktury Firmy-->
+    <script src="app/views/company/companyViewController.js"></script>
+    <script src="app/views/company/companyViewDirective.js"></script>
+    <script src="app/views/company/companyService.js"></script>
+
+    <!--Widok opcji -->
+    <script src="app/views/options/optionsViewController.js"></script>
+    <script src="app/views/options/optionsViewDirective.js"></script>
+
+    <!--Widok plikow-->
+    <script src="app/views/files/filesViewController.js"></script>
+    <script src="app/views/files/filesViewService.js"></script>
+    <script src="app/views/files/filesViewDirective.js"></script>
+    <script src="app/views/files/statistics/statisticsChartDirective.js"></script>
+    <script src="app/views/files/addFile/addFileController.js"></script>
+    <script src="app/views/files/addFile/addFileService.js"></script>
+
+    <!--Widok Katalogu Dokumentow-->
+    <script src="app/views/filecatalog/fileCatController.js"></script>
+    <script src="app/views/filecatalog/filecatalogDirective.js"></script>
+    <script src="app/views/filecatalog/fileCatService.js"></script>
+
+    <!--Widok ustawien-->
+    <script src="app/main/settings/settingsController.js"></script>
+    <!--Widok glowny (do usuniecia)-->
+    <script src="app/views/settings/settingsService.js"></script>
+    <!--Ustawienia plikow-->
+    <script src="app/views/settings/files/settingsFilesController.js"></script>
+    <script src="app/views/settings/files/settingsFilesDirective.js"></script>
+    <!--Ustawienia Importow-->
+    <script src="app/views/settings/import/settingsImportController.js"></script>
+    <script src="app/views/settings/import/settingsImportDirective.js"></script>
+    <!--Ustawienia Sesji-->
+    <script src="app/views/settings/sessions/settingsSessionsController.js"></script>
+    <script src="app/views/settings/sessions/settingsSessionsDirective.js"></script>
+
+    <!--Ustawienia Sesji Administratora-->
+    <script src="app/views/settings/sessions/admin/adminSessionsController.js"></script>
+    <script src="app/views/settings/sessions/admin/adminSessionsDirective.js"></script>
+
+    <!--Ustawienia Uzytkownikow-->
+    <script src="app/views/settings/users/settingsUsersController.js"></script>
+    <script src="app/views/settings/users/settingsUsersDirective.js"></script>
+
+    <!--Ustawienia Firm-->
+    <script src="app/views/settings/companies/settingsCompaniesController.js"></script>
+    <script src="app/views/settings/companies/settingsCompaniesDirective.js"></script>
+
+    <!--Widok Koszyka-->
+    <script src="app/views/shopcart/shopCartController.js"></script>
+    <script src="app/views/shopcart/shopCartDirective.js"></script>
+    <script src="app/views/shopcart/shopCartService.js"></script>
+
+    <!--Komponenty -->
+    <script src="app/main/components/menu-table/menuTableController.js"></script>
+    <script src="app/main/components/menu-table/menuTableDirective.js"></script>
+
+    <!--Komponenty Tabela Firm -->
+    <script src="app/main/components/menu-companies-table/menuCompaniesTableController.js"></script>
+    <script src="app/main/components/menu-companies-table/menuCompaniesTableDirective.js"></script>
+
+    <!--Tabela szczegolowa pracownika z dokumentami-->
+    <script src="app/main/components/menu-content/menuContentController.js"></script>
+    <script src="app/main/components/menu-content/menuContentDirective.js"></script>
+    <script src="app/main/components/menu-content/menuContentService.js"></script>
+
+    <!--Tabela szczegolowa pracownika HR-->
+    <script src="app/main/components/menu-users-content/menuUsersContentController.js"></script>
+    <script src="app/main/components/menu-users-content/menuUsersContentDirective.js"></script>
+    <script src="app/main/components/menu-users-content/menuUsersContentService.js"></script>
+
+    <!--Tabela firmy i struktury przedsiebiorstwa-->
+    <script src="app/main/components/menu-companies/menuCompaniesController.js"></script>
+    <script src="app/main/components/menu-companies/menuCompaniesService.js"></script>
+    <script src="app/main/components/menu-companies/menuCompaniesDirective.js"></script>
+
+    <script src="app/main/components/menu-companies/addCompanyStructure/addCompanyStructureController.js"></script>
+    <script src="app/main/components/menu-companies/addCompanyStructure/addCompanyStructureDirective.js"></script>
+
+    <script src="app/main/components/menu-companies/addCompanyStructure/components/addDepartment/csAddDepartmentService.js"></script>
+    <script src="app/main/components/menu-companies/addCompanyStructure/components/addDepartment/csAddDepartmentController.js"></script>
+    <script src="app/main/components/menu-companies/addCompanyStructure/components/addDepartment/csAddDepartmentDirective.js"></script>
+
+    <script src="app/main/components/menu-companies/addCompanyStructure/components/addSubdepartment/csAddSubDepartmentService.js"></script>
+    <script src="app/main/components/menu-companies/addCompanyStructure/components/addSubdepartment/csAddSubDepartmentController.js"></script>
+    <script src="app/main/components/menu-companies/addCompanyStructure/components/addSubdepartment/csAddSubdepartmentDirective.js"></script>
+
+    <script src="app/main/components/menu-companies/addCompanyStructure/components/addRegion/csAddRegionService.js"></script>
+    <script src="app/main/components/menu-companies/addCompanyStructure/components/addRegion/csAddRegionController.js"></script>
+    <script src="app/main/components/menu-companies/addCompanyStructure/components/addRegion/csAddRegionDirective.js"></script>
+
+
+    <script src="app/main/components/menu-companies/addCompanyStructure/components/addAccount/csAddAccountService.js"></script>
+    <script src="app/main/components/menu-companies/addCompanyStructure/components/addAccount/csAddAccountController.js"></script>
+    <script src="app/main/components/menu-companies/addCompanyStructure/components/addAccount/csAddAccountDirective.js"></script>
+
+
+    <script src="app/main/components/menu-files-content/menuFilesContentController.js"></script>
+    <script src="app/main/components/menu-files-content/menuFilesContentDirective.js"></script>
+
+    <script src="app/main/components/filepreview/filePreviewDirective.js"></script>
+
+    <script src="app/main/components/git-menu-table/gitMenuTableController.js"></script>
+    <script src="app/main/components/git-menu-table/gitMenuTableDirective.js"></script>
+
+    <script src="app/main/companies/companiesService.js"></script>
+
+    <script src="app/main/users/usersService.js"></script>
+
+    <!-- Utils : przydatne biblioteki-->
+    <script src="app/main/utils/utils.js"></script>
+    <script src="app/main/utils/resizableDirective.js"></script>
+    <script src="app/main/utils/httpService.js"></script>
+    <script src="app/main/utils/modalController.js"></script>
+    <script src="app/main/utils/modalService.js"></script>
+    <script src="app/main/utils/peselService.js"></script>
+    <script src="app/main/utils/draggableDirective.js"></script>
+    <script src="app/main/utils/datemask.js"></script>
+    <script src="app/main/utils/table/eadTableDirective.js"></script>
+
+    <!--DataTables-->
+    <script src="app/main/utils/dataTableDirective.js"></script>
+
+    <!--Cache service-->
+    <script src="app/main/utils/cache/cacheService.js"></script>
+
+
+</body>
+</html>

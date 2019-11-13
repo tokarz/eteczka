@@ -1,0 +1,43 @@
+<div>
+    <div class="row justify-content-md-center">
+        <div class="col-md-offset-2 col-sm-offset-3 col-sm-6 col-md-8">
+            <div class="menu-option thumbnail" style="text-align:center">
+                <div class="caption">
+                    <form id="addUserForm" ng-submit="validateAndAddUser()" method="post">
+                        <label for="username">Nazwa uzytkownika</label>
+                        <br />
+                        <input name="username" type="text" ng-model="userToAdd.username" />
+                        <br />
+                        <label for="password">Haslo</label>
+                        <br />
+                        <input name="password" type="password" ng-model="userToAdd.password" />
+                        <br />
+                        <label for="password">Powtorz haslo</label>
+                        <br />
+                        <input name="password" type="password" ng-model="userToAdd.retypedPassword" />
+                        <br />
+                        <br />
+                        <p>Wpisz haslo recznie lub <a href="#" ng-click="generatePassword()">wygeneruj haslo</a></p>                    
+                        <div name="userRoles_checkboxes" style="text-align:left">
+                            <h3>Uprawnienia</h3>
+                            <input name="userRole_admin" type="checkbox" />
+                            <label for="userRole_admin">Administrator</label>
+                            <br />
+                            <input name="userRole_employees" type="checkbox" />
+                            <label for="userRole_admin">Modul Pracownicy</label>
+                           
+                            <input name="userRole_files" type="checkbox" />
+                            <label for="userRole_admin">Modul Pliki</label>
+                           
+                            <input name="userRole_export" type="checkbox" />
+                            <label for="userRole_admin">Modul Eksporty</label>
+                           
+                        </div>
+                        <br />
+                        <input type="submit" value="Dodaj" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

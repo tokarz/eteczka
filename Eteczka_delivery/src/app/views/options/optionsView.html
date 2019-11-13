@@ -1,0 +1,15 @@
+﻿<div class="options-wrapper">
+    <nav class="navigation-pane">
+        <ul class="menu-wrapper">
+            <li ng-class="option.menuclass" ng-repeat="option in options" ng-click="option.clickaction()">
+                <span class="menu-icon-group">
+                    <i ng-class="option.ngclass"></i>
+                </span>
+                <span class="menu-button-text">{{option.label}}</span>
+            </li>
+        </ul>
+    </nav>
+    <article class="logo-wrapper">
+        <img id="customer-logo" src="Content/img/Logo_TopFarms.png" />
+    </article>
+</div>

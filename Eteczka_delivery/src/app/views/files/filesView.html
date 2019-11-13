@@ -1,0 +1,13 @@
+﻿<div class="option-wrapper">
+    <git-menu-table company="parameters.company" filetopreview="selectedfile" selectedstagedfile="selectedStagedFile"></git-menu-table>
+    <div class="component-content-wrapper" style="background:white;position:relative" ng-show="!selectedfile">
+        <h1 class="emptyfileheader">Zaznacz Plik do Edycji</h1>
+    </div>
+    <div class="component-content-wrapper" ng-show="selectedfile">
+        <div style="width:100%;height:78vh">
+            <file-preview file="selectedfile" fileproperty="NazwaEad" secure="false"></file-preview>
+        </div>
+    </div>
+</div>
+
+

@@ -23,6 +23,7 @@ namespace Eteczka.BE.Services
         bool ZmienHasloAdministratora(string shortPassword, string longPassword);
         bool UsunUzytkownikowiWszystkieFirmy(string identyfikator);
         bool UsunFirmeUzytkownika(KatLoginyFirmy firma);
+        bool UsunUzytkownika(string identyfikator);
 
         bool SprawdzHasloKrotkie(string id, string haslo);
     }

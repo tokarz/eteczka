@@ -1,0 +1,56 @@
+﻿<div class="menu-table-wrapper">
+    <div class="toolbar-panel git-panel" style="text-align:center">
+        <span style="display:inline-block;margin-top: 5px;width:100%" ng-if="userChoseFolder">
+            <span class="git-icon" style="text-align:center;cursor:pointer" ng-click="showFileDialog()">
+                <span class="fa fa-plus-square" style="margin-right:5px"></span>
+                <span>Dodaj Pliki</span>
+            </span>
+            <input type="file" id="stageFile" style="display:none;width:1px" />
+        </span>
+        <span style="margin-top:2px">.{{activePath}}</span>
+    </div>
+    <div class="toolbar-content" style="height: 37vh;width:100%;margin:auto">
+        <table style="width:100%;text-align:center">
+            <tbody style="font-size:1.1em">
+                <tr ng-repeat="subfolder in subfolders">
+                    <td ng-dblclick="goToFolder(subfolder)">
+                        <i class="fa fa-folder" style="color:sandybrown;margin-right:5px;cursor:pointer"></i>{{subfolder}}
+                    </td>
+                </tr>
+                <tr ng-repeat="file in files" ng-class="getRowStyle(file)">
+                    <td ng-click="selectFile(file)">
+                        <i class="fa fa-file-pdf-o" style="color:darkred;margin-right:5px;cursor:pointer"></i>{{file.NazwaEad}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="toolbar-panel git-panel">
+        <span style="float:left;text-align:left;margin-top: 5px" ng-if="selectedstagedfile !== null">
+            <span ng-click="unstageFile(selectedstagedfile)" class="git-icon">
+                <span class="fa fa-arrow-up" style="color:darkred"></span>
+                <span>Zrodlowe</span>
+            </span>
+        </span>
+
+        <span style="float:right;text-align:right;margin-top:5px" ng-if="selectedfile !== null">
+            <span ng-click="stageFile(selectedfile)" class="git-icon">
+                <span class="fa fa-arrow-down" style="color:darkgreen"></span>
+                <span>Do Opracowania</span>
+            </span>
+        </span>
+    </div>
+    <div class="staged-files-wrapper" style="height: 31.5vh;width:100%;margin:auto;background:white">
+        <table style="width:100%;height:25vh">
+            <tbody>
+                <tr ng-repeat="row in stagedrows" ng-click="selectStagedFile(row)" ng-class="getStagedRowStyle(row)">
+                    <td><i class="fa fa-check-circle" aria-hidden="true" style="margin-right:2px;font-weight:bold;color:darkgreen"></i>{{row.NazwaEad}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div ng-show="selectedstagedfile" class="staged-file-description-button" ng-click="triggerUpsertFileDescriptionDialog()">
+            <div>OPISZ DOKUMENT</div>
+        </div>
+    </div>
+
+</div>

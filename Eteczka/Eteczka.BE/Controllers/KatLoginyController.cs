@@ -335,6 +335,7 @@ namespace Eteczka.BE.Controllers
                 {
                     sesja = stanSesji.PobierzSesje(sessionId);
                     sucess = _KatLoginyService.UsunUzytkownikowiWszystkieFirmy(user.Identyfikator);
+                    sucess = _KatLoginyService.UsunUzytkownika(user.Identyfikator);
                 }
 
                 result = Json(new

@@ -1,0 +1,74 @@
+﻿<div class="component-main-wrapper">
+    <div class="user-details">
+        <div class="top-toolbar toolbar-panel">
+            <span class="toolbar-option option-one fa fa-plus-circle" ng-click="triggerAddEmployeeDialog()"></span>
+            <span ng-show="user.Nazwisko" class="toolbar-option option-two fa fa-pencil-square" ng-click="triggerEditEmployeeDialog()"></span>
+            <span ng-show="user.Nazwisko" class="toolbar-option option-three fa fa-trash-o" ng-click="triggerDeleteEmployeePopup()"></span>
+        </div>
+        <div class="user-details-list toolbar-content" >
+            <h3 style="margin:auto;text-align:center">Dane Pracownika</h3>
+            <div class="details-row">
+                <span class="details-label">Pesel</span>
+                <span class="details-value">{{user.PESEL}}</span>
+            </div>
+            <div class="details-row">
+                <span class="details-label">Data Urodzenia</span>
+                <span class="details-value">{{user.DataUrodzenia}}</span>
+            </div>
+            <div class="details-row">
+                <span class="details-label">Nazwisko</span>
+                <span class="details-value">{{user.Nazwisko}}</span>
+            </div>
+            <div class="details-row">
+                <span class="details-label">Imie</span>
+                <span class="details-value">{{user.Imie}}</span>
+            </div>
+            <div class="details-row">
+                <span class="details-label">Drugie Imie</span>
+                <span class="details-value">{{user.Imie2}}</span>
+            </div>
+            <div class="details-row">
+                <span class="details-label">Confidential</span>
+                <span class="details-value">{{user.Confidential}}</span>
+            </div>
+            <div class="details-row">
+                <span class="details-label">Pesel obcy</span>
+                <span class="details-value">{{user.PeselInny}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="user-history">
+        <div class="top-toolbar toolbar-panel">
+            <span ng-show="user.Nazwisko" class="toolbar-option option-one fa fa-plus-circle" ng-click="triggerAddWorkplaceDialog()"></span>
+            <span ng-show="selectedWorkplace.Firma" class="toolbar-option option-two fa fa-pencil-square" ng-click="triggerEditWorkplaceDialog()"></span>
+            <span ng-show="selectedWorkplace.Firma" class="toolbar-option option-three fa fa-trash-o" ng-click="triggerDeleteWorkplaceDialog()"></span>
+        </div>
+        <div class="toolbar-content">
+            <h3 style="margin:auto;text-align:center">Miejsce Pracy</h3>
+            <table style="width:100%;text-align:center">
+                <thead class="table-header">
+                    <tr>
+                        <th>Data pocz.</th>
+                        <th>Data Koniec</th>
+                        <th>Firma</th>
+                        <th>Rejon</th>
+                        <th>Wydzial</th>
+                        <th>Podwydzial</th>
+                        <th>Konto5</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="workplace in workplaces" ng-click="selectRow(workplace)" ng-class="getRowStyle(workplace)">
+                        <td>{{workplace.DataPocz}}</td>
+                        <td>{{workplace.DataKoniec}}</td>
+                        <td>{{workplace.Firma}}</td>
+                        <td>{{workplace.Rejon.Nazwa}}</td>
+                        <td>{{workplace.Wydzial.Nazwa}}</td>
+                        <td>{{workplace.Podwydzial.Nazwa}}</td>
+                        <td>{{workplace.Konto5.Konto5}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,52 @@
+﻿<md-dialog aria-label="Wysyłanie obiektow z koszyka" draggable>
+    <form ng-cloak name="sendEmail" novalidate>
+        <md-toolbar>
+            <div class="modal-header md-toolbar-tools">
+                <h2>Wysylanie dokumentow z koszyka</h2>
+                <span flex></span>
+                <!--<md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+                </md-button>-->
+            </div>
+        </md-toolbar>
+        <md-dialog-content style="padding:15px">
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="recipients">Do *</label>
+                <input class="modal-table-input" 
+                       name="recipients" 
+                       type="text" 
+                       ng-model="modalResult.recipients" 
+                       ng-pattern="/^(\S+@\S+\.\S+,?\s?)+$/" 
+                       required />
+            </div>
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="copyRecipients">DW</label>
+                <input class="modal-table-input" 
+                       name="copyRecipients" 
+                       type="text" 
+                       ng-model="modalResult.copyRecipients" 
+                       ng-pattern="/^(\S+@\S+\.\S+,?\s?)+$/" />
+            </div>
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="topic">Temat *</label>
+                <input class="modal-table-input" name="topic" type="text" ng-model="modalResult.subject" required />
+            </div>
+            <div class="modal-table-row">
+                <textarea style="height:230px;width:100%" name="topic" ng-model="modalResult.content" />
+            </div>
+            <div class="modal-table-row" ng-show="modalResult.filesToAttach.length > 0">
+                <h4>Zalaczniki</h4>
+                <div style="font-size: 20px;">
+                    <span class="fa fa-paperclip email-component" style="margin:5px"></span><span class="fa fa-file-archive-o" style="color:darkred"></span>({{modalResult.filesToAttach.length}})
+                </div>
+            </div>
+
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" ng-click="cancel()">Anuluj</button>
+                <button type="submit" class="btn btn-primary" ng-click="answer(modalResult, sendEmail.$error)">Zatwierdz</button>
+            </div>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

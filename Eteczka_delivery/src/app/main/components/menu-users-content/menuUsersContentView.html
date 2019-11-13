@@ -1,0 +1,111 @@
+﻿<div class="component-main-wrapper">
+    <div class="user-details">
+        <div class="top-toolbar toolbar-panel">
+            <span class="toolbar-option option-one fa fa-plus-circle" ng-click="openAddUserDialog()"></span>
+            <span ng-show="activeUser" class="toolbar-option option-one fa fa-pencil-square" ng-click="openEditUserDialog()"></span>
+            <span ng-show="activeUser" class="toolbar-option option-three fa fa-trash-o" ng-click="triggerDeleteUser(activeUser)"></span>
+        </div>
+        <div class="user-details-list toolbar-content">
+            <h3 style="margin:auto;text-align:center">Dane Pracownika</h3>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="details-label">
+                            Id
+                        </td>
+                        <td class="details-value">
+                            {{user.Identyfikator}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="details-label">
+                            Nazwisko
+                        </td>
+                        <td class="details-value">
+                            {{user.Nazwisko}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="details-label">
+                            Imię
+                        </td>
+                        <td class="details-value">
+                            {{user.Imie}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="user-history">
+        <div class="top-toolbar toolbar-panel">
+            <span ng-show="user.Nazwisko" class="toolbar-option option-one fa fa-plus-circle" ng-click="openSetUserRightsDialog(false)"></span>
+            <span ng-show="selectedCompany" class="toolbar-option option-two fa fa-pencil-square" ng-click="openSetUserRightsDialog(true)"></span>
+            <span ng-show="selectedCompany" class="toolbar-option option-three fa fa-trash-o" ng-click="triggerDeleteUserCompany(selectedCompany)"></span>
+        </div>
+        <div class="toolbar-content">
+            <h3 style="margin:auto;text-align:center">Uprawnienia</h3>
+            <table class="striped-table" style="width:100%;text-align:center">
+                <colgroup>
+                    <col style="width:20%" />
+                    <col style="width:70%" />
+                    <col style="width:10%" />
+                </colgroup>
+                <thead class="table-header">
+                    <tr>
+                        <th>Firma</th>
+                        <th>Role</th>
+                        <th>Confidential</th>
+                        <th> <!--<span class="fa fa-check-square" style="cursor: pointer" ng-click="toggleSelectAll()"></span>--></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="userCompany in userCompanies" ng-click="toggleSelectCompany(userCompany)" ng-class="isCompanySelected(userCompany)">
+                        <td>{{userCompany.Firma}}</td>
+                        <td class="rightsColumn">
+                            <span ng-show="userCompany.Uprawnienia.RolaReadOnly">
+                                <i class="fa fa-pencil" title="Tylko odczyt"></i>
+                            </span>
+                            <span ng-show="userCompany.Uprawnienia.RolaAddPracownik">
+                                <i class="fa fa-user-plus" title="Dodawanie Pracownika"></i>
+                            </span>
+                            <span ng-show="userCompany.Uprawnienia.RolaModifyPracownik">
+                                <i class="fa fa-user" title="Edycja Pracownika"></i>
+                            </span>
+                            <span ng-show="userCompany.Uprawnienia.RolaAddFile">
+                                <i class="fa fa-plus-circle" title="Dodawanie dokumentów"></i>
+                            </span>
+                            <span ng-show="userCompany.Uprawnienia.RolaModifyFile">
+                                <i class="fa fa-file-pdf-o" title="Edycja dokumentów"></i>
+                            </span>
+                            <span ng-show="userCompany.Uprawnienia.RolaSlowniki">
+                                <i class="fa fa-database" title="Edycja słowników"></i>
+                            </span>
+                            <span ng-show="userCompany.Uprawnienia.RolaSendEmail">
+                                <i class="fa fa-envelope-o" title="Wysyłanie Poczty E-Mail"></i>
+                            </span>
+                            <span ng-show="userCompany.Uprawnienia.RolaRaport">
+                                <i class="fa fa-book" title="Generowanie raportów"></i>
+                            </span>
+                            <span ng-show="userCompany.Uprawnienia.RolaRaportExport">
+                                <i class="fa fa-download" title="Eksporty"></i>
+                            </span>
+                            <span ng-show="userCompany.Uprawnienia.RolaDoubleAkcept">
+                                <i class="fa fa-check" title="Podwójny akcept"></i>
+                            </span>
+                        </td>
+                        <td>
+                            <span class="confidentials-label">
+                                <select ng-model="userCompany.Confidential">
+                                    <option ng-repeat="confidential in confidentialValues">{{confidential}}</option>
+                                </select>
+                            </span>
+
+                        </td>
+                        <!--<td><input type="checkbox" /></td>-->
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

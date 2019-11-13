@@ -1,0 +1,132 @@
+﻿@import 'vars.scss';
+@import 'mixins.scss';
+@import 'login.scss';
+@import 'admin.scss';
+@import 'header.scss';
+@import 'navigation.scss';
+@import 'content.scss';
+@import 'modal.scss';
+@import 'components.scss';
+@import 'utils.scss';
+
+html {
+    height: 100vh;
+    width: 100%;
+}
+
+body {
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    background-color: whitesmoke;
+    /*font-family: monospace, sans-serif;*/
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    height: 100%;
+    width: 100%;
+    -webkit-transform: translate3d(0,0,0);
+}
+
+li {
+    list-style: none;
+}
+
+#rootWrapper {
+    height: 100%;
+    width: 100%;
+}
+
+.logo-wrapper {
+}
+
+#customer-logo {
+    width: 40%;
+    margin: auto;
+    display: block;
+    -moz-animation: 2s fadein;
+    -o-animation: 2s fadein;
+    -webkit-animation: 2s fadein;
+    animation: 2s fadein;
+}
+
+
+.document-cart {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    height: 150px;
+    width: 80px;
+    background: $darkgrey;
+    -moz-transform: translate(0, -50%);
+    -ms-transform: translate(0, -50%);
+    -o-transform: translate(0, -50%);
+    -webkit-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+}
+
+.document-cart > span {
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+    -moz-transform-origin: left bottom 0;
+    -ms-transform-origin: left bottom 0;
+    -o-transform-origin: left bottom 0;
+    -webkit-transform-origin: left bottom 0;
+    transform-origin: left bottom 0;
+    position: absolute;
+    color: white;
+    font-weight: bold;
+}
+
+
+.button-success {
+    background-color: $darkgreen !important;
+    color: white;
+}
+
+.button-error {
+    background-color: $error-red !important;
+    color: white;
+}
+
+.table-header {
+    background: $tableHeader;
+    color: white;
+    height: 30px;
+}
+
+.not-yet-available {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.options-wrapper {
+    height: 90%;
+}
+
+.striped-table {
+    border-bottom: 1px solid $lightgray;
+}
+
+.striped-table tbody tr:hover {
+    cursor: pointer;
+}
+
+.striped-table tbody tr:nth-child(even) {
+    background: white;
+}
+
+.striped-table tbody tr:nth-child(odd) {
+    background: $lightgray;
+}
+
+
+.dataTables_scrollHead {
+    background: $tableHeader;
+}
+
+.user-summary {
+    text-align: center;
+    font-weight:bold;
+}

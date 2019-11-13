@@ -1,0 +1,11 @@
+﻿{
+	"version": 3,
+	"file": "mixins.css",
+	"sources": [
+		"mixins.scss",
+		"vars.scss"
+	],
+	"sourcesContent": [],
+	"mappings": "ACYA,UAAU,CAAC,MAAM;EACb,EAAE;IACE,OAAO,EAAE,CAAE;;EAGf,IAAI;IACA,OAAO,EAAE,CAAE;;;;ADCnB,UAAU,CAAC,MAAM;EACb,EAAE;IACE,OAAO,EAAE,CAAE;;EAGf,IAAI;IACA,OAAO,EAAE,CAAE",
+	"names": []
+}

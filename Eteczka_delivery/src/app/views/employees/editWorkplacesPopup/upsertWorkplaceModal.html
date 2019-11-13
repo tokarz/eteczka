@@ -1,0 +1,130 @@
+﻿<md-dialog aria-label="Edycja nowego pracownika" draggable class="open-to-left">
+    <form ng-cloak name="upsertworkspace" novalidate>
+        <md-toolbar>
+            <div class="modal-header md-toolbar-tools">
+                <h2>Miejsce pracy</h2>
+                <span flex></span>
+                <!--<md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+                </md-button>-->
+            </div>
+        </md-toolbar>
+        <md-dialog-content style="padding:15px">
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="firm">Firma</label>
+                <input class="modal-table-input" name="firm" type="text" ng-model="modalResult.Firma" ng-disabled="true" />
+            </div>
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="region">Rejon *</label>
+                <select ng-if="workplaceParams.loadingRegions"
+                        class="modal-table-input modal-select-input"
+                        name="region"
+                        ng-options="option for option in ['processing...']" />
+                <select ng-if="!workplaceParams.loadingRegions"
+                        class="modal-table-input modal-select-input"
+                        name="region"
+                        ng-model="modalResult.Rejon"
+                        ng-options="option.Nazwa for option in workplaceParams.regions"
+                        ng-init="modalResult.Rejon.Nazwa"
+                        required />
+            </div>
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="department">Wydzial *</label>
+                <select ng-if="workplaceParams.loadingDepartments"
+                        class="modal-table-input"
+                        name="department"
+                        ng-options="option for option in ['processing...']" />
+                <select ng-if="!workplaceParams.loadingDepartments"
+                        class="modal-table-input modal-select-input"
+                        name="department"
+                        ng-model="modalResult.Wydzial"
+                        ng-options="option.Nazwa for option in workplaceParams.departments"
+                        ng-init="modalResult.Wydzial.Nazwa"
+                        ng-change="loadSubDepartmentList(modalResult.Wydzial)"
+                        required />
+            </div>
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="subDepartment">Podwydzial</label>
+                <select ng-if="workplaceParams.loadingSubDepartments"
+                        class="modal-table-input modal-select-input"
+                        name="subDepartment"
+                        ng-model="modalResult.Podwydzial"
+                        ng-disabled="!modalResult.Wydzial"
+                        ng-options="option for option in ['processing...']" />
+                <select ng-if="!workplaceParams.loadingSubDepartments"
+                        class="modal-table-input modal-select-input"
+                        name="subDepartment"
+                        ng-model="modalResult.Podwydzial"
+                        ng-disabled="!modalResult.Wydzial || workplaceParams.subDepartments.length === 0"
+                        ng-options="option.Nazwa for option in workplaceParams.subDepartments"
+                        ng-init="modalResult.Podwydzial.Nazwa"
+                        ng-required="modalResult.Wydzial && workplaceParams.subDepartments.length !== 0" />
+            </div>
+            <div class="modal-table-row">
+                <!--<label class="modal-table-label" for="account5">Konto 5 (skrot)</label>
+                <select ng-if="!workplaceParams.loadingSubDepartments"
+                        class="modal-table-input"
+                        name="account5"
+                        ng-model="modalResult.Konto5"
+                        ng-options="option.Kontoskr for option in workplaceParams.accounts5"
+                        ng-init="modalResult.Konto5.Nazwa"
+                        required
+                />-->
+                <label class="modal-table-label" for="account5Abbr">Konto 5 (skrot) *</label>
+                <md-autocomplete class="modal-table-input"
+                                 name="account5Abbr"
+                                 md-selected-item="modalResult.Konto5"
+                                 md-search-text="searchText"
+                                 md-items="item in querySearch(searchText)"
+                                 md-item-text="item.Kontoskr"
+                                 md-min-length="0"
+                                 required>
+                    <md-item-template>
+                        <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.Kontoskr}}</span>
+                    </md-item-template>
+                    <md-not-found>
+                        Nie znaleziono konta zaczynajacego sie od "{{searchText}}".
+                    </md-not-found>
+                </md-autocomplete>
+            </div>
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="account5Name">Konto 5</label>
+                <input class="modal-table-input" name="account5Name" type="text" ng-model="modalResult.Konto5.Konto5" disabled />
+            </div>
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="startDate">Data poczatkowa *</label>
+                <input class="modal-table-input"
+                       name="startDate"
+                       type="text"
+                       placeholder="RRRR-MM-DD"
+                       ng-model="modalResult.DataPocz"
+                       ng-pattern="/^\s*(\d{4})-(\d{2})-(\d{2})\s*$/"
+                       ng-model-options="{updateOn: 'blur'}"
+                       required />
+            </div>
+            <div ng-show="upsertworkspace.$submitted || upsertworkspace.startDate.$touched">
+                <span class="modal-table-error" ng-show="upsertworkspace.startDate.$error.pattern">Data musi miec format: RRRR-MM-DD</span>
+            </div>
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="endDate">Data koncowa *</label>
+                <input class="modal-table-input"
+                       name="endDate"
+                       type="text"
+                       placeholder="RRRR-MM-DD"
+                       ng-model="modalResult.DataKoniec"
+                       ng-pattern="/^\s*(\d{4})-(\d{2})-(\d{2})\s*$/"
+                       ng-model-options="{updateOn: 'blur'}"
+                       required />
+            </div>
+            <div ng-show="upsertworkspace.$submitted || upsertworkspace.endDate.$touched">
+                <span class="modal-table-error" ng-show="upsertworkspace.endDate.$error.pattern">Data musi miec format: RRRR-MM-DD</span>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" ng-click="cancel()">Anuluj</button>
+                <button type="submit" class="btn btn-primary" ng-click="answer(modalResult, upsertworkspace.$error)">Zatwierdz</button>
+            </div>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

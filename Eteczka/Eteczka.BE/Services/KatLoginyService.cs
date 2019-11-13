@@ -147,6 +147,13 @@ namespace Eteczka.BE.Services
             return result;
         }
 
+        public bool UsunUzytkownika(string id)
+        {
+            bool result = _Dao.UsunUzytkownika(id);
+
+            return result;
+        }
+
 
     }
 }

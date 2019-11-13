@@ -21,12 +21,12 @@ namespace Eteczka.Utils.Logger
     {
         public void LOG_MAIN_LOG(PoziomLogowania poziom, Akcja akcja, SessionDetails sesja, bool sucess, string nazwaTabeli, object TabelaPo, object TabelaPrzed = null, string message = null)
         {
-           string path = ConfigurationManager.AppSettings["rootdir"];
-           string fullPath = string.Format(@"{0}/{1}/{2}.log", path, "logs", poziom.ToString());
+            string path = ConfigurationManager.AppSettings["rootdir"];
+            string fullPath = string.Format(@"{0}/{1}/{2}.log", path, "logs", poziom.ToString());
 
             IToLogSerializer TabelaPrzedDoLoguBezHasel = null;
 
-            if ( TabelaPrzed is KatLoginy || TabelaPrzed is AddKatLoginyDto)
+            if (TabelaPrzed is KatLoginy || TabelaPrzed is AddKatLoginyDto)
             {
                 TabelaPrzedDoLoguBezHasel = (TabelaPrzed as IToLogSerializer).WykluczPolaZHaslem(TabelaPrzed);
             }
@@ -44,14 +44,17 @@ namespace Eteczka.Utils.Logger
                 Firma = sesja == null ? "" : (sesja.AktywnaFirma == null ? "" : sesja.AktywnaFirma.Firma.Trim()),
                 Akcja = akcja,
                 NazwaTabeli = nazwaTabeli,
-                TabelaPrzed = TabelaPrzedDoLoguBezHasel != null ? this.SerializujDoJson(TabelaPrzedDoLoguBezHasel) : (TabelaPrzed != null ? this.SerializujDoJson(TabelaPrzed) :  "\"\""),
+                TabelaPrzed = TabelaPrzedDoLoguBezHasel != null ? this.SerializujDoJson(TabelaPrzedDoLoguBezHasel) : (TabelaPrzed != null ? this.SerializujDoJson(TabelaPrzed) : "\"\""),
                 TabelaPo = TabelaPoDoLoguBezHasel != null ? this.SerializujDoJson(TabelaPoDoLoguBezHasel) : this.SerializujDoJson(TabelaPo),
                 Sucess = sucess,
                 Wiadomosc = message ?? "\"\"",
                 System = "EAD"
             };
 
-            File.AppendAllText(fullPath, log.ToJsonFormat() + Environment.NewLine);
+            if (File.Exists(fullPath))
+            {
+                File.AppendAllText(fullPath, log.ToJsonFormat() + Environment.NewLine);
+            }
 
         }
 
@@ -77,14 +80,17 @@ namespace Eteczka.Utils.Logger
 
             if (poziom == PoziomLogowania.DEBUG)
             {
-                if (logLevel == "debug")
+                if (File.Exists(fullPath))
                 {
                     File.AppendAllText(fullPath, "{" + log.ToString() + "};" + Environment.NewLine);
                 }
             }
             else
             {
-                File.AppendAllText(fullPath, "{" + log.ToString() + "};" + Environment.NewLine);
+                if (File.Exists(fullPath))
+                {
+                    File.AppendAllText(fullPath, "{" + log.ToString() + "};" + Environment.NewLine);
+                }
             }
         }
 
@@ -94,7 +100,7 @@ namespace Eteczka.Utils.Logger
             string sciezkaDoPliku = Path.Combine(rootDir, "logs", "EMAILLOGS.log");
 
             File.AppendAllText(sciezkaDoPliku, emailLog.ToJsonFormat() + Environment.NewLine);
-            
+
         }
 
         public string SerializujDoJson(object ob)

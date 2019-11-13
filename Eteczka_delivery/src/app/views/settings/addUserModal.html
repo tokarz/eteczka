@@ -1,0 +1,60 @@
+﻿<md-dialog aria-label="dodawanie uzytkownika" draggable class="open-to-left">
+    <form ng-cloak name="addUser" novalidate>
+        <md-toolbar>
+            <div class="modal-header md-toolbar-tools">
+                <h2>Dodawanie Uzytkownika</h2>
+                <span flex></span>
+                <!--<md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+                </md-button>-->
+            </div>
+        </md-toolbar>
+        <md-dialog-content style="padding:15px">
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="name">Nazwa</label>
+                <input class="modal-table-input" name="name" type="text" ng-model="modalResult.Nazwa" required />
+            </div>
+
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="password">Haslo</label>
+                <input class="modal-table-input"
+                       name="password"
+                       type="password"
+                       ng-pattern="/^(?=.*\d)(?=.*\W+)(?=.*[a-z])(?=.*[A-Z]).{12,}$/"
+                       ng-model="modalResult.Password"
+                       ng-model-options="{updateOn: 'blur'}" required />
+            </div>
+            <div ng-show="addUser.$submitted || addUser.password.$touched">
+                <span class="modal-table-error" ng-show="addUser.password.$error.pattern">Haslo musi zawierac min 1 cyfre, 1 znak specjalny, 1 duze litere, 1 mala i miec min 12 znakow</span>
+            </div>
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="confirmPassword">Potwierdz Haslo</label>
+                <input class="modal-table-input" name="confirmPassword" type="password" ng-model="modalResult.PasswordRepeat" ng-model-options="{updateOn: 'blur'}" required />
+            </div>
+            <div ng-show="addUser.$submitted || addUser.confirmPassword.$touched">
+                <span class="modal-table-error" ng-show="passwordsDoNotMatch()">Podane hasla musza sie zgadzac</span>
+            </div>
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="company">Firmy</label>
+                <select multiple class="modal-table-input modal-select-input"
+                        ng-model="modalResult.Firmy"
+                        ng-options="option.Firma for option in companies" required></select>
+            </div>
+          
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="confidential">Stopien Poufnosci</label>
+                <select class="modal-table-input modal-select-input"
+                        ng-model="modalResult.Confidential"
+                        ng-options="option for option in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]"
+                        ng-init="modalResult.Confidential = 0"></select>
+            </div>
+           
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" ng-click="cancel()">Anuluj</button>
+                <button type="submit" class="btn btn-primary" ng-click="answer(modalResult, addUser.$error)">Zatwierdz</button>
+            </div>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

@@ -1,0 +1,19 @@
+﻿<span class="login-name-label" ng-bind="loginstatus"></span>
+<span class="login-name-label companies-label" ng-if="!isadmin">
+    <span class="single-company-label" ng-if="firmparams.firms.length <= 1">{{firmparams.selectedfirm}}</span>
+    <span ng-if="firmparams.firms.length > 1">
+        <select ng-model="firmparams.selectedfirm">
+            <option ng-repeat="firm in firmparams.firms">{{firm}}</option>
+        </select>
+
+    </span>
+</span>
+<span class="user-icon fa fa-user-circle" ng-show="!isadmin"></span>
+<span class="user-icon fa fa-user-circle" style="color:gold" ng-show="isadmin"></span>
+<span class="callout bottom element-invisible">
+    <ul class="user-options-wrapper">
+        <li ng-repeat="userOption in useroptions" ng-click="userOption.onclick()">
+            <i ng-class="userOption.iconClass"></i>{{userOption.name}}
+        </li>
+    </ul>
+</span>

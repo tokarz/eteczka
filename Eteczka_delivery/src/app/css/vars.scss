@@ -1,0 +1,23 @@
+﻿$darkblue: #074C75;
+$darkgrey: #666161;
+$blue: #134557;
+$lightblue: #8FE1E1;
+$lightgray: #E3E3E3;
+$green: #0DEB1F;
+$tableHeader: #31B1DE;
+$error-red: red;
+$darkgreen: darkgreen;
+$lightgreen: forestgreen;
+$darkred: darkred;
+
+$FONT_SIZE: 14px;
+
+@keyframes fadein {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}

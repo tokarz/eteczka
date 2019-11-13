@@ -1,0 +1,119 @@
+﻿<md-dialog aria-label="Opis dokumentu" draggable class="open-to-left">
+    <form ng-cloak name="upsertFileDescription" novalidate>
+        <md-toolbar>
+            <div class="modal-header md-toolbar-tools">
+                <h2>Opis dokumentu</h2>
+                <span flex></span>
+                <!--<md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+                </md-button>-->
+            </div>
+        </md-toolbar>
+        <md-dialog-content style="padding:15px">
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="employee">Nazwisko Pracownika *</label>
+                <md-autocomplete class="modal-table-input"
+                                 name="employee"
+                                 md-selected-item="modalResult.Pracownik"
+                                 md-search-text="searchEmployee"
+                                 md-items="item in employeeSearch(searchEmployee)"
+                                 md-item-text="item.Nazwisko"
+                                 md-min-length="0"
+                                 required
+                                 ng-model="modalResult.Pracownik">
+                    <md-item-template>
+                        <span md-highlight-text="searchEmployee" md-highlight-flags="^i">{{item.Nazwisko}} {{item.Imie}} {{item.DataUrodzenia}}</span>
+                    </md-item-template>
+                    <md-not-found>
+                        Nie znaleziono pracownika o nazwisku "{{searchEmployee}}".
+                    </md-not-found>
+                </md-autocomplete>
+            </div>
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="employeeName">Pracownik</label>
+                <input class="modal-table-input" name="employeeName" value="{{modalResult.Pracownik.Nazwisko.trim()}} {{modalResult.Pracownik.Imie.trim()}} {{modalResult.Pracownik.DataUrodzenia.trim()}}" type="text" required disabled />
+            </div>
+            <div ng-show="upsertFileDescription.$submitted">
+                <span class="modal-table-error" ng-show="upsertFileDescription.employeeName.$error.required">Nie znaleziono pracownika o podanym peselu</span>
+            </div>
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="docSymbol">Symbol dokumentu *</label>
+                <md-autocomplete class="modal-table-input"
+                                 name="docSymbol"
+                                 md-selected-item="modalResult.Typ"
+                                 md-search-text="searchDocSymbol"
+                                 md-items="item in fileTypeSearch(searchDocSymbol)"
+                                 md-item-text="item.Symbol"
+                                 md-min-length="0"
+                                 required
+                                 ng-model="modalResult.Typ">
+                    <md-item-template>
+                        <span md-highlight-text="searchDocSymbol" md-highlight-flags="^i">{{item.Symbol}} - {{item.Nazwa}}</span>
+                    </md-item-template>
+                    <md-not-found>
+                        Nie znaleziono symbolu dokumentu "{{searchDocSymbol}}".
+                    </md-not-found>
+                </md-autocomplete>
+            </div>
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="docName">Nazwa dokumentu</label>
+                <input class="modal-table-input" name="docName" type="text" ng-model="modalResult.Typ.Nazwa" disabled />
+            </div>
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="docNr">Numer dokumentu *</label>
+                <input class="modal-table-input" name="docNr" type="text" ng-model="modalResult.NrDokumentu" required />
+            </div>
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="isDocOwner">Dokument Wlasny</label>
+                <select class="modal-table-input modal-select-input"
+                        name="isDocOwner"
+                        ng-options="option.value as option.name for option in yesNoOptions"
+                        ng-model="modalResult.Dokwlasny" />
+            </div>
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="docPart">Dzial Teczki *</label>
+                <select class="modal-table-input modal-select-input"
+                        name="docPart"
+                        ng-options="option as option for option in docPartOptions"
+                        ng-model="modalResult.Typ.Teczkadzial"
+                        required />
+            </div>
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="creationDateContainer">Data dokumentu *</label>
+                <input  type="date" 
+                        name="creationDate" 
+                        class="modal-table-input"
+                        ng-model="modalResult.DataWytworzenia" 
+                        ng-change="fillValidFromDate()" 
+                        required/>
+            </div>
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="validFromDateContainer">Data początku obowiązywania *</label>
+                <input type="date" 
+                        name="validFromDate" 
+                        class="modal-table-input"
+                        ng-model="modalResult.DataPocz" 
+                        required/>
+            </div>
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="validUntilDateContainer">Data końca obowiązywania</label>
+                <input type="date" 
+                        name="validUntilDate" 
+                        class="modal-table-input"
+                        ng-model="modalResult.DataKoniec" 
+                        ng-disabled="isDisabled()"
+                        ng-required="!isDisabled()" />
+            </div>
+            <div class="modal-table-row">
+                <label class="modal-table-label" for="additionalComment">Opis Dodatkowy</label>
+                <textarea rows="4" cols="50" class="modal-table-input" name="additionalComment" ng-model="modalResult.OpisDodatkowy" />
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" ng-click="cancel()">Anuluj</button>
+                <button type="submit" class="btn btn-primary" ng-click="answer(modalResult, upsertFileDescription.$error)">Zatwierdz</button>
+            </div>
+        </md-dialog-actions>
+    </form>
+</md-dialog>
