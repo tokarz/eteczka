@@ -261,7 +261,7 @@ angular.module('et.controllers').controller('menuUsersContentController', ['$sco
         openModal(modalOptions, function (value) {
             var company = {
                 Identyfikator: $scope.activeUser.Identyfikator,
-                Firma: value.Firma.Firma,
+                Firma: value.Firma,
                 Uprawnienia: value.Uprawnienia,
                 DataModify: new Date().toLocaleString(),
                 Confidential: value.Confidential,

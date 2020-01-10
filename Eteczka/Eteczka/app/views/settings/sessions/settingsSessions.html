@@ -14,7 +14,7 @@
                         <th>Zakoncz</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="table-body">
                     <tr ng-repeat="session in openSessions" class="details-table-row" ng-if="openSessions.length < 1"></tr>
                     <tr ng-repeat="session in openSessions" class="details-table-row" ng-if="openSessions.length >= 1">
                         <td>{{session.IdSesji}}</td>

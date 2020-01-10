@@ -1,6 +1,9 @@
 ﻿using System.Web.Mvc;
 using Eteczka.BE.Model;
 using System.Collections.Generic;
+using Eteczka.Model.Entities;
+using System.Reflection;
+using System;
 
 namespace Eteczka.BE.Controllers
 {
@@ -42,6 +45,28 @@ namespace Eteczka.BE.Controllers
             {
                 success = success
             }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult PobierzUprawnienia(string sessionId)
+        {
+            SessionDetails detaleSesji = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+            Uprawnienia uprawnienia = null;
+            Dictionary<string, bool> nazwaDoWartosc = new Dictionary<string, bool>();
+
+            if (detaleSesji.IsAdmin != true)
+            {
+                uprawnienia = detaleSesji.AktywnaFirma.Uprawnienia;
+                foreach (PropertyInfo prop in uprawnienia.GetType().GetProperties())
+                {
+                    nazwaDoWartosc.Add(prop.Name.Replace("Rola", "").ToLower(), bool.Parse(prop.GetValue(uprawnienia, null).ToString()));
+                }
+            }
+
+            return Json(new
+            {
+                uprawnienia = nazwaDoWartosc
+            }, JsonRequestBehavior.AllowGet);
+
         }
 
         public ActionResult PobierzOtwarteSesje(string sessionId)

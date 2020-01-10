@@ -80,6 +80,9 @@
   position: absolute;
   right: 30px; }
 
+.top-toolbar.toolbar-panel {
+  height: 30px; }
+
 .top-toolbar {
   position: absolute;
   top: 0;
@@ -87,11 +90,18 @@
   right: 0; }
 
 .toolbar-panel {
-  height: 30px;
   background-color: #074C75;
   color: white;
   padding: 0;
-  margin: 0 0 5px; }
+  margin: 0;
+  height: 38px; }
+
+/*38 px are from toolbar*/
+.main-files-content-wrapper {
+  height: calc( 100% - 38px);
+  width: 100%;
+  overflow: hidden;
+  position: relative; }
 
 .toolbar-panel span {
   cursor: pointer; }
@@ -101,9 +111,16 @@
   color: #134557;
   box-shadow: 0 0 2px black; }
 
+.toolbar-panel.git-panel {
+  background: #074C75;
+  color: white;
+  height: 22px; }
+
 .staged-file-description-button {
   width: 100%;
-  height: 6.5vh;
+  position: absolute;
+  bottom: 0;
+  height: 55px;
   background: #074C75;
   color: white;
   text-align: center;
@@ -120,7 +137,8 @@
   width: 30px;
   height: 30px;
   font-size: 23px !important;
-  margin: 2px 5px; }
+  margin: 2px 0;
+  padding: 2px 0; }
 
 .toolbar-option:hover {
   cursor: pointer; }
@@ -176,6 +194,9 @@
   height: calc(100% - 30px);
   background: white; }
 
+.toolbar-content h3 {
+  margin: 10px auto; }
+
 .rightsColumn input {
   cursor: pointer; }
 
@@ -187,11 +208,12 @@
   cursor: pointer; }
 
 .table-search {
-  width: 99%;
+  width: 90%;
   margin: 5px auto;
   margin-bottom: 5px;
   border: 1px solid black;
-  border-radius: 5px; }
+  border-radius: 5px;
+  display: block; }
 
 .menu-table-wrapper {
   height: 100%;
@@ -210,7 +232,8 @@
   margin: auto;
   overflow: hidden;
   display: block;
-  padding: 0; }
+  padding: 0;
+  border-top: 1px solid #074C75; }
 
 .menu-table-wrapper .toolbar-content tbody {
   overflow: auto;
@@ -263,13 +286,9 @@
   background: whitesmoke;
   color: black; }
 
-.main-files-content-wrapper {
-  height: 100%;
-  width: 100%;
-  overflow: hidden; }
-
 .file-list-wrapper-full {
-  width: 100% !important; }
+  width: 100% !important;
+  height: 100%; }
 
 .file-list-wrapper {
   height: 100%;
@@ -277,10 +296,14 @@
   float: left; }
 
 .file-preview-wrapper {
-  height: 100%;
   width: 50%;
   float: right;
-  background: whitesmoke; }
+  position: absolute;
+  background: whitesmoke;
+  right: 0px;
+  top: 0px;
+  border: 1px solid black;
+  box-shadow: -1px 0 3px black; }
 
 #git-metrics-side-panel {
   width: 10vw;

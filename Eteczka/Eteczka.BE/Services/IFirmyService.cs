@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Eteczka.BE.DTO;
+﻿using Eteczka.BE.Model;
 using Eteczka.Model.DTO;
 using Eteczka.Model.Entities;
+using System.Collections.Generic;
 
 namespace Eteczka.BE.Services
 {
@@ -15,6 +11,7 @@ namespace Eteczka.BE.Services
         List<KatFirmy> PobierzWszystkieAktywneFirmy();
         List<KatFirmy> PobierzWszystkieNieaktywneFirmy();
         KatFirmy WyszukajFirmePoNipie(string nip);
+
         InsertResult DodajFirme(KatFirmy firmaDoDodania, string idoper, string idakcept);
         InsertResult EdytujFirme(KatFirmy firmaDoEdycji, string nip, string idoper, string idakcept);
         InsertResult UsunFirme(string nip, string idoper, string idakcept);

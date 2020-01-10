@@ -110,7 +110,7 @@ namespace Eteczka.BE.Controllers
             {
 
                 success = Sesja.PobierzStanSesji().UstawAktywnaFirme(sessionID, company.Trim());
-                
+
             }
 
             return Json(new
@@ -141,7 +141,7 @@ namespace Eteczka.BE.Controllers
             KatFirmy znalezionaFirma = null;
             try
             {
-                if ( Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
+                if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
                 {
 
                     sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
@@ -172,7 +172,7 @@ namespace Eteczka.BE.Controllers
         {
 
             ActionResult result = null;
-            InsertResult sucess = new InsertResult();
+            InsertResult success = new InsertResult();
             SessionDetails sesja = null;
             try
             {
@@ -180,11 +180,11 @@ namespace Eteczka.BE.Controllers
                 if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
                 {
                     sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
-                    sucess = _FirmyService.DodajFirme(firmaDoDodania, sesja.IdUzytkownika, sesja.IdUzytkownika);
+                    success = _FirmyService.DodajFirme(firmaDoDodania, sesja.IdUzytkownika, sesja.IdUzytkownika);
 
                     result = Json(new
                     {
-                        sucess
+                        success
                     }, JsonRequestBehavior.AllowGet);
                 }
             }
@@ -295,7 +295,7 @@ namespace Eteczka.BE.Controllers
                     sucess = false,
                     wyjatek = true
                 }, JsonRequestBehavior.AllowGet);
-                
+
             }
             return result;
         }

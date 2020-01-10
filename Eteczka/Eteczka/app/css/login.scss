@@ -1,14 +1,18 @@
 ﻿@import 'vars.scss';
 @import 'mixins.scss';
 
+.login-form input {
+    display: inline-block;
+    margin: 5px 0;
+}
+
 .menu-option {
     position: absolute;
-    top: 50%;
     left: 50%;
-    @include translate(-50%, -50%);
+    @include translate(-50%, 45%);
     text-align: center;
     padding: 50px;
-    box-shadow: 1px 0 20px black;
+    box-shadow: 0 0 3px black;
     border-radius: 25px;
     background: white;
     -moz-animation: 2s fadein;
@@ -44,6 +48,7 @@
     -o-transform: translate(-50%, 0);
     -webkit-transform: translate(-50%, 0);
     transform: translate(-50%, 0);
+    border: 1px solid #074C75;
 }
 
 .login-button:hover {
@@ -60,11 +65,13 @@
     width: 200px;
     height: 25px;
     margin: auto;
-    box-shadow: 0 0 2px $darkblue;
+    box-shadow: 0 0 2px black;
     background: white;
     text-align: center;
     display: block;
     font-weight: bold;
+    border-radius: 5px;
+    border: 1px solid black;
 }
 
 .login-input:focus {

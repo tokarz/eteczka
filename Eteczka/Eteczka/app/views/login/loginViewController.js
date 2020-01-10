@@ -6,77 +6,86 @@ angular.module('et.controllers').controller('loginViewController', ['$rootScope'
         password: ''
     };
 
-    $scope.tryLogin = function (credentials) {
-        $state.go('processing');
-        $scope.firmChoices = [];
-        loginService.authenticate(credentials.username, credentials.password).then(function (result) {
-            if (result && result.success) {
-                $rootScope.SESSIONID = result.sesja;
-                sessionService.createSession(result.sesja);
-                $scope.fetchedUser = {
-                    companies: result.firms,
-                    userdetails: result.userdetails,
-                    isadmin: result.isadmin
-                };
+	$scope.isLoginStarted = false;
 
-                if (result.isadmin) {
-                    $rootScope.$broadcast('USER_LOGGED_IN_EV', $scope.fetchedUser);
-                    $state.go('admin');
-                } else {
-                    $rootScope.$broadcast('USER_LOGGED_IN_EV', $scope.fetchedUser);
-                    $state.go('home');
-                }
-            }
+	$scope.tryLogin = function (credentials) {
+		$scope.isLoginStarted = true;
+		$state.go('processing');
+		$scope.firmChoices = [];
+		loginService.authenticate(credentials.username, credentials.password).then(function (result) {
+			if (result && result.success) {
+				$rootScope.SESSIONID = result.sesja;
+				sessionService.createSession(result.sesja);
+				$scope.fetchedUser = {
+					companies: result.firms,
+					userdetails: result.userdetails,
+					isadmin: result.isadmin
+				};
 
-            else {
-                $mdDialog.show(
-                 $mdDialog.alert()
-                    .clickOutsideToClose(true)
-                    .title('Blad Logowania')
-                    .textContent('Haslo lub nazwa Uzytkownika jest nieprawidlowa')
-                    .ariaLabel('Alert Dialog Demo')
-                    .ok('Rozumiem')
-                 ).then(function () {
-                     $state.go('login');
-                 });
+				sessionService.getSessionAccessList().then(accessModel => {
+					$rootScope.ACCESS_MODEL = accessModel;
 
-            }
-        },
-        function (err) {
-            $mdDialog.show(
-                 $mdDialog.alert()
-                    .clickOutsideToClose(true)
-                    .title('Blad Logowania')
-                    .textContent('Blad Serwera! Skontaktuj sie z Administratorem lub sprobuj ponownie za kilka minut')
-                    .ariaLabel('Alert Dialog Demo')
-                    .ok('Rozumiem')
-                 ).then(function () {
-                     $state.go('login');
-                 });
-        });
-    }
+					if (result.isadmin) {
+						$rootScope.$broadcast('USER_LOGGED_IN_EV', $scope.fetchedUser);
+						$state.go('admin');
+					} else {
+						$rootScope.$broadcast('USER_LOGGED_IN_EV', $scope.fetchedUser);
+						$state.go('home');
+					}
+				});
 
-    $scope.adminContactController = function ($scope, $mdDialog) {
-        $scope.topics = ['Stworz/Przypomnij haslo', 'Stworz/Przypomnij login'];
-        $scope.modalResult = {
-            Topic: $scope.topics[0]
-        };
+				
+			}
 
-        $scope.hide = function () {
-            $mdDialog.hide();
-        };
+			else {
+				$mdDialog.show(
+					$mdDialog.alert()
+						.clickOutsideToClose(true)
+						.title('Blad Logowania')
+						.textContent('Haslo lub nazwa Uzytkownika jest nieprawidlowa')
+						.ariaLabel('Alert Dialog Demo')
+						.ok('Rozumiem')
+				).then(function () {
+					$state.go('login');
+				});
+				$scope.isLoginStarted = false;
+			}
+		},
+			function (err) {
+				$mdDialog.show(
+					$mdDialog.alert()
+						.clickOutsideToClose(true)
+						.title('Blad Logowania')
+						.textContent('Blad Serwera! Skontaktuj sie z Administratorem lub sprobuj ponownie za kilka minut')
+						.ariaLabel('Alert Dialog Demo')
+						.ok('Rozumiem')
+				).then(function () {
+					$state.go('login');
+				});
+			});
+	};
 
-        $scope.cancel = function () {
-            $mdDialog.cancel();
-        };
+	$scope.adminContactController = function ($scope, $mdDialog) {
+		$scope.topics = ['Stworz/Przypomnij haslo', 'Stworz/Przypomnij login'];
+		$scope.modalResult = {
+			Topic: $scope.topics[0]
+		};
 
-        $scope.answer = function (answer, errors) {
-            console.log(errors)
-            if (!errors || Object.keys(errors).length === 0) {
-                $mdDialog.hide(answer);
-            }
-        };
-    }
+		$scope.hide = function () {
+			$mdDialog.hide();
+		};
+
+		$scope.cancel = function () {
+			$mdDialog.cancel();
+		};
+
+		$scope.answer = function (answer, errors) {
+			console.log(errors);
+			if (!errors || Object.keys(errors).length === 0) {
+				$mdDialog.hide(answer);
+			}
+		};
+	};
 
     $scope.contactAdmin = function () {
         var modalOptions = {

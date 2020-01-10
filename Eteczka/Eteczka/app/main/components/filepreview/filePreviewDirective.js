@@ -1,275 +1,275 @@
 ﻿'use strict';
 angular.module('et.directives').directive('filePreview', function () {
-    return {
-        restrict: 'E',
-        scope: {
-            file: '=',
-            secure: '@',
-            fileproperty: '@'
-        },
-        templateUrl: 'app/main/components/filepreview/filePreviewView.html',
-        controller: function ($scope, httpService, sessionService, modalService) {
-            $scope.isPreviewVisible = false;
-            $scope.$watch('file', function (value, oldValue) {
-                $scope.isPreviewVisible = false;
+	return {
+		restrict: 'E',
+		scope: {
+			file: '=',
+			secure: '@',
+			fileproperty: '@'
+		},
+		templateUrl: 'app/main/components/filepreview/filePreviewView.html',
+		controller: function ($scope, httpService, sessionService, modalService) {
+			$scope.isPreviewVisible = false;
+			$scope.$watch('file', function (value, oldValue) {
+				$scope.isPreviewVisible = false;
 
-                $scope.closePdf('#pdfPreview');
-                if (value) {
-                    $scope.isPreviewVisible = true;
-                    $scope.closePdf('#pdfPreview');
+				$scope.closePdf('#pdfPreview');
+				if (value) {
+					$scope.isPreviewVisible = true;
+					$scope.closePdf('#pdfPreview');
 
-                    if ($scope.secure === 'true') {
-                        $scope.previewPdf(value, 'GetRestrictedResource', 'pdfPreview');
-                    } else {
-                        $scope.previewPdf(value, 'GetResource', 'pdfPreview');
-                    }
-                } else {
-                    $scope.isPreviewVisible = false;
-                    $scope.closePdf('#pdfPreview');
-                }
-            });
+					if ($scope.secure === 'true') {
+						$scope.previewPdf(value, 'GetRestrictedResource', 'pdfPreview');
+					} else {
+						$scope.previewPdf(value, 'GetResource', 'pdfPreview');
+					}
+				} else {
+					$scope.isPreviewVisible = false;
+					$scope.closePdf('#pdfPreview');
+				}
+			});
 
-            $scope.closePdf = function (id) {
-                var canvasDiv = '<canvas id="pdfPreview"></canvas>';
-                //$(id).empty();
-                $('#pdfCanvasWrapper').empty();
-                $('#pdfCanvasWrapper').append(canvasDiv);
+			$scope.closePdf = function (id) {
+				var canvasDiv = '<canvas id="pdfPreview"></canvas>';
+				//$(id).empty();
+				$('#pdfCanvasWrapper').empty();
+				$('#pdfCanvasWrapper').append(canvasDiv);
 
-            }
+			};
 
-            $scope.previewPdf = function (elm, ctrl, id) {
-                var hashId = '#' + id;
-                $(hashId).attr('src', 'FILE_FETCH?src=' + elm[$scope.fileproperty] + '.fetchfile');
-                $(hashId).addClass('processing');
-                httpService.get('Resources/' + ctrl, {
-                    sessionId: sessionService.getSessionId(),
-                    fileName: elm[$scope.fileproperty]
-                }).then(function (result) {
-                    $(hashId).removeClass('processing');
-                    $scope.closePdf('#pdfPreview');
+			$scope.previewPdf = function (elm, ctrl, id) {
+				var hashId = '#' + id;
+				$(hashId).attr('src', 'FILE_FETCH?src=' + elm[$scope.fileproperty] + '.fetchfile');
+				$(hashId).addClass('processing');
+				httpService.get('Resources/' + ctrl, {
+					sessionId: sessionService.getSessionId(),
+					fileName: elm[$scope.fileproperty]
+				}).then(function (result) {
+					$(hashId).removeClass('processing');
+					$scope.closePdf('#pdfPreview');
 
-                    if (result.Data.data === 'ERROR') {
-                        $scope.generatePdf(id, '');
-                        modalService.alert('', 'Blad! Nieobslugiwany format pdf (plik uszkodzony lub wersja starsza niz Adobe 6.0');
-                    } else {
-                        $scope.generatePdf(id, result.Data.data);
-                    }
+					if (result.Data.data === 'ERROR') {
+						$scope.generatePdf(id, '');
+						modalService.alert('', 'Blad! Nieobslugiwany format pdf (plik uszkodzony lub wersja starsza niz Adobe 6.0');
+					} else {
+						$scope.generatePdf(id, result.Data.data);
+					}
 
-                    //$('#pdfPreviewer').attr('data', 'data:application/pdf;base64,' + result.Data.data);
-                });
-            }
+					//$('#pdfPreviewer').attr('data', 'data:application/pdf;base64,' + result.Data.data);
+				});
+			};
 
-            $scope.generatePdf = function (id, base64) {
-                var pdfData = atob(base64);
-                // Disable workers to avoid yet another cross-origin issue (workers need
-                // the URL of the script to be loaded, and dynamically loading a cross-origin
-                // script does not work).
-                // PDFJS.disableWorker = true;
+			$scope.generatePdf = function (id, base64) {
+				var pdfData = atob(base64);
+				// Disable workers to avoid yet another cross-origin issue (workers need
+				// the URL of the script to be loaded, and dynamically loading a cross-origin
+				// script does not work).
+				// PDFJS.disableWorker = true;
 
-                // The workerSrc property shall be specified.
-                PDFJS.workerSrc = 'Scripts/pdfjs/workers/worker.js';
-                if (pdfDoc) {
-                    pdfDoc.destroy();
-                }
-                var pdfDoc = null,
-                    pageNum = 1,
-                    pageRendering = false,
-                    pageNumPending = null,
-                    scale = 1,
-                    rotate = 0,
-                    canvas = document.getElementById(id),
-                    ctx = canvas.getContext('2d');
+				// The workerSrc property shall be specified.
+				PDFJS.workerSrc = 'Scripts/pdfjs/workers/worker.js';
+				if (pdfDoc) {
+					pdfDoc.destroy();
+				}
+				var pdfDoc = null,
+					pageNum = 1,
+					pageRendering = false,
+					pageNumPending = null,
+					scale = 1,
+					rotate = 0,
+					canvas = document.getElementById(id),
+					ctx = canvas.getContext('2d');
 
-                function renderPages(pdfDoc) {
-                    for (var num = 1; num <= pdfDoc.numPages; num++)
-                        pdfDoc.getPage(num).then(renderPage);
-                }
+				function renderPages(pdfDoc) {
+					for (var num = 1; num <= pdfDoc.numPages; num++)
+						pdfDoc.getPage(num).then(renderPage);
+				}
 
-                function renderPage(num, rotateChange) {
-                    pageRendering = true;
-                    // Using promise to fetch the page
-                    if (pdfDoc) {
+				function renderPage(num, rotateChange) {
+					pageRendering = true;
+					// Using promise to fetch the page
+					if (pdfDoc) {
 
-                        pdfDoc.getPage(num).then(function (page) {
+						pdfDoc.getPage(num).then(function (page) {
 
-                            if (typeof rotateChange !== 'undefined') {
-                                rotate = (rotate + rotateChange) % 360;
-                            }
-
-
-                            var viewport = page.getViewport(scale, rotate);
-                            canvas.height = viewport.height;
-                            canvas.width = viewport.width;
+							if (typeof rotateChange !== 'undefined') {
+								rotate = (rotate + rotateChange) % 360;
+							}
 
 
-                            // Render PDF page into canvas context
-                            var renderContext = {
-                                canvasContext: ctx,
-                                viewport: viewport
-                            };
-                            var renderTask = page.render(renderContext);
+							var viewport = page.getViewport(scale, rotate);
+							canvas.height = viewport.height;
+							canvas.width = viewport.width;
 
-                            // Wait for rendering to finish
-                            renderTask.promise.then(function () {
-                                pageRendering = false;
-                                if (pageNumPending !== null) {
-                                    // New page rendering is pending
-                                    renderPage(pageNumPending);
-                                    pageNumPending = null;
-                                }
-                            });
-                        });
-                    }
 
-                    // Update page counters
-                    document.getElementById('page_num').textContent = pageNum;
-                }
+							// Render PDF page into canvas context
+							var renderContext = {
+								canvasContext: ctx,
+								viewport: viewport
+							};
+							var renderTask = page.render(renderContext);
+
+							// Wait for rendering to finish
+							renderTask.promise.then(function () {
+								pageRendering = false;
+								if (pageNumPending !== null) {
+									// New page rendering is pending
+									renderPage(pageNumPending);
+									pageNumPending = null;
+								}
+							});
+						});
+					}
+
+					// Update page counters
+					document.getElementById('page_num').textContent = pageNum;
+				}
 
                 /**
                  * If another page rendering in progress, waits until the rendering is
                  * finised. Otherwise, executes rendering immediately.
                  */
-                function queueRenderPage(num) {
-                    if (pageRendering) {
-                        pageNumPending = num;
-                    } else {
-                        renderPage(num);
-                    }
-                }
+				function queueRenderPage(num) {
+					if (pageRendering) {
+						pageNumPending = num;
+					} else {
+						renderPage(num);
+					}
+				}
 
-                var curDown = false,
-                    startYPos = 0,
-                    startXPos = 0;
+				var curDown = false,
+					startYPos = 0,
+					startXPos = 0;
 
-                $('#' + id).mousemove(function (m) {
-                    if (curDown === true) {
-                        var topOffset = $('.preview-wrapper').scrollTop() + (startYPos - m.pageY);
-                        var leftOffset = $('.preview-wrapper').scrollLeft() + (startXPos - m.pageX);
+				$('#' + id).mousemove(function (m) {
+					if (curDown === true) {
+						var topOffset = $('.preview-wrapper').scrollTop() + (startYPos - m.pageY);
+						var leftOffset = $('.preview-wrapper').scrollLeft() + (startXPos - m.pageX);
 
-                        $('.preview-wrapper').scrollTop(topOffset);
-                        $('.preview-wrapper').scrollLeft(leftOffset);
-                    }
-                });
+						$('.preview-wrapper').scrollTop(topOffset);
+						$('.preview-wrapper').scrollLeft(leftOffset);
+					}
+				});
 
-                $('#' + id).mouseleave(function (e) {
-                    curDown = false;
-                })
+				$('#' + id).mouseleave(function (e) {
+					curDown = false;
+				});
 
-                $('#' + id).mousedown(function (m) {
-                    curDown = true;
-                    startYPos = m.pageY;
-                    startXPos = m.pageX;
+				$('#' + id).mousedown(function (m) {
+					curDown = true;
+					startYPos = m.pageY;
+					startXPos = m.pageX;
 
-                    m.preventDefault();
-                });
+					m.preventDefault();
+				});
 
-                $('#' + id).mouseup(function () {
-                    curDown = false;
-                });
+				$('#' + id).mouseup(function () {
+					curDown = false;
+				});
 
-                function onPrevPage() {
-                    if (pageNum <= 1) {
-                        return;
-                    }
-                    pageNum--;
-                    queueRenderPage(pageNum);
-                }
-                document.getElementById('prev').addEventListener('click', onPrevPage);
+				function onPrevPage() {
+					if (pageNum <= 1) {
+						return;
+					}
+					pageNum--;
+					queueRenderPage(pageNum);
+				}
+				document.getElementById('prev').addEventListener('click', onPrevPage);
 
-                $("#print").unbind('click');
-                $("#print").bind('click', function () {
-                    $scope.onPrint(base64);
-                });
+				$("#print").unbind('click');
+				$("#print").bind('click', function () {
+					$scope.onPrint(base64);
+				});
 
-                function onZoomIn() {
-                    scale += 0.25;
-                    if (scale > 5) {
-                        scale = 5;
-                    }
+				function onZoomIn() {
+					scale += 0.25;
+					if (scale > 5) {
+						scale = 5;
+					}
 
-                    renderPage(pageNum);
+					renderPage(pageNum);
 
-                }
-                document.getElementById('zoomin').addEventListener('click', _.debounce(onZoomIn, 100));
+				}
+				document.getElementById('zoomin').addEventListener('click', _.debounce(onZoomIn, 100));
 
-                function rotateLeft() {
-                    var rotateLeft = -90;
-                    renderPage(pageNum, rotateLeft);
+				function rotateLeft() {
+					var rotateLeft = -90;
+					renderPage(pageNum, rotateLeft);
 
-                }
-                document.getElementById('rotateleft').addEventListener('click', _.debounce(rotateLeft, 100));
+				}
+				document.getElementById('rotateleft').addEventListener('click', _.debounce(rotateLeft, 100));
 
-                function rotateRight() {
-                    var rotateRight = 90;
-                    renderPage(pageNum, rotateRight);
+				function rotateRight() {
+					var rotateRight = 90;
+					renderPage(pageNum, rotateRight);
 
-                }
-                document.getElementById('rotateright').addEventListener('click', _.debounce(rotateRight, 100));
+				}
+				document.getElementById('rotateright').addEventListener('click', _.debounce(rotateRight, 100));
 
-                function onZoomOut() {
-                    if (scale <= 1) {
-                        return;
-                    }
-                    scale -= 0.25;
-                    renderPage(pageNum);
-                }
-                document.getElementById('zoomout').addEventListener('click', _.debounce(onZoomOut, 100));
+				function onZoomOut() {
+					if (scale <= 1) {
+						return;
+					}
+					scale -= 0.25;
+					renderPage(pageNum);
+				}
+				document.getElementById('zoomout').addEventListener('click', _.debounce(onZoomOut, 100));
 
-                document.getElementById('pdfPreview').addEventListener('wheel', function (e) {
-                    if (e.deltaY < 0) {
-                        onZoomIn();
-                    }
-                    if (e.deltaY > 0) {
-                        onZoomOut();
-                    }
-                    e.preventDefault();
-                });
+				document.getElementById('pdfPreview').addEventListener('wheel', function (e) {
+					if (e.deltaY < 0) {
+						onZoomIn();
+					}
+					if (e.deltaY > 0) {
+						onZoomOut();
+					}
+					e.preventDefault();
+				});
 
-                function onNextPage() {
-                    if (pageNum >= pdfDoc.numPages) {
-                        return;
-                    }
-                    pageNum++;
-                    queueRenderPage(pageNum);
-                }
-                document.getElementById('next').addEventListener('click', onNextPage);
+				function onNextPage() {
+					if (pageNum >= pdfDoc.numPages) {
+						return;
+					}
+					pageNum++;
+					queueRenderPage(pageNum);
+				}
+				document.getElementById('next').addEventListener('click', onNextPage);
 
                 /**
                  * Asynchronously downloads PDF.
                  */
-                if (pdfData) {
-                    PDFJS.getDocument({ data: pdfData }).then(function (pdfDoc_) {
-                        pdfDoc = pdfDoc_;
-                        document.getElementById('page_count').textContent = pdfDoc.numPages;
+				if (pdfData) {
+					PDFJS.getDocument({ data: pdfData }).then(function (pdfDoc_) {
+						pdfDoc = pdfDoc_;
+						document.getElementById('page_count').textContent = pdfDoc.numPages;
 
-                        // Initial/first page rendering
-                        renderPage(pageNum);
-                    });
-                } else {
-                    $scope.closePdf('#pdfPreview');
-                }
-            }
+						// Initial/first page rendering
+						renderPage(pageNum);
+					});
+				} else {
+					$scope.closePdf('#pdfPreview');
+				}
+			};
 
-            $scope.printCanvas = function (data) {
-                httpService.get('app/main/components/filepreview/print/print.html').then(function (html) {
-                    var contents = html;
-                    contents = contents.replace('{{resource}}', 'atob("' + data + '")');
+			$scope.printCanvas = function (data) {
+				httpService.get('app/main/components/filepreview/print/print.html').then(function (html) {
+					var contents = html;
+					contents = contents.replace('{{resource}}', 'atob("' + data + '")');
 
-                    var windowContent = contents;
+					var windowContent = contents;
 
-                    var printWin = window.open('', '', 'width=800,height=700');
+					var printWin = window.open('', '', 'width=800,height=700');
 
-                    printWin.document.open();
-                    printWin.document.write(windowContent);
+					printWin.document.open();
+					printWin.document.write(windowContent);
 
-                    printWin.document.close();
-                });
-            }
+					printWin.document.close();
+				});
+			};
 
-            $scope.onPrint = function (base64) {
-                $scope.printCanvas(base64);
-            }
+			$scope.onPrint = function (base64) {
+				$scope.printCanvas(base64);
+			};
 
-        }
-    }
+		}
+	};
 });

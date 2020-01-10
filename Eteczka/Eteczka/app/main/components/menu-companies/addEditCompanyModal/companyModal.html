@@ -6,27 +6,94 @@
                 <span flex></span>
             </div>
         </md-toolbar>
-        <md-dialog-content style="padding:15px">
-            <div class="modal-table-row">
-                <label class="modal-table-label" for="copanyName">Nazwa*</label>
-                <input type="text" ng-model="modalResult.Nazwa" ng-if="!isEdit" required />
-                <input type="text" ng-model="modalResult.Nazwa" ng-if="isEdit" />
-            </div>
-            <div class="modal-table-row">
-                <label class="modal-table-label" for="nip">NIP*</label>
-                <input ng-if="!isEdit" class="modal-table-input" name="nip" ng-model="modalResult.Nip" type="text" required />
-                <input ng-if="isEdit" class="modal-table-input" name="nip" ng-model="modalResult.Nip" type="text" />
-            </div>
-            <div class="modal-table-row">
-                <label class="modal-table-label" for="regon">Regon*</label>
-                <input ng-if="!isEdit" class="modal-table-input" type="text" ng-model="modalResult.Regon" required />
-                <input ng-if="isEdit" class="modal-table-input" type="text" ng-model="modalResult.Regon" />
-            </div>
-            <div class="modal-table-row">
-                <label class="modal-table-label" for="address">Adres*</label>
-                <input ng-if="!isEdit" class="modal-table-input" type="text" ng-model="modalResult.Adres" required />
-                <input ng-if="isEdit" class="modal-table-input" type="text" ng-model="modalResult.Adres" />
-            </div>
+        <md-dialog-content style="padding:2em">
+            <fieldset>
+                <legend>Dane firmy</legend>
+                <div class="modal-table-row">
+                    <label class="modal-table-label" for="copanyName">Nazwa*</label>
+                    <input type="text" ng-model="modalResult.Nazwa" ng-if="!isEdit" required />
+                    <input type="text" ng-model="modalResult.Nazwa" ng-if="isEdit" />
+                </div>
+                <div class="modal-table-row">
+                    <label class="modal-table-label" for="copanyName">Nazwa skrócona*</label>
+                    <input type="text" ng-model="modalResult.NazwaSkrocona" ng-if="!isEdit" required />
+                    <input type="text" ng-model="modalResult.NazwaSkrocona" ng-if="isEdit" />
+                </div>
+                <div class="modal-table-row">
+                    <label class="modal-table-label" for="nip">NIP*</label>
+                    <input ng-if="!isEdit" class="modal-table-input" name="nip" ng-model="modalResult.Nip" type="text" required />
+                    <input ng-if="isEdit" class="modal-table-input" name="nip" ng-model="modalResult.Nip" type="text" />
+                </div>
+                <div class="modal-table-row">
+                    <label class="modal-table-label" for="regon">Regon*</label>
+                    <input ng-if="!isEdit" class="modal-table-input" type="text" ng-model="modalResult.Regon" required />
+                    <input ng-if="isEdit" class="modal-table-input" type="text" ng-model="modalResult.Regon" />
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Adres:</legend>
+                <div class="modal-table-row">
+                    <label class="modal-table-label" for="address">Ulica*</label>
+                    <input ng-if="!isEdit" class="modal-table-input" type="text" ng-model="modalResult.Ulica" required />
+                    <input ng-if="isEdit" class="modal-table-input" type="text" ng-model="modalResult.Ulica" />
+                </div>
+                <div class="modal-table-row">
+                    <label class="modal-table-label" for="address">Numer Domu*</label>
+                    <input ng-if="!isEdit" class="modal-table-input" type="text" ng-model="modalResult.Numerdomu" required />
+                    <input ng-if="isEdit" class="modal-table-input" type="text" ng-model="modalResult.Numerdomu" />
+                </div>
+                <div class="modal-table-row">
+                    <label class="modal-table-label" for="address">Numer lokalu*</label>
+                    <input ng-if="!isEdit" class="modal-table-input" type="text" ng-model="modalResult.Numerlokalu" required />
+                    <input ng-if="isEdit" class="modal-table-input" type="text" ng-model="modalResult.Numerlokalu" />
+                </div>
+                <div class="modal-table-row">
+                    <label class="modal-table-label" for="address">Miasto*</label>
+                    <input ng-if="!isEdit" class="modal-table-input" type="text" ng-model="modalResult.Miasto" required />
+                    <input ng-if="isEdit" class="modal-table-input" type="text" ng-model="modalResult.Miasto" />
+                </div>
+                <div class="modal-table-row">
+                    <label class="modal-table-label" for="address">Kod pocztowy*</label>
+                    <input ng-if="!isEdit" class="modal-table-input" type="text" ng-model="modalResult.Kodpocztowy" required />
+                    <input ng-if="isEdit" class="modal-table-input" type="text" ng-model="modalResult.Kodpocztowy" />
+                </div>
+                <div class="modal-table-row">
+                    <label class="modal-table-label" for="address">Poczta*</label>
+                    <input ng-if="!isEdit" class="modal-table-input" type="text" ng-model="modalResult.Poczta" required />
+                    <input ng-if="isEdit" class="modal-table-input" type="text" ng-model="modalResult.Poczta" />
+                </div>
+                <div class="modal-table-row">
+                    <label class="modal-table-label" for="address">Gmina*</label>
+                    <input ng-if="!isEdit" class="modal-table-input" type="text" ng-model="modalResult.Gmina" required />
+                    <input ng-if="isEdit" class="modal-table-input" type="text" ng-model="modalResult.Gmina" />
+                </div>
+                <div class="modal-table-row">
+                    <label class="modal-table-label" for="address">Powiat*</label>
+                    <input ng-if="!isEdit" class="modal-table-input" type="text" ng-model="modalResult.Powiat" required />
+                    <input ng-if="isEdit" class="modal-table-input" type="text" ng-model="modalResult.Powiat" />
+                </div>
+                <div class="modal-table-row">
+                    <label class="modal-table-label" for="address">Wojewodztwo*</label>
+                    <input ng-if="!isEdit" class="modal-table-input" type="text" ng-model="modalResult.Wojewodztwo" required />
+                    <input ng-if="isEdit" class="modal-table-input" type="text" ng-model="modalResult.Wojewodztwo" />
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Opcjonalnie</legend>
+                <div class="modal-table-row">
+                    <label class="modal-table-label" for="address">Imie</label>
+                    <input class="modal-table-input" type="text" ng-model="modalResult.Imie" />
+                </div>
+                <div class="modal-table-row">
+                    <label class="modal-table-label" for="address">Nazwisko</label>
+                    <input class="modal-table-input" type="text" ng-model="modalResult.Nazwisko" />
+                </div>
+                <div class="modal-table-row">
+                    <label class="modal-table-label" for="address">Pesel</label>
+                    <input class="modal-table-input" type="text" ng-model="modalResult.Pesel" />
+                </div>
+            </fieldset>
+
         </md-dialog-content>
         <md-dialog-actions layout="row">
             <div class="modal-footer">

@@ -17,23 +17,23 @@ angular.module('et.controllers').controller('homeViewController', ['$scope', '$s
             clickaction: function () {
                 $state.go('fi-files');
             }
-        },
-        {
-            label: 'Raporty',
-            ngclass: 'menu-icon fa fa-bar-chart not-yet-available',
-            menuclass: 'menu-button menu-button-three',
-            clickaction: function () {
-                //$state.go('raports');
-            }
-        },
-        {
-            label: 'Struktura Firmy',
-            ngclass: 'menu-icon fa fa-sitemap',
-            menuclass: 'menu-button menu-button-four',
-            clickaction: function () {
-                $state.go('company');
-            }
         }
+        //{
+        //    label: 'Raporty',
+        //    ngclass: 'menu-icon fa fa-bar-chart not-yet-available',
+        //    menuclass: 'menu-button menu-button-three',
+        //    clickaction: function () {
+        //        //$state.go('raports');
+        //    }
+        //},
+        //{
+        //    label: 'Struktura Firmy',
+        //    ngclass: 'menu-icon fa fa-sitemap',
+        //    menuclass: 'menu-button menu-button-four',
+        //    clickaction: function () {
+        //        $state.go('company');
+        //    }
+        //}
     ];
 
 

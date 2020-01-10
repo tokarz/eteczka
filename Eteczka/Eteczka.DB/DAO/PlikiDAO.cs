@@ -263,7 +263,9 @@ namespace Eteczka.DB.DAO
                   + "WHERE \"Pliki\".firma = '" + firma.Trim() + "' "
                   + "AND \"Pliki\".usuniety = 'FALSE'"
                   + "AND \"KatPracownicy\".numeread = '" + numeread + "' "
-                  + "ORDER BY \"Pliki\".numeread,\"Pliki\".teczkadzial,SUBSTRING(nrdokumentu FROM '([0-9]+)')::int, nrdokumentu;";
+                  + "ORDER BY \"Pliki\".numeread,\"Pliki\".teczkadzial, nrdokumentu;";
+
+            //Deleted ORDER BY Part : SUBSTRING(nrdokumentu FROM '([0-9]+)')::int -> doesnt work?
 
             //sqlQuery += " order by " + sortColumn + " " + sortOrder + ";";
 
@@ -341,7 +343,7 @@ namespace Eteczka.DB.DAO
             + "AND konto5 LIKE '" + konto5.Trim() + "' "
             + "AND '" + System.DateTime.Now.ToString("yyyy-MM-dd") + "' BETWEEN datapocz AND datakoniec) "
             + "ORDER BY nazwisko, imie, numerdzialu, SUBSTRING(nrdokumentu FROM '([0-9]+)')::int, nrdokumentu "
-            + ";";
+            + ";";  //dense_rank(), very_dense_rank(), densest_rank(), bullshit()
 
             List<Pliki> fetchedResult = new List<Pliki>();
 

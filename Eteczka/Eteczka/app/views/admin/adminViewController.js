@@ -18,14 +18,14 @@ angular.module('et.controllers').controller('adminViewController', ['$scope', '$
 				$state.go('settingscompanies');
 			}
 		},
-        {
-            label: 'Importy',
-            ngclass: 'menu-icon fa fa-upload',
-            menuclass: 'menu-button menu-button-three',
-            clickaction: function () {
-                $state.go('settingsimport');
-            }
-        },
+        //{
+        //    label: 'Importy',
+        //    ngclass: 'menu-icon fa fa-upload',
+        //    menuclass: 'menu-button menu-button-three',
+        //    clickaction: function () {
+        //        $state.go('settingsimport');
+        //    }
+        //},
         {
             label: 'Sesje',
             ngclass: 'menu-icon fa fa-clock-o',

@@ -34,7 +34,7 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
 
 	$rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
 		$scope.activeOption = toState.name;
-		$scope.isAdmin = (_.startsWith(toState.name, 'admin') || _.startsWith(toState.name, 'settings'));
+		$scope.isAdmin = _.startsWith(toState.name, 'admin') || _.startsWith(toState.name, 'settings');
 		$scope.menusVisible = toState.name !== 'home' && toState.name !== 'login' && toState.name !== 'processing' && !$scope.isAdmin;
 		$scope.smallOptions = [];
 		$scope.menuEmployeesVisible = toState.name.startsWith('emp');
@@ -100,10 +100,10 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
 						var modalOptions = {
 							body: 'app/main/header/modal/addFileTypeModal.html',
 							controller: function ($scope, $mdDialog) {
-								$scope.modalResult = $scope.modalResult || {}
-								$scope.yesNoOptions = [{ name: 'TAK', value: true }, { name: 'NIE', value: false }]
-								$scope.editOptions = [{ name: 'TAK', value: 'b' }, { name: 'NIE', value: 'a' }]
-								$scope.docPartOptions = ['A', 'B', 'C']
+								$scope.modalResult = $scope.modalResult || {};
+								$scope.yesNoOptions = [{ name: 'TAK', value: true }, { name: 'NIE', value: false }];
+								$scope.editOptions = [{ name: 'TAK', value: 'b' }, { name: 'NIE', value: 'a' }];
+								$scope.docPartOptions = ['A', 'B', 'C'];
 								$scope.modalResult.Dokwlasny = $scope.modalResult.Dokwlasny || $scope.yesNoOptions[0].value;
 
 								$scope.hide = function () {
@@ -115,7 +115,7 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
 								};
 
 								$scope.answer = function (answer, errors) {
-									console.log(errors)
+									console.log(errors);
 									if (!errors || Object.keys(errors).length === 0) {
 										$mdDialog.hide(answer);
 									}
@@ -217,7 +217,7 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
 
 		}
 
-		$scope.shoppingCartVisible = (toState.name === 'shopcart');
+		$scope.shoppingCartVisible = toState.name === 'shopcart';
 		if ($scope.shoppingCartVisible) {
 			$scope.smallOptions = [
 				{
@@ -255,7 +255,7 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
 		} else {
 			return '';
 		}
-	}
+	};
 
 	$scope.isSmallOptionActive = function (op) {
 		var result = '';
@@ -264,7 +264,7 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
 		}
 
 		return result;
-	}
+	};
 
 	$scope.goHome = function () {
 		if ($scope.userLoggedIn) {
@@ -274,7 +274,7 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
 				$state.go('home');
 			}
 		}
-	}
+	};
 
 	$scope.userButtons = [
 		{
@@ -305,7 +305,7 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
 
 	$scope.navigateTo = function (view) {
 		$state.go(view);
-	}
+	};
 
 	$rootScope.$on('USER_LOGGED_IN_EV', function (ev, user) {
 		$scope.userLoggedIn = true;
@@ -318,14 +318,14 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
 				$scope.firmparams = {
 					selectedfirm: '',
 					firms: []
-				}
+				};
 			} else {
 				$scope.loginStatus = user.userdetails.Nazwisko + ' ' + user.userdetails.Imie;
 
 				$scope.firmparams = {
 					selectedfirm: user.companies[0],
 					firms: user.companies
-				}
+				};
 
 				shopCartService.getShoppingCartFilesCount().then(function (result) {
 					if (result) {
@@ -335,5 +335,4 @@ angular.module('et.controllers').controller('headerController', ['$rootScope', '
 			}
 		}
 	});
-
 }]);

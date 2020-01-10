@@ -165,7 +165,7 @@ namespace Eteczka.DB.DAO
             return result;
         }
 
-        public bool ZmienHasloShortUzytkownia (AddKatLoginyDto userDoZmianyHasla)
+        public bool ZmienHasloShortUzytkownia(AddKatLoginyDto userDoZmianyHasla)
         {
             bool result = false;
             if (userDoZmianyHasla.Hasloshort != null)
@@ -176,7 +176,7 @@ namespace Eteczka.DB.DAO
                 {
                     IConnectionState connectionState = _ConnectionFactory.CreateConnectionToDB(_Connection);
                     result = connectionState.ExecuteNonQuery(updateQuery);
-                    
+
                 }
                 catch (Exception)
                 {
@@ -262,7 +262,7 @@ namespace Eteczka.DB.DAO
                 }
 
             }
-            catch (Exception ex ) 
+            catch (Exception ex)
             {
                 result = false;
             }
@@ -314,7 +314,33 @@ namespace Eteczka.DB.DAO
         public bool AktualizujFirmeDlaUzytkownika(KatLoginyFirmy firma)
         {
             bool result = false;
-            string updateFirmy = string.Format("identyfikator='{0}',firma='{1}',rolareadonly='{2}',rolaaddpracownik='{3}',rolamodifypracownik='{4}', rolaaddfile='{5}', rolamodifyfile='{6}',rolaslowniki='{7}',rolasendmail='{8}',rolaraport='{9}',rolaraportexport='{10}', roladoubleakcept='{11}', datamodify='{12}',usuniety='{13}',confidential='{14}', kodkierownik='{15}'", firma.Identyfikator.Trim(), firma.Firma.Trim(), firma.Uprawnienia.RolaReadOnly, firma.Uprawnienia.RolaAddPracownik, firma.Uprawnienia.RolaModifyPracownik, firma.Uprawnienia.RolaAddFile, firma.Uprawnienia.RolaModifyFile, firma.Uprawnienia.RolaSlowniki, firma.Uprawnienia.RolaSendEmail, firma.Uprawnienia.RolaRaport, firma.Uprawnienia.RolaRaportExport, firma.Uprawnienia.RolaDoubleAkcept, firma.DataModify, firma.Usuniety, firma.Confidential, firma.KodKierownik);
+            //TUTAJ!!!
+            string queryStatement = "identyfikator='{0}',firma='{1}',rolareadonly='{2}',rolaaddpracownik='{3}',rolamodifypracownik='{4}', rolaaddfile='{5}', rolamodifyfile='{6}',rolaslowniki='{7}',rolasendmail='{8}',rolaraport='{9}',rolaraportexport='{10}', roladoubleakcept='{11}', datamodify='{12}',usuniety='{13}',confidential='{14}', kodkierownik='{15}'";
+            object[] queryParams = new object[] {
+                firma.Identyfikator.Trim(),
+                firma.Firma.Trim(),
+                firma.Uprawnienia.RolaReadOnly,
+                firma.Uprawnienia.RolaAddPracownik,
+                firma.Uprawnienia.RolaModifyPracownik,
+                firma.Uprawnienia.RolaAddFile,
+                firma.Uprawnienia.RolaModifyFile,
+                firma.Uprawnienia.RolaSlowniki,
+                firma.Uprawnienia.RolaSendEmail,
+                firma.Uprawnienia.RolaRaport,
+                firma.Uprawnienia.RolaRaportExport,
+                firma.Uprawnienia.RolaDoubleAkcept,
+                firma.DataModify,
+                firma.Usuniety,
+                firma.Confidential,
+                firma.KodKierownik
+            };
+
+            if (queryParams.Length != 16)
+            {
+                throw new Exception("Wrong Query Parameters count!");
+            }
+
+            string updateFirmy = string.Format(queryStatement, queryParams);
             string dodajUzytkownika = "UPDATE public.\"KatLoginyFirmy\" SET " + updateFirmy + "  WHERE identyfikator='" + firma.Identyfikator + "' AND firma='" + firma.Firma + "';";
 
             try
@@ -333,7 +359,31 @@ namespace Eteczka.DB.DAO
         public bool DodajFirmeDlaUzytkownika(KatLoginyFirmy firma)
         {
             bool result = false;
-            string nowaFirma = string.Format("'{0}','{1}','{2}','{3}','{4}', '{5}', '{6}','{7}','{8}','{9}','{10}', '{11}', '{12}','{13}','{14}', '{15}'", firma.Identyfikator.Trim(), firma.Firma.Trim(), firma.Uprawnienia.RolaReadOnly, firma.Uprawnienia.RolaAddPracownik, firma.Uprawnienia.RolaModifyPracownik, firma.Uprawnienia.RolaAddFile, firma.Uprawnienia.RolaModifyFile, firma.Uprawnienia.RolaSlowniki, firma.Uprawnienia.RolaSendEmail, firma.Uprawnienia.RolaRaport, firma.Uprawnienia.RolaRaportExport, firma.Uprawnienia.RolaDoubleAkcept, firma.DataModify, firma.Usuniety, firma.Confidential, firma.KodKierownik);
+            string queryStatement = "'{0}','{1}','{2}','{3}','{4}', '{5}', '{6}','{7}','{8}','{9}','{10}', '{11}', '{12}','{13}','{14}', '{15}'";
+            object[] queryParams = new object[] {
+                firma.Identyfikator.Trim(),
+                firma.Firma.Trim(),
+                firma.Uprawnienia.RolaReadOnly,
+                firma.Uprawnienia.RolaAddPracownik,
+                firma.Uprawnienia.RolaModifyPracownik,
+                firma.Uprawnienia.RolaAddFile,
+                firma.Uprawnienia.RolaModifyFile,
+                firma.Uprawnienia.RolaSlowniki,
+                firma.Uprawnienia.RolaSendEmail,
+                firma.Uprawnienia.RolaRaport,
+                firma.Uprawnienia.RolaRaportExport,
+                firma.Uprawnienia.RolaDoubleAkcept,
+                firma.DataModify,
+                firma.Usuniety,
+                firma.Confidential,
+                firma.KodKierownik
+            };
+
+            if(queryParams.Length != 16)
+            {
+                throw new Exception("Wrong Query Parameters count!");
+            }
+            string nowaFirma = string.Format(queryStatement, queryParams);
             string dodajUzytkownika = "INSERT INTO public.\"KatLoginyFirmy\" (identyfikator, firma, rolareadonly, rolaaddpracownik, rolamodifypracownik,rolaaddfile, rolamodifyfile, rolaslowniki, rolasendmail, rolaraport,rolaraportexport, roladoubleakcept, datamodify, usuniety, confidential, kodkierownik) VALUES (" + nowaFirma + ");";
 
             try

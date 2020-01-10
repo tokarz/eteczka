@@ -39,15 +39,18 @@
                 <span>Do Opracowania</span>
             </span>
         </span>
+        <span style="display:table;clear:both"></span>
     </div>
-    <div class="staged-files-wrapper" style="height: 31.5vh;width:100%;margin:auto;background:white">
-        <table style="width:100%;height:25vh">
-            <tbody>
-                <tr ng-repeat="row in stagedrows" ng-click="selectStagedFile(row)" ng-class="getStagedRowStyle(row)">
-                    <td><i class="fa fa-check-circle" aria-hidden="true" style="margin-right:2px;font-weight:bold;color:darkgreen"></i>{{row.NazwaEad}}</td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="staged-files-wrapper" style="height: 44vh;width:100%;margin:auto;background:white;position:relative">
+        <div style="position:absolute;top:0;left:0;right:0;bottom:55px;overflow:auto">
+            <table style="width:100%;">
+                <tbody>
+                    <tr ng-repeat="row in stagedrows" ng-click="selectStagedFile(row)" ng-class="getStagedRowStyle(row)">
+                        <td><i class="fa fa-check-circle" aria-hidden="true" style="margin-right:2px;font-weight:bold;color:darkgreen"></i>{{row.NazwaEad}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         <div ng-show="selectedstagedfile" class="staged-file-description-button" ng-click="triggerUpsertFileDescriptionDialog()">
             <div>OPISZ DOKUMENT</div>
         </div>

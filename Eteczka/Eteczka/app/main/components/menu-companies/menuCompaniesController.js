@@ -69,7 +69,13 @@ angular.module('et.controllers').controller('menuCompaniesController', ['$scope'
 		openModal(
 			modalOptions,
 			function (value) {
-				alert(value);
+				companiesService.createCompany(value).then(result => {
+					if (result && result.success) {
+						alert('succ');
+					} else {
+						alert('failed!');
+					}
+				});
 			}
 		);
 	};

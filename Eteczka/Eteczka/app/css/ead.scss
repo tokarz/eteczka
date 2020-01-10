@@ -91,10 +91,29 @@ li {
 }
 
 .table-header {
-    background: $tableHeader;
-    color: white;
-    height: 30px;
+    color: $darkblue;
 }
+
+.table-header th {
+    background: $tableHeader;
+    border: 1px solid $darkblue;
+    color: white;
+    /*height: 30px;*/
+}
+
+.table-body {
+    border: 1px solid $darkblue;
+}
+
+.table-body tr:hover {
+    cursor: pointer;
+    background: lightgray;
+}
+
+.table-body td {
+    border: 1px solid $darkblue;
+}
+
 
 .not-yet-available {
     opacity: 0.6;
@@ -128,5 +147,5 @@ li {
 
 .user-summary {
     text-align: center;
-    font-weight:bold;
+    font-weight: bold;
 }

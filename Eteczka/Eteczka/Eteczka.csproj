@@ -222,6 +222,7 @@
     <Content Include="app\css\modal.min.css">
       <DependentUpon>modal.css</DependentUpon>
     </Content>
+    <Content Include="app\main\components\access-restriction\accessCheckDirective.js" />
     <Content Include="app\main\components\menu-companies-table\menuCompaniesTable.html" />
     <Content Include="app\main\components\menu-companies-table\menuCompaniesTableController.js" />
     <Content Include="app\main\components\menu-companies-table\menuCompaniesTableDirective.js" />

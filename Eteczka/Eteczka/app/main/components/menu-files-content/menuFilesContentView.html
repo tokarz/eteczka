@@ -17,11 +17,11 @@
             <span class="toolbar-option option-three fa fa-trash-o" ng-click="triggerDeleteEmployeePopup()"></span>
 
             <!--<span class="toolbar-option option-four fa fa-print" ng-click="triggerPrintPreview()"></span>-->
-            <span class="toolbar-option option-five fa fa-envelope-open-o" ng-click="openSendEmailDialog()"></span>
-            <span class="not-yet-available toolbar-option option-six fa fa-download" ng-click="triggerDownloadFiles()"></span>
-            <span class="toolbar-option option-two fa fa-pencil-square" ng-click="triggerEditFileDescriptionDialog()"></span>
-            <span class="toolbar-option fa fa-file-pdf-o" ng-click="generatePdf()"></span>
-            <span class="toolbar-option fa fa-file-excel-o" ng-click="generateExcelReport()"></span>
+            <span class="toolbar-option option-five fa fa-envelope-open-o" ng-click="openSendEmailDialog()" access-check allowed-for="[SendEmail]" ></span>
+            <span class="not-yet-available toolbar-option option-six fa fa-download" ng-click="triggerDownloadFiles()" access-check allowed-for="[RaportExport]"></span>
+            <span class="toolbar-option option-two fa fa-pencil-square" ng-click="triggerEditFileDescriptionDialog()" access-check allowed-for="[ModifyFile]"></span>
+            <span class="toolbar-option fa fa-file-pdf-o" ng-click="generatePdf()" access-check allowed-for="RaportExport"></span>
+            <span class="toolbar-option fa fa-file-excel-o" ng-click="generateExcelReport()" access-check allowed-for="[RaportExport]"></span>
 
             <span class="toolbar-option option-seven fa fa-shopping-basket" ng-click="triggeraddtocart()"></span>
         </div>
@@ -29,8 +29,8 @@
             <span ng-repeat="toolbarItem in toolbar" ng-class="toolbarItem.itemClass" ng-click="toolbarItem.action()"></span>
         </div>
         <div class="main-files-content-wrapper">
-            <div class="file-list-wrapper" ng-class="fileListWrapperClass">
-                <table style="width:100%;text-align:center" et-data-table col-defs="colDefs" reload="fileListWrapperClass" haskeys="true" selectedrow="selected.row">
+            <div class="file-list-wrapper-full">
+                <table style="width:100%;text-align:center" et-data-table col-defs="colDefs" reload="selectedRow" haskeys="true" selectedrow="selected.row">
                     <colgroup ng-if="shownames">
                         <col style="width:5%" />
                         <col style="width:10%" />
@@ -61,7 +61,7 @@
                             <th> <span class="fa fa-check-square" style="cursor: pointer" ng-click="toggleSelectAll()"></span></th>
                         </tr>
                     </thead>
-                    <tbody style="text-align:left">
+                    <tbody class="table-body" style="text-align:left">
                         <tr ng-if="userFiles && userFiles.length > 0" ng-repeat="file in userFiles" ng-click="selectFile(file)" ng-class="getRowStyle(file)">
                             <td>{{file.TeczkaDzial}} {{file.NrDokumentu}}</td>
                             <td>{{file.Symbol}} <i ng-if="file.OpisDodatkowy && file.OpisDodatkowy.trim().length " class="fa fa-question-circle" style="cursor:pointer;float:right" title="{{file.OpisDodatkowy}}"></i></td>

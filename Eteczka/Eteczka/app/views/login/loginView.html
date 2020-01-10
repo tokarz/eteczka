@@ -2,7 +2,7 @@
     <div class="menu-option thumbnail">
         <div class="login-icon fa fa-lock" style="font-size:80px"></div>
         <div class="caption">
-            <form>
+            <form class="login-form">
                 <h3>Login</h3>
                 <label for="username">Nazwa uzytkownika</label>
                 <br />
@@ -11,9 +11,6 @@
                 <label for="password">Haslo</label>
                 <br />
                 <input class="login-input" name="password" type="password" ng-model="credentials.password" />
-                <!--div tabindex="-1">
-                    <p tabindex="-1">Problem z logowaniem? <a tabindex="-1" href="#" ng-click="contactAdmin()">Skontaktuj sie z Administratorem</a></p>
-                </div>-->
 
                 <span type="submit" class="login-button" role="button" ng-click="tryLogin(credentials)">Zaloguj</span>
                 <input type="submit"
