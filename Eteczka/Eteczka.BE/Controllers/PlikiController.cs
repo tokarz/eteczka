@@ -62,7 +62,7 @@ namespace Eteczka.BE.Controllers
                     //LOGGER.LOG(PoziomLogowania.INFO, Akcja.FILES_PASSWORD_CHANGE, "Files Password Change - FINISH ", success, sesja);
                 }
 
-                result =  Json(new
+                result = Json(new
                 {
                     success
                 }, JsonRequestBehavior.AllowGet);
@@ -77,7 +77,7 @@ namespace Eteczka.BE.Controllers
             }
             LOGGER.LOG_MAIN_LOG(PoziomLogowania.INFO, Akcja.FILES_PASSWORD_CHANGE, sesja, success, " ", " ", " ", "Files password change " + (success ? "succeful." : "attempt failure."));
             return result;
-            
+
         }
 
         public ActionResult PobierzMetadane(string sessionId, string plik)
@@ -183,10 +183,11 @@ namespace Eteczka.BE.Controllers
         [HttpPost]
         public ActionResult KomitujPlik(string sessionId, KomitPliku plik)
         {
-            
+
             bool success = false;
             ActionResult result = null;
             SessionDetails detaleSesji = null;
+            bool hasPermissions = false;
 
             try
             {
@@ -195,14 +196,25 @@ namespace Eteczka.BE.Controllers
                 if (sesja.CzySesjaJestOtwarta(sessionId))
                 {
                     detaleSesji = sesja.PobierzSesje(sessionId);
+                    hasPermissions = detaleSesji.AktywnaFirma.Uprawnienia.RolaAddFile ? true : false;
 
-                    success = _PlikiService.ZakomitujPlikDoBazy(plik, detaleSesji.AktywnaFirma.Firma, _PlikiUtils.StworzSciezkeZListy(detaleSesji.AktywnyFolder), detaleSesji.AktywnaFirma.Identyfikator);  
+                    if (hasPermissions)
+                    {
+                        success = _PlikiService.ZakomitujPlikDoBazy(plik, detaleSesji.AktywnaFirma.Firma, _PlikiUtils.StworzSciezkeZListy(detaleSesji.AktywnyFolder), detaleSesji.AktywnaFirma.Identyfikator);
+                        result = Json(new
+                        {
+                            success = success
+                        }, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        result = Json(new
+                        {
+                            sucess = false,
+                            hasPermissions = false
+                        }, JsonRequestBehavior.AllowGet);
+                    }
                 }
-
-                result = Json(new
-                {
-                    success = success
-                }, JsonRequestBehavior.AllowGet);
             }
 
             catch (Exception)
@@ -212,11 +224,20 @@ namespace Eteczka.BE.Controllers
                     success = false,
                     wyjatek = true
                 }, JsonRequestBehavior.AllowGet);
-                LOGGER.LOG_MAIN_LOG(PoziomLogowania.INFO, Akcja.FILE_ADD, detaleSesji, success, "Pliki", plik, " ",  ("File commit  [documentId: " + plik.NrDokumentu + ", employee: " + plik.Pracownik.Nazwisko.Trim() + " " + plik.Pracownik.Imie.Trim() + ", company: " + detaleSesji.AktywnaFirma.Firma.Trim() + "]" + " attempt failure."));
+
+                if (detaleSesji != null && plik.NrDokumentu != null && plik.Pracownik.Nazwisko != null && plik.Pracownik.Imie != null)
+                {
+                    LOGGER.LOG_MAIN_LOG(PoziomLogowania.INFO, Akcja.FILE_ADD, detaleSesji, success, "Pliki", plik, " ", ("File commit  [documentId: " + plik.NrDokumentu + ", employee: " + plik.Pracownik.Nazwisko.Trim() + " " + plik.Pracownik.Imie.Trim() + ", company: " + detaleSesji.AktywnaFirma.Firma.Trim() + "]" + " attempt failure."));
+                }
             }
-            LOGGER.LOG_MAIN_LOG(PoziomLogowania.INFO, Akcja.FILE_ADD, detaleSesji, success, "Pliki", plik, " ", ("File commit  [documentId: " + plik.NrDokumentu + ", employee: " + plik.Pracownik.Nazwisko.Trim() + " " + plik.Pracownik.Imie.Trim() + ", company: " + detaleSesji.AktywnaFirma.Firma.Trim() + "]" + (success ? " successful" : " attempt failure.")));
+
+            if (detaleSesji != null && plik.NrDokumentu != null && plik.Pracownik.Nazwisko != null && plik.Pracownik.Imie != null)
+            {
+                LOGGER.LOG_MAIN_LOG(PoziomLogowania.INFO, Akcja.FILE_ADD, detaleSesji, success, "Pliki", plik, " ", ("File commit  [documentId: " + plik.NrDokumentu + ", employee: " + plik.Pracownik.Nazwisko.Trim() + " " + plik.Pracownik.Imie.Trim() + ", company: " + detaleSesji.AktywnaFirma.Firma.Trim() + "]" + (success ? " successful" : " attempt failure.")));
+            }
+
             return result;
-                
+
         }
 
         public ActionResult CzyUserWybralFolder(string sessionId)
@@ -287,7 +308,7 @@ namespace Eteczka.BE.Controllers
                 pliki = pliki
             }, JsonRequestBehavior.AllowGet);
         }
-        
+
         [HttpPost]
         public ActionResult EdytujDokumentZBazy(string sessionId, string idPliku, KomitPliku plik)
         {
@@ -295,17 +316,31 @@ namespace Eteczka.BE.Controllers
             bool sucess = false;
             ActionResult result = null;
             SessionDetails sesja = null;
+            bool hasPermissions = false;
             try
             {
                 if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
                 {
                     sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
-                    sucess = _PlikiService.EdytujDokumentWBazie(sesja, plik, idPliku);
+                    hasPermissions = sesja.AktywnaFirma.Uprawnienia.RolaModifyFile ? true : false;
+
+                    if (hasPermissions)
+                    {
+                        sucess = _PlikiService.EdytujDokumentWBazie(sesja, plik, idPliku);
+                        result = Json(new
+                        {
+                            sucess = sucess
+                        }, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        result = Json(new
+                        {
+                            sucess = false,
+                            hasPermissions = false
+                        }, JsonRequestBehavior.AllowGet);
+                    }
                 }
-                result = Json(new
-                {
-                    sucess = sucess
-                }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception)
             {
@@ -315,7 +350,12 @@ namespace Eteczka.BE.Controllers
                     wyjatek = true
                 });
             }
+
+            if (sesja != null && plik.NrDokumentu != null)
+            {
             LOGGER.LOG_MAIN_LOG(PoziomLogowania.INFO, Akcja.FILE_EDIT, sesja, sucess, "Pliki", plik, " ", "File [" + plik.NrDokumentu.Trim() + (sucess ? "] edition successful." : "] edition attempt failure."));
+            }
+
             return result;
         }
 
@@ -325,23 +365,39 @@ namespace Eteczka.BE.Controllers
             bool sucess = false;
             SessionDetails sesja = null;
             StringBuilder sBuilder = new StringBuilder();
-           string filesList = null;
-           ids.ForEach(n => sBuilder.Append(n + ", ").ToString());
-            filesList = sBuilder.ToString().Remove(sBuilder.ToString().LastIndexOf(",")); 
-            
+            string filesList = null;
+            ids.ForEach(n => sBuilder.Append(n + ", ").ToString());
+            filesList = sBuilder.ToString().Remove(sBuilder.ToString().LastIndexOf(","));
+            bool hasPermissions = false;
+
+
             //filesList = filesList.Substring(filesList.LastIndexOf(","));
-            
+
             try
             {
                 if (Sesja.PobierzStanSesji().CzySesjaJestOtwarta(sessionId))
                 {
                     sesja = Sesja.PobierzStanSesji().PobierzSesje(sessionId);
+                    hasPermissions = sesja.AktywnaFirma.Uprawnienia.RolaModifyFile ? true : false;
+
+                    if (hasPermissions)
+                    {
                     sucess = _PlikiService.UsunDokumentyWBazie(sesja, ids);
+                        result = Json(new
+                        {
+                            sucess,
+                        }, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        result = Json(new
+                        {
+                            sucess = false,
+                            hasPermissons = false
+                        }, JsonRequestBehavior.AllowGet);
+                    }
                 }
-                result = Json(new
-                {
-                    sucess,
-                }, JsonRequestBehavior.AllowGet);
+             
             }
             catch (Exception)
             {
@@ -351,7 +407,12 @@ namespace Eteczka.BE.Controllers
                     wyjatek = true
                 }, JsonRequestBehavior.AllowGet);
             }
+
+            if (sesja != null && filesList != null)
+            {
             LOGGER.LOG_MAIN_LOG(PoziomLogowania.INFO, Akcja.FILE_DELETE, sesja, sucess, "Pliki", " ", " ", "File/files [" + filesList + (sucess ? "] remove successful." : " remove attempt failure."));
+            }
+
             return result;
         }
 
