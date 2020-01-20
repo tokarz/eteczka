@@ -611,13 +611,13 @@ namespace Eteczka.BE.Utils
             try
             {
                 //TODO: Szyfrowanie/odszyfrowywanie hasła baza-aplikacja.
-                //SerwerSmtp daneKonfiguracyjneSerwera = _PlikiDAO.PobierzKonfiguracjeSerwera("smtp-topfarms.ogicom.pl");
-                SerwerSmtp daneKonfiguracyjneSerwera = _PlikiDAO.PobierzKonfiguracjeSerwera("gmail");
+                SerwerSmtp daneKonfiguracyjneSerwera = _PlikiDAO.PobierzKonfiguracjeSerwera("smtp-topfarms.ogicom.pl");
+               // SerwerSmtp daneKonfiguracyjneSerwera = _PlikiDAO.PobierzKonfiguracjeSerwera("poczta.o2.pl");
      
                 Client.Port = daneKonfiguracyjneSerwera.SmtpPort;
                 Client.Host = daneKonfiguracyjneSerwera.SmtpSerwer;
                 Client.EnableSsl = true;
-                Client.Timeout = 10000;
+                Client.Timeout = 1000000;
                 Client.DeliveryMethod = SmtpDeliveryMethod.Network;
                 Client.UseDefaultCredentials = false;
                 Client.Credentials = new System.Net.NetworkCredential(daneKonfiguracyjneSerwera.MailUsername, daneKonfiguracyjneSerwera.MailPassword);
@@ -724,7 +724,11 @@ namespace Eteczka.BE.Utils
             {
                 foreach (string x in Zalaczniki)
                 {
+                    if (File.Exists(x))
+                    {
                     listaZalacznikow = s.Append(", " + x.Substring(x.LastIndexOf("\\") + 1).Trim()).ToString().Substring(1);
+
+                    }
                 }
             }
             return listaZalacznikow;

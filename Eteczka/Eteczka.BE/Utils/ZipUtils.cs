@@ -1,6 +1,7 @@
 ﻿using Ionic.Zip;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,7 +20,10 @@ namespace Eteczka.BE.Utils
                 {
                     foreach (string plik in listaPlikow)
                     {
+                        if (File.Exists(plik))
+                        {
                         zip.AddFile(plik, "");
+                        }
                     }
 
                     zip.Save(tempZipSaveSciezka);
