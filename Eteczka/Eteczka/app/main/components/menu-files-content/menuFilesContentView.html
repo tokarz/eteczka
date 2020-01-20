@@ -71,7 +71,7 @@
                             <td>{{file.DataPoczStr}}</td>
                             <td>{{file.DataKoniecStr}}</td>
                             <td>
-                                <input type="checkbox" ng-model="file.checked" ng-click="$event.stopPropagation()" />
+                                <input type="checkbox" ng-model="file.checked" ng-click="selectFile(file);$event.stopPropagation()" />
                             </td>
                         </tr>
                     </tbody>

@@ -10,14 +10,21 @@
 
 			if ($scope.allowedFor) {
 				let allowedForAll = true;
-				$scope.allowedFor
-					.split('[').join('')
-					.split(']').join('')
-					.split(',')
-					.forEach(allowedRule => {
-						allowedForAll &= $rootScope.ACCESS_MODEL.uprawnienia[allowedRule.toLowerCase()];
-					});
-				$scope.isAllowed = allowedForAll;
+				if (!$rootScope.ACCESS_MODEL || !$rootScope.ACCESS_MODEL.uprawnienia) {
+					$scope.isAllowed = true;
+				} else {
+					$scope.allowedFor
+						.split('[').join('')
+						.split(']').join('')
+						.split(',')
+						.forEach(allowedRule => {
+							allowedForAll &= $rootScope.ACCESS_MODEL.uprawnienia[allowedRule.toLowerCase()];
+						});
+					$scope.isAllowed = allowedForAll;
+
+				}
+
+
 			}
 
 			else if ($scope.forbiddenFor) {
@@ -46,6 +53,7 @@
 			 */
 		},
 		link: function (scope, element) {
+			$(element).addClass('disabled-field');
 			$(element).addClass('disabled-field');
 
 			scope.$watch('isAllowed', value => {
